@@ -23,9 +23,9 @@ class Main(Gtk.Window):
         self.opened = True
 
         GUI.GUI(self, Gtk)
-        
-        if not os.path.exists(home + "/.config/arco-tweak-tool"):
-            os.mkdir(home + "/.config/arco-tweak-tool")
+
+        if not os.path.exists(home + "/.config/arcolinux-tweak-tool"):
+            os.mkdir(home + "/.config/arcolinux-tweak-tool")
 
         if not os.path.isfile(settings):
             key = {
@@ -40,7 +40,7 @@ class Main(Gtk.Window):
                 arco = Settings.read_settings('Pacman', 'arco-testing-repo')
                 arch = Settings.read_settings('Pacman', 'arch-testing-repo')
                 multi = Settings.read_settings('Pacman', 'multilib-testing-repo')
-                
+
                 self.checkbutton.set_active(eval(arco))
                 self.checkbutton2.set_active(eval(arch))
                 self.checkbutton3.set_active(eval(multi))
@@ -79,13 +79,13 @@ class Main(Gtk.Window):
             }
             Settings.write_settings("Pacman", key)
             Functions.toggle_test_repos(widget.get_active(), "multilib")
-        
-        
+
+
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
         startiter, enditer = self.text.get_bounds()
         Functions.append_repo(self, self.text.get_text(startiter, enditer, True))
-        
+
 
 if __name__ == "__main__":
     w = Main()
