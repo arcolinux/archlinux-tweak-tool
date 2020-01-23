@@ -99,19 +99,25 @@ def GUI(self, Gtk):
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
     label = Gtk.Label()
-    label.set_markup("Gtk Theme:  ")
+    label.set_markup("Gtk Theme:    ")
 
     label2 = Gtk.Label()
-    label2.set_markup("Icon Theme:")
+    label2.set_markup("Icon Theme:  ")
+
+    label3 = Gtk.Label()
+    label3.set_markup("Cursor Theme:")
     
     themeCombo = Gtk.ComboBoxText()
     iconCombo = Gtk.ComboBoxText()
+    cursorCombo = Gtk.ComboBoxText()
 
     themeCombo.set_size_request(200, 0)
     iconCombo.set_size_request(200, 0)
+    cursorCombo.set_size_request(200, 0)
 
     Functions.get_gtk_themes(self, themeCombo)
     Functions.get_icon_themes(self, iconCombo)
+    # Functions.get_cursor_themes(self, cursorCombo)
 
     hbox1.pack_start(label, False, False, 0)
     hbox1.pack_start(themeCombo, True, True, 0)
