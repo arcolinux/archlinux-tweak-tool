@@ -10,8 +10,6 @@ from Functions import os, home, pacman
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 
-
-
 class Main(Gtk.Window):
     def __init__(self):
         super(Main, self).__init__(title="ArcoLinux Tweak Tool")

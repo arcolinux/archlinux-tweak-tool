@@ -5,7 +5,6 @@ import shutil
 home = os.environ['HOME']
 
 pacman = "/etc/pacman.conf"
-# pacman = "/home/pheonix/pacman.conf"
 
 #=====================================================
 #               LIGHTDM CONF
@@ -16,7 +15,7 @@ def get_gtk_themes(self, combo):
     with open("/etc/lightdm/lightdm-gtk-greeter.conf", "r") as f:
         lines = f.readlines()
         for line in lines:
-            
+
             if line.startswith("theme-name = "):
                 output = line.split("=")
                 active_combo = output[1].lstrip().rstrip()
@@ -40,7 +39,7 @@ def get_icon_themes(self, combo):
     with open("/etc/lightdm/lightdm-gtk-greeter.conf", "r") as f:
         lines = f.readlines()
         for line in lines:
-            
+
             if line.startswith("icon-theme-name ="):
                 output = line.split("=")
                 active_combo_icon = output[1].lstrip().rstrip()
@@ -65,7 +64,7 @@ def get_cursor_themes(self, combo):
     with open("/etc/lightdm/lightdm-gtk-greeter.conf", "r") as f:
         lines = f.readlines()
         for line in lines:
-            
+
             if line.startswith("cursor-theme-name ="):
                 output = line.split("=")
                 active_combo_cursor = output[1].lstrip().rstrip()
@@ -103,7 +102,7 @@ def toggle_test_repos(state, widget):
         with open(pacman, 'r') as f:
             lines = f.readlines()
             f.close()
-        
+
         with open(pacman, 'w') as f:
             # lines = f.readlines()
             for i in range(0, len(lines)):
@@ -179,8 +178,7 @@ def toggle_test_repos(state, widget):
                         if (i+2) < len(lines) and "Include" in lines[i+2]:
                             if not "#" in lines[i + 2]:
                                 lines[i + 2]  = lines[i + 2].replace(lines[i + 2], "#" + lines[i + 2])
-                        
+
             # f.seek(0, 0)
             f.writelines(lines)
             f.close()
-       

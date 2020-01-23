@@ -1,5 +1,2 @@
 #!/usr/bin/env bash
-
 pkexec '/usr/share/arcolinux-tweak-tool/arcolinux-tweak-tool.py'
-# gksu python3 /usr/share/arcolinux-tweak-tool/arcolinux-tweak-tool.py
-# gksu python3 /home/pheonix/Repos/GITS/OTHER/arco-tweak-tool/usr/share/arco-tweak-tool/arco-tweak-tool.py
