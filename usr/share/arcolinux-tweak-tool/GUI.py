@@ -97,12 +97,13 @@ def GUI(self, Gtk):
     #==========================================================
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
     label = Gtk.Label()
-    label.set_markup("Gtk Theme:    ")
+    label.set_markup("Gtk Theme:       ")
 
     label2 = Gtk.Label()
-    label2.set_markup("Icon Theme:  ")
+    label2.set_markup("Icon Theme:     ")
 
     label3 = Gtk.Label()
     label3.set_markup("Cursor Theme:")
@@ -124,11 +125,15 @@ def GUI(self, Gtk):
     
     hbox2.pack_start(label2, False, False, 0)
     hbox2.pack_start(iconCombo, True, True, 0)
+
+    hbox3.pack_start(label3, False, False, 0)
+    hbox3.pack_start(cursorCombo, True, True, 0)
     
     stack.add_titled(vboxStack2, "stack2", "Lightdm Config")
 
     vboxStack2.pack_start(hbox1, False, False, 0)
     vboxStack2.pack_start(hbox2, False, False, 0)
+    vboxStack2.pack_start(hbox3, False, False, 0)
 
     #==========================================================
     #                       TAB #3
