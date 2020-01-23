@@ -59,7 +59,30 @@ def get_icon_themes(self, combo):
         if(coms[i] == active_combo_icon):
             combo.set_active(i)
 
+def get_cursor_themes(self, combo):
+    active_combo_cursor = ""
+    coms = []
+    with open("/etc/lightdm/lightdm-gtk-greeter.conf", "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            
+            if line.startswith("cursor-theme-name ="):
+                output = line.split("=")
+                active_combo_cursor = output[1].lstrip().rstrip()
 
+    for folder in os.listdir("/usr/share/icons"):
+        if os.path.isdir("/usr/share/icons/" + folder):
+            check = os.listdir("/usr/share/icons/" + folder)
+            if "cursors" in check:
+                coms.append(folder)
+                print(folder)
+
+    coms.sort()
+
+    for i in range(len(coms)):
+        combo.append_text(coms[i])
+        if(coms[i] == active_combo_cursor):
+            combo.set_active(i)
 
 #=====================================================
 #               PACMAN CONF

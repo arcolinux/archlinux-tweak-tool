@@ -118,7 +118,7 @@ def GUI(self, Gtk):
 
     Functions.get_gtk_themes(self, themeCombo)
     Functions.get_icon_themes(self, iconCombo)
-    # Functions.get_cursor_themes(self, cursorCombo)
+    Functions.get_cursor_themes(self, cursorCombo)
 
     hbox1.pack_start(label, False, False, 0)
     hbox1.pack_start(themeCombo, True, True, 0)
