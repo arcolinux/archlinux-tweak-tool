@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Arco Tweak Tool
+GenericName=Arcolinux Tweak Tool
+X-GNOME-FullName=Arcolinux Tweak Tool
+Comment=tweak arcolinux with ease
+Exec=/usr/bin/arco-tweak-tool
+Icon=/usr/share/arco-tweak-tool/images/arcolinux.png
+Terminal=false
+Type=Application
+Categories=GTK;Settings;Security;X-GNOME-Settings-Panel;X-GNOME-SystemSettings;X-Unity-Settings-Panel;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;
+Keywords=tweak;tool;
+StartupNotify=true
