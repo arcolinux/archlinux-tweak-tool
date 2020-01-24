@@ -49,7 +49,7 @@ def get_icon_themes(self, combo):
             check = os.listdir("/usr/share/icons/" + folder)
             if not "cursors" in check:
                 coms.append(folder)
-                print(folder)
+                # print(folder)
 
     coms.sort()
 
