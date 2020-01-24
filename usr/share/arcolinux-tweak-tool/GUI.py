@@ -1,6 +1,6 @@
 import Functions
 
-def GUI(self, Gtk):
+def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     #==========================================================
     #                       CONTAINER
     #==========================================================
@@ -54,7 +54,7 @@ def GUI(self, Gtk):
     
     
     label2 = Gtk.Label(xalign=0)
-    label2.set_markup("<b>Add repo to pacman.conf</b>")
+    label2.set_markup("<b>Add custom repo to pacman.conf</b>")
 
     self.textbox1 = Gtk.TextView()
     self.textbox1.set_wrap_mode(Gtk.WrapMode.WORD)
@@ -70,7 +70,7 @@ def GUI(self, Gtk):
     sw.add(self.textbox1)
 
 
-    self.button1 = Gtk.Button(label="Apply Repo")
+    self.button1 = Gtk.Button(label="Apply Custom Repo")
     self.button1.connect('clicked', self.button1_clicked)
     
     hboxStack1.pack_start(label1, False, True, 10)
@@ -180,5 +180,13 @@ def GUI(self, Gtk):
     # stack_switcher.set_homogeneous(True)
     # grid.attach(stack_switcher, 0, 0, 1, 10)
     # grid.attach(stack, 1, 0, 2, 10)
-    hbox.pack_start(stack_switcher, False, True, 0)
+    ivbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
+        os.path.join(base_dir, 'images/arcolinux-one-liner.svg'), 145, 145)
+    image = Gtk.Image().new_from_pixbuf(pixbuf)
+    
+    
+    ivbox.pack_start(image, False, False, 0)
+    ivbox.pack_start(stack_switcher, True, True, 0)
+    hbox.pack_start(ivbox, False, True, 0)
     hbox.pack_start(stack, True, True, 0)

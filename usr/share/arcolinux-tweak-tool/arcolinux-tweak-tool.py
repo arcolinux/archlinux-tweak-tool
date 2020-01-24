@@ -4,7 +4,7 @@ import GUI
 import Functions
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, GdkPixbuf
 from Settings import settings, configparser
 from Functions import os, home, pacman
 
@@ -20,7 +20,7 @@ class Main(Gtk.Window):
 
         self.opened = True
 
-        GUI.GUI(self, Gtk)
+        GUI.GUI(self, Gtk, GdkPixbuf, base_dir, os)
 
         if not os.path.exists(home + "/.config/arcolinux-tweak-tool"):
             os.mkdir(home + "/.config/arcolinux-tweak-tool")
