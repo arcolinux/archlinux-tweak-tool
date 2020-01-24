@@ -182,7 +182,7 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     # grid.attach(stack, 1, 0, 2, 10)
     ivbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
-        os.path.join(base_dir, 'images/arcolinux-one-liner.svg'), 145, 145)
+        os.path.join(base_dir, 'images/arcolinux-one-liner.png'), 145, 145)
     image = Gtk.Image().new_from_pixbuf(pixbuf)
     
     
