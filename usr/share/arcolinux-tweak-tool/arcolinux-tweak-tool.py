@@ -4,7 +4,7 @@ import GUI
 import Functions
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk, GdkPixbuf, Gio
 from Settings import settings, configparser
 from Functions import os, home, pacman
 
@@ -14,6 +14,7 @@ class Main(Gtk.Window):
     def __init__(self):
         super(Main, self).__init__(title="ArcoLinux Tweak Tool")
         self.set_border_width(10)
+        self.connect("delete-event", self.on_close)        
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_from_file(os.path.join(base_dir, 'images/arcolinux.png'))
         self.set_size_request(700, 500)
@@ -47,6 +48,15 @@ class Main(Gtk.Window):
 
             self.opened = False
 
+        if not os.path.isfile(home + "/.config/arcolinux-tweak-tool/att.lock"):
+            with open(home + "/.config/arcolinux-tweak-tool/att.lock", "w") as f:
+                f.write("")
+            
+    def on_close(self, widget, data):
+        os.unlink(home + "/.config/arcolinux-tweak-tool/att.lock")
+        Gtk.main_quit()
+    
+    
     def on_pacman_toggle(self, widget, active):
         if self.opened == False:
             key = {
@@ -56,6 +66,7 @@ class Main(Gtk.Window):
             }
             Settings.write_settings("Pacman", key)
             Functions.toggle_test_repos(widget.get_active(), "arco")
+
     def on_pacman_toggle2(self, widget, active):
         if self.opened == False:
             print("WRITE")
@@ -86,7 +97,7 @@ class Main(Gtk.Window):
 
 
 if __name__ == "__main__":
-    w = Main()
-    w.connect("delete-event", Gtk.main_quit)
-    w.show_all()
-    Gtk.main()
+    if not os.path.isfile(home + "/.config/arcolinux-tweak-tool/att.lock"):
+        w = Main()
+        w.show_all()
+        Gtk.main()
