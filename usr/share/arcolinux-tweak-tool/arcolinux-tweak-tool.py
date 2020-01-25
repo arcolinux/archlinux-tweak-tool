@@ -56,7 +56,10 @@ class Main(Gtk.Window):
         os.unlink(home + "/.config/arcolinux-tweak-tool/att.lock")
         Gtk.main_quit()
     
-    
+    #=====================================================
+    #               PACMAN FUNCTIONS
+    #=====================================================
+
     def on_pacman_toggle(self, widget, active):
         if self.opened == False:
             key = {
@@ -96,11 +99,21 @@ class Main(Gtk.Window):
         Functions.append_repo(self, self.text.get_text(startiter, enditer, True))
 
 
+    #=====================================================
+    #               OBLOGOUT FUNCTIONS
+    #=====================================================
+
     def oblog_changed(self, widget):
         Functions.oblogout_change_theme(widget.get_active_text())
 
     def scale_moved(self, widget):
         Functions.set_value(widget.get_value())
+
+    def on_buttons_set(self, widget):
+        Functions.set_buttons(self.buttonsBox.get_text())
+
+    def on_locks_set(self, widget):
+        Functions.set_lockscreen(self.lockBox.get_text())
 
 if __name__ == "__main__":
     if not os.path.isfile(home + "/.config/arcolinux-tweak-tool/att.lock"):

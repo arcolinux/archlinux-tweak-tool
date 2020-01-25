@@ -166,8 +166,18 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     #                       TAB #6
     #==========================================================
     
+    hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    pixbuf2 = GdkPixbuf.Pixbuf().new_from_file_at_size(
+        os.path.join(base_dir, 'images/oblogout.jpg'), 345, 345)
+    image2 = Gtk.Image().new_from_pixbuf(pixbuf2)
+    hbox6.pack_start(image2, True, True, 0)
+
     vals = Functions.get_value()
     ad1 = Gtk.Adjustment(vals, 0, 100, 5, 10, 0)
+
+    #==============================================================
+    #                   Opacity Slider
+    #==============================================================
 
     label5 = Gtk.Label()
     label5.set_text("Opacity")
@@ -179,24 +189,67 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     hscale.set_valign(Gtk.Align.START)
     hscale.connect("value-changed", self.scale_moved)
 
-    label = Gtk.Label()
-    oblog = Gtk.ComboBoxText()
-    label.set_text("Themes")
-    stack.add_titled(vboxStack6, "stack6", "Oblogout Themes")
-
-    oblog.connect("changed", self.oblog_changed)
-    Functions.oblog_populate(oblog)
-    
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox5.pack_start(label5, False, True, 0)
     hbox5.pack_start(hscale, True, True, 0)
 
+    #==============================================================
+    #                   Theme Dropdown
+    #==============================================================
+
+    label6 = Gtk.Label()
+    oblog = Gtk.ComboBoxText()
+    label6.set_text("Themes")
+
+    oblog.connect("changed", self.oblog_changed)
+    Functions.oblog_populate(oblog)
+
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox4.pack_start(label, False, False, 0)
+    hbox4.pack_start(label6, False, False, 0)
     hbox4.pack_start(oblog, True, True, 0)
 
+    
+    #==============================================================
+    #                   Buttons Textbox
+    #==============================================================
+    label7 = Gtk.Label()
+    label7.set_text("Buttons")
+
+    self.buttonsBox = Gtk.Entry()
+    self.buttonsBox.set_text(Functions.get_buttons())
+    SetButtons = Gtk.Button(label="Set")
+    SetButtons.connect("clicked", self.on_buttons_set)
+
+    hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox7.pack_start(label7, False, False, 0)
+    hbox7.pack_start(self.buttonsBox, True, True, 0)
+    hbox7.pack_start(SetButtons, False, False, 0)
+
+    #==========================================================
+    #                     Lockscreen Textbox
+    #==========================================================
+
+    label8 = Gtk.Label()
+    label8.set_text("Buttons")
+
+    self.lockBox = Gtk.Entry()
+    self.lockBox.set_text(Functions.get_lockscreen())
+    Setlocks = Gtk.Button(label="Set")
+    Setlocks.connect("clicked", self.on_locks_set)
+
+    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox8.pack_start(label8, False, False, 0)
+    hbox8.pack_start(self.lockBox, True, True, 0)
+    hbox8.pack_start(Setlocks, False, False, 0)
+
+    
+    stack.add_titled(vboxStack6, "stack6", "Oblogout Themes")
+
+    vboxStack6.pack_start(hbox6, False, False, 0)
     vboxStack6.pack_start(hbox5, False, False, 0)
     vboxStack6.pack_start(hbox4, False, False, 0)
+    vboxStack6.pack_start(hbox7, False, False, 0)
+    vboxStack6.pack_start(hbox8, False, False, 0)
 
 
     #==========================================================

@@ -200,11 +200,11 @@ def oblog_populate(combo):
                 if "buttontheme" in line:
                     
                     value = line.split("=")
-                    val = value[1].lstrip().rsplit()
-                    coms.append(val[0])
+                    val = value[1].lstrip().rstrip()
+                    coms.append(val)
                     
                     if not "#" in line:
-                        active = val[0]
+                        active = val
         
         coms.sort()
 
@@ -231,8 +231,8 @@ def oblogout_change_theme(theme):
                 line = lines[i]
                 if "buttontheme" in line:
                     
-                    if theme == lines[i].split("=")[1].lstrip().rsplit()[0]:
-                        print(lines[i].split("=")[1].lstrip().rsplit()[0])
+                    if theme == lines[i].split("=")[1].lstrip().rstrip():
+                        print(lines[i].split("=")[1].lstrip().rstrip())
                         lines[i] = line.replace("#","")
             
             f.writelines(lines)
@@ -248,10 +248,10 @@ def get_value():
                 line = lines[i]
                 if "opacity" in line:
                     nline = line.split("=")
-                    opacity = nline[1].lstrip().rsplit()
+                    opacity = nline[1].lstrip().rstrip()
             
             f.close()
-            return float(opacity[0])
+            return float(opacity)
     else:
         return 0
 
@@ -266,8 +266,73 @@ def set_value(value):
                 line = lines[i]
                 if "opacity" in line:
                     nline = line.split("=")
-                    opacity = nline[1].lstrip().rsplit()
-                    lines[i] = line.replace(opacity[0], str(value).split(".")[0])
+                    opacity = nline[1].lstrip().rstrip()
+                    lines[i] = line.replace(opacity, str(value).split(".")[0])
             f.writelines(lines)
             f.close()
-        
+
+def set_buttons(value):
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, 'r') as f:
+            lines = f.readlines()
+            f.close()
+
+        with open(oblogout_conf, 'w') as f:
+            for i in range(0, len(lines)):
+                line = lines[i]
+                if "buttons =" in line:
+                    nline = line.split("=")
+                    val = nline[1].lstrip().rstrip()
+                    lines[i] = line.replace(val, value)
+            f.writelines(lines)
+            f.close()
+
+def get_buttons():
+    buttons = "You do not have oblogout.conf"
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, 'r') as f:
+            lines = f.readlines()
+
+            for i in range(0, len(lines)):
+                line = lines[i]
+                if "buttons =" in line:
+                    nline = line.split("=")
+                    buttons = nline[1].lstrip().rstrip()
+                    
+            f.close()
+            return buttons
+    else:
+        return buttons
+
+def get_lockscreen():
+    lock = "You do not have oblogout.conf"
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, 'r') as f:
+            lines = f.readlines()
+
+            for i in range(0, len(lines)):
+                line = lines[i]
+                if "lock =" in line and i == (len(lines) -1):
+                    nline = line.split("=")
+                    lock = nline[1].lstrip().rstrip()
+                    
+            f.close()
+            return lock
+    else:
+        return lock
+
+def set_lockscreen(value):
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, 'r') as f:
+            lines = f.readlines()
+            f.close()
+
+        with open(oblogout_conf, 'w') as f:
+            for i in range(0, len(lines)):
+                line = lines[i]
+                if "lock =" in line and i == (len(lines) -1):
+                    nline = line.split("=")
+                    val = nline[1].lstrip().rstrip()
+                    lines[i] = line.replace(val, value)
+            f.writelines(lines)
+            f.close()
