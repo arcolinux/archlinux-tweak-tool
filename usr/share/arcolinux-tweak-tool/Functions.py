@@ -188,46 +188,48 @@ def toggle_test_repos(state, widget):
 #               OBLOGOUT CONF
 #=====================================================
 def oblog_populate(combo):
-    coms = []
-    active = ""
-    with open("/etc/oblogout.conf", "r") as f:
-        lines = f.readlines()
-        for line in lines:
-            # print(line)
-            if "buttontheme" in line:
-                
-                value = line.split("=")
-                val = value[1].lstrip().rsplit()
-                coms.append(val[0])
-                
-                if not "#" in line:
-                    active = val[0]
-    
-    coms.sort()
+    if os.path.isfile("/etc/oblogout.conf"):
+        coms = []
+        active = ""
+        with open("/etc/oblogout.conf", "r") as f:
+            lines = f.readlines()
+            for line in lines:
+                # print(line)
+                if "buttontheme" in line:
+                    
+                    value = line.split("=")
+                    val = value[1].lstrip().rsplit()
+                    coms.append(val[0])
+                    
+                    if not "#" in line:
+                        active = val[0]
+        
+        coms.sort()
 
-    for i in range(len(coms)):
-        print(coms[i])
-        combo.append_text(coms[i])
-        if(coms[i] == active):
-            combo.set_active(i)
-    # combo.append_text('something')
+        for i in range(len(coms)):
+            print(coms[i])
+            combo.append_text(coms[i])
+            if(coms[i] == active):
+                combo.set_active(i)
+        # combo.append_text('something')
 
 def oblogout_change_theme(theme):
-    with open("/etc/oblogout.conf", 'r') as f:
-            lines = f.readlines()
-            f.close()
+    if os.path.isfile("/etc/oblogout.conf"):
+        with open("/etc/oblogout.conf", 'r') as f:
+                lines = f.readlines()
+                f.close()
 
-    with open("/etc/oblogout.conf", 'w') as f:
-        for i in range(0, len(lines)):
-            line = lines[i]
-            if "buttontheme" in line:
-                if not "#" in lines[i]:
-                    lines[i] = line.replace(lines[i], "#" + lines[i])
-        for i in range(0, len(lines)):
-            line = lines[i]
-            if "buttontheme" in line:
-                if theme in lines[i]:
-                    lines[i] = line.replace("#","")
-        
-        f.writelines(lines)
-        f.close()
+        with open("/etc/oblogout.conf", 'w') as f:
+            for i in range(0, len(lines)):
+                line = lines[i]
+                if "buttontheme" in line:
+                    if not "#" in lines[i]:
+                        lines[i] = line.replace(lines[i], "#" + lines[i])
+            for i in range(0, len(lines)):
+                line = lines[i]
+                if "buttontheme" in line:
+                    if theme in lines[i]:
+                        lines[i] = line.replace("#","")
+            
+            f.writelines(lines)
+            f.close()
