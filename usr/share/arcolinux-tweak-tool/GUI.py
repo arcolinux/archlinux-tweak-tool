@@ -165,6 +165,20 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     #==========================================================
     #                       TAB #6
     #==========================================================
+    
+    vals = Functions.get_value()
+    ad1 = Gtk.Adjustment(vals, 0, 100, 5, 10, 0)
+
+    label5 = Gtk.Label()
+    label5.set_text("Opacity")
+
+    hscale = Gtk.Scale(
+        orientation=Gtk.Orientation.HORIZONTAL, adjustment=ad1)
+    hscale.set_digits(0)
+    hscale.set_hexpand(True)
+    hscale.set_valign(Gtk.Align.START)
+    hscale.connect("value-changed", self.scale_moved)
+
     label = Gtk.Label()
     oblog = Gtk.ComboBoxText()
     label.set_text("Themes")
@@ -173,10 +187,15 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     oblog.connect("changed", self.oblog_changed)
     Functions.oblog_populate(oblog)
     
+    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox5.pack_start(label5, False, True, 0)
+    hbox5.pack_start(hscale, True, True, 0)
+
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4.pack_start(label, False, False, 0)
     hbox4.pack_start(oblog, True, True, 0)
 
+    vboxStack6.pack_start(hbox5, False, False, 0)
     vboxStack6.pack_start(hbox4, False, False, 0)
 
 

@@ -99,6 +99,8 @@ class Main(Gtk.Window):
     def oblog_changed(self, widget):
         Functions.oblogout_change_theme(widget.get_active_text())
 
+    def scale_moved(self, widget):
+        Functions.set_value(widget.get_value())
 
 if __name__ == "__main__":
     if not os.path.isfile(home + "/.config/arcolinux-tweak-tool/att.lock"):

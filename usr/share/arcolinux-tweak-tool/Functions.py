@@ -5,6 +5,8 @@ import shutil
 home = os.environ['HOME']
 
 pacman = "/etc/pacman.conf"
+oblogout_conf = "/etc/oblogout.conf"
+# oblogout_conf = home + "/oblogout.conf"
 
 #=====================================================
 #               LIGHTDM CONF
@@ -188,10 +190,10 @@ def toggle_test_repos(state, widget):
 #               OBLOGOUT CONF
 #=====================================================
 def oblog_populate(combo):
-    if os.path.isfile("/etc/oblogout.conf"):
+    if os.path.isfile(oblogout_conf):
         coms = []
         active = ""
-        with open("/etc/oblogout.conf", "r") as f:
+        with open(oblogout_conf, "r") as f:
             lines = f.readlines()
             for line in lines:
                 # print(line)
@@ -214,12 +216,12 @@ def oblog_populate(combo):
         # combo.append_text('something')
 
 def oblogout_change_theme(theme):
-    if os.path.isfile("/etc/oblogout.conf"):
-        with open("/etc/oblogout.conf", 'r') as f:
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, 'r') as f:
                 lines = f.readlines()
                 f.close()
 
-        with open("/etc/oblogout.conf", 'w') as f:
+        with open(oblogout_conf, 'w') as f:
             for i in range(0, len(lines)):
                 line = lines[i]
                 if "buttontheme" in line:
@@ -233,3 +235,37 @@ def oblogout_change_theme(theme):
             
             f.writelines(lines)
             f.close()
+
+def get_value():
+    opacity = 0
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, 'r') as f:
+            lines = f.readlines()
+
+            for i in range(0, len(lines)):
+                line = lines[i]
+                if "opacity" in line:
+                    nline = line.split("=")
+                    opacity = nline[1].lstrip().rsplit()
+            
+            f.close()
+            return float(opacity[0])
+    else:
+        return 0
+
+def set_value(value):
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, 'r') as f:
+            lines = f.readlines()
+            f.close()
+
+        with open(oblogout_conf, 'w') as f:
+            for i in range(0, len(lines)):
+                line = lines[i]
+                if "opacity" in line:
+                    nline = line.split("=")
+                    opacity = nline[1].lstrip().rsplit()
+                    lines[i] = line.replace(opacity[0], str(value).split(".")[0])
+            f.writelines(lines)
+            f.close()
+        
