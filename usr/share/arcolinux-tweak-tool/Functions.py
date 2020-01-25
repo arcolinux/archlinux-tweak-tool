@@ -5,8 +5,8 @@ import shutil
 home = os.environ['HOME']
 
 pacman = "/etc/pacman.conf"
-oblogout_conf = "/etc/oblogout.conf"
-# oblogout_conf = home + "/oblogout.conf"
+# oblogout_conf = "/etc/oblogout.conf"
+oblogout_conf = home + "/oblogout.conf"
 
 #=====================================================
 #               LIGHTDM CONF
@@ -209,7 +209,7 @@ def oblog_populate(combo):
         coms.sort()
 
         for i in range(len(coms)):
-            print(coms[i])
+            # print(coms[i])
             combo.append_text(coms[i])
             if(coms[i] == active):
                 combo.set_active(i)
@@ -230,7 +230,9 @@ def oblogout_change_theme(theme):
             for i in range(0, len(lines)):
                 line = lines[i]
                 if "buttontheme" in line:
-                    if theme in lines[i]:
+                    
+                    if theme == lines[i].split("=")[1].lstrip().rsplit()[0]:
+                        print(lines[i].split("=")[1].lstrip().rsplit()[0])
                         lines[i] = line.replace("#","")
             
             f.writelines(lines)
