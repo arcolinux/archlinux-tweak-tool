@@ -166,10 +166,19 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     #                       TAB #6
     #==========================================================
     label = Gtk.Label()
-    label.set_markup("<big>Label on Tab #6</big>")
+    oblog = Gtk.ComboBoxText()
+    label.set_text("Themes")
     stack.add_titled(vboxStack6, "stack6", "Oblogout Themes")
 
-    vboxStack6.pack_start(label, False, False, 0)
+    oblog.connect("changed", self.oblog_changed)
+    Functions.oblog_populate(oblog)
+    
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox4.pack_start(label, False, False, 0)
+    hbox4.pack_start(oblog, True, True, 0)
+
+    vboxStack6.pack_start(hbox4, False, False, 0)
+
 
     #==========================================================
     #                     ADD TO WINDOW

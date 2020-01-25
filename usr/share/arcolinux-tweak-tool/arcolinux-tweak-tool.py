@@ -96,6 +96,10 @@ class Main(Gtk.Window):
         Functions.append_repo(self, self.text.get_text(startiter, enditer, True))
 
 
+    def oblog_changed(self, widget):
+        Functions.oblogout_change_theme(widget.get_active_text())
+
+
 if __name__ == "__main__":
     if not os.path.isfile(home + "/.config/arcolinux-tweak-tool/att.lock"):
         w = Main()
