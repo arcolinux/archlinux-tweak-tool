@@ -177,31 +177,31 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     label5 = Gtk.Label()
     label5.set_text("Opacity")
 
-    hscale = Gtk.Scale(
+    self.hscale = Gtk.Scale(
         orientation=Gtk.Orientation.HORIZONTAL, adjustment=ad1)
-    hscale.set_digits(0)
-    hscale.set_hexpand(True)
-    hscale.set_valign(Gtk.Align.START)
-    hscale.connect("value-changed", self.scale_moved)
+    self.hscale.set_digits(0)
+    self.hscale.set_hexpand(True)
+    self.hscale.set_valign(Gtk.Align.START)
+    # self.hscale.connect("value-changed", self.scale_moved)
 
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox5.pack_start(label5, False, True, 0)
-    hbox5.pack_start(hscale, True, True, 0)
+    hbox5.pack_start(self.hscale, True, True, 0)
 
     #==============================================================
     #                   Theme Dropdown
     #==============================================================
 
     label6 = Gtk.Label()
-    oblog = Gtk.ComboBoxText()
+    self.oblog = Gtk.ComboBoxText()
     label6.set_text("Themes")
 
-    oblog.connect("changed", self.oblog_changed)
-    Functions.oblog_populate(oblog)
+    # self.oblog.connect("changed", self.oblog_changed)
+    Functions.oblog_populate(self.oblog)
 
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4.pack_start(label6, False, False, 0)
-    hbox4.pack_start(oblog, True, True, 0)
+    hbox4.pack_start(self.oblog, True, True, 0)
 
     
     #==============================================================
@@ -243,13 +243,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     if "hibernate" in btnString:
         self.check_hiber.set_active(True)
 
-    SetButtons = Gtk.Button(label="Set Buttons")
-    SetButtons.connect("clicked", self.on_buttons_set)
+    # SetButtons = Gtk.Button(label="Set Buttons")
+    # SetButtons.connect("clicked", self.on_buttons_set)
     
     hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     hbox7.pack_start(label7, False, False, 0)
     hbox10.pack_start(self.check_shut, False, False, 0)
@@ -259,7 +259,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox11.pack_start(self.check_susp, False, False, 0)
     hbox11.pack_start(self.check_hiber, False, False, 0)
     hbox11.pack_start(self.check_cancel, False, False, 0)
-    hbox12.pack_start(SetButtons, False, False, 0)
+    # hbox12.pack_start(SetButtons, False, False, 0)
 
     #==========================================================
     #                     Lockscreen Textbox
@@ -270,13 +270,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     self.lockBox = Gtk.Entry()
     self.lockBox.set_text(Functions.get_lockscreen())
-    Setlocks = Gtk.Button(label="Set")
-    Setlocks.connect("clicked", self.on_locks_set)
+    # Setlocks = Gtk.Button(label="Set")
+    # Setlocks.connect("clicked", self.on_locks_set)
 
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox8.pack_start(label8, False, False, 0)
     hbox8.pack_start(self.lockBox, True, True, 0)
-    hbox8.pack_start(Setlocks, False, False, 0)
+    # hbox8.pack_start(Setlocks, False, False, 0)
 
     
 
@@ -286,7 +286,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     self.colorchooser = Gtk.ColorButton()
-    self.colorchooser.connect("color-set", self.on_color_chosen)
+    # self.colorchooser.connect("color-set", self.on_color_chosen)
     color = Gdk.RGBA()
     color.parse(Functions.get_color())
     self.colorchooser.set_rgba(color)
@@ -296,15 +296,23 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox9.pack_start(label9, False, False, 0)
     hbox9.pack_start(self.colorchooser, True, True, 0)    
 
+
+
+    hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    save_oblogout = Gtk.Button(label="Save Settings")
+    save_oblogout.connect("clicked", self.save_oblogout)
+    hbox13.pack_end(save_oblogout, False, False, 0)   
+
     vboxStack6.pack_start(hbox6, False, False, 0)
     vboxStack6.pack_start(hbox5, False, False, 0)
     vboxStack6.pack_start(hbox4, False, False, 0)
     vboxStack6.pack_start(hbox7, False, False, 0)
     vboxStack6.pack_start(hbox10, False, False, 0)
     vboxStack6.pack_start(hbox11, False, False, 0)
-    vboxStack6.pack_start(hbox12, False, False, 0)
+    # vboxStack6.pack_start(hbox12, False, False, 0)
     vboxStack6.pack_start(hbox8, False, False, 0)
     vboxStack6.pack_start(hbox9, False, False, 0)
+    vboxStack6.pack_start(hbox13, False, False, 0)
 
     
     #==========================================================

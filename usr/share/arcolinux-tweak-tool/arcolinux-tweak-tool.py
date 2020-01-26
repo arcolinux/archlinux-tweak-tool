@@ -102,14 +102,9 @@ class Main(Gtk.Window):
     #=====================================================
     #               OBLOGOUT FUNCTIONS
     #=====================================================
-
-    def oblog_changed(self, widget):
-        Functions.oblogout_change_theme(widget.get_active_text())
-
-    def scale_moved(self, widget):
-        Functions.set_value(widget.get_value())
-
-    def on_buttons_set(self, widget):
+    
+    def save_oblogout(self, widget):
+        
         string = ""
         if self.check_shut.get_active():
             string += "shutdown "
@@ -128,14 +123,47 @@ class Main(Gtk.Window):
 
         
         Functions.set_buttons(string.rstrip().replace(" ", ", "))
-
-    def on_locks_set(self, widget):
+        Functions.oblogout_change_theme(self.oblog.get_active_text())
+        Functions.set_value(self.hscale.get_value())
         Functions.set_lockscreen(self.lockBox.get_text())
-
-    def on_color_chosen(self, widget):
-        print(widget.get_rgba().to_string())
-        hex = Functions.rgb_to_hex(widget.get_rgba().to_string())
+        # print(widget.get_rgba().to_string())
+        hex = Functions.rgb_to_hex(self.colorchooser.get_rgba().to_string())
         Functions.set_color(hex)
+
+
+    # def oblog_changed(self, widget):
+    #     Functions.oblogout_change_theme(widget.get_active_text())
+
+    # def scale_moved(self, widget):
+    #     Functions.set_value(widget.get_value())
+
+    # def on_buttons_set(self, widget):
+    #     string = ""
+    #     if self.check_shut.get_active():
+    #         string += "shutdown "
+    #     if self.check_restart.get_active():
+    #         string += "restart "
+    #     if self.check_logout.get_active():
+    #         string += "logout "
+    #     if self.check_cancel.get_active():
+    #         string += "cancel "
+    #     if self.check_susp.get_active():
+    #         string += "suspend "
+    #     if self.check_hiber.get_active():
+    #         string += "hibernate "
+    #     if self.check_lock.get_active():
+    #         string += "lock "
+
+        
+    #     Functions.set_buttons(string.rstrip().replace(" ", ", "))
+
+    # def on_locks_set(self, widget):
+    #     Functions.set_lockscreen(self.lockBox.get_text())
+
+    # def on_color_chosen(self, widget):
+    #     print(widget.get_rgba().to_string())
+    #     hex = Functions.rgb_to_hex(widget.get_rgba().to_string())
+    #     Functions.set_color(hex)
     
 
 
