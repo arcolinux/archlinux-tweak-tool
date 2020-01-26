@@ -5,8 +5,8 @@ import shutil
 home = os.environ['HOME']
 
 pacman = "/etc/pacman.conf"
-oblogout_conf = "/etc/oblogout.conf"
-# oblogout_conf = home + "/oblogout.conf"
+# oblogout_conf = "/etc/oblogout.conf"
+oblogout_conf = home + "/oblogout.conf"
 
 
 

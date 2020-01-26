@@ -28,7 +28,6 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     #                   TAB #1 PACMAN
     #==========================================================
     
-    stack.add_titled(vboxStack1, "stack1", "Pacman Config")
     
     hboxStack1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
@@ -129,8 +128,7 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     hbox3.pack_start(label3, False, False, 0)
     hbox3.pack_start(cursorCombo, True, True, 0)
     
-    stack.add_titled(vboxStack2, "stack2", "Lightdm Config")
-
+    
     vboxStack2.pack_start(hbox1, False, False, 0)
     vboxStack2.pack_start(hbox2, False, False, 0)
     vboxStack2.pack_start(hbox3, False, False, 0)
@@ -140,8 +138,7 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     #==========================================================
     label = Gtk.Label()
     label.set_markup("<big>Label on Tab #3</big>")
-    stack.add_titled(vboxStack3, "stack3", "Skel Config")
-
+    
     vboxStack3.pack_start(label, False, False, 0)
 
     #==========================================================
@@ -149,8 +146,7 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     #==========================================================
     label = Gtk.Label()
     label.set_markup("<big>Label on Tab #4</big>")
-    stack.add_titled(vboxStack4, "stack4", "Lockscreen")
-
+    
     vboxStack4.pack_start(label, False, False, 0)
 
     #==========================================================
@@ -158,7 +154,6 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     #==========================================================
     label = Gtk.Label()
     label.set_markup("<big>Label on Tab #5</big>")
-    stack.add_titled(vboxStack5, "stack5", "Grub Config")
 
     vboxStack5.pack_start(label, False, False, 0)
 
@@ -258,8 +253,6 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     hbox9.pack_start(label9, False, False, 0)
     hbox9.pack_start(self.colorchooser, True, True, 0)    
 
-    stack.add_titled(vboxStack6, "stack6", "Oblogout Themes")
-
     vboxStack6.pack_start(hbox6, False, False, 0)
     vboxStack6.pack_start(hbox5, False, False, 0)
     vboxStack6.pack_start(hbox4, False, False, 0)
@@ -267,16 +260,21 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     vboxStack6.pack_start(hbox8, False, False, 0)
     vboxStack6.pack_start(hbox9, False, False, 0)
 
-
+    
     #==========================================================
     #                     ADD TO WINDOW
     #==========================================================
+    stack.add_titled(vboxStack1, "stack1", "Pacman Config")
+    # stack.add_titled(vboxStack2, "stack2", "Lightdm Config")
+    # stack.add_titled(vboxStack3, "stack3", "Skel Config")
+    # stack.add_titled(vboxStack4, "stack4", "Lockscreen")
+    # stack.add_titled(vboxStack5, "stack5", "Grub Config")
+    stack.add_titled(vboxStack6, "stack6", "Oblogout Themes")
+
+
     stack_switcher = Gtk.StackSidebar()
-    # stack_switcher.set_orientation(Gtk.Orientation.VERTICAL)
     stack_switcher.set_stack(stack)
-    # stack_switcher.set_homogeneous(True)
-    # grid.attach(stack_switcher, 0, 0, 1, 10)
-    # grid.attach(stack, 1, 0, 2, 10)
+    
     ivbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
         os.path.join(base_dir, 'images/arcolinux-one-liner.png'), 145, 145)
@@ -287,3 +285,6 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     ivbox.pack_start(stack_switcher, True, True, 0)
     hbox.pack_start(ivbox, False, True, 0)
     hbox.pack_start(stack, True, True, 0)
+    
+
+    
