@@ -7,7 +7,7 @@ home = os.environ['HOME']
 pacman = "/etc/pacman.conf"
 # oblogout_conf = "/etc/oblogout.conf"
 oblogout_conf = home + "/oblogout.conf"
-
+lightdm_conf = "/etc/lightdm/lightdm-gtk-greeter.conf"
 
 
 def rgb_to_hex(rgb):
@@ -22,79 +22,91 @@ def clamp(x):
 #=====================================================
 #               LIGHTDM CONF
 #=====================================================
+def file_check(file):
+    if os.path.isfile(file):
+        return True
+    
+    return False
+
+#=====================================================
+#               LIGHTDM CONF
+#=====================================================
 def get_gtk_themes(self, combo):
-    active_combo = ""
-    coms = []
-    with open("/etc/lightdm/lightdm-gtk-greeter.conf", "r") as f:
-        lines = f.readlines()
-        for line in lines:
+    if os.path.isfile(lightdm_conf):
+        active_combo = ""
+        coms = []
+        with open(lightdm_conf, "r") as f:
+            lines = f.readlines()
+            for line in lines:
 
-            if line.startswith("theme-name = "):
-                output = line.split("=")
-                active_combo = output[1].lstrip().rstrip()
+                if line.startswith("theme-name = "):
+                    output = line.split("=")
+                    active_combo = output[1].lstrip().rstrip()
 
-    for folder in os.listdir("/usr/share/themes"):
-        if os.path.isdir("/usr/share/themes/" + folder):
-            check = os.listdir("/usr/share/themes/" + folder)
-            if "gtk-3.0" in check:
-                coms.append(folder)
+        for folder in os.listdir("/usr/share/themes"):
+            if os.path.isdir("/usr/share/themes/" + folder):
+                check = os.listdir("/usr/share/themes/" + folder)
+                if "gtk-3.0" in check:
+                    coms.append(folder)
 
-    coms.sort()
+        coms.sort()
 
-    for i in range(len(coms)):
-        combo.append_text(coms[i])
-        if(coms[i] == active_combo):
-            combo.set_active(i)
+        for i in range(len(coms)):
+            combo.append_text(coms[i])
+            if(coms[i] == active_combo):
+                combo.set_active(i)
 
 def get_icon_themes(self, combo):
-    active_combo_icon = ""
-    coms = []
-    with open("/etc/lightdm/lightdm-gtk-greeter.conf", "r") as f:
-        lines = f.readlines()
-        for line in lines:
+    if os.path.isfile(lightdm_conf):
+        active_combo_icon = ""
+        coms = []
+        with open(lightdm_conf, "r") as f:
+            lines = f.readlines()
+            for line in lines:
 
-            if line.startswith("icon-theme-name ="):
-                output = line.split("=")
-                active_combo_icon = output[1].lstrip().rstrip()
+                if line.startswith("icon-theme-name ="):
+                    output = line.split("=")
+                    active_combo_icon = output[1].lstrip().rstrip()
 
-    for folder in os.listdir("/usr/share/icons"):
-        if os.path.isdir("/usr/share/icons/" + folder):
-            check = os.listdir("/usr/share/icons/" + folder)
-            if not "cursors" in check:
-                coms.append(folder)
-                # print(folder)
+        for folder in os.listdir("/usr/share/icons"):
+            if os.path.isdir("/usr/share/icons/" + folder):
+                check = os.listdir("/usr/share/icons/" + folder)
+                if not "cursors" in check:
+                    coms.append(folder)
+                    # print(folder)
 
-    coms.sort()
+        coms.sort()
 
-    for i in range(len(coms)):
-        combo.append_text(coms[i])
-        if(coms[i] == active_combo_icon):
-            combo.set_active(i)
+        for i in range(len(coms)):
+            combo.append_text(coms[i])
+            if(coms[i] == active_combo_icon):
+                combo.set_active(i)
 
 def get_cursor_themes(self, combo):
-    active_combo_cursor = ""
-    coms = []
-    with open("/etc/lightdm/lightdm-gtk-greeter.conf", "r") as f:
-        lines = f.readlines()
-        for line in lines:
+    if os.path.isfile(lightdm_conf):
+        active_combo_cursor = ""
+        coms = []
+        with open(lightdm_conf, "r") as f:
+            lines = f.readlines()
+            for line in lines:
 
-            if line.startswith("cursor-theme-name ="):
-                output = line.split("=")
-                active_combo_cursor = output[1].lstrip().rstrip()
+                if line.startswith("cursor-theme-name ="):
+                    output = line.split("=")
+                    active_combo_cursor = output[1].lstrip().rstrip()
 
-    for folder in os.listdir("/usr/share/icons"):
-        if os.path.isdir("/usr/share/icons/" + folder):
-            check = os.listdir("/usr/share/icons/" + folder)
-            if "cursors" in check:
-                coms.append(folder)
-                # print(folder)
+        for folder in os.listdir("/usr/share/icons"):
+            if os.path.isdir("/usr/share/icons/" + folder):
+                check = os.listdir("/usr/share/icons/" + folder)
+                if "cursors" in check:
+                    coms.append(folder)
+                    # print(folder)
 
-    coms.sort()
+        coms.sort()
 
-    for i in range(len(coms)):
-        combo.append_text(coms[i])
-        if(coms[i] == active_combo_cursor):
-            combo.set_active(i)
+        for i in range(len(coms)):
+            combo.append_text(coms[i])
+            if(coms[i] == active_combo_cursor):
+                combo.set_active(i)
 
 #=====================================================
 #               PACMAN CONF

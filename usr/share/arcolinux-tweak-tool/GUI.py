@@ -264,12 +264,15 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     #==========================================================
     #                     ADD TO WINDOW
     #==========================================================
-    stack.add_titled(vboxStack1, "stack1", "Pacman Config")
-    # stack.add_titled(vboxStack2, "stack2", "Lightdm Config")
+    if Functions.file_check(Functions.pacman):
+        stack.add_titled(vboxStack1, "stack1", "Pacman Config")
+    if Functions.file_check(Functions.lightdm_conf):
+        stack.add_titled(vboxStack2, "stack2", "Lightdm Config")
     # stack.add_titled(vboxStack3, "stack3", "Skel Config")
     # stack.add_titled(vboxStack4, "stack4", "Lockscreen")
     # stack.add_titled(vboxStack5, "stack5", "Grub Config")
-    stack.add_titled(vboxStack6, "stack6", "Oblogout Themes")
+    if Functions.file_check(Functions.oblogout_conf):
+        stack.add_titled(vboxStack6, "stack6", "Oblogout Themes")
 
 
     stack_switcher = Gtk.StackSidebar()
