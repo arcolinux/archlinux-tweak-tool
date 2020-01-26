@@ -230,7 +230,7 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     #==========================================================
 
     label8 = Gtk.Label()
-    label8.set_text("Buttons")
+    label8.set_text("Lockscreen")
 
     self.lockBox = Gtk.Entry()
     self.lockBox.set_text(Functions.get_lockscreen())
@@ -243,6 +243,21 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     hbox8.pack_start(Setlocks, False, False, 0)
 
     
+
+    #==========================================================
+    #                     Lockscreen Textbox
+    #==========================================================
+    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
+    self.colorchooser = Gtk.ColorButton()
+    self.colorchooser.connect("color-set", self.on_color_chosen)
+
+    label9 = Gtk.Label()
+    label9.set_text("Background")    
+    
+    hbox9.pack_start(label9, False, False, 0)
+    hbox9.pack_start(self.colorchooser, True, True, 0)    
+
     stack.add_titled(vboxStack6, "stack6", "Oblogout Themes")
 
     vboxStack6.pack_start(hbox6, False, False, 0)
@@ -250,6 +265,7 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     vboxStack6.pack_start(hbox4, False, False, 0)
     vboxStack6.pack_start(hbox7, False, False, 0)
     vboxStack6.pack_start(hbox8, False, False, 0)
+    vboxStack6.pack_start(hbox9, False, False, 0)
 
 
     #==========================================================

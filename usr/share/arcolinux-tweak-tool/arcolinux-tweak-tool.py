@@ -4,7 +4,7 @@ import GUI
 import Functions
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GdkPixbuf, Gio
+from gi.repository import Gtk, GdkPixbuf, Gio, Gdk
 from Settings import settings, configparser
 from Functions import os, home, pacman
 
@@ -114,6 +114,12 @@ class Main(Gtk.Window):
 
     def on_locks_set(self, widget):
         Functions.set_lockscreen(self.lockBox.get_text())
+
+    def on_color_chosen(self, widget):
+        hex = Functions.rgb_to_hex(widget.get_rgba().to_string())
+        Functions.set_color(hex)
+    
+
 
 if __name__ == "__main__":
     if not os.path.isfile(home + "/.config/arcolinux-tweak-tool/att.lock"):
