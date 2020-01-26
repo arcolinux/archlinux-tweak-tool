@@ -48,12 +48,12 @@ class Main(Gtk.Window):
 
             self.opened = False
 
-        if not os.path.isfile(home + "/.config/arcolinux-tweak-tool/att.lock"):
-            with open(home + "/.config/arcolinux-tweak-tool/att.lock", "w") as f:
+        if not os.path.isfile("/tmp/att.lock"):
+            with open("/tmp/att.lock", "w") as f:
                 f.write("")
             
     def on_close(self, widget, data):
-        os.unlink(home + "/.config/arcolinux-tweak-tool/att.lock")
+        os.unlink("/tmp/att.lock")
         Gtk.main_quit()
     
     #=====================================================
@@ -140,7 +140,20 @@ class Main(Gtk.Window):
 
 
 if __name__ == "__main__":
-    if not os.path.isfile(home + "/.config/arcolinux-tweak-tool/att.lock"):
+    if not os.path.isfile("/tmp/att.lock"):
         w = Main()
         w.show_all()
         Gtk.main()
+    else:
+        md = Gtk.MessageDialog(parent=Main(), flags=0, message_type=Gtk.MessageType.INFO,
+                               buttons=Gtk.ButtonsType.YES_NO, text="Lock File Found")
+        md.format_secondary_markup(
+            "The lock file has been found. This indicates there is already an instance of <b>Arcolinux Tweak tool</b> running.\n\
+click yes to remove the lock file and try running again")
+
+        result = md.run()
+
+        md.destroy()
+
+        if result in (Gtk.ResponseType.OK, Gtk.ResponseType.YES):
+            os.unlink("/tmp/att.lock")
