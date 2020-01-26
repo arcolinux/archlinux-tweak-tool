@@ -1,6 +1,6 @@
 import Functions
 
-def GUI(self, Gtk, GdkPixbuf, base_dir, os):
+def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     #==========================================================
     #                       CONTAINER
     #==========================================================
@@ -208,17 +208,58 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     #                   Buttons Textbox
     #==============================================================
     label7 = Gtk.Label()
-    label7.set_text("Buttons")
+    label7.set_markup("<b>Buttons</b>")
 
-    self.buttonsBox = Gtk.Entry()
-    self.buttonsBox.set_text(Functions.get_buttons())
-    SetButtons = Gtk.Button(label="Set")
+    self.check_shut = Gtk.CheckButton()
+    self.check_lock = Gtk.CheckButton()
+    self.check_logout = Gtk.CheckButton()
+    self.check_restart = Gtk.CheckButton()
+    self.check_cancel = Gtk.CheckButton()
+    self.check_susp = Gtk.CheckButton()
+    self.check_hiber = Gtk.CheckButton()
+
+    self.check_shut.set_label("Show Shutdown")
+    self.check_lock.set_label("Show Lock")
+    self.check_logout.set_label("Show Logout")
+    self.check_restart.set_label("Show Restart")
+    self.check_cancel.set_label("Show Cancel")
+    self.check_susp.set_label("Show Suspend")
+    self.check_hiber.set_label("Show Hibernate")
+    
+    btnString = Functions.get_buttons()
+
+    if "shutdown" in btnString:
+        self.check_shut.set_active(True)
+    if "lock" in btnString:
+        self.check_lock.set_active(True)
+    if "logout" in btnString:
+        self.check_logout.set_active(True)
+    if "restart" in btnString:
+        self.check_restart.set_active(True)
+    if "cancel" in btnString:
+        self.check_cancel.set_active(True)
+    if "suspend" in btnString:
+        self.check_susp.set_active(True)
+    if "hibernate" in btnString:
+        self.check_hiber.set_active(True)
+
+    SetButtons = Gtk.Button(label="Set Buttons")
     SetButtons.connect("clicked", self.on_buttons_set)
-
+    
     hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
     hbox7.pack_start(label7, False, False, 0)
-    hbox7.pack_start(self.buttonsBox, True, True, 0)
-    hbox7.pack_start(SetButtons, False, False, 0)
+    hbox10.pack_start(self.check_shut, False, False, 0)
+    hbox10.pack_start(self.check_restart, False, False, 0)
+    hbox10.pack_start(self.check_logout, False, False, 0)
+    hbox10.pack_start(self.check_lock, False, False, 0)
+    hbox11.pack_start(self.check_susp, False, False, 0)
+    hbox11.pack_start(self.check_hiber, False, False, 0)
+    hbox11.pack_start(self.check_cancel, False, False, 0)
+    hbox12.pack_start(SetButtons, False, False, 0)
 
     #==========================================================
     #                     Lockscreen Textbox
@@ -240,13 +281,15 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     
 
     #==========================================================
-    #                     Lockscreen Textbox
+    #                     COLOR BUTTON
     #==========================================================
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     self.colorchooser = Gtk.ColorButton()
     self.colorchooser.connect("color-set", self.on_color_chosen)
-
+    color = Gdk.RGBA()
+    color.parse(Functions.get_color())
+    self.colorchooser.set_rgba(color)
     label9 = Gtk.Label()
     label9.set_text("Background")    
     
@@ -257,6 +300,9 @@ def GUI(self, Gtk, GdkPixbuf, base_dir, os):
     vboxStack6.pack_start(hbox5, False, False, 0)
     vboxStack6.pack_start(hbox4, False, False, 0)
     vboxStack6.pack_start(hbox7, False, False, 0)
+    vboxStack6.pack_start(hbox10, False, False, 0)
+    vboxStack6.pack_start(hbox11, False, False, 0)
+    vboxStack6.pack_start(hbox12, False, False, 0)
     vboxStack6.pack_start(hbox8, False, False, 0)
     vboxStack6.pack_start(hbox9, False, False, 0)
 

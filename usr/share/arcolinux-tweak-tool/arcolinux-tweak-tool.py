@@ -21,7 +21,7 @@ class Main(Gtk.Window):
 
         self.opened = True
 
-        GUI.GUI(self, Gtk, GdkPixbuf, base_dir, os)
+        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
 
         if not os.path.exists(home + "/.config/arcolinux-tweak-tool"):
             os.mkdir(home + "/.config/arcolinux-tweak-tool")
@@ -110,12 +110,30 @@ class Main(Gtk.Window):
         Functions.set_value(widget.get_value())
 
     def on_buttons_set(self, widget):
-        Functions.set_buttons(self.buttonsBox.get_text())
+        string = ""
+        if self.check_shut.get_active():
+            string += "shutdown "
+        if self.check_restart.get_active():
+            string += "restart "
+        if self.check_logout.get_active():
+            string += "logout "
+        if self.check_cancel.get_active():
+            string += "cancel "
+        if self.check_susp.get_active():
+            string += "suspend "
+        if self.check_hiber.get_active():
+            string += "hibernate "
+        if self.check_lock.get_active():
+            string += "lock "
+
+        
+        Functions.set_buttons(string.rstrip().replace(" ", ", "))
 
     def on_locks_set(self, widget):
         Functions.set_lockscreen(self.lockBox.get_text())
 
     def on_color_chosen(self, widget):
+        print(widget.get_rgba().to_string())
         hex = Functions.rgb_to_hex(widget.get_rgba().to_string())
         Functions.set_color(hex)
     

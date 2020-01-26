@@ -11,9 +11,11 @@ lightdm_conf = "/etc/lightdm/lightdm-gtk-greeter.conf"
 
 
 def rgb_to_hex(rgb):
-    rgb = rgb.replace("rgb(", "").replace(")", "")
-    vals = rgb.split(",")
-    return "#{0:02x}{1:02x}{2:02x}".format(clamp(int(vals[0])), clamp(int(vals[1])), clamp(int(vals[2])))
+    if "rgb" in rgb:
+        rgb = rgb.replace("rgb(", "").replace(")", "")
+        vals = rgb.split(",")
+        return "#{0:02x}{1:02x}{2:02x}".format(clamp(int(vals[0])), clamp(int(vals[1])), clamp(int(vals[2])))
+    return rgb
     
 def clamp(x):
   return max(0, min(x, 255))
@@ -360,6 +362,17 @@ def set_lockscreen(value):
             f.writelines(lines)
             f.close()
  
+def get_color():
+    color = ""
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, 'r') as f:
+            lines = f.readlines()
+            for line in lines:
+                if "bgcolor =" in line:
+                    color = line.split("=")[1].lstrip().rstrip()
+            f.close()
+    return color
+
 def set_color(color):
     if os.path.isfile(oblogout_conf):
         with open(oblogout_conf, 'r') as f:
