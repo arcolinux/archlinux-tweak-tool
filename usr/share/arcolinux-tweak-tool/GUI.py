@@ -218,14 +218,15 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.check_susp = Gtk.CheckButton()
     self.check_hiber = Gtk.CheckButton()
 
-    self.check_shut.set_label("Show Shutdown")
-    self.check_lock.set_label("Show Lock")
-    self.check_logout.set_label("Show Logout")
-    self.check_restart.set_label("Show Restart")
-    self.check_cancel.set_label("Show Cancel")
-    self.check_susp.set_label("Show Suspend")
-    self.check_hiber.set_label("Show Hibernate")
-    
+    self.check_shut.set_label(   "Show Shutdown ")
+    self.check_lock.set_label(   "Show Lock     ")
+    self.check_logout.set_label( "Show Logout   ")
+    self.check_restart.set_label("Show Restart     ")
+    self.check_cancel.set_label( "Show Cancel   ")
+    self.check_susp.set_label(   "Show Suspend   ")
+    self.check_hiber.set_label(  "Show Hibernate")
+    self.spacer = Gtk.Label()
+    self.spacer.set_text(        "                                   ")
     btnString = Functions.get_buttons()
 
     if "shutdown" in btnString:
@@ -243,6 +244,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     if "hibernate" in btnString:
         self.check_hiber.set_active(True)
 
+     
     # SetButtons = Gtk.Button(label="Set Buttons")
     # SetButtons.connect("clicked", self.on_buttons_set)
     
@@ -252,13 +254,14 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     hbox7.pack_start(label7, False, False, 0)
-    hbox10.pack_start(self.check_shut, False, False, 0)
-    hbox10.pack_start(self.check_restart, False, False, 0)
-    hbox10.pack_start(self.check_logout, False, False, 0)
-    hbox10.pack_start(self.check_lock, False, False, 0)
-    hbox11.pack_start(self.check_susp, False, False, 0)
-    hbox11.pack_start(self.check_hiber, False, False, 0)
-    hbox11.pack_start(self.check_cancel, False, False, 0)
+    hbox10.pack_start(self.check_shut, True, True, 0)
+    hbox10.pack_start(self.check_restart, True, True, 0)
+    hbox10.pack_start(self.check_logout, True, True, 0)
+    hbox10.pack_start(self.check_lock, True, True, 0)
+    hbox11.pack_start(self.check_susp, True, True, 0)
+    hbox11.pack_start(self.check_hiber, True, True, 0)
+    hbox11.pack_start(self.check_cancel, True, True, 0)
+    hbox11.pack_start(self.spacer, True, True, 0)
     # hbox12.pack_start(SetButtons, False, False, 0)
 
     
@@ -269,17 +272,17 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     label8.set_markup("<b>Keybinds</b>")
     
     labelcancel = Gtk.Label()
-    labelcancel.set_markup("Cancel")
+    labelcancel.set_markup("Cancel ")
     labelshutdown = Gtk.Label()
     labelshutdown.set_markup("Shutdown")
     labelsuspend = Gtk.Label()
-    labelsuspend.set_markup("Suspend")
+    labelsuspend.set_markup("Suspend  ")
     labelrestart = Gtk.Label()
     labelrestart.set_markup("Restart")
     labellogout = Gtk.Label()
-    labellogout.set_markup("Logout")
+    labellogout.set_markup("Logout      ")
     labellock = Gtk.Label()
-    labellock.set_markup("Lock")
+    labellock.set_markup("Lock    ")
     labelhibernate = Gtk.Label()
     labelhibernate.set_markup("Hibernate")
 
@@ -317,26 +320,26 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
     hbox14.pack_start(label8, False, False, 0)
-    hbox15.pack_start(labelcancel, False, False, 0)
+    hbox15.pack_start(labelcancel, False, True, 0)
     hbox15.pack_start(self.tbcancel, True, True, 0)
     
-    hbox15.pack_start(labelshutdown, False, False, 0)
+    hbox15.pack_start(labelshutdown, False, True, 0)
     hbox15.pack_start(self.tbshutdown, True, True, 0)
     
-    hbox15.pack_start(labelsuspend, False, False, 0)
+    hbox15.pack_start(labelsuspend, False, True, 0)
     hbox15.pack_start(self.tbsuspend, True, True, 0)
     
-    hbox16.pack_start(labelrestart, False, False, 0)
+    hbox16.pack_start(labelrestart, False, True, 0)
     hbox16.pack_start(self.tbrestart, True, True, 0)
 
-    hbox16.pack_start(labellogout, False, False, 0)
+    hbox16.pack_start(labellogout, False, True, 0)
     hbox16.pack_start(self.tblogout, True, True, 0)
 
-    hbox16.pack_start(labelhibernate, False, False, 0)
+    hbox16.pack_start(labelhibernate, False, True, 0)
     hbox16.pack_start(self.tbhibernate, True, True, 0)
     
-    hbox17.pack_start(labellock, False, False, 0)
-    hbox17.pack_start(self.tblock, False, False, 0)
+    hbox17.pack_start(labellock, False, True, 0)
+    hbox17.pack_start(self.tblock, True, True, 0)
 
     Functions.keybinds_populate(self)
     #==========================================================
