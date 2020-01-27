@@ -115,9 +115,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     iconCombo.set_size_request(200, 0)
     cursorCombo.set_size_request(200, 0)
 
-    Functions.get_gtk_themes(self, themeCombo)
-    Functions.get_icon_themes(self, iconCombo)
-    Functions.get_cursor_themes(self, cursorCombo)
+    # Functions.get_gtk_themes(self, themeCombo)
+    # Functions.get_icon_themes(self, iconCombo)
+    # Functions.get_cursor_themes(self, cursorCombo)
 
     hbox1.pack_start(label, False, False, 0)
     hbox1.pack_start(themeCombo, True, True, 0)
