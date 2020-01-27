@@ -5,8 +5,8 @@ import shutil
 home = os.environ['HOME']
 
 pacman = "/etc/pacman.conf"
-oblogout_conf = "/etc/oblogout.conf"
-# oblogout_conf = home + "/oblogout.conf"
+# oblogout_conf = "/etc/oblogout.conf"
+oblogout_conf = home + "/oblogout.conf"
 lightdm_conf = "/etc/lightdm/lightdm-gtk-greeter.conf"
 
 
@@ -214,6 +214,98 @@ def toggle_test_repos(state, widget):
 #=====================================================
 #               OBLOGOUT CONF
 #=====================================================
+def keybinds_populate(self):
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, "r") as f:
+            lines = f.readlines()
+            for i in range(len(lines)):
+                # print(line)
+                
+                if "[shortcuts]" in lines[i]:
+                    
+                    if "cancel =" in lines[i + 1]:                        
+                        value = lines[i + 1].split("=")
+                        val = value[1].lstrip().rstrip()
+                        self.tbcancel.set_text(val)
+
+                    if "shutdown =" in lines[i + 2]:
+                        value = lines[i + 2].split("=")
+                        val = value[1].lstrip().rstrip()
+                        self.tbshutdown.set_text(val)
+
+                    if "restart =" in lines[i + 3]:
+                        value = lines[i + 3].split("=")
+                        val = value[1].lstrip().rstrip()
+                        self.tbrestart.set_text(val)
+
+                    if "suspend =" in lines[i + 4]:
+                        value = lines[i + 4].split("=")
+                        val = value[1].lstrip().rstrip()
+                        self.tbsuspend.set_text(val)
+
+                    if "logout =" in lines[i + 5]:
+                        value = lines[i + 5].split("=")
+                        val = value[1].lstrip().rstrip()
+                        self.tblogout.set_text(val)
+
+                    if "lock =" in lines[i + 6]:
+                        value = lines[i + 6].split("=")
+                        val = value[1].lstrip().rstrip()
+                        self.tblock.set_text(val)
+
+                    if "hibernate =" in lines[i + 7]:
+                        value = lines[i + 7].split("=")
+                        val = value[1].lstrip().rstrip()
+                        self.tbhibernate.set_text(val)
+                    
+def oblogout_change_keybinds(self):
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, 'r') as f:
+                lines = f.readlines()
+                f.close()
+
+        with open(oblogout_conf, 'w') as f:
+            for i in range(0, len(lines)):
+                line = lines[i]
+                if "[shortcuts]" in line:
+                    if "cancel =" in lines[i + 1]:                        
+                        value = lines[i + 1].split("=")
+                        val = value[1].lstrip().rstrip()
+                        lines[i + 1] = lines[i + 1].replace(val, self.tbcancel.get_text().capitalize())
+
+                    if "shutdown =" in lines[i + 2]:
+                        value = lines[i + 2].split("=")
+                        val = value[1].lstrip().rstrip()
+                        lines[i + 2] = lines[i + 2].replace(val, self.tbshutdown.get_text().upper())
+                        
+                    if "restart =" in lines[i + 3]:
+                        value = lines[i + 3].split("=")
+                        val = value[1].lstrip().rstrip()
+                        lines[i + 3] = lines[i + 3].replace(val, self.tbrestart.get_text().upper())
+
+                    if "suspend =" in lines[i + 4]:
+                        value = lines[i + 4].split("=")
+                        val = value[1].lstrip().rstrip()
+                        lines[i + 4] = lines[i + 4].replace(val, self.tbsuspend.get_text().upper())
+
+                    if "logout =" in lines[i + 5]:
+                        value = lines[i + 5].split("=")
+                        val = value[1].lstrip().rstrip()
+                        lines[i + 5] = lines[i + 5].replace(val, self.tblogout.get_text().upper())
+
+                    if "lock =" in lines[i + 6]:
+                        value = lines[i + 6].split("=")
+                        val = value[1].lstrip().rstrip()
+                        lines[i + 6] = lines[i + 6].replace(val, self.tblock.get_text().upper())
+
+                    if "hibernate =" in lines[i + 7]:
+                        value = lines[i + 7].split("=")
+                        val = value[1].lstrip().rstrip()
+                        lines[i + 7] = lines[i + 7].replace(val, self.tbhibernate.get_text().upper())
+            
+            f.writelines(lines)
+            f.close()
+
 def oblog_populate(combo):
     if os.path.isfile(oblogout_conf):
         coms = []
@@ -257,7 +349,6 @@ def oblogout_change_theme(theme):
                 if "buttontheme" in line:
                     
                     if theme == lines[i].split("=")[1].lstrip().rstrip():
-                        print(lines[i].split("=")[1].lstrip().rstrip())
                         lines[i] = line.replace("#","")
             
             f.writelines(lines)

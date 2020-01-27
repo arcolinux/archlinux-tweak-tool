@@ -261,6 +261,84 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox11.pack_start(self.check_cancel, False, False, 0)
     # hbox12.pack_start(SetButtons, False, False, 0)
 
+    
+    #==========================================================
+    #                     KEYBINDS
+    #==========================================================
+    label8 = Gtk.Label()
+    label8.set_markup("<b>Keybinds</b>")
+    
+    labelcancel = Gtk.Label()
+    labelcancel.set_markup("Cancel")
+    labelshutdown = Gtk.Label()
+    labelshutdown.set_markup("Shutdown")
+    labelsuspend = Gtk.Label()
+    labelsuspend.set_markup("Suspend")
+    labelrestart = Gtk.Label()
+    labelrestart.set_markup("Restart")
+    labellogout = Gtk.Label()
+    labellogout.set_markup("Logout")
+    labellock = Gtk.Label()
+    labellock.set_markup("Lock")
+    labelhibernate = Gtk.Label()
+    labelhibernate.set_markup("Hibernate")
+
+    self.tbcancel = Gtk.Entry()
+    self.tbcancel.set_max_length(0)
+    self.tbcancel.set_size_request(50, 0)
+
+    self.tbshutdown = Gtk.Entry()
+    self.tbshutdown.set_max_length(1)
+    self.tbshutdown.set_size_request(10, 0)
+
+    self.tbsuspend = Gtk.Entry()
+    self.tbsuspend.set_max_length(1)
+    self.tbsuspend.set_size_request(50, 0)
+
+    self.tbrestart = Gtk.Entry()
+    self.tbrestart.set_max_length(1)
+    self.tbrestart.set_size_request(50, 0)
+
+    self.tblogout = Gtk.Entry()
+    self.tblogout.set_max_length(1)
+    self.tblogout.set_size_request(50, 0)
+
+    self.tblock = Gtk.Entry()
+    self.tblock.set_max_length(1)
+    self.tblock.set_size_request(50, 0)
+
+    self.tbhibernate = Gtk.Entry()
+    self.tbhibernate.set_max_length(1)
+    self.tbhibernate.set_size_request(50, 0)
+    
+    hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    
+    hbox14.pack_start(label8, False, False, 0)
+    hbox15.pack_start(labelcancel, False, False, 0)
+    hbox15.pack_start(self.tbcancel, True, True, 0)
+    
+    hbox15.pack_start(labelshutdown, False, False, 0)
+    hbox15.pack_start(self.tbshutdown, True, True, 0)
+    
+    hbox15.pack_start(labelsuspend, False, False, 0)
+    hbox15.pack_start(self.tbsuspend, True, True, 0)
+    
+    hbox16.pack_start(labelrestart, False, False, 0)
+    hbox16.pack_start(self.tbrestart, True, True, 0)
+
+    hbox16.pack_start(labellogout, False, False, 0)
+    hbox16.pack_start(self.tblogout, True, True, 0)
+
+    hbox16.pack_start(labelhibernate, False, False, 0)
+    hbox16.pack_start(self.tbhibernate, True, True, 0)
+    
+    hbox17.pack_start(labellock, False, False, 0)
+    hbox17.pack_start(self.tblock, False, False, 0)
+
+    Functions.keybinds_populate(self)
     #==========================================================
     #                     Lockscreen Textbox
     #==========================================================
@@ -303,16 +381,19 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     save_oblogout.connect("clicked", self.save_oblogout)
     hbox13.pack_end(save_oblogout, False, False, 0)   
 
-    vboxStack6.pack_start(hbox6, False, False, 0)
-    vboxStack6.pack_start(hbox5, False, False, 0)
-    vboxStack6.pack_start(hbox4, False, False, 0)
-    vboxStack6.pack_start(hbox7, False, False, 0)
-    vboxStack6.pack_start(hbox10, False, False, 0)
-    vboxStack6.pack_start(hbox11, False, False, 0)
-    # vboxStack6.pack_start(hbox12, False, False, 0)
-    vboxStack6.pack_start(hbox8, False, False, 0)
-    vboxStack6.pack_start(hbox9, False, False, 0)
-    vboxStack6.pack_start(hbox13, False, False, 0)
+    vboxStack6.pack_start(hbox6, False, False, 0) #image
+    vboxStack6.pack_start(hbox5, False, False, 0) #slider
+    vboxStack6.pack_start(hbox4, False, False, 0) #themes
+    vboxStack6.pack_start(hbox7, False, False, 0) #button label
+    vboxStack6.pack_start(hbox10, False, False, 0) #Buttons row 1
+    vboxStack6.pack_start(hbox11, False, False, 0) #Buttons row 2
+    vboxStack6.pack_start(hbox14, False, False, 0) #Keybind Label
+    vboxStack6.pack_start(hbox15, False, False, 0) #keybind row 1
+    vboxStack6.pack_start(hbox16, False, False, 0) #keybind row 2
+    vboxStack6.pack_start(hbox17, False, False, 0) #keybind row 3
+    vboxStack6.pack_start(hbox8, False, False, 0) #lockscreen
+    vboxStack6.pack_start(hbox9, False, False, 0) #Color Button
+    vboxStack6.pack_start(hbox13, False, False, 0) #Save Button
 
     
     #==========================================================

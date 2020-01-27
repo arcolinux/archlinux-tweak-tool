@@ -126,7 +126,7 @@ class Main(Gtk.Window):
         Functions.oblogout_change_theme(self.oblog.get_active_text())
         Functions.set_value(self.hscale.get_value())
         Functions.set_lockscreen(self.lockBox.get_text())
-        # print(widget.get_rgba().to_string())
+        Functions.oblogout_change_keybinds(self)
         hex = Functions.rgb_to_hex(self.colorchooser.get_rgba().to_string())
         Functions.set_color(hex)
 
