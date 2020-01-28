@@ -122,7 +122,7 @@ class Main(Gtk.Window):
             string += "lock "
 
         
-        Functions.set_buttons(string.rstrip().replace(" ", ", "))
+        Functions.set_buttons(string.rstrip().lstrip().replace(" ", ", "))
         Functions.oblogout_change_theme(self.oblog.get_active_text())
         Functions.set_value(self.hscale.get_value())
         Functions.set_lockscreen(self.lockBox.get_text())
@@ -165,10 +165,14 @@ class Main(Gtk.Window):
     #     hex = Functions.rgb_to_hex(widget.get_rgba().to_string())
     #     Functions.set_color(hex)
     
-
+    def save_gtk3_settings(self, widget):
+        print("Saved")
 
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):
+        with open("/tmp/att.pid", "w") as f:
+            f.write(str(os.getpid()))
+            f.close()
         w = Main()
         w.show_all()
         Gtk.main()
@@ -180,8 +184,23 @@ if __name__ == "__main__":
 click yes to remove the lock file and try running again")
 
         result = md.run()
-
         md.destroy()
 
         if result in (Gtk.ResponseType.OK, Gtk.ResponseType.YES):
-            os.unlink("/tmp/att.lock")
+            pid = ""
+            with open("/tmp/att.pid", "r") as f:
+                line = f.read()
+                pid = line.rstrip().lstrip()
+                print(pid)
+                f.close()
+
+            if Functions.checkIfProcessRunning(int(pid)):
+                md2 = Gtk.MessageDialog(parent=Main(), flags=0, message_type=Gtk.MessageType.INFO,
+                               buttons=Gtk.ButtonsType.OK, text="Application Running!")
+                md2.format_secondary_markup(
+                    "You first need to close the existing application")
+
+                result = md2.run()
+                md2.destroy()
+            else:
+                os.unlink("/tmp/att.lock")

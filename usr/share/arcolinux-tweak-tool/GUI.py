@@ -91,12 +91,15 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack1.pack_start(hboxStack2, False, False, 0)
     vboxStack1.pack_start(hboxStack3, True, True, 0)
     vboxStack1.pack_start(hboxStack4, False, False, 0)
+
+
     #==========================================================
     #                 TAB #2 LIGHTDM
     #==========================================================
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
     label = Gtk.Label()
     label.set_markup("Gtk Theme:       ")
@@ -115,9 +118,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     iconCombo.set_size_request(200, 0)
     cursorCombo.set_size_request(200, 0)
 
-    # Functions.get_gtk_themes(self, themeCombo)
-    # Functions.get_icon_themes(self, iconCombo)
-    # Functions.get_cursor_themes(self, cursorCombo)
+    Functions.get_gtk_themes(self, themeCombo)
+    Functions.get_icon_themes(self, iconCombo)
+    Functions.get_cursor_themes(self, cursorCombo)
+
+
+    save_gtk3_themes = Gtk.Button(label="Save Settings")
+    save_gtk3_themes.connect("clicked", self.save_gtk3_settings)
 
     hbox1.pack_start(label, False, False, 0)
     hbox1.pack_start(themeCombo, True, True, 0)
@@ -127,11 +134,14 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     hbox3.pack_start(label3, False, False, 0)
     hbox3.pack_start(cursorCombo, True, True, 0)
+
+    hbox4.pack_end(save_gtk3_themes, False, False, 0)
     
     
     vboxStack2.pack_start(hbox1, False, False, 0)
     vboxStack2.pack_start(hbox2, False, False, 0)
     vboxStack2.pack_start(hbox3, False, False, 0)
+    vboxStack2.pack_end(hbox4, False, False, 0)
 
     #==========================================================
     #                       TAB #3
@@ -404,8 +414,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     #==========================================================
     if Functions.file_check(Functions.pacman):
         stack.add_titled(vboxStack1, "stack1", "Pacman Config")
-    # if Functions.file_check(Functions.lightdm_conf):
-    #     stack.add_titled(vboxStack2, "stack2", "Lightdm Config")
+    stack.add_titled(vboxStack2, "stack2", "Gtk+3 Config")
     # stack.add_titled(vboxStack3, "stack3", "Skel Config")
     # stack.add_titled(vboxStack4, "stack4", "Lockscreen")
     # stack.add_titled(vboxStack5, "stack5", "Grub Config")

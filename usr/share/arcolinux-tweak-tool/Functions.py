@@ -1,13 +1,18 @@
 import os
 import fileinput
 import shutil
+import getpass
+import psutil
+import time
 
-home = os.environ['HOME']
+username = getpass.getuser()
+home = "/home/" + username
+
 
 pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
-# lightdm_conf = "/etc/lightdm/lightdm-gtk-greeter.conf"
+gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
 
 
 def rgb_to_hex(rgb):
@@ -33,82 +38,82 @@ def file_check(file):
 #=====================================================
 #               LIGHTDM CONF
 #=====================================================
-# def get_gtk_themes(self, combo):
-#     if os.path.isfile(lightdm_conf):
-#         active_combo = ""
-#         coms = []
-#         with open(lightdm_conf, "r") as f:
-#             lines = f.readlines()
-#             for line in lines:
+def get_gtk_themes(self, combo):
+    if os.path.isfile(gtk3_settings):
+        active_combo = ""
+        coms = []
+        with open(gtk3_settings, "r") as f:
+            lines = f.readlines()
+            for line in lines:
 
-#                 if line.startswith("theme-name = "):
-#                     output = line.split("=")
-#                     active_combo = output[1].lstrip().rstrip()
+                if line.startswith("gtk-theme-name"):
+                    output = line.split("=")
+                    active_combo = output[1].lstrip().rstrip()
 
-#         for folder in os.listdir("/usr/share/themes"):
-#             if os.path.isdir("/usr/share/themes/" + folder):
-#                 check = os.listdir("/usr/share/themes/" + folder)
-#                 if "gtk-3.0" in check:
-#                     coms.append(folder)
+        for folder in os.listdir("/usr/share/themes"):
+            if os.path.isdir("/usr/share/themes/" + folder):
+                check = os.listdir("/usr/share/themes/" + folder)
+                if "gtk-3.0" in check:
+                    coms.append(folder)
 
-#         coms.sort()
+        coms.sort()
 
-#         for i in range(len(coms)):
-#             combo.append_text(coms[i])
-#             if(coms[i] == active_combo):
-#                 combo.set_active(i)
+        for i in range(len(coms)):
+            combo.append_text(coms[i])
+            if(coms[i] == active_combo):
+                combo.set_active(i)
 
-# def get_icon_themes(self, combo):
-#     if os.path.isfile(lightdm_conf):
-#         active_combo_icon = ""
-#         coms = []
-#         with open(lightdm_conf, "r") as f:
-#             lines = f.readlines()
-#             for line in lines:
+def get_icon_themes(self, combo):
+    if os.path.isfile(gtk3_settings):
+        active_combo_icon = ""
+        coms = []
+        with open(gtk3_settings, "r") as f:
+            lines = f.readlines()
+            for line in lines:
 
-#                 if line.startswith("icon-theme-name ="):
-#                     output = line.split("=")
-#                     active_combo_icon = output[1].lstrip().rstrip()
+                if line.startswith("gtk-icon-theme-name"):
+                    output = line.split("=")
+                    active_combo_icon = output[1].lstrip().rstrip()
 
-#         for folder in os.listdir("/usr/share/icons"):
-#             if os.path.isdir("/usr/share/icons/" + folder):
-#                 check = os.listdir("/usr/share/icons/" + folder)
-#                 if not "cursors" in check:
-#                     coms.append(folder)
-#                     # print(folder)
+        for folder in os.listdir("/usr/share/icons"):
+            if os.path.isdir("/usr/share/icons/" + folder):
+                check = os.listdir("/usr/share/icons/" + folder)
+                if not "cursors" in check:
+                    coms.append(folder)
+                    # print(folder)
 
-#         coms.sort()
+        coms.sort()
 
-#         for i in range(len(coms)):
-#             combo.append_text(coms[i])
-#             if(coms[i] == active_combo_icon):
-#                 combo.set_active(i)
+        for i in range(len(coms)):
+            combo.append_text(coms[i])
+            if(coms[i] == active_combo_icon):
+                combo.set_active(i)
 
-# def get_cursor_themes(self, combo):
-#     if os.path.isfile(lightdm_conf):
-#         active_combo_cursor = ""
-#         coms = []
-#         with open(lightdm_conf, "r") as f:
-#             lines = f.readlines()
-#             for line in lines:
+def get_cursor_themes(self, combo):
+    if os.path.isfile(gtk3_settings):
+        active_combo_cursor = ""
+        coms = []
+        with open(gtk3_settings, "r") as f:
+            lines = f.readlines()
+            for line in lines:
 
-#                 if line.startswith("cursor-theme-name ="):
-#                     output = line.split("=")
-#                     active_combo_cursor = output[1].lstrip().rstrip()
+                if line.startswith("gtk-cursor-theme-name"):
+                    output = line.split("=")
+                    active_combo_cursor = output[1].lstrip().rstrip()
 
-#         for folder in os.listdir("/usr/share/icons"):
-#             if os.path.isdir("/usr/share/icons/" + folder):
-#                 check = os.listdir("/usr/share/icons/" + folder)
-#                 if "cursors" in check:
-#                     coms.append(folder)
-#                     # print(folder)
+        for folder in os.listdir("/usr/share/icons"):
+            if os.path.isdir("/usr/share/icons/" + folder):
+                check = os.listdir("/usr/share/icons/" + folder)
+                if "cursors" in check:
+                    coms.append(folder)
+                    # print(folder)
 
-#         coms.sort()
+        coms.sort()
 
-#         for i in range(len(coms)):
-#             combo.append_text(coms[i])
-#             if(coms[i] == active_combo_cursor):
-#                 combo.set_active(i)
+        for i in range(len(coms)):
+            combo.append_text(coms[i])
+            if(coms[i] == active_combo_cursor):
+                combo.set_active(i)
 
 #=====================================================
 #               PACMAN CONF
@@ -479,3 +484,14 @@ def set_color(color):
                     lines[i] = line.replace(val, color)
             f.writelines(lines)
             f.close()
+
+
+def checkIfProcessRunning(processName):
+    for proc in psutil.process_iter():
+        try:        
+            pinfo = proc.as_dict(attrs=['pid', 'name', 'create_time'])
+            if processName == pinfo['pid']:
+                return True       
+        except (psutil.NoSuchProcess, psutil.AccessDenied , psutil.ZombieProcess) :
+            pass                
+    return False
