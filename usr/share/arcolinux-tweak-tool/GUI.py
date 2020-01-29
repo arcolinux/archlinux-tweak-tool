@@ -82,7 +82,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hboxStack6.pack_end(self.checkbutton3, False, True, 10)
 
     hboxStack2.pack_start(label2, False, True, 10)
-    hboxStack3.pack_start(sw, True, True, 0)
+    hboxStack3.pack_start(sw, True, True, 10)
 
     hboxStack4.pack_end(self.button1, False, False, 0)
     hboxStack4.pack_end(reset_pacman, False, False, 0)
@@ -140,7 +140,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     Functions.get_icon_themes(self, self.iconCombo)
     Functions.get_cursor_themes(self, self.cursorCombo)
 
-    self.cursor_size.set_value(int(Functions.get_gtk_settings(self, "gtk-cursor-theme-size")))
+    self.cursor_size.set_value(int(Functions.get_gtk_settings(self, "gtk-cursor-theme-size").split(".")[0]))
     self.fonts.set_font_name(Functions.get_gtk_settings(self, "gtk-font-name"))
     
 
@@ -150,20 +150,20 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     reset_gtk3_themes = Gtk.Button(label="Reset Defaults")
     reset_gtk3_themes.connect("clicked", self.reset_settings, Functions.gtk3_settings)
 
-    hbox1.pack_start(label, False, False, 0)
-    hbox1.pack_start(self.themeCombo, True, True, 0)
+    hbox1.pack_start(label, False, False, 10)
+    hbox1.pack_start(self.themeCombo, True, True, 10)
     
-    hbox2.pack_start(label2, False, False, 0)
-    hbox2.pack_start(self.iconCombo, True, True, 0)
+    hbox2.pack_start(label2, False, False, 10)
+    hbox2.pack_start(self.iconCombo, True, True, 10)
 
-    hbox3.pack_start(label3, False, False, 0)
-    hbox3.pack_start(self.cursorCombo, True, True, 0)
+    hbox3.pack_start(label3, False, False, 10)
+    hbox3.pack_start(self.cursorCombo, True, True, 10)
 
-    hbox5.pack_start(label5, False, False, 0)
-    hbox5.pack_end(self.cursor_size, False, False, 0)
+    hbox5.pack_start(label5, False, False, 10)
+    hbox5.pack_end(self.cursor_size, False, False, 10)
 
-    hbox6.pack_start(label6, False, False, 0)
-    hbox6.pack_end(self.fonts, False, False, 0)
+    hbox6.pack_start(label6, False, False, 10)
+    hbox6.pack_end(self.fonts, False, False, 10)
     
     hbox4.pack_end(save_gtk3_themes, False, False, 0)
     hbox4.pack_end(reset_gtk3_themes, False, False, 0)
@@ -176,12 +176,19 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack2.pack_end(hbox4, False, False, 0) #Save Button
 
     #==========================================================
-    #                       TAB #3
+    #                       HBLOCK
     #==========================================================
+    hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
     label = Gtk.Label()
-    label.set_markup("<big>Label on Tab #3</big>")
+    label.set_text("enable hblock")
     
-    vboxStack3.pack_start(label, False, False, 0)
+    hbswich = Gtk.Switch()
+    hbswich.set_active(Functions.hblock_get_state)
+    hbox7.pack_start(label, False, False, 10)
+    hbox7.pack_end(hbswich, False, False, 10)
+    
+    vboxStack3.pack_start(hbox7, False, False, 20)
 
     #==========================================================
     #                       TAB #4
@@ -209,12 +216,15 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     image2 = Gtk.Image().new_from_pixbuf(pixbuf2)
     hbox6.pack_start(image2, True, True, 0)
 
-    vals = Functions.get_value()
-    ad1 = Gtk.Adjustment(vals, 0, 100, 5, 10, 0)
-
     #==============================================================
     #                   Opacity Slider
     #==============================================================
+
+    try:
+        vals = Functions.get_opacity()
+        ad1 = Gtk.Adjustment(vals, 0, 100, 5, 10, 0)
+    except:
+        ad1 = Gtk.Adjustment(0, 0, 100, 5, 10, 0)
 
     label5 = Gtk.Label()
     label5.set_text("Opacity")
@@ -227,8 +237,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # self.hscale.connect("value-changed", self.scale_moved)
 
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox5.pack_start(label5, False, True, 0)
-    hbox5.pack_start(self.hscale, True, True, 0)
+    hbox5.pack_start(label5, False, True, 10)
+    hbox5.pack_start(self.hscale, True, True, 10)
 
     #==============================================================
     #                   Theme Dropdown
@@ -239,8 +249,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     label6.set_text("Themes")
 
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox4.pack_start(label6, False, False, 0)
-    hbox4.pack_start(self.oblog, True, True, 0)
+    hbox4.pack_start(label6, False, False, 10)
+    hbox4.pack_start(self.oblog, True, True, 10)
 
     
     #==============================================================
@@ -296,15 +306,15 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     # hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
-    hbox7.pack_start(label7, False, False, 0)
-    hbox10.pack_start(self.check_shut, True, True, 0)
-    hbox10.pack_start(self.check_restart, True, True, 0)
-    hbox10.pack_start(self.check_logout, True, True, 0)
-    hbox10.pack_start(self.check_lock, True, True, 0)
-    hbox11.pack_start(self.check_susp, True, True, 0)
-    hbox11.pack_start(self.check_hiber, True, True, 0)
-    hbox11.pack_start(self.check_cancel, True, True, 0)
-    hbox11.pack_start(self.spacer, True, True, 0)
+    hbox7.pack_start(label7, False, False, 10)
+    hbox10.pack_start(self.check_shut, True, True, 10)
+    hbox10.pack_start(self.check_restart, True, True, 10)
+    hbox10.pack_start(self.check_logout, True, True, 10)
+    hbox10.pack_start(self.check_lock, True, True, 10)
+    hbox11.pack_start(self.check_susp, True, True, 10)
+    hbox11.pack_start(self.check_hiber, True, True, 10)
+    hbox11.pack_start(self.check_cancel, True, True, 10)
+    hbox11.pack_start(self.spacer, True, True, 10)
     # hbox12.pack_start(SetButtons, False, False, 0)
 
     
@@ -362,36 +372,38 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
-    hbox14.pack_start(label8, False, False, 0)
-    hbox15.pack_start(labelcancel, False, True, 0)
-    hbox15.pack_start(self.tbcancel, True, True, 0)
+    hbox14.pack_start(label8, False, False, 10)
+    hbox15.pack_start(labelcancel, False, True, 10)
+    hbox15.pack_start(self.tbcancel, True, True, 10)
     
-    hbox15.pack_start(labelshutdown, False, True, 0)
-    hbox15.pack_start(self.tbshutdown, True, True, 0)
+    hbox15.pack_start(labelshutdown, False, True, 10)
+    hbox15.pack_start(self.tbshutdown, True, True, 10)
     
-    hbox15.pack_start(labelsuspend, False, True, 0)
-    hbox15.pack_start(self.tbsuspend, True, True, 0)
+    hbox15.pack_start(labelsuspend, False, True, 10)
+    hbox15.pack_start(self.tbsuspend, True, True, 10)
     
-    hbox16.pack_start(labelrestart, False, True, 0)
-    hbox16.pack_start(self.tbrestart, True, True, 0)
+    hbox16.pack_start(labelrestart, False, True, 10)
+    hbox16.pack_start(self.tbrestart, True, True, 10)
 
-    hbox16.pack_start(labellogout, False, True, 0)
-    hbox16.pack_start(self.tblogout, True, True, 0)
+    hbox16.pack_start(labellogout, False, True, 10)
+    hbox16.pack_start(self.tblogout, True, True, 10)
 
-    hbox16.pack_start(labelhibernate, False, True, 0)
-    hbox16.pack_start(self.tbhibernate, True, True, 0)
+    hbox16.pack_start(labelhibernate, False, True, 10)
+    hbox16.pack_start(self.tbhibernate, True, True, 10)
     
-    hbox17.pack_start(labellock, False, True, 0)
-    hbox17.pack_start(self.tblock, True, True, 0)
+    hbox17.pack_start(labellock, False, True, 10)
+    hbox17.pack_start(self.tblock, True, True, 10)
 
-    self.tbcancel.set_text(Functions.get_shortcut("cancel"))
-    self.tbshutdown.set_text(Functions.get_shortcut("shutdown"))
-    self.tbsuspend.set_text(Functions.get_shortcut("suspend"))
-    self.tbrestart.set_text(Functions.get_shortcut("restart"))
-    self.tblogout.set_text(Functions.get_shortcut("logout"))
-    self.tbhibernate.set_text(Functions.get_shortcut("hibernate"))
-    self.tblock.set_text(Functions.get_shortcut("lock"))
-
+    try:
+        self.tbcancel.set_text(Functions.get_shortcut("cancel"))
+        self.tbshutdown.set_text(Functions.get_shortcut("shutdown"))
+        self.tbsuspend.set_text(Functions.get_shortcut("suspend"))
+        self.tbrestart.set_text(Functions.get_shortcut("restart"))
+        self.tblogout.set_text(Functions.get_shortcut("logout"))
+        self.tbhibernate.set_text(Functions.get_shortcut("hibernate"))
+        self.tblock.set_text(Functions.get_shortcut("lock"))
+    except:
+        pass
     #==========================================================
     #                     Lockscreen Textbox
     #==========================================================
@@ -400,13 +412,16 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     label8.set_text("Lockscreen")
 
     self.lockBox = Gtk.Entry()
-    self.lockBox.set_text(Functions.get_command("lock"))
+    try:
+        self.lockBox.set_text(Functions.get_command("lock"))
+    except:
+        pass
     # Setlocks = Gtk.Button(label="Set")
     # Setlocks.connect("clicked", self.on_locks_set)
 
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox8.pack_start(label8, False, False, 0)
-    hbox8.pack_start(self.lockBox, True, True, 0)
+    hbox8.pack_start(label8, False, False, 10)
+    hbox8.pack_start(self.lockBox, True, True, 10)
     # hbox8.pack_start(Setlocks, False, False, 0)
 
     
@@ -424,8 +439,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     label9 = Gtk.Label()
     label9.set_text("Background")    
     
-    hbox9.pack_start(label9, False, False, 0)
-    hbox9.pack_start(self.colorchooser, True, True, 0)    
+    hbox9.pack_start(label9, False, False, 10)
+    hbox9.pack_start(self.colorchooser, True, True, 10)    
 
 
 
@@ -460,12 +475,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     if Functions.file_check(Functions.pacman):
         stack.add_titled(vboxStack1, "stack1", "Pacman Config")
     stack.add_titled(vboxStack2, "stack2", "Gtk+3 Config")
-    # stack.add_titled(vboxStack3, "stack3", "Skel Config")
     # stack.add_titled(vboxStack4, "stack4", "Lockscreen")
     # stack.add_titled(vboxStack5, "stack5", "Grub Config")
     if Functions.file_check(Functions.oblogout_conf):
         stack.add_titled(vboxStack6, "stack6", "Oblogout Themes")
-
+    stack.add_titled(vboxStack3, "stack3", "hblock")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)

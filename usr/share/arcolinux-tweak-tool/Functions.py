@@ -4,6 +4,7 @@ import shutil
 import getpass
 import psutil
 import time
+import subprocess
 
 sudo_username = os.getenv("LOGNAME")
 home = "/home/" + str(sudo_username)
@@ -55,7 +56,6 @@ def check_value(list, value):
     if len(data) >= 1:
         data1 = [string for string in data if "#" in string]
         for i in data1:
-            print(i[:4])
             if i[:4].find('#') != -1:
                 data.remove(i)
     return data
@@ -185,14 +185,16 @@ def gtk3_save_settings(value, item):
         with open(gtk3_settings, 'r') as f:
             lines = f.readlines()
             f.close()
-
-        with open(gtk3_settings, 'w') as f:
+        try:
             for i in range(0, len(lines)):
                 if item in lines[i]:
-                    print(lines[i])
                     lines[i] = ''.join([item,"=",str(value),"\n"])
-            f.writelines(lines)
-            f.close()
+
+            with open(gtk3_settings, 'w') as f:
+                f.writelines(lines)
+                f.close()
+        except:
+            pass
 
 
 
@@ -354,7 +356,6 @@ def set_shorcut(value, value_sk):
             f.writelines(lines)
             f.close()
 
-
 def oblog_populate(combo):
     if os.path.isfile(oblogout_conf):
         coms = []
@@ -403,38 +404,36 @@ def oblogout_change_theme(theme):
             f.writelines(lines)
             f.close()
 
-def get_value():
-    opacity = 0
-    if os.path.isfile(oblogout_conf):
-        with open(oblogout_conf, 'r') as f:
-            lines = f.readlines()
-
-            for i in range(0, len(lines)):
-                line = lines[i]
-                if "opacity" in line:
-                    nline = line.split("=")
-                    opacity = nline[1].lstrip().rstrip()
-            
-            f.close()
-            return float(opacity)
-    else:
-        return 0
-
-def set_value(value):
+def get_opacity():
     if os.path.isfile(oblogout_conf):
         with open(oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
-        for i in range(0, len(lines)):
-            line = lines[i]
-            if "opacity" in line:
-                nline = line.split("=")
-                opacity = nline[1].lstrip().rstrip()
-                lines[i] = line.replace(opacity, str(value).split(".")[0])
+
+        data = check_value(lines, "opacity")
+        if not data:
+            opacity = 80
+        else:
+            opacity = _get_variable(lines, "opacity")
+        return int(opacity[1].split(".")[0])
+
+def set_opacity(value):
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, 'r') as f:
+            lines = f.readlines()
+            f.close()
+        data = check_value(lines, 'opacity')
+        if not data:
+            pos = int(_get_position(lines, "[looks]")) + 1
+            lines.insert(pos, 'opacity = ' + str(int(value.split(".")[0])) + '\n')
+        else:
+            pos = int(_get_position(lines, 'opacity'))
+            lines[pos] = 'opacity = ' + str(int(value.split(".")[0])) + '\n'
+
         with open(oblogout_conf, 'w') as f:            
             f.writelines(lines)
             f.close()
-
+        
 def set_buttons(value):
     if os.path.isfile(oblogout_conf):
         with open(oblogout_conf, 'r') as f:
@@ -530,6 +529,20 @@ def set_color(color):
             f.writelines(lines)
             f.close()
 
+#=====================================================
+#               HBLOCK CONF
+#=====================================================
+
+def hblock_get_state():
+    lines = int(subprocess.check_output('wc -l /etc/hosts', shell=True).strip().split()[0])
+    if os.path.exists("/usr/local/bin/hblock") and lines > 100:
+        return True
+    
+    return False
+
+def set_hblock():
+    pass
+    
 
 def checkIfProcessRunning(processName):
     for proc in psutil.process_iter():

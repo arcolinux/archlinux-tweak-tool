@@ -21,8 +21,8 @@ class Main(Gtk.Window):
         self.set_size_request(700, 500)
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
         self.opened = True
-        if not os.path.exists(Functions.home + "/.config/arcolinux-tweak-tool"):
-            os.mkdir(Functions.home + "/.config/arcolinux-tweak-tool")
+        # if not os.path.exists(Functions.home + "/.config/arcolinux-tweak-tool"):
+        #     os.mkdir(Functions.home + "/.config/arcolinux-tweak-tool")
 
         # if not os.path.isfile(settings):
         arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
@@ -133,9 +133,8 @@ class Main(Gtk.Window):
         
         Functions.set_buttons(string.rstrip().lstrip().replace(" ", ", "))
         Functions.oblogout_change_theme(self.oblog.get_active_text())
-        Functions.set_value(self.hscale.get_value())
+        Functions.set_opacity(self.hscale.get_value())
         Functions.set_command("lock", self.lockBox.get_text())
-        Functions.oblogout_change_keybinds(self)
         Functions.set_shorcut("shutdown", self.tbshutdown.get_text().capitalize())
         Functions.set_shorcut("restart", self.tbrestart.get_text().capitalize())
         Functions.set_shorcut("suspend", self.tbsuspend.get_text().capitalize())
@@ -146,52 +145,18 @@ class Main(Gtk.Window):
         hex = Functions.rgb_to_hex(self.colorchooser.get_rgba().to_string())
         Functions.set_color(hex)
 
-
-    # def oblog_changed(self, widget):
-    #     Functions.oblogout_change_theme(widget.get_active_text())
-
-    # def scale_moved(self, widget):
-    #     Functions.set_value(widget.get_value())
-
-    # def on_buttons_set(self, widget):
-    #     string = ""
-    #     if self.check_shut.get_active():
-    #         string += "shutdown "
-    #     if self.check_restart.get_active():
-    #         string += "restart "
-    #     if self.check_logout.get_active():
-    #         string += "logout "
-    #     if self.check_cancel.get_active():
-    #         string += "cancel "
-    #     if self.check_susp.get_active():
-    #         string += "suspend "
-    #     if self.check_hiber.get_active():
-    #         string += "hibernate "
-    #     if self.check_lock.get_active():
-    #         string += "lock "
-
-        
-    #     Functions.set_buttons(string.rstrip().replace(" ", ", "))
-
-    # def on_locks_set(self, widget):
-    #     Functions.set_lockscreen(self.lockBox.get_text())
-
-    # def on_color_chosen(self, widget):
-    #     print(widget.get_rgba().to_string())
-    #     hex = Functions.rgb_to_hex(widget.get_rgba().to_string())
-    #     Functions.set_color(hex)
     
     def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
         Functions.gtk3_save_settings(themeCombo.get_active_text(), "gtk-theme-name")
         Functions.gtk3_save_settings(iconCombo.get_active_text(), "gtk-icon-theme-name")
         Functions.gtk3_save_settings(cursorCombo.get_active_text(), "gtk-cursor-theme-name")
-        Functions.gtk3_save_settings(int(cursor_size.get_value()), "gtk-cursor-theme-size")
+        Functions.gtk3_save_settings(int(str(cursor_size.get_value()).split(".")[0]), "gtk-cursor-theme-size")
         Functions.gtk3_save_settings(fonts.get_font_name(), "gtk-font-name")
 
-        subprocess.call(["xsetroot -xcf /usr/share/icons/" + cursorCombo.get_active_text() + "/cursors/left_ptr " + str(cursor_size.get_value())], shell=True)
+        subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text() + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
 
     def reset_settings(self, widget, filez):
-        print(filez)
+        # print(filez)
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
         if filez == Functions.gtk3_settings:
@@ -201,13 +166,23 @@ class Main(Gtk.Window):
 
             self.cursor_size.set_value(float(Functions.get_gtk_settings(self, "gtk-cursor-theme-size")))
             self.fonts.set_font_name(Functions.get_gtk_settings(self, "gtk-font-name"))
+            subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text() + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
         
         elif filez == Functions.oblogout_conf:
             self.oblog.get_model().clear()
-            vals = Functions.get_value()
+            vals = Functions.get_opacity()
             self.hscale.set_value(vals)
-            Functions.keybinds_populate(self)
-            self.lockBox.set_text(Functions.get_lockscreen())
+            try:
+                self.tbcancel.set_text(Functions.get_shortcut("cancel"))
+                self.tbshutdown.set_text(Functions.get_shortcut("shutdown"))
+                self.tbsuspend.set_text(Functions.get_shortcut("suspend"))
+                self.tbrestart.set_text(Functions.get_shortcut("restart"))
+                self.tblogout.set_text(Functions.get_shortcut("logout"))
+                self.tbhibernate.set_text(Functions.get_shortcut("hibernate"))
+                self.tblock.set_text(Functions.get_shortcut("lock"))
+            except:
+                pass
+            self.lockBox.set_text(Functions.get_command("lock"))
             color = Gdk.RGBA()
             color.parse(Functions.get_color())
             self.colorchooser.set_rgba(color)
@@ -232,7 +207,7 @@ class Main(Gtk.Window):
 
 
 if __name__ == "__main__":
-    print(os.getuid())
+    # print(os.getuid())
     if not os.path.isfile("/tmp/att.lock"):
         with open("/tmp/att.pid", "w") as f:
             f.write(str(os.getpid()))
@@ -255,7 +230,7 @@ click yes to remove the lock file and try running again")
             with open("/tmp/att.pid", "r") as f:
                 line = f.read()
                 pid = line.rstrip().lstrip()
-                print(pid)
+                # print(pid)
                 f.close()
 
             if Functions.checkIfProcessRunning(int(pid)):
