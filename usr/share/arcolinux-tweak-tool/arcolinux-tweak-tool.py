@@ -20,11 +20,10 @@ class Main(Gtk.Window):
         self.set_size_request(700, 500)
 
         self.opened = True
-
-        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
-
         if not os.path.exists(home + "/.config/arcolinux-tweak-tool"):
             os.mkdir(home + "/.config/arcolinux-tweak-tool")
+            
+        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
 
         if not os.path.isfile(settings):
             key = {
