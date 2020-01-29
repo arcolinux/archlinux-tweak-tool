@@ -416,14 +416,13 @@ def set_value(value):
         with open(oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
-
-        with open(oblogout_conf, 'w') as f:
-            for i in range(0, len(lines)):
-                line = lines[i]
-                if "opacity" in line:
-                    nline = line.split("=")
-                    opacity = nline[1].lstrip().rstrip()
-                    lines[i] = line.replace(opacity, str(value).split(".")[0])
+        for i in range(0, len(lines)):
+            line = lines[i]
+            if "opacity" in line:
+                nline = line.split("=")
+                opacity = nline[1].lstrip().rstrip()
+                lines[i] = line.replace(opacity, str(value).split(".")[0])
+        with open(oblogout_conf, 'w') as f:            
             f.writelines(lines)
             f.close()
 
@@ -432,14 +431,15 @@ def set_buttons(value):
         with open(oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
+        
+        for i in range(0, len(lines)):
+            line = lines[i]
+            if "buttons =" in line:
+                nline = line.split("=")
+                val = nline[1].lstrip().rstrip()
+                lines[i] = line.replace(val, value)
 
         with open(oblogout_conf, 'w') as f:
-            for i in range(0, len(lines)):
-                line = lines[i]
-                if "buttons =" in line:
-                    nline = line.split("=")
-                    val = nline[1].lstrip().rstrip()
-                    lines[i] = line.replace(val, value)
             f.writelines(lines)
             f.close()
 
@@ -510,14 +510,14 @@ def set_color(color):
         with open(oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
-
+        for i in range(0, len(lines)):
+            line = lines[i]
+            if "bgcolor =" in line:
+                nline = line.split("=")
+                val = nline[1].lstrip().rstrip()
+                lines[i] = line.replace(val, color)
+                
         with open(oblogout_conf, 'w') as f:
-            for i in range(0, len(lines)):
-                line = lines[i]
-                if "bgcolor =" in line:
-                    nline = line.split("=")
-                    val = nline[1].lstrip().rstrip()
-                    lines[i] = line.replace(val, color)
             f.writelines(lines)
             f.close()
 
