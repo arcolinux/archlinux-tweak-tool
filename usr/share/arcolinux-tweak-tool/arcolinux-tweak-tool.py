@@ -22,8 +22,6 @@ class Main(Gtk.Window):
         self.opened = True
         if not os.path.exists(home + "/.config/arcolinux-tweak-tool"):
             os.mkdir(home + "/.config/arcolinux-tweak-tool")
-            
-        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
 
         if not os.path.isfile(settings):
             key = {
@@ -50,7 +48,9 @@ class Main(Gtk.Window):
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
                 f.write("")
-            
+
+        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
+    
     def on_close(self, widget, data):
         os.unlink("/tmp/att.lock")
         Gtk.main_quit()
