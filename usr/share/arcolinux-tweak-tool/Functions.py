@@ -6,7 +6,8 @@ import psutil
 import time
 
 username = getpass.getuser()
-home = "/home/" + username
+dirs = os.listdir("/home/")
+home = "/home/" + dirs[0]
 
 
 pacman = "/etc/pacman.conf"
