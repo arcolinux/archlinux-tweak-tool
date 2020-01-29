@@ -1,7 +1,7 @@
 import configparser
 import os
+from Functions import home
 
-home = os.environ['HOME']
 settings = home + "/.config/arcolinux-tweak-tool/settings.conf"
 
 def make_file(section, key):

@@ -7,7 +7,7 @@ import subprocess
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, Gio, Gdk
 from Settings import settings, configparser
-from Functions import os, home, pacman
+from Functions import os, pacman
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -19,38 +19,45 @@ class Main(Gtk.Window):
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_from_file(os.path.join(base_dir, 'images/arcolinux.png'))
         self.set_size_request(700, 500)
-        
+        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
         self.opened = True
-        if not os.path.exists(home + "/.config/arcolinux-tweak-tool"):
-            os.mkdir(home + "/.config/arcolinux-tweak-tool")
+        if not os.path.exists(Functions.home + "/.config/arcolinux-tweak-tool"):
+            os.mkdir(Functions.home + "/.config/arcolinux-tweak-tool")
 
-        if not os.path.isfile(settings):
-            key = {
-                'arco-testing-repo': 'False',
-                'arch-testing-repo': 'False',
-                'multilib-testing-repo': 'False'
-            }
-            Settings.make_file('Pacman', key)
-            self.opened = False
-        else:
-            try:
-                arco = Settings.read_settings('Pacman', 'arco-testing-repo')
-                arch = Settings.read_settings('Pacman', 'arch-testing-repo')
-                multi = Settings.read_settings('Pacman', 'multilib-testing-repo')
+        # if not os.path.isfile(settings):
+        arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
+        multi_testing = Functions.check_repo("[multilib-testing]")
+        arch_testing = Functions.check_repo("[testing]")
 
-                self.checkbutton.set_active(eval(arco))
-                self.checkbutton2.set_active(eval(arch))
-                self.checkbutton3.set_active(eval(multi))
-            except:
-                pass
+            # key = {
+            #     'arco-testing-repo': str(arco_testing),
+            #     'arch-testing-repo': str(arch_testing),
+            #     'multilib-testing-repo': str(multi_testing)
+            # }
+            # print(key)
+            # Settings.make_file('Pacman', key)
+        self.checkbutton.set_active(arco_testing)
+        self.checkbutton2.set_active(arch_testing)
+        self.checkbutton3.set_active(multi_testing)
+        self.opened = False
+        # else:
+        #     try:
+        #         arco = Settings.read_settings('Pacman', 'arco-testing-repo')
+        #         arch = Settings.read_settings('Pacman', 'arch-testing-repo')
+        #         multi = Settings.read_settings('Pacman', 'multilib-testing-repo')
 
-            self.opened = False
+        #         self.checkbutton.set_active(eval(arco))
+        #         self.checkbutton2.set_active(eval(arch))
+        #         self.checkbutton3.set_active(eval(multi))
+        #     except:
+        #         pass
+
+        #     self.opened = False
 
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
                 f.write("")
 
-        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
         
     def on_close(self, widget, data):
         os.unlink("/tmp/att.lock")
@@ -62,34 +69,34 @@ class Main(Gtk.Window):
 
     def on_pacman_toggle(self, widget, active):
         if self.opened == False:
-            key = {
-                'arco-testing-repo': str(self.checkbutton.get_active()),
-                'arch-testing-repo': str(self.checkbutton2.get_active()),
-                'multilib-testing-repo': str(self.checkbutton3.get_active())
-            }
-            Settings.write_settings("Pacman", key)
+            # key = {
+            #     'arco-testing-repo': str(self.checkbutton.get_active()),
+            #     'arch-testing-repo': str(self.checkbutton2.get_active()),
+            #     'multilib-testing-repo': str(self.checkbutton3.get_active())
+            # }
+            # Settings.write_settings("Pacman", key)
             Functions.toggle_test_repos(widget.get_active(), "arco")
 
     def on_pacman_toggle2(self, widget, active):
         if self.opened == False:
-            print("WRITE")
-            key = {
-                'arco-testing-repo': str(self.checkbutton.get_active()),
-                'arch-testing-repo': str(self.checkbutton2.get_active()),
-                'multilib-testing-repo': str(self.checkbutton3.get_active())
-            }
-            Settings.write_settings("Pacman", key)
+            # print("WRITE")
+            # key = {
+            #     'arco-testing-repo': str(self.checkbutton.get_active()),
+            #     'arch-testing-repo': str(self.checkbutton2.get_active()),
+            #     'multilib-testing-repo': str(self.checkbutton3.get_active())
+            # }
+            # Settings.write_settings("Pacman", key)
             Functions.toggle_test_repos(widget.get_active(), "arch")
 
     def on_pacman_toggle3(self, widget, active):
         if self.opened == False:
-            print("WRITE")
-            key = {
-                'arco-testing-repo': str(self.checkbutton.get_active()),
-                'arch-testing-repo': str(self.checkbutton2.get_active()),
-                'multilib-testing-repo': str(self.checkbutton3.get_active())
-            }
-            Settings.write_settings("Pacman", key)
+            # print("WRITE")
+            # key = {
+            #     'arco-testing-repo': str(self.checkbutton.get_active()),
+            #     'arch-testing-repo': str(self.checkbutton2.get_active()),
+            #     'multilib-testing-repo': str(self.checkbutton3.get_active())
+            # }
+            # Settings.write_settings("Pacman", key)
             Functions.toggle_test_repos(widget.get_active(), "multilib")
 
 

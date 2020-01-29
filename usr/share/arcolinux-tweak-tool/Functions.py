@@ -204,6 +204,15 @@ def append_repo(self, text):
         myfile.write("\n\n")
         myfile.write(text)
 
+def check_repo(value):
+    with open(pacman, "r") as myfile:
+        lines = myfile.readlines()
+        myfile.close()
+    
+    for line in lines:
+        if "#" + value in line:
+            return False
+    return True
 
 def toggle_test_repos(state, widget):
     if not os.path.isfile(pacman + ".bak"):
@@ -516,7 +525,7 @@ def set_color(color):
                 nline = line.split("=")
                 val = nline[1].lstrip().rstrip()
                 lines[i] = line.replace(val, color)
-                
+
         with open(oblogout_conf, 'w') as f:
             f.writelines(lines)
             f.close()
