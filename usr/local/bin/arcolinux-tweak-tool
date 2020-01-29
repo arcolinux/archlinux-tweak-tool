@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
-# pkexec '/usr/share/arcolinux-tweak-tool/arcolinux-tweak-tool.py'
-./usr/share/arcolinux-tweak-tool/arcolinux-tweak-tool.py
+pkexec '/usr/share/arcolinux-tweak-tool/arcolinux-tweak-tool.py'
