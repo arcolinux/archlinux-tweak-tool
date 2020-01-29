@@ -5,9 +5,9 @@ import getpass
 import psutil
 import time
 
-_USERNAME = os.getenv("SUDO_USER") or os.getenv("USER") 
-home = os.path.expanduser('~'+_USERNAME)
-print(_USERNAME)
+sudo_username = os.getenv("LOGNAME")
+home = "/home/" + str(sudo_username)
+
 pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
@@ -25,6 +25,40 @@ def clamp(x):
   return max(0, min(x, 255))
 
 
+# Get list value index.
+def _get_position(list, value):
+    data = [string for string in list if value in string]
+    position = list.index(data[0])
+    return position
+
+# Search variable and value.
+def _get_variable(list, value):
+    data = [string for string in list if value in string]
+
+    # Search # line
+    if len(data) >= 1:
+
+        data1 = [string for string in data if "#" in string]
+
+        # If data1 not empty
+        for i in data1:
+            if i[:4].find('#') != -1:
+                data.remove(i)
+    # If not empty
+    if data:
+        data_clean = [data[0].strip('\n').replace(" ", "")][0].split("=")
+    return data_clean
+
+# Check  value exists
+def check_value(list, value):
+    data = [string for string in list if value in string]
+    if len(data) >= 1:
+        data1 = [string for string in data if "#" in string]
+        for i in data1:
+            print(i[:4])
+            if i[:4].find('#') != -1:
+                data.remove(i)
+    return data
 #=====================================================
 #               Check if File Exists
 #=====================================================
@@ -265,97 +299,52 @@ def toggle_test_repos(state, widget):
 #=====================================================
 #               OBLOGOUT CONF
 #=====================================================
-def keybinds_populate(self):
+# Get shortcuts index
+def get_shortcuts(conflist):
+    sortcuts = _get_variable(conflist, "shortcuts")
+    shortcuts_index = _get_position(conflist, sortcuts[0])
+    return int(shortcuts_index)
+
+# Get commands index
+def get_commands(conflist):
+    commands = _get_variable(conflist, "commands")
+    commands_index = _get_position(conflist, commands[0])
+    return int(commands_index)
+
+def get_shortcut(value):
     if os.path.isfile(oblogout_conf):
         with open(oblogout_conf, "r") as f:
             lines = f.readlines()
-            for i in range(len(lines)):
-                # print(line)
-                
-                if "[shortcuts]" in lines[i]:
-                    
-                    if "cancel =" in lines[i + 1]:                        
-                        value = lines[i + 1].split("=")
-                        val = value[1].lstrip().rstrip()
-                        self.tbcancel.set_text(val)
+            f.close()
+        shortcu = check_value(lines[get_shortcuts(lines):get_commands(lines)], value)
+        if not shortcu:
+            shortcut = [value, '']            
+        else:
+            shortcut = [shortcu[0].lstrip().rstrip().replace(" ", "")][0].split("=")
+        return shortcut[1]
 
-                    if "shutdown =" in lines[i + 2]:
-                        value = lines[i + 2].split("=")
-                        val = value[1].lstrip().rstrip()
-                        self.tbshutdown.set_text(val)
-
-                    if "restart =" in lines[i + 3]:
-                        value = lines[i + 3].split("=")
-                        val = value[1].lstrip().rstrip()
-                        self.tbrestart.set_text(val)
-
-                    if "suspend =" in lines[i + 4]:
-                        value = lines[i + 4].split("=")
-                        val = value[1].lstrip().rstrip()
-                        self.tbsuspend.set_text(val)
-
-                    if "logout =" in lines[i + 5]:
-                        value = lines[i + 5].split("=")
-                        val = value[1].lstrip().rstrip()
-                        self.tblogout.set_text(val)
-
-                    if "lock =" in lines[i + 6]:
-                        value = lines[i + 6].split("=")
-                        val = value[1].lstrip().rstrip()
-                        self.tblock.set_text(val)
-
-                    if "hibernate =" in lines[i + 7]:
-                        value = lines[i + 7].split("=")
-                        val = value[1].lstrip().rstrip()
-                        self.tbhibernate.set_text(val)
-                    
-def oblogout_change_keybinds(self):
+def set_shorcut(value, value_sk):
     if os.path.isfile(oblogout_conf):
         with open(oblogout_conf, 'r') as f:
-                lines = f.readlines()
-                f.close()
+            lines = f.readlines()
+            f.close()
 
-        with open(oblogout_conf, 'w') as f:
-            for i in range(0, len(lines)):
-                line = lines[i]
-                if "[shortcuts]" in line:
-                    if "cancel =" in lines[i + 1]:                        
-                        value = lines[i + 1].split("=")
-                        val = value[1].lstrip().rstrip()
-                        lines[i + 1] = lines[i + 1].replace(val, self.tbcancel.get_text().capitalize())
+        shortcuts_pos = _get_position(lines, "[shortcuts]")
+        commandss_pos = _get_position(lines, "[commands]")
+        data1_shortcut = check_value(lines[shortcuts_pos:commandss_pos], value)
 
-                    if "shutdown =" in lines[i + 2]:
-                        value = lines[i + 2].split("=")
-                        val = value[1].lstrip().rstrip()
-                        lines[i + 2] = lines[i + 2].replace(val, self.tbshutdown.get_text().upper())
-                        
-                    if "restart =" in lines[i + 3]:
-                        value = lines[i + 3].split("=")
-                        val = value[1].lstrip().rstrip()
-                        lines[i + 3] = lines[i + 3].replace(val, self.tbrestart.get_text().upper())
+        if not data1_shortcut:
 
-                    if "suspend =" in lines[i + 4]:
-                        value = lines[i + 4].split("=")
-                        val = value[1].lstrip().rstrip()
-                        lines[i + 4] = lines[i + 4].replace(val, self.tbsuspend.get_text().upper())
-
-                    if "logout =" in lines[i + 5]:
-                        value = lines[i + 5].split("=")
-                        val = value[1].lstrip().rstrip()
-                        lines[i + 5] = lines[i + 5].replace(val, self.tblogout.get_text().upper())
-
-                    if "lock =" in lines[i + 6]:
-                        value = lines[i + 6].split("=")
-                        val = value[1].lstrip().rstrip()
-                        lines[i + 6] = lines[i + 6].replace(val, self.tblock.get_text().upper())
-
-                    if "hibernate =" in lines[i + 7]:
-                        value = lines[i + 7].split("=")
-                        val = value[1].lstrip().rstrip()
-                        lines[i + 7] = lines[i + 7].replace(val, self.tbhibernate.get_text().upper())
-            
+            pos = shortcuts_pos + 5
+            lines.insert(pos, value + ' = ' + str(value_sk) + '\n')
+        else:
+            pos = int(_get_position(lines[shortcuts_pos:commandss_pos], value))
+            lines[shortcuts_pos + pos] = value + ' = ' + str(value_sk) + '\n'
+        
+        with open(oblogout_conf, 'w') as f:            
             f.writelines(lines)
             f.close()
+
 
 def oblog_populate(combo):
     if os.path.isfile(oblogout_conf):
@@ -471,39 +460,40 @@ def get_buttons():
     else:
         return buttons
 
-def get_lockscreen():
-    lock = "You do not have oblogout.conf"
-    if os.path.isfile(oblogout_conf):
-        with open(oblogout_conf, 'r') as f:
-            lines = f.readlines()
-
-            for i in range(0, len(lines)):
-                line = lines[i]
-                if "lock =" in line and i == (len(lines) -1):
-                    nline = line.split("=")
-                    lock = nline[1].lstrip().rstrip()
-                    
-            f.close()
-            return lock
-    else:
-        return lock
-
-def set_lockscreen(value):
+def get_command(value):
     if os.path.isfile(oblogout_conf):
         with open(oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
+        comman = check_value(lines[get_commands(lines):], value)
+        if not comman:
+            command = ['', '']
+            command[0] = value
+        else:
+            command = [comman[0].strip('\n')][0].split("=")
+            command[0] = command[0].replace(' ', '').replace('#', '')
+            command[1] = command[1][:1].replace(' ', '') + command[1][1:]
+        # command[1] = command1[:1].replace(' ', '')
+        return command[1]
 
-        with open(oblogout_conf, 'w') as f:
-            for i in range(0, len(lines)):
-                line = lines[i]
-                if "lock =" in line and i == (len(lines) -1):
-                    nline = line.split("=")
-                    val = nline[1].lstrip().rstrip()
-                    lines[i] = line.replace(val, value)
+def set_command(value, value_sk):
+    if os.path.isfile(oblogout_conf):
+        with open(oblogout_conf, 'r') as f:
+            lines = f.readlines()
+            f.close()
+        commandss_pos = _get_position(lines, "[commands]")
+        data_command = check_value(lines[commandss_pos:], value)
+        if not data_command:
+            pos = data_command + 4
+            lines.insert(pos, value + ' = ' + str(value_sk) + '\n')
+        else:
+            pos = int(_get_position(lines[commandss_pos:], value))
+            lines[commandss_pos + pos] = value + ' = ' + str(value_sk) + '\n'
+        
+        with open(oblogout_conf, 'w') as f:            
             f.writelines(lines)
             f.close()
- 
+
 def get_color():
     color = ""
     if os.path.isfile(oblogout_conf):

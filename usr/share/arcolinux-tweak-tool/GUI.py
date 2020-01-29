@@ -140,7 +140,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     Functions.get_icon_themes(self, self.iconCombo)
     Functions.get_cursor_themes(self, self.cursorCombo)
 
-    self.cursor_size.set_value(float(Functions.get_gtk_settings(self, "gtk-cursor-theme-size")))
+    self.cursor_size.set_value(int(Functions.get_gtk_settings(self, "gtk-cursor-theme-size")))
     self.fonts.set_font_name(Functions.get_gtk_settings(self, "gtk-font-name"))
     
 
@@ -384,7 +384,14 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox17.pack_start(labellock, False, True, 0)
     hbox17.pack_start(self.tblock, True, True, 0)
 
-    Functions.keybinds_populate(self)
+    self.tbcancel.set_text(Functions.get_shortcut("cancel"))
+    self.tbshutdown.set_text(Functions.get_shortcut("shutdown"))
+    self.tbsuspend.set_text(Functions.get_shortcut("suspend"))
+    self.tbrestart.set_text(Functions.get_shortcut("restart"))
+    self.tblogout.set_text(Functions.get_shortcut("logout"))
+    self.tbhibernate.set_text(Functions.get_shortcut("hibernate"))
+    self.tblock.set_text(Functions.get_shortcut("lock"))
+
     #==========================================================
     #                     Lockscreen Textbox
     #==========================================================
@@ -393,7 +400,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     label8.set_text("Lockscreen")
 
     self.lockBox = Gtk.Entry()
-    self.lockBox.set_text(Functions.get_lockscreen())
+    self.lockBox.set_text(Functions.get_command("lock"))
     # Setlocks = Gtk.Button(label="Set")
     # Setlocks.connect("clicked", self.on_locks_set)
 

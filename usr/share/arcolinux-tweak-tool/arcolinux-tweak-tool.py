@@ -19,7 +19,7 @@ class Main(Gtk.Window):
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_from_file(os.path.join(base_dir, 'images/arcolinux.png'))
         self.set_size_request(700, 500)
-
+        
         self.opened = True
         if not os.path.exists(home + "/.config/arcolinux-tweak-tool"):
             os.mkdir(home + "/.config/arcolinux-tweak-tool")
@@ -51,7 +51,7 @@ class Main(Gtk.Window):
                 f.write("")
 
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
-    
+        
     def on_close(self, widget, data):
         os.unlink("/tmp/att.lock")
         Gtk.main_quit()
@@ -127,8 +127,15 @@ class Main(Gtk.Window):
         Functions.set_buttons(string.rstrip().lstrip().replace(" ", ", "))
         Functions.oblogout_change_theme(self.oblog.get_active_text())
         Functions.set_value(self.hscale.get_value())
-        Functions.set_lockscreen(self.lockBox.get_text())
+        Functions.set_command("lock", self.lockBox.get_text())
         Functions.oblogout_change_keybinds(self)
+        Functions.set_shorcut("shutdown", self.tbshutdown.get_text().capitalize())
+        Functions.set_shorcut("restart", self.tbrestart.get_text().capitalize())
+        Functions.set_shorcut("suspend", self.tbsuspend.get_text().capitalize())
+        Functions.set_shorcut("logout", self.tblogout.get_text().capitalize())
+        Functions.set_shorcut("cancel", self.tbcancel.get_text().capitalize())
+        Functions.set_shorcut("hibernate", self.tbhibernate.get_text().capitalize())
+        Functions.set_shorcut("lock", self.tblock.get_text().capitalize())
         hex = Functions.rgb_to_hex(self.colorchooser.get_rgba().to_string())
         Functions.set_color(hex)
 
@@ -218,6 +225,7 @@ class Main(Gtk.Window):
 
 
 if __name__ == "__main__":
+    print(os.getuid())
     if not os.path.isfile("/tmp/att.lock"):
         with open("/tmp/att.pid", "w") as f:
             f.write(str(os.getpid()))
