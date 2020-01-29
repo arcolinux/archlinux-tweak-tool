@@ -27,7 +27,7 @@ def clamp(x):
 
 
 #=====================================================
-#               LIGHTDM CONF
+#               Check if File Exists
 #=====================================================
 def file_check(file):
     if os.path.isfile(file):
@@ -36,11 +36,12 @@ def file_check(file):
     return False
 
 #=====================================================
-#               LIGHTDM CONF
+#               GTK3 CONF
 #=====================================================
 def get_gtk_themes(self, combo):
     if os.path.isfile(gtk3_settings):
         active_combo = ""
+        combo.get_model().clear()
         coms = []
         with open(gtk3_settings, "r") as f:
             lines = f.readlines()
@@ -66,6 +67,7 @@ def get_gtk_themes(self, combo):
 def get_icon_themes(self, combo):
     if os.path.isfile(gtk3_settings):
         active_combo_icon = ""
+        combo.get_model().clear()
         coms = []
         with open(gtk3_settings, "r") as f:
             lines = f.readlines()
@@ -91,6 +93,7 @@ def get_icon_themes(self, combo):
 
 def get_cursor_themes(self, combo):
     if os.path.isfile(gtk3_settings):
+        combo.get_model().clear()
         active_combo_cursor = ""
         coms = []
         with open(gtk3_settings, "r") as f:
@@ -115,6 +118,39 @@ def get_cursor_themes(self, combo):
             if(coms[i] == active_combo_cursor):
                 combo.set_active(i)
 
+def get_gtk_settings(self, item):
+    if os.path.isfile(gtk3_settings):
+        active_cursor = ""
+        with open(gtk3_settings, "r") as f:
+            lines = f.readlines()
+            for line in lines:
+
+                if line.startswith(item):
+                    output = line.split("=")
+                    active_cursor = output[1].lstrip().rstrip()
+            f.close()
+        
+        return active_cursor
+
+def gtk3_save_settings(value, item):
+    if not os.path.isfile(gtk3_settings + ".bak"):
+        shutil.copy(gtk3_settings,gtk3_settings + ".bak")
+
+    if os.path.isfile(gtk3_settings):
+        with open(gtk3_settings, 'r') as f:
+            lines = f.readlines()
+            f.close()
+
+        with open(gtk3_settings, 'w') as f:
+            for i in range(0, len(lines)):
+                if item in lines[i]:
+                    print(lines[i])
+                    lines[i] = item + "=" + str(value) + "\n"
+            f.writelines(lines)
+            f.close()
+
+
+
 #=====================================================
 #               PACMAN CONF
 #=====================================================
@@ -125,7 +161,6 @@ def append_repo(self, text):
 
 
 def toggle_test_repos(state, widget):
-    print(widget)
     if not os.path.isfile(pacman + ".bak"):
         shutil.copy(pacman, pacman + ".bak")
     lines = ""

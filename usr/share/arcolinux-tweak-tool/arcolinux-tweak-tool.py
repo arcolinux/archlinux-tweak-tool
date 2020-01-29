@@ -104,7 +104,9 @@ class Main(Gtk.Window):
     #=====================================================
     
     def save_oblogout(self, widget):
-        
+        if not os.path.isfile(Functions.oblogout_conf + ".bak"):
+            Functions.shutil.copy(Functions.oblogout_conf, Functions.oblogout_conf + ".bak")
+
         string = ""
         if self.check_shut.get_active():
             string += "shutdown "
@@ -165,8 +167,53 @@ class Main(Gtk.Window):
     #     hex = Functions.rgb_to_hex(widget.get_rgba().to_string())
     #     Functions.set_color(hex)
     
-    def save_gtk3_settings(self, widget):
-        print("Saved")
+    def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
+        Functions.gtk3_save_settings(themeCombo.get_active_text(), "gtk-theme-name")
+        Functions.gtk3_save_settings(iconCombo.get_active_text(), "gtk-icon-theme-name")
+        Functions.gtk3_save_settings(cursorCombo.get_active_text(), "gtk-cursor-theme-name")
+        Functions.gtk3_save_settings(cursor_size.get_value(), "gtk-cursor-theme-size")
+        Functions.gtk3_save_settings(fonts.get_font_name(), "gtk-font-name")
+
+    def reset_settings(self, widget, filez):
+        print(filez)
+        if os.path.isfile(filez + ".bak"):
+            Functions.shutil.copy(filez + ".bak", filez)
+        if filez == Functions.gtk3_settings:
+            Functions.get_gtk_themes(self, self.themeCombo)
+            Functions.get_icon_themes(self, self.iconCombo)
+            Functions.get_cursor_themes(self, self.cursorCombo)
+
+            self.cursor_size.set_value(float(Functions.get_gtk_settings(self, "gtk-cursor-theme-size")))
+            self.fonts.set_font_name(Functions.get_gtk_settings(self, "gtk-font-name"))
+        
+        elif filez == Functions.oblogout_conf:
+            self.oblog.get_model().clear()
+            vals = Functions.get_value()
+            self.hscale.set_value(vals)
+            Functions.keybinds_populate(self)
+            self.lockBox.set_text(Functions.get_lockscreen())
+            color = Gdk.RGBA()
+            color.parse(Functions.get_color())
+            self.colorchooser.set_rgba(color)
+            btnString = Functions.get_buttons()
+            Functions.oblog_populate(self.oblog)
+            
+            
+            if "shutdown" in btnString:
+                self.check_shut.set_active(True)
+            if "lock" in btnString:
+                self.check_lock.set_active(True)
+            if "logout" in btnString:
+                self.check_logout.set_active(True)
+            if "restart" in btnString:
+                self.check_restart.set_active(True)
+            if "cancel" in btnString:
+                self.check_cancel.set_active(True)
+            if "suspend" in btnString:
+                self.check_susp.set_active(True)
+            if "hibernate" in btnString:
+                self.check_hiber.set_active(True)
+
 
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):

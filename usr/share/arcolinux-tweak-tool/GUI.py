@@ -71,7 +71,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     self.button1 = Gtk.Button(label="Apply Custom Repo")
     self.button1.connect('clicked', self.button1_clicked)
-    
+    reset_pacman = Gtk.Button(label="Reset Pacman")
+    reset_pacman.connect("clicked", self.reset_settings, Functions.pacman)
+
     hboxStack1.pack_start(label1, False, True, 10)
     hboxStack1.pack_end(self.checkbutton, False, True, 10)
     hboxStack5.pack_start(label3, False, True, 10)
@@ -81,8 +83,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     hboxStack2.pack_start(label2, False, True, 10)
     hboxStack3.pack_start(sw, True, True, 0)
-    hboxStack4.pack_end(self.button1, False, False, 0)
 
+    hboxStack4.pack_end(self.button1, False, False, 0)
+    hboxStack4.pack_end(reset_pacman, False, False, 0)
     
 
     vboxStack1.pack_start(hboxStack1, False, False, 0)
@@ -94,12 +97,14 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
 
     #==========================================================
-    #                 TAB #2 LIGHTDM
+    #                 TAB #2 GTK THEMES
     #==========================================================
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
     label = Gtk.Label()
     label.set_markup("Gtk Theme:       ")
@@ -110,38 +115,65 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     label3 = Gtk.Label()
     label3.set_markup("Cursor Theme:")
     
-    themeCombo = Gtk.ComboBoxText()
-    iconCombo = Gtk.ComboBoxText()
-    cursorCombo = Gtk.ComboBoxText()
+    label5 = Gtk.Label()
+    label5.set_markup("Cursor Size: ")
 
-    themeCombo.set_size_request(200, 0)
-    iconCombo.set_size_request(200, 0)
-    cursorCombo.set_size_request(200, 0)
+    label6 = Gtk.Label()
+    label6.set_markup("Select Font: ")
+    
+    self.themeCombo = Gtk.ComboBoxText()
+    self.iconCombo = Gtk.ComboBoxText()
+    self.cursorCombo = Gtk.ComboBoxText()
+    
+    adj1 = Gtk.Adjustment(1.0, 1.0, 42.0, 1.0, 5.0, 0.0)
+    self.cursor_size = Gtk.SpinButton()
+    self.cursor_size.set_adjustment(adj1)
 
-    Functions.get_gtk_themes(self, themeCombo)
-    Functions.get_icon_themes(self, iconCombo)
-    Functions.get_cursor_themes(self, cursorCombo)
+    self.fonts = Gtk.FontButton()
 
+    self.themeCombo.set_size_request(200, 0)
+    self.iconCombo.set_size_request(200, 0)
+    self.cursorCombo.set_size_request(200, 0)
+    
+    # Set functions
+    Functions.get_gtk_themes(self, self.themeCombo)
+    Functions.get_icon_themes(self, self.iconCombo)
+    Functions.get_cursor_themes(self, self.cursorCombo)
+
+    self.cursor_size.set_value(float(Functions.get_gtk_settings(self, "gtk-cursor-theme-size")))
+    self.fonts.set_font_name(Functions.get_gtk_settings(self, "gtk-font-name"))
+    
 
     save_gtk3_themes = Gtk.Button(label="Save Settings")
-    save_gtk3_themes.connect("clicked", self.save_gtk3_settings)
+    save_gtk3_themes.connect("clicked", self.save_gtk3_settings, self.themeCombo, self.iconCombo, self.cursorCombo, self.cursor_size, self.fonts)
+
+    reset_gtk3_themes = Gtk.Button(label="Reset Defaults")
+    reset_gtk3_themes.connect("clicked", self.reset_settings, Functions.gtk3_settings)
 
     hbox1.pack_start(label, False, False, 0)
-    hbox1.pack_start(themeCombo, True, True, 0)
+    hbox1.pack_start(self.themeCombo, True, True, 0)
     
     hbox2.pack_start(label2, False, False, 0)
-    hbox2.pack_start(iconCombo, True, True, 0)
+    hbox2.pack_start(self.iconCombo, True, True, 0)
 
     hbox3.pack_start(label3, False, False, 0)
-    hbox3.pack_start(cursorCombo, True, True, 0)
+    hbox3.pack_start(self.cursorCombo, True, True, 0)
 
+    hbox5.pack_start(label5, False, False, 0)
+    hbox5.pack_end(self.cursor_size, False, False, 0)
+
+    hbox6.pack_start(label6, False, False, 0)
+    hbox6.pack_end(self.fonts, False, False, 0)
+    
     hbox4.pack_end(save_gtk3_themes, False, False, 0)
+    hbox4.pack_end(reset_gtk3_themes, False, False, 0)
     
-    
-    vboxStack2.pack_start(hbox1, False, False, 0)
-    vboxStack2.pack_start(hbox2, False, False, 0)
-    vboxStack2.pack_start(hbox3, False, False, 0)
-    vboxStack2.pack_end(hbox4, False, False, 0)
+    vboxStack2.pack_start(hbox1, False, False, 0)#Gtk Themes
+    vboxStack2.pack_start(hbox2, False, False, 0)#Gtk Icon Themes
+    vboxStack2.pack_start(hbox3, False, False, 0)#Gtk Cursor Themes
+    vboxStack2.pack_start(hbox5, False, False, 0)#Gtk Cursor Size
+    vboxStack2.pack_start(hbox6, False, False, 0)#Gtk Fonts
+    vboxStack2.pack_end(hbox4, False, False, 0) #Save Button
 
     #==========================================================
     #                       TAB #3
@@ -206,9 +238,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.oblog = Gtk.ComboBoxText()
     label6.set_text("Themes")
 
-    # self.oblog.connect("changed", self.oblog_changed)
-    Functions.oblog_populate(self.oblog)
-
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4.pack_start(label6, False, False, 0)
     hbox4.pack_start(self.oblog, True, True, 0)
@@ -237,8 +266,12 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.check_hiber.set_label(  "Show Hibernate")
     self.spacer = Gtk.Label()
     self.spacer.set_text(        "                                   ")
-    btnString = Functions.get_buttons()
 
+    
+    btnString = Functions.get_buttons()
+    Functions.oblog_populate(self.oblog)
+    
+    
     if "shutdown" in btnString:
         self.check_shut.set_active(True)
     if "lock" in btnString:
@@ -392,7 +425,12 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     save_oblogout = Gtk.Button(label="Save Settings")
     save_oblogout.connect("clicked", self.save_oblogout)
+
+    reset_oblogout = Gtk.Button(label="Reset Settings")
+    reset_oblogout.connect("clicked", self.reset_settings, Functions.oblogout_conf)
+
     hbox13.pack_end(save_oblogout, False, False, 0)   
+    hbox13.pack_end(reset_oblogout, False, False, 0)   
 
     vboxStack6.pack_start(hbox6, False, False, 0) #image
     vboxStack6.pack_start(hbox5, False, False, 0) #slider
