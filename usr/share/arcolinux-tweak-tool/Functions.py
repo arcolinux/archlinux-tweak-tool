@@ -5,10 +5,8 @@ import getpass
 import psutil
 import time
 
-username = getpass.getuser()
-dirs = os.listdir("/home/")
-home = "/home/" + dirs[0]
-
+_USERNAME = os.getenv("SUDO_USER") or os.getenv("USER") 
+home = os.path.expanduser('~'+_USERNAME)
 
 pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
@@ -41,95 +39,107 @@ def file_check(file):
 #=====================================================
 def get_gtk_themes(self, combo):
     if os.path.isfile(gtk3_settings):
-        active_combo = ""
-        combo.get_model().clear()
-        coms = []
-        with open(gtk3_settings, "r") as f:
-            lines = f.readlines()
-            for line in lines:
+        try:
+            active_combo = ""
+            combo.get_model().clear()
+            coms = []
+            with open(gtk3_settings, "r") as f:
+                lines = f.readlines()
+                for line in lines:
 
-                if line.startswith("gtk-theme-name"):
-                    output = line.split("=")
-                    active_combo = output[1].lstrip().rstrip()
+                    if line.startswith("gtk-theme-name"):
+                        output = line.split("=")
+                        active_combo = output[1].lstrip().rstrip()
 
-        for folder in os.listdir("/usr/share/themes"):
-            if os.path.isdir("/usr/share/themes/" + folder):
-                check = os.listdir("/usr/share/themes/" + folder)
-                if "gtk-3.0" in check:
-                    coms.append(folder)
+            for folder in os.listdir("/usr/share/themes"):
+                if os.path.isdir("/usr/share/themes/" + folder):
+                    check = os.listdir("/usr/share/themes/" + folder)
+                    if "gtk-3.0" in check:
+                        coms.append(folder)
 
-        coms.sort()
+            coms.sort()
 
-        for i in range(len(coms)):
-            combo.append_text(coms[i])
-            if(coms[i] == active_combo):
-                combo.set_active(i)
+            for i in range(len(coms)):
+                combo.append_text(coms[i])
+                if(coms[i] == active_combo):
+                    combo.set_active(i)
+        except:
+            pass
 
 def get_icon_themes(self, combo):
     if os.path.isfile(gtk3_settings):
-        active_combo_icon = ""
-        combo.get_model().clear()
-        coms = []
-        with open(gtk3_settings, "r") as f:
-            lines = f.readlines()
-            for line in lines:
+        try:
+            active_combo_icon = ""
+            combo.get_model().clear()
+            coms = []
+            with open(gtk3_settings, "r") as f:
+                lines = f.readlines()
+                for line in lines:
 
-                if line.startswith("gtk-icon-theme-name"):
-                    output = line.split("=")
-                    active_combo_icon = output[1].lstrip().rstrip()
+                    if line.startswith("gtk-icon-theme-name"):
+                        output = line.split("=")
+                        active_combo_icon = output[1].lstrip().rstrip()
 
-        for folder in os.listdir("/usr/share/icons"):
-            if os.path.isdir("/usr/share/icons/" + folder):
-                check = os.listdir("/usr/share/icons/" + folder)
-                if not "cursors" in check:
-                    coms.append(folder)
-                    # print(folder)
+            for folder in os.listdir("/usr/share/icons"):
+                if os.path.isdir("/usr/share/icons/" + folder):
+                    check = os.listdir("/usr/share/icons/" + folder)
+                    if not "cursors" in check:
+                        coms.append(folder)
+                        # print(folder)
 
-        coms.sort()
+            coms.sort()
 
-        for i in range(len(coms)):
-            combo.append_text(coms[i])
-            if(coms[i] == active_combo_icon):
-                combo.set_active(i)
+            for i in range(len(coms)):
+                combo.append_text(coms[i])
+                if(coms[i] == active_combo_icon):
+                    combo.set_active(i)
+        except:
+            pass
 
 def get_cursor_themes(self, combo):
     if os.path.isfile(gtk3_settings):
-        combo.get_model().clear()
-        active_combo_cursor = ""
-        coms = []
-        with open(gtk3_settings, "r") as f:
-            lines = f.readlines()
-            for line in lines:
+        try:
+            combo.get_model().clear()
+            active_combo_cursor = ""
+            coms = []
+            with open(gtk3_settings, "r") as f:
+                lines = f.readlines()
+                for line in lines:
 
-                if line.startswith("gtk-cursor-theme-name"):
-                    output = line.split("=")
-                    active_combo_cursor = output[1].lstrip().rstrip()
+                    if line.startswith("gtk-cursor-theme-name"):
+                        output = line.split("=")
+                        active_combo_cursor = output[1].lstrip().rstrip()
 
-        for folder in os.listdir("/usr/share/icons"):
-            if os.path.isdir("/usr/share/icons/" + folder):
-                check = os.listdir("/usr/share/icons/" + folder)
-                if "cursors" in check:
-                    coms.append(folder)
-                    # print(folder)
+            for folder in os.listdir("/usr/share/icons"):
+                if os.path.isdir("/usr/share/icons/" + folder):
+                    check = os.listdir("/usr/share/icons/" + folder)
+                    if "cursors" in check:
+                        coms.append(folder)
+                        # print(folder)
 
-        coms.sort()
+            coms.sort()
 
-        for i in range(len(coms)):
-            combo.append_text(coms[i])
-            if(coms[i] == active_combo_cursor):
-                combo.set_active(i)
+            for i in range(len(coms)):
+                combo.append_text(coms[i])
+                if(coms[i] == active_combo_cursor):
+                    combo.set_active(i)
+        except:
+            pass
 
 def get_gtk_settings(self, item):
     if os.path.isfile(gtk3_settings):
         active_cursor = ""
-        with open(gtk3_settings, "r") as f:
-            lines = f.readlines()
-            for line in lines:
+        try:
+            with open(gtk3_settings, "r") as f:
+                lines = f.readlines()
+                for line in lines:
 
-                if line.startswith(item):
-                    output = line.split("=")
-                    active_cursor = output[1].lstrip().rstrip()
-            f.close()
+                    if line.startswith(item):
+                        output = line.split("=")
+                        active_cursor = output[1].lstrip().rstrip()
+                f.close()
+        except:
+            pass
         
         return active_cursor
 
@@ -146,7 +156,7 @@ def gtk3_save_settings(value, item):
             for i in range(0, len(lines)):
                 if item in lines[i]:
                     print(lines[i])
-                    lines[i] = item + "=" + str(value) + "\n"
+                    lines[i] = ''.join([item,"=",str(value),"\n"])
             f.writelines(lines)
             f.close()
 

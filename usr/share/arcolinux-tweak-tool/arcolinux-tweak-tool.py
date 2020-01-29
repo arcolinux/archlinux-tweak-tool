@@ -3,6 +3,7 @@ import Settings
 import GUI
 import Functions
 import gi
+import subprocess
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, Gio, Gdk
 from Settings import settings, configparser
@@ -170,8 +171,10 @@ class Main(Gtk.Window):
         Functions.gtk3_save_settings(themeCombo.get_active_text(), "gtk-theme-name")
         Functions.gtk3_save_settings(iconCombo.get_active_text(), "gtk-icon-theme-name")
         Functions.gtk3_save_settings(cursorCombo.get_active_text(), "gtk-cursor-theme-name")
-        Functions.gtk3_save_settings(cursor_size.get_value(), "gtk-cursor-theme-size")
+        Functions.gtk3_save_settings(int(cursor_size.get_value()), "gtk-cursor-theme-size")
         Functions.gtk3_save_settings(fonts.get_font_name(), "gtk-font-name")
+
+        subprocess.call(["xsetroot -xcf /usr/share/icons/" + cursorCombo.get_active_text() + "/cursors/left_ptr " + str(cursor_size.get_value())], shell=True)
 
     def reset_settings(self, widget, filez):
         print(filez)
