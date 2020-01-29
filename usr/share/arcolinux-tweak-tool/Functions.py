@@ -1,9 +1,13 @@
 import os
+import gi
 import fileinput
 import shutil
 import getpass
 import psutil
 import time
+gi.require_version('Polkit', '1.0')
+gi.require_version('Gdk', '3.0')
+from gi.repository import Gdk, GLib, Gio, Polkit
 
 _USERNAME = os.getenv("SUDO_USER") or os.getenv("USER") 
 home = os.path.expanduser('~'+_USERNAME)
@@ -13,6 +17,10 @@ oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
 
+action_id = "org.arcolinux.pkexec.arcolinux-tweak-tool"
+authority = Polkit.Authority.get()
+cancellable = Gio.Cancellable()
+subject = Polkit.UnixProcess.new_for_owner(os.getpid(), 0, -1)
 
 def rgb_to_hex(rgb):
     if "rgb" in rgb:
@@ -165,10 +173,22 @@ def gtk3_save_settings(value, item):
 #=====================================================
 #               PACMAN CONF
 #=====================================================
-def append_repo(self, text):
-    with open(pacman, "a") as myfile:
-        myfile.write("\n\n")
-        myfile.write(text)
+text = ""
+def auth_append(self):
+    text = self.textbox1.get_buffer()
+    startiter, enditer = text.get_bounds()
+    text.get_text(startiter, enditer, True)
+    authority.check_authorization(subject, action_id, None, Polkit.CheckAuthorizationFlags.ALLOW_USER_INTERACTION, cancellable, append_repo, None)
+
+def append_repo(authority, res, loop):
+    try:
+        result = authority.check_authorization_finish(res)
+        if result.get_is_authorized():
+            with open(pacman, "a") as myfile:
+                myfile.write("\n\n")
+                myfile.write(text)
+    except GLib.GError as error:
+            print(f"Error checking authorization: {error.message}")
 
 
 def toggle_test_repos(state, widget):

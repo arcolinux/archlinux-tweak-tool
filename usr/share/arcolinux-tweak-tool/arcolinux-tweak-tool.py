@@ -46,10 +46,6 @@ class Main(Gtk.Window):
 
             self.opened = False
 
-        if not os.path.isfile("/tmp/att.lock"):
-            with open("/tmp/att.lock", "w") as f:
-                f.write("")
-
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
     
     def on_close(self, widget, data):
@@ -94,9 +90,7 @@ class Main(Gtk.Window):
 
 
     def button1_clicked(self, widget):
-        self.text = self.textbox1.get_buffer()
-        startiter, enditer = self.text.get_bounds()
-        Functions.append_repo(self, self.text.get_text(startiter, enditer, True))
+        Functions.auth_append(self)
 
 
     #=====================================================
@@ -216,12 +210,23 @@ class Main(Gtk.Window):
             if "hibernate" in btnString:
                 self.check_hiber.set_active(True)
 
-
-if __name__ == "__main__":
-    if not os.path.isfile("/tmp/att.lock"):
+def set_pid(authority, res, loop):
+    result = authority.check_authorization_finish(res)
+    if result.get_is_authorized():
         with open("/tmp/att.pid", "w") as f:
             f.write(str(os.getpid()))
             f.close()
+        
+        with open("/tmp/att.lock", "w") as f:
+            f.write("")
+            f.close()
+
+if __name__ == "__main__":
+    if not os.path.isfile("/tmp/att.lock"):
+        Functions.authority.check_authorization(Functions.subject, Functions.action_id, None, Functions.Polkit.CheckAuthorizationFlags.ALLOW_USER_INTERACTION, Functions.cancellable, set_pid, None) 
+        # with open("/tmp/att.pid", "w") as f:
+        #     f.write(str(os.getpid()))
+        #     f.close()
         w = Main()
         w.show_all()
         Gtk.main()
