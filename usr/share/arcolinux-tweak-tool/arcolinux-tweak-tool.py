@@ -21,9 +21,11 @@ class Main(Gtk.Window):
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_from_file(os.path.join(base_dir, 'images/arcolinux.png'))
         self.set_size_request(700, 500)
-        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
+        
         self.opened = True
         self.firstrun = True
+        
+        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
         # if not os.path.exists(Functions.home + "/.config/arcolinux-tweak-tool"):
         #     os.mkdir(Functions.home + "/.config/arcolinux-tweak-tool")
 
