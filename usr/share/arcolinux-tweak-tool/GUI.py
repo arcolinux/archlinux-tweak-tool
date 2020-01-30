@@ -77,11 +77,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     reset_pacman.connect("clicked", self.reset_settings, Functions.pacman)
 
     hboxStack1.pack_start(label1, False, True, 10)
-    hboxStack1.pack_end(self.checkbutton, False, True, 10)
+    hboxStack1.pack_end(self.checkbutton, False, False, 10)
     hboxStack5.pack_start(label3, False, True, 10)
-    hboxStack5.pack_end(self.checkbutton2, False, True, 10)
+    hboxStack5.pack_end(self.checkbutton2, False, False, 10)
     hboxStack6.pack_start(label4, False, True, 10)
-    hboxStack6.pack_end(self.checkbutton3, False, True, 10)
+    hboxStack6.pack_end(self.checkbutton3, False, False, 10)
 
     hboxStack2.pack_start(label2, False, True, 10)
     hboxStack3.pack_start(sw, True, True, 10)
