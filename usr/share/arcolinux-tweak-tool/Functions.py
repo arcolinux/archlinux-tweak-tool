@@ -7,7 +7,8 @@ import time
 import subprocess
 import dbus
 import gi
-from gi.repository import GLib
+gi.require_version('Gtk', '3.0')
+from gi.repository import GLib, Gtk
 
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
@@ -18,6 +19,18 @@ oblogout_conf = "/etc/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
 
 
+#=====================================================
+#               MESSAGEBOX
+#=====================================================
+def MessageBox(title, message):
+    md2 = Gtk.MessageDialog(parent=None, flags=0, message_type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK, text=title)
+    md2.format_secondary_markup(message)
+    result = md2.run()
+    md2.destroy()
+
+#=====================================================
+#               CONVERT COLOR
+#=====================================================
 def rgb_to_hex(rgb):
     if "rgb" in rgb:
         rgb = rgb.replace("rgb(", "").replace(")", "")
@@ -29,7 +42,10 @@ def clamp(x):
   return max(0, min(x, 255))
 
 
-# Get list value index.
+#=====================================================
+#               GLOBAL FUNCTIONS
+#=====================================================
+
 def _get_position(list, value):
     data = [string for string in list if value in string]
     position = list.index(data[0])
@@ -62,6 +78,7 @@ def check_value(list, value):
             if i[:4].find('#') != -1:
                 data.remove(i)
     return data
+
 #=====================================================
 #               Check if File Exists
 #=====================================================
@@ -82,11 +99,10 @@ def get_gtk_themes(self, combo):
             coms = []
             with open(gtk3_settings, "r") as f:
                 lines = f.readlines()
-                for line in lines:
-
-                    if line.startswith("gtk-theme-name"):
-                        output = line.split("=")
-                        active_combo = output[1].lstrip().rstrip()
+                f.close()
+            pos = int(gtk_get_position(lines, "gtk-theme-name"))
+            output = lines[pos].split("=")
+            active_combo = output[1].lstrip().rstrip()
 
             for folder in os.listdir("/usr/share/themes"):
                 if os.path.isdir("/usr/share/themes/" + folder):
@@ -101,7 +117,7 @@ def get_gtk_themes(self, combo):
                 if(coms[i] == active_combo):
                     combo.set_active(i)
         except:
-            pass
+            MessageBox("ERROR!!", "An error has occured getting this setting \'gtk-theme-name\'")
 
 def get_icon_themes(self, combo):
     if os.path.isfile(gtk3_settings):
@@ -111,11 +127,10 @@ def get_icon_themes(self, combo):
             coms = []
             with open(gtk3_settings, "r") as f:
                 lines = f.readlines()
-                for line in lines:
-
-                    if line.startswith("gtk-icon-theme-name"):
-                        output = line.split("=")
-                        active_combo_icon = output[1].lstrip().rstrip()
+                f.close()
+            pos = int(gtk_get_position(lines, "gtk-icon-theme-name"))
+            output = lines[pos].split("=")
+            active_combo_icon = output[1].lstrip().rstrip()
 
             for folder in os.listdir("/usr/share/icons"):
                 if os.path.isdir("/usr/share/icons/" + folder):
@@ -130,7 +145,12 @@ def get_icon_themes(self, combo):
                 if(coms[i] == active_combo_icon):
                     combo.set_active(i)
         except:
-            pass
+            MessageBox("ERROR!!", "An error has occured getting this setting \'gtk-icon-theme-name\'")
+
+def gtk_get_position(my_list, value):
+    data = [string for string in my_list if value in string]
+    position = my_list.index(data[0])
+    return position
 
 def get_cursor_themes(self, combo):
     if os.path.isfile(gtk3_settings):
@@ -140,11 +160,10 @@ def get_cursor_themes(self, combo):
             coms = []
             with open(gtk3_settings, "r") as f:
                 lines = f.readlines()
-                for line in lines:
-
-                    if line.startswith("gtk-cursor-theme-name"):
-                        output = line.split("=")
-                        active_combo_cursor = output[1].lstrip().rstrip()
+                f.close()
+            pos = int(gtk_get_position(lines, "gtk-cursor-theme-name"))
+            output = lines[pos].split("=")
+            active_combo_cursor = output[1].lstrip().rstrip()
 
             for folder in os.listdir("/usr/share/icons"):
                 if os.path.isdir("/usr/share/icons/" + folder):
@@ -159,21 +178,22 @@ def get_cursor_themes(self, combo):
                 if(coms[i] == active_combo_cursor):
                     combo.set_active(i)
         except:
-            pass
+            MessageBox("ERROR!!", "An error has occured getting this setting \'gtk-cursor-theme-name\'")
 
-def get_gtk_settings(self, item):
+
+def get_gtk_settings(item):
     if os.path.isfile(gtk3_settings):
         active_cursor = ""
         try:
             with open(gtk3_settings, "r") as f:
                 lines = f.readlines()
                 f.close()
-            for line in lines:
-                if line.startswith(item):
-                    output = line.split("=")
-                    active_cursor = output[1].lstrip().rstrip()
+            pos = int(gtk_get_position(lines, item))
+            output = lines[pos].split("=")
+            active_cursor = output[1].lstrip().rstrip()
+
         except:
-            pass
+            MessageBox("ERROR!!", "An error has occured getting this setting \'get_gtk_settings\'")
         
         return active_cursor
 
@@ -186,15 +206,14 @@ def gtk3_save_settings(value, item):
             lines = f.readlines()
             f.close()
         try:
-            for i in range(0, len(lines)):
-                if item in lines[i]:
-                    lines[i] = ''.join([item,"=",str(value),"\n"])
+            pos = int(gtk_get_position(lines, item))
+            lines[pos] = ''.join([item,"=",str(value),"\n"])
 
             with open(gtk3_settings, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:
-            pass
+            MessageBox("ERROR!!", "An error has occured getting this setting \'gtk3_save_settings\'")
 
 
 
@@ -253,7 +272,7 @@ def toggle_test_repos(state, widget):
                 f.writelines(lines)
                 f.close()
         except:
-            pass
+            MessageBox("ERROR!!", "An error has occured setting this setting \'toggle_test_repos On\'")
     else:
         with open(pacman, 'r') as f:
             lines = f.readlines()
@@ -295,7 +314,7 @@ def toggle_test_repos(state, widget):
                 f.writelines(lines)
                 f.close()
         except:
-            pass
+            MessageBox("ERROR!!", "An error has occured setting this setting \'toggle_test_repos Off\'")
 
 #=====================================================
 #               OBLOGOUT CONF
@@ -329,22 +348,24 @@ def set_shorcut(value, value_sk):
         with open(oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
+        try:
+            shortcuts_pos = _get_position(lines, "[shortcuts]")
+            commandss_pos = _get_position(lines, "[commands]")
+            data1_shortcut = check_value(lines[shortcuts_pos:commandss_pos], value)
 
-        shortcuts_pos = _get_position(lines, "[shortcuts]")
-        commandss_pos = _get_position(lines, "[commands]")
-        data1_shortcut = check_value(lines[shortcuts_pos:commandss_pos], value)
+            if not data1_shortcut:
 
-        if not data1_shortcut:
-
-            pos = shortcuts_pos + 5
-            lines.insert(pos, value + ' = ' + str(value_sk) + '\n')
-        else:
-            pos = int(_get_position(lines[shortcuts_pos:commandss_pos], value))
-            lines[shortcuts_pos + pos] = value + ' = ' + str(value_sk) + '\n'
-        
-        with open(oblogout_conf, 'w') as f:            
-            f.writelines(lines)
-            f.close()
+                pos = shortcuts_pos + 5
+                lines.insert(pos, value + ' = ' + str(value_sk) + '\n')
+            else:
+                pos = int(_get_position(lines[shortcuts_pos:commandss_pos], value))
+                lines[shortcuts_pos + pos] = value + ' = ' + str(value_sk) + '\n'
+            
+            with open(oblogout_conf, 'w') as f:            
+                f.writelines(lines)
+                f.close()
+        except:
+            MessageBox("ERROR!!", "An error has occured setting this setting \'set_shorcut\'")
 
 def oblog_populate(combo):
     if os.path.isfile(oblogout_conf):
@@ -375,7 +396,7 @@ def oblogout_change_theme(theme):
                 lines = f.readlines()
                 f.close()
 
-        with open(oblogout_conf, 'w') as f:
+        try:
             for i in range(0, len(lines)):
                 line = lines[i]
                 if "buttontheme" in line:
@@ -387,9 +408,12 @@ def oblogout_change_theme(theme):
                     
                     if theme == lines[i].split("=")[1].lstrip().rstrip():
                         lines[i] = line.replace("#","")
-            
-            f.writelines(lines)
-            f.close()
+
+            with open(oblogout_conf, 'w') as f:
+                f.writelines(lines)
+                f.close()
+        except:
+            MessageBox("ERROR!!", "An error has occured setting this setting \'oblogout_change_theme\'")
 
 def get_opacity():
     if os.path.isfile(oblogout_conf):
@@ -409,34 +433,39 @@ def set_opacity(value):
         with open(oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
-        data = check_value(lines, 'opacity')
-        if not data:
-            pos = int(_get_position(lines, "[looks]")) + 1
-            lines.insert(pos, 'opacity = ' + str(int(value.split(".")[0])) + '\n')
-        else:
-            pos = int(_get_position(lines, 'opacity'))
-            lines[pos] = 'opacity = ' + str(int(value.split(".")[0])) + '\n'
+        try:
+            data = check_value(lines, 'opacity')
+            if not data:
+                pos = int(_get_position(lines, "[looks]")) + 1
+                lines.insert(pos, 'opacity = ' + str(int(value.split(".")[0])) + '\n')
+            else:
+                pos = int(_get_position(lines, 'opacity'))
+                lines[pos] = 'opacity = ' + str(value).split(".")[0] + '\n'
 
-        with open(oblogout_conf, 'w') as f:            
-            f.writelines(lines)
-            f.close()
-        
+            with open(oblogout_conf, 'w') as f:            
+                f.writelines(lines)
+                f.close()
+        except:
+            MessageBox("ERROR!!", "An error has occured setting this setting \'set_opacity\'")
+
 def set_buttons(value):
     if os.path.isfile(oblogout_conf):
         with open(oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
-        
-        for i in range(0, len(lines)):
-            line = lines[i]
-            if "buttons =" in line:
-                nline = line.split("=")
-                val = nline[1].lstrip().rstrip()
-                lines[i] = line.replace(val, value)
+        try:
+            for i in range(0, len(lines)):
+                line = lines[i]
+                if "buttons =" in line:
+                    nline = line.split("=")
+                    val = nline[1].lstrip().rstrip()
+                    lines[i] = line.replace(val, value)
 
-        with open(oblogout_conf, 'w') as f:
-            f.writelines(lines)
-            f.close()
+            with open(oblogout_conf, 'w') as f:
+                f.writelines(lines)
+                f.close()
+        except:
+            MessageBox("ERROR!!", "An error has occured setting this setting \'set_buttons\'")
 
 def get_buttons():
     buttons = "You do not have oblogout.conf"
@@ -476,18 +505,21 @@ def set_command(value, value_sk):
         with open(oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
-        commandss_pos = _get_position(lines, "[commands]")
-        data_command = check_value(lines[commandss_pos:], value)
-        if not data_command:
-            pos = data_command + 4
-            lines.insert(pos, value + ' = ' + str(value_sk) + '\n')
-        else:
-            pos = int(_get_position(lines[commandss_pos:], value))
-            lines[commandss_pos + pos] = value + ' = ' + str(value_sk) + '\n'
-        
-        with open(oblogout_conf, 'w') as f:            
-            f.writelines(lines)
-            f.close()
+        try:
+            commandss_pos = _get_position(lines, "[commands]")
+            data_command = check_value(lines[commandss_pos:], value)
+            if not data_command:
+                pos = data_command + 4
+                lines.insert(pos, value + ' = ' + str(value_sk) + '\n')
+            else:
+                pos = int(_get_position(lines[commandss_pos:], value))
+                lines[commandss_pos + pos] = value + ' = ' + str(value_sk) + '\n'
+            
+            with open(oblogout_conf, 'w') as f:            
+                f.writelines(lines)
+                f.close()
+        except:
+            MessageBox("ERROR!!", "An error has occured setting this setting \'set_command\'")
 
 def get_color():
     color = ""
@@ -505,16 +537,19 @@ def set_color(color):
         with open(oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
-        for i in range(0, len(lines)):
-            line = lines[i]
-            if "bgcolor =" in line:
-                nline = line.split("=")
-                val = nline[1].lstrip().rstrip()
-                lines[i] = line.replace(val, color)
+        try:
+            for i in range(0, len(lines)):
+                line = lines[i]
+                if "bgcolor =" in line:
+                    nline = line.split("=")
+                    val = nline[1].lstrip().rstrip()
+                    lines[i] = line.replace(val, color)
 
-        with open(oblogout_conf, 'w') as f:
-            f.writelines(lines)
-            f.close()
+            with open(oblogout_conf, 'w') as f:
+                f.writelines(lines)
+                f.close()
+        except:
+            MessageBox("ERROR!!", "An error has occured setting this setting \'set_color\'")
 
 #=====================================================
 #               HBLOCK CONF
@@ -579,7 +614,13 @@ def set_hblock(self, toggle, state):
         GLib.idle_add(self.label7.set_text,"Idle ...")
 
     except dbus.DBusException as e:
-        print(e)
+        MessageBox("ERROR!!", e)
+        # print(e)
+        
+
+#=====================================================
+#               CHECK RUNNING PROCESS
+#=====================================================
 
 def checkIfProcessRunning(processName):
     for proc in psutil.process_iter():

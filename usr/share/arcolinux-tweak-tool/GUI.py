@@ -140,8 +140,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     Functions.get_icon_themes(self, self.iconCombo)
     Functions.get_cursor_themes(self, self.cursorCombo)
 
-    self.cursor_size.set_value(int(Functions.get_gtk_settings(self, "gtk-cursor-theme-size").split(".")[0]))
-    self.fonts.set_font_name(Functions.get_gtk_settings(self, "gtk-font-name"))
+    self.cursor_size.set_value(int(Functions.get_gtk_settings("gtk-cursor-theme-size").split(".")[0]))
+    self.fonts.set_font_name(Functions.get_gtk_settings("gtk-font-name"))
     
 
     save_gtk3_themes = Gtk.Button(label="Save Settings")

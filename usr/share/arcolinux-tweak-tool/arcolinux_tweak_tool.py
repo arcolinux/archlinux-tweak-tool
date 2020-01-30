@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import Settings
+# import Settings
 import GUI
 import Functions
 import gi
@@ -73,50 +73,61 @@ class Main(Gtk.Window):
     #=====================================================
     
     def save_oblogout(self, widget):
+        widget.set_sensitive(False)
         if not os.path.isfile(Functions.oblogout_conf + ".bak"):
             Functions.shutil.copy(Functions.oblogout_conf, Functions.oblogout_conf + ".bak")
+        try:
+            string = ""
+            if self.check_shut.get_active():
+                string += "shutdown "
+            if self.check_restart.get_active():
+                string += "restart "
+            if self.check_logout.get_active():
+                string += "logout "
+            if self.check_cancel.get_active():
+                string += "cancel "
+            if self.check_susp.get_active():
+                string += "suspend "
+            if self.check_hiber.get_active():
+                string += "hibernate "
+            if self.check_lock.get_active():
+                string += "lock "
 
-        string = ""
-        if self.check_shut.get_active():
-            string += "shutdown "
-        if self.check_restart.get_active():
-            string += "restart "
-        if self.check_logout.get_active():
-            string += "logout "
-        if self.check_cancel.get_active():
-            string += "cancel "
-        if self.check_susp.get_active():
-            string += "suspend "
-        if self.check_hiber.get_active():
-            string += "hibernate "
-        if self.check_lock.get_active():
-            string += "lock "
+            
+            Functions.set_buttons(string.rstrip().lstrip().replace(" ", ", "))
+            Functions.oblogout_change_theme(self.oblog.get_active_text())
+            Functions.set_opacity(self.hscale.get_value())
+            Functions.set_command("lock", self.lockBox.get_text())
+            Functions.set_shorcut("shutdown", self.tbshutdown.get_text().capitalize())
+            Functions.set_shorcut("restart", self.tbrestart.get_text().capitalize())
+            Functions.set_shorcut("suspend", self.tbsuspend.get_text().capitalize())
+            Functions.set_shorcut("logout", self.tblogout.get_text().capitalize())
+            Functions.set_shorcut("cancel", self.tbcancel.get_text().capitalize())
+            Functions.set_shorcut("hibernate", self.tbhibernate.get_text().capitalize())
+            Functions.set_shorcut("lock", self.tblock.get_text().capitalize())
+            hex = Functions.rgb_to_hex(self.colorchooser.get_rgba().to_string())
+            Functions.set_color(hex)
 
-        
-        Functions.set_buttons(string.rstrip().lstrip().replace(" ", ", "))
-        Functions.oblogout_change_theme(self.oblog.get_active_text())
-        Functions.set_opacity(self.hscale.get_value())
-        Functions.set_command("lock", self.lockBox.get_text())
-        Functions.set_shorcut("shutdown", self.tbshutdown.get_text().capitalize())
-        Functions.set_shorcut("restart", self.tbrestart.get_text().capitalize())
-        Functions.set_shorcut("suspend", self.tbsuspend.get_text().capitalize())
-        Functions.set_shorcut("logout", self.tblogout.get_text().capitalize())
-        Functions.set_shorcut("cancel", self.tbcancel.get_text().capitalize())
-        Functions.set_shorcut("hibernate", self.tbhibernate.get_text().capitalize())
-        Functions.set_shorcut("lock", self.tblock.get_text().capitalize())
-        hex = Functions.rgb_to_hex(self.colorchooser.get_rgba().to_string())
-        Functions.set_color(hex)
+            Functions.MessageBox("Success!!", "Settings Saved Successfully")
+            widget.set_sensitive(True)
+        except:
+            pass
 
     
     def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
-        Functions.gtk3_save_settings(themeCombo.get_active_text(), "gtk-theme-name")
-        Functions.gtk3_save_settings(iconCombo.get_active_text(), "gtk-icon-theme-name")
-        Functions.gtk3_save_settings(cursorCombo.get_active_text(), "gtk-cursor-theme-name")
-        Functions.gtk3_save_settings(int(str(cursor_size.get_value()).split(".")[0]), "gtk-cursor-theme-size")
-        Functions.gtk3_save_settings(fonts.get_font_name(), "gtk-font-name")
+        try:
+            widget.set_sensitive(False)
+            Functions.gtk3_save_settings(themeCombo.get_active_text(), "gtk-theme-name")
+            Functions.gtk3_save_settings(iconCombo.get_active_text(), "gtk-icon-theme-name")
+            Functions.gtk3_save_settings(cursorCombo.get_active_text(), "gtk-cursor-theme-name")
+            Functions.gtk3_save_settings(int(str(cursor_size.get_value()).split(".")[0]), "gtk-cursor-theme-size")
+            Functions.gtk3_save_settings(fonts.get_font_name(), "gtk-font-name")
 
-        subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text() + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
-
+            subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text() + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
+            Functions.MessageBox("Success!!", "Settings Saved Successfully")
+            widget.set_sensitive(True)
+        except:
+            pass
     def reset_settings(self, widget, filez):
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
@@ -125,8 +136,8 @@ class Main(Gtk.Window):
             Functions.get_icon_themes(self, self.iconCombo)
             Functions.get_cursor_themes(self, self.cursorCombo)
 
-            self.cursor_size.set_value(float(Functions.get_gtk_settings(self, "gtk-cursor-theme-size")))
-            self.fonts.set_font_name(Functions.get_gtk_settings(self, "gtk-font-name"))
+            self.cursor_size.set_value(float(Functions.get_gtk_settings("gtk-cursor-theme-size")))
+            self.fonts.set_font_name(Functions.get_gtk_settings("gtk-font-name"))
             subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text() + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
         
         elif filez == Functions.oblogout_conf:
