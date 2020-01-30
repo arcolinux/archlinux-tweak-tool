@@ -141,7 +141,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     Functions.get_cursor_themes(self, self.cursorCombo)
 
     print(int(Functions.get_gtk_settings(self, "gtk-cursor-theme-size")))
-    self.cursor_size.set_value(int(Functions.get_gtk_settings(self, "gtk-cursor-theme-size")))
+    self.cursor_size.set_value(Functions.get_gtk_settings(self, "gtk-cursor-theme-size"))
     self.fonts.set_font_name(Functions.get_gtk_settings(self, "gtk-font-name"))
     
 

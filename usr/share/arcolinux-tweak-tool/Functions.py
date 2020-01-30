@@ -11,7 +11,7 @@ from gi.repository import GLib
 
 sudo_username = os.getenv("LOGNAME")
 home = "/home/" + str(sudo_username)
-
+print(home)
 pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
@@ -169,12 +169,11 @@ def get_gtk_settings(self, item):
         try:
             with open(gtk3_settings, "r") as f:
                 lines = f.readlines()
-                for line in lines:
-
-                    if line.startswith(item):
-                        output = line.split("=")
-                        active_cursor = output[1].lstrip().rstrip()
                 f.close()
+            for line in lines:
+                if line.startswith(item):
+                    output = line.split("=")
+                    active_cursor = output[1].lstrip().rstrip()
         except:
             pass
         
