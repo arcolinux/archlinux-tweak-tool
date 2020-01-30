@@ -5,6 +5,9 @@ import getpass
 import psutil
 import time
 import subprocess
+import dbus
+import gi
+from gi.repository import GLib
 
 sudo_username = os.getenv("LOGNAME")
 home = "/home/" + str(sudo_username)
@@ -540,9 +543,59 @@ def hblock_get_state():
     
     return False
 
-def set_hblock():
-    pass
-    
+def do_pulse(self, user_data, progress):
+    progress.pulse()
+    return True
+
+def set_hblock(self, toggle, state):
+    print("RUNNING")
+    GLib.idle_add(toggle.set_sensitive,False)
+    GLib.idle_add(self.label7.set_text,"Run..")
+    GLib.idle_add(self.progress.set_fraction,0.2)
+    # Call self.do_pulse every 100 ms
+    timeout_id = None
+    timeout_id = GLib.timeout_add(100, do_pulse, None, self, self.progress)
+
+    # Dbus
+    bus = dbus.SystemBus()
+    try:
+
+        remote_object = bus.get_object("org.arcolinux.ObService", "/ArcoLinux")
+
+        # Commands
+        install = 'pacman -S arcolinux-hblock-git --needed --noconfirm'
+        # remove = 'pacman -Rsn arcolinux-hblock-git --noconfirm'
+        enable = "hblock"
+        disable = "HBLOCK_SOURCES='' hblock"
+
+        # Install
+        if state:
+            if os.path.exists("/usr/local/bin/hblock"):
+                GLib.idle_add(self.label7.set_text,"Database update...")
+                remote_object.shell_commands(enable)
+
+            else:
+                GLib.idle_add(self.label7.set_text,"Install Hblock......")
+                remote_object.shell_commands(install)
+                GLib.idle_add(self.label7.set_text,"Database update...")
+                remote_object.shell_commands(enable)
+        else:
+
+            # Disable Hblock
+            GLib.idle_add(self.label7.set_text,"Remove update...")
+            remote_object.shell_commands(disable)
+        GLib.idle_add(self.label7.set_text,"Complete")
+        # self.hblock_quit_btn.set_sensitive(True)
+        # Don't call self.do_pulse anymore
+        GLib.source_remove(timeout_id)
+        timeout_id = None
+        # prog.set_fraction(0)
+
+        remote_object.Exit()
+        GLib.idle_add(toggle.set_sensitive,True)
+
+    except GLib.GError as error:
+        print(f"Error checking authorization: {error.message}")
 
 def checkIfProcessRunning(processName):
     for proc in psutil.process_iter():

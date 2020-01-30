@@ -4,6 +4,8 @@ import GUI
 import Functions
 import gi
 import subprocess
+import threading
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, Gio, Gdk
 from Settings import settings, configparser
@@ -205,6 +207,10 @@ class Main(Gtk.Window):
             if "hibernate" in btnString:
                 self.check_hiber.set_active(True)
 
+    def set_hblock(self, widget, state):
+        t = threading.Thread(target=Functions.set_hblock, args=(self, widget, widget.get_active()))
+        t.daemon = True
+        t.start()
 
 if __name__ == "__main__":
     # print(os.getuid())

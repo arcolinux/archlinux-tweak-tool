@@ -183,12 +183,23 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     label = Gtk.Label()
     label.set_text("enable hblock")
     
-    hbswich = Gtk.Switch()
-    hbswich.set_active(Functions.hblock_get_state)
-    hbox7.pack_start(label, False, False, 10)
-    hbox7.pack_end(hbswich, False, False, 10)
+    self.label7 = Gtk.Label(xalign=0)
+    self.label7.set_text("Idle ....")
     
-    vboxStack3.pack_start(hbox7, False, False, 20)
+    self.progress = Gtk.ProgressBar()
+    self.progress.set_pulse_step(0.2)
+    print(float(self.progress.get_pulse_step()))
+    
+    self.hbswich = Gtk.Switch()
+    self.hbswich.connect("notify::active", self.set_hblock)
+    self.hbswich.set_active(Functions.hblock_get_state())
+    
+    hbox7.pack_start(label, False, False, 10)
+    hbox7.pack_end(self.hbswich, False, False, 10)
+    
+    vboxStack3.pack_start(hbox7, False, False, 0)
+    vboxStack3.pack_end(self.progress, False, False, 0)
+    vboxStack3.pack_end(self.label7, False, False, 0)
 
     #==========================================================
     #                       TAB #4
