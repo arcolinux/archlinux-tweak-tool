@@ -23,6 +23,7 @@ class Main(Gtk.Window):
         self.set_size_request(700, 500)
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
         self.opened = True
+        self.firstrun = True
         # if not os.path.exists(Functions.home + "/.config/arcolinux-tweak-tool"):
         #     os.mkdir(Functions.home + "/.config/arcolinux-tweak-tool")
 
@@ -208,9 +209,12 @@ class Main(Gtk.Window):
                 self.check_hiber.set_active(True)
 
     def set_hblock(self, widget, state):
-        t = threading.Thread(target=Functions.set_hblock, args=(self, widget, widget.get_active()))
-        t.daemon = True
-        t.start()
+        if not self.firstrun == True:
+            t = threading.Thread(target=Functions.set_hblock, args=(self, widget, widget.get_active()))
+            t.daemon = True
+            t.start()
+        else:
+            self.firstrun = False
 
 if __name__ == "__main__":
     # print(os.getuid())
