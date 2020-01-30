@@ -91,6 +91,16 @@ def file_check(file):
 #=====================================================
 #               GTK3 CONF
 #=====================================================
+
+def gtk_check_value(my_list, value):
+    data = [string for string in my_list if value in string]
+    if len(data) >= 1:
+        data1 = [string for string in data if "#" in string]
+        for i in data1:
+            if i[:4].find('#') != -1:
+                data.remove(i)
+    return data
+
 def get_gtk_themes(self, combo):
     if os.path.isfile(gtk3_settings):
         try:
@@ -194,6 +204,8 @@ def get_gtk_settings(item):
 
         except:
             MessageBox("ERROR!!", "An error has occured getting this setting \'get_gtk_settings\'")
+            if item == "gtk-cursor-theme-size":
+                active_cursor = "24"
         
         return active_cursor
 
@@ -202,12 +214,19 @@ def gtk3_save_settings(value, item):
         shutil.copy(gtk3_settings,gtk3_settings + ".bak")
 
     if os.path.isfile(gtk3_settings):
-        with open(gtk3_settings, 'r') as f:
+        with open(gtk3_settings, 'r', encoding='utf-8') as f:
             lines = f.readlines()
             f.close()
         try:
-            pos = int(gtk_get_position(lines, item))
-            lines[pos] = ''.join([item,"=",str(value),"\n"])
+            data = gtk_check_value(lines, item)
+            if not data:
+                print("Lines = " + str(len(lines)))
+                pos = 4
+                print("Pos = " + str(pos))
+                lines.insert(pos, ''.join([item,"=",str(value),"\n"]))
+            else:
+                pos = int(gtk_get_position(lines, item))
+                lines[pos] = ''.join([item,"=",str(value),"\n"])
 
             with open(gtk3_settings, 'w') as f:
                 f.writelines(lines)
