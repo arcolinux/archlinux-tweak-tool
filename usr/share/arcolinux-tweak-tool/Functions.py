@@ -586,7 +586,6 @@ def do_pulse(self, user_data, progress):
     return True
 
 def set_hblock(self, toggle, state):
-    
     GLib.idle_add(toggle.set_sensitive,False)
     GLib.idle_add(self.label7.set_text,"Run..")
     GLib.idle_add(self.progress.set_fraction,0.2)
@@ -595,32 +594,38 @@ def set_hblock(self, toggle, state):
     timeout_id = GLib.timeout_add(100, do_pulse, None, self, self.progress)
 
     # Dbus
-    bus = dbus.SystemBus()
+    # bus = dbus.SystemBus()
     try:
-        remote_object = bus.get_object("org.arcolinux.tweaktool", "/ArcoLinux")
+        # remote_object = bus.get_object("org.arcolinux.tweaktool", "/ArcoLinux")
         
         # Commands
         install = 'pacman -S arcolinux-hblock-git --needed --noconfirm'
         # remove = 'pacman -Rsn arcolinux-hblock-git --noconfirm'
         enable = "hblock"
-        disable = "HBLOCK_SOURCES='' hblock"
+        # disable = "HBLOCK_SOURCES='' hblock"
 
         # Install
         if state:
             if os.path.exists("/usr/local/bin/hblock"):
                 GLib.idle_add(self.label7.set_text,"Database update...")
-                remote_object.shell_commands(enable)
+                # remote_object.shell_commands(enable)
+                subprocess.run([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
             else:
                 GLib.idle_add(self.label7.set_text,"Install Hblock......")
-                remote_object.shell_commands(install)
+                #remote_object.shell_commands(install)
+                subprocess.run(install.split(" "), shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 GLib.idle_add(self.label7.set_text,"Database update...")
-                remote_object.shell_commands(enable)
+                #remote_object.shell_commands(enable)
+                subprocess.run([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                
         else:
 
             # Disable Hblock
             GLib.idle_add(self.label7.set_text,"Remove update...")
-            remote_object.shell_commands(disable)
+            # remote_object.shell_commands(disable)
+            subprocess.run(["sh", "-c", "HBLOCK_SOURCES=\'\' hblock"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        
         GLib.idle_add(self.label7.set_text,"Complete")
         # self.hblock_quit_btn.set_sensitive(True)
         # Don't call self.do_pulse anymore
@@ -632,7 +637,7 @@ def set_hblock(self, toggle, state):
         GLib.idle_add(toggle.set_sensitive,True)
         GLib.idle_add(self.label7.set_text,"Idle ...")
 
-    except dbus.DBusException as e:
+    except Exception as e:
         MessageBox("ERROR!!", e)
         # print(e)
         
