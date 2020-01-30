@@ -1,30 +1,30 @@
 #!/usr/bin/env python3
 # import Settings
-import GUI
-import Functions
-import gi
-import subprocess
 import threading
-
+import subprocess
+import gi
+import Functions
+import GUI
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, Gio, Gdk
-from Settings import settings, configparser
 from Functions import os, pacman
+from Settings import settings, configparser
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
+
 
 class Main(Gtk.Window):
     def __init__(self):
         super(Main, self).__init__(title="ArcoLinux Tweak Tool")
         self.set_border_width(10)
-        self.connect("delete-event", self.on_close)        
+        self.connect("delete-event", self.on_close)
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_from_file(os.path.join(base_dir, 'images/arcolinux.png'))
         self.set_size_request(700, 700)
-        
+
         self.opened = True
         self.firstrun = True
-        
+
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
 
         arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
@@ -40,14 +40,13 @@ class Main(Gtk.Window):
             with open("/tmp/att.lock", "w") as f:
                 f.write("")
 
-        
     def on_close(self, widget, data):
         os.unlink("/tmp/att.lock")
         Gtk.main_quit()
-    
-    #=====================================================
+
+    # =====================================================
     #               PACMAN FUNCTIONS
-    #=====================================================
+    # =====================================================
 
     def on_pacman_toggle(self, widget, active):
         if self.opened == False:
@@ -61,21 +60,21 @@ class Main(Gtk.Window):
         if self.opened == False:
             Functions.toggle_test_repos(widget.get_active(), "multilib")
 
-
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
         startiter, enditer = self.text.get_bounds()
-        Functions.append_repo(self, self.text.get_text(startiter, enditer, True))
+        Functions.append_repo(
+            self, self.text.get_text(startiter, enditer, True))
 
-
-    #=====================================================
+    # =====================================================
     #               OBLOGOUT FUNCTIONS
-    #=====================================================
-    
+    # =====================================================
+
     def save_oblogout(self, widget):
         widget.set_sensitive(False)
         if not os.path.isfile(Functions.oblogout_conf + ".bak"):
-            Functions.shutil.copy(Functions.oblogout_conf, Functions.oblogout_conf + ".bak")
+            Functions.shutil.copy(Functions.oblogout_conf,
+                                  Functions.oblogout_conf + ".bak")
         try:
             string = ""
             if self.check_shut.get_active():
@@ -93,19 +92,25 @@ class Main(Gtk.Window):
             if self.check_lock.get_active():
                 string += "lock "
 
-            
             Functions.set_buttons(string.rstrip().lstrip().replace(" ", ", "))
             Functions.oblogout_change_theme(self.oblog.get_active_text())
             Functions.set_opacity(self.hscale.get_value())
             Functions.set_command("lock", self.lockBox.get_text())
-            Functions.set_shorcut("shutdown", self.tbshutdown.get_text().capitalize())
-            Functions.set_shorcut("restart", self.tbrestart.get_text().capitalize())
-            Functions.set_shorcut("suspend", self.tbsuspend.get_text().capitalize())
-            Functions.set_shorcut("logout", self.tblogout.get_text().capitalize())
-            Functions.set_shorcut("cancel", self.tbcancel.get_text().capitalize())
-            Functions.set_shorcut("hibernate", self.tbhibernate.get_text().capitalize())
+            Functions.set_shorcut(
+                "shutdown", self.tbshutdown.get_text().capitalize())
+            Functions.set_shorcut(
+                "restart", self.tbrestart.get_text().capitalize())
+            Functions.set_shorcut(
+                "suspend", self.tbsuspend.get_text().capitalize())
+            Functions.set_shorcut(
+                "logout", self.tblogout.get_text().capitalize())
+            Functions.set_shorcut(
+                "cancel", self.tbcancel.get_text().capitalize())
+            Functions.set_shorcut(
+                "hibernate", self.tbhibernate.get_text().capitalize())
             Functions.set_shorcut("lock", self.tblock.get_text().capitalize())
-            hex = Functions.rgb_to_hex(self.colorchooser.get_rgba().to_string())
+            hex = Functions.rgb_to_hex(
+                self.colorchooser.get_rgba().to_string())
             Functions.set_color(hex)
 
             Functions.MessageBox("Success!!", "Settings Saved Successfully")
@@ -113,21 +118,27 @@ class Main(Gtk.Window):
         except:
             pass
 
-    
     def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
         try:
             widget.set_sensitive(False)
-            Functions.gtk3_save_settings(themeCombo.get_active_text(), "gtk-theme-name")
-            Functions.gtk3_save_settings(iconCombo.get_active_text(), "gtk-icon-theme-name")
-            Functions.gtk3_save_settings(cursorCombo.get_active_text(), "gtk-cursor-theme-name")
-            Functions.gtk3_save_settings(int(str(cursor_size.get_value()).split(".")[0]), "gtk-cursor-theme-size")
-            Functions.gtk3_save_settings(fonts.get_font_name(), "gtk-font-name")
+            Functions.gtk3_save_settings(
+                themeCombo.get_active_text(), "gtk-theme-name")
+            Functions.gtk3_save_settings(
+                iconCombo.get_active_text(), "gtk-icon-theme-name")
+            Functions.gtk3_save_settings(
+                cursorCombo.get_active_text(), "gtk-cursor-theme-name")
+            Functions.gtk3_save_settings(
+                int(str(cursor_size.get_value()).split(".")[0]), "gtk-cursor-theme-size")
+            Functions.gtk3_save_settings(
+                fonts.get_font_name(), "gtk-font-name")
 
-            subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text() + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
+            subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
+            ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
             Functions.MessageBox("Success!!", "Settings Saved Successfully")
             widget.set_sensitive(True)
         except:
             pass
+
     def reset_settings(self, widget, filez):
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
@@ -136,10 +147,13 @@ class Main(Gtk.Window):
             Functions.get_icon_themes(self, self.iconCombo)
             Functions.get_cursor_themes(self, self.cursorCombo)
 
-            self.cursor_size.set_value(float(Functions.get_gtk_settings("gtk-cursor-theme-size")))
-            self.fonts.set_font_name(Functions.get_gtk_settings("gtk-font-name"))
-            subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text() + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
-        
+            self.cursor_size.set_value(
+                float(Functions.get_gtk_settings("gtk-cursor-theme-size")))
+            self.fonts.set_font_name(
+                Functions.get_gtk_settings("gtk-font-name"))
+            subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
+            ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
+
         elif filez == Functions.oblogout_conf:
             self.oblog.get_model().clear()
             vals = Functions.get_opacity()
@@ -160,8 +174,7 @@ class Main(Gtk.Window):
             self.colorchooser.set_rgba(color)
             btnString = Functions.get_buttons()
             Functions.oblog_populate(self.oblog)
-            
-            
+
             if "shutdown" in btnString:
                 self.check_shut.set_active(True)
             if "lock" in btnString:
@@ -179,11 +192,13 @@ class Main(Gtk.Window):
 
     def set_hblock(self, widget, state):
         if not self.firstrun == True:
-            t = threading.Thread(target=Functions.set_hblock, args=(self, widget, widget.get_active()))
+            t = threading.Thread(target=Functions.set_hblock, args=(
+                self, widget, widget.get_active()))
             t.daemon = True
             t.start()
         else:
             self.firstrun = False
+
 
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):
@@ -212,7 +227,7 @@ click yes to remove the lock file and try running again")
 
             if Functions.checkIfProcessRunning(int(pid)):
                 md2 = Gtk.MessageDialog(parent=Main(), flags=0, message_type=Gtk.MessageType.INFO,
-                               buttons=Gtk.ButtonsType.OK, text="Application Running!")
+                                        buttons=Gtk.ButtonsType.OK, text="Application Running!")
                 md2.format_secondary_markup(
                     "You first need to close the existing application")
 
