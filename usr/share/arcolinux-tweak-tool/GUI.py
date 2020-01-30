@@ -7,8 +7,14 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # grid = Gtk.Grid()        
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    
+    swGTK = Gtk.ScrolledWindow()
+    swGTK.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+    
     vbox.pack_start(hbox, True, True, 0)
     self.add(vbox)
+    
+    
 
     #==========================================================
     #                    INITIALIZE STACK
@@ -23,7 +29,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-
+    
     #==========================================================
     #                   TAB #1 PACMAN
     #==========================================================
@@ -168,13 +174,14 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox4.pack_end(save_gtk3_themes, False, False, 0)
     hbox4.pack_end(reset_gtk3_themes, False, False, 0)
     
+    
     vboxStack2.pack_start(hbox1, False, False, 0)#Gtk Themes
     vboxStack2.pack_start(hbox2, False, False, 0)#Gtk Icon Themes
     vboxStack2.pack_start(hbox3, False, False, 0)#Gtk Cursor Themes
     vboxStack2.pack_start(hbox5, False, False, 0)#Gtk Cursor Size
     vboxStack2.pack_start(hbox6, False, False, 0)#Gtk Fonts
     vboxStack2.pack_end(hbox4, False, False, 0) #Save Button
-
+    
     #==========================================================
     #                       HBLOCK
     #==========================================================
@@ -476,7 +483,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack6.pack_start(hbox17, False, False, 0) #keybind row 3
     vboxStack6.pack_start(hbox8, False, False, 0) #lockscreen
     vboxStack6.pack_start(hbox9, False, False, 0) #Color Button
-    vboxStack6.pack_start(hbox13, False, False, 0) #Save Button
+    vboxStack6.pack_end(hbox13, False, False, 0) #Save Button
 
     
     #==========================================================
@@ -511,7 +518,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     ivbox.pack_start(stack_switcher, True, True, 0)
     ivbox.pack_start(version, False, False, 0)
     hbox.pack_start(ivbox, False, True, 0)
-    hbox.pack_start(stack, True, True, 0)
+    swGTK.add(stack)
+    hbox.pack_start(swGTK, False, False, 0)
     
-
     

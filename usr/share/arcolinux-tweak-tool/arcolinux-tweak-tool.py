@@ -20,7 +20,7 @@ class Main(Gtk.Window):
         self.connect("delete-event", self.on_close)        
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_from_file(os.path.join(base_dir, 'images/arcolinux.png'))
-        self.set_size_request(700, 500)
+        self.set_size_request(700, 700)
         
         self.opened = True
         self.firstrun = True
