@@ -504,9 +504,12 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
         os.path.join(base_dir, 'images/arcolinux-one-liner.png'), 145, 145)
     image = Gtk.Image().new_from_pixbuf(pixbuf)
     
+    version = Gtk.Label(xalign=0)
+    version.set_markup("<span foreground=\'grey\'>v20.2.12</span>")
     
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
+    ivbox.pack_start(version, False, False, 0)
     hbox.pack_start(ivbox, False, True, 0)
     hbox.pack_start(stack, True, True, 0)
     
