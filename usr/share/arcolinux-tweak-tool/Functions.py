@@ -620,7 +620,7 @@ def set_hblock(self, toggle, state):
                 subprocess.run([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 
         else:
-
+            
             # Disable Hblock
             GLib.idle_add(self.label7.set_text,"Remove update...")
             # remote_object.shell_commands(disable)
