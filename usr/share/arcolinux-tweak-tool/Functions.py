@@ -559,7 +559,7 @@ def set_hblock(self, toggle, state):
     bus = dbus.SystemBus()
     try:
         print("################### 1")
-        remote_object = bus.get_object("org.arcolinux.ObService", "/ArcoLinux")
+        remote_object = bus.get_object("org.arcolinux.tweaktool", "/ArcoLinux")
         print("################### 2")
         # Commands
         install = 'pacman -S arcolinux-hblock-git --needed --noconfirm'
