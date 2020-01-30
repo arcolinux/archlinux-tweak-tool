@@ -11,7 +11,7 @@ from gi.repository import GLib
 
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
-print(home)
+
 pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
@@ -122,7 +122,6 @@ def get_icon_themes(self, combo):
                     check = os.listdir("/usr/share/icons/" + folder)
                     if not "cursors" in check:
                         coms.append(folder)
-                        # print(folder)
 
             coms.sort()
 
@@ -152,7 +151,6 @@ def get_cursor_themes(self, combo):
                     check = os.listdir("/usr/share/icons/" + folder)
                     if "cursors" in check:
                         coms.append(folder)
-                        # print(folder)
 
             coms.sort()
 
@@ -223,54 +221,44 @@ def toggle_test_repos(state, widget):
         shutil.copy(pacman, pacman + ".bak")
     lines = ""
     if state == True:
-        # print("State = True")
         with open(pacman, 'r') as f:
             lines = f.readlines()
             f.close()
-
-        with open(pacman, 'w') as f:
-            # lines = f.readlines()
+        try:
             for i in range(0, len(lines)):
                 line = lines[i]
                 if widget == "arco":
                     if "[arcolinux_repo_testing]" in line:
-                        lines[i] = line.replace("#", "")
-                        # print(line)
                         if (i+1) < len(lines):
                             lines[i + 1]  = lines[i + 1].replace("#", "") # you may want to check that i < len(lines)
-                            # print(lines[i+1])
                         if (i+2) < len(lines) and "Include" in lines[i+2]:
                             lines[i + 2]  = lines[i + 2].replace("#", "")
-                            # print(lines[i+2])
                 if widget == "arch":
                     if "[testing]" in line:
                         lines[i] = line.replace("#", "")
-                        # print(line)
                         if (i+1) < len(lines):
                             lines[i + 1]  = lines[i + 1].replace("#", "") # you may want to check that i < len(lines)
-                            # print(lines[i+1])
                         if (i+2) < len(lines) and "Include" in lines[i+2]:
                             lines[i + 2]  = lines[i + 2].replace("#", "")
-                            # print(lines[i+2])
                 if widget == "multilib":
                     if "[multilib-testing]" in line:
                         lines[i] = line.replace("#", "")
-                        # print(line)
                         if (i+1) < len(lines):
                             lines[i + 1]  = lines[i + 1].replace("#", "") # you may want to check that i < len(lines)
-                            # print(lines[i+1])
                         if (i+2) < len(lines) and "Include" in lines[i+2]:
                             lines[i + 2]  = lines[i + 2].replace("#", "")
-                            # print(lines[i+2])
-            # f.seek(0, 0)
-            f.writelines(lines)
-            f.close()
+
+            with open(pacman, 'w') as f:
+                # lines = f.readlines()
+                f.writelines(lines)
+                f.close()
+        except:
+            pass
     else:
         with open(pacman, 'r') as f:
             lines = f.readlines()
             f.close()
-
-        with open(pacman, 'w') as f:
+        try:
             for i in range(0, len(lines)):
                 line = lines[i]
                 if widget == "arco":
@@ -303,11 +291,11 @@ def toggle_test_repos(state, widget):
                         if (i+2) < len(lines) and "Include" in lines[i+2]:
                             if not "#" in lines[i + 2]:
                                 lines[i + 2]  = lines[i + 2].replace(lines[i + 2], "#" + lines[i + 2])
-
-            # f.seek(0, 0)
-            f.writelines(lines)
-            f.close()
-
+            with open(pacman, 'w') as f:
+                f.writelines(lines)
+                f.close()
+        except:
+            pass
 
 #=====================================================
 #               OBLOGOUT CONF
@@ -365,7 +353,6 @@ def oblog_populate(combo):
         with open(oblogout_conf, "r") as f:
             lines = f.readlines()
             for line in lines:
-                # print(line)
                 if "buttontheme" in line:
                     
                     value = line.split("=")
@@ -378,11 +365,9 @@ def oblog_populate(combo):
         coms.sort()
 
         for i in range(len(coms)):
-            # print(coms[i])
             combo.append_text(coms[i])
             if(coms[i] == active):
                 combo.set_active(i)
-        # combo.append_text('something')
 
 def oblogout_change_theme(theme):
     if os.path.isfile(oblogout_conf):
@@ -547,7 +532,7 @@ def do_pulse(self, user_data, progress):
     return True
 
 def set_hblock(self, toggle, state):
-    print("RUNNING")
+    
     GLib.idle_add(toggle.set_sensitive,False)
     GLib.idle_add(self.label7.set_text,"Run..")
     GLib.idle_add(self.progress.set_fraction,0.2)
@@ -558,9 +543,8 @@ def set_hblock(self, toggle, state):
     # Dbus
     bus = dbus.SystemBus()
     try:
-        print("################### 1")
         remote_object = bus.get_object("org.arcolinux.tweaktool", "/ArcoLinux")
-        print("################### 2")
+        
         # Commands
         install = 'pacman -S arcolinux-hblock-git --needed --noconfirm'
         # remove = 'pacman -Rsn arcolinux-hblock-git --noconfirm'
@@ -588,10 +572,11 @@ def set_hblock(self, toggle, state):
         # Don't call self.do_pulse anymore
         GLib.source_remove(timeout_id)
         timeout_id = None
-        # prog.set_fraction(0)
+        GLib.idle_add(self.progress.set_fraction,0)
 
         remote_object.Exit()
         GLib.idle_add(toggle.set_sensitive,True)
+        GLib.idle_add(self.label7.set_text,"Idle ...")
 
     except dbus.DBusException as e:
         print(e)

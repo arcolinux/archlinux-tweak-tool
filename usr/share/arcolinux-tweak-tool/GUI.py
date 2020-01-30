@@ -140,7 +140,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     Functions.get_icon_themes(self, self.iconCombo)
     Functions.get_cursor_themes(self, self.cursorCombo)
 
-    print(int(Functions.get_gtk_settings(self, "gtk-cursor-theme-size")))
     self.cursor_size.set_value(int(Functions.get_gtk_settings(self, "gtk-cursor-theme-size").split(".")[0]))
     self.fonts.set_font_name(Functions.get_gtk_settings(self, "gtk-font-name"))
     
@@ -189,8 +188,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     
     self.progress = Gtk.ProgressBar()
     self.progress.set_pulse_step(0.2)
-    print(float(self.progress.get_pulse_step()))
-    
+        
     self.hbswich = Gtk.Switch()
     self.hbswich.connect("notify::active", self.set_hblock)
     self.hbswich.set_active(Functions.hblock_get_state())
@@ -203,7 +201,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack3.pack_end(self.label7, False, False, 0)
 
     #==========================================================
-    #                       TAB #4
+    #                       GRUB
     #==========================================================
     label = Gtk.Label()
     label.set_markup("<big>Label on Tab #4</big>")
@@ -486,12 +484,17 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     #==========================================================
     if Functions.file_check(Functions.pacman):
         stack.add_titled(vboxStack1, "stack1", "Pacman Config")
+    
     stack.add_titled(vboxStack2, "stack2", "Gtk+3 Config")
-    # stack.add_titled(vboxStack4, "stack4", "Lockscreen")
+    
     # stack.add_titled(vboxStack5, "stack5", "Grub Config")
+    
     if Functions.file_check(Functions.oblogout_conf):
-        stack.add_titled(vboxStack6, "stack6", "Oblogout Themes")
-    stack.add_titled(vboxStack3, "stack3", "hblock")
+        stack.add_titled(vboxStack6, "stack6", "Oblogout Config")
+    
+    stack.add_titled(vboxStack3, "stack3", "HBlock")
+    
+    # stack.add_titled(vboxStack4, "stack4", "Grub")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)

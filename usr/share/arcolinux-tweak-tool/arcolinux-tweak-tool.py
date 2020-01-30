@@ -26,38 +26,15 @@ class Main(Gtk.Window):
         self.firstrun = True
         
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
-        # if not os.path.exists(Functions.home + "/.config/arcolinux-tweak-tool"):
-        #     os.mkdir(Functions.home + "/.config/arcolinux-tweak-tool")
 
-        # if not os.path.isfile(settings):
         arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
         multi_testing = Functions.check_repo("[multilib-testing]")
         arch_testing = Functions.check_repo("[testing]")
 
-            # key = {
-            #     'arco-testing-repo': str(arco_testing),
-            #     'arch-testing-repo': str(arch_testing),
-            #     'multilib-testing-repo': str(multi_testing)
-            # }
-            # print(key)
-            # Settings.make_file('Pacman', key)
         self.checkbutton.set_active(arco_testing)
         self.checkbutton2.set_active(arch_testing)
         self.checkbutton3.set_active(multi_testing)
         self.opened = False
-        # else:
-        #     try:
-        #         arco = Settings.read_settings('Pacman', 'arco-testing-repo')
-        #         arch = Settings.read_settings('Pacman', 'arch-testing-repo')
-        #         multi = Settings.read_settings('Pacman', 'multilib-testing-repo')
-
-        #         self.checkbutton.set_active(eval(arco))
-        #         self.checkbutton2.set_active(eval(arch))
-        #         self.checkbutton3.set_active(eval(multi))
-        #     except:
-        #         pass
-
-        #     self.opened = False
 
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
@@ -74,34 +51,14 @@ class Main(Gtk.Window):
 
     def on_pacman_toggle(self, widget, active):
         if self.opened == False:
-            # key = {
-            #     'arco-testing-repo': str(self.checkbutton.get_active()),
-            #     'arch-testing-repo': str(self.checkbutton2.get_active()),
-            #     'multilib-testing-repo': str(self.checkbutton3.get_active())
-            # }
-            # Settings.write_settings("Pacman", key)
             Functions.toggle_test_repos(widget.get_active(), "arco")
 
     def on_pacman_toggle2(self, widget, active):
         if self.opened == False:
-            # print("WRITE")
-            # key = {
-            #     'arco-testing-repo': str(self.checkbutton.get_active()),
-            #     'arch-testing-repo': str(self.checkbutton2.get_active()),
-            #     'multilib-testing-repo': str(self.checkbutton3.get_active())
-            # }
-            # Settings.write_settings("Pacman", key)
             Functions.toggle_test_repos(widget.get_active(), "arch")
 
     def on_pacman_toggle3(self, widget, active):
         if self.opened == False:
-            # print("WRITE")
-            # key = {
-            #     'arco-testing-repo': str(self.checkbutton.get_active()),
-            #     'arch-testing-repo': str(self.checkbutton2.get_active()),
-            #     'multilib-testing-repo': str(self.checkbutton3.get_active())
-            # }
-            # Settings.write_settings("Pacman", key)
             Functions.toggle_test_repos(widget.get_active(), "multilib")
 
 
@@ -161,7 +118,6 @@ class Main(Gtk.Window):
         subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text() + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
 
     def reset_settings(self, widget, filez):
-        # print(filez)
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
         if filez == Functions.gtk3_settings:
@@ -219,7 +175,6 @@ class Main(Gtk.Window):
             self.firstrun = False
 
 if __name__ == "__main__":
-    # print(os.getuid())
     if not os.path.isfile("/tmp/att.lock"):
         with open("/tmp/att.pid", "w") as f:
             f.write(str(os.getpid()))
@@ -242,7 +197,6 @@ click yes to remove the lock file and try running again")
             with open("/tmp/att.pid", "r") as f:
                 line = f.read()
                 pid = line.rstrip().lstrip()
-                # print(pid)
                 f.close()
 
             if Functions.checkIfProcessRunning(int(pid)):
