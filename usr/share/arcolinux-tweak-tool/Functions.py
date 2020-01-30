@@ -558,9 +558,9 @@ def set_hblock(self, toggle, state):
     # Dbus
     bus = dbus.SystemBus()
     try:
-
+        print("################### 1")
         remote_object = bus.get_object("org.arcolinux.ObService", "/ArcoLinux")
-
+        print("################### 2")
         # Commands
         install = 'pacman -S arcolinux-hblock-git --needed --noconfirm'
         # remove = 'pacman -Rsn arcolinux-hblock-git --noconfirm'
@@ -593,8 +593,8 @@ def set_hblock(self, toggle, state):
         remote_object.Exit()
         GLib.idle_add(toggle.set_sensitive,True)
 
-    except GLib.GError as error:
-        print(f"Error checking authorization: {error.message}")
+    except dbus.DBusException as e:
+        print(e)
 
 def checkIfProcessRunning(processName):
     for proc in psutil.process_iter():
