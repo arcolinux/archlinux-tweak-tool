@@ -9,10 +9,9 @@ import dbus
 import gi
 from gi.repository import GLib
 
-sudo_username = os.getenv("LOGNAME")
+sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
 print(home)
-print(os.getlogin())
 pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
