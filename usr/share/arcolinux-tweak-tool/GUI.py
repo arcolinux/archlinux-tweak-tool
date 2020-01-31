@@ -148,7 +148,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     save_gtk3_themes.connect("clicked", self.save_gtk3_settings, self.themeCombo,
                              self.iconCombo, self.cursorCombo, self.cursor_size, self.fonts)
 
-    reset_gtk3_themes = Gtk.Button(label="Reset Defaults")
+    reset_gtk3_themes = Gtk.Button(label="Reset/Reload Defaults")
     reset_gtk3_themes.connect(
         "clicked", self.reset_settings, Functions.gtk3_settings)
 
