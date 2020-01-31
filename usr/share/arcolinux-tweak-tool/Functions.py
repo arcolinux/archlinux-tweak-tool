@@ -234,22 +234,23 @@ def gtk3_save_settings(value, item):
             MessageBox("ERROR!!", "An error has occured getting this setting \'gtk3_save_settings\'")
 
 def set_xfce_settings(theme, icon, cursor, cursize):
-    try:
-        tree = et.parse(xfce_config)
-        for rank in tree.iter('property'):
-            if rank.get("name") == "ThemeName":
-                rank.set("value", str(theme))
-            if rank.get("name") == "IconThemeName":
-                rank.set("value", str(icon))
-            if rank.get("name") == "CursorThemeName":
-                rank.set("value", str(cursor))
-            if rank.get("name") == "CursorThemeSize":
-                rank.set("value", str(cursize))
+    if os.path.isfile(xfce_config):
+        try:
+            tree = et.parse(xfce_config)
+            for rank in tree.iter('property'):
+                if rank.get("name") == "ThemeName":
+                    rank.set("value", str(theme))
+                if rank.get("name") == "IconThemeName":
+                    rank.set("value", str(icon))
+                if rank.get("name") == "CursorThemeName":
+                    rank.set("value", str(cursor))
+                if rank.get("name") == "CursorThemeSize":
+                    rank.set("value", str(cursize))
 
 
-        tree.write(xfce_config, encoding="utf-8", xml_declaration=True)
-    except:
-        MessageBox("ERROR!!", "An error has occured setting this setting \'set_xfce_settings\'")
+            tree.write(xfce_config, encoding="utf-8", xml_declaration=True)
+        except:
+            MessageBox("ERROR!!", "An error has occured setting this setting \'set_xfce_settings\'")
 
 #=====================================================
 #               PACMAN CONF
