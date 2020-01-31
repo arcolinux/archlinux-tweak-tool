@@ -138,6 +138,7 @@ class Main(Gtk.Window):
         widget.set_sensitive(True)
 
         Functions.set_xfce_settings(themeCombo.get_active_text(), iconCombo.get_active_text(), cursorCombo.get_active_text(), int(str(cursor_size.get_value()).split(".")[0]))
+        Functions.update_index_theme(cursorCombo.get_active_text())
         # except:
         #     pass
 
@@ -213,7 +214,7 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.grub_theme_conf + ".bak", Functions.grub_theme_conf)
         self.pop_themes_grub(self.grub_theme_combo, Functions.get_grub_wallpapers())
 
-    def pop_themes_grub(self, combo, lists):
+    def pop_themes_grub(self, combo, lists, start):
         if os.path.isfile(Functions.grub_theme_conf):
             combo.get_model().clear()
             with open(Functions.grub_theme_conf, "r") as f:
@@ -225,8 +226,13 @@ class Main(Gtk.Window):
 
             for i in range(len(lists)):
                 combo.append_text(lists[i])
-                if(lists[i] == bg_image):
-                    combo.set_active(i)
+                if start:
+                    if(lists[i] == bg_image):
+                        combo.set_active(i)
+                else:
+                    if(lists[i] == os.path.basename(self.tbimage.get_text())):
+                        combo.set_active(i)
+                    
 
     def on_grub_theme_change(self, widget, image):
         try:
@@ -234,6 +240,33 @@ class Main(Gtk.Window):
             self.image.set_from_pixbuf(pixbuf3)
         except:
             pass
+    def on_import_wallpaper(self, widget):
+        text = self.tbimage.get_text()
+        if len(text) > 1:
+            print(os.path.basename(text))
+            Functions.shutil.copy(text, '/boot/grub/themes/Vimix/' + os.path.basename(text))
+            self.pop_themes_grub(self.grub_theme_combo, Functions.get_grub_wallpapers(), False)
+
+    def on_choose_wallpaper(self, widget):
+        dialog = Gtk.FileChooserDialog(
+				title="Please choose a file",
+				action=Gtk.FileChooserAction.OPEN,)
+        filter = Gtk.FileFilter()
+        filter.set_name("IMAGE Files")
+        filter.add_mime_type("image/png")
+        filter.add_mime_type("image/jpg")
+        filter.add_mime_type("image/jpeg")
+        dialog.set_filter(filter)
+        dialog.set_current_folder(Functions.home + "/Pictures")
+        dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
+
+        response = dialog.run()
+
+        if response == Gtk.ResponseType.OK:
+            self.tbimage.set_text(dialog.get_filename())
+            dialog.destroy()
+        elif response == Gtk.ResponseType.CANCEL:
+            dialog.destroy()
 
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):

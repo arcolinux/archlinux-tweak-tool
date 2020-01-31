@@ -211,7 +211,14 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.grub_theme_combo = Gtk.ComboBoxText()
     
     wallpaper_list = Functions.get_grub_wallpapers()
-    self.pop_themes_grub(self.grub_theme_combo, wallpaper_list)
+    self.pop_themes_grub(self.grub_theme_combo, wallpaper_list, True)
+
+    label8 = Gtk.Label("Import Image")
+    self.tbimage = Gtk.Entry()
+    btnsearch = Gtk.Button(label=". . .")
+    btnsearch.connect("clicked", self.on_choose_wallpaper)
+    btnimport = Gtk.Button(label="Import Selected Image")
+    btnimport.connect("clicked", self.on_import_wallpaper)
 
     pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text(), 345, 345)
     self.image = Gtk.Image().new_from_pixbuf(pixbuf3)
@@ -225,19 +232,28 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     grub_reset = Gtk.Button(label="Reset Theme")
     grub_reset.connect("clicked", self.on_reset_grub_wallpaper)
 
+
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
     hbox8.pack_start(label7, False, True, 0)
     hbox8.pack_start(self.grub_theme_combo, True, True, 0)
     
+    hbox11.pack_start(label8, False, False, 0)
+    hbox11.pack_start(self.tbimage, True, True, 0)
+    hbox11.pack_start(btnsearch, False, False, 0)
+    hbox12.pack_end(btnimport, False, False, 0)
     hbox10.pack_start(frame, True, True, 0)
 
     hbox9.pack_end(grub_apply, False, False, 0)
     hbox9.pack_end(grub_reset, False, False, 0)
     
     vboxStack4.pack_start(hbox8, False, False, 0)
+    vboxStack4.pack_start(hbox11, False, False, 0)
+    vboxStack4.pack_start(hbox12, False, False, 0)
     vboxStack4.pack_start(hbox10, False, False, 0)
     vboxStack4.pack_end(hbox9, False, False, 0)
     

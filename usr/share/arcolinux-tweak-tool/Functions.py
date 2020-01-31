@@ -251,7 +251,22 @@ def set_xfce_settings(theme, icon, cursor, cursize):
             tree.write(xfce_config, encoding="utf-8", xml_declaration=True)
         except:
             MessageBox("ERROR!!", "An error has occured setting this setting \'set_xfce_settings\'")
-
+def update_index_theme(theme):
+    theme_file = "/usr/share/icons/default/index.theme"
+    if os.path.isfile(theme_file):
+        try:
+            with open(theme_file, "r") as f:
+                lines = f.readlines()
+                f.close()
+            for i in range(len(lines)):
+                if "Inherits" in lines[i]:
+                    lines[i] = "Inherits=" + theme
+            
+            with open(theme_file, "w") as f:
+                f.writelines(lines)
+                f.close()
+        except:
+            pass
 #=====================================================
 #               PACMAN CONF
 #=====================================================
