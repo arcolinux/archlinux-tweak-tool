@@ -4,6 +4,7 @@ import psutil
 import time
 import subprocess
 # import dbus
+import threading
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk
@@ -43,6 +44,10 @@ def clamp(x):
 #=====================================================
 #               GLOBAL FUNCTIONS
 #=====================================================
+def threaded(fn):
+    def wrapper(*args, **kwargs):
+        threading.Thread(target=fn, args=args, kwargs=kwargs).start()
+    return wrapper
 
 def _get_position(list, value):
     data = [string for string in list if value in string]
@@ -585,14 +590,15 @@ def do_pulse(self, user_data, progress):
     progress.pulse()
     return True
 
+@threaded
 def set_hblock(self, toggle, state):
     GLib.idle_add(toggle.set_sensitive,False)
     GLib.idle_add(self.label7.set_text,"Run..")
     GLib.idle_add(self.progress.set_fraction,0.2)
     # Call self.do_pulse every 100 ms
-    timeout_id = None
-    timeout_id = GLib.timeout_add(100, do_pulse, None, self, self.progress)
-
+    # timeout_id = None
+    # timeout_id = GLib.timeout_add(100, do_pulse, None, self, self.progress)
+    GLib.idle_add(self.progress.pulse())
     # Dbus
     # bus = dbus.SystemBus()
     try:
@@ -609,28 +615,33 @@ def set_hblock(self, toggle, state):
             if os.path.exists("/usr/local/bin/hblock"):
                 GLib.idle_add(self.label7.set_text,"Database update...")
                 # remote_object.shell_commands(enable)
+                GLib.idle_add(self.progress.pulse())
                 subprocess.run([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
             else:
                 GLib.idle_add(self.label7.set_text,"Install Hblock......")
                 #remote_object.shell_commands(install)
+                GLib.idle_add(self.progress.pulse())
                 subprocess.run(install.split(" "), shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 GLib.idle_add(self.label7.set_text,"Database update...")
                 #remote_object.shell_commands(enable)
+                GLib.idle_add(self.progress.pulse())
                 subprocess.run([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 
         else:
             
             # Disable Hblock
             GLib.idle_add(self.label7.set_text,"Remove update...")
+            GLib.idle_add(self.progress.pulse())
             # remote_object.shell_commands(disable)
             subprocess.run(["sh", "-c", "HBLOCK_SOURCES=\'\' hblock"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         
         GLib.idle_add(self.label7.set_text,"Complete")
+        GLib.idle_add(self.progress.pulse())
         # self.hblock_quit_btn.set_sensitive(True)
         # Don't call self.do_pulse anymore
-        GLib.source_remove(timeout_id)
-        timeout_id = None
+        # GLib.source_remove(timeout_id)
+        # timeout_id = None
         GLib.idle_add(self.progress.set_fraction,0)
 
         # remote_object.Exit()
