@@ -213,6 +213,10 @@ class Main(Gtk.Window):
             if(lists[i] == bg_image):
                 combo.set_active(i)
 
+    def on_grub_theme_change(self, widget, image):
+        pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + widget.get_active_text(), 345, 345)
+        self.image.set_from_pixbuf(pixbuf3)
+
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):
         with open("/tmp/att.pid", "w") as f:
