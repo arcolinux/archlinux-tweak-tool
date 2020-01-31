@@ -125,7 +125,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.iconCombo = Gtk.ComboBoxText()
     self.cursorCombo = Gtk.ComboBoxText()
 
-    adj1 = Gtk.Adjustment(1.0, 1.0, 42.0, 1.0, 5.0, 0.0)
+    adj1 = Gtk.Adjustment(28.0, 10.0, 100.0, 1.0, 5.0, 0.0)
     self.cursor_size = Gtk.SpinButton()
     self.cursor_size.set_adjustment(adj1)
 
