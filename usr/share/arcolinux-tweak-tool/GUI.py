@@ -9,8 +9,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
-    swGTK = Gtk.ScrolledWindow()
-    swGTK.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+    # swGTK = Gtk.ScrolledWindow()
+    # swGTK.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
     vbox.pack_start(hbox, True, True, 0)
     self.add(vbox)
@@ -249,7 +249,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # self.hscale.connect("value-changed", self.scale_moved)
 
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox5.pack_start(label5, False, True, 10)
+    hbox5.pack_start(label5, False, False, 10)
     hbox5.pack_start(self.hscale, True, True, 10)
 
     # ==============================================================
@@ -286,7 +286,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.check_susp.set_label("Show Suspend   ")
     self.check_hiber.set_label("Show Hibernate")
     self.spacer = Gtk.Label()
-    self.spacer.set_text("                                   ")
+    self.spacer.set_text("                             ")
 
     btnString = Functions.get_buttons()
     Functions.oblog_populate(self.oblog)
@@ -309,9 +309,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # SetButtons = Gtk.Button(label="Set Buttons")
     # SetButtons.connect("clicked", self.on_buttons_set)
 
-    hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     # hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     hbox7.pack_start(label7, False, False, 10)
@@ -332,52 +332,53 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     label8.set_markup("<b>Keybinds</b>")
 
     labelcancel = Gtk.Label()
-    labelcancel.set_markup("Cancel ")
+    labelcancel.set_markup("Cancel   ")
     labelshutdown = Gtk.Label()
     labelshutdown.set_markup("Shutdown")
     labelsuspend = Gtk.Label()
-    labelsuspend.set_markup("Suspend  ")
+    labelsuspend.set_markup("Suspend")
     labelrestart = Gtk.Label()
-    labelrestart.set_markup("Restart")
+    labelrestart.set_markup("Restart     ")
     labellogout = Gtk.Label()
-    labellogout.set_markup("Logout      ")
+    labellogout.set_markup("Logout   ")
     labellock = Gtk.Label()
-    labellock.set_markup("Lock    ")
+    labellock.set_markup("Lock")
     labelhibernate = Gtk.Label()
     labelhibernate.set_markup("Hibernate")
 
     self.tbcancel = Gtk.Entry()
     self.tbcancel.set_max_length(0)
-    self.tbcancel.set_size_request(50, 0)
+    # self.tbcancel.set_size_request(50, 0)
 
     self.tbshutdown = Gtk.Entry()
     self.tbshutdown.set_max_length(1)
-    self.tbshutdown.set_size_request(10, 0)
+    # self.tbshutdown.set_size_request(10, 0)
 
     self.tbsuspend = Gtk.Entry()
     self.tbsuspend.set_max_length(1)
-    self.tbsuspend.set_size_request(50, 0)
+    # self.tbsuspend.set_size_request(50, 0)
 
     self.tbrestart = Gtk.Entry()
     self.tbrestart.set_max_length(1)
-    self.tbrestart.set_size_request(50, 0)
+    # self.tbrestart.set_size_request(50, 0)
 
     self.tblogout = Gtk.Entry()
     self.tblogout.set_max_length(1)
-    self.tblogout.set_size_request(50, 0)
+    # self.tblogout.set_size_request(50, 0)
 
     self.tblock = Gtk.Entry()
     self.tblock.set_max_length(1)
-    self.tblock.set_size_request(50, 0)
+    # self.tblock.set_size_request(50, 0)
 
     self.tbhibernate = Gtk.Entry()
     self.tbhibernate.set_max_length(1)
-    self.tbhibernate.set_size_request(50, 0)
+    # self.tbhibernate.set_size_request(50, 0)
 
     hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     hbox14.pack_start(label8, False, False, 10)
     hbox15.pack_start(labelcancel, False, True, 10)
@@ -386,20 +387,20 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox15.pack_start(labelshutdown, False, True, 10)
     hbox15.pack_start(self.tbshutdown, True, True, 10)
 
-    hbox15.pack_start(labelsuspend, False, True, 10)
-    hbox15.pack_start(self.tbsuspend, True, True, 10)
+    hbox16.pack_start(labelsuspend, False, True, 10)
+    hbox16.pack_start(self.tbsuspend, True, True, 10)
 
     hbox16.pack_start(labelrestart, False, True, 10)
     hbox16.pack_start(self.tbrestart, True, True, 10)
 
-    hbox16.pack_start(labellogout, False, True, 10)
-    hbox16.pack_start(self.tblogout, True, True, 10)
+    hbox17.pack_start(labellogout, False, True, 10)
+    hbox17.pack_start(self.tblogout, True, True, 10)
 
-    hbox16.pack_start(labelhibernate, False, True, 10)
-    hbox16.pack_start(self.tbhibernate, True, True, 10)
+    hbox17.pack_start(labelhibernate, False, True, 10)
+    hbox17.pack_start(self.tbhibernate, True, True, 10)
 
-    hbox17.pack_start(labellock, False, True, 10)
-    hbox17.pack_start(self.tblock, True, True, 10)
+    hbox18.pack_start(labellock, False, True, 10)
+    hbox18.pack_start(self.tblock, True, True, 10)
 
     try:
         self.tbcancel.set_text(Functions.get_shortcut("cancel"))
@@ -458,7 +459,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox13.pack_end(save_oblogout, False, False, 0)
     hbox13.pack_end(reset_oblogout, False, False, 0)
 
-    vboxStack6.pack_start(hbox6, False, False, 0)  # image
+    # vboxStack6.pack_start(hbox6, False, False, 0)  # image
     vboxStack6.pack_start(hbox5, False, False, 0)  # slider
     vboxStack6.pack_start(hbox4, False, False, 0)  # themes
     vboxStack6.pack_start(hbox7, False, False, 0)  # button label
@@ -504,5 +505,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     ivbox.pack_start(stack_switcher, True, True, 0)
     ivbox.pack_start(version, False, False, 0)
     hbox.pack_start(ivbox, False, True, 0)
-    swGTK.add(stack)
-    hbox.pack_start(swGTK, True, True, 0)
+    # swGTK.add(stack)
+    hbox.pack_start(stack, True, True, 0)
+    stack.set_hhomogeneous(False)
+    stack.set_vhomogeneous(False)
+    print(stack.get_hhomogeneous())
