@@ -205,10 +205,18 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
     #                       GRUB
     # ==========================================================
-    label = Gtk.Label()
-    label.set_markup("<big>Label on Tab #4</big>")
+    label7 = Gtk.Label()
+    label7.set_text("Select a Wallpaper")
 
-    vboxStack4.pack_start(label, False, False, 0)
+    grub_theme_combo = Gtk.ComboBoxText()
+    wallpaper_list = Functions.get_grub_wallpapers()
+    self.pop_themes_grub(grub_theme_combo, wallpaper_list)
+
+    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox8.pack_start(label7, False, True, 0)
+    hbox8.pack_start(grub_theme_combo, True, True, 0)
+    
+    vboxStack4.pack_start(hbox8, False, False, 0)
 
     # ==========================================================
     #                       TAB #5
@@ -482,7 +490,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     stack.add_titled(vboxStack2, "stack2", "Gtk+3 Config")
 
-    # stack.add_titled(vboxStack5, "stack5", "Grub Config")
+    stack.add_titled(vboxStack4, "stack5", "Grub Config")
 
     if Functions.file_check(Functions.oblogout_conf):
         stack.add_titled(vboxStack6, "stack6", "Oblogout Config")
@@ -511,4 +519,3 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     stack.set_hhomogeneous(False)
     stack.set_vhomogeneous(False)
     
-    Functions.get_grub_wallpapers()

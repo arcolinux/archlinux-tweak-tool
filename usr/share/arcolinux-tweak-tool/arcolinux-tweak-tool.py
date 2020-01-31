@@ -200,6 +200,18 @@ class Main(Gtk.Window):
         else:
             self.firstrun = False
         
+    def pop_themes_grub(self, combo, lists):
+        with open("/boot/grub/themes/Vimix/theme.txt", "r") as f:
+            listss = f.readlines()
+            f.close()
+
+        val = Functions._get_position(listss, "desktop-image: ")
+        bg_image = listss[val].split(" ")[1].replace("\"", "").lstrip().rstrip()
+
+        for i in range(len(lists)):
+            combo.append_text(lists[i])
+            if(lists[i] == bg_image):
+                combo.set_active(i)
 
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):
