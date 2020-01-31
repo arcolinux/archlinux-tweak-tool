@@ -194,7 +194,7 @@ class Main(Gtk.Window):
         if not self.firstrun == True:
             t = threading.Thread(target=Functions.set_hblock, args=(
                 self, widget, widget.get_active()))
-            t.daemon = True
+            # t.daemon = True
             t.start()
             # Functions.set_hblock(self, widget, widget.get_active())
         else:

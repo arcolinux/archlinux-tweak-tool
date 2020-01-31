@@ -608,7 +608,7 @@ def set_hblock(self, toggle, state):
         # Commands
         install = 'pacman -S arcolinux-hblock-git --needed --noconfirm'
         # remove = 'pacman -Rsn arcolinux-hblock-git --noconfirm'
-        enable = "hblock"
+        enable = "/usr/local/bin/hblock"
         # disable = "HBLOCK_SOURCES='' hblock"
 
         # Install
@@ -635,7 +635,7 @@ def set_hblock(self, toggle, state):
             GLib.idle_add(self.label7.set_text,"Remove update...")
             # remote_object.shell_commands(disable)
             print("#remove")
-            subprocess.run(["sh", "-c", "HBLOCK_SOURCES=\'\' hblock"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            subprocess.run(["sh", "-c", "HBLOCK_SOURCES=\'\' /usr/local/bin/hblock"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             print("#5")
 
         GLib.idle_add(self.label7.set_text,"Complete")

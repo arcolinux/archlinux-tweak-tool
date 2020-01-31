@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+pkexec '/home/pheonix/Repos/Python-Apps/arcolinux-tweak-tool/usr/share/arcolinux-tweak-tool/arcolinux-tweak-tool.py'
