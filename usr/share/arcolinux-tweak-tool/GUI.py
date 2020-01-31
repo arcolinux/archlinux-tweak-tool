@@ -500,7 +500,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     image = Gtk.Image().new_from_pixbuf(pixbuf)
 
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.2.14</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.2.16</span>")
 
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
