@@ -721,8 +721,12 @@ def set_grub_wallpaper(image):
         
 
 def get_desktop():
-    desktop = subprocess.run(["sh", "-c", "env"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    print(desktop.stdout.decode())
+    env = os.environ
+    print(env)
+    # print(env.get('DESKTOP_SESSION'))
+    # XDG_SESSION_ID
+    # desktop = subprocess.run(["sh", "-c", "env"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    # print(desktop.stdout.decode())
 #=====================================================
 #               CHECK RUNNING PROCESS
 #=====================================================
