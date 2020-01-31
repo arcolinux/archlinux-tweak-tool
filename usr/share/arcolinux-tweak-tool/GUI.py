@@ -224,11 +224,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     self.image = Gtk.Image()
 
-    try:
-        pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text(), 345, 345)
-        self.image.new_from_pixbuf(pixbuf3)
-    except:
-        pass
+    # try:
+    pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text(), 345, 345)
+    self.image.set_from_pixbuf(pixbuf3)
+    # except:
+    #     pass
     frame = Gtk.Frame(label="Preview")
     frame.add(self.image)
 
@@ -239,6 +239,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     grub_reset = Gtk.Button(label="Reset Theme")
     grub_reset.connect("clicked", self.on_reset_grub_wallpaper)
 
+    Functions.get_desktop()
 
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)

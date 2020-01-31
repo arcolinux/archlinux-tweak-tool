@@ -252,7 +252,7 @@ def set_xfce_settings(theme, icon, cursor, cursize):
         except:
             MessageBox("ERROR!!", "An error has occured setting this setting \'set_xfce_settings\'")
 
-            
+
 def update_index_theme(theme):
     theme_file = "/usr/share/icons/default/index.theme"
     if os.path.isfile(theme_file):
@@ -719,6 +719,10 @@ def set_grub_wallpaper(image):
             pass
 
         
+
+def get_desktop():
+    desktop = subprocess.run(["sh", "-c", "env"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    print(desktop.stdout.decode())
 #=====================================================
 #               CHECK RUNNING PROCESS
 #=====================================================
