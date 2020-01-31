@@ -37,7 +37,7 @@ class ArcoLinux(dbus.service.Object):
 if __name__ == "__main__":
     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
     bus = dbus.SystemBus()
-    name = dbus.service.BusName("org.arcolinux.tweaktool", bus)
+    name = dbus.service.BusName("org.arcolinux.TweakTool", bus)
     object = ArcoLinux(bus, "/ArcoLinux")
 
     mainloop = GLib.MainLoop()

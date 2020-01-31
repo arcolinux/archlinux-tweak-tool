@@ -192,11 +192,11 @@ class Main(Gtk.Window):
 
     def set_hblock(self, widget, state):
         if not self.firstrun == True:
-            # t = threading.Thread(target=Functions.set_hblock, args=(
-            #     self, widget, widget.get_active()))
-            # t.daemon = True
-            # t.start()
-            Functions.set_hblock(self, widget, widget.get_active())
+            t = threading.Thread(target=Functions.set_hblock, args=(
+                self, widget, widget.get_active()))
+            t.daemon = True
+            t.start()
+            # Functions.set_hblock(self, widget, widget.get_active())
         else:
             self.firstrun = False
         
