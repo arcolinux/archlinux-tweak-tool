@@ -209,7 +209,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     label7.set_text("Select a Wallpaper")
 
     self.grub_theme_combo = Gtk.ComboBoxText()
-    
+    btnremove = Gtk.Button(label="Remove")
+    btnremove.connect("clicked", self.on_remove_wallpaper)
+
     wallpaper_list = Functions.get_grub_wallpapers()
     self.pop_themes_grub(self.grub_theme_combo, wallpaper_list, True)
 
@@ -220,8 +222,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     btnimport = Gtk.Button(label="Import Selected Image")
     btnimport.connect("clicked", self.on_import_wallpaper)
 
-    pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text(), 345, 345)
-    self.image = Gtk.Image().new_from_pixbuf(pixbuf3)
+    self.image = Gtk.Image()
+
+    try:
+        pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text(), 345, 345)
+        self.image.new_from_pixbuf(pixbuf3)
+    except:
+        pass
     frame = Gtk.Frame(label="Preview")
     frame.add(self.image)
 
@@ -241,9 +248,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     
     hbox8.pack_start(label7, False, True, 0)
     hbox8.pack_start(self.grub_theme_combo, True, True, 0)
-    
+    hbox8.pack_start(btnremove, False, False, 0)
+
     hbox11.pack_start(label8, False, False, 0)
     hbox11.pack_start(self.tbimage, True, True, 0)
+    
     hbox11.pack_start(btnsearch, False, False, 0)
     hbox12.pack_end(btnimport, False, False, 0)
     hbox10.pack_start(frame, True, True, 0)

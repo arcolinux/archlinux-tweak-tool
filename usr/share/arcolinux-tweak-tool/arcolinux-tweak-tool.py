@@ -226,7 +226,7 @@ class Main(Gtk.Window):
 
             for i in range(len(lists)):
                 combo.append_text(lists[i])
-                if start:
+                if start == True:
                     if(lists[i] == bg_image):
                         combo.set_active(i)
                 else:
@@ -246,6 +246,13 @@ class Main(Gtk.Window):
             print(os.path.basename(text))
             Functions.shutil.copy(text, '/boot/grub/themes/Vimix/' + os.path.basename(text))
             self.pop_themes_grub(self.grub_theme_combo, Functions.get_grub_wallpapers(), False)
+
+    def on_remove_wallpaper(self, widget):
+        widget.set_sensitive(False)
+        if os.path.isfile('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text()):
+            os.unlink('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text())
+            self.pop_themes_grub(self.grub_theme_combo, Functions.get_grub_wallpapers(), True)
+        widget.set_sensitive(True)
 
     def on_choose_wallpaper(self, widget):
         dialog = Gtk.FileChooserDialog(
