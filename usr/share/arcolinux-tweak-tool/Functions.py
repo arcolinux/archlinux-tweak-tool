@@ -617,17 +617,17 @@ def set_hblock(self, toggle, state):
                 GLib.idle_add(self.label7.set_text,"Database update...")
                 # remote_object.shell_commands(enable)
                 print("#4")
-                subprocess.run([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                subprocess.call([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 print("#5")
             else:
                 print("#4")
                 GLib.idle_add(self.label7.set_text,"Install Hblock......")
                 # remote_object.shell_commands(install)
                 print("#5")
-                subprocess.run(install.split(" "), shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                subprocess.call(install.split(" "), shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 GLib.idle_add(self.label7.set_text,"Database update...")
                 # remote_object.shell_commands(enable)
-                subprocess.run([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                subprocess.call([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                 
         else:
             print("#4")
