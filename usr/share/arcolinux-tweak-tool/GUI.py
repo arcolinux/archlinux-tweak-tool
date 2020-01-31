@@ -511,3 +511,4 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     stack.set_hhomogeneous(False)
     stack.set_vhomogeneous(False)
     
+    Functions.get_grub_wallpapers()

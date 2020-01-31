@@ -655,6 +655,15 @@ def set_hblock(self, toggle, state):
         
 
 #=====================================================
+#               HBLOCK CONF
+#=====================================================
+def get_grub_wallpapers():
+    if os.path.isdir("/boot/grub/themes/vimix"):
+        for fl in os.listdir("/boot/grub/themes/vimix"):
+            print(fl)
+
+
+#=====================================================
 #               CHECK RUNNING PROCESS
 #=====================================================
 
