@@ -15,7 +15,7 @@ pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
-
+grub_theme_conf = "/boot/grub/themes/Vimix/theme.txt"
 
 #=====================================================
 #               MESSAGEBOX
@@ -43,10 +43,6 @@ def clamp(x):
 #=====================================================
 #               GLOBAL FUNCTIONS
 #=====================================================
-def threaded(fn):
-    def wrapper(*args, **kwargs):
-        threading.Thread(target=fn, args=args, kwargs=kwargs).start()
-    return wrapper
 
 def _get_position(list, value):
     data = [string for string in list if value in string]
@@ -660,12 +656,36 @@ def set_hblock(self, toggle, state):
 def get_grub_wallpapers():
     if os.path.isdir("/boot/grub/themes/Vimix"):
         lists = os.listdir("/boot/grub/themes/Vimix")
-        rems = ['select_e.png', 'terminal_box_se.png', 'select_c.png', 'terminal_box_c.png', 'terminal_box_s.png', 'select_w.png', 'terminal_box_nw.png', 'terminal_box_w.png', 'unifont-regular-16.pf2', 'icons', 'terminal_box_ne.png', 'theme.txt', 'terminal_box_sw.png', 'terminal_box_n.png', 'terminal_box_e.png']
+        rems = ['select_e.png', 'terminal_box_se.png', 'select_c.png', 'terminal_box_c.png', 'terminal_box_s.png', 
+        'select_w.png', 'terminal_box_nw.png', 'terminal_box_w.png', 'unifont-regular-16.pf2', 'icons', 'terminal_box_ne.png', 
+        'theme.txt', 'terminal_box_sw.png', 'terminal_box_n.png', 'terminal_box_e.png']
         new_list = [x for x in lists if x not in rems]
         new_list.sort()
         return new_list
 
+def set_grub_wallpaper(image):
+    if os.path.isfile(grub_theme_conf):
+        if not os.path.isfile(grub_theme_conf + ".bak"):
+            shutil.copy(grub_theme_conf, grub_theme_conf + ".bak")
+        try:
+            with open(grub_theme_conf, "r") as f:
+                lists = f.readlines()
+                f.close()
 
+            val = _get_position(lists, "desktop-image: ")
+            lists[val] = "desktop-image: \"" + image + "\"" + "\n"
+            
+            with open(grub_theme_conf, "w") as f:
+                f.writelines(lists)
+                f.close()
+            
+            MessageBox("Success!!", "Settings Saved Successfully")
+        except:
+            pass
+def reset_grub_wallpaper(self, combo):
+    if os.path.isfile(grub_theme_conf + ".bak"):
+        shutil.copy(grub_theme_conf, grub_theme_conf + ".bak")
+        
 #=====================================================
 #               CHECK RUNNING PROCESS
 #=====================================================

@@ -199,19 +199,32 @@ class Main(Gtk.Window):
             # Functions.set_hblock(self, widget, widget.get_active())
         else:
             self.firstrun = False
-        
+    
+    #====================================================================
+    #                       GRUB
+    #====================================================================
+    def on_set_grub_wallpaper(self, widget):
+        Functions.set_grub_wallpaper(self.grub_theme_combo.get_active_text())
+
+    def on_reset_grub_wallpaper(self, widget):
+        if os.path.isfile(Functions.grub_theme_conf + ".bak"):
+            Functions.shutil.copy(Functions.grub_theme_conf + ".bak", Functions.grub_theme_conf)
+        self.pop_themes_grub(self.grub_theme_combo, Functions.get_grub_wallpapers())
+
     def pop_themes_grub(self, combo, lists):
-        with open("/boot/grub/themes/Vimix/theme.txt", "r") as f:
-            listss = f.readlines()
-            f.close()
+        if os.path.isfile(Functions.grub_theme_conf):
+            combo.get_model().clear()
+            with open(Functions.grub_theme_conf, "r") as f:
+                listss = f.readlines()
+                f.close()
 
-        val = Functions._get_position(listss, "desktop-image: ")
-        bg_image = listss[val].split(" ")[1].replace("\"", "").lstrip().rstrip()
+            val = Functions._get_position(listss, "desktop-image: ")
+            bg_image = listss[val].split(" ")[1].replace("\"", "").lstrip().rstrip()
 
-        for i in range(len(lists)):
-            combo.append_text(lists[i])
-            if(lists[i] == bg_image):
-                combo.set_active(i)
+            for i in range(len(lists)):
+                combo.append_text(lists[i])
+                if(lists[i] == bg_image):
+                    combo.set_active(i)
 
     def on_grub_theme_change(self, widget, image):
         pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + widget.get_active_text(), 345, 345)

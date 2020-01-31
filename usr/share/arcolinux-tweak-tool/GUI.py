@@ -208,27 +208,31 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     label7 = Gtk.Label()
     label7.set_text("Select a Wallpaper")
 
-    grub_theme_combo = Gtk.ComboBoxText()
+    self.grub_theme_combo = Gtk.ComboBoxText()
     
     wallpaper_list = Functions.get_grub_wallpapers()
-    self.pop_themes_grub(grub_theme_combo, wallpaper_list)
+    self.pop_themes_grub(self.grub_theme_combo, wallpaper_list)
 
-    pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + grub_theme_combo.get_active_text(), 345, 345)
+    pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text(), 345, 345)
     self.image = Gtk.Image().new_from_pixbuf(pixbuf3)
+    frame = Gtk.Frame(label="Preview")
+    frame.add(self.image)
 
-    grub_theme_combo.connect("changed", self.on_grub_theme_change, self.image)
+    self.grub_theme_combo.connect("changed", self.on_grub_theme_change, self.image)
 
     grub_apply = Gtk.Button(label="Apply Wallpaper")
+    grub_apply.connect("clicked", self.on_set_grub_wallpaper)
     grub_reset = Gtk.Button(label="Reset Theme")
+    grub_reset.connect("clicked", self.on_reset_grub_wallpaper)
 
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
     hbox8.pack_start(label7, False, True, 0)
-    hbox8.pack_start(grub_theme_combo, True, True, 0)
+    hbox8.pack_start(self.grub_theme_combo, True, True, 0)
     
-    hbox10.pack_start(self.image, True, True, 0)
+    hbox10.pack_start(frame, True, True, 0)
 
     hbox9.pack_end(grub_apply, False, False, 0)
     hbox9.pack_end(grub_reset, False, False, 0)
