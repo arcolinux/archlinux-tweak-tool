@@ -584,8 +584,8 @@ def hblock_get_state(self):
     self.firstrun = False
     return False
 
-def do_pulse(self, data, progress):
-    progress.pulse()
+def do_pulse(data, self):
+    self.progress.pulse()
     return True
 
 
@@ -595,7 +595,7 @@ def set_hblock(self, toggle, state):
     GLib.idle_add(self.progress.set_fraction,0.2)
     # Call self.do_pulse every 100 ms
     timeout_id = None
-    timeout_id = GLib.timeout_add(100, do_pulse, None, self, self.progress)
+    timeout_id = GLib.timeout_add(100, do_pulse, None, self)
     
     # Dbus
     print("#1")
@@ -616,8 +616,9 @@ def set_hblock(self, toggle, state):
             if os.path.exists("/usr/local/bin/hblock"):
                 GLib.idle_add(self.label7.set_text,"Database update...")
                 # remote_object.shell_commands(enable)
+                print("#4")
                 subprocess.run([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
+                print("#5")
             else:
                 print("#4")
                 GLib.idle_add(self.label7.set_text,"Install Hblock......")
@@ -646,7 +647,7 @@ def set_hblock(self, toggle, state):
         # remote_object.Exit()
         GLib.idle_add(toggle.set_sensitive,True)
         GLib.idle_add(self.label7.set_text,"Idle ...")
-
+        print("Complete")
     except Exception as e:
         MessageBox("ERROR!!", str(e))
         # print(e)

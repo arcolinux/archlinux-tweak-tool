@@ -1,5 +1,0 @@
-[D-BUS Service]
-Name=org.arcolinux.TweakTool
-Exec=/usr/share/arcolinux-tweak-tool/arcolinux_settings_service.py
-User=root
-
