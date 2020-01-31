@@ -650,7 +650,7 @@ def set_hblock(self, toggle, state):
         print("Complete")
     except Exception as e:
         MessageBox("ERROR!!", str(e))
-        # print(e)
+        print(e)
         
 
 #=====================================================
