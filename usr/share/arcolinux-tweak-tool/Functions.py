@@ -634,9 +634,10 @@ def set_hblock(self, toggle, state):
             # Disable Hblock
             GLib.idle_add(self.label7.set_text,"Remove update...")
             # remote_object.shell_commands(disable)
-            print("#5")
+            print("#remove")
             subprocess.run(["sh", "-c", "HBLOCK_SOURCES=\'\' hblock"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        
+            print("#5")
+
         GLib.idle_add(self.label7.set_text,"Complete")
         # self.hblock_quit_btn.set_sensitive(True)
         # Don't call self.do_pulse anymore
