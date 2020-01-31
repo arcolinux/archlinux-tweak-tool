@@ -312,17 +312,17 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    # hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     hbox7.pack_start(label7, False, False, 10)
     hbox10.pack_start(self.check_shut, True, True, 10)
     hbox10.pack_start(self.check_restart, True, True, 10)
     hbox10.pack_start(self.check_logout, True, True, 10)
-    hbox10.pack_start(self.check_lock, True, True, 10)
     hbox11.pack_start(self.check_susp, True, True, 10)
     hbox11.pack_start(self.check_hiber, True, True, 10)
     hbox11.pack_start(self.check_cancel, True, True, 10)
-    hbox11.pack_start(self.spacer, True, True, 10)
+    hbox12.pack_start(self.check_lock, True, True, 10)
+    hbox12.pack_start(self.spacer, True, True, 10)
     # hbox12.pack_start(SetButtons, False, False, 0)
 
     # ==========================================================
@@ -347,32 +347,32 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     labelhibernate.set_markup("Hibernate")
 
     self.tbcancel = Gtk.Entry()
-    self.tbcancel.set_max_length(0)
-    # self.tbcancel.set_size_request(50, 0)
+    self.tbcancel.set_max_length(12)
+    self.tbcancel.set_width_chars(True)
 
     self.tbshutdown = Gtk.Entry()
     self.tbshutdown.set_max_length(1)
-    # self.tbshutdown.set_size_request(10, 0)
+    self.tbshutdown.set_width_chars(True)
 
     self.tbsuspend = Gtk.Entry()
     self.tbsuspend.set_max_length(1)
-    # self.tbsuspend.set_size_request(50, 0)
+    self.tbsuspend.set_width_chars(True)
 
     self.tbrestart = Gtk.Entry()
     self.tbrestart.set_max_length(1)
-    # self.tbrestart.set_size_request(50, 0)
+    self.tbrestart.set_width_chars(True)
 
     self.tblogout = Gtk.Entry()
     self.tblogout.set_max_length(1)
-    # self.tblogout.set_size_request(50, 0)
+    self.tblogout.set_width_chars(True)
 
     self.tblock = Gtk.Entry()
     self.tblock.set_max_length(1)
-    # self.tblock.set_size_request(50, 0)
+    self.tblock.set_width_chars(True)
 
     self.tbhibernate = Gtk.Entry()
     self.tbhibernate.set_max_length(1)
-    # self.tbhibernate.set_size_request(50, 0)
+    self.tbhibernate.set_width_chars(True)
 
     hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -465,6 +465,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack6.pack_start(hbox7, False, False, 0)  # button label
     vboxStack6.pack_start(hbox10, False, False, 0)  # Buttons row 1
     vboxStack6.pack_start(hbox11, False, False, 0)  # Buttons row 2
+    vboxStack6.pack_start(hbox12, False, False, 0)  # Buttons row 3
     vboxStack6.pack_start(hbox14, False, False, 0)  # Keybind Label
     vboxStack6.pack_start(hbox15, False, False, 0)  # keybind row 1
     vboxStack6.pack_start(hbox16, False, False, 0)  # keybind row 2
