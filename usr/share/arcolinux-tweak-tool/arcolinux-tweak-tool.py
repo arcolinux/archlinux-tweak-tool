@@ -257,7 +257,7 @@ class Main(Gtk.Window):
         filter.add_mime_type("image/jpg")
         filter.add_mime_type("image/jpeg")
         dialog.set_filter(filter)
-        dialog.set_current_folder(Functions.home + "/Pictures")
+        dialog.set_current_folder(Functions.home)
         dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
 
         response = dialog.run()
