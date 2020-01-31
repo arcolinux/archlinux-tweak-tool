@@ -193,7 +193,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     self.hbswich = Gtk.Switch()
     self.hbswich.connect("notify::active", self.set_hblock)
-    self.hbswich.set_active(Functions.hblock_get_state())
+    self.hbswich.set_active(Functions.hblock_get_state(self))
 
     hbox7.pack_start(label, False, False, 10)
     hbox7.pack_end(self.hbswich, False, False, 10)
@@ -510,4 +510,4 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox.pack_start(stack, True, True, 0)
     stack.set_hhomogeneous(False)
     stack.set_vhomogeneous(False)
-    print(stack.get_hhomogeneous())
+    

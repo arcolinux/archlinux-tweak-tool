@@ -198,7 +198,7 @@ class Main(Gtk.Window):
             t.start()
         else:
             self.firstrun = False
-
+        
 
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):

@@ -1,11 +1,9 @@
 import os
-import fileinput
 import shutil
-import getpass
 import psutil
 import time
 import subprocess
-import dbus
+# import dbus
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk
@@ -25,7 +23,7 @@ gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
 def MessageBox(title, message):
     md2 = Gtk.MessageDialog(parent=None, flags=0, message_type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK, text=title)
     md2.format_secondary_markup(message)
-    result = md2.run()
+    md2.run()
     md2.destroy()
 
 #=====================================================
@@ -574,11 +572,13 @@ def set_color(color):
 #               HBLOCK CONF
 #=====================================================
 
-def hblock_get_state():
+def hblock_get_state(self):
     lines = int(subprocess.check_output('wc -l /etc/hosts', shell=True).strip().split()[0])
     if os.path.exists("/usr/local/bin/hblock") and lines > 100:
         return True
-    
+
+    self.firstrun = False
+    print(self.firstrun)
     return False
 
 def do_pulse(self, user_data, progress):
@@ -633,12 +633,12 @@ def set_hblock(self, toggle, state):
         timeout_id = None
         GLib.idle_add(self.progress.set_fraction,0)
 
-        remote_object.Exit()
+        # remote_object.Exit()
         GLib.idle_add(toggle.set_sensitive,True)
         GLib.idle_add(self.label7.set_text,"Idle ...")
 
     except Exception as e:
-        MessageBox("ERROR!!", e)
+        MessageBox("ERROR!!", str(e))
         # print(e)
         
 
