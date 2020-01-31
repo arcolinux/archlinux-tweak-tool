@@ -212,12 +212,21 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     wallpaper_list = Functions.get_grub_wallpapers()
     self.pop_themes_grub(grub_theme_combo, wallpaper_list)
 
+    grub_apply = Gtk.Button(label="Apply Wallpaper")
+    grub_reset = Gtk.Button(label="Reset Theme")
+
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    
     hbox8.pack_start(label7, False, True, 0)
     hbox8.pack_start(grub_theme_combo, True, True, 0)
     
+    hbox9.pack_end(grub_apply, False, False, 0)
+    hbox9.pack_end(grub_reset, False, False, 0)
+    
     vboxStack4.pack_start(hbox8, False, False, 0)
-
+    vboxStack4.pack_end(hbox9, False, False, 0)
+    
     # ==========================================================
     #                       TAB #5
     # ==========================================================
