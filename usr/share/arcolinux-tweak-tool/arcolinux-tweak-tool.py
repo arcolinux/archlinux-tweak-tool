@@ -119,25 +119,27 @@ class Main(Gtk.Window):
             pass
 
     def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
-        try:
-            widget.set_sensitive(False)
-            Functions.gtk3_save_settings(
-                themeCombo.get_active_text(), "gtk-theme-name")
-            Functions.gtk3_save_settings(
-                iconCombo.get_active_text(), "gtk-icon-theme-name")
-            Functions.gtk3_save_settings(
-                cursorCombo.get_active_text(), "gtk-cursor-theme-name")
-            Functions.gtk3_save_settings(
-                int(str(cursor_size.get_value()).split(".")[0]), "gtk-cursor-theme-size")
-            Functions.gtk3_save_settings(
-                fonts.get_font_name(), "gtk-font-name")
+        # try:
+        widget.set_sensitive(False)
+        Functions.gtk3_save_settings(
+            themeCombo.get_active_text(), "gtk-theme-name")
+        Functions.gtk3_save_settings(
+            iconCombo.get_active_text(), "gtk-icon-theme-name")
+        Functions.gtk3_save_settings(
+            cursorCombo.get_active_text(), "gtk-cursor-theme-name")
+        Functions.gtk3_save_settings(
+            int(str(cursor_size.get_value()).split(".")[0]), "gtk-cursor-theme-size")
+        Functions.gtk3_save_settings(
+            fonts.get_font_name(), "gtk-font-name")
 
-            subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
-            ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
-            Functions.MessageBox("Success!!", "Settings Saved Successfully")
-            widget.set_sensitive(True)
-        except:
-            pass
+        subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
+        ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
+        Functions.MessageBox("Success!!", "Settings Saved Successfully")
+        widget.set_sensitive(True)
+
+        Functions.set_xfce_settings(themeCombo.get_active_text(), iconCombo.get_active_text(), cursorCombo.get_active_text(), int(str(cursor_size.get_value()).split(".")[0]))
+        # except:
+        #     pass
 
     def reset_settings(self, widget, filez):
         if os.path.isfile(filez + ".bak"):

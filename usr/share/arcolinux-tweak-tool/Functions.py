@@ -7,6 +7,7 @@ import subprocess
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk
+from xml.etree import ElementTree as et
 
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
@@ -16,7 +17,7 @@ oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
 grub_theme_conf = "/boot/grub/themes/Vimix/theme.txt"
-
+xfce_config = home + "/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
 #=====================================================
 #               MESSAGEBOX
 #=====================================================
@@ -232,7 +233,23 @@ def gtk3_save_settings(value, item):
         except:
             MessageBox("ERROR!!", "An error has occured getting this setting \'gtk3_save_settings\'")
 
+def set_xfce_settings(theme, icon, cursor, cursize):
+    try:
+        tree = et.parse(xfce_config)
+        for rank in tree.iter('property'):
+            if rank.get("name") == "ThemeName":
+                rank.set("value", str(theme))
+            if rank.get("name") == "IconThemeName":
+                rank.set("value", str(icon))
+            if rank.get("name") == "CursorThemeName":
+                rank.set("value", str(cursor))
+            if rank.get("name") == "CursorThemeSize":
+                rank.set("value", str(cursize))
 
+
+        tree.write(xfce_config, encoding="utf-8", xml_declaration=True)
+    except:
+        MessageBox("ERROR!!", "An error has occured setting this setting \'set_xfce_settings\'")
 
 #=====================================================
 #               PACMAN CONF
