@@ -4,6 +4,9 @@
 
 
 import Functions
+import slim
+import Gtk_Functions
+import oblogout
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
@@ -141,13 +144,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.cursorCombo.set_size_request(200, 0)
 
     # Set functions
-    Functions.get_gtk_themes(self, self.themeCombo)
-    Functions.get_icon_themes(self, self.iconCombo)
-    Functions.get_cursor_themes(self, self.cursorCombo)
+    Gtk_Functions.get_gtk_themes(self, self.themeCombo)
+    Gtk_Functions.get_icon_themes(self, self.iconCombo)
+    Gtk_Functions.get_cursor_themes(self, self.cursorCombo)
 
     self.cursor_size.set_value(
-        int(Functions.get_gtk_settings("gtk-cursor-theme-size").split(".")[0]))
-    self.fonts.set_font(Functions.get_gtk_settings("gtk-font-name"))
+        int(Gtk_Functions.get_gtk_settings("gtk-cursor-theme-size").split(".")[0]))
+    self.fonts.set_font(Gtk_Functions.get_gtk_settings("gtk-font-name"))
 
     save_gtk3_themes = Gtk.Button(label="Save Settings")
     save_gtk3_themes.connect("clicked", self.save_gtk3_settings, self.themeCombo,
@@ -285,7 +288,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     slimset.connect("clicked", self.on_slim_apply)
     slimreset.connect("clicked", self.on_slim_reset)
 
-    Functions.get_slimlock(self.slimbox)
+    slim.get_slimlock(self.slimbox)
 
     self.image2 = Gtk.Image()
     self.image3 = Gtk.Image()
@@ -379,7 +382,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==============================================================
 
     try:
-        vals = Functions.get_opacity()
+        vals = oblogout.get_opacity()
         ad1 = Gtk.Adjustment(vals, 0, 100, 5, 10, 0)
     except:
         ad1 = Gtk.Adjustment(0, 0, 100, 5, 10, 0)
@@ -434,8 +437,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.spacer = Gtk.Label()
     self.spacer.set_text("                             ")
 
-    btnString = Functions.get_buttons()
-    Functions.oblog_populate(self.oblog)
+    btnString = oblogout.get_buttons()
+    oblogout.oblog_populate(self.oblog)
 
     if "shutdown" in btnString:
         self.check_shut.set_active(True)
@@ -549,13 +552,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox18.pack_start(self.tblock, True, True, 10)
 
     try:
-        self.tbcancel.set_text(Functions.get_shortcut("cancel"))
-        self.tbshutdown.set_text(Functions.get_shortcut("shutdown"))
-        self.tbsuspend.set_text(Functions.get_shortcut("suspend"))
-        self.tbrestart.set_text(Functions.get_shortcut("restart"))
-        self.tblogout.set_text(Functions.get_shortcut("logout"))
-        self.tbhibernate.set_text(Functions.get_shortcut("hibernate"))
-        self.tblock.set_text(Functions.get_shortcut("lock"))
+        self.tbcancel.set_text(oblogout.get_shortcut("cancel"))
+        self.tbshutdown.set_text(oblogout.get_shortcut("shutdown"))
+        self.tbsuspend.set_text(oblogout.get_shortcut("suspend"))
+        self.tbrestart.set_text(oblogout.get_shortcut("restart"))
+        self.tblogout.set_text(oblogout.get_shortcut("logout"))
+        self.tbhibernate.set_text(oblogout.get_shortcut("hibernate"))
+        self.tblock.set_text(oblogout.get_shortcut("lock"))
     except:
         pass
     # ==========================================================
@@ -567,7 +570,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     self.lockBox = Gtk.Entry()
     try:
-        self.lockBox.set_text(Functions.get_command("lock"))
+        self.lockBox.set_text(oblogout.get_command("lock"))
     except:
         pass
     # Setlocks = Gtk.Button(label="Set")
@@ -586,7 +589,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.colorchooser = Gtk.ColorButton()
     # self.colorchooser.connect("color-set", self.on_color_chosen)
     color = Gdk.RGBA()
-    color.parse(Functions.get_color())
+    color.parse(oblogout.get_color())
     self.colorchooser.set_rgba(color)
     label9 = Gtk.Label()
     label9.set_text("Background")
@@ -649,7 +652,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     image = Gtk.Image().new_from_pixbuf(pixbuf)
 
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.2.21</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.2.16</span>")
 
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)

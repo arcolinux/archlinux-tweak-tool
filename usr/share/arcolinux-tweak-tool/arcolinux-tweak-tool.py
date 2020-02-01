@@ -5,10 +5,11 @@
 #=================================================================
 
 
-import threading
-import subprocess
 import gi
 import Functions
+import slim
+import Gtk_Functions
+import oblogout
 import GUI
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, Gio, Gdk
@@ -97,26 +98,26 @@ class Main(Gtk.Window):
             if self.check_lock.get_active():
                 string += "lock "
 
-            Functions.set_buttons(string.rstrip().lstrip().replace(" ", ", "))
-            Functions.oblogout_change_theme(self.oblog.get_active_text())
-            Functions.set_opacity(self.hscale.get_value())
-            Functions.set_command("lock", self.lockBox.get_text())
-            Functions.set_shorcut(
+            oblogout.set_buttons(string.rstrip().lstrip().replace(" ", ", "))
+            oblogout.oblogout_change_theme(self.oblog.get_active_text())
+            oblogout.set_opacity(self.hscale.get_value())
+            oblogout.set_command("lock", self.lockBox.get_text())
+            oblogout.set_shorcut(
                 "shutdown", self.tbshutdown.get_text().capitalize())
-            Functions.set_shorcut(
+            oblogout.set_shorcut(
                 "restart", self.tbrestart.get_text().capitalize())
-            Functions.set_shorcut(
+            oblogout.set_shorcut(
                 "suspend", self.tbsuspend.get_text().capitalize())
-            Functions.set_shorcut(
+            oblogout.set_shorcut(
                 "logout", self.tblogout.get_text().capitalize())
-            Functions.set_shorcut(
+            oblogout.set_shorcut(
                 "cancel", self.tbcancel.get_text().capitalize())
-            Functions.set_shorcut(
+            oblogout.set_shorcut(
                 "hibernate", self.tbhibernate.get_text().capitalize())
-            Functions.set_shorcut("lock", self.tblock.get_text().capitalize())
+            oblogout.set_shorcut("lock", self.tblock.get_text().capitalize())
             hex = Functions.rgb_to_hex(
                 self.colorchooser.get_rgba().to_string())
-            Functions.set_color(hex)
+            oblogout.set_color(hex)
 
             Functions.MessageBox("Success!!", "Settings Saved Successfully")
             widget.set_sensitive(True)
@@ -143,7 +144,7 @@ class Main(Gtk.Window):
         # Functions.set_xfce_settings(themeCombo.get_active_text(), iconCombo.get_active_text(), cursorCombo.get_active_text(), int(str(cursor_size.get_value()).split(".")[0]))
         # Functions.update_index_theme(cursorCombo.get_active_text())
 
-        t = threading.Thread(target=Functions.gtk_settings_saved, args=(themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0]),fonts.get_font()))
+        t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved, args=(themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0]),fonts.get_font()))
         t.daemon = True
         t.start()
         # subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
@@ -164,37 +165,37 @@ class Main(Gtk.Window):
             if os.path.isfile(Functions.gtk2_settings + ".bak"):
                 Functions.shutil.copy(Functions.gtk2_settings + ".bak", Functions.gtk2_settings)
 
-            Functions.get_gtk_themes(self, self.themeCombo)
-            Functions.get_icon_themes(self, self.iconCombo)
-            Functions.get_cursor_themes(self, self.cursorCombo)
+            Gtk_Functions.get_gtk_themes(self, self.themeCombo)
+            Gtk_Functions.get_icon_themes(self, self.iconCombo)
+            Gtk_Functions.get_cursor_themes(self, self.cursorCombo)
 
             self.cursor_size.set_value(
                 float(Functions.get_gtk_settings("gtk-cursor-theme-size")))
             self.fonts.set_font(
                 Functions.get_gtk_settings("gtk-font-name"))
-            subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
+            Functions.subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
             ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
 
         elif filez == Functions.oblogout_conf:
             self.oblog.get_model().clear()
-            vals = Functions.get_opacity()
+            vals = oblogout.get_opacity()
             self.hscale.set_value(vals)
             try:
-                self.tbcancel.set_text(Functions.get_shortcut("cancel"))
-                self.tbshutdown.set_text(Functions.get_shortcut("shutdown"))
-                self.tbsuspend.set_text(Functions.get_shortcut("suspend"))
-                self.tbrestart.set_text(Functions.get_shortcut("restart"))
-                self.tblogout.set_text(Functions.get_shortcut("logout"))
-                self.tbhibernate.set_text(Functions.get_shortcut("hibernate"))
-                self.tblock.set_text(Functions.get_shortcut("lock"))
+                self.tbcancel.set_text(oblogout.get_shortcut("cancel"))
+                self.tbshutdown.set_text(oblogout.get_shortcut("shutdown"))
+                self.tbsuspend.set_text(oblogout.get_shortcut("suspend"))
+                self.tbrestart.set_text(oblogout.get_shortcut("restart"))
+                self.tblogout.set_text(oblogout.get_shortcut("logout"))
+                self.tbhibernate.set_text(oblogout.get_shortcut("hibernate"))
+                self.tblock.set_text(oblogout.get_shortcut("lock"))
             except:
                 pass
-            self.lockBox.set_text(Functions.get_command("lock"))
+            self.lockBox.set_text(oblogout.get_command("lock"))
             color = Gdk.RGBA()
-            color.parse(Functions.get_color())
+            color.parse(oblogout.get_color())
             self.colorchooser.set_rgba(color)
-            btnString = Functions.get_buttons()
-            Functions.oblog_populate(self.oblog)
+            btnString = oblogout.get_buttons()
+            oblogout.oblog_populate(self.oblog)
 
             if "shutdown" in btnString:
                 self.check_shut.set_active(True)
@@ -217,7 +218,7 @@ class Main(Gtk.Window):
     #====================================================================
     def set_hblock(self, widget, state):
         if not self.firstrun == True:
-            t = threading.Thread(target=Functions.set_hblock, args=(
+            t = Functions.threading.Thread(target=Functions.set_hblock, args=(
                 self, widget, widget.get_active()))
             # t.daemon = True
             t.start()
@@ -309,14 +310,14 @@ class Main(Gtk.Window):
     def on_slim_apply(self, widget):
         if not os.path.isfile(Functions.slimlock_conf + ".bak"):
             Functions.shutil.copy(Functions.slimlock_conf, Functions.slimlock_conf + ".bak")
-        Functions.set_slimlock(self.slimbox.get_active_text())
+        slim.set_slimlock(self.slimbox.get_active_text())
         
 
 
     def on_slim_reset(self, widget):
         if os.path.isfile(Functions.slimlock_conf + ".bak"):
             Functions.shutil.copy(Functions.slimlock_conf + ".bak", Functions.slimlock_conf)
-        Functions.get_slimlock(self.slimbox)
+        slim.get_slimlock(self.slimbox)
  
     def on_slim_theme_change(self, widget, image):
         try:
@@ -328,6 +329,7 @@ class Main(Gtk.Window):
             self.image3.set_from_pixbuf(pixbuf5)
         except:
             pass
+
     def on_browser_clicked(self, widget):
         dialog = Gtk.FileChooserDialog(
 				title="Please choose a file",
@@ -364,7 +366,7 @@ class Main(Gtk.Window):
                 Functions.shutil.copy(base_dir + "/slim_data/slim.theme",  path + self.slimtheme.get_text() + "/slim.theme")
                 Functions.shutil.copy(self.slimtext.get_text(), path + self.slimtheme.get_text() + "/background.png")
 
-                Functions.reload_import(self.slimbox, self.slimtheme.get_text())
+                slim.reload_import(self.slimbox, self.slimtheme.get_text())
 
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):
@@ -392,12 +394,6 @@ click yes to remove the lock file and try running again")
                 f.close()
 
             if Functions.checkIfProcessRunning(int(pid)):
-                md2 = Gtk.MessageDialog(parent=Main(), flags=0, message_type=Gtk.MessageType.INFO,
-                                        buttons=Gtk.ButtonsType.OK, text="Application Running!")
-                md2.format_secondary_markup(
-                    "You first need to close the existing application")
-
-                result = md2.run()
-                md2.destroy()
+                Functions.MessageBox("Application Running!", "You first need to close the existing application")
             else:
                 os.unlink("/tmp/att.lock")
