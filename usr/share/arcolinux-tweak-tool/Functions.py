@@ -281,7 +281,7 @@ def gtk_settings_saved(themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
     set_xfce_settings(themeCombo, iconCombo, cursorCombo, int(str(cursor_size).split(".")[0]))
     update_index_theme(cursorCombo)
 
-    get_desktop()
+    # get_desktop()
 
     subprocess.call(["xsetroot -xcf /usr/share/icons/" + cursorCombo + "/cursors/left_ptr " + str(cursor_size)], shell=True)
     

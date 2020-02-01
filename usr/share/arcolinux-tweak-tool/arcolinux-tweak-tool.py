@@ -278,9 +278,12 @@ class Main(Gtk.Window):
         dialog.set_filter(filter)
         dialog.set_current_folder(Functions.home)
         dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
+        dialog.connect("response", self.open_response_cb)
+ 
+        dialog.show()
 
-        response = dialog.run()
-
+        
+    def open_response_cb(self, dialog, response):
         if response == Gtk.ResponseType.OK:
             self.tbimage.set_text(dialog.get_filename())
             dialog.destroy()
