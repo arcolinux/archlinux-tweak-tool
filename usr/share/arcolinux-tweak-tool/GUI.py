@@ -312,20 +312,52 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     self.slimbox.connect("changed", self.on_slim_theme_change, self.image2)
 
+
+    label10 = Gtk.Label()
+    label10.set_text("Select Wallpaper")
+
+    label11 = Gtk.Label()
+    label11.set_text("Theme Name      ")
+
+    self.slimtheme = Gtk.Entry()
+    self.slimtext = Gtk.Entry()
+
+    browse2 = Gtk.Button(label=". . .")
+    browse2.connect("clicked", self.on_browser_clicked)
+
+    importtheme = Gtk.Button(label="Create Theme")
+    importtheme.connect("clicked", self.on_create_theme_clicked)
+
+
     hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
     hbox13.pack_start(label9, False, False, 0)
     hbox13.pack_start(self.slimbox, True, True, 0)
 
     hbox15.pack_start(frame2, True, True, 0)
 
+    hbox17.pack_start(label11, False, False, 0)
+    hbox17.pack_start(self.slimtheme, True, True, 0)
+    
+    hbox16.pack_start(label10, False, False, 0)
+    hbox16.pack_start(self.slimtext, True, True, 0)
+    hbox16.pack_start(browse2, False, False, 0)
+
+    hbox18.pack_end(importtheme, False, False, 0)
+
     hbox14.pack_end(slimset, False, False, 0)
     hbox14.pack_end(slimreset, False, False, 0)
     
     vboxStack5.pack_start(hbox13, False, False, 0)
     vboxStack5.pack_start(hbox15, False, False, 0)
+    vboxStack5.pack_start(hbox17, False, False, 0)
+    vboxStack5.pack_start(hbox16, False, False, 0)
+    vboxStack5.pack_start(hbox18, False, False, 0)
     vboxStack5.pack_end(hbox14, False, False, 0)
 
     # ==========================================================

@@ -326,7 +326,43 @@ class Main(Gtk.Window):
             self.image3.set_from_pixbuf(pixbuf5)
         except:
             pass
+    def on_browser_clicked(self, widget):
+        dialog = Gtk.FileChooserDialog(
+				title="Please choose a file",
+				action=Gtk.FileChooserAction.OPEN,)
+        filter = Gtk.FileFilter()
+        filter.set_name("IMAGE Files")
+        filter.add_mime_type("image/png")
+        dialog.set_filter(filter)
+        dialog.set_current_folder(Functions.home)
+        dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
+        dialog.connect("response", self.open_response_slim)
+ 
+        dialog.show()
 
+        
+    def open_response_slim(self, dialog, response):
+        if response == Gtk.ResponseType.OK:
+            self.slimtext.set_text(dialog.get_filename())
+            dialog.destroy()
+        elif response == Gtk.ResponseType.CANCEL:
+            dialog.destroy()
+
+    def on_create_theme_clicked(self, widget):
+        path = "/usr/share/slim/themes/"
+        if os.path.isdir(path):
+            if len(self.slimtheme.get_text()) >= 3 and len(self.slimtext.get_text()) > 3:
+                try:
+                    os.mkdir(path + self.slimtheme.get_text())
+                except:
+                    pass
+
+                Functions.shutil.copy(base_dir + "/slim_data/info.txt",  path + self.slimtheme.get_text() + "/info.txt")
+                Functions.shutil.copy(base_dir + "/slim_data/panel.png",  path + self.slimtheme.get_text() + "/panel.png")
+                Functions.shutil.copy(base_dir + "/slim_data/slim.theme",  path + self.slimtheme.get_text() + "/slim.theme")
+                Functions.shutil.copy(self.slimtext.get_text(), path + self.slimtheme.get_text() + "/background.png")
+
+                Functions.reload_import(self.slimbox, self.slimtheme.get_text())
 
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):
