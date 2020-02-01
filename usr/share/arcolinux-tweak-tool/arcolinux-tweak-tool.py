@@ -307,6 +307,8 @@ class Main(Gtk.Window):
     #====================================================================
     
     def on_slim_apply(self, widget):
+        if not os.path.isfile(Functions.slimlock_conf + ".bak"):
+            Functions.shutil.copy(Functions.slimlock_conf, Functions.slimlock_conf + ".bak")
         Functions.set_slimlock(self.slimbox.get_active_text())
         
 

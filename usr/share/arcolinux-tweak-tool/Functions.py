@@ -8,6 +8,7 @@ import shutil
 import psutil
 import time
 import subprocess
+import threading
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk
@@ -50,6 +51,11 @@ def clamp(x):
 #=====================================================
 #               GLOBAL FUNCTIONS
 #=====================================================
+
+def threaded(fn):
+    def wrapper(*args, **kwargs):
+        threading.Thread(target=fn, args=args, kwargs=kwargs).start()
+    return wrapper
 
 def _get_position(lists, value):
     data = [string for string in lists if value in string]
@@ -746,6 +752,7 @@ def set_hblock(self, toggle, state):
 #=====================================================
 #               GRUB CONF
 #=====================================================
+
 def get_grub_wallpapers():
     if os.path.isdir("/boot/grub/themes/Vimix"):
         lists = os.listdir("/boot/grub/themes/Vimix")
@@ -782,6 +789,7 @@ def set_grub_wallpaper(image):
 #====================================================================
 #                       SLIMLOCK
 #====================================================================
+# @threaded
 def get_slimlock(combo):
     coms = []
     if os.path.isfile(slimlock_conf):
