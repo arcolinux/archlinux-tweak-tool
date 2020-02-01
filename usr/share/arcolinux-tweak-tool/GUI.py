@@ -13,9 +13,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
-    # swGTK = Gtk.ScrolledWindow()
-    # swGTK.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-
     vbox.pack_start(hbox, True, True, 0)
     self.add(vbox)
 
@@ -232,11 +229,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     self.image = Gtk.Image()
 
-    # try:
-    pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text(), 345, 345)
-    self.image.set_from_pixbuf(pixbuf3)
-    # except:
-    #     pass
+    try:
+        pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text(), 345, 345)
+        self.image.set_from_pixbuf(pixbuf3)
+    except:
+        pass
     frame = Gtk.Frame(label="Preview")
     frame.add(self.image)
 
@@ -289,16 +286,34 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     slimreset.connect("clicked", self.on_slim_reset)
 
     Functions.get_slimlock(self.slimbox)
+
+    self.image2 = Gtk.Image()
+
+    try:
+        pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size('/usr/share/slim/themes/' + self.slimbox.get_active_text() + "/background.png", 345, 345)
+        self.image2.set_from_pixbuf(pixbuf4)
+    except:
+        pass
+    
+    frame2 = Gtk.Frame(label="Preview")
+    frame2.add(self.image2)
+
+    self.slimbox.connect("changed", self.on_slim_theme_change, self.image2)
+
     hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
     hbox13.pack_start(label9, False, False, 0)
     hbox13.pack_start(self.slimbox, True, True, 0)
+
+    hbox15.pack_start(frame2, True, True, 0)
 
     hbox14.pack_end(slimset, False, False, 0)
     hbox14.pack_end(slimreset, False, False, 0)
     
     vboxStack5.pack_start(hbox13, False, False, 0)
+    vboxStack5.pack_start(hbox15, False, False, 0)
     vboxStack5.pack_end(hbox14, False, False, 0)
 
     # ==========================================================

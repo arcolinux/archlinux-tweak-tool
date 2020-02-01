@@ -316,6 +316,13 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.slimlock_conf + ".bak", Functions.slimlock_conf)
         Functions.get_slimlock(self.slimbox)
  
+    def on_slim_theme_change(self, widget, image):
+        try:
+            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size('/usr/share/slim/themes/' + widget.get_active_text() + "/background.png", 345, 345)
+            self.image2.set_from_pixbuf(pixbuf4)
+        except:
+            pass
+
 
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):
