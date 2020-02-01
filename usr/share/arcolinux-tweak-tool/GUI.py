@@ -270,15 +270,34 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack4.pack_end(hbox9, False, False, 0)
     
     # ==========================================================
-    #                       TAB #5
+    #                       TAB #5 SLIMLOCK
     # ==========================================================
-    label = Gtk.Label()
-    label.set_markup("<big>Label on Tab #5</big>")
+    label9 = Gtk.Label()
+    label9.set_text("Slimlock Theme")
 
-    vboxStack5.pack_start(label, False, False, 0)
+    self.slimbox = Gtk.ComboBoxText()
+    
+    slimset = Gtk.Button(label="Apply Theme")
+    slimreset = Gtk.Button(label="Reset")
+
+    slimset.connect("clicked", self.on_slim_apply)
+    slimreset.connect("clicked", self.on_slim_reset)
+
+    Functions.get_slimlock(self.slimbox)
+    hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    
+    hbox13.pack_start(label9, False, False, 0)
+    hbox13.pack_start(self.slimbox, True, True, 0)
+
+    hbox14.pack_end(slimset, False, False, 0)
+    hbox14.pack_end(slimreset, False, False, 0)
+    
+    vboxStack5.pack_start(hbox13, False, False, 0)
+    vboxStack5.pack_end(hbox14, False, False, 0)
 
     # ==========================================================
-    #                       TAB #6
+    #                       TAB #6 OBLOGOUT
     # ==========================================================
 
     hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -548,7 +567,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     stack.add_titled(vboxStack3, "stack3", "HBlock")
 
-    # stack.add_titled(vboxStack4, "stack4", "Grub")
+    stack.add_titled(vboxStack5, "stack4", "Slimlock")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)

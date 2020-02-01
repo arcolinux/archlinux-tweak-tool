@@ -19,6 +19,7 @@ gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
 gtk2_settings = home + "/.gtkrc-2.0"
 grub_theme_conf = "/boot/grub/themes/Vimix/theme.txt"
 xfce_config = home + "/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
+slimlock_conf = "/etc/slim.conf"
 #=====================================================
 #               MESSAGEBOX
 #=====================================================
@@ -772,6 +773,64 @@ def set_grub_wallpaper(image):
 
         
 
+
+#====================================================================
+#                       SLIMLOCK
+#====================================================================
+def get_slimlock(combo):
+    coms = []
+    if os.path.isfile(slimlock_conf):
+        with open(slimlock_conf, "r") as f:
+            lines = f.readlines()
+            for line in lines:
+                if "current_theme" in line:
+                    
+                    value = line.split(" ")
+                    val = value[len(value)-1].lstrip().rstrip()
+                    coms.append(val)
+                    
+                    if not "#" in line:
+                        active = val
+        
+        coms.sort()
+
+        for i in range(len(coms)):
+            combo.append_text(coms[i])
+            if(coms[i] == active):
+                combo.set_active(i)
+
+def set_slimlock(theme):
+    if not os.path.isfile(slimlock_conf + ".bak"):
+        shutil.copy(slimlock_conf, slimlock_conf + ".bak")
+
+    with open(slimlock_conf, 'r') as f:
+        lines = f.readlines()
+        f.close()
+
+    try:
+        for i in range(0, len(lines)):
+            line = lines[i]
+            if "current_theme" in line:
+                if not "#" in lines[i]:
+                    lines[i] = line.replace(lines[i], "#" + lines[i])
+        for i in range(0, len(lines)):
+            line = lines[i]
+            if "current_theme" in line:
+                value = lines[i].split(" ")
+                if theme == lines[i].split(" ")[len(value)-1].lstrip().rstrip():
+                    lines[i] = line.replace("#","")
+
+        with open(slimlock_conf, 'w') as f:
+            f.writelines(lines)
+            f.close()
+        MessageBox("Success!!", "Settings Saved Successfully")
+        # print(lines)
+    except:
+        MessageBox("ERROR!!", "An error has occured setting this setting \'oblogout_change_theme\'")
+#====================================================================
+#                       CUSTOM FUNCTION
+#====================================================================
+    
 def get_desktop():
     base_dir = os.path.dirname(os.path.realpath(__file__))
 

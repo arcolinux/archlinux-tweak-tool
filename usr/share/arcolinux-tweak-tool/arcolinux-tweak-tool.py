@@ -295,6 +295,22 @@ class Main(Gtk.Window):
         elif response == Gtk.ResponseType.CANCEL:
             dialog.destroy()
 
+
+    
+    #====================================================================
+    #                       SLIMLOCK
+    #====================================================================
+    
+    def on_slim_apply(self, widget):
+        Functions.set_slimlock(self.slimbox.get_active_text())
+        
+
+
+    def on_slim_reset(self, widget):
+        if os.path.isfile(Functions.slimlock_conf + ".bak"):
+            Functions.shutil.copy(Functions.slimlock_conf + ".bak", Functions.slimlock_conf)
+        Functions.get_slimlock(self.slimbox)
+
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):
         with open("/tmp/att.pid", "w") as f:
