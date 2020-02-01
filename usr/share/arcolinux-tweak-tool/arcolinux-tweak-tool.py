@@ -4,7 +4,7 @@
 #=                  Author: Brad Heffernan                       =
 #=================================================================
 
-# import Settings
+
 import threading
 import subprocess
 import gi
@@ -315,6 +315,7 @@ class Main(Gtk.Window):
         if os.path.isfile(Functions.slimlock_conf + ".bak"):
             Functions.shutil.copy(Functions.slimlock_conf + ".bak", Functions.slimlock_conf)
         Functions.get_slimlock(self.slimbox)
+ 
 
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):

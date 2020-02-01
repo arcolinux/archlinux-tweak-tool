@@ -5,7 +5,6 @@
 
 import Functions
 
-
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
     #                       CONTAINER
@@ -33,6 +32,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack7 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     # ==========================================================
     #                   TAB #1 PACMAN
@@ -301,6 +301,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack5.pack_start(hbox13, False, False, 0)
     vboxStack5.pack_end(hbox14, False, False, 0)
 
+    # ==========================================================
+    #                       TAB #7 EMPTY
+    # ==========================================================
+    
     # ==========================================================
     #                       TAB #6 OBLOGOUT
     # ==========================================================
@@ -574,6 +578,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     if Functions.file_check(Functions.slimlock_conf):
         stack.add_titled(vboxStack5, "stack5", "Slimlock")
+    
+    # stack.add_titled(vboxStack7, "stack7", "EMPTY")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
