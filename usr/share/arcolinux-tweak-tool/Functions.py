@@ -269,6 +269,24 @@ def update_index_theme(theme):
                 f.close()
         except:
             pass
+
+def gtk_settings_saved(themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
+    # GLib.idle_add(widget.set_sensitive,False)
+    gtk3_save_settings(themeCombo, "gtk-theme-name")
+    gtk3_save_settings(iconCombo, "gtk-icon-theme-name")
+    gtk3_save_settings(cursorCombo, "gtk-cursor-theme-name")
+    gtk3_save_settings(int(str(cursor_size).split(".")[0]), "gtk-cursor-theme-size")
+    gtk3_save_settings(fonts, "gtk-font-name")
+
+    set_xfce_settings(themeCombo, iconCombo, cursorCombo, int(str(cursor_size).split(".")[0]))
+    update_index_theme(cursorCombo)
+
+    get_desktop()
+
+    subprocess.call(["xsetroot -xcf /usr/share/icons/" + cursorCombo + "/cursors/left_ptr " + str(cursor_size)], shell=True)
+    
+    
+    # GLib.idle_add(widget.set_sensitive,True)
 #=====================================================
 #               PACMAN CONF
 #=====================================================
@@ -721,12 +739,13 @@ def set_grub_wallpaper(image):
         
 
 def get_desktop():
-    env = os.environ
-    print(env)
-    # print(env.get('DESKTOP_SESSION'))
-    # XDG_SESSION_ID
-    # desktop = subprocess.run(["sh", "-c", "env"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    # print(desktop.stdout.decode())
+    base_dir = os.path.dirname(os.path.realpath(__file__))
+
+    desktop = subprocess.run(["sh", base_dir + "/find_DE.sh", sudo_username], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    dsk = desktop.stdout.decode().strip().split("\n")
+    
+    print(dsk[len(dsk)-1])
+
 #=====================================================
 #               CHECK RUNNING PROCESS
 #=====================================================

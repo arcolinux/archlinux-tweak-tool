@@ -239,8 +239,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     grub_reset = Gtk.Button(label="Reset Theme")
     grub_reset.connect("clicked", self.on_reset_grub_wallpaper)
 
-    Functions.get_desktop()
-
+    
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)

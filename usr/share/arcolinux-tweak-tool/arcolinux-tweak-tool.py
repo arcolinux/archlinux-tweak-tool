@@ -121,24 +121,29 @@ class Main(Gtk.Window):
     def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
         # try:
         widget.set_sensitive(False)
-        Functions.gtk3_save_settings(
-            themeCombo.get_active_text(), "gtk-theme-name")
-        Functions.gtk3_save_settings(
-            iconCombo.get_active_text(), "gtk-icon-theme-name")
-        Functions.gtk3_save_settings(
-            cursorCombo.get_active_text(), "gtk-cursor-theme-name")
-        Functions.gtk3_save_settings(
-            int(str(cursor_size.get_value()).split(".")[0]), "gtk-cursor-theme-size")
-        Functions.gtk3_save_settings(
-            fonts.get_font_name(), "gtk-font-name")
+        # Functions.gtk3_save_settings(
+        #     themeCombo.get_active_text(), "gtk-theme-name")
+        # Functions.gtk3_save_settings(
+        #     iconCombo.get_active_text(), "gtk-icon-theme-name")
+        # Functions.gtk3_save_settings(
+        #     cursorCombo.get_active_text(), "gtk-cursor-theme-name")
+        # Functions.gtk3_save_settings(
+        #     int(str(cursor_size.get_value()).split(".")[0]), "gtk-cursor-theme-size")
+        # Functions.gtk3_save_settings(
+        #     fonts.get_font_name(), "gtk-font-name")
 
-        subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
-        ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
-        Functions.MessageBox("Success!!", "Settings Saved Successfully")
+        # Functions.set_xfce_settings(themeCombo.get_active_text(), iconCombo.get_active_text(), cursorCombo.get_active_text(), int(str(cursor_size.get_value()).split(".")[0]))
+        # Functions.update_index_theme(cursorCombo.get_active_text())
+
+        t = threading.Thread(target=Functions.gtk_settings_saved, args=(themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0]),fonts.get_font_name()))
+        t.daemon = True
+        t.start()
+        # subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
+        # ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
+        # Functions.MessageBox("Success!!", "Settings Saved Successfully")
+        
         widget.set_sensitive(True)
-
-        Functions.set_xfce_settings(themeCombo.get_active_text(), iconCombo.get_active_text(), cursorCombo.get_active_text(), int(str(cursor_size.get_value()).split(".")[0]))
-        Functions.update_index_theme(cursorCombo.get_active_text())
+        Functions.MessageBox("Success!!", "Settings Saved Successfully")
         # except:
         #     pass
 
