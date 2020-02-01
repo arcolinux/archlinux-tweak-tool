@@ -560,14 +560,15 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     stack.add_titled(vboxStack2, "stack2", "Gtk+3 Config")
 
-    stack.add_titled(vboxStack4, "stack5", "Grub Config")
+    stack.add_titled(vboxStack4, "stack4", "Grub Config")
 
     if Functions.file_check(Functions.oblogout_conf):
         stack.add_titled(vboxStack6, "stack6", "Oblogout Config")
 
     stack.add_titled(vboxStack3, "stack3", "HBlock")
 
-    stack.add_titled(vboxStack5, "stack4", "Slimlock")
+    if Functions.file_check(Functions.slimlock_conf):
+        stack.add_titled(vboxStack5, "stack5", "Slimlock")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
