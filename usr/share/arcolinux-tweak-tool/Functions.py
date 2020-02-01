@@ -16,6 +16,7 @@ pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
+gtk2_settings = home + "/.gtkrc-2.0"
 grub_theme_conf = "/boot/grub/themes/Vimix/theme.txt"
 xfce_config = home + "/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
 #=====================================================
@@ -208,6 +209,33 @@ def get_gtk_settings(item):
         
         return active_cursor
 
+def gtk2_save_settings(value, item):
+    if not os.path.isfile(gtk2_settings + ".bak"):
+        shutil.copy(gtk2_settings,gtk2_settings + ".bak")
+
+    if os.path.isfile(gtk2_settings):
+        with open(gtk2_settings, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            f.close()
+        try:
+            data = check_value(lines, item)
+            if not data:
+                print("Lines = " + str(len(lines)))
+                pos = 4
+                print("Pos = " + str(pos))
+                lines.insert(pos, ''.join([item,"=\"",str(value),"\"\n"]))
+            else:
+                pos = int(_get_position(lines, item))
+                lines[pos] = ''.join([item,"=\"",str(value),"\"\n"])
+    
+    
+            with open(gtk2_settings, 'w') as f:
+                f.writelines(lines)
+                f.close()
+        except:
+            MessageBox("ERROR!!", "An error has occured getting this setting \'gtk2_save_settings\'")
+    
+
 def gtk3_save_settings(value, item):
     if not os.path.isfile(gtk3_settings + ".bak"):
         shutil.copy(gtk3_settings,gtk3_settings + ".bak")
@@ -277,6 +305,12 @@ def gtk_settings_saved(themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
     gtk3_save_settings(cursorCombo, "gtk-cursor-theme-name")
     gtk3_save_settings(int(str(cursor_size).split(".")[0]), "gtk-cursor-theme-size")
     gtk3_save_settings(fonts, "gtk-font-name")
+
+    gtk2_save_settings(themeCombo, "gtk-theme-name")
+    gtk2_save_settings(iconCombo, "gtk-icon-theme-name")
+    gtk2_save_settings(cursorCombo, "gtk-cursor-theme-name")
+    gtk2_save_settings(int(str(cursor_size).split(".")[0]), "gtk-cursor-theme-size")
+    gtk2_save_settings(fonts, "gtk-font-name")
 
     set_xfce_settings(themeCombo, iconCombo, cursorCombo, int(str(cursor_size).split(".")[0]))
     update_index_theme(cursorCombo)
