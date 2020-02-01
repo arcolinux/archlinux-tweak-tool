@@ -353,6 +353,7 @@ def toggle_test_repos(state, widget):
                 line = lines[i]
                 if widget == "arco":
                     if "[arcolinux_repo_testing]" in line:
+                        lines[i] = line.replace("#", "")
                         if (i+1) < len(lines):
                             lines[i + 1]  = lines[i + 1].replace("#", "") # you may want to check that i < len(lines)
                         if (i+2) < len(lines) and "Include" in lines[i+2]:
