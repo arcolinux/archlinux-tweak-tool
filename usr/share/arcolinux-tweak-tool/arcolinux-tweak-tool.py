@@ -153,7 +153,12 @@ class Main(Gtk.Window):
     def reset_settings(self, widget, filez):
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
+        
         if filez == Functions.gtk3_settings:
+            
+            if os.path.isfile(Functions.gtk2_settings + ".bak"):
+                Functions.shutil.copy(Functions.gtk2_settings + ".bak", Functions.gtk2_settings)
+
             Functions.get_gtk_themes(self, self.themeCombo)
             Functions.get_icon_themes(self, self.iconCombo)
             Functions.get_cursor_themes(self, self.cursorCombo)
