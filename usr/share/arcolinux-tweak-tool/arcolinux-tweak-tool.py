@@ -24,7 +24,7 @@ class Main(Gtk.Window):
 
         self.opened = True
         self.firstrun = True
-
+        
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
 
         arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
@@ -117,7 +117,10 @@ class Main(Gtk.Window):
             widget.set_sensitive(True)
         except:
             pass
-
+    
+    # =====================================================
+    #               Gtk FUNCTIONS
+    # =====================================================
     def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
         # try:
         widget.set_sensitive(False)
@@ -135,7 +138,7 @@ class Main(Gtk.Window):
         # Functions.set_xfce_settings(themeCombo.get_active_text(), iconCombo.get_active_text(), cursorCombo.get_active_text(), int(str(cursor_size.get_value()).split(".")[0]))
         # Functions.update_index_theme(cursorCombo.get_active_text())
 
-        t = threading.Thread(target=Functions.gtk_settings_saved, args=(themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0]),fonts.get_font_name()))
+        t = threading.Thread(target=Functions.gtk_settings_saved, args=(themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0]),fonts.get_font()))
         t.daemon = True
         t.start()
         # subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
@@ -157,7 +160,7 @@ class Main(Gtk.Window):
 
             self.cursor_size.set_value(
                 float(Functions.get_gtk_settings("gtk-cursor-theme-size")))
-            self.fonts.set_font_name(
+            self.fonts.set_font(
                 Functions.get_gtk_settings("gtk-font-name"))
             subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
             ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
@@ -198,6 +201,10 @@ class Main(Gtk.Window):
             if "hibernate" in btnString:
                 self.check_hiber.set_active(True)
 
+    
+    #====================================================================
+    #                       HBlock
+    #====================================================================
     def set_hblock(self, widget, state):
         if not self.firstrun == True:
             t = threading.Thread(target=Functions.set_hblock, args=(

@@ -129,7 +129,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.cursor_size = Gtk.SpinButton()
     self.cursor_size.set_adjustment(adj1)
 
+    # fontChooser = Gtk.FontChooser()
+
     self.fonts = Gtk.FontButton()
+    # self.fonts.connect("font-set", self.on_font_clicked)
 
     self.themeCombo.set_size_request(200, 0)
     self.iconCombo.set_size_request(200, 0)
@@ -142,7 +145,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     self.cursor_size.set_value(
         int(Functions.get_gtk_settings("gtk-cursor-theme-size").split(".")[0]))
-    self.fonts.set_font_name(Functions.get_gtk_settings("gtk-font-name"))
+    self.fonts.set_font(Functions.get_gtk_settings("gtk-font-name"))
 
     save_gtk3_themes = Gtk.Button(label="Save Settings")
     save_gtk3_themes.connect("clicked", self.save_gtk3_settings, self.themeCombo,
