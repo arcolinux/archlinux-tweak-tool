@@ -288,15 +288,27 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     Functions.get_slimlock(self.slimbox)
 
     self.image2 = Gtk.Image()
+    self.image3 = Gtk.Image()
 
     try:
-        pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size('/usr/share/slim/themes/' + self.slimbox.get_active_text() + "/background.png", 345, 345)
+        path = '/usr/share/slim/themes/' + self.slimbox.get_active_text()
+
+        pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 345, 345)
         self.image2.set_from_pixbuf(pixbuf4)
+
+        pixbuf5 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/panel.png", 345, 345)
+        self.image3.set_from_pixbuf(pixbuf5)
+
     except:
         pass
     
     frame2 = Gtk.Frame(label="Preview")
-    frame2.add(self.image2)
+    vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+
+    vbox2.pack_start(self.image2, False, False, 10)
+    vbox2.pack_start(self.image3, False, False, 10)
+
+    frame2.add(vbox2)
 
     self.slimbox.connect("changed", self.on_slim_theme_change, self.image2)
 

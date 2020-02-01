@@ -318,8 +318,12 @@ class Main(Gtk.Window):
  
     def on_slim_theme_change(self, widget, image):
         try:
-            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size('/usr/share/slim/themes/' + widget.get_active_text() + "/background.png", 345, 345)
+            path = '/usr/share/slim/themes/' + widget.get_active_text()
+            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 345, 345)
             self.image2.set_from_pixbuf(pixbuf4)
+
+            pixbuf5 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/panel.png", 345, 345)
+            self.image3.set_from_pixbuf(pixbuf5)
         except:
             pass
 
