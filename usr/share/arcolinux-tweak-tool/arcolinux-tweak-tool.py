@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+
+#=================================================================
+#=                  Author: Brad Heffernan                       =
+#=================================================================
+
 # import Settings
 import threading
 import subprocess

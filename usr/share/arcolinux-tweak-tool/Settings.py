@@ -1,3 +1,7 @@
+#=================================================================
+#=                  Author: Brad Heffernan                       =
+#=================================================================
+
 import configparser
 import os
 from Functions import home
