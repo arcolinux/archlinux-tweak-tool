@@ -14,7 +14,7 @@ import termite
 import neofetch
 import GUI
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GdkPixbuf, Gio, Gdk
+from gi.repository import Gtk, GdkPixbuf, Gio
 from Functions import os, pacman
 from Settings import settings, configparser
 
@@ -33,7 +33,7 @@ class Main(Gtk.Window):
         self.opened = True
         self.firstrun = True
         
-        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
+        GUI.GUI(self, Gtk, Functions.Gdk, GdkPixbuf, base_dir, os)
 
         arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
         multi_testing = Functions.check_repo("[multilib-testing]")
@@ -426,7 +426,6 @@ class Main(Gtk.Window):
             self.emblem.set_sensitive(True)
             self.big_ascii.set_sensitive(False)
             self.small_ascii.set_sensitive(False)
-            # self.backend_combo.set_sensitive(True)
             path = Functions.home + "/.config/neofetch/" + self.emblem.get_active_text()
 
             pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
@@ -436,7 +435,6 @@ class Main(Gtk.Window):
             self.big_ascii.set_sensitive(True)
             self.small_ascii.set_sensitive(True)
             self.image4.set_from_pixbuf(None)
-            # self.backend_combo.set_sensitive(False)
 
 
 #====================================================================

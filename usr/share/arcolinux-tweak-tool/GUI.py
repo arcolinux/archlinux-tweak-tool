@@ -137,11 +137,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.cursor_size = Gtk.SpinButton()
     self.cursor_size.set_adjustment(adj1)
 
-    # fontChooser = Gtk.FontChooser()
-
+    
     self.fonts = Gtk.FontButton()
-    # self.fonts.connect("font-set", self.on_font_clicked)
-
+    
     self.themeCombo.set_size_request(200, 0)
     self.iconCombo.set_size_request(200, 0)
     self.cursorCombo.set_size_request(200, 0)
@@ -253,7 +251,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox101 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     
@@ -262,20 +260,21 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox8.pack_start(btnremove, False, False, 10)
 
     hbox11.pack_start(label8, False, False, 10)
-    hbox11.pack_start(self.tbimage, True, True, 10)
-    
+    hbox11.pack_start(self.tbimage, True, True, 10)    
     hbox11.pack_start(btnsearch, False, False, 10)
+
     hbox12.pack_end(btnimport, False, False, 10)
-    hbox10.pack_start(frame, True, True, 10)
+    
+    hbox101.pack_start(frame, True, True, 10)
 
     hbox9.pack_end(grub_apply, False, False, 0)
     hbox9.pack_end(grub_reset, False, False, 0)
     
-    vboxStack4.pack_start(hbox8, False, False, 0)
-    vboxStack4.pack_start(hbox11, False, False, 0)
-    vboxStack4.pack_start(hbox12, False, False, 0)
-    vboxStack4.pack_start(hbox10, False, False, 0)
-    vboxStack4.pack_end(hbox9, False, False, 0)
+    vboxStack4.pack_start(hbox8, False, False, 0) #combobox
+    vboxStack4.pack_start(hbox11, False, False, 0) #Add theme
+    vboxStack4.pack_start(hbox12, False, False, 0) #btn Import
+    vboxStack4.pack_start(hbox101, False, False, 0) #Preview
+    vboxStack4.pack_end(hbox9, False, False, 0)# Buttons
     
     # ==========================================================
     #                       TAB #5 SLIMLOCK
@@ -310,15 +309,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     frame2 = Gtk.Frame(label="Preview")
     frame4 = Gtk.Frame(label="Preview")
 
-    # vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
-    # vbox2.pack_start(self.image2, False, False, 10)
-    # vbox2.pack_start(self.image3, False, False, 10)
-
     frame2.add(self.image2)
     frame4.add(self.image5)
 
     self.slimbox.connect("changed", self.on_slim_theme_change, self.image2)
-
 
     label12 = Gtk.Label()
     label12.set_markup("Images are to be in <b>.png</b>")
@@ -341,7 +335,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox35 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -352,12 +346,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox13.pack_start(self.slimbox, True, True, 10)
     hbox13.pack_start(slimremove, False, False, 10)
 
-    hbox15.pack_start(frame2, True, True, 10)
+    hbox35.pack_start(frame2, True, True, 10)
 
     hbox17.pack_start(label11, False, False, 10)
     hbox17.pack_start(self.slimtheme, True, True, 10)
     
     hbox27.pack_start(label12, True, False, 10)
+
     hbox16.pack_start(label10, False, False, 10)
     hbox16.pack_start(self.slimtext, True, True, 10)
     hbox16.pack_start(browse2, False, False, 10)
@@ -370,11 +365,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox14.pack_end(slimreset, False, False, 0)
     
     vboxStack5.pack_start(hbox13, False, False, 0) #combobox
-    vboxStack5.pack_start(hbox15, False, False, 0) #Preview Theme
-    vboxStack5.pack_start(hbox17, False, False, 0) #Theme Name Text
-    vboxStack5.pack_start(hbox27, False, False, 0) #Info Text
+    vboxStack5.pack_start(hbox35, False, False, 0) #Preview Theme
+
     vboxStack5.pack_start(hbox16, False, False, 0) #Choose Theme Txtbox
+    vboxStack5.pack_start(hbox17, False, False, 0) #Theme Name Text
+    vboxStack5.pack_start(hbox27, False, False, 0) #Info Text    
     vboxStack5.pack_start(hbox26, False, False, 0) #Preview Chosen Image
+
     vboxStack5.pack_start(hbox18, False, False, 0) #Create Theme
     vboxStack5.pack_end(hbox14, False, False, 0) #Buttons
 
@@ -388,9 +385,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     image2 = Gtk.Image().new_from_pixbuf(pixbuf2)
     hbox6.pack_start(image2, True, True, 0)
 
-    # ==============================================================
-    #                   Opacity Slider
-    # ==============================================================
+    
+    # ==================Opacity Slider==============================
 
     try:
         vals = oblogout.get_opacity()
@@ -412,9 +408,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox5.pack_start(label5, False, False, 10)
     hbox5.pack_start(self.hscale, True, True, 10)
 
-    # ==============================================================
-    #                   Theme Dropdown
-    # ==============================================================
+    # ==================Theme Dropdown==============================
 
     label6 = Gtk.Label()
     self.oblog = Gtk.ComboBoxText()
@@ -424,9 +418,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox4.pack_start(label6, False, False, 10)
     hbox4.pack_start(self.oblog, True, True, 10)
 
-    # ==============================================================
-    #                   Buttons Textbox
-    # ==============================================================
+    # ==================Buttons Textbox=============================
+
     label7 = Gtk.Label()
     label7.set_markup("<b>Buttons</b>")
 
@@ -466,9 +459,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     if "hibernate" in btnString:
         self.check_hiber.set_active(True)
 
-    # SetButtons = Gtk.Button(label="Set Buttons")
-    # SetButtons.connect("clicked", self.on_buttons_set)
-
     hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -483,11 +473,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox11.pack_start(self.check_cancel, True, True, 10)
     hbox12.pack_start(self.check_lock, True, True, 10)
     hbox12.pack_start(self.spacer, True, True, 10)
-    # hbox12.pack_start(SetButtons, False, False, 0)
 
-    # ==========================================================
-    #                     KEYBINDS
-    # ==========================================================
+    # ====================KEYBINDS==============================
+
     label8 = Gtk.Label()
     label8.set_markup("<b>Keybinds</b>")
 
@@ -572,9 +560,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
         self.tblock.set_text(oblogout.get_shortcut("lock"))
     except:
         pass
-    # ==========================================================
-    #                     Lockscreen Textbox
-    # ==========================================================
+
+    # ====================Lockscreen Textbox====================
 
     label8 = Gtk.Label()
     label8.set_text("Lockscreen")
@@ -584,21 +571,16 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
         self.lockBox.set_text(oblogout.get_command("lock"))
     except:
         pass
-    # Setlocks = Gtk.Button(label="Set")
-    # Setlocks.connect("clicked", self.on_locks_set)
 
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox8.pack_start(label8, False, False, 10)
     hbox8.pack_start(self.lockBox, True, True, 10)
-    # hbox8.pack_start(Setlocks, False, False, 0)
 
-    # ==========================================================
-    #                     COLOR BUTTON
-    # ==========================================================
+    # ====================COLOR BUTTON==========================
+
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     self.colorchooser = Gtk.ColorButton()
-    # self.colorchooser.connect("color-set", self.on_color_chosen)
     color = Gdk.RGBA()
     color.parse(oblogout.get_color())
     self.colorchooser.set_rgba(color)
@@ -660,9 +642,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox20.pack_end(termset, False, False, 0)
     hbox20.pack_end(termreset, False, False, 0)
 
-    # vboxStack6.pack_start(hbox6, False, False, 0)  # image
-    vboxStack7.pack_start(hbox19, False, False, 0)  # slider    
-    vboxStack7.pack_end(hbox20, False, False, 0)  # slider    
+    vboxStack7.pack_start(hbox19, False, False, 0)  #Combobox
+    vboxStack7.pack_end(hbox20, False, False, 0)  #Buttons    
 
 
     # ==========================================================
@@ -715,29 +696,15 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     self.hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     
-    # self.backend_combo = Gtk.ComboBoxText()
-    # lists = ['caca', 'jp2a', 'iterm2', 'off', 'termpix', 'pixterm', 'tycat', 'w3m', 'kitty']
-    
-    
-    # active = 7
-    # for i in range(len(lists)):
-    #     self.backend_combo.append_text(lists[i])
-    #     if backend == lists[i]:
-    #         active = i
-
-    # self.backend_combo.set_active(active)
-
     if backend == "ascii":
         self.asci.set_active(True)
         self.emblem.set_sensitive(False)
         self.big_ascii.set_sensitive(True)
         self.small_ascii.set_sensitive(True)
-        # self.backend_combo.set_sensitive(False)
     else:
         self.w3m.set_active(True)
         self.big_ascii.set_sensitive(False)
         self.small_ascii.set_sensitive(False)
-        # self.backend_combo.set_sensitive(True)
     
     if asci == "auto":
         self.big_ascii.set_active(True)
@@ -747,11 +714,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    # hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    # hbox30 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    # hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    # hbox32 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    # vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     self.os = Gtk.CheckButton(label="Show OS")
     self.host = Gtk.CheckButton(label="Show Hostname")
@@ -801,8 +763,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox22.pack_start(self.w3m, True, False, 10)
     hbox22.pack_end(self.asci, True, False, 10)
 
-    # self.hbox26.pack_start(self.backend_combo, True, True, 10)
-    
+        
     self.hbox26.pack_start(self.big_ascii, True, False, 10)
     self.hbox26.pack_end(self.small_ascii, True, False, 10)
 
@@ -815,11 +776,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(resetneofetch, False, False, 0)
 
-    vboxStack8.pack_start(hbox22, False, False, 0)
-    vboxStack8.pack_start(self.hbox26, False, False, 0)
-    vboxStack8.pack_start(hbox23, False, False, 0)
-    vboxStack8.pack_start(hbox25, False, False, 0)
-    vboxStack8.pack_end(hbox24, False, False, 0)
+    vboxStack8.pack_start(hbox22, False, False, 0) #Backend RadioButtons
+    vboxStack8.pack_start(self.hbox26, False, False, 0) #Ascii RadioButtons
+    vboxStack8.pack_start(hbox23, False, False, 0) #ComboBox
+    vboxStack8.pack_start(hbox25, False, False, 0) #Preview / Options
+    vboxStack8.pack_end(hbox24, False, False, 0) #Buttons
     
     # ==========================================================
     #                     ADD TO WINDOW
@@ -844,6 +805,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     
     if Functions.file_check(Functions.neofetch_config):
         stack.add_titled(vboxStack8, "stack8", "Neofetch Config")
+    
     # stack.add_titled(vboxStack7, "stack7", "EMPTY")
 
     stack_switcher = Gtk.StackSidebar()
@@ -860,10 +822,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
     ivbox.pack_start(version, False, False, 0)
+
     hbox.pack_start(ivbox, False, True, 0)
-    # swGTK.add(stack)
     hbox.pack_start(stack, True, True, 0)
+    
     stack.set_hhomogeneous(False)
     stack.set_vhomogeneous(False)
     
-    # print(termite.get_config())
