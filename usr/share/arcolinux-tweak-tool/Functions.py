@@ -362,6 +362,10 @@ def neofetch_set_value(lists, pos, text, state):
 
     return lists
 
+def neofetch_set_backend_value(lists, pos, text, value):
+    if text in lists[pos] and not "#" in lists[pos]:
+        lists[pos] = "image_backend=\"" + value + "\"\n"
+
 #====================================================================
 #                       CUSTOM FUNCTION
 #====================================================================

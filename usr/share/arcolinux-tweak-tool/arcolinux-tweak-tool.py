@@ -399,7 +399,7 @@ class Main(Gtk.Window):
             if not self.big_ascii.get_active():
                 small_ascii = "arcolinux_small"
         
-        neofetch.apply_config(self, backend, emblem, small_ascii)
+        neofetch.apply_config(self, backend, emblem, small_ascii, self.backend_combo.get_active_text())
 
     def on_reset_neo(self, widget):
         if os.path.isfile(Functions.neofetch_config + ".bak"):
@@ -424,15 +424,19 @@ class Main(Gtk.Window):
     def radio_toggled(self, widget):
         if self.w3m.get_active():
             self.emblem.set_sensitive(True)
-            self.hbox26.set_sensitive(False)
+            self.big_ascii.set_sensitive(False)
+            self.small_ascii.set_sensitive(False)
+            self.backend_combo.set_sensitive(True)
             path = Functions.home + "/.config/neofetch/" + self.emblem.get_active_text()
 
             pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
             self.image4.set_from_pixbuf(pixbuf6)
         else:
             self.emblem.set_sensitive(False)
-            self.hbox26.set_sensitive(True)
+            self.big_ascii.set_sensitive(True)
+            self.small_ascii.set_sensitive(True)
             self.image4.set_from_pixbuf(None)
+            self.backend_combo.set_sensitive(False)
 
 
 #====================================================================
