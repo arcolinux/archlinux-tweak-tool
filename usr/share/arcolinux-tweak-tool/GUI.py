@@ -670,6 +670,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     
     self.emblem = Gtk.ComboBoxText()
     neofetch.pop_neofetch_box(self.emblem)
+    self.emblem.connect("changed", self.on_elmblem_changed)
 
     if backend == "ascii":
         self.asci.set_active(True)
@@ -684,10 +685,24 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     resetneofetch.connect("clicked", self.on_reset_neo)
 
 
+    
+    self.image4 = Gtk.Image()
+
+    try:
+        path = Functions.home + "/.config/neofetch/" + self.emblem.get_active_text()
+
+        pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 245, 245)
+        self.image4.set_from_pixbuf(pixbuf6)
+    except:
+        pass
+    
+    frame3 = Gtk.Frame(label="Preview")
+    frame3.add(self.image4)
+
     hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-
+    hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
 
     hbox22.pack_start(self.w3m, True, False, 10)
     hbox22.pack_end(self.asci, True, False, 10)
@@ -695,11 +710,14 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox23.pack_start(label13, False, False, 10)
     hbox23.pack_start(self.emblem, True, True, 10)
 
+    hbox25.pack_start(frame3, True, True, 10)
+    
     hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(resetneofetch, False, False, 0)
 
     vboxStack8.pack_start(hbox22, False, False, 0)
     vboxStack8.pack_start(hbox23, False, False, 0)
+    vboxStack8.pack_start(hbox25, False, False, 0)
     vboxStack8.pack_end(hbox24, False, False, 0)
     
     # ==========================================================

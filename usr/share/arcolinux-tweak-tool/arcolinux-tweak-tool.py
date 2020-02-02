@@ -413,6 +413,13 @@ class Main(Gtk.Window):
                 self.w3m.set_active(True)
 
 
+    def on_elmblem_changed(self, widget):
+        path = Functions.home + "/.config/neofetch/" + widget.get_active_text()
+
+        pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 245, 245)
+        self.image4.set_from_pixbuf(pixbuf6)
+
+
     def radio_toggled(self, widget):
         if self.w3m.get_active():
             self.emblem.set_sensitive(True)

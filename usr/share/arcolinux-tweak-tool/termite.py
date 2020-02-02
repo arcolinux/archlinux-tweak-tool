@@ -58,14 +58,14 @@ def set_config(theme):
             theme_list = f.readlines()
             f.close()
 
-        
-        config = list(np.append(config, theme_list))
+        configs = list(np.append(config, theme_list))
 
-        with open(Functions.termite_config, "w") as f:
-            f.writelines(config)
-            f.close()
+        if not configs == None:
+            with open(Functions.termite_config, "w") as f:
+                f.writelines(list(configs))
+                f.close()
 
-        Functions.MessageBox("Success!!", "Settings Saved Successfully")
+            Functions.MessageBox("Success!!", "Settings Saved Successfully")
     except:
         Functions.MessageBox("Error!!", "Something went wrong setting this theme.")
 
