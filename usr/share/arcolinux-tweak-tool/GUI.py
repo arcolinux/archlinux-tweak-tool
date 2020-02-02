@@ -287,34 +287,35 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     
     slimset = Gtk.Button(label="Apply Theme")
     slimreset = Gtk.Button(label="Reset")
+    slimremove = Gtk.Button(label="Remove")
 
     slimset.connect("clicked", self.on_slim_apply)
     slimreset.connect("clicked", self.on_slim_reset)
+    slimremove.connect("clicked", self.on_remove_theme)
 
     slim.get_slimlock(self.slimbox)
 
     self.image2 = Gtk.Image()
-    self.image3 = Gtk.Image()
-
+    self.image5 = Gtk.Image()
+    
     try:
         path = '/usr/share/slim/themes/' + self.slimbox.get_active_text()
 
-        pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 345, 345)
+        pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 245, 245)
         self.image2.set_from_pixbuf(pixbuf4)
-
-        pixbuf5 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/panel.png", 345, 345)
-        self.image3.set_from_pixbuf(pixbuf5)
 
     except:
         pass
     
     frame2 = Gtk.Frame(label="Preview")
-    vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    frame4 = Gtk.Frame(label="Preview")
 
-    vbox2.pack_start(self.image2, False, False, 10)
-    vbox2.pack_start(self.image3, False, False, 10)
+    # vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    # vbox2.pack_start(self.image2, False, False, 10)
+    # vbox2.pack_start(self.image3, False, False, 10)
 
-    frame2.add(vbox2)
+    frame2.add(self.image2)
+    frame4.add(self.image5)
 
     self.slimbox.connect("changed", self.on_slim_theme_change, self.image2)
 
@@ -341,9 +342,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     
     hbox13.pack_start(label9, False, False, 10)
     hbox13.pack_start(self.slimbox, True, True, 10)
+    hbox13.pack_start(slimremove, False, False, 10)
 
     hbox15.pack_start(frame2, True, True, 10)
 
@@ -354,6 +357,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox16.pack_start(self.slimtext, True, True, 10)
     hbox16.pack_start(browse2, False, False, 10)
 
+    hbox26.pack_start(frame4, True, True, 10)
+
     hbox18.pack_end(importtheme, False, False, 10)
 
     hbox14.pack_end(slimset, False, False, 0)
@@ -363,6 +368,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack5.pack_start(hbox15, False, False, 0)
     vboxStack5.pack_start(hbox17, False, False, 0)
     vboxStack5.pack_start(hbox16, False, False, 0)
+    vboxStack5.pack_start(hbox26, False, False, 0)
     vboxStack5.pack_start(hbox18, False, False, 0)
     vboxStack5.pack_end(hbox14, False, False, 0)
 

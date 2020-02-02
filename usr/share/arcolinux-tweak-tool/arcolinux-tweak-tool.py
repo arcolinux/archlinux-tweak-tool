@@ -324,11 +324,8 @@ class Main(Gtk.Window):
     def on_slim_theme_change(self, widget, image):
         try:
             path = '/usr/share/slim/themes/' + widget.get_active_text()
-            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 345, 345)
+            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 245, 245)
             self.image2.set_from_pixbuf(pixbuf4)
-
-            pixbuf5 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/panel.png", 345, 345)
-            self.image3.set_from_pixbuf(pixbuf5)
         except:
             pass
 
@@ -350,6 +347,8 @@ class Main(Gtk.Window):
     def open_response_slim(self, dialog, response):
         if response == Gtk.ResponseType.OK:
             self.slimtext.set_text(dialog.get_filename())
+            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(self.slimtext.get_text(), 245, 245)
+            self.image5.set_from_pixbuf(pixbuf4)
             dialog.destroy()
         elif response == Gtk.ResponseType.CANCEL:
             dialog.destroy()
@@ -369,7 +368,21 @@ class Main(Gtk.Window):
                 Functions.shutil.copy(self.slimtext.get_text(), path + self.slimtheme.get_text() + "/background.png")
 
                 slim.reload_import(self.slimbox, self.slimtheme.get_text())
-    
+                self.image5.set_from_pixbuf(None)
+
+    def on_remove_theme(self, widget):
+        path = "/usr/share/slim/themes/"
+        try:
+            if not self.slimbox.get_active_text() == "arcolinux_eyes":
+                Functions.shutil.rmtree(path + self.slimbox.get_active_text())
+                slim.remove_theme(self.slimbox.get_active_text())
+                slim.reload_import(self.slimbox, "arcolinux_eyes")
+                Functions.MessageBox("Success!!", "Settings Saved Successfully")
+            else:
+                Functions.MessageBox("Error!!", "Sorry thats our default theme")
+        except Exception as e:
+            print(e)
+
     #====================================================================
     #                       TERMITE THEMES
     #====================================================================

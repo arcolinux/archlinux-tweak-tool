@@ -347,7 +347,18 @@ def set_grub_wallpaper(image):
             pass
 
         
-
+#=====================================================
+#               NEOFETCH CONF
+#=====================================================
+def neofetch_set_value(lists, pos, text, state):
+    if state:
+        if text in lists[pos]:
+            if "#" in lists[pos]:
+                lists[pos] = lists[pos].replace("#", "")
+    else:
+        if text in lists[pos]:
+            if not "#" in lists[pos]:
+                lists[pos] = "#" + lists[pos]
 
 
 #====================================================================

@@ -54,29 +54,37 @@ def apply_config(backend, emblem):
         try:
             if backend == "w3m":            
                 for i in range(len(lines)):
-                    if "image_backend=\"w3m\"" in lines[i]:
-                        if "#" in lines[i]:
-                            lines[i] = lines[i].replace("#", "")
+                    Functions.neofetch_set_value(lines, i, "image_backend=\"w3m\"", True)
+                    Functions.neofetch_set_value(lines, i, "image_backend=\"ascii\"", False)
+                    Functions.neofetch_set_value(lines, i, "image_source=", False)
+                    Functions.neofetch_set_value(lines, i, emblem, True)
+                    # if "image_backend=\"w3m\"" in lines[i]:
+                    #     if "#" in lines[i]:
+                    #         lines[i] = lines[i].replace("#", "")
 
-                    if "image_backend=\"ascii\"" in lines[i]:
-                        if not "#" in lines[i]:
-                            lines[i] = "#" + lines[i]
+                    # if "image_backend=\"ascii\"" in lines[i]:
+                    #     if not "#" in lines[i]:
+                    #         lines[i] = "#" + lines[i]
 
-                    if "image_source=" in lines[i]:
-                        if not "#" in lines[i]:
-                            lines[i] = "#" + lines[i]
+                    # if "image_source=" in lines[i]:
+                    #     if not "#" in lines[i]:
+                    #         lines[i] = "#" + lines[i]
                             
-                    if emblem in lines[i]:
-                        if "#" in lines[i]:
-                            lines[i] = lines[i].replace("#", "")
+                    # if emblem in lines[i]:
+                    #     if "#" in lines[i]:
+                    #         lines[i] = lines[i].replace("#", "")
             else:
                 for i in range(len(lines)):
-                    if "image_backend=\"ascii\"" in lines[i]:
-                        if "#" in lines[i]:
-                            lines[i] = lines[i].replace("#", "")
-                    if "image_backend=\"w3m\"" in lines[i]:
-                        if not "#" in lines[i]:
-                            lines[i] = "#" + lines[i]
+                    Functions.neofetch_set_value(lines, i, "image_backend=\"ascii\"", True)
+                    Functions.neofetch_set_value(lines, i, "image_backend=\"w3m\"", False)
+                    # if "image_backend=\"ascii\"" in lines[i]:
+                    #     if "#" in lines[i]:
+                    #         lines[i] = lines[i].replace("#", "")
+                    # if "image_backend=\"w3m\"" in lines[i]:
+                    #     if not "#" in lines[i]:
+                    #         lines[i] = "#" + lines[i]
+
+                    #ascii_distro="arcolinux_small"
 
             with open(Functions.neofetch_config, "w") as f:
                 f.writelines(lines)
