@@ -678,26 +678,24 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.asci.set_label("Enable ascii backend")
     self.asci.connect("toggled", self.radio_toggled)
 
+    self.big_ascii = Gtk.RadioButton(label="Use normal ascii")
+    
+    self.small_ascii = Gtk.RadioButton.new_from_widget(self.big_ascii)
+    self.small_ascii.set_label("Use small ascii")
+    
     backend = neofetch.check_backend()
+    asci = neofetch.check_ascii()
     
     self.emblem = Gtk.ComboBoxText()
     neofetch.pop_neofetch_box(self.emblem)
     self.emblem.connect("changed", self.on_elmblem_changed)
 
-    if backend == "ascii":
-        self.asci.set_active(True)
-        self.emblem.set_sensitive(False)
-    else:
-        self.w3m.set_active(True)
-    
     applyneofetch = Gtk.Button(label="Apply")
     resetneofetch = Gtk.Button(label="Reset")
     
     applyneofetch.connect("clicked", self.on_apply_neo)
     resetneofetch.connect("clicked", self.on_reset_neo)
 
-
-    
     self.image4 = Gtk.Image()
 
     try:
@@ -715,9 +713,27 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    self.hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+
+    if backend == "ascii":
+        self.asci.set_active(True)
+        self.emblem.set_sensitive(False)
+        self.hbox26.set_sensitive(True)
+    else:
+        self.w3m.set_active(True)
+        self.hbox26.set_sensitive(False)
+    
+    if asci == "auto":
+        self.big_ascii.set_active(True)
+    else:
+        self.small_ascii.set_active(True)
+
 
     hbox22.pack_start(self.w3m, True, False, 10)
     hbox22.pack_end(self.asci, True, False, 10)
+
+    self.hbox26.pack_start(self.big_ascii, True, False, 10)
+    self.hbox26.pack_end(self.small_ascii, True, False, 10)
 
     hbox23.pack_start(label13, False, False, 10)
     hbox23.pack_start(self.emblem, True, True, 10)
@@ -728,6 +744,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox24.pack_end(resetneofetch, False, False, 0)
 
     vboxStack8.pack_start(hbox22, False, False, 0)
+    vboxStack8.pack_start(self.hbox26, False, False, 0)
     vboxStack8.pack_start(hbox23, False, False, 0)
     vboxStack8.pack_start(hbox25, False, False, 0)
     vboxStack8.pack_end(hbox24, False, False, 0)

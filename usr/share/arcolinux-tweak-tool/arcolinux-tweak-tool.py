@@ -130,33 +130,15 @@ class Main(Gtk.Window):
     #               Gtk FUNCTIONS
     # =====================================================
     def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
-        # try:
         widget.set_sensitive(False)
-        # Functions.gtk3_save_settings(
-        #     themeCombo.get_active_text(), "gtk-theme-name")
-        # Functions.gtk3_save_settings(
-        #     iconCombo.get_active_text(), "gtk-icon-theme-name")
-        # Functions.gtk3_save_settings(
-        #     cursorCombo.get_active_text(), "gtk-cursor-theme-name")
-        # Functions.gtk3_save_settings(
-        #     int(str(cursor_size.get_value()).split(".")[0]), "gtk-cursor-theme-size")
-        # Functions.gtk3_save_settings(
-        #     fonts.get_font_name(), "gtk-font-name")
-
-        # Functions.set_xfce_settings(themeCombo.get_active_text(), iconCombo.get_active_text(), cursorCombo.get_active_text(), int(str(cursor_size.get_value()).split(".")[0]))
-        # Functions.update_index_theme(cursorCombo.get_active_text())
-
+        
         t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved, args=(themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0]),fonts.get_font()))
         t.daemon = True
         t.start()
-        # subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
-        # ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
-        # Functions.MessageBox("Success!!", "Settings Saved Successfully")
         
-        widget.set_sensitive(True)
         Functions.MessageBox("Success!!", "Settings Saved Successfully")
-        # except:
-        #     pass
+        widget.set_sensitive(True)
+        
 
     def reset_settings(self, widget, filez):
         if os.path.isfile(filez + ".bak"):
@@ -410,8 +392,11 @@ class Main(Gtk.Window):
         else:
             backend = "ascii"
             emblem = ""
-
-        neofetch.apply_config(backend, emblem)
+            small_ascii = "auto"
+            if not self.big_ascii.get_active():
+                small_ascii = "arcolinux_small"
+        
+        neofetch.apply_config(backend, emblem, small_ascii)
 
     def on_reset_neo(self, widget):
         if os.path.isfile(Functions.neofetch_config + ".bak"):
@@ -436,8 +421,15 @@ class Main(Gtk.Window):
     def radio_toggled(self, widget):
         if self.w3m.get_active():
             self.emblem.set_sensitive(True)
+            self.hbox26.set_sensitive(False)
+            path = Functions.home + "/.config/neofetch/" + self.emblem.get_active_text()
+
+            pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 245, 245)
+            self.image4.set_from_pixbuf(pixbuf6)
         else:
             self.emblem.set_sensitive(False)
+            self.hbox26.set_sensitive(True)
+            self.image4.set_from_pixbuf(None)
 
 
 #====================================================================

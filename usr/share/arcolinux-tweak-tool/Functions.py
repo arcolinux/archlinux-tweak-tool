@@ -360,6 +360,7 @@ def neofetch_set_value(lists, pos, text, state):
             if not "#" in lists[pos]:
                 lists[pos] = "#" + lists[pos]
 
+    return lists
 
 #====================================================================
 #                       CUSTOM FUNCTION
