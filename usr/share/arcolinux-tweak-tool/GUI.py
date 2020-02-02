@@ -701,7 +701,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     try:
         path = Functions.home + "/.config/neofetch/" + self.emblem.get_active_text()
 
-        pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 245, 245)
+        pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
         self.image4.set_from_pixbuf(pixbuf6)
     except:
         pass
@@ -714,7 +714,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     self.hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-
+    
     if backend == "ascii":
         self.asci.set_active(True)
         self.emblem.set_sensitive(False)
@@ -728,6 +728,58 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     else:
         self.small_ascii.set_active(True)
 
+    hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    # hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    # hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    # hbox30 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    # hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    # hbox32 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    # vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+
+    self.os = Gtk.CheckButton(label="Show OS")
+    self.host = Gtk.CheckButton(label="Show Hostname")
+    self.kernel = Gtk.CheckButton(label="Show Kernel")
+
+    self.uptime = Gtk.CheckButton(label="Show Uptime")
+    self.packages = Gtk.CheckButton(label="Show Packages")
+    self.shell = Gtk.CheckButton(label="Show Shell")
+    
+    self.res = Gtk.CheckButton(label="Show Resolution")
+    self.de = Gtk.CheckButton(label="Show DE")
+    self.wm = Gtk.CheckButton(label="Show WM")
+    
+    self.themes = Gtk.CheckButton(label="Show Theme")
+    self.icons = Gtk.CheckButton(label="Show Icons")
+    self.term = Gtk.CheckButton(label="Show Terminal")
+    
+    self.termfont = Gtk.CheckButton(label="Show Terminal Font")
+    self.cpu = Gtk.CheckButton(label="Show CPU")
+    self.gpu = Gtk.CheckButton(label="Show GPU")
+    
+    self.mem = Gtk.CheckButton(label="Show Memory")
+
+    flowbox = Gtk.FlowBox()
+    flowbox.set_valign(Gtk.Align.START)
+    flowbox.set_max_children_per_line(30)
+    flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
+
+    flowbox.add(self.os)
+    flowbox.add(self.host)
+    flowbox.add(self.kernel)
+    flowbox.add(self.uptime)
+    flowbox.add(self.packages)
+    flowbox.add(self.shell)
+    flowbox.add(self.res)
+    flowbox.add(self.wm)
+    flowbox.add(self.themes)
+    flowbox.add(self.icons)
+    flowbox.add(self.term)
+    flowbox.add(self.termfont)
+    flowbox.add(self.cpu)
+    flowbox.add(self.gpu)
+    flowbox.add(self.mem)
+
+    neofetch.get_checkboxes(self)
 
     hbox22.pack_start(self.w3m, True, False, 10)
     hbox22.pack_end(self.asci, True, False, 10)
@@ -738,7 +790,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox23.pack_start(label13, False, False, 10)
     hbox23.pack_start(self.emblem, True, True, 10)
 
-    hbox25.pack_start(frame3, True, True, 10)
+    hbox25.pack_start(frame3, False, False, 10)
+    hbox25.pack_start(flowbox, True, True, 10)
     
     hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(resetneofetch, False, False, 0)

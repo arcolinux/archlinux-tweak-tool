@@ -56,25 +56,89 @@ def check_ascii():
                 line = lines[i].split("=")[1].replace("\"", "").strip()
     return line
 
-def apply_config(backend, emblem, ascii_size):
+def apply_config(self, backend, emblem, ascii_size):
     if os.path.isfile(Functions.neofetch_config):
         lines = get_neofetch()
         # try:
-        if backend == "w3m":            
-            for i in range(len(lines)):
-                lines = Functions.neofetch_set_value(lines, i, "image_backend=\"w3m\"", True)
-                lines = Functions.neofetch_set_value(lines, i, "image_backend=\"ascii\"", False)
-                lines = Functions.neofetch_set_value(lines, i, "image_source=", False)
-                lines = Functions.neofetch_set_value(lines, i, emblem, True)
+        for i in range(len(lines)):
+            if self.os.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"OS\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"OS\"", False)
+            if self.host.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Host\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Host\"", False)
+            if self.kernel.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Kernel\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Kernel\"", False)
+            if self.uptime.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Uptime\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Uptime\"", False)
+            if self.packages.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Packages\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Packages\"", False)
+            if self.shell.get_active():   
+                Functions.neofetch_set_value(lines, i, "info \"Shell\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Shell\"", False)
+            if self.res.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Resolution\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Resolution\"", False)
+            if self.de.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"DE\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"DE\"", False)
+            if self.wm.get_active():  
+                Functions.neofetch_set_value(lines, i, "info \"WM\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"WM\"", False)
+            if self.themes.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Theme\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Theme\"", False)
+            if self.icons.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Icons\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Icons\"", False)
+            if self.term.get_active():    
+                Functions.neofetch_set_value(lines, i, "info \"Terminal\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Terminal\"", False)
+            if self.termfont.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Terminal Font\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Terminal Font\"", False)
+            if self.cpu.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"CPU\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"CPU\"", False)
+            if self.gpu.get_active():   
+                Functions.neofetch_set_value(lines, i, "info \"GPU\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"GPU\"", False)
+            if self.mem.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Memory\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Memory\"", False)
+            
+            if backend == "w3m":            
+                Functions.neofetch_set_value(lines, i, "image_backend=\"w3m\"", True)
+                Functions.neofetch_set_value(lines, i, "image_backend=\"ascii\"", False)
+                Functions.neofetch_set_value(lines, i, "image_source=", False)
+                Functions.neofetch_set_value(lines, i, emblem, True)
                 
-        else:
-            for i in range(len(lines)):
-                lines = Functions.neofetch_set_value(lines, i, "image_backend=\"ascii\"", True)
-                lines = Functions.neofetch_set_value(lines, i, "image_backend=\"w3m\"", False)
+            else:
+            
+                Functions.neofetch_set_value(lines, i, "image_backend=\"ascii\"", True)
+                Functions.neofetch_set_value(lines, i, "image_backend=\"w3m\"", False)
                 if "ascii_distro=" in lines[i]:
                     lines[i] = "ascii_distro=\"" + ascii_size + "\"\n"
-                
-                #ascii_distro="arcolinux_small"
+
 
         with open(Functions.neofetch_config, "w") as f:
             f.writelines(lines)
@@ -82,3 +146,31 @@ def apply_config(backend, emblem, ascii_size):
         Functions.MessageBox("Success!!", "Settings Saved Successfully")
         # except:
         #     pass
+
+def get_state(value):
+    lines = get_neofetch()
+
+    for i in range(len(lines)):
+        if value in lines[i]:
+            if "#" in lines[i]:
+                return False
+    return True
+
+def get_checkboxes(self):
+    
+    self.os.set_active(get_state("info \"OS\""))    
+    self.host.set_active(get_state("info \"Host\""))
+    self.kernel.set_active(get_state("info \"Kernel\""))
+    self.uptime.set_active(get_state("info \"Uptime\""))
+    self.packages.set_active(get_state("info \"Packages\""))
+    self.shell.set_active(get_state("info \"Shell\""))    
+    self.res.set_active(get_state("info \"Resolution\""))
+    self.de.set_active(get_state("info \"DE\""))
+    self.wm.set_active(get_state("info \"WM\""))    
+    self.themes.set_active(get_state("info \"Theme\""))
+    self.icons.set_active(get_state("info \"Icons\""))
+    self.term.set_active(get_state("info \"Terminal\""))    
+    self.termfont.set_active(get_state("info \"Terminal Font\""))
+    self.cpu.set_active(get_state("info \"CPU\""))
+    self.gpu.set_active(get_state("info \"GPU\""))    
+    self.mem.set_active(get_state("info \"Memory\""))

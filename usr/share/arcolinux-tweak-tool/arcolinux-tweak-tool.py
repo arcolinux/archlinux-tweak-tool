@@ -386,17 +386,20 @@ class Main(Gtk.Window):
     def on_apply_neo(self, widget):
         if not os.path.isfile(Functions.neofetch_config + ".bak"):
             Functions.shutil.copy(Functions.neofetch_config, Functions.neofetch_config + ".bak")
+        
+        small_ascii = "auto"
+
         if self.w3m.get_active():
             backend = "w3m"
             emblem = self.emblem.get_active_text()
         else:
             backend = "ascii"
             emblem = ""
-            small_ascii = "auto"
+            
             if not self.big_ascii.get_active():
                 small_ascii = "arcolinux_small"
         
-        neofetch.apply_config(backend, emblem, small_ascii)
+        neofetch.apply_config(self, backend, emblem, small_ascii)
 
     def on_reset_neo(self, widget):
         if os.path.isfile(Functions.neofetch_config + ".bak"):
@@ -414,7 +417,7 @@ class Main(Gtk.Window):
     def on_elmblem_changed(self, widget):
         path = Functions.home + "/.config/neofetch/" + widget.get_active_text()
 
-        pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 245, 245)
+        pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
         self.image4.set_from_pixbuf(pixbuf6)
 
 
@@ -424,7 +427,7 @@ class Main(Gtk.Window):
             self.hbox26.set_sensitive(False)
             path = Functions.home + "/.config/neofetch/" + self.emblem.get_active_text()
 
-            pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 245, 245)
+            pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
             self.image4.set_from_pixbuf(pixbuf6)
         else:
             self.emblem.set_sensitive(False)
