@@ -8,6 +8,7 @@ import slim
 import Gtk_Functions
 import oblogout
 import termite
+import neofetch
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
@@ -34,6 +35,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack7 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     # ==========================================================
     #                   TAB #1 PACMAN
@@ -650,6 +652,56 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack7.pack_start(hbox19, False, False, 0)  # slider    
     vboxStack7.pack_end(hbox20, False, False, 0)  # slider    
 
+
+    # ==========================================================
+    #                     NEOFETCH
+    # ==========================================================
+    label13 = Gtk.Label()
+    label13.set_text("Select Image")
+
+    self.w3m = Gtk.RadioButton(label="Enable w3m backend")
+    self.w3m.connect("toggled", self.radio_toggled)
+
+    self.asci = Gtk.RadioButton.new_from_widget(self.w3m)
+    self.asci.set_label("Enable ascii backend")
+    self.asci.connect("toggled", self.radio_toggled)
+
+    backend = neofetch.check_backend()
+    
+    self.emblem = Gtk.ComboBoxText()
+    neofetch.pop_neofetch_box(self.emblem)
+
+    if backend == "ascii":
+        self.asci.set_active(True)
+        self.emblem.set_sensitive(False)
+    else:
+        self.w3m.set_active(True)
+    
+    applyneofetch = Gtk.Button(label="Apply")
+    resetneofetch = Gtk.Button(label="Reset")
+    
+    applyneofetch.connect("clicked", self.on_apply_neo)
+    resetneofetch.connect("clicked", self.on_reset_neo)
+
+
+    hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
+
+    hbox22.pack_start(self.w3m, True, False, 10)
+    hbox22.pack_end(self.asci, True, False, 10)
+
+    hbox23.pack_start(label13, False, False, 10)
+    hbox23.pack_start(self.emblem, True, True, 10)
+
+    hbox24.pack_end(applyneofetch, False, False, 0)
+    hbox24.pack_end(resetneofetch, False, False, 0)
+
+    vboxStack8.pack_start(hbox22, False, False, 0)
+    vboxStack8.pack_start(hbox23, False, False, 0)
+    vboxStack8.pack_end(hbox24, False, False, 0)
+    
     # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
@@ -671,6 +723,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     if Functions.file_check(Functions.termite_config):
         stack.add_titled(vboxStack7, "stack7", "Termite Themes")
     
+    if Functions.file_check(Functions.neofetch_config):
+        stack.add_titled(vboxStack8, "stack8", "Neofetch Config")
     # stack.add_titled(vboxStack7, "stack7", "EMPTY")
 
     stack_switcher = Gtk.StackSidebar()

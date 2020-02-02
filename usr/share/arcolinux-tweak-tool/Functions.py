@@ -26,6 +26,7 @@ grub_theme_conf = "/boot/grub/themes/Vimix/theme.txt"
 xfce_config = home + "/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
 slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
+neofetch_config = home + "/.config/neofetch/config.conf"
 #=====================================================
 #               MESSAGEBOX
 #=====================================================

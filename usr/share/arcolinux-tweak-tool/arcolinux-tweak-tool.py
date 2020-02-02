@@ -11,6 +11,7 @@ import slim
 import Gtk_Functions
 import oblogout
 import termite
+import neofetch
 import GUI
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, Gio, Gdk
@@ -383,6 +384,45 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.termite_config + ".bak", Functions.termite_config)
 
 
+    #====================================================================
+    #                       NEOFETCH CONFIG
+    #====================================================================
+
+    def on_apply_neo(self, widget):
+        if not os.path.isfile(Functions.neofetch_config + ".bak"):
+            Functions.shutil.copy(Functions.neofetch_config, Functions.neofetch_config + ".bak")
+        if self.w3m.get_active():
+            backend = "w3m"
+            emblem = self.emblem.get_active_text()
+        else:
+            backend = "ascii"
+            emblem = ""
+
+        neofetch.apply_config(backend, emblem)
+
+    def on_reset_neo(self, widget):
+        if os.path.isfile(Functions.neofetch_config + ".bak"):
+            Functions.shutil.copy(Functions.neofetch_config + ".bak", Functions.neofetch_config)
+            
+            neofetch.pop_neofetch_box(self.emblem)
+            backend = neofetch.check_backend()
+            if backend == "ascii":
+                self.asci.set_active(True)
+                self.emblem.set_sensitive(False)
+            else:
+                self.w3m.set_active(True)
+
+
+    def radio_toggled(self, widget):
+        if self.w3m.get_active():
+            self.emblem.set_sensitive(True)
+        else:
+            self.emblem.set_sensitive(False)
+
+
+#====================================================================
+#                       MAIN
+#====================================================================
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):
         with open("/tmp/att.pid", "w") as f:
