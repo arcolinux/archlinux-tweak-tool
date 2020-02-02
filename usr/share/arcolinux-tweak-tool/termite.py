@@ -20,7 +20,7 @@ def get_themes(combo):
     coms = []
     for theme in themes:
         if ".config" in theme:
-            print(theme.replace("base16-", "").replace(".config", ""))
+            # print(theme.replace("base16-", "").replace(".config", ""))
             if theme.replace("base16-", "").replace(".config", "").capitalize() in theme_line:
                 active = theme.replace(".config", "")
             coms.append(theme.replace(".config", ""))
