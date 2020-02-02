@@ -25,6 +25,7 @@ gtk2_settings = home + "/.gtkrc-2.0"
 grub_theme_conf = "/boot/grub/themes/Vimix/theme.txt"
 xfce_config = home + "/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
 slimlock_conf = "/etc/slim.conf"
+termite_config = home + "/.config/termite/config"
 #=====================================================
 #               MESSAGEBOX
 #=====================================================

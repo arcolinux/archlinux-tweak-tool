@@ -7,6 +7,7 @@ import Functions
 import slim
 import Gtk_Functions
 import oblogout
+import termite
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
@@ -248,22 +249,22 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     grub_reset.connect("clicked", self.on_reset_grub_wallpaper)
 
     
-    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     
-    hbox8.pack_start(label7, False, True, 0)
-    hbox8.pack_start(self.grub_theme_combo, True, True, 0)
-    hbox8.pack_start(btnremove, False, False, 0)
+    hbox8.pack_start(label7, False, True, 10)
+    hbox8.pack_start(self.grub_theme_combo, True, True, 10)
+    hbox8.pack_start(btnremove, False, False, 10)
 
-    hbox11.pack_start(label8, False, False, 0)
-    hbox11.pack_start(self.tbimage, True, True, 0)
+    hbox11.pack_start(label8, False, False, 10)
+    hbox11.pack_start(self.tbimage, True, True, 10)
     
-    hbox11.pack_start(btnsearch, False, False, 0)
-    hbox12.pack_end(btnimport, False, False, 0)
-    hbox10.pack_start(frame, True, True, 0)
+    hbox11.pack_start(btnsearch, False, False, 10)
+    hbox12.pack_end(btnimport, False, False, 10)
+    hbox10.pack_start(frame, True, True, 10)
 
     hbox9.pack_end(grub_apply, False, False, 0)
     hbox9.pack_end(grub_reset, False, False, 0)
@@ -332,26 +333,26 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     importtheme.connect("clicked", self.on_create_theme_clicked)
 
 
-    hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     
-    hbox13.pack_start(label9, False, False, 0)
-    hbox13.pack_start(self.slimbox, True, True, 0)
+    hbox13.pack_start(label9, False, False, 10)
+    hbox13.pack_start(self.slimbox, True, True, 10)
 
-    hbox15.pack_start(frame2, True, True, 0)
+    hbox15.pack_start(frame2, True, True, 10)
 
-    hbox17.pack_start(label11, False, False, 0)
-    hbox17.pack_start(self.slimtheme, True, True, 0)
+    hbox17.pack_start(label11, False, False, 10)
+    hbox17.pack_start(self.slimtheme, True, True, 10)
     
-    hbox16.pack_start(label10, False, False, 0)
-    hbox16.pack_start(self.slimtext, True, True, 0)
-    hbox16.pack_start(browse2, False, False, 0)
+    hbox16.pack_start(label10, False, False, 10)
+    hbox16.pack_start(self.slimtext, True, True, 10)
+    hbox16.pack_start(browse2, False, False, 10)
 
-    hbox18.pack_end(importtheme, False, False, 0)
+    hbox18.pack_end(importtheme, False, False, 10)
 
     hbox14.pack_end(slimset, False, False, 0)
     hbox14.pack_end(slimreset, False, False, 0)
@@ -363,10 +364,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack5.pack_start(hbox18, False, False, 0)
     vboxStack5.pack_end(hbox14, False, False, 0)
 
-    # ==========================================================
-    #                       TAB #7 EMPTY
-    # ==========================================================
-    
     # ==========================================================
     #                       TAB #6 OBLOGOUT
     # ==========================================================
@@ -597,7 +594,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox9.pack_start(label9, False, False, 10)
     hbox9.pack_start(self.colorchooser, True, True, 10)
 
-    hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     save_oblogout = Gtk.Button(label="Save Settings")
     save_oblogout.connect("clicked", self.save_oblogout)
 
@@ -605,8 +602,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     reset_oblogout.connect("clicked", self.reset_settings,
                            Functions.oblogout_conf)
 
-    hbox13.pack_end(save_oblogout, False, False, 0)
-    hbox13.pack_end(reset_oblogout, False, False, 0)
+    hbox21.pack_end(save_oblogout, False, False, 0)
+    hbox21.pack_end(reset_oblogout, False, False, 0)
 
     # vboxStack6.pack_start(hbox6, False, False, 0)  # image
     vboxStack6.pack_start(hbox5, False, False, 0)  # slider
@@ -621,7 +618,37 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack6.pack_start(hbox17, False, False, 0)  # keybind row 3
     vboxStack6.pack_start(hbox8, False, False, 0)  # lockscreen
     vboxStack6.pack_start(hbox9, False, False, 0)  # Color Button
-    vboxStack6.pack_end(hbox13, False, False, 0)  # Save Button
+    vboxStack6.pack_end(hbox21, False, False, 0)  # Save Button
+
+
+    # ==========================================================
+    #                     TERMITE CONFIG
+    # ==========================================================
+    label12 = Gtk.Label()
+    label12.set_text("Termite Themes")
+
+    self.term_themes = Gtk.ComboBoxText()
+    
+    termset = Gtk.Button(label="Apply Theme")
+    termreset = Gtk.Button(label="Reset")
+
+    termset.connect("clicked", self.on_term_apply)
+    termreset.connect("clicked", self.on_term_reset)
+
+    termite.get_themes(self.term_themes)
+
+    hbox19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
+    hbox19.pack_start(label12, False, False, 10)
+    hbox19.pack_start(self.term_themes, True, True, 10)
+
+    hbox20.pack_end(termset, False, False, 0)
+    hbox20.pack_end(termreset, False, False, 0)
+
+    # vboxStack6.pack_start(hbox6, False, False, 0)  # image
+    vboxStack7.pack_start(hbox19, False, False, 0)  # slider    
+    vboxStack7.pack_end(hbox20, False, False, 0)  # slider    
 
     # ==========================================================
     #                     ADD TO WINDOW
@@ -640,6 +667,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     if Functions.file_check(Functions.slimlock_conf):
         stack.add_titled(vboxStack5, "stack5", "Slimlock")
+
+    if Functions.file_check(Functions.termite_config):
+        stack.add_titled(vboxStack7, "stack7", "Termite Themes")
     
     # stack.add_titled(vboxStack7, "stack7", "EMPTY")
 
@@ -663,3 +693,4 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     stack.set_hhomogeneous(False)
     stack.set_vhomogeneous(False)
     
+    # print(termite.get_config())

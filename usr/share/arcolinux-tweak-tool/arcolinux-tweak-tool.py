@@ -10,6 +10,7 @@ import Functions
 import slim
 import Gtk_Functions
 import oblogout
+import termite
 import GUI
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, Gio, Gdk
@@ -367,6 +368,20 @@ class Main(Gtk.Window):
                 Functions.shutil.copy(self.slimtext.get_text(), path + self.slimtheme.get_text() + "/background.png")
 
                 slim.reload_import(self.slimbox, self.slimtheme.get_text())
+    
+    #====================================================================
+    #                       TERMITE THEMES
+    #====================================================================
+
+    def on_term_apply(self, widget):
+        widget.set_sensitive(False)
+        termite.set_config(self.term_themes.get_active_text())
+        widget.set_sensitive(True)
+
+    def on_term_reset(self, widget):
+        if os.path.isfile(Functions.termite_config + ".bak"):
+            Functions.shutil.copy(Functions.termite_config + ".bak", Functions.termite_config)
+
 
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):
