@@ -320,6 +320,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.slimbox.connect("changed", self.on_slim_theme_change, self.image2)
 
 
+    label12 = Gtk.Label()
+    label12.set_markup("Images are to be in <b>.png</b>")
+
     label10 = Gtk.Label()
     label10.set_text("Select Wallpaper")
 
@@ -343,6 +346,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     
     hbox13.pack_start(label9, False, False, 10)
     hbox13.pack_start(self.slimbox, True, True, 10)
@@ -353,6 +357,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox17.pack_start(label11, False, False, 10)
     hbox17.pack_start(self.slimtheme, True, True, 10)
     
+    hbox27.pack_start(label12, True, False, 10)
     hbox16.pack_start(label10, False, False, 10)
     hbox16.pack_start(self.slimtext, True, True, 10)
     hbox16.pack_start(browse2, False, False, 10)
@@ -364,13 +369,14 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox14.pack_end(slimset, False, False, 0)
     hbox14.pack_end(slimreset, False, False, 0)
     
-    vboxStack5.pack_start(hbox13, False, False, 0)
-    vboxStack5.pack_start(hbox15, False, False, 0)
-    vboxStack5.pack_start(hbox17, False, False, 0)
-    vboxStack5.pack_start(hbox16, False, False, 0)
-    vboxStack5.pack_start(hbox26, False, False, 0)
-    vboxStack5.pack_start(hbox18, False, False, 0)
-    vboxStack5.pack_end(hbox14, False, False, 0)
+    vboxStack5.pack_start(hbox13, False, False, 0) #combobox
+    vboxStack5.pack_start(hbox15, False, False, 0) #Preview Theme
+    vboxStack5.pack_start(hbox17, False, False, 0) #Theme Name Text
+    vboxStack5.pack_start(hbox27, False, False, 0) #Info Text
+    vboxStack5.pack_start(hbox16, False, False, 0) #Choose Theme Txtbox
+    vboxStack5.pack_start(hbox26, False, False, 0) #Preview Chosen Image
+    vboxStack5.pack_start(hbox18, False, False, 0) #Create Theme
+    vboxStack5.pack_end(hbox14, False, False, 0) #Buttons
 
     # ==========================================================
     #                       TAB #6 OBLOGOUT
