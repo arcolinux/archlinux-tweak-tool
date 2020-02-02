@@ -715,29 +715,29 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     self.hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     
-    self.backend_combo = Gtk.ComboBoxText()
-    lists = ['caca', 'jp2a', 'iterm2', 'off', 'termpix', 'pixterm', 'tycat', 'w3m', 'kitty']
+    # self.backend_combo = Gtk.ComboBoxText()
+    # lists = ['caca', 'jp2a', 'iterm2', 'off', 'termpix', 'pixterm', 'tycat', 'w3m', 'kitty']
     
     
-    active = 7
-    for i in range(len(lists)):
-        self.backend_combo.append_text(lists[i])
-        if backend == lists[i]:
-            active = i
+    # active = 7
+    # for i in range(len(lists)):
+    #     self.backend_combo.append_text(lists[i])
+    #     if backend == lists[i]:
+    #         active = i
 
-    self.backend_combo.set_active(active)
+    # self.backend_combo.set_active(active)
 
     if backend == "ascii":
         self.asci.set_active(True)
         self.emblem.set_sensitive(False)
         self.big_ascii.set_sensitive(True)
         self.small_ascii.set_sensitive(True)
-        self.backend_combo.set_sensitive(False)
+        # self.backend_combo.set_sensitive(False)
     else:
         self.w3m.set_active(True)
         self.big_ascii.set_sensitive(False)
         self.small_ascii.set_sensitive(False)
-        self.backend_combo.set_sensitive(True)
+        # self.backend_combo.set_sensitive(True)
     
     if asci == "auto":
         self.big_ascii.set_active(True)
@@ -801,10 +801,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     hbox22.pack_start(self.w3m, True, False, 10)
     hbox22.pack_end(self.asci, True, False, 10)
 
-    self.hbox26.pack_start(self.backend_combo, True, True, 10)
+    # self.hbox26.pack_start(self.backend_combo, True, True, 10)
     
-    self.hbox26.pack_start(self.big_ascii, True, True, 10)
-    self.hbox26.pack_start(self.small_ascii, True, True, 10)
+    self.hbox26.pack_start(self.big_ascii, True, False, 10)
+    self.hbox26.pack_end(self.small_ascii, True, False, 10)
 
     hbox23.pack_start(label13, False, False, 10)
     hbox23.pack_start(self.emblem, True, True, 10)

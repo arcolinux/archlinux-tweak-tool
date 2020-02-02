@@ -56,7 +56,7 @@ def check_ascii():
                 line = lines[i].split("=")[1].replace("\"", "").strip()
     return line
 
-def apply_config(self, backend, emblem, ascii_size, backend_val):
+def apply_config(self, backend, emblem, ascii_size):
     if os.path.isfile(Functions.neofetch_config):
         lines = get_neofetch()
         # try:
@@ -127,7 +127,7 @@ def apply_config(self, backend, emblem, ascii_size, backend_val):
                 Functions.neofetch_set_value(lines, i, "info \"Memory\"", False)
             
             if not backend == "ascii":            
-                Functions.neofetch_set_backend_value(lines, i, "image_backend=\"", backend_val)
+                Functions.neofetch_set_backend_value(lines, i, "image_backend=\"", "w3m")
                 # Functions.neofetch_set_backend_value(lines, i, "image_backend=\"ascii\"")
                 Functions.neofetch_set_value(lines, i, "image_source=", False)
                 Functions.neofetch_set_value(lines, i, emblem, True)
