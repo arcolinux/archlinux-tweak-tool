@@ -85,14 +85,14 @@ class Main(Gtk.Window):
                                   Functions.oblogout_conf + ".bak")
         try:
             string = ""
-            if self.check_shut.get_active():
-                string += "shutdown "
-            if self.check_restart.get_active():
-                string += "restart "
-            if self.check_logout.get_active():
-                string += "logout "
             if self.check_cancel.get_active():
                 string += "cancel "
+            if self.check_logout.get_active():
+                string += "logout "
+            if self.check_restart.get_active():
+                string += "restart "
+            if self.check_shut.get_active():
+                string += "shutdown "
             if self.check_susp.get_active():
                 string += "suspend "
             if self.check_hiber.get_active():
@@ -119,7 +119,7 @@ class Main(Gtk.Window):
             oblogout.set_shorcut("lock", self.tblock.get_text().capitalize())
             hex = Functions.rgb_to_hex(
                 self.colorchooser.get_rgba().to_string())
-            oblogout.set_color(hex)
+            oblogout.set_color(hex.upper())
 
             Functions.MessageBox("Success!!", "Settings Saved Successfully")
             widget.set_sensitive(True)
