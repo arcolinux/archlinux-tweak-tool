@@ -33,15 +33,15 @@ class Main(Gtk.Window):
         self.firstrun = True
         self.desktop = ""
 
-        t = Functions.threading.Thread(target=Functions.get_desktop, args=(self,))
-        t.daemon = True
-        t.start()
-
         if not os.path.isdir(Functions.home + "/.ATT_Backups"):
             os.mkdir(Functions.home + "/.ATT_Backups")
             
         GUI.GUI(self, Gtk, Functions.Gdk, GdkPixbuf, base_dir, os)
 
+        t = Functions.threading.Thread(target=Functions.get_desktop, args=(self,))
+        t.daemon = True
+        t.start()
+        
         arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
         multi_testing = Functions.check_repo("[multilib-testing]")
         arch_testing = Functions.check_repo("[testing]")
