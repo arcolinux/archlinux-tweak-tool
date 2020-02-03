@@ -159,7 +159,6 @@ def toggle_test_repos(state, widget):
                         if (i+2) < len(lines) and "Include" in lines[i+2]:
                             lines[i + 2]  = lines[i + 2].replace("#", "")
                 if widget == "arch":
-                    print("AUTHORIZED")
                     if "[testing]" in line:
                         lines[i] = line.replace("#", "")
                         if (i+1) < len(lines):
