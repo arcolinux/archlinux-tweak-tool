@@ -3,6 +3,8 @@
 #=================================================================
 import Functions
 from Functions import os
+
+from xml.etree import ElementTree as et
 #====================================================================
 #                       GTK FUNCTIONS
 #====================================================================
@@ -111,7 +113,7 @@ def get_gtk_settings(item):
 
 def gtk2_save_settings(value, item):
     if not os.path.isfile(Functions.gtk2_settings + ".bak"):
-        shutil.copy(Functions.gtk2_settings,gtk2_settings + ".bak")
+        Functions.shutil.copy(Functions.gtk2_settings,gtk2_settings + ".bak")
 
     if os.path.isfile(Functions.gtk2_settings):
         with open(Functions.gtk2_settings, 'r', encoding='utf-8') as f:
@@ -164,7 +166,7 @@ def gtk3_save_settings(value, item):
 def set_xfce_settings(theme, icon, cursor, cursize):
     if os.path.isfile(Functions.xfce_config):
         try:
-            tree = Functions.et.parse(Functions.xfce_config)
+            tree = et.parse(Functions.xfce_config)
             for rank in tree.iter('property'):
                 if rank.get("name") == "ThemeName":
                     rank.set("value", str(theme))

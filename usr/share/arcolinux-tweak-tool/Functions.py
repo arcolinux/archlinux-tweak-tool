@@ -12,7 +12,6 @@ import threading
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk, Gdk
-from xml.etree import ElementTree as et
 
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
@@ -27,6 +26,7 @@ xfce_config = home + "/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
 slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
+bd = ".ATT_Backups"
 #=====================================================
 #               MESSAGEBOX
 #=====================================================
@@ -377,6 +377,33 @@ def get_desktop():
     dsk = desktop.stdout.decode().strip().split("\n")
     
     print(dsk[len(dsk)-1])
+
+def copytree(self, src, dst, symlinks=False, ignore=None):
+
+    if not os.path.exists(dst):
+        os.makedirs(dst)
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.exists(d):
+            try:
+                shutil.rmtree(d)
+            except Exception as e:
+                print(e)
+                os.unlink(d)
+        if os.path.isdir(s):
+            try:
+                shutil.copytree(s, d, symlinks, ignore)
+            except Exception as e:
+                print(e)
+                print("ERROR2")
+                self.ecode = 1
+        else:
+            try:
+                shutil.copy2(s, d)
+            except:
+                print("ERROR3")
+                self.ecode = 1
 
 #=====================================================
 #               CHECK RUNNING PROCESS

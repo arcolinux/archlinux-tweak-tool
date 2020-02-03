@@ -32,6 +32,9 @@ class Main(Gtk.Window):
         self.opened = True
         self.firstrun = True
         
+        if not os.path.isdir(Functions.home + "/.ATT_Backups"):
+            os.mkdir(Functions.home + "/.ATT_Backups")
+            
         GUI.GUI(self, Gtk, Functions.Gdk, GdkPixbuf, base_dir, os)
 
         arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
@@ -491,8 +494,57 @@ class Main(Gtk.Window):
 
     def on_button_fetch_clicked(self, widget):
         skelapp.skel_run(self, Functions)
-        
+    
+    def on_backup_clicked(self, widget):
+        # self.button_toggles(False)
+        skelapp.setMessage(self, "Running Backup")
+        t1 = Functions.threading.Thread(target=skelapp.processing,
+                                args=(self, "BACKUP",))
+        t1.daemon = True
+        t1.start()
 
+    def backs_changed(self, widget):
+        skelapp.refresh_inner(self)
+    
+    def on_refresh_clicked(self, widget):
+        skelapp.refresh(self)
+
+    # ===========================================
+    #			DELETE BACKUP Section
+    # ===========================================
+
+    def on_delete_inner_clicked(self, widget):
+        # self.button_toggles(False)
+        t1 = Functions.threading.Thread(
+            target=skelapp.Delete_Inner_Backup, args=(self,))
+        t1.daemon = True
+        t1.start()
+
+    def on_delete_clicked(self, widget):
+        # self.button_toggles(False)
+        t1 = Functions.threading.Thread(target=skelapp.Delete_Backup, args=(self,))
+        t1.daemon = True
+        t1.start()
+    
+    # ===========================================
+    #		DELETE ALL BACKUP Section
+    # ===========================================
+
+    def on_flush_clicked(self, widget):
+        md = Gtk.MessageDialog(parent=self, flags=0, message_type=Gtk.MessageType.INFO,
+                               buttons=Gtk.ButtonsType.YES_NO, text="Are you Sure?")
+        md.format_secondary_markup(
+            "Are you sure you want to delete all your backups?")
+
+        result = md.run()
+
+        md.destroy()
+
+        if result in (Gtk.ResponseType.OK, Gtk.ResponseType.YES):
+            # self.button_toggles(False)
+            t1 = threading.Thread(target=skelapp.Flush_All, args=(self,))
+            t1.daemon = True
+            t1.start()
 #====================================================================
 #                       MAIN
 #====================================================================
