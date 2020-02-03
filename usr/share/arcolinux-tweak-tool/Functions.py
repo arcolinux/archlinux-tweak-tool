@@ -27,6 +27,10 @@ slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
 bd = ".ATT_Backups"
+
+desktop = ""
+
+
 #=====================================================
 #               MESSAGEBOX
 #=====================================================
@@ -131,8 +135,12 @@ def check_repo(value):
         if "#" + value in line:
             return False
     return True
-
 def toggle_test_repos(state, widget):
+#     authority.check_authorization(subject, action_id, None, Polkit.CheckAuthorizationFlags.ALLOW_USER_INTERACTION, cancellable, set_test_repos, None, state, widget)
+
+# def set_test_repos(authority, res, loop, state, widget):
+#     result = authority.check_authorization_finish(res)
+#     if result.get_is_authorized():
     if not os.path.isfile(pacman + ".bak"):
         shutil.copy(pacman, pacman + ".bak")
     lines = ""
@@ -151,6 +159,7 @@ def toggle_test_repos(state, widget):
                         if (i+2) < len(lines) and "Include" in lines[i+2]:
                             lines[i + 2]  = lines[i + 2].replace("#", "")
                 if widget == "arch":
+                    print("AUTHORIZED")
                     if "[testing]" in line:
                         lines[i] = line.replace("#", "")
                         if (i+1) < len(lines):
@@ -169,7 +178,8 @@ def toggle_test_repos(state, widget):
                 # lines = f.readlines()
                 f.writelines(lines)
                 f.close()
-        except:
+        except Exception as e:
+            print(e)
             MessageBox("ERROR!!", "An error has occured setting this setting \'toggle_test_repos On\'")
     else:
         with open(pacman, 'r') as f:
@@ -370,13 +380,14 @@ def neofetch_set_backend_value(lists, pos, text, value):
 #                       CUSTOM FUNCTION
 #====================================================================
     
-def get_desktop():
+def get_desktop(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
 
     desktop = subprocess.run(["sh", base_dir + "/find_DE.sh", sudo_username], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     dsk = desktop.stdout.decode().strip().split("\n")
     
-    print(dsk[len(dsk)-1])
+    # return dsk[len(dsk)-1].lstrip().rstrip()
+    self.desktop = dsk[len(dsk)-1].lstrip().rstrip()
 
 def copytree(self, src, dst, symlinks=False, ignore=None):
 
@@ -418,3 +429,4 @@ def checkIfProcessRunning(processName):
         except (psutil.NoSuchProcess, psutil.AccessDenied , psutil.ZombieProcess) :
             pass                
     return False
+

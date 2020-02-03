@@ -4,7 +4,8 @@
 import Functions
 from Functions import os
 import re
-from xml.etree import ElementTree as et
+# from xml.etree import ElementTree as et
+
 #====================================================================
 #                       GTK FUNCTIONS
 #====================================================================
@@ -222,7 +223,7 @@ def update_index_theme(theme):
         except:
             pass
 
-def gtk_settings_saved(themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
+def gtk_settings_saved(self, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
     # GLib.idle_add(widget.set_sensitive,False)
     gtk3_save_settings(themeCombo, "gtk-theme-name")
     gtk3_save_settings(iconCombo, "gtk-icon-theme-name")
@@ -235,8 +236,10 @@ def gtk_settings_saved(themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
     gtk2_save_settings(cursorCombo, "gtk-cursor-theme-name")
     gtk2_save_settings(int(str(cursor_size).split(".")[0]), "gtk-cursor-theme-size")
     gtk2_save_settings(fonts, "gtk-font-name")
-    
-    set_xfce_settings(themeCombo, iconCombo, cursorCombo, int(str(cursor_size).split(".")[0]))
+    print(self.desktop)
+    if "xfce" in self.desktop:
+        set_xfce_settings(themeCombo, iconCombo, cursorCombo, int(str(cursor_size).split(".")[0]))
+        print("XFCE")
     
     update_index_theme(cursorCombo)
     

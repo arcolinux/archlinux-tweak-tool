@@ -107,7 +107,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     if Functions.file_check(Functions.pacman):
         stack.add_titled(vboxStack1, "stack1", "Pacman Config")
 
-    stack.add_titled(vboxStack2, "stack2", "Gtk+3 Config")
+    stack.add_titled(vboxStack2, "stack2", "Theming")
 
     stack.add_titled(vboxStack4, "stack4", "Grub Config")
 

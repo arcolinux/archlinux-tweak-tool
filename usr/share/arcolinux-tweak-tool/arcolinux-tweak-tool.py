@@ -31,7 +31,12 @@ class Main(Gtk.Window):
 
         self.opened = True
         self.firstrun = True
-        
+        self.desktop = ""
+
+        t = Functions.threading.Thread(target=Functions.get_desktop, args=(self,))
+        t.daemon = True
+        t.start()
+
         if not os.path.isdir(Functions.home + "/.ATT_Backups"):
             os.mkdir(Functions.home + "/.ATT_Backups")
             
@@ -79,9 +84,11 @@ class Main(Gtk.Window):
     # =====================================================
     #               OBLOGOUT FUNCTIONS
     # =====================================================
-
     def save_oblogout(self, widget):
-        widget.set_sensitive(False)
+        Functions.authority.check_authorization(Functions.subject, Functions.action_id, None, Functions.Polkit.CheckAuthorizationFlags.ALLOW_USER_INTERACTION, Functions.cancellable, self.save_oblogot_conf, None)
+    
+    def save_oblogot_conf(self, authority, res, loop):
+        # widget.set_sensitive(False)
         if not os.path.isfile(Functions.oblogout_conf + ".bak"):
             Functions.shutil.copy(Functions.oblogout_conf,
                                   Functions.oblogout_conf + ".bak")
@@ -124,7 +131,7 @@ class Main(Gtk.Window):
             oblogout.set_color(hex.upper())
 
             Functions.MessageBox("Success!!", "Settings Saved Successfully")
-            widget.set_sensitive(True)
+            # widget.set_sensitive(True)
         except:
             pass
     
@@ -134,7 +141,7 @@ class Main(Gtk.Window):
     def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
         widget.set_sensitive(False)
         
-        t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved, args=(themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0]),fonts.get_font()))
+        t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved, args=(self, themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0]),fonts.get_font()))
         t.daemon = True
         t.start()
         
@@ -542,12 +549,13 @@ class Main(Gtk.Window):
 
         if result in (Gtk.ResponseType.OK, Gtk.ResponseType.YES):
             # self.button_toggles(False)
-            t1 = threading.Thread(target=skelapp.Flush_All, args=(self,))
+            t1 = Functions.threading.Thread(target=skelapp.Flush_All, args=(self,))
             t1.daemon = True
             t1.start()
 #====================================================================
 #                       MAIN
 #====================================================================
+
 if __name__ == "__main__":
     if not os.path.isfile("/tmp/att.lock"):
         with open("/tmp/att.pid", "w") as f:
