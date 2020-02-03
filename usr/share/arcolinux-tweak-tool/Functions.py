@@ -387,6 +387,7 @@ def get_desktop(self):
     
     # return dsk[len(dsk)-1].lstrip().rstrip()
     self.desktop = dsk[len(dsk)-1].lstrip().rstrip()
+    self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop.capitalize() +"</span>")
 
 def copytree(self, src, dst, symlinks=False, ignore=None):
 

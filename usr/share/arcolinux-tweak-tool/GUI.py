@@ -138,9 +138,17 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     version = Gtk.Label(xalign=0)
     version.set_markup("<span foreground=\'grey\'>v20.2.22</span>")
 
+    self.lbl_desktop = Gtk.Label(xalign=0)
+    self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop +"</span>")
+
+    hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
+
+    hbox1.pack_start(version, False, False, 0)
+    hbox1.pack_end(self.lbl_desktop, False, False, 0)
+
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
-    ivbox.pack_start(version, False, False, 0)
+    ivbox.pack_start(hbox1, False, False, 0)
 
     hbox.pack_start(ivbox, False, True, 0)
     hbox.pack_start(stack, True, True, 0)
