@@ -93,6 +93,21 @@ def get_cursor_themes(self, combo):
         except:
             Functions.MessageBox("ERROR!!", "An error has occured getting this setting \'gtk-cursor-theme-name\'")
 
+def get_mono_font(name):
+    if os.path.isfile(Functions.xfce_config):
+        try:
+            with open(Functions.xfce_config, "r") as f:
+                lines = f.readlines()
+                f.close()
+            
+            for i in range(len(lines)):
+                if "name=\"MonospaceFontName\"" in lines[i]:
+                    val = re.search(r"value=\"(.*?)\"",lines[i]).group(0)  
+            
+            # print(val.replace("\"", "").replace("value=", ""))
+            return val.replace("\"", "").replace("value=", "")
+        except:
+            return "Roboto 10"
 
 def get_gtk_settings(item):
     if os.path.isfile(Functions.gtk3_settings):
@@ -164,7 +179,7 @@ def gtk3_save_settings(value, item):
         except:
             Functions.MessageBox("ERROR!!", "An error has occured getting this setting \'gtk3_save_settings\'")
 
-def set_xfce_settings(theme, icon, cursor, cursize, fonts):
+def set_xfce_settings(theme, icon, cursor, cursize, fonts, monofonts):
     if os.path.isfile(Functions.xfce_config):
         try:
             with open(Functions.xfce_config, "r") as f:
@@ -189,6 +204,11 @@ def set_xfce_settings(theme, icon, cursor, cursize, fonts):
                 if "name=\"FontName\"" in lines[i]:
                     val = re.search(r"value=\"(.*?)\"",lines[i]).group(0)                
                     lines[i] = lines[i].replace(val, "value=\"" + str(fonts) + "\"")
+
+                if "name=\"MonospaceFontName\"" in lines[i]:
+                    val = re.search(r"value=\"(.*?)\"",lines[i]).group(0)                
+                    lines[i] = lines[i].replace(val, "value=\"" + str(monofonts) + "\"")
+
             with open(Functions.xfce_config, "w") as f:
                 f.writelines(lines)
                 f.close()
@@ -226,7 +246,7 @@ def update_index_theme(theme):
         except:
             pass
 
-def gtk_settings_saved(self, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
+def gtk_settings_saved(self, themeCombo, iconCombo, cursorCombo, cursor_size, fonts, monofonts):
     # GLib.idle_add(widget.set_sensitive,False)
     gtk3_save_settings(themeCombo, "gtk-theme-name")
     gtk3_save_settings(iconCombo, "gtk-icon-theme-name")
@@ -241,7 +261,7 @@ def gtk_settings_saved(self, themeCombo, iconCombo, cursorCombo, cursor_size, fo
     gtk2_save_settings(fonts, "gtk-font-name")
     print(self.desktop)
     if "xfce" in self.desktop:
-        set_xfce_settings(themeCombo, iconCombo, cursorCombo, int(str(cursor_size).split(".")[0]), fonts)
+        set_xfce_settings(themeCombo, iconCombo, cursorCombo, int(str(cursor_size).split(".")[0]), fonts,monofonts)
         print("XFCE")
     
     update_index_theme(cursorCombo)

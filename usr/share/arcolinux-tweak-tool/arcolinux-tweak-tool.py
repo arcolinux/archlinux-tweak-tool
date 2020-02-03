@@ -138,10 +138,10 @@ class Main(Gtk.Window):
     # =====================================================
     #               Gtk FUNCTIONS
     # =====================================================
-    def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts):
+    def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts, monofonts):
         widget.set_sensitive(False)
         
-        t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved, args=(self, themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0]),fonts.get_font()))
+        t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved, args=(self, themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0]),fonts.get_font(), monofonts.get_font()))
         t.daemon = True
         t.start()
         
@@ -149,7 +149,7 @@ class Main(Gtk.Window):
         widget.set_sensitive(True)
         
 
-    def reset_settings(self, widget, filez):
+    def reset_settings(self, widget):
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
         
@@ -163,9 +163,9 @@ class Main(Gtk.Window):
             Gtk_Functions.get_cursor_themes(self, self.cursorCombo)
 
             self.cursor_size.set_value(
-                float(Functions.get_gtk_settings("gtk-cursor-theme-size")))
+                float(Gtk_Functions.get_gtk_settings("gtk-cursor-theme-size")))
             self.fonts.set_font(
-                Functions.get_gtk_settings("gtk-font-name"))
+                Gtk_Functions.get_gtk_settings("gtk-font-name"))
             Functions.subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
             ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
 
