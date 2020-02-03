@@ -78,6 +78,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     self.res = Gtk.CheckButton(label="Show Resolution")
     self.de = Gtk.CheckButton(label="Show DE")
     self.wm = Gtk.CheckButton(label="Show WM")
+    self.wmtheme = Gtk.CheckButton(label="Show WM Theme")
     
     self.themes = Gtk.CheckButton(label="Show Theme")
     self.icons = Gtk.CheckButton(label="Show Icons")
@@ -89,6 +90,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     
     self.mem = Gtk.CheckButton(label="Show Memory")
 
+    self.cblocks = Gtk.CheckButton(label="Show Blocks")
+    
     flowbox = Gtk.FlowBox()
     flowbox.set_valign(Gtk.Align.START)
     flowbox.set_max_children_per_line(10)
@@ -101,7 +104,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     flowbox.add(self.packages)
     flowbox.add(self.shell)
     flowbox.add(self.res)
+    flowbox.add(self.de)
     flowbox.add(self.wm)
+    flowbox.add(self.wmtheme)
     flowbox.add(self.themes)
     flowbox.add(self.icons)
     flowbox.add(self.term)
@@ -109,6 +114,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     flowbox.add(self.cpu)
     flowbox.add(self.gpu)
     flowbox.add(self.mem)
+    flowbox.add(self.cblocks)
 
     neofetch.get_checkboxes(self)
 

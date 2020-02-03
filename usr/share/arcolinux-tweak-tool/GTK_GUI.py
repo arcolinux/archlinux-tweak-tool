@@ -40,8 +40,8 @@ def GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions):
     self.cursor_size.set_adjustment(adj1)
 
     
-    self.fonts = Gtk.FontButton()
-    self.monofonts = Gtk.FontButton()
+    # self.fonts = Gtk.FontButton()
+    # self.monofonts = Gtk.FontButton()
     
     self.themeCombo.set_size_request(200, 0)
     self.iconCombo.set_size_request(200, 0)
@@ -54,12 +54,12 @@ def GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions):
 
     self.cursor_size.set_value(
         int(Gtk_Functions.get_gtk_settings("gtk-cursor-theme-size").split(".")[0]))
-    self.fonts.set_font(Gtk_Functions.get_gtk_settings("gtk-font-name"))
-    self.monofonts.set_font(Gtk_Functions.get_mono_font("MonospaceFontName"))
+    # self.fonts.set_font(Gtk_Functions.get_gtk_settings("gtk-font-name"))
+    # self.monofonts.set_font(Gtk_Functions.get_mono_font("MonospaceFontName"))
 
     save_gtk3_themes = Gtk.Button(label="Save Settings")
-    save_gtk3_themes.connect("clicked", self.save_gtk3_settings, self.themeCombo,
-                             self.iconCombo, self.cursorCombo, self.cursor_size, self.fonts, self.monofonts)
+    # save_gtk3_themes.connect("clicked", self.save_gtk3_settings, self.themeCombo,self.iconCombo, self.cursorCombo, self.cursor_size, self.fonts, self.monofonts)
+    save_gtk3_themes.connect("clicked", self.save_gtk3_settings, self.themeCombo,self.iconCombo, self.cursorCombo, self.cursor_size)
 
     reset_gtk3_themes = Gtk.Button(label="Reset/Reload Defaults")
     reset_gtk3_themes.connect(
@@ -77,11 +77,11 @@ def GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions):
     hbox5.pack_start(label5, False, False, 10)
     hbox5.pack_end(self.cursor_size, False, False, 10)
 
-    hbox6.pack_start(label6, False, False, 10)
-    hbox6.pack_end(self.fonts, False, False, 10)
+    # hbox6.pack_start(label6, False, False, 10)
+    # hbox6.pack_end(self.fonts, False, False, 10)
 
-    hbox7.pack_start(label7, False, False, 10)
-    hbox7.pack_end(self.monofonts, False, False, 10)
+    # hbox7.pack_start(label7, False, False, 10)
+    # hbox7.pack_end(self.monofonts, False, False, 10)
 
     hbox4.pack_end(save_gtk3_themes, False, False, 0)
     hbox4.pack_end(reset_gtk3_themes, False, False, 0)

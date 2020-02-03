@@ -97,6 +97,10 @@ def apply_config(self, backend, emblem, ascii_size):
                 Functions.neofetch_set_value(lines, i, "info \"WM\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"WM\"", False)
+            if self.wmtheme.get_active():  
+                Functions.neofetch_set_value(lines, i, "info \"WM Theme\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"WM Theme\"", False)
             if self.themes.get_active():
                 Functions.neofetch_set_value(lines, i, "info \"Theme\"", True)
             else:
@@ -138,7 +142,10 @@ def apply_config(self, backend, emblem, ascii_size):
                 # Functions.neofetch_set_value(lines, i, "image_backend=\"" + backend_val + "\"", False)
                 if "ascii_distro=" in lines[i]:
                     lines[i] = "ascii_distro=\"" + ascii_size + "\"\n"
-
+            if self.cblocks.get_active():
+                Functions.neofetch_set_backend_value(lines, i, "color_blocks=\"", "on")
+            else:
+                Functions.neofetch_set_backend_value(lines, i, "color_blocks=\"", "off")
 
         with open(Functions.neofetch_config, "w") as f:
             f.writelines(lines)
@@ -166,7 +173,8 @@ def get_checkboxes(self):
     self.shell.set_active(get_state("info \"Shell\""))    
     self.res.set_active(get_state("info \"Resolution\""))
     self.de.set_active(get_state("info \"DE\""))
-    self.wm.set_active(get_state("info \"WM\""))    
+    self.wm.set_active(get_state("info \"WM\""))
+    self.wmtheme.set_active(get_state("info \"WM Theme\""))
     self.themes.set_active(get_state("info \"Theme\""))
     self.icons.set_active(get_state("info \"Icons\""))
     self.term.set_active(get_state("info \"Terminal\""))    
@@ -174,3 +182,11 @@ def get_checkboxes(self):
     self.cpu.set_active(get_state("info \"CPU\""))
     self.gpu.set_active(get_state("info \"GPU\""))    
     self.mem.set_active(get_state("info \"Memory\""))
+
+    lines = get_neofetch()
+
+    line = [x for x in lines if "color_blocks=" in x]
+    if "on" in line[0]:    
+        self.cblocks.set_active(True)
+    else:
+        self.cblocks.set_active(False)

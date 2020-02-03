@@ -41,7 +41,7 @@ class Main(Gtk.Window):
         t = Functions.threading.Thread(target=Functions.get_desktop, args=(self,))
         t.daemon = True
         t.start()
-        
+
         arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
         multi_testing = Functions.check_repo("[multilib-testing]")
         arch_testing = Functions.check_repo("[testing]")
@@ -136,10 +136,10 @@ class Main(Gtk.Window):
     # =====================================================
     #               Gtk FUNCTIONS
     # =====================================================
-    def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size, fonts, monofonts):
+    def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size):
         widget.set_sensitive(False)
         
-        t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved, args=(self, themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0]),fonts.get_font(), monofonts.get_font()))
+        t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved, args=(self, themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0])))
         t.daemon = True
         t.start()
         
