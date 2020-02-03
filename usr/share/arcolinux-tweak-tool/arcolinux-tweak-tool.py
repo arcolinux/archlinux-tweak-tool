@@ -149,7 +149,7 @@ class Main(Gtk.Window):
         widget.set_sensitive(True)
         
 
-    def reset_settings(self, widget):
+    def reset_settings(self, widget, filez):
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
         
