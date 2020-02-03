@@ -136,7 +136,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     image = Gtk.Image().new_from_pixbuf(pixbuf)
 
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.2.28</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.2.29</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop +"</span>")

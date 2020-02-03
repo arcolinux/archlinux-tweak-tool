@@ -106,9 +106,12 @@ def get_mono_font(name):
             
             # print(val.replace("\"", "").replace("value=", ""))
             return val.replace("\"", "").replace("value=", "")
+            
         except:
             return "Roboto 10"
 
+    return "Roboto 10"
+    
 def get_gtk_settings(item):
     if os.path.isfile(Functions.gtk3_settings):
         active_cursor = ""
