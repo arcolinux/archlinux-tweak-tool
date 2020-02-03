@@ -181,6 +181,8 @@ def gtk3_save_settings(value, item):
 
 def set_xfce_settings(theme, icon, cursor, cursize, fonts, monofonts):
     if os.path.isfile(Functions.xfce_config):
+        if not os.path.isfile(Functions.xfce_config + ".bak"):
+            Functions.shutil.copy(Functions.xfce_config, Functions.xfce_config + ".bak")
         try:
             with open(Functions.xfce_config, "r") as f:
                 lines = f.readlines()

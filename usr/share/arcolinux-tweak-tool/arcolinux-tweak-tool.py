@@ -84,10 +84,8 @@ class Main(Gtk.Window):
     # =====================================================
     #               OBLOGOUT FUNCTIONS
     # =====================================================
-    def save_oblogout(self, widget):
-        Functions.authority.check_authorization(Functions.subject, Functions.action_id, None, Functions.Polkit.CheckAuthorizationFlags.ALLOW_USER_INTERACTION, Functions.cancellable, self.save_oblogot_conf, None)
     
-    def save_oblogot_conf(self, authority, res, loop):
+    def save_oblogout(self, widget):
         # widget.set_sensitive(False)
         if not os.path.isfile(Functions.oblogout_conf + ".bak"):
             Functions.shutil.copy(Functions.oblogout_conf,
@@ -157,6 +155,9 @@ class Main(Gtk.Window):
             
             if os.path.isfile(Functions.gtk2_settings + ".bak"):
                 Functions.shutil.copy(Functions.gtk2_settings + ".bak", Functions.gtk2_settings)
+            
+            if os.path.isfile(Functions.xfce_config + ".bak"):
+                Functions.shutil.copy(Functions.xfce_config + ".bak", Functions.xfce_config)
 
             Gtk_Functions.get_gtk_themes(self, self.themeCombo)
             Gtk_Functions.get_icon_themes(self, self.iconCombo)
