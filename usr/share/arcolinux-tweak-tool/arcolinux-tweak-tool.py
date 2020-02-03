@@ -3,8 +3,6 @@
 #=================================================================
 #=                  Author: Brad Heffernan                       =
 #=================================================================
-
-
 import gi
 import Functions
 import slim
@@ -16,7 +14,7 @@ import GUI
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, Gio
 from Functions import os, pacman
-from Settings import settings, configparser
+# from Settings import settings, configparser
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 
