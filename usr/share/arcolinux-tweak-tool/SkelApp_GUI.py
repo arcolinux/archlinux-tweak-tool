@@ -27,6 +27,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
 
     vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     
@@ -38,9 +39,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
 
     btn2 = Gtk.Button(label="Run Skel")
     btn2.connect("clicked", self.on_button_fetch_clicked)
-
-    hbox2.pack_end(btn2, False, False, 0)
-    
+  
     sw = Gtk.ScrolledWindow()
     sw.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
     sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -67,9 +66,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     hbox1.pack_end(self.rbutton4, False, False, 10)
     hbox1.pack_end(self.rbutton3, False, False, 10)
     
+    hbox3.pack_start(label, True, False, 0)
+
+    hbox2.pack_end(btn2, False, False, 0)
 
     vboxStack1.pack_start(hbox, False, False, 0)
     vboxStack1.pack_start(hbox1, False, False, 0)
+    vboxStack1.pack_start(hbox3, False, False, 0)
     vboxStack1.pack_end(hbox2, False, False, 0)
     #==========================================================
     #                       TAB #2
