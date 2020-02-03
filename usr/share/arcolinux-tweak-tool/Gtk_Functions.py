@@ -3,7 +3,7 @@
 #=================================================================
 import Functions
 from Functions import os
-
+import re
 from xml.etree import ElementTree as et
 #====================================================================
 #                       GTK FUNCTIONS
@@ -113,7 +113,7 @@ def get_gtk_settings(item):
 
 def gtk2_save_settings(value, item):
     if not os.path.isfile(Functions.gtk2_settings + ".bak"):
-        Functions.shutil.copy(Functions.gtk2_settings,gtk2_settings + ".bak")
+        Functions.shutil.copy(Functions.gtk2_settings,Functions.gtk2_settings + ".bak")
 
     if os.path.isfile(Functions.gtk2_settings):
         with open(Functions.gtk2_settings, 'r', encoding='utf-8') as f:
@@ -165,22 +165,44 @@ def gtk3_save_settings(value, item):
 
 def set_xfce_settings(theme, icon, cursor, cursize):
     if os.path.isfile(Functions.xfce_config):
-        # try:
-        tree = et.parse(Functions.xfce_config)
-        for rank in tree.iter('property'):
-            if rank.get("name") == "ThemeName":
-                rank.set("value", str(theme))
-            if rank.get("name") == "IconThemeName":
-                rank.set("value", str(icon))
-            if rank.get("name") == "CursorThemeName":
-                rank.set("value", str(cursor))
-            if rank.get("name") == "CursorThemeSize":
-                rank.set("value", str(cursize))
+        try:
+            with open(Functions.xfce_config, "r") as f:
+                lines = f.readlines()
+                f.close()
+            
+            for i in range(len(lines)):
+                if "name=\"ThemeName\"" in lines[i]:
+                    val = re.search(r"value=\"(.*?)\"",lines[i]).group(0)                
+                    lines[i] = lines[i].replace(val, "value=\"" + str(theme) + "\"")
+                if "name=\"IconThemeName\"" in lines[i]:
+                    val = re.search(r"value=\"(.*?)\"",lines[i]).group(0)                
+                    lines[i] = lines[i].replace(val, "value=\"" + str(icon) + "\"")
+                if "name=\"CursorThemeName\"" in lines[i]:
+                    val = re.search(r"value=\"(.*?)\"",lines[i]).group(0)                
+                    lines[i] = lines[i].replace(val, "value=\"" + str(cursor) + "\"")
+                
+                if "name=\"CursorThemeSize\"" in lines[i]:
+                    val = re.search(r"value=\"(.*?)\"",lines[i]).group(0)                
+                    lines[i] = lines[i].replace(val, "value=\"" + str(cursize) + "\"")
+
+            with open(Functions.xfce_config, "w") as f:
+                f.writelines(lines)
+                f.close()
+            # tree = et.parse(Functions.xfce_config)
+            # for rank in tree.iter('property'):
+            #     if rank.get("name") == "ThemeName":
+            #         rank.set("value", str(theme))
+            #     if rank.get("name") == "IconThemeName":
+            #         rank.set("value", str(icon))
+            #     if rank.get("name") == "CursorThemeName":
+            #         rank.set("value", str(cursor))
+            #     if rank.get("name") == "CursorThemeSize":
+            #         rank.set("value", str(cursize))
 
 
-        tree.write(Functions.xfce_config, encoding="utf-8", xml_declaration=True)
-        # except:
-        #     Functions.MessageBox("ERROR!!", "An error has occured setting this setting \'set_xfce_settings\'")
+            # tree.write(Functions.xfce_config, encoding="utf-8", xml_declaration=True)
+        except:
+            Functions.MessageBox("ERROR!!", "An error has occured setting this setting \'set_xfce_settings\'")
 
 
 def update_index_theme(theme):
