@@ -125,10 +125,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     if Functions.file_check(Functions.neofetch_config):
         stack.add_titled(vboxStack8, "stack8", "Neofetch Config")
     
-    stack.add_titled(vboxStack9, "stack9", "SkelApp")
+    # stack.add_titled(vboxStack9, "stack9", "SkelApp")
     
-    # stack.add_titled(vboxStack7, "stack7", "EMPTY")
-
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
 
@@ -138,7 +136,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     image = Gtk.Image().new_from_pixbuf(pixbuf)
 
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.2.16</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.2.22</span>")
 
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
