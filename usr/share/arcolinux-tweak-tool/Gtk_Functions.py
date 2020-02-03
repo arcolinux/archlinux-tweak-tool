@@ -164,7 +164,7 @@ def gtk3_save_settings(value, item):
         except:
             Functions.MessageBox("ERROR!!", "An error has occured getting this setting \'gtk3_save_settings\'")
 
-def set_xfce_settings(theme, icon, cursor, cursize):
+def set_xfce_settings(theme, icon, cursor, cursize, fonts):
     if os.path.isfile(Functions.xfce_config):
         try:
             with open(Functions.xfce_config, "r") as f:
@@ -186,6 +186,9 @@ def set_xfce_settings(theme, icon, cursor, cursize):
                     val = re.search(r"value=\"(.*?)\"",lines[i]).group(0)                
                     lines[i] = lines[i].replace(val, "value=\"" + str(cursize) + "\"")
 
+                if "name=\"FontName\"" in lines[i]:
+                    val = re.search(r"value=\"(.*?)\"",lines[i]).group(0)                
+                    lines[i] = lines[i].replace(val, "value=\"" + str(fonts) + "\"")
             with open(Functions.xfce_config, "w") as f:
                 f.writelines(lines)
                 f.close()
@@ -238,7 +241,7 @@ def gtk_settings_saved(self, themeCombo, iconCombo, cursorCombo, cursor_size, fo
     gtk2_save_settings(fonts, "gtk-font-name")
     print(self.desktop)
     if "xfce" in self.desktop:
-        set_xfce_settings(themeCombo, iconCombo, cursorCombo, int(str(cursor_size).split(".")[0]))
+        set_xfce_settings(themeCombo, iconCombo, cursorCombo, int(str(cursor_size).split(".")[0]), fonts)
         print("XFCE")
     
     update_index_theme(cursorCombo)
