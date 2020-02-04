@@ -59,7 +59,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
     #                 TAB #2 GTK THEMES
     # ==========================================================
-    GTK_GUI.GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions)
+    # GTK_GUI.GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions)
 
     # ==========================================================
     #                       HBLOCK
@@ -99,7 +99,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # #                     Skelapp
     # # ==========================================================
     
-    SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
+    # SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
     
     # ==========================================================
     #                     ADD TO WINDOW
@@ -107,7 +107,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     if Functions.file_check(Functions.pacman):
         stack.add_titled(vboxStack1, "stack1", "Pacman Config")
 
-    stack.add_titled(vboxStack2, "stack2", "Theming")
+    # stack.add_titled(vboxStack2, "stack2", "Theming")
 
     stack.add_titled(vboxStack4, "stack4", "Grub Config")
 
@@ -125,7 +125,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     if Functions.file_check(Functions.neofetch_config):
         stack.add_titled(vboxStack8, "stack8", "Neofetch Config")
     
-    stack.add_titled(vboxStack9, "stack9", "Tweak Skel")
+    # stack.add_titled(vboxStack9, "stack9", "Tweak Skel")
     
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
