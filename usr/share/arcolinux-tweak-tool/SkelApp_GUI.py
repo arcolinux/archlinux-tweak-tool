@@ -27,6 +27,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
 
     vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     
@@ -38,7 +40,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
 
     self.btn2 = Gtk.Button(label="Run Skel")
     self.btn2.connect("clicked", self.on_button_fetch_clicked)
-  
+    
+    self.bashrc = Gtk.Button(label="Upgrade .bashrc")
+    self.bashrc.set_size_request(0, 50)
+    self.bashrc.connect("clicked", self.on_bashrc_upgrade)
+
     sw = Gtk.ScrolledWindow()
     sw.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
     sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -56,6 +62,15 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     self.rbutton4 = Gtk.RadioButton.new_from_widget(self.rbutton3)
     self.rbutton4.set_label("Folder")
 
+    labelBacks = Gtk.Label(xalign=0)
+    labelBacks.set_markup("<b>Run Backup Before Skel</b>")
+
+    self.switch = Gtk.Switch()
+    self.switch.set_active(True)
+
+    self.progressbar1 = Gtk.ProgressBar()
+    self.label_info1 = Gtk.Label("Idle ...")
+
     vbox1.pack_start(self.browse, False, False, 0)
     vbox1.pack_start(self.remove, False, False, 10)
 
@@ -67,13 +82,23 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     
     hbox3.pack_start(label, True, False, 0)
 
+    hbox5.pack_start(self.bashrc, True, True, 10)
+
+    hbox2.pack_start(self.label_info1, False, False, 0)
     hbox2.pack_end(self.btn2, False, False, 0)
+
+    hbox4.pack_start(labelBacks, False, False, 0)
+    hbox4.pack_end(self.switch, False, False, 0)
 
     vboxStack1.pack_start(hbox, False, False, 0)
     vboxStack1.pack_start(hbox1, False, False, 0)
     vboxStack1.pack_start(hbox3, False, False, 0)
-    vboxStack1.pack_end(hbox2, False, False, 0)
+    vboxStack1.pack_start(hbox5, False, False, 0)
     
+    vboxStack1.pack_end(self.progressbar1, False, False, 0)
+    vboxStack1.pack_end(hbox2, False, False, 0)
+    vboxStack1.pack_end(hbox4, False, False, 10)
+
     #=======================TAB #2=============================
     
     stack.add_titled(vboxStack2, "backup_stack", "Backups")
@@ -98,6 +123,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
         orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox14 = Gtk.Box(
         orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    
     vbox11 = Gtk.Box(
         orientation=Gtk.Orientation.VERTICAL, spacing=0)
     
@@ -162,7 +188,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     hbox10.pack_start(vbox11, False, False, 10)
     
     vbox9.pack_start(self.btn12, True, True, 0)
-    vbox9.pack_start(self.btn9, True, True, 0)
+    vbox9.pack_start(self.btn9, True, True, 10)
     
         
     hbox12.pack_start(label1, True, True, 5)

@@ -31,6 +31,21 @@ bd = ".ATT_Backups"
 desktop = ""
 
 
+
+#=====================================================
+#               SOURCE
+#=====================================================
+def source_shell(self):
+    process = subprocess.run(["sh", "-c", "echo \"$SHELL\""], 
+                         stdout=subprocess.PIPE)
+    
+    output = process.stdout.decode().strip()
+    print(output)
+    if output == "/bin/bash":
+        subprocess.run(["bash", "-c", "su - " + sudo_username + " -c \"source " + home + "/.bashrc\""], stdout=subprocess.PIPE)
+    elif output == "/bin/zsh":
+        subprocess.run(["zsh", "-c", "su - " + sudo_username + " -c \"source " + home + "/.zshrc\""], stdout=subprocess.PIPE)
+
 #=====================================================
 #               MESSAGEBOX
 #=====================================================

@@ -456,7 +456,11 @@ class Main(Gtk.Window):
         column.set_sort_column_id(0)
         treeView.append_column(column)
 
-    
+    def on_bashrc_upgrade(self, widget):
+        skelapp.button_toggles(self, False)
+        t1 = Functions.threading.Thread(target=skelapp.bash_upgrade, args=(self,))
+        t1.daemon = True
+        t1.start()
     # ======REMOVE ITEMS TO TREEVIEW=============
 
     def on_remove_fixed(self, widget):
@@ -502,13 +506,13 @@ class Main(Gtk.Window):
 
     def on_button_fetch_clicked(self, widget):
         skelapp.button_toggles(self, False)
-        skelapp.skel_run(self, Functions)
+        skelapp.skel_check(self)
     
     def on_backup_clicked(self, widget):
         skelapp.button_toggles(self, False)
-        skelapp.setMessage(self, "Running Backup")
+        skelapp.setMessage(self.label_info, "Running Backup")
         t1 = Functions.threading.Thread(target=skelapp.processing,
-                                args=(self, "BACKUP",))
+                                args=(self, "BACKUP",self.label_info, self.progressbar,))
         t1.daemon = True
         t1.start()
 
