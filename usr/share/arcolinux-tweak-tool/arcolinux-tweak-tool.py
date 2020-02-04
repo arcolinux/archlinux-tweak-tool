@@ -501,10 +501,11 @@ class Main(Gtk.Window):
     # ===============RUN SKEL================
 
     def on_button_fetch_clicked(self, widget):
+        skelapp.button_toggles(self, False)
         skelapp.skel_run(self, Functions)
     
     def on_backup_clicked(self, widget):
-        # self.button_toggles(False)
+        skelapp.button_toggles(self, False)
         skelapp.setMessage(self, "Running Backup")
         t1 = Functions.threading.Thread(target=skelapp.processing,
                                 args=(self, "BACKUP",))
@@ -522,14 +523,14 @@ class Main(Gtk.Window):
     # ===========================================
 
     def on_delete_inner_clicked(self, widget):
-        # self.button_toggles(False)
+        skelapp.button_toggles(self, False)
         t1 = Functions.threading.Thread(
             target=skelapp.Delete_Inner_Backup, args=(self,))
         t1.daemon = True
         t1.start()
 
     def on_delete_clicked(self, widget):
-        # self.button_toggles(False)
+        skelapp.button_toggles(self, False)
         t1 = Functions.threading.Thread(target=skelapp.Delete_Backup, args=(self,))
         t1.daemon = True
         t1.start()
@@ -539,6 +540,7 @@ class Main(Gtk.Window):
     # ===========================================
 
     def on_flush_clicked(self, widget):
+        skelapp.button_toggles(self, False)
         md = Gtk.MessageDialog(parent=self, flags=0, message_type=Gtk.MessageType.INFO,
                                buttons=Gtk.ButtonsType.YES_NO, text="Are you Sure?")
         md.format_secondary_markup(
@@ -553,6 +555,9 @@ class Main(Gtk.Window):
             t1 = Functions.threading.Thread(target=skelapp.Flush_All, args=(self,))
             t1.daemon = True
             t1.start()
+        else:
+            skelapp.button_toggles(self, True)
+
 #====================================================================
 #                       MAIN
 #====================================================================

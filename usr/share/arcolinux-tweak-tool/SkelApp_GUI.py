@@ -30,14 +30,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
 
     vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     
-    browse = Gtk.Button(label="ADD")
-    browse.connect("clicked", self.on_browse_fixed)
+    self.browse = Gtk.Button(label="ADD")
+    self.browse.connect("clicked", self.on_browse_fixed)
 
-    remove = Gtk.Button(label="REMOVE")
-    remove.connect("clicked", self.on_remove_fixed)
+    self.remove = Gtk.Button(label="REMOVE")
+    self.remove.connect("clicked", self.on_remove_fixed)
 
-    btn2 = Gtk.Button(label="Run Skel")
-    btn2.connect("clicked", self.on_button_fetch_clicked)
+    self.btn2 = Gtk.Button(label="Run Skel")
+    self.btn2.connect("clicked", self.on_button_fetch_clicked)
   
     sw = Gtk.ScrolledWindow()
     sw.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
@@ -56,8 +56,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     self.rbutton4 = Gtk.RadioButton.new_from_widget(self.rbutton3)
     self.rbutton4.set_label("Folder")
 
-    vbox1.pack_start(browse, False, False, 0)
-    vbox1.pack_start(remove, False, False, 10)
+    vbox1.pack_start(self.browse, False, False, 0)
+    vbox1.pack_start(self.remove, False, False, 10)
 
     hbox.pack_start(sw, True, True, 10)
     hbox.pack_start(vbox1, False, False, 10)
@@ -67,7 +67,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     
     hbox3.pack_start(label, True, False, 0)
 
-    hbox2.pack_end(btn2, False, False, 0)
+    hbox2.pack_end(self.btn2, False, False, 0)
 
     vboxStack1.pack_start(hbox, False, False, 0)
     vboxStack1.pack_start(hbox1, False, False, 0)
@@ -104,14 +104,15 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     # ListRow 1 Elements
     self.backs = Gtk.ComboBoxText()
     
-    # skelapp.refresh(self)
+    skelapp.refresh(self)
 
     self.backs.set_active(0)
     self.backs.set_size_request(170, 0)
-    btn4 = Gtk.Button(label="Refresh")
-    btn5 = Gtk.Button(label="Delete")
-    btn12 = Gtk.Button(label="Run Full Backup")
-    btn9 = Gtk.Button(label="Delete All Backups")
+    self.btn4 = Gtk.Button(label="Refresh")
+    self.btn5 = Gtk.Button(label="Delete")
+    self.btn12 = Gtk.Button(label="Run Full Backup")
+    self.btn12.set_size_request(0, 80)
+    self.btn9 = Gtk.Button(label="Delete All Backups")
     
 
     sw2 = Gtk.ScrolledWindow()
@@ -128,16 +129,16 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     self.create_columns(self.treeView2)
 
     
-    # skelapp.refresh_inner(self)
+    skelapp.refresh_inner(self)
     
-    btn10 = Gtk.Button(label="Delete")
-    btn11 = Gtk.Button(label="Restore")
+    self.btn10 = Gtk.Button(label="Delete")
+    self.btn11 = Gtk.Button(label="Restore")
 
-    btn4.connect("clicked", self.on_refresh_clicked)
-    btn5.connect("clicked", self.on_delete_clicked)
-    # btn9.connect("clicked", self.on_flush_clicked)
-    btn12.connect("clicked", self.on_backup_clicked)
-    btn10.connect("clicked", self.on_delete_inner_clicked)
+    self.btn4.connect("clicked", self.on_refresh_clicked)
+    self.btn5.connect("clicked", self.on_delete_clicked)
+    self.btn9.connect("clicked", self.on_flush_clicked)
+    self.btn12.connect("clicked", self.on_backup_clicked)
+    self.btn10.connect("clicked", self.on_delete_inner_clicked)
     # btn11.connect("clicked", self.on_restore_inner_clicked)
 
     label4 = Gtk.Label(xalign=0)
@@ -149,19 +150,20 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     hbox5.pack_start(label4, True, True, 10)
 
     hbox4.pack_start(self.backs, True, True, 10)
-    hbox4.pack_start(btn4, False, False, 0)
-    hbox4.pack_end(btn5, True, True, 10)
+    hbox4.pack_start(self.btn4, False, False, 0)
+    hbox4.pack_end(self.btn5, True, True, 10)
 
     # hbox11.pack_start(self.backs_inner, True, True, 0)
 
-    vbox11.pack_start(btn10, False, False, 0)
-    vbox11.pack_start(btn11, False, False, 10)
+    vbox11.pack_start(self.btn10, False, False, 0)
+    vbox11.pack_start(self.btn11, False, False, 10)
 
     hbox10.pack_start(sw2, True, True, 10)
     hbox10.pack_start(vbox11, False, False, 10)
     
-    vbox9.pack_start(btn9, True, True, 5)
-    vbox9.pack_start(btn12, True, True, 5)
+    vbox9.pack_start(self.btn12, True, True, 0)
+    vbox9.pack_start(self.btn9, True, True, 0)
+    
         
     hbox12.pack_start(label1, True, True, 5)
 
