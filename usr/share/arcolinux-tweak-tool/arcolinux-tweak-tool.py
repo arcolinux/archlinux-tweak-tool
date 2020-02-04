@@ -37,7 +37,7 @@ class Main(Gtk.Window):
             os.mkdir(Functions.home + "/.ATT_Backups")
             
         GUI.GUI(self, Gtk, Functions.Gdk, GdkPixbuf, base_dir, os)
-
+        
         t = Functions.threading.Thread(target=Functions.get_desktop, args=(self,))
         t.daemon = True
         t.start()
@@ -440,11 +440,14 @@ class Main(Gtk.Window):
 
             pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
             self.image4.set_from_pixbuf(pixbuf6)
+            self.frame3.show()
+            self.image4.show()
         else:
             self.emblem.set_sensitive(False)
             self.big_ascii.set_sensitive(True)
             self.small_ascii.set_sensitive(True)
             self.image4.set_from_pixbuf(None)
+            self.frame3.hide()
 
     #====================================================================
     #                       SkelApp

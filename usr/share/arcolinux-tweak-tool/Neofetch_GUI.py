@@ -10,7 +10,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     self.w3m = Gtk.RadioButton(label="Enable Image backend")
     self.w3m.connect("toggled", self.radio_toggled)
-
+    
     self.asci = Gtk.RadioButton.new_from_widget(self.w3m)
     self.asci.set_label("Enable ascii backend")
     self.asci.connect("toggled", self.radio_toggled)
@@ -43,8 +43,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     except:
         pass
     
-    frame3 = Gtk.Frame(label="Preview")
-    frame3.add(self.image4)
+    self.frame3 = Gtk.Frame(label="Preview")
+    self.frame3.set_no_show_all(True)
+    self.frame3.add(self.image4)
 
     hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -52,21 +53,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     self.hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     
-    if backend == "ascii":
-        self.asci.set_active(True)
-        self.emblem.set_sensitive(False)
-        self.big_ascii.set_sensitive(True)
-        self.small_ascii.set_sensitive(True)
-    else:
-        self.w3m.set_active(True)
-        self.big_ascii.set_sensitive(False)
-        self.small_ascii.set_sensitive(False)
-    
-    if asci == "auto":
-        self.big_ascii.set_active(True)
-    else:
-        self.small_ascii.set_active(True)
-
     self.os = Gtk.CheckButton(label="Show OS")
     self.host = Gtk.CheckButton(label="Show Hostname")
     self.kernel = Gtk.CheckButton(label="Show Kernel")
@@ -118,6 +104,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     neofetch.get_checkboxes(self)
 
+    label14 = Gtk.Label(xalign=0)
+    label14.set_markup("<b>Tip:</b> To display an image you need to install w3m.")
+
     hbox22.pack_start(self.w3m, True, False, 10)
     hbox22.pack_end(self.asci, True, False, 10)
 
@@ -128,7 +117,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     hbox23.pack_start(label13, False, False, 10)
     hbox23.pack_start(self.emblem, True, True, 10)
 
-    hbox25.pack_start(frame3, False, False, 10)
+    hbox25.pack_start(self.frame3, False, False, 10)
     hbox25.pack_start(flowbox, True, True, 10)
     
     hbox24.pack_end(applyneofetch, False, False, 0)
@@ -139,3 +128,25 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     vboxStack8.pack_start(hbox23, False, False, 0) #ComboBox
     vboxStack8.pack_start(hbox25, False, False, 0) #Preview / Options
     vboxStack8.pack_end(hbox24, False, False, 0) #Buttons
+    vboxStack8.pack_end(label14, False, False, 0) #Buttons
+
+    
+
+
+    if backend == "ascii":
+        self.asci.set_active(True)
+        self.emblem.set_sensitive(False)
+        self.big_ascii.set_sensitive(True)
+        self.small_ascii.set_sensitive(True)
+        self.frame3.hide()
+    else:
+        self.w3m.set_active(True)
+        self.big_ascii.set_sensitive(False)
+        self.small_ascii.set_sensitive(False)
+        self.frame3.show()
+        self.image4.show()
+    
+    if asci == "auto":
+        self.big_ascii.set_active(True)
+    else:
+        self.small_ascii.set_active(True)
