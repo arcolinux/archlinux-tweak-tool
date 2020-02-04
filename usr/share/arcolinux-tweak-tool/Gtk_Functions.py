@@ -2,7 +2,7 @@
 #=                  Author: Brad Heffernan                       =
 #=================================================================
 import Functions
-from Functions import os
+from Functions import os, GLib
 import re
 # from xml.etree import ElementTree as et
 
@@ -131,10 +131,10 @@ def get_gtk_settings(item):
         return active_cursor
 
 def gtk2_save_settings(value, item):
-    if not os.path.isfile(Functions.gtk2_settings + ".bak"):
-        Functions.shutil.copy(Functions.gtk2_settings,Functions.gtk2_settings + ".bak")
-
     if os.path.isfile(Functions.gtk2_settings):
+        if not os.path.isfile(Functions.gtk2_settings + ".bak"):
+            Functions.shutil.copy(Functions.gtk2_settings,Functions.gtk2_settings + ".bak")
+
         with open(Functions.gtk2_settings, 'r', encoding='utf-8') as f:
             lines = f.readlines()
             f.close()
@@ -154,14 +154,15 @@ def gtk2_save_settings(value, item):
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox("ERROR!!", "An error has occured getting this setting \'gtk2_save_settings\'")
+            GLib.idle_add(Functions.MessageBox,"ERROR!!", "An error has occured getting this setting \'gtk2_save_settings\'")
     
 
 def gtk3_save_settings(value, item):
-    if not os.path.isfile(Functions.gtk3_settings + ".bak"):
-        Functions.shutil.copy(Functions.gtk3_settings,Functions.gtk3_settings + ".bak")
-
+    
     if os.path.isfile(Functions.gtk3_settings):
+        if not os.path.isfile(Functions.gtk3_settings + ".bak"):
+            Functions.shutil.copy(Functions.gtk3_settings,Functions.gtk3_settings + ".bak")
+
         with open(Functions.gtk3_settings, 'r', encoding='utf-8') as f:
             lines = f.readlines()
             f.close()
@@ -180,7 +181,7 @@ def gtk3_save_settings(value, item):
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox("ERROR!!", "An error has occured getting this setting \'gtk3_save_settings\'")
+            GLib.idle_add(Functions.MessageBox,"ERROR!!", "An error has occured getting this setting \'gtk3_save_settings\'")
 
 # def set_xfce_settings(theme, icon, cursor, cursize, fonts, monofonts):
 def set_xfce_settings(theme, icon, cursor, cursize):
@@ -232,7 +233,7 @@ def set_xfce_settings(theme, icon, cursor, cursize):
 
             # tree.write(Functions.xfce_config, encoding="utf-8", xml_declaration=True)
         except:
-            Functions.MessageBox("ERROR!!", "An error has occured setting this setting \'set_xfce_settings\'")
+            GLib.idle_add(Functions.MessageBox,"ERROR!!", "An error has occured setting this setting \'set_xfce_settings\'")
 
 
 def update_index_theme(theme):

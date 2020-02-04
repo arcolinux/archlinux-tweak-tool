@@ -13,7 +13,7 @@ import neofetch
 import skelapp
 import GUI
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GdkPixbuf, Gio
+from gi.repository import Gtk, Gdk, GdkPixbuf, Gio
 from Functions import os, pacman
 # from Settings import settings, configparser
 
@@ -165,8 +165,8 @@ class Main(Gtk.Window):
 
             self.cursor_size.set_value(
                 float(Gtk_Functions.get_gtk_settings("gtk-cursor-theme-size")))
-            self.fonts.set_font(
-                Gtk_Functions.get_gtk_settings("gtk-font-name"))
+            # self.fonts.set_font(
+            #     Gtk_Functions.get_gtk_settings("gtk-font-name"))
             Functions.subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
             ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
 
