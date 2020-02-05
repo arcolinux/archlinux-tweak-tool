@@ -35,9 +35,9 @@ class Main(Gtk.Window):
 
         if not os.path.isdir(Functions.home + "/.ATT_Backups"):
             os.mkdir(Functions.home + "/.ATT_Backups")
-            
+
         GUI.GUI(self, Gtk, Functions.Gdk, GdkPixbuf, base_dir, os)
-        
+
         t = Functions.threading.Thread(target=Functions.get_desktop, args=(self,))
         t.daemon = True
         t.start()
@@ -84,7 +84,7 @@ class Main(Gtk.Window):
     # =====================================================
     #               OBLOGOUT FUNCTIONS
     # =====================================================
-    
+
     def save_oblogout(self, widget):
         # widget.set_sensitive(False)
         if not os.path.isfile(Functions.oblogout_conf + ".bak"):
@@ -132,30 +132,30 @@ class Main(Gtk.Window):
             # widget.set_sensitive(True)
         except:
             pass
-    
+
     # =====================================================
     #               Gtk FUNCTIONS
     # =====================================================
     def save_gtk3_settings(self, widget, themeCombo, iconCombo, cursorCombo, cursor_size):
         widget.set_sensitive(False)
-        
+
         t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved, args=(self, themeCombo.get_active_text(),iconCombo.get_active_text(),cursorCombo.get_active_text(),int(str(cursor_size.get_value()).split(".")[0])))
         t.daemon = True
         t.start()
-        
+
         Functions.MessageBox("Success!!", "Settings Saved Successfully")
         widget.set_sensitive(True)
-        
+
 
     def reset_settings(self, widget, filez):
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
-        
+
         if filez == Functions.gtk3_settings:
-            
+
             if os.path.isfile(Functions.gtk2_settings + ".bak"):
                 Functions.shutil.copy(Functions.gtk2_settings + ".bak", Functions.gtk2_settings)
-            
+
             if os.path.isfile(Functions.xfce_config + ".bak"):
                 Functions.shutil.copy(Functions.xfce_config + ".bak", Functions.xfce_config)
 
@@ -206,7 +206,7 @@ class Main(Gtk.Window):
             if "hibernate" in btnString:
                 self.check_hiber.set_active(True)
 
-    
+
     #====================================================================
     #                       HBlock
     #====================================================================
@@ -219,7 +219,7 @@ class Main(Gtk.Window):
             # Functions.set_hblock(self, widget, widget.get_active())
         else:
             self.firstrun = False
-    
+
     #====================================================================
     #                       GRUB
     #====================================================================
@@ -249,7 +249,7 @@ class Main(Gtk.Window):
                 else:
                     if(lists[i] == os.path.basename(self.tbimage.get_text())):
                         combo.set_active(i)
-                    
+
 
     def on_grub_theme_change(self, widget, image):
         try:
@@ -284,10 +284,10 @@ class Main(Gtk.Window):
         dialog.set_current_folder(Functions.home)
         dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
         dialog.connect("response", self.open_response_cb)
- 
+
         dialog.show()
 
-        
+
     def open_response_cb(self, dialog, response):
         if response == Gtk.ResponseType.OK:
             self.tbimage.set_text(dialog.get_filename())
@@ -296,23 +296,23 @@ class Main(Gtk.Window):
             dialog.destroy()
 
 
-    
+
     #====================================================================
     #                       SLIMLOCK
     #====================================================================
-    
+
     def on_slim_apply(self, widget):
         if not os.path.isfile(Functions.slimlock_conf + ".bak"):
             Functions.shutil.copy(Functions.slimlock_conf, Functions.slimlock_conf + ".bak")
         slim.set_slimlock(self.slimbox.get_active_text())
-        
+
 
 
     def on_slim_reset(self, widget):
         if os.path.isfile(Functions.slimlock_conf + ".bak"):
             Functions.shutil.copy(Functions.slimlock_conf + ".bak", Functions.slimlock_conf)
         slim.get_slimlock(self.slimbox)
- 
+
     def on_slim_theme_change(self, widget, image):
         try:
             path = '/usr/share/slim/themes/' + widget.get_active_text()
@@ -332,10 +332,10 @@ class Main(Gtk.Window):
         dialog.set_current_folder(Functions.home)
         dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
         dialog.connect("response", self.open_response_slim)
- 
+
         dialog.show()
 
-        
+
     def open_response_slim(self, dialog, response):
         if response == Gtk.ResponseType.OK:
             self.slimtext.set_text(dialog.get_filename())
@@ -396,7 +396,7 @@ class Main(Gtk.Window):
     def on_apply_neo(self, widget):
         if not os.path.isfile(Functions.neofetch_config + ".bak"):
             Functions.shutil.copy(Functions.neofetch_config, Functions.neofetch_config + ".bak")
-        
+
         small_ascii = "auto"
 
         if self.w3m.get_active():
@@ -405,16 +405,16 @@ class Main(Gtk.Window):
         else:
             backend = "ascii"
             emblem = ""
-            
+
             if not self.big_ascii.get_active():
                 small_ascii = "arcolinux_small"
-        
+
         neofetch.apply_config(self, backend, emblem, small_ascii)
 
     def on_reset_neo(self, widget):
         if os.path.isfile(Functions.neofetch_config + ".bak"):
             Functions.shutil.copy(Functions.neofetch_config + ".bak", Functions.neofetch_config)
-            
+
             neofetch.pop_neofetch_box(self.emblem)
             backend = neofetch.check_backend()
             if backend == "ascii":
@@ -510,7 +510,7 @@ class Main(Gtk.Window):
     def on_button_fetch_clicked(self, widget):
         skelapp.button_toggles(self, False)
         skelapp.skel_check(self)
-    
+
     def on_backup_clicked(self, widget):
         skelapp.button_toggles(self, False)
         skelapp.setMessage(self.label_info, "Running Backup")
@@ -521,7 +521,7 @@ class Main(Gtk.Window):
 
     def backs_changed(self, widget):
         skelapp.refresh_inner(self)
-    
+
     def on_refresh_clicked(self, widget):
         skelapp.refresh(self)
 
@@ -541,7 +541,7 @@ class Main(Gtk.Window):
         t1 = Functions.threading.Thread(target=skelapp.Delete_Backup, args=(self,))
         t1.daemon = True
         t1.start()
-    
+
     # ===========================================
     #		DELETE ALL BACKUP Section
     # ===========================================
@@ -581,7 +581,7 @@ if __name__ == "__main__":
         md = Gtk.MessageDialog(parent=Main(), flags=0, message_type=Gtk.MessageType.INFO,
                                buttons=Gtk.ButtonsType.YES_NO, text="Lock File Found")
         md.format_secondary_markup(
-            "The lock file has been found. This indicates there is already an instance of <b>Arcolinux Tweak tool</b> running.\n\
+            "The lock file has been found. This indicates there is already an instance of <b>ArcoLinux Tweak tool</b> running.\n\
 click yes to remove the lock file and try running again")
 
         result = md.run()
