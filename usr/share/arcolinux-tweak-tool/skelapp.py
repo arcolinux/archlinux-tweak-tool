@@ -57,6 +57,35 @@ def skel_run(self, cat):
 
 
 # ===========================================
+#		RESTORE BACKUP FUNCTION
+# ===========================================
+def restore_item(self):
+    backup_path = Functions.home + "/" + Functions.bd + "/" + self.backs.get_active_text() + "/"
+    treeselect = self.treeView2.get_selection()
+    (model, pathlist) = treeselect.get_selected_rows()
+    if len(pathlist) > 0:
+        GLib.idle_add(setProgress, self.progressbar, 0.1)
+
+        GLib.idle_add(self.progressbar.set_pulse_step, 0.2)
+        timeout_id = None
+        timeout_id = GLib.timeout_add(100, do_pulse, None, self, self.progressbar)
+
+        for path in pathlist :
+            tree_iter = model.get_iter(path)
+            value = model.get_value(tree_iter,0)
+            file_path = backup_path + value
+        if value.__len__() > 0:
+            if os.path.isfile(file_path):
+                Functions.copy_func(file_path, Functions.home + "/" + value)
+            elif os.path.isdir(file_path):
+                Functions.copy_func(file_path, Functions.home + "/" + value, True)
+
+    GLib.source_remove(timeout_id)
+    timeout_id = None
+    GLib.idle_add(button_toggles, self, True)
+    GLib.idle_add(setMessage,self.label_info, "Idle ...")
+    GLib.idle_add(setProgress, self.progressbar, 0)
+# ===========================================
 #		DELETE BACKUP FUNCTION
 # ===========================================
 def Delete_Backup(self):

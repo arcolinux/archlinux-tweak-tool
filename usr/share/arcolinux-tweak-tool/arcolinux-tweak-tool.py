@@ -525,6 +525,14 @@ class Main(Gtk.Window):
     def on_refresh_clicked(self, widget):
         skelapp.refresh(self)
 
+    def on_restore_inner_clicked(self, widget):
+        skelapp.button_toggles(self, False)
+        skelapp.setMessage(self.label_info, "Running Restore ....")
+        
+        t1 = Functions.threading.Thread(target=skelapp.restore_item,
+                                args=(self,))
+        t1.daemon = True
+        t1.start()
     # ===========================================
     #			DELETE BACKUP Section
     # ===========================================
