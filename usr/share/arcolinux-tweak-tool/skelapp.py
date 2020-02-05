@@ -76,9 +76,9 @@ def restore_item(self):
             file_path = backup_path + value
         if value.__len__() > 0:
             if os.path.isfile(file_path):
-                Functions.copy_func(file_path, Functions.home + "/" + value)
+                Functions.copy_func(file_path, Functions.home + "/" + value.split("-backup")[0])
             elif os.path.isdir(file_path):
-                Functions.copy_func(file_path, Functions.home + "/" + value, True)
+                Functions.copy_func(file_path, Functions.home + "/" + value.split("-backup")[0], True)
 
     GLib.source_remove(timeout_id)
     timeout_id = None
