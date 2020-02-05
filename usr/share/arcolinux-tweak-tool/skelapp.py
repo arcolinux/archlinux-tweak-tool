@@ -36,6 +36,8 @@ def skel_check(self):
                 t1.start()
         else:
             Functions.MessageBox("Failed!!", "It looks like your out of the /etc/skel directory")
+    else:
+        button_toggles(self, True)
 
 def skel_run(self, cat):
     count = cat.__len__()
@@ -234,6 +236,8 @@ def do_pulse(data, self, progress):
 def processing(self, active_text, label, progress):
     now = datetime.datetime.now()
     
+    if not os.path.isdir(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H")):
+        os.makedirs(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H"))
 
     GLib.idle_add(setProgress, progress, 0.1)
 
