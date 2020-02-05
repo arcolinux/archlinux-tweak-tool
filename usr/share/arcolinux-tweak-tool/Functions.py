@@ -31,6 +31,14 @@ bd = ".ATT_Backups"
 desktop = ""
 
 
+#=====================================================
+#               COPY FUNCTION
+#=====================================================
+def copy_func(src, dst, isdir=False):
+    if isdir:
+        subprocess.run(["cp", "-R", src, dst], shell=False)
+    else:
+        subprocess.run(["cp", src, dst], shell=False)
 
 #=====================================================
 #               SOURCE
