@@ -12,13 +12,14 @@ import termite
 import neofetch
 import skelapp
 import GUI
+import pwd
+
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GdkPixbuf, Gio
 from Functions import os, pacman
 # from Settings import settings, configparser
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
-
 
 class Main(Gtk.Window):
     def __init__(self):
@@ -34,7 +35,16 @@ class Main(Gtk.Window):
         self.desktop = ""
 
         if not os.path.isdir(Functions.home + "/.ATT_Backups"):
-            os.mkdir(Functions.home + "/.ATT_Backups")
+            try:
+                os.makedirs(Functions.home + "/.ATT_Backups", 0o777)
+                original_umask = os.umask(0)
+                calls = Functions.subprocess.run(["sh", "-c", "cat /etc/passwd | grep " + Functions.sudo_username], shell=False, stdout=Functions.subprocess.PIPE, stderr=Functions.subprocess.STDOUT)
+                id = calls.stdout.decode().split(":")[3].strip()
+                os.chown(Functions.home + "/.ATT_Backups", int(id), int(id))
+            finally:
+                os.umask(original_umask)
+
+            # os.mkdir(Functions.home + "/.ATT_Backups")
 
         GUI.GUI(self, Gtk, Functions.Gdk, GdkPixbuf, base_dir, os)
 

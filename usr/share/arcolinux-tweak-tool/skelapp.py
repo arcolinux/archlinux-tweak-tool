@@ -50,7 +50,7 @@ def skel_run(self, cat):
             old = item[0]
             new = old.replace("/etc/skel",Functions.home)
             if os.path.isdir(old):
-                Functions.copy_func(old, new, True)
+                Functions.copy_func(old,  os.path.split(new)[0], True)
             if os.path.isfile(old):
                 Functions.copy_func(old, new)
     GLib.idle_add(button_toggles, self, True)
@@ -79,8 +79,15 @@ def restore_item(self):
         if value.__len__() > 0:
             if os.path.isfile(file_path):
                 Functions.copy_func(file_path, Functions.home + "/" + value.split("-backup")[0])
+                Functions.permissions(Functions.home + "/" + value.split("-backup")[0])
             elif os.path.isdir(file_path):
-                Functions.copy_func(file_path, Functions.home + "/" + value.split("-backup")[0], True)
+                dirs = Functions.home + "/" +  value.split("-backup")[0]
+                old_dir = Functions.home + "/" + value
+                GLib.idle_add(setMessage,self.label_info, "Removing Existing Destination Folder ...")
+                Functions.subprocess.call(["rm", "-rf", dirs])
+                GLib.idle_add(setMessage,self.label_info, "Copying " + value + " to " + value.split("-backup")[0])
+                Functions.copy_func(file_path, dirs, True)
+                Functions.permissions(dirs)
 
     GLib.source_remove(timeout_id)
     timeout_id = None
@@ -195,17 +202,22 @@ def bash_upgrade(self):
 
     if not os.path.exists(Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H")):
         os.makedirs(Functions.home + "/" + Functions.bd + "/Backup-" +
+                    now.strftime("%Y-%m-%d %H"), 0o777)
+        Functions.permissions(Functions.home + "/" + Functions.bd + "/Backup-" +
                     now.strftime("%Y-%m-%d %H"))
 
     if os.path.isfile(Functions.home + '/.bashrc'):
         Functions.copy_func(
             Functions.home + '/.bashrc', Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.bashrc-backup-" +
             now.strftime("%Y-%m-%d %H:%M:%S"))
+        Functions.permissions(Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.bashrc-backup-" +
+            now.strftime("%Y-%m-%d %H:%M:%S"))
 
     GLib.idle_add(setMessage,self.label_info1, "Upgrading Bashrc")
 
     if os.path.isfile("/etc/skel/.bashrc"):
         Functions.copy_func("/etc/skel/.bashrc", Functions.home + "/.bashrc")
+        Functions.permissions(Functions.home + "/.bashrc")
         GLib.idle_add(setMessage,self.label_info1, ".bashrc upgrade done")
         GLib.idle_add(Functions.MessageBox,"Success!!", "bashrc upgraded")
     else:
@@ -237,7 +249,10 @@ def processing(self, active_text, label, progress):
     now = datetime.datetime.now()
     
     if not os.path.isdir(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H")):
-        os.makedirs(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H"))
+        os.makedirs(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H"), 0o777)
+        Functions.permissions(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H"))
+        
+        
 
     GLib.idle_add(setProgress, progress, 0.1)
 
@@ -251,6 +266,8 @@ def processing(self, active_text, label, progress):
     GLib.idle_add(setMessage,label, "Backing up .config")
     Functions.copy_func(Functions.home + '/.config', Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + '/.config-backup-' +
                 now.strftime("%Y-%m-%d %H:%M:%S"), True)
+    Functions.permissions(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + '/.config-backup-' +
+                now.strftime("%Y-%m-%d %H:%M:%S"))
 
     # GLib.idle_add(setProgress, self, 0.3)
 
@@ -260,6 +277,8 @@ def processing(self, active_text, label, progress):
     GLib.idle_add(setMessage,label, "Backing up .local")
     Functions.copy_func(Functions.home + '/.local', Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + '/.local-backup-' +
                 now.strftime("%Y-%m-%d %H:%M:%S"), True)
+    Functions.permissions(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + '/.local-backup-' +
+                now.strftime("%Y-%m-%d %H:%M:%S"))
     
     GLib.source_remove(timeout_id)
     timeout_id = None
@@ -275,6 +294,8 @@ def processing(self, active_text, label, progress):
         Functions.copy_func(
             Functions.home + '/.bashrc', Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.bashrc-backup-" +
             now.strftime("%Y-%m-%d %H:%M:%S"))
+        Functions.permissions(Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.bashrc-backup-" +
+            now.strftime("%Y-%m-%d %H:%M:%S"))
     
     GLib.idle_add(setProgress, progress, 0.6)
     # ============================
@@ -285,7 +306,8 @@ def processing(self, active_text, label, progress):
         Functions.copy_func(
             Functions.home + '/.zshrc', Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.zshrc-backup-" +
             now.strftime("%Y-%m-%d %H:%M:%S"))
-
+        Functions.permissions(Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.zshrc-backup-" +
+            now.strftime("%Y-%m-%d %H:%M:%S"))
     GLib.idle_add(setProgress, progress, 0.7)
 
     # ============================
@@ -295,11 +317,15 @@ def processing(self, active_text, label, progress):
         GLib.idle_add(setMessage,label, "Backing up .lua")
         Functions.copy_func(Functions.home + '/.lua', Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + '/.lua-backup-' +
                 now.strftime("%Y-%m-%d %H:%M:%S"), True)
+        Functions.permissions(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + '/.lua-backup-' +
+                now.strftime("%Y-%m-%d %H:%M:%S"))
 
     if os.path.isfile(Functions.home + '/.conkyrc'):
         GLib.idle_add(setMessage,label, "Backing up .cokyrc")
         Functions.copy_func(
             Functions.home + '/.conkyrc', Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.conkyrc-backup-" +
+            now.strftime("%Y-%m-%d %H:%M:%S"))
+        Functions.permissions(Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.conkyrc-backup-" +
             now.strftime("%Y-%m-%d %H:%M:%S"))
 
     GLib.idle_add(setProgress, progress, 0.8)

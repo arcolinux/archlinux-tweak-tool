@@ -31,14 +31,24 @@ bd = ".ATT_Backups"
 desktop = ""
 
 
+def permissions(dst):
+    try:
+        original_umask = os.umask(0)
+        calls = subprocess.run(["sh", "-c", "cat /etc/passwd | grep " + sudo_username], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        id = calls.stdout.decode().split(":")[3].strip()
+        os.chown(dst, int(id), int(id))
+    finally:
+        os.umask(original_umask)
+
 #=====================================================
 #               COPY FUNCTION
 #=====================================================
 def copy_func(src, dst, isdir=False):
     if isdir:
-        subprocess.run(["cp", "-R", src, dst], shell=False)
+        subprocess.run(["cp", "-Rp", src, dst], shell=False)
     else:
-        subprocess.run(["cp", src, dst], shell=False)
+        subprocess.run(["cp" ,"-p", src, dst], shell=False)
+    permissions(dst)
 
 #=====================================================
 #               SOURCE
