@@ -106,7 +106,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # #                     Skelapp
     # # ==========================================================
     
-    SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
+    # SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
     
     # ==========================================================
     #                     ADD TO WINDOW
@@ -134,7 +134,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     if Functions.file_check(Functions.neofetch_config):
         stack.add_titled(vboxStack8, "stack8", "Neofetch Config")
     
-    stack.add_titled(vboxStack9, "stack9", "Tweak Skel")
+    # stack.add_titled(vboxStack9, "stack9", "Tweak Skel")
     
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
