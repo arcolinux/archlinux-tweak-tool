@@ -129,6 +129,12 @@ def apply_config(self, backend, emblem, ascii_size):
                 Functions.neofetch_set_value(lines, i, "info \"Memory\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"Memory\"", False)
+            if self.title.get_active():
+                Functions.neofetch_set_value(lines, i, "info title", True)
+                Functions.neofetch_set_value(lines, i, "info underline", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info title", False)
+                Functions.neofetch_set_value(lines, i, "info underline", False)
             
             if not backend == "ascii" and not backend == "off":
                 Functions.neofetch_set_backend_value(lines, i, "image_backend=\"", "w3m")
@@ -185,6 +191,7 @@ def get_checkboxes(self):
     self.cpu.set_active(get_state("info \"CPU\""))
     self.gpu.set_active(get_state("info \"GPU\""))    
     self.mem.set_active(get_state("info \"Memory\""))
+    self.title.set_active(get_state("info title"))
 
     lines = get_neofetch()
 

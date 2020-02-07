@@ -81,6 +81,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     self.mem = Gtk.CheckButton(label="Show Memory")
 
     self.cblocks = Gtk.CheckButton(label="Show Blocks")
+
+    self.title = Gtk.CheckButton(label="Show Title")
     
     flowbox = Gtk.FlowBox()
     flowbox.set_valign(Gtk.Align.START)
@@ -105,6 +107,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     flowbox.add(self.gpu)
     flowbox.add(self.mem)
     flowbox.add(self.cblocks)
+    flowbox.add(self.title)
 
     neofetch.get_checkboxes(self)
 
