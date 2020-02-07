@@ -458,12 +458,19 @@ class Main(Gtk.Window):
             self.image4.set_from_pixbuf(pixbuf6)
             self.frame3.show()
             self.image4.show()
-        else:
+        
+        elif self.asci.get_active():
             self.emblem.set_sensitive(False)
             self.big_ascii.set_sensitive(True)
             self.small_ascii.set_sensitive(True)
             self.image4.set_from_pixbuf(None)
             self.frame3.hide()
+        else:
+            self.big_ascii.set_sensitive(False)
+            self.small_ascii.set_sensitive(False)
+            self.image4.set_from_pixbuf(None)
+            self.frame3.hide()
+            self.emblem.set_sensitive(False)
 
     #====================================================================
     #                       SkelApp

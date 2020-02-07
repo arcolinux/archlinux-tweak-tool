@@ -15,14 +15,15 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     self.asci.set_label("Enable ascii backend")
     self.asci.connect("toggled", self.radio_toggled)
 
+    self.off = Gtk.RadioButton.new_from_widget(self.asci)
+    self.off.set_label("NO backend")
+    self.off.connect("toggled", self.radio_toggled)
+
     self.big_ascii = Gtk.RadioButton(label="Use normal ascii")
     
     self.small_ascii = Gtk.RadioButton.new_from_widget(self.big_ascii)
     self.small_ascii.set_label("Use small ascii")
 
-    self.off_ascii = Gtk.RadioButton.new_from_widget(self.small_ascii)
-    self.off_ascii.set_label("Use NO ascii")
-    
     backend = neofetch.check_backend()
     asci = neofetch.check_ascii()
     
@@ -111,12 +112,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     label14.set_markup("<b>Tip:</b> To display an image you need to install w3m.")
 
     hbox22.pack_start(self.w3m, True, False, 10)
+    hbox22.pack_end(self.off, True, False, 10)
     hbox22.pack_end(self.asci, True, False, 10)
+    
 
         
     self.hbox26.pack_start(self.big_ascii, True, False, 10)
     self.hbox26.pack_start(self.small_ascii, True, False, 10)
-    self.hbox26.pack_end(self.off_ascii, True, False, 10)
 
     hbox23.pack_start(label13, False, False, 10)
     hbox23.pack_start(self.emblem, True, True, 10)
@@ -142,27 +144,22 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
         self.emblem.set_sensitive(False)
         self.big_ascii.set_sensitive(True)
         self.small_ascii.set_sensitive(True)
-        self.off_ascii.set_sensitive(True)
         self.frame3.hide()
     elif backend == "off":
-        self.asci.set_active(True)
+        self.off.set_active(True)
         self.emblem.set_sensitive(False)
-        self.big_ascii.set_sensitive(True)
-        self.small_ascii.set_sensitive(True)
-        self.off_ascii.set_sensitive(True)
+        self.big_ascii.set_sensitive(False)
+        self.small_ascii.set_sensitive(False)
         self.frame3.hide()
     else:
         self.w3m.set_active(True)
         self.big_ascii.set_sensitive(False)
         self.small_ascii.set_sensitive(False)
-        self.off_ascii.set_sensitive(False)
         self.frame3.show()
         self.image4.show()
     
-    if asci == "auto" and not backend == "off":
+    if asci == "auto":
         self.big_ascii.set_active(True)
-    elif asci == "arcolinux_small" and not backend == "off":
-        self.small_ascii.set_active(True)
     else:
-        self.off_ascii.set_active(True)
+        self.small_ascii.set_active(True)
         
