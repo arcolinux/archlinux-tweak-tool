@@ -119,33 +119,35 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     #                     ADD TO WINDOW
     # ==========================================================
     # stack.add_titled(vboxStack10, "stack0", "Welcome")
+    #     
+    stack.add_titled(vboxStack4, "stack1", "Grub Config")
 
-    if Functions.file_check(Functions.pacman):
-        stack.add_titled(vboxStack1, "stack1", "Pacman Config")
+    stack.add_titled(vboxStack3, "stack2", "HBlock")
 
-    # stack.add_titled(vboxStack2, "stack2", "Theming")
-
-    stack.add_titled(vboxStack4, "stack4", "Grub Config")
-
-    if Functions.file_check(Functions.oblogout_conf):
-        stack.add_titled(vboxStack6, "stack6", "Oblogout Config")
-
-    stack.add_titled(vboxStack3, "stack3", "HBlock")
-
-    if Functions.file_check(Functions.slimlock_conf):
-        stack.add_titled(vboxStack5, "stack5", "Slimlock")
-
-    if Functions.file_check(Functions.termite_config):
-        stack.add_titled(vboxStack7, "stack7", "Termite Themes")
+    if Functions.file_check(Functions.lightdm_conf):
+        stack.add_titled(vboxStack11, "stack3", "Lightdm Config")
     
     if Functions.file_check(Functions.neofetch_config):
-        stack.add_titled(vboxStack8, "stack8", "Neofetch Config")
+        stack.add_titled(vboxStack8, "stack4", "Neofetch Config")
+
+    if Functions.file_check(Functions.oblogout_conf):
+        stack.add_titled(vboxStack6, "stack5", "Oblogout Config")
     
-    if Functions.file_check(Functions.lightdm_conf):
-        stack.add_titled(vboxStack11, "stack10", "Lightdm Config")
+    if Functions.file_check(Functions.pacman):
+        stack.add_titled(vboxStack1, "stack6", "Pacman Config")
+
+    if Functions.file_check(Functions.slimlock_conf):
+        stack.add_titled(vboxStack5, "stack7", "Slimlock")
+
+    if Functions.file_check(Functions.termite_config):
+        stack.add_titled(vboxStack7, "stack8", "Termite Themes")
     
-    # stack.add_titled(vboxStack9, "stack9", "Tweak Skel")
+    # stack.add_titled(vboxStack2, "stack9", "Theming")
+
+    # stack.add_titled(vboxStack9, "stack10", "Tweak Skel")
     
+    
+
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
 
@@ -162,7 +164,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.2.35</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.2.36</span>")
 
     # self.lbl_desktop = Gtk.Label(xalign=0)
     # self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop +"</span>")
