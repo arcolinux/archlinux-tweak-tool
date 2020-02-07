@@ -178,8 +178,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     pE.add(pimage)
 
-    pE.connect("button_press_event", self.on_social_clicked,
-                "https://www.patreon.com/hefftor")
+    pE.connect("button_press_event", self.on_social_clicked, "https://www.patreon.com/hefftor")
     pE.set_property("has-tooltip", True)
 
     pE.connect("query-tooltip", self.tooltip_callback, "Support BradHeff on Patreon")

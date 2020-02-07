@@ -4,6 +4,7 @@
 #=                  Author: Brad Heffernan                       =
 #=================================================================
 import gi
+# import webbrowser
 import Functions
 import slim
 import Gtk_Functions
@@ -14,7 +15,6 @@ import skelapp
 import lightdm
 import GUI
 import pwd
-import webbrowser
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GdkPixbuf, Gio
@@ -79,9 +79,13 @@ class Main(Gtk.Window):
         t = Functions.threading.Thread(target=self.weblink, args=(link,))
         t.daemon = True
         t.start()
+        print("CLICKED")
+        # self.weblink(link)
+
 
     def weblink(self, link):
-        webbrowser.open_new_tab(link)
+        Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "exo-open --launch webbrowser " + link], shell=False)
+        # webbrowser.open_new_tab(link)
     
     def tooltip_callback(self, widget, x, y, keyboard_mode, tooltip, text):
         tooltip.set_text(text)
