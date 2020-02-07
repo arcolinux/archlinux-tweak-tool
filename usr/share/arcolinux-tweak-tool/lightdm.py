@@ -14,15 +14,15 @@ def check_lightdm(lists, value):
 def set_lightdm_value(lists, value, session, state):
     try:
         pos = Functions._get_position(lists, "autologin-user=")
-        pos_session = Functions._get_position(lists, "user-session=")
+        pos_session = Functions._get_position(lists, "autologin-session=")
         
         if state:
             lists[pos] = "autologin-user=" + value + "\n"
+            lists[pos_session] = "autologin-session=" + session + "\n"
         else:
             if not "#" in lists[pos]:
                 lists[pos] = "#" + lists[pos]
-        
-        lists[pos_session] = "user-session=" + session + "\n"
+                lists[pos_session] = "#" + lists[pos_session]
 
         with open(Functions.lightdm_conf, "w") as f:
             f.writelines(lists)
@@ -48,7 +48,7 @@ def pop_box(combo):
     lines = get_lines(Functions.lightdm_conf)
 
     # pos = Functions._get_position(lines, "user-session=")
-    name = check_lightdm(lines, "user-session=").split("=")[1]
+    name = check_lightdm(lines, "autologin-session=").split("=")[1]
 
     for i in range(len(coms)):
         combo.append_text(coms[i])
