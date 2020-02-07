@@ -34,13 +34,13 @@ class Main(Gtk.Window):
         self.firstrun = True
         self.desktop = ""
 
-        if not os.path.isdir(Functions.home + "/.ATT_Backups"):
+        if not os.path.isdir(Functions.home + "/" +  Functions.bd):
             try:
-                os.makedirs(Functions.home + "/.ATT_Backups", 0o777)
+                os.makedirs(Functions.home + "/" + Functions.bd, 0o777)
                 original_umask = os.umask(0)
                 calls = Functions.subprocess.run(["sh", "-c", "cat /etc/passwd | grep " + Functions.sudo_username], shell=False, stdout=Functions.subprocess.PIPE, stderr=Functions.subprocess.STDOUT)
                 id = calls.stdout.decode().split(":")[3].strip()
-                os.chown(Functions.home + "/.ATT_Backups", int(id), int(id))
+                os.chown(Functions.home + "/" +  Functions.bd, int(id), int(id))
             finally:
                 os.umask(original_umask)
 
