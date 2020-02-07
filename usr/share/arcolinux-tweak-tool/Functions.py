@@ -2,7 +2,6 @@
 #=                  Author: Brad Heffernan                       =
 #=================================================================
 
-import dbus
 import os
 import shutil
 import psutil
