@@ -24,8 +24,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     
     stack.add_titled(vboxStack1, "main_stack", "Main")
 
-    label = Gtk.Label()
-    label.set_markup("<big>Under Construction!</big>")
+    label = Gtk.Label(xalign=0)
+    label.set_markup("<big>Exclude File/Folder from above selections</big>")
 
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -33,8 +33,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
 
     vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     
     #============================================
     #                   TREE VIEW
@@ -45,13 +48,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
 
     self.remove = Gtk.Button(label="REMOVE")
     self.remove.connect("clicked", self.on_remove_fixed)
-
-    self.btn2 = Gtk.Button(label="Run Skel")
-    self.btn2.connect("clicked", self.on_button_fetch_clicked)
-    
-    self.bashrc = Gtk.Button(label="Upgrade .bashrc")
-    self.bashrc.set_size_request(0, 50)
-    self.bashrc.connect("clicked", self.on_bashrc_upgrade)
 
     sw = Gtk.ScrolledWindow()
     sw.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
@@ -67,12 +63,52 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     self.create_columns(self.treeView)
 
     #============================================
+    #                   TREE VIEW Excludes
+    #============================================
+    
+    self.browse3 = Gtk.Button(label="ADD")
+    self.browse3.connect("clicked", self.on_browse_fixed2)
+
+    self.remove3 = Gtk.Button(label="REMOVE")
+    self.remove3.connect("clicked", self.on_remove_fixed2)
+
+    sw3 = Gtk.ScrolledWindow()
+    sw3.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+    sw3.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+
+    self.store3 = Gtk.ListStore(str)
+
+    self.treeView3 = Gtk.TreeView(self.store3)
+    # treeView.connect("row-activated", self.on_activated)
+    self.treeView3.set_rules_hint(True)
+    sw3.set_size_request(270, 120)
+    sw3.add(self.treeView3)
+    self.create_columns(self.treeView3)
+
+    #============================================
     #              RADIO BUTTONS
     #============================================    
     
     self.rbutton3 = Gtk.RadioButton(label="File")
     self.rbutton4 = Gtk.RadioButton.new_from_widget(self.rbutton3)
     self.rbutton4.set_label("Folder")
+
+    #============================================
+    #              RADIO BUTTONS
+    #============================================    
+    
+    self.rbutton5 = Gtk.RadioButton(label="File")
+    self.rbutton6 = Gtk.RadioButton.new_from_widget(self.rbutton5)
+    self.rbutton6.set_label("Folder")
+
+
+    #============================================
+    #              BASHRC BUTTONS
+    #============================================ 
+
+    self.bashrc = Gtk.Button(label="Upgrade .bashrc")
+    self.bashrc.set_size_request(0, 50)
+    self.bashrc.connect("clicked", self.on_bashrc_upgrade)
 
     #============================================
     #                   FOOTER
@@ -83,6 +119,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
 
     self.switch = Gtk.Switch()
     self.switch.set_active(True)
+
+    self.btn2 = Gtk.Button(label="Run Skel")
+    self.btn2.connect("clicked", self.on_button_fetch_clicked)
+
 
     self.progressbar1 = Gtk.ProgressBar()
     self.label_info1 = Gtk.Label("Idle ...")
@@ -97,13 +137,26 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     hbox.pack_start(sw, True, True, 10)
     hbox.pack_start(vbox1, False, False, 10)
 
+
+    #==================LABEL==================
+    hbox3.pack_start(label, False, False, 0)
+
+    #==================TREEVIEW==================
+
+    vbox2.pack_start(self.browse3, False, False, 0)
+    vbox2.pack_start(self.remove3, False, False, 10)
+
+    hbox6.pack_start(sw3, True, True, 10)
+    hbox6.pack_start(vbox2, False, False, 10)
+
     #==================RADIO BUTTONS==================
 
     hbox1.pack_end(self.rbutton4, False, False, 10)
     hbox1.pack_end(self.rbutton3, False, False, 10)
-    
-    hbox3.pack_start(label, True, False, 0)
 
+    hbox7.pack_end(self.rbutton6, False, False, 10)
+    hbox7.pack_end(self.rbutton5, False, False, 10)
+    
     #==================BASHRC BUTTON==================
 
     hbox5.pack_start(self.bashrc, True, True, 10)
@@ -121,7 +174,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):
     #============================================
     vboxStack1.pack_start(hbox, False, False, 0)#Treeview
     vboxStack1.pack_start(hbox1, False, False, 0)#Radio Buttons
+
     vboxStack1.pack_start(hbox3, False, False, 0)#Label Under Construction
+    vboxStack1.pack_start(hbox6, False, False, 0)#Treeview
+    vboxStack1.pack_start(hbox7, False, False, 0)#Radio Buttons
+    
     vboxStack1.pack_start(hbox5, False, False, 0)#Bashrc Button
     
     vboxStack1.pack_end(self.progressbar1, False, False, 0)#Progressbar
