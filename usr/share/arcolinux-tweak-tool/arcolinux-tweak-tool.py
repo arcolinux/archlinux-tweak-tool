@@ -486,15 +486,6 @@ class Main(Gtk.Window):
             # Remove the ListStore row referenced by iter
             model.remove(iter)
 
-    def on_remove_fixed2(self, widget):
-        selection = self.treeView3.get_selection()
-        model, paths = selection.get_selected_rows()
-
-        # Get the TreeIter instance for each path
-        for path in paths:
-            iter = model.get_iter(path)
-            # Remove the ListStore row referenced by iter
-            model.remove(iter)
 
     # ======ADD ITEMS TO TREEVIEW================
 
@@ -527,34 +518,6 @@ class Main(Gtk.Window):
             # print("Cancel clicked")
             dialog.destroy()
 
-    def on_browse_fixed2(self, widget):
-        if self.rbutton5.get_active():
-            dialog = Gtk.FileChooserDialog(
-                title="Please choose a file", action=Gtk.FileChooserAction.OPEN)
-            dialog.set_select_multiple(True)
-        elif self.rbutton6.get_active():
-            dialog = Gtk.FileChooserDialog(
-                title="Please choose a folder", action=Gtk.FileChooserAction.SELECT_FOLDER)
-            dialog.set_select_multiple(True)
-        
-        dialog.set_show_hidden(True)
-        dialog.set_current_folder("/etc/skel")
-        dialog.add_buttons(
-            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
-
-        response = dialog.run()
-
-        if response == Gtk.ResponseType.OK:
-            foldername = dialog.get_filenames()
-            for item in foldername:
-                self.store3.append([item])
-
-            # self.textBox.set_text(str(foldername))
-
-            dialog.destroy()
-        elif response == Gtk.ResponseType.CANCEL:
-            # print("Cancel clicked")
-            dialog.destroy()
     # ===============RUN SKEL================
 
     def on_button_fetch_clicked(self, widget):
