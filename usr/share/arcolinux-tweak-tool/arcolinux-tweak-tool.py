@@ -11,8 +11,10 @@ import oblogout
 import termite
 import neofetch
 import skelapp
+import lightdm
 import GUI
 import pwd
+import webbrowser
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GdkPixbuf, Gio
@@ -48,9 +50,9 @@ class Main(Gtk.Window):
 
         GUI.GUI(self, Gtk, Functions.Gdk, GdkPixbuf, base_dir, os)
 
-        t = Functions.threading.Thread(target=Functions.get_desktop, args=(self,))
-        t.daemon = True
-        t.start()
+        # t = Functions.threading.Thread(target=Functions.get_desktop, args=(self,))
+        # t.daemon = True
+        # t.start()
 
         arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
         multi_testing = Functions.check_repo("[multilib-testing]")
@@ -69,6 +71,21 @@ class Main(Gtk.Window):
         os.unlink("/tmp/att.lock")
         Gtk.main_quit()
 
+
+    # =====================================================
+    #               PATREON LINK
+    # =====================================================
+    def on_social_clicked(self, widget, event, link):
+        t = Functions.threading.Thread(target=self.weblink, args=(link,))
+        t.daemon = True
+        t.start()
+
+    def weblink(self, link):
+        webbrowser.open_new_tab(link)
+    
+    def tooltip_callback(self, widget, x, y, keyboard_mode, tooltip, text):
+        tooltip.set_text(text)
+        return True
     # =====================================================
     #               PACMAN FUNCTIONS
     # =====================================================
@@ -472,6 +489,28 @@ class Main(Gtk.Window):
             self.frame3.hide()
             self.emblem.set_sensitive(False)
 
+
+    #====================================================================
+    #                       Lightdm
+    #====================================================================
+
+    def on_click_lightdm_apply(self, widget):
+        if not Functions.os.path.isfile(Functions.lightdm_conf + ".bak"):
+            Functions.shutil.copy(Functions.lightdm_conf, Functions.lightdm_conf + ".bak")
+
+        t1 = Functions.threading.Thread(target=lightdm.set_lightdm_value, args=(lightdm.get_lines(Functions.lightdm_conf), 
+            Functions.sudo_username, self.sessions.get_active_text(), self.autologin.get_active()))
+        t1.daemon = True
+        t1.start()
+
+    def on_click_lightdm_reset(self, widget):
+        if Functions.os.path.isfile(Functions.lightdm_conf + ".bak"):
+            Functions.shutil.copy(Functions.lightdm_conf + ".bak", Functions.lightdm_conf)
+        
+        if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):
+            self.autologin.set_active(False)
+        else:
+            self.autologin.set_active(True)
     #====================================================================
     #                       SkelApp
     #====================================================================

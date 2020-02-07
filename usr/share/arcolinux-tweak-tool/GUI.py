@@ -10,7 +10,7 @@ import oblogout
 import termite
 import neofetch
 import skelapp
-import welcome
+import lightdm
 
 #=============GUI=================
 import Termite_GUI
@@ -22,7 +22,7 @@ import HBlock_GUI
 import Pacman_GUI
 import GTK_GUI
 import SkelApp_GUI
-import Welcome_GUI
+import Lightdm_GUI
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
@@ -52,6 +52,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     # ==========================================================
     #                   TAB #0 WELCOME
@@ -103,6 +104,12 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     Neofetch_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions)
 
     # # ==========================================================
+    # #                     LIGHTDM
+    # # ==========================================================
+    
+    Lightdm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack11, lightdm, Functions)
+
+    # # ==========================================================
     # #                     Skelapp
     # # ==========================================================
     
@@ -134,27 +141,58 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     if Functions.file_check(Functions.neofetch_config):
         stack.add_titled(vboxStack8, "stack8", "Neofetch Config")
     
+    if Functions.file_check(Functions.lightdm_conf):
+        stack.add_titled(vboxStack11, "stack10", "Lightdm Config")
+    
     # stack.add_titled(vboxStack9, "stack9", "Tweak Skel")
     
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
 
+    # =====================================================
+    #                       LOGO
+    # =====================================================
     ivbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
         os.path.join(base_dir, 'images/arcolinux-one-liner.png'), 145, 145)
     image = Gtk.Image().new_from_pixbuf(pixbuf)
 
+
+    # =====================================================
+#                       VERSION
+    # =====================================================
     version = Gtk.Label(xalign=0)
     version.set_markup("<span foreground=\'grey\'>v20.2.34</span>")
 
-    self.lbl_desktop = Gtk.Label(xalign=0)
-    self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop +"</span>")
+    # self.lbl_desktop = Gtk.Label(xalign=0)
+    # self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop +"</span>")
 
+    # =====================================================
+    #               PATREON LINK
+    # =====================================================
+    pE = Gtk.EventBox()
+
+    pbp = GdkPixbuf.Pixbuf().new_from_file_at_size(
+        os.path.join(base_dir, 'images/patreon.png'), 28, 28)
+    pimage = Gtk.Image().new_from_pixbuf(pbp)
+
+    pE.add(pimage)
+
+    pE.connect("button_press_event", self.on_social_clicked,
+                "https://www.patreon.com/hefftor")
+    pE.set_property("has-tooltip", True)
+
+    pE.connect("query-tooltip", self.tooltip_callback, "Support BradHeff on Patreon")
+
+    
+    # =====================================================
+    #                      PACKS
+    # =====================================================
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
-
-    hbox1.pack_start(version, False, False, 0)
-    hbox1.pack_end(self.lbl_desktop, False, False, 0)
-
+    
+    hbox1.pack_start(pE, False, False, 0)
+    hbox1.pack_end(version, False, False, 0)
+    
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
     ivbox.pack_start(hbox1, False, False, 0)

@@ -25,6 +25,7 @@ xfce_config = home + "/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
 slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
+lightdm_conf = "/etc/lightdm/lightdm.conf"
 bd = ".att_Backups"
 
 desktop = ""
@@ -270,6 +271,16 @@ def get_commands(conflist):
     commands_index = _get_position(conflist, commands[0])
     return int(commands_index)
 
+#=====================================================
+#               LIGHTDM CONF
+#=====================================================
+
+def check_lightdm_value(list, value):
+    data = [string for string in list if value in string]
+    # if len(data) >= 1:
+    #     data1 = [string for string in data if "#" in string]
+        
+    return data
 
 #=====================================================
 #               HBLOCK CONF

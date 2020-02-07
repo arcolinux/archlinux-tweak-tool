@@ -45,7 +45,6 @@ def check_backend():
             if "image_backend=" in lines[i]:
                 if not "#" in lines[i]:
                     line = lines[i].split("=")[1].replace("\"", "").strip()
-                    print(line)
                     return line
     return "ascii"
 def check_ascii():
