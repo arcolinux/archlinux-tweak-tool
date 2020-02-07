@@ -45,6 +45,7 @@ def check_backend():
             if "image_backend=" in lines[i]:
                 if not "#" in lines[i]:
                     line = lines[i].split("=")[1].replace("\"", "").strip()
+                    print(line)
                     return line
     return "ascii"
 def check_ascii():
@@ -130,18 +131,21 @@ def apply_config(self, backend, emblem, ascii_size):
             else:
                 Functions.neofetch_set_value(lines, i, "info \"Memory\"", False)
             
-            if not backend == "ascii":            
+            if not backend == "ascii" and not backend == "off":
                 Functions.neofetch_set_backend_value(lines, i, "image_backend=\"", "w3m")
                 # Functions.neofetch_set_backend_value(lines, i, "image_backend=\"ascii\"")
                 Functions.neofetch_set_value(lines, i, "image_source=", False)
                 Functions.neofetch_set_value(lines, i, emblem, True)
                 
-            else:
+            elif not backend == "w3m" and not backend == "off":
                 Functions.neofetch_set_backend_value(lines, i, "image_backend=\"", "ascii")
                 # Functions.neofetch_set_value(lines, i, "image_backend=\"ascii\"", True)
                 # Functions.neofetch_set_value(lines, i, "image_backend=\"" + backend_val + "\"", False)
                 if "ascii_distro=" in lines[i]:
                     lines[i] = "ascii_distro=\"" + ascii_size + "\"\n"
+            else:
+                Functions.neofetch_set_backend_value(lines, i, "image_backend=\"", "off")
+                
             if self.cblocks.get_active():
                 Functions.neofetch_set_backend_value(lines, i, "color_blocks=\"", "on")
             else:

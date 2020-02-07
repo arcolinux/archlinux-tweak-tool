@@ -416,8 +416,14 @@ class Main(Gtk.Window):
             backend = "ascii"
             emblem = ""
 
-            if not self.big_ascii.get_active():
+            if not self.big_ascii.get_active() and not self.off_ascii.get_active():
                 small_ascii = "arcolinux_small"
+                backend = "ascii"
+            elif not self.small_ascii.get_active() and not self.off_ascii.get_active():
+                backend = "ascii"
+            
+            else:
+                backend = "off"
 
         neofetch.apply_config(self, backend, emblem, small_ascii)
 
