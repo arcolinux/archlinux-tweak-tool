@@ -56,7 +56,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
     #                   TAB #0 WELCOME
     # ==========================================================
-    Welcome_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, welcome, Functions)
+    # Welcome_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, welcome, Functions)
     # ==========================================================
     #                   TAB #1 PACMAN
     # ==========================================================
@@ -111,7 +111,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
-    stack.add_titled(vboxStack10, "stack0", "Welcome")
+    # stack.add_titled(vboxStack10, "stack0", "Welcome")
 
     if Functions.file_check(Functions.pacman):
         stack.add_titled(vboxStack1, "stack1", "Pacman Config")
