@@ -10,6 +10,7 @@ import oblogout
 import termite
 import neofetch
 import skelapp
+import welcome
 
 #=============GUI=================
 import Termite_GUI
@@ -21,6 +22,7 @@ import HBlock_GUI
 import Pacman_GUI
 import GTK_GUI
 import SkelApp_GUI
+import Welcome_GUI
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
@@ -49,7 +51,12 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack7 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
+    # ==========================================================
+    #                   TAB #0 WELCOME
+    # ==========================================================
+    Welcome_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, welcome, Functions)
     # ==========================================================
     #                   TAB #1 PACMAN
     # ==========================================================
@@ -104,6 +111,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
+    stack.add_titled(vboxStack10, "stack0", "Welcome")
+
     if Functions.file_check(Functions.pacman):
         stack.add_titled(vboxStack1, "stack1", "Pacman Config")
 
