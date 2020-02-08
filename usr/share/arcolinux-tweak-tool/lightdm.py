@@ -11,7 +11,7 @@ def check_lightdm(lists, value):
     return val
     # comman = Functions.check_lightdm_value(lines[Functions.get_lightdm(lines):], "autologin-user=")
             
-def set_lightdm_value(lists, value, session, state):
+def set_lightdm_value(self, lists, value, session, state):
     try:
         pos = Functions._get_position(lists, "autologin-user=")
         pos_session = Functions._get_position(lists, "autologin-session=")
@@ -28,10 +28,10 @@ def set_lightdm_value(lists, value, session, state):
             f.writelines(lists)
             f.close()
 
-        GLib.idle_add(Functions.MessageBox,"Success!!", "Settings applied successfully")
+        GLib.idle_add(Functions.MessageBox,self, "Success!!", "Settings applied successfully")
     except Exception as e:
         print(e)
-        Functions.MessageBox("Failed!!", "There seems to have been a problem in \"set_lightdm_value\"")
+        Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_lightdm_value\"")
 
 
 def get_lines(files):

@@ -162,31 +162,31 @@ class Main(Gtk.Window):
             if self.check_lock.get_active():
                 string += "lock "
 
-            oblogout.set_buttons(string.rstrip().lstrip().replace(" ", ", "))
-            oblogout.oblogout_change_theme(self.oblog.get_active_text())
-            oblogout.set_opacity(self.hscale.get_value())
-            oblogout.set_command("lock", self.lockBox.get_text())
-            oblogout.set_shorcut(
+            oblogout.set_buttons(self, string.rstrip().lstrip().replace(" ", ", "))
+            oblogout.oblogout_change_theme(self, self.oblog.get_active_text())
+            oblogout.set_opacity(self, self.hscale.get_value())
+            oblogout.set_command(self, "lock", self.lockBox.get_text())
+            oblogout.set_shorcut(self, 
                 "shutdown", self.tbshutdown.get_text().capitalize())
-            oblogout.set_shorcut(
+            oblogout.set_shorcut(self, 
                 "restart", self.tbrestart.get_text().capitalize())
-            oblogout.set_shorcut(
+            oblogout.set_shorcut(self, 
                 "suspend", self.tbsuspend.get_text().capitalize())
-            oblogout.set_shorcut(
+            oblogout.set_shorcut(self, 
                 "logout", self.tblogout.get_text().capitalize())
-            oblogout.set_shorcut(
+            oblogout.set_shorcut(self, 
                 "cancel", self.tbcancel.get_text().capitalize())
-            oblogout.set_shorcut(
+            oblogout.set_shorcut(self, 
                 "hibernate", self.tbhibernate.get_text().capitalize())
-            oblogout.set_shorcut("lock", self.tblock.get_text().capitalize())
+            oblogout.set_shorcut(self, "lock", self.tblock.get_text().capitalize())
             hex = Functions.rgb_to_hex(
                 self.colorchooser.get_rgba().to_string())
-            oblogout.set_color(hex.upper())
+            oblogout.set_color(self, hex.upper())
 
-            Functions.MessageBox("Success!!", "Settings Saved Successfully")
+            Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
             # widget.set_sensitive(True)
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
     # =====================================================
     #               Gtk FUNCTIONS
@@ -198,7 +198,7 @@ class Main(Gtk.Window):
         t.daemon = True
         t.start()
 
-        Functions.MessageBox("Success!!", "Settings Saved Successfully")
+        Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
         widget.set_sensitive(True)
 
 
@@ -279,7 +279,7 @@ class Main(Gtk.Window):
     #                       GRUB
     #====================================================================
     def on_set_grub_wallpaper(self, widget):
-        Functions.set_grub_wallpaper(self.grub_theme_combo.get_active_text())
+        Functions.set_grub_wallpaper(self, self.grub_theme_combo.get_active_text())
 
     def on_reset_grub_wallpaper(self, widget):
         if os.path.isfile(Functions.grub_theme_conf + ".bak"):
@@ -359,7 +359,7 @@ class Main(Gtk.Window):
     def on_slim_apply(self, widget):
         if not os.path.isfile(Functions.slimlock_conf + ".bak"):
             Functions.shutil.copy(Functions.slimlock_conf, Functions.slimlock_conf + ".bak")
-        slim.set_slimlock(self.slimbox.get_active_text())
+        slim.set_slimlock(self, self.slimbox.get_active_text())
 
 
 
@@ -424,9 +424,9 @@ class Main(Gtk.Window):
                 Functions.shutil.rmtree(path + self.slimbox.get_active_text())
                 slim.remove_theme(self.slimbox.get_active_text())
                 slim.reload_import(self.slimbox, "arcolinux_eyes")
-                Functions.MessageBox("Success!!", "Settings Saved Successfully")
+                Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
             else:
-                Functions.MessageBox("Error!!", "Sorry thats our default theme")
+                Functions.MessageBox(self, "Error!!", "Sorry thats our default theme")
         except Exception as e:
             print(e)
 
@@ -436,7 +436,7 @@ class Main(Gtk.Window):
 
     def on_term_apply(self, widget):
         widget.set_sensitive(False)
-        termite.set_config(self.term_themes.get_active_text())
+        termite.set_config(self, self.term_themes.get_active_text())
         widget.set_sensitive(True)
 
     def on_term_reset(self, widget):
@@ -526,7 +526,7 @@ class Main(Gtk.Window):
         if not Functions.os.path.isfile(Functions.lightdm_conf + ".bak"):
             Functions.shutil.copy(Functions.lightdm_conf, Functions.lightdm_conf + ".bak")
 
-        t1 = Functions.threading.Thread(target=lightdm.set_lightdm_value, args=(lightdm.get_lines(Functions.lightdm_conf), 
+        t1 = Functions.threading.Thread(target=lightdm.set_lightdm_value, args=(self, lightdm.get_lines(Functions.lightdm_conf), 
             Functions.sudo_username, self.sessions.get_active_text(), self.autologin.get_active()))
         t1.daemon = True
         t1.start()

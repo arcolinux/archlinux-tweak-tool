@@ -159,7 +159,7 @@ def apply_config(self, backend, emblem, ascii_size):
         with open(Functions.neofetch_config, "w") as f:
             f.writelines(lines)
             f.close()
-        Functions.MessageBox("Success!!", "Settings Saved Successfully")
+        Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
         # except:
         #     pass
 

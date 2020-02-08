@@ -85,7 +85,7 @@ def remove_theme(name):
     except Exception as e:
         print(e)
 
-def set_slimlock(theme):
+def set_slimlock(self, theme):
     if not os.path.isfile(Functions.slimlock_conf + ".bak"):
         Functions.shutil.copy(Functions.slimlock_conf, Functions.slimlock_conf + ".bak")
 
@@ -115,7 +115,7 @@ def set_slimlock(theme):
     with open(Functions.slimlock_conf, 'w') as f:
         f.writelines(lines)
         f.close()
-    Functions.MessageBox("Success!!", "Settings Saved Successfully")
+    Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
     # print(lines)
     # except:
-    #     MessageBox("ERROR!!", "An error has occured setting this setting \'oblogout_change_theme\'")
+    #     MessageBox(self, "ERROR!!", "An error has occured setting this setting \'oblogout_change_theme\'")

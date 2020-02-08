@@ -18,7 +18,7 @@ def get_shortcut(value):
             shortcut = [shortcu[0].lstrip().rstrip().replace(" ", "")][0].split("=")
         return shortcut[1]
 
-def set_shorcut(value, value_sk):
+def set_shorcut(self, value, value_sk):
     if os.path.isfile(Functions.oblogout_conf):
         with open(Functions.oblogout_conf, 'r') as f:
             lines = f.readlines()
@@ -40,7 +40,7 @@ def set_shorcut(value, value_sk):
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox("ERROR!!", "An error has occured setting this setting \'set_shorcut\'")
+            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_shorcut\'")
 
 def oblog_populate(combo):
     if os.path.isfile(Functions.oblogout_conf):
@@ -65,7 +65,7 @@ def oblog_populate(combo):
             if(coms[i] == active):
                 combo.set_active(i)
 
-def oblogout_change_theme(theme):
+def oblogout_change_theme(self, theme):
     if os.path.isfile(Functions.oblogout_conf):
         with open(Functions.oblogout_conf, 'r') as f:
                 lines = f.readlines()
@@ -88,7 +88,7 @@ def oblogout_change_theme(theme):
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox("ERROR!!", "An error has occured setting this setting \'oblogout_change_theme\'")
+            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'oblogout_change_theme\'")
 
 def get_opacity():
     if os.path.isfile(Functions.oblogout_conf):
@@ -103,7 +103,7 @@ def get_opacity():
             opacity = Functions._get_variable(lines, "opacity")
         return int(opacity[1].split(".")[0])
 
-def set_opacity(value):
+def set_opacity(self, value):
     if os.path.isfile(Functions.oblogout_conf):
         with open(Functions.oblogout_conf, 'r') as f:
             lines = f.readlines()
@@ -121,9 +121,9 @@ def set_opacity(value):
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox("ERROR!!", "An error has occured setting this setting \'set_opacity\'")
+            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_opacity\'")
 
-def set_buttons(value):
+def set_buttons(self, value):
     if os.path.isfile(Functions.oblogout_conf):
         with open(Functions.oblogout_conf, 'r') as f:
             lines = f.readlines()
@@ -140,7 +140,7 @@ def set_buttons(value):
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox("ERROR!!", "An error has occured setting this setting \'set_buttons\'")
+            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_buttons\'")
 
 def get_buttons():
     buttons = "You do not have oblogout.conf"
@@ -175,7 +175,7 @@ def get_command(value):
         # command[1] = command1[:1].replace(' ', '')
         return command[1]
 
-def set_command(value, value_sk):
+def set_command(self, value, value_sk):
     if os.path.isfile(Functions.oblogout_conf):
         with open(Functions.oblogout_conf, 'r') as f:
             lines = f.readlines()
@@ -194,7 +194,7 @@ def set_command(value, value_sk):
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox("ERROR!!", "An error has occured setting this setting \'set_command\'")
+            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_command\'")
 
 def get_color():
     color = ""
@@ -207,7 +207,7 @@ def get_color():
             f.close()
     return color
 
-def set_color(color):
+def set_color(self, color):
     if os.path.isfile(Functions.oblogout_conf):
         with open(Functions.oblogout_conf, 'r') as f:
             lines = f.readlines()
@@ -224,4 +224,4 @@ def set_color(color):
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox("ERROR!!", "An error has occured setting this setting \'set_color\'")
+            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_color\'")

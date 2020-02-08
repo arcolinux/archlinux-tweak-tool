@@ -68,8 +68,8 @@ def source_shell(self):
 #=====================================================
 #               MESSAGEBOX
 #=====================================================
-def MessageBox(title, message):
-    md2 = Gtk.MessageDialog(parent=None, flags=0, message_type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK, text=title)
+def MessageBox(self, title, message):
+    md2 = Gtk.MessageDialog(parent=self, flags=0, message_type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK, text=title)
     md2.format_secondary_markup(message)
     md2.run()
     md2.destroy()
@@ -159,6 +159,7 @@ def append_repo(self, text):
     with open(pacman, "a") as myfile:
         myfile.write("\n\n")
         myfile.write(text)
+    MessageBox(self, "Success!!", "Settings applied successfully")
 
 def check_repo(value):
     with open(pacman, "r") as myfile:
@@ -169,7 +170,7 @@ def check_repo(value):
         if "#" + value in line:
             return False
     return True
-def toggle_test_repos(state, widget):
+def toggle_test_repos(self, state, widget):
 #     authority.check_authorization(subject, action_id, None, Polkit.CheckAuthorizationFlags.ALLOW_USER_INTERACTION, cancellable, set_test_repos, None, state, widget)
 
 # def set_test_repos(authority, res, loop, state, widget):
@@ -213,7 +214,7 @@ def toggle_test_repos(state, widget):
                 f.close()
         except Exception as e:
             print(e)
-            MessageBox("ERROR!!", "An error has occured setting this setting \'toggle_test_repos On\'")
+            MessageBox(self, "ERROR!!", "An error has occured setting this setting \'toggle_test_repos On\'")
     else:
         with open(pacman, 'r') as f:
             lines = f.readlines()
@@ -255,7 +256,7 @@ def toggle_test_repos(state, widget):
                 f.writelines(lines)
                 f.close()
         except:
-            MessageBox("ERROR!!", "An error has occured setting this setting \'toggle_test_repos Off\'")
+            MessageBox(self, "ERROR!!", "An error has occured setting this setting \'toggle_test_repos Off\'")
 
 #=====================================================
 #               OBLOGOUT CONF
@@ -361,7 +362,7 @@ def set_hblock(self, toggle, state):
         GLib.idle_add(self.label7.set_text,"Idle ...")
         print("Complete")
     except Exception as e:
-        MessageBox("ERROR!!", str(e))
+        MessageBox(self, "ERROR!!", str(e))
         print(e)
         
 
@@ -379,7 +380,7 @@ def get_grub_wallpapers():
         new_list.sort()
         return new_list
 
-def set_grub_wallpaper(image):
+def set_grub_wallpaper(self, image):
     if os.path.isfile(grub_theme_conf):
         if not os.path.isfile(grub_theme_conf + ".bak"):
             shutil.copy(grub_theme_conf, grub_theme_conf + ".bak")
@@ -395,7 +396,7 @@ def set_grub_wallpaper(image):
                 f.writelines(lists)
                 f.close()
             
-            MessageBox("Success!!", "Settings Saved Successfully")
+            MessageBox(self, "Success!!", "Settings Saved Successfully")
         except:
             pass
 

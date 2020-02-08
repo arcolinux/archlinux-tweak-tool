@@ -54,7 +54,7 @@ def get_config():
         return lists[:target_index]
     return []
 
-def set_config(theme):
+def set_config(self, theme):
     if not os.path.isfile(Functions.termite_config + ".bak"):
         Functions.shutil.copy(Functions.termite_config, Functions.termite_config + ".bak")
 
@@ -72,11 +72,11 @@ def set_config(theme):
                 f.writelines(list(configs))
                 f.close()
 
-            Functions.MessageBox("Success!!", "Settings Saved Successfully")
+            Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
         if Functions.os.path.isfile(Functions.config):
             Settings.write_settings("TERMITE", "theme", theme)
 
     except:
-        Functions.MessageBox("Error!!", "Something went wrong setting this theme.")
+        Functions.MessageBox(self, "Error!!", "Something went wrong setting this theme.")
 
 
