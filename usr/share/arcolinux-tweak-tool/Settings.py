@@ -4,9 +4,9 @@
 
 import configparser
 import os
-from Functions import home
+from Functions import home, config
 
-settings = home + "/.config/arcolinux-tweak-tool/settings.conf"
+settings = config
 
 def make_file(section, key):
     config = configparser.ConfigParser()
@@ -14,11 +14,11 @@ def make_file(section, key):
     with open(settings, 'w') as configfile:
         config.write(configfile)
 
-def write_settings(section, key):
+def write_settings(section, key, value):
     config = configparser.ConfigParser()
     config.read(settings)
 
-    config[section] = key
+    config[section][key] = value
     with open(settings, 'w') as configfile:
         config.write(configfile)
 

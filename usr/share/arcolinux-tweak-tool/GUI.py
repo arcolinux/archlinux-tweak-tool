@@ -164,10 +164,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.2.36</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.2.37</span>")
 
-    # self.lbl_desktop = Gtk.Label(xalign=0)
-    # self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop +"</span>")
+    self.lbl_desktop = Gtk.Label(xalign=0)
+    self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop +"</span>")
 
     # =====================================================
     #               PATREON LINK
@@ -190,13 +190,18 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     #                      PACKS
     # =====================================================
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
+    hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     
-    hbox1.pack_start(pE, False, False, 0)
-    hbox1.pack_end(version, False, False, 0)
+    
+    hbox1.pack_end(self.lbl_desktop, False, False, 0)
+
+    hbox2.pack_start(pE, False, False, 0)
+    hbox2.pack_end(version, False, False, 0)
     
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
     ivbox.pack_start(hbox1, False, False, 0)
+    ivbox.pack_start(hbox2, False, False, 0)
 
     hbox.pack_start(ivbox, False, True, 0)
     hbox.pack_start(stack, True, True, 0)

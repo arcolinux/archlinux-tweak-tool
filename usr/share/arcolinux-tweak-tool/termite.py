@@ -3,7 +3,7 @@
 #=================================================================
 import Functions
 import numpy as np 
-
+import Settings
 from Functions import os
 #====================================================================
 #                       TERMITE
@@ -27,6 +27,11 @@ def get_themes(combo):
                 coms.append(theme.replace(".config", ""))
         
         coms.sort()
+
+        if Functions.os.path.isfile(Functions.config):
+            themes = Settings.read_settings("TERMITE", "theme")
+            if len(themes) > 1:
+                active = themes
 
         for i in range(len(coms)):
             combo.append_text(coms[i])
@@ -68,6 +73,9 @@ def set_config(theme):
                 f.close()
 
             Functions.MessageBox("Success!!", "Settings Saved Successfully")
+        if Functions.os.path.isfile(Functions.config):
+            Settings.write_settings("TERMITE", "theme", theme)
+
     except:
         Functions.MessageBox("Error!!", "Something went wrong setting this theme.")
 

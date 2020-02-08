@@ -9,6 +9,7 @@ import time
 import subprocess
 import threading
 import gi
+import configparser
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk, Gdk
 
@@ -27,7 +28,7 @@ termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
 lightdm_conf = "/etc/lightdm/lightdm.conf"
 bd = ".att_Backups"
-
+config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 desktop = ""
 
 
@@ -430,6 +431,8 @@ def get_desktop(self):
     
     # return dsk[len(dsk)-1].lstrip().rstrip()
     self.desktop = dsk[len(dsk)-1].lstrip().rstrip()
+    print("Desktop: " + self.desktop)
+    
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop.capitalize() +"</span>")
 
 def copytree(self, src, dst, symlinks=False, ignore=None):

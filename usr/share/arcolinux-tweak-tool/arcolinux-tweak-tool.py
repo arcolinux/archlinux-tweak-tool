@@ -6,6 +6,7 @@
 import gi
 # import webbrowser
 import Functions
+import Settings
 import slim
 import Gtk_Functions
 import oblogout
@@ -36,23 +37,46 @@ class Main(Gtk.Window):
         self.firstrun = True
         self.desktop = ""
 
-        if not os.path.isdir(Functions.home + "/" +  Functions.bd):
+        if not Functions.os.path.isdir(Functions.home + "/" +  Functions.bd):
             try:
-                os.makedirs(Functions.home + "/" + Functions.bd, 0o777)
-                original_umask = os.umask(0)
+                Functions.os.makedirs(Functions.home + "/" + Functions.bd, 0o766)
+                original_umask = Functions.os.umask(0)
                 calls = Functions.subprocess.run(["sh", "-c", "cat /etc/passwd | grep " + Functions.sudo_username], shell=False, stdout=Functions.subprocess.PIPE, stderr=Functions.subprocess.STDOUT)
                 id = calls.stdout.decode().split(":")[3].strip()
-                os.chown(Functions.home + "/" +  Functions.bd, int(id), int(id))
+                Functions.os.chown(Functions.home + "/" +  Functions.bd, int(id), int(id))
             finally:
-                os.umask(original_umask)
+                Functions.os.umask(original_umask)
+
+        if not Functions.os.path.isdir(Functions.home + "/.config/arcolinux-tweak-tool"):
+            try:
+                Functions.os.makedirs(Functions.home + "/.config/arcolinux-tweak-tool", 0o766)
+                original_umask = Functions.os.umask(0)
+                calls = Functions.subprocess.run(["sh", "-c", "cat /etc/passwd | grep " + Functions.sudo_username], shell=False, stdout=Functions.subprocess.PIPE, stderr=Functions.subprocess.STDOUT)
+                id = calls.stdout.decode().split(":")[3].strip()
+                Functions.os.chown(Functions.home + "/.config/arcolinux-tweak-tool", int(id), int(id))
+            finally:
+                Functions.os.umask(original_umask)
 
             # os.mkdir(Functions.home + "/.ATT_Backups")
 
+        
+        if not Functions.os.path.isfile(Functions.config):
+            key = {"theme": ""}
+            Settings.make_file("TERMITE", key)
+            try:
+                original_umask = Functions.os.umask(0)
+                calls = Functions.subprocess.run(["sh", "-c", "cat /etc/passwd | grep " + Functions.sudo_username], shell=False, stdout=Functions.subprocess.PIPE, stderr=Functions.subprocess.STDOUT)
+                id = calls.stdout.decode().split(":")[3].strip()
+                Functions.os.chown(Functions.config, int(id), int(id))
+                Functions.os.chmod(Functions.config, 0o766)
+            finally:
+                Functions.os.umask(original_umask)
+
         GUI.GUI(self, Gtk, Functions.Gdk, GdkPixbuf, base_dir, os)
 
-        # t = Functions.threading.Thread(target=Functions.get_desktop, args=(self,))
-        # t.daemon = True
-        # t.start()
+        t = Functions.threading.Thread(target=Functions.get_desktop, args=(self,))
+        t.daemon = True
+        t.start()
 
         arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
         multi_testing = Functions.check_repo("[multilib-testing]")
