@@ -44,10 +44,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
     label12.set_markup("Images need to be in <b>.png</b>")
 
     label10 = Gtk.Label()
-    label10.set_text("Select Wallpaper")
+    label10.set_text("Select wallpaper")
 
     label11 = Gtk.Label()
-    label11.set_text("Theme Name      ")
+    label11.set_text("Theme name      ")
 
     self.slimtheme = Gtk.Entry()
     self.slimtext = Gtk.Entry()
