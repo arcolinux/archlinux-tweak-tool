@@ -491,6 +491,7 @@ class Main(Gtk.Window):
             else:
                 self.w3m.set_active(True)
 
+            neofetch.get_checkboxes(self)
 
     def on_elmblem_changed(self, widget):
         path = Functions.home + "/.config/neofetch/" + widget.get_active_text()
