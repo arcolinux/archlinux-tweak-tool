@@ -25,11 +25,33 @@ import SkelApp_GUI
 import Lightdm_GUI
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
+    #=======================================================
+    #                       App Notifications
+    #=======================================================
+    hbox0 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
+    self.notification_revealer = Gtk.Revealer()
+    self.notification_revealer.set_reveal_child(False)
+
+    self.notification_label = Gtk.Label()
+    
+    pb_panel = GdkPixbuf.Pixbuf().new_from_file(base_dir + '/images/panel.png')
+    panel = Gtk.Image().new_from_pixbuf(pb_panel)
+
+    overlayFrame = Gtk.Overlay()
+    overlayFrame.add(panel)
+    overlayFrame.add_overlay(self.notification_label)
+
+    self.notification_revealer.add(overlayFrame)
+    
+    hbox0.pack_start(self.notification_revealer, True, False, 0)
+    
     # ==========================================================
     #                       CONTAINER
     # ==========================================================
     # grid = Gtk.Grid()
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+    vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
     vbox.pack_start(hbox, True, True, 0)
@@ -185,7 +207,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     pE.connect("query-tooltip", self.tooltip_callback, "Support BradHeff on Patreon")
 
-    
+
     # =====================================================
     #                      PACKS
     # =====================================================
@@ -203,8 +225,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     ivbox.pack_start(hbox1, False, False, 0)
     ivbox.pack_start(hbox2, False, False, 0)
 
+    vbox1.pack_start(hbox0, False, False, 0)
+    vbox1.pack_start(stack, True, True, 0)
+    
     hbox.pack_start(ivbox, False, True, 0)
-    hbox.pack_start(stack, True, True, 0)
+    hbox.pack_start(vbox1, True, True, 0)
     
     stack.set_hhomogeneous(False)
     stack.set_vhomogeneous(False)

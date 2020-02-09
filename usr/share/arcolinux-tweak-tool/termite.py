@@ -72,7 +72,8 @@ def set_config(self, theme):
                 f.writelines(list(configs))
                 f.close()
 
-            Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
+            # Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
+            Functions.show_in_app_notification(self, "Settings Saved Successfully")
         if Functions.os.path.isfile(Functions.config):
             Settings.write_settings("TERMITE", "theme", theme)
 

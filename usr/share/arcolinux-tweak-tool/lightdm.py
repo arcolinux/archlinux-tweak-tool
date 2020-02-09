@@ -28,7 +28,9 @@ def set_lightdm_value(self, lists, value, session, state):
             f.writelines(lists)
             f.close()
 
-        GLib.idle_add(Functions.MessageBox,self, "Success!!", "Settings applied successfully")
+        GLib.idle_add(Functions.show_in_app_notification,self, "Settings Saved Successfully")
+
+        # GLib.idle_add(Functions.MessageBox,self, "Success!!", "Settings applied successfully")
     except Exception as e:
         print(e)
         Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_lightdm_value\"")

@@ -115,7 +115,8 @@ def set_slimlock(self, theme):
     with open(Functions.slimlock_conf, 'w') as f:
         f.writelines(lines)
         f.close()
-    Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
+    Functions.show_in_app_notification(self, "Settings Saved Successfully")
+    # Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
     # print(lines)
     # except:
     #     MessageBox(self, "ERROR!!", "An error has occured setting this setting \'oblogout_change_theme\'")

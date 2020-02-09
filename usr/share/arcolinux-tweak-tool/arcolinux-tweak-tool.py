@@ -36,6 +36,7 @@ class Main(Gtk.Window):
         self.opened = True
         self.firstrun = True
         self.desktop = ""
+        self.timeout_id = None
 
         if not Functions.os.path.isdir(Functions.home + "/" +  Functions.bd):
             try:
@@ -90,7 +91,7 @@ class Main(Gtk.Window):
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
                 f.write("")
-
+        Functions.show_in_app_notification(self, "Config Applied Successfully")
     def on_close(self, widget, data):
         os.unlink("/tmp/att.lock")
         Gtk.main_quit()
@@ -183,7 +184,9 @@ class Main(Gtk.Window):
                 self.colorchooser.get_rgba().to_string())
             oblogout.set_color(self, hex.upper())
 
-            Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
+            Functions.show_in_app_notification(self, "Settings Saved Successfully")
+
+            # Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
             # widget.set_sensitive(True)
         except Exception as e:
             print(e)
@@ -198,7 +201,9 @@ class Main(Gtk.Window):
         t.daemon = True
         t.start()
 
-        Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
+        Functions.show_in_app_notification(self, "Settings Saved Successfully")
+
+        # Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
         widget.set_sensitive(True)
 
 
@@ -424,7 +429,9 @@ class Main(Gtk.Window):
                 Functions.shutil.rmtree(path + self.slimbox.get_active_text())
                 slim.remove_theme(self.slimbox.get_active_text())
                 slim.reload_import(self.slimbox, "arcolinux_eyes")
-                Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
+                Functions.show_in_app_notification(self, "Settings Saved Successfully")
+
+                # Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
             else:
                 Functions.MessageBox(self, "Error!!", "Sorry thats our default theme")
         except Exception as e:

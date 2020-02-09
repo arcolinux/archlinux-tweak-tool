@@ -32,6 +32,30 @@ config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 desktop = ""
 
 
+
+#=====================================================
+#               NOTIFICATIONS
+#=====================================================
+def show_in_app_notification(self, message):
+    if self.timeout_id != None:
+        GLib.source_remove(self.timeout_id)
+        self.timeout_id = None
+        
+    self.notification_label.set_text(message)
+    self.notification_revealer.set_reveal_child(True)
+    self.timeout_id = GLib.timeout_add(3000, timeOut, self)
+
+def timeOut(self):
+    close_in_app_notification(self)
+
+def close_in_app_notification(self):
+    self.notification_revealer.set_reveal_child(False)
+    GLib.source_remove(self.timeout_id)
+    self.timeout_id = None
+
+#=====================================================
+#               PERMISSIONS
+#=====================================================
 def permissions(dst):
     try:
         original_umask = os.umask(0)
@@ -159,7 +183,10 @@ def append_repo(self, text):
     with open(pacman, "a") as myfile:
         myfile.write("\n\n")
         myfile.write(text)
-    MessageBox(self, "Success!!", "Settings applied successfully")
+
+    show_in_app_notification(self, "Settings Saved Successfully")
+
+    # MessageBox(self, "Success!!", "Settings applied successfully")
 
 def check_repo(value):
     with open(pacman, "r") as myfile:
@@ -396,7 +423,8 @@ def set_grub_wallpaper(self, image):
                 f.writelines(lists)
                 f.close()
             
-            MessageBox(self, "Success!!", "Settings Saved Successfully")
+            show_in_app_notification(self, "Settings Saved Successfully")
+            # MessageBox(self, "Success!!", "Settings Saved Successfully")
         except:
             pass
 
