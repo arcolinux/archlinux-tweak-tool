@@ -462,6 +462,9 @@ class Main(Gtk.Window):
         if os.path.isfile(Functions.termite_config + ".bak"):
             Functions.shutil.copy(Functions.termite_config + ".bak", Functions.termite_config)
             Functions.show_in_app_notification(self, "Default Settings Applied")
+            if Functions.os.path.isfile(Functions.config):
+                Settings.write_settings("TERMITE", "theme", '')
+                termite.get_themes(self.term_themes)
 
     #====================================================================
     #                       NEOFETCH CONFIG

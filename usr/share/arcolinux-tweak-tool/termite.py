@@ -11,7 +11,7 @@ from Functions import os
 def get_themes(combo):
     if os.path.isdir(Functions.home + "/.config/termite/themes/"):
         themes = os.listdir(Functions.home + "/.config/termite/themes/")
-        
+        combo.get_model().clear()
         with open(Functions.termite_config, "r") as f:
             lines = f.readlines()
             f.close()
