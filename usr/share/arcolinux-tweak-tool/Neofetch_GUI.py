@@ -112,7 +112,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     neofetch.get_checkboxes(self)
 
     label14 = Gtk.Label(xalign=0)
-    label14.set_markup("<b>Tip:</b> To display an image you need to install w3m.")
+    label14.set_markup("<b>Tip:</b> We use w3m to display an image.")
 
     hbox22.pack_start(self.w3m, True, False, 10)
     hbox22.pack_end(self.off, True, False, 10)
