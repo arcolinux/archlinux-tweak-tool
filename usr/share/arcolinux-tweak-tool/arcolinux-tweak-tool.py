@@ -397,7 +397,7 @@ class Main(Gtk.Window):
     def on_slim_theme_change(self, widget, image):
         try:
             path = '/usr/share/slim/themes/' + widget.get_active_text()
-            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 245, 245)
+            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 345, 345)
             self.image2.set_from_pixbuf(pixbuf4)
         except:
             pass
@@ -420,7 +420,7 @@ class Main(Gtk.Window):
     def open_response_slim(self, dialog, response):
         if response == Gtk.ResponseType.OK:
             self.slimtext.set_text(dialog.get_filename())
-            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(self.slimtext.get_text(), 245, 245)
+            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(self.slimtext.get_text(), 345, 345)
             self.image5.set_from_pixbuf(pixbuf4)
             dialog.destroy()
         elif response == Gtk.ResponseType.CANCEL:

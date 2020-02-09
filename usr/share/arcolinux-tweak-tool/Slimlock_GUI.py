@@ -26,7 +26,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
     try:
         path = '/usr/share/slim/themes/' + self.slimbox.get_active_text()
 
-        pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 245, 245)
+        pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 345, 345)
         self.image2.set_from_pixbuf(pixbuf4)
 
     except:
@@ -41,7 +41,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
     self.slimbox.connect("changed", self.on_slim_theme_change, self.image2)
 
     label12 = Gtk.Label()
-    label12.set_markup("Images are to be in <b>.png</b>")
+    label12.set_markup("Images need to be in <b>.png</b>")
 
     label10 = Gtk.Label()
     label10.set_text("Select Wallpaper")
