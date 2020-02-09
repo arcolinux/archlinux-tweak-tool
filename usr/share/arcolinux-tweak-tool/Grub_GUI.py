@@ -25,7 +25,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     self.image = Gtk.Image()
 
     try:
-        pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text(), 345, 345)
+        pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text(), 745, 745)
         self.image.set_from_pixbuf(pixbuf3)
     except:
         pass
