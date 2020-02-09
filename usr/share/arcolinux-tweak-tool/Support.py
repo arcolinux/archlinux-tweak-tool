@@ -9,9 +9,10 @@ base_dir = os.path.dirname(os.path.realpath(__file__))
 class Support(Gtk.Dialog):
 
     def __init__(self, parent):
-        Gtk.Dialog.__init__(self, "My Dialog", parent, 0)
+        Gtk.Dialog.__init__(self, "Credits - Support Development", parent, 0)
         # self.add_buttons(Gtk.STOCK_OK,Gtk.ResponseType.OK)
-        self.set_default_size(350, 200)
+        
+        self.set_default_size(550, 200)
         
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
@@ -23,9 +24,9 @@ class Support(Gtk.Dialog):
         
         label = Gtk.Label()
         label.set_line_wrap(True)
-        label.set_markup("Big thank you to Brad Heffernan and also to krive for his input at the beginning of this project.")
-
-        spacer = Gtk.Label()
+        label.set_markup("Big thank you to our developers for there work on this project.\n\
+Brad Heffernan is the driving force aka developer behind the ArcoLinux Tweak Tool. \n\
+with Krisztian Veress and Erik Dubois")
 
         label2 = Gtk.Label()
         label2.set_markup("Support Brad on patreon")
@@ -33,6 +34,7 @@ class Support(Gtk.Dialog):
         #               PATREON LINK
         # =====================================================
         pE = Gtk.EventBox()
+        ppE = Gtk.EventBox()
 
         pbp = GdkPixbuf.Pixbuf().new_from_file_at_size(
             os.path.join(base_dir, 'images/patreon.png'), 30, 30)
@@ -49,14 +51,29 @@ class Support(Gtk.Dialog):
 
         pE.connect("query-tooltip", self.tooltip_callback, "Support BradHeff on Patreon")
 
-        hbox.pack_start(label, True, True, 0)
         
-        hbox1.pack_end(pE, False, False, 0)
-        hbox1.pack_start(label2, False, False, 0)
+
+        pbpp = GdkPixbuf.Pixbuf().new_from_file_at_size(
+            os.path.join(base_dir, 'images/paypal.png'), 30, 30)
+        ppimage = Gtk.Image().new_from_pixbuf(pbpp)
+
+        ppE.add(ppimage)
+
+        ppE.connect("button_press_event", self.on_support_click, "https://PayPal.Me/heffserver")
+        ppE.set_property("has-tooltip", True)
+
+        ppE.connect("query-tooltip", self.tooltip_callback, "Buy BradHeff a coffee")
+
+        hbox.pack_start(label, True, True, 10)
         
-        vbox.pack_start(logo_image, False, False, 0)
-        vbox.pack_start(hbox, True, True, 0)
-        vbox.pack_start(spacer, True, True, 0)
+        # https://www.paypal.com/paypalme/my/profile
+        hbox1.pack_start(label2, False, False, 10)
+        hbox1.pack_start(pE, False, False, 0)
+        hbox1.pack_start(ppE, False, False, 0)
+        
+        vbox.pack_start(logo_image, False, False, 10)
+        vbox.pack_start(hbox, True, True, 10)
+        # vbox.pack_start(spacer, True, True, 0)
         vbox.pack_end(hbox1, False, False, 0)
 
         self.show_all()
