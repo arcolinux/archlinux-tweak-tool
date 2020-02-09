@@ -52,8 +52,9 @@ def pop_box(combo):
     # pos = Functions._get_position(lines, "user-session=")
     name = check_lightdm(lines, "autologin-session=").split("=")[1]
 
+    coms.sort()
     for i in range(len(coms)):
-        excludes = ['gnome-classic', 'gnome-xorg', 'i3-with-shmlog', 'openbox-kde']
+        excludes = ['gnome-classic', 'gnome-xorg', 'i3-with-shmlog', 'openbox-kde', 'cinnamon2d']
         if not coms[i] in excludes:
             combo.append_text(coms[i])
             if name in coms[i]:
