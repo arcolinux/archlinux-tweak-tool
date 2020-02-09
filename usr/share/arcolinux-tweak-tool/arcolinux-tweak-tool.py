@@ -121,15 +121,15 @@ class Main(Gtk.Window):
 
     def on_pacman_toggle(self, widget, active):
         if self.opened == False:
-            Functions.toggle_test_repos(widget.get_active(), "arco")
+            Functions.toggle_test_repos(self, widget.get_active(), "arco")
 
     def on_pacman_toggle2(self, widget, active):
         if self.opened == False:
-            Functions.toggle_test_repos(widget.get_active(), "arch")
+            Functions.toggle_test_repos(self, widget.get_active(), "arch")
 
     def on_pacman_toggle3(self, widget, active):
         if self.opened == False:
-            Functions.toggle_test_repos(widget.get_active(), "multilib")
+            Functions.toggle_test_repos(self, widget.get_active(), "multilib")
 
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
@@ -211,7 +211,16 @@ class Main(Gtk.Window):
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
 
-        if filez == Functions.gtk3_settings:
+        if filez == Functions.pacman:
+            arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
+            multi_testing = Functions.check_repo("[multilib-testing]")
+            arch_testing = Functions.check_repo("[testing]")
+
+            self.checkbutton.set_active(arco_testing)
+            self.checkbutton2.set_active(arch_testing)
+            self.checkbutton3.set_active(multi_testing)
+            Functions.show_in_app_notification(self, "Default Settings Applied")
+        elif filez == Functions.gtk3_settings:
 
             if os.path.isfile(Functions.gtk2_settings + ".bak"):
                 Functions.shutil.copy(Functions.gtk2_settings + ".bak", Functions.gtk2_settings)
@@ -229,7 +238,7 @@ class Main(Gtk.Window):
             #     Gtk_Functions.get_gtk_settings("gtk-font-name"))
             Functions.subprocess.call(["xsetroot -xcf /usr/share/icons/" + self.cursorCombo.get_active_text(
             ) + "/cursors/left_ptr " + str(self.cursor_size.get_value())], shell=True)
-
+            Functions.show_in_app_notification(self, "Default Settings Applied")
         elif filez == Functions.oblogout_conf:
             self.oblog.get_model().clear()
             vals = oblogout.get_opacity()
@@ -265,7 +274,7 @@ class Main(Gtk.Window):
                 self.check_susp.set_active(True)
             if "hibernate" in btnString:
                 self.check_hiber.set_active(True)
-
+            Functions.show_in_app_notification(self, "Default Settings Applied")
 
     #====================================================================
     #                       HBlock
@@ -289,7 +298,8 @@ class Main(Gtk.Window):
     def on_reset_grub_wallpaper(self, widget):
         if os.path.isfile(Functions.grub_theme_conf + ".bak"):
             Functions.shutil.copy(Functions.grub_theme_conf + ".bak", Functions.grub_theme_conf)
-        self.pop_themes_grub(self.grub_theme_combo, Functions.get_grub_wallpapers())
+        self.pop_themes_grub(self.grub_theme_combo, Functions.get_grub_wallpapers(), True)
+        Functions.show_in_app_notification(self, "Default Settings Applied")
 
     def pop_themes_grub(self, combo, lists, start):
         if os.path.isfile(Functions.grub_theme_conf):
@@ -372,6 +382,7 @@ class Main(Gtk.Window):
         if os.path.isfile(Functions.slimlock_conf + ".bak"):
             Functions.shutil.copy(Functions.slimlock_conf + ".bak", Functions.slimlock_conf)
         slim.get_slimlock(self.slimbox)
+        Functions.show_in_app_notification(self, "Default Settings Applied")
 
     def on_slim_theme_change(self, widget, image):
         try:
@@ -450,7 +461,7 @@ class Main(Gtk.Window):
     def on_term_reset(self, widget):
         if os.path.isfile(Functions.termite_config + ".bak"):
             Functions.shutil.copy(Functions.termite_config + ".bak", Functions.termite_config)
-
+            Functions.show_in_app_notification(self, "Default Settings Applied")
 
     #====================================================================
     #                       NEOFETCH CONFIG
@@ -493,6 +504,7 @@ class Main(Gtk.Window):
                 self.w3m.set_active(True)
 
             neofetch.get_checkboxes(self)
+            Functions.show_in_app_notification(self, "Default Settings Applied")
 
     def on_elmblem_changed(self, widget):
         path = Functions.home + "/.config/neofetch/" + widget.get_active_text()
@@ -548,6 +560,8 @@ class Main(Gtk.Window):
             self.autologin.set_active(False)
         else:
             self.autologin.set_active(True)
+
+        Functions.show_in_app_notification(self, "Default Settings Applied")
     #====================================================================
     #                       SkelApp
     #====================================================================
