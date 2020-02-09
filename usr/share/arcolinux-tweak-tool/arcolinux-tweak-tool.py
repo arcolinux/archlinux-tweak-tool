@@ -322,7 +322,7 @@ class Main(Gtk.Window):
 
     def on_grub_theme_change(self, widget, image):
         try:
-            pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + widget.get_active_text(), 745, 745)
+            pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + widget.get_active_text(), 645, 645)
             self.image.set_from_pixbuf(pixbuf3)
         except:
             pass
