@@ -22,7 +22,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     else:
         self.autologin.set_active(True)
 
-    lightdm.pop_box(self.sessions)
+    lightdm.pop_box(self, self.sessions)
 
 
     apply = Gtk.Button(label="Apply Settings")

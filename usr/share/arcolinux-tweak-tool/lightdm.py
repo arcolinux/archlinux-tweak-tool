@@ -43,8 +43,10 @@ def get_lines(files):
             f.close()
         return lines
 
-def pop_box(combo):
+def pop_box(self, combo):
     coms = []
+    combo.get_model().clear()
+
     for items in Functions.os.listdir("/usr/share/xsessions/"):
         coms.append(items.split(".")[0].lower())
     lines = get_lines(Functions.lightdm_conf)
@@ -52,10 +54,14 @@ def pop_box(combo):
     # pos = Functions._get_position(lines, "user-session=")
     name = check_lightdm(lines, "autologin-session=").split("=")[1]
 
+    if name == "":
+        name = check_lightdm(lines, "user-session=").split("=")[1]
+    
     coms.sort()
     for i in range(len(coms)):
-        excludes = ['gnome-classic', 'gnome-xorg', 'i3-with-shmlog', 'openbox-kde', 'cinnamon2d']
+        excludes = ['gnome-classic', 'gnome-xorg', 'i3-with-shmlog', 'openbox-kde', 'cinnamon2d', '']
         if not coms[i] in excludes:
             combo.append_text(coms[i])
-            if name in coms[i]:
+            if name.lower() == coms[i].lower():
+                # print("Name = " + name)
                 combo.set_active(i)
