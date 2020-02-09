@@ -6,7 +6,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     #                       GRUB
     # ==========================================================
     label7 = Gtk.Label()
-    label7.set_text("Select a Wallpaper")
+    label7.set_text("Select a wallpaper")
 
     self.grub_theme_combo = Gtk.ComboBoxText()
     btnremove = Gtk.Button(label="Remove")
@@ -15,7 +15,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     wallpaper_list = Functions.get_grub_wallpapers()
     self.pop_themes_grub(self.grub_theme_combo, wallpaper_list, True)
 
-    label8 = Gtk.Label("Import Image")
+    label8 = Gtk.Label("Import image")
     self.tbimage = Gtk.Entry()
     btnsearch = Gtk.Button(label=". . .")
     btnsearch.connect("clicked", self.on_choose_wallpaper)

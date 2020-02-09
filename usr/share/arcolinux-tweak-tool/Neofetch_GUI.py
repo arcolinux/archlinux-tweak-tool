@@ -6,9 +6,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     #                     NEOFETCH
     # ==========================================================
     label13 = Gtk.Label()
-    label13.set_text("Select Image")
+    label13.set_text("Select image")
 
-    self.w3m = Gtk.RadioButton(label="Enable Image backend")
+    self.w3m = Gtk.RadioButton(label="Enable image backend")
     self.w3m.connect("toggled", self.radio_toggled)
     
     self.asci = Gtk.RadioButton.new_from_widget(self.w3m)

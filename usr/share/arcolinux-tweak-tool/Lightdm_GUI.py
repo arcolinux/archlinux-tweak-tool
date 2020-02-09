@@ -11,7 +11,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     label.set_text("Autologin")
     
     label1 = Gtk.Label(xalign=0)
-    label1.set_text("Desktop Session")
+    label1.set_text("Desktop session")
         
     self.autologin = Gtk.Switch()
 

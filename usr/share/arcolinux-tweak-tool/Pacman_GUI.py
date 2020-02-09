@@ -16,17 +16,17 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.checkbutton = Gtk.Switch()
     self.checkbutton.connect("notify::active", self.on_pacman_toggle)
     label1 = Gtk.Label(xalign=0)
-    label1.set_markup("Enable Arcolinux Test Repo")
+    label1.set_markup("Enable ArcoLinux test repo")
 
     self.checkbutton2 = Gtk.Switch()
     self.checkbutton2.connect("notify::active", self.on_pacman_toggle2)
     label3 = Gtk.Label(xalign=0)
-    label3.set_markup("Enable Arch Test Repo")
+    label3.set_markup("Enable Arch test repo")
 
     self.checkbutton3 = Gtk.Switch()
     self.checkbutton3.connect("notify::active", self.on_pacman_toggle3)
     label4 = Gtk.Label(xalign=0)
-    label4.set_markup("Enable Arch Multilib Test Repo")
+    label4.set_markup("Enable Arch multilib test repo")
 
     label2 = Gtk.Label(xalign=0)
     label2.set_markup("<b>Add custom repo to pacman.conf</b>")

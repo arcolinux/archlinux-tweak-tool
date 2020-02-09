@@ -6,7 +6,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
     #                       TAB #5 SLIMLOCK
     # ==========================================================
     label9 = Gtk.Label()
-    label9.set_text("Slimlock Theme")
+    label9.set_text("Slimlock theme")
 
     self.slimbox = Gtk.ComboBoxText()
     

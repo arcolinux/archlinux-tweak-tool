@@ -6,7 +6,7 @@ def GUI(self, Gtk, vboxStack7, termite):
     #                     TERMITE CONFIG
     # ==========================================================
     label12 = Gtk.Label()
-    label12.set_text("Termite Themes")
+    label12.set_text("Termite themes")
 
     self.term_themes = Gtk.ComboBoxText()
 
