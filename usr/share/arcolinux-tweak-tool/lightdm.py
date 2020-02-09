@@ -53,6 +53,8 @@ def pop_box(combo):
     name = check_lightdm(lines, "autologin-session=").split("=")[1]
 
     for i in range(len(coms)):
-        combo.append_text(coms[i])
-        if name in coms[i]:
-            combo.set_active(i)
+        excludes = ['gnome-classic', 'gnome-xorg', 'i3-with-shmlog', 'openbox-kde']
+        if not coms[i] in excludes:
+            combo.append_text(coms[i])
+            if name in coms[i]:
+                combo.set_active(i)
