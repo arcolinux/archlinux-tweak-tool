@@ -24,7 +24,7 @@ def get_slimlock(combo):
                 if not "#" in line:
                     value = line.split(" ")
                     val = value[len(value)-1].lstrip().rstrip()
-                    active = val
+                    active = val.strip()
 
         for folder in os.listdir("/usr/share/slim/themes/"):
             if os.path.isdir("/usr/share/slim/themes/" + folder):
