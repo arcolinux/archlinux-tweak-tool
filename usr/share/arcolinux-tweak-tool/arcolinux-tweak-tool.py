@@ -91,7 +91,7 @@ class Main(Gtk.Window):
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
                 f.write("")
-        Functions.show_in_app_notification(self, "Config Applied Successfully")
+        # Functions.show_in_app_notification(self, "Config Applied Successfully")
     def on_close(self, widget, data):
         os.unlink("/tmp/att.lock")
         Gtk.main_quit()
