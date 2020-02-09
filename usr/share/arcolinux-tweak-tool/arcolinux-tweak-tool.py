@@ -180,9 +180,9 @@ class Main(Gtk.Window):
             oblogout.set_shorcut(self, 
                 "hibernate", self.tbhibernate.get_text().capitalize())
             oblogout.set_shorcut(self, "lock", self.tblock.get_text().capitalize())
-            hex = Functions.rgb_to_hex(
-                self.colorchooser.get_rgba().to_string())
-            oblogout.set_color(self, hex.upper())
+            # hex = Functions.rgb_to_hex(
+            #     self.colorchooser.get_rgba().to_string())
+            # oblogout.set_color(self, hex.upper())
 
             Functions.show_in_app_notification(self, "Settings Saved Successfully")
 
@@ -245,9 +245,9 @@ class Main(Gtk.Window):
             except:
                 pass
             self.lockBox.set_text(oblogout.get_command("lock"))
-            color = Gdk.RGBA()
-            color.parse(oblogout.get_color())
-            self.colorchooser.set_rgba(color)
+            # color = Gdk.RGBA()
+            # color.parse(oblogout.get_color())
+            # self.colorchooser.set_rgba(color)
             btnString = oblogout.get_buttons()
             oblogout.oblog_populate(self.oblog)
 
@@ -442,9 +442,10 @@ class Main(Gtk.Window):
     #====================================================================
 
     def on_term_apply(self, widget):
-        widget.set_sensitive(False)
-        termite.set_config(self, self.term_themes.get_active_text())
-        widget.set_sensitive(True)
+        if not self.term_themes.get_active_text() == None:
+            widget.set_sensitive(False)
+            termite.set_config(self, self.term_themes.get_active_text())
+            widget.set_sensitive(True)
 
     def on_term_reset(self, widget):
         if os.path.isfile(Functions.termite_config + ".bak"):

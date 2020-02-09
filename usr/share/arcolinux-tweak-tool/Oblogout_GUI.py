@@ -205,17 +205,17 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os
 
     # ====================COLOR BUTTON==========================
 
-    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
-    self.colorchooser = Gtk.ColorButton()
-    color = Gdk.RGBA()
-    color.parse(oblogout.get_color())
-    self.colorchooser.set_rgba(color)
-    label9 = Gtk.Label()
-    label9.set_text("Background")
+    # self.colorchooser = Gtk.ColorButton()
+    # color = Gdk.RGBA()
+    # color.parse(oblogout.get_color())
+    # self.colorchooser.set_rgba(color)
+    # label9 = Gtk.Label()
+    # label9.set_text("Background")
 
-    hbox9.pack_start(label9, False, False, 10)
-    hbox9.pack_start(self.colorchooser, True, True, 10)
+    # hbox9.pack_start(label9, False, False, 10)
+    # hbox9.pack_start(self.colorchooser, True, True, 10)
 
     hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     save_oblogout = Gtk.Button(label="Save Settings")
@@ -240,5 +240,5 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os
     vboxStack6.pack_start(hbox16, False, False, 0)  # keybind row 2
     vboxStack6.pack_start(hbox17, False, False, 0)  # keybind row 3
     vboxStack6.pack_start(hbox8, False, False, 0)  # lockscreen
-    vboxStack6.pack_start(hbox9, False, False, 0)  # Color Button
+    # vboxStack6.pack_start(hbox9, False, False, 0)  # Color Button
     vboxStack6.pack_end(hbox21, False, False, 0)  # Save Button
