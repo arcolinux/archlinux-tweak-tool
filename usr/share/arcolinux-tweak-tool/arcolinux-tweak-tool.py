@@ -165,7 +165,7 @@ class Main(Gtk.Window):
             oblogout.set_buttons(self, string.rstrip().lstrip().replace(" ", ", "))
             oblogout.oblogout_change_theme(self, self.oblog.get_active_text())
             oblogout.set_opacity(self, self.hscale.get_value())
-            oblogout.set_command(self, "lock", self.lockBox.get_text())
+            # oblogout.set_command(self, "lock", self.lockBox.get_text())
             oblogout.set_shorcut(self, 
                 "shutdown", self.tbshutdown.get_text().capitalize())
             oblogout.set_shorcut(self, 
@@ -252,7 +252,7 @@ class Main(Gtk.Window):
                 self.tblock.set_text(oblogout.get_shortcut("lock"))
             except:
                 pass
-            self.lockBox.set_text(oblogout.get_command("lock"))
+            # self.lockBox.set_text(oblogout.get_command("lock"))
             # color = Gdk.RGBA()
             # color.parse(oblogout.get_color())
             # self.colorchooser.set_rgba(color)
@@ -336,8 +336,12 @@ class Main(Gtk.Window):
     def on_remove_wallpaper(self, widget):
         widget.set_sensitive(False)
         if os.path.isfile('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text()):
-            os.unlink('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text())
-            self.pop_themes_grub(self.grub_theme_combo, Functions.get_grub_wallpapers(), True)
+            if not "arcolinux" in self.grub_theme_combo.get_active_text() or "archlinux" in self.grub_theme_combo.get_active_text():
+                os.unlink('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text())
+                self.pop_themes_grub(self.grub_theme_combo, Functions.get_grub_wallpapers(), True)
+                Functions.show_in_app_notification(self, "Wallpaper removed successfully")
+            else:
+                Functions.show_in_app_notification(self, "You can not remove that wallpaper")
         widget.set_sensitive(True)
 
     def on_choose_wallpaper(self, widget):
@@ -431,11 +435,12 @@ class Main(Gtk.Window):
 
                 slim.reload_import(self.slimbox, self.slimtheme.get_text())
                 self.image5.set_from_pixbuf(None)
+                Functions.show_in_app_notification(self, "Theme imported successfully")
 
     def on_remove_theme(self, widget):
         path = "/usr/share/slim/themes/"
         try:
-            if not self.slimbox.get_active_text() == "arcolinux_eyes":
+            if not "arcolinux" in self.slimbox.get_active_text():
                 Functions.shutil.rmtree(path + self.slimbox.get_active_text())
                 slim.remove_theme(self.slimbox.get_active_text())
                 slim.reload_import(self.slimbox, "arcolinux_eyes")
@@ -443,7 +448,7 @@ class Main(Gtk.Window):
 
                 # Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
             else:
-                Functions.MessageBox(self, "Error!!", "Sorry thats our default theme")
+                Functions.show_in_app_notification(self, "You can not remove that theme")
         except Exception as e:
             print(e)
 

@@ -16,7 +16,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     self.asci.connect("toggled", self.radio_toggled)
 
     self.off = Gtk.RadioButton.new_from_widget(self.asci)
-    self.off.set_label("NO backend")
+    self.off.set_label("No backend")
     self.off.connect("toggled", self.radio_toggled)
 
     self.big_ascii = Gtk.RadioButton(label="Use normal ascii")

@@ -190,18 +190,18 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os
 
     # ====================Lockscreen Textbox====================
 
-    label8 = Gtk.Label()
-    label8.set_text("Lockscreen")
+    # label8 = Gtk.Label()
+    # label8.set_text("Lockscreen")
 
-    self.lockBox = Gtk.Entry()
-    try:
-        self.lockBox.set_text(oblogout.get_command("lock"))
-    except:
-        pass
+    # self.lockBox = Gtk.Entry()
+    # try:
+    #     self.lockBox.set_text(oblogout.get_command("lock"))
+    # except:
+    #     pass
 
-    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox8.pack_start(label8, False, False, 10)
-    hbox8.pack_start(self.lockBox, True, True, 10)
+    # hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox8.pack_start(label8, False, False, 10)
+    # hbox8.pack_start(self.lockBox, True, True, 10)
 
     # ====================COLOR BUTTON==========================
 
@@ -239,6 +239,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os
     vboxStack6.pack_start(hbox15, False, False, 0)  # keybind row 1
     vboxStack6.pack_start(hbox16, False, False, 0)  # keybind row 2
     vboxStack6.pack_start(hbox17, False, False, 0)  # keybind row 3
-    vboxStack6.pack_start(hbox8, False, False, 0)  # lockscreen
+    # vboxStack6.pack_start(hbox8, False, False, 0)  # lockscreen
     # vboxStack6.pack_start(hbox9, False, False, 0)  # Color Button
     vboxStack6.pack_end(hbox21, False, False, 0)  # Save Button
