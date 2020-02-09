@@ -39,7 +39,7 @@ class Main(Gtk.Window):
         self.desktop = ""
         self.timeout_id = None
 
-        print(Functions.get_grub_wallpapers())
+        # print(Functions.get_grub_wallpapers())
         if not Functions.os.path.isdir(Functions.home + "/" +  Functions.bd):
             try:
                 Functions.os.makedirs(Functions.home + "/" + Functions.bd, 0o766)
