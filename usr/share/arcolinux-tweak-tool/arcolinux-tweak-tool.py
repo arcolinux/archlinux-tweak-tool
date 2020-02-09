@@ -338,7 +338,7 @@ class Main(Gtk.Window):
         if os.path.isfile('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text()):
             excludes = ["archlinux03.jpg", "archlinux04.jpg", "archlinux06.jpg", "archlinux07.jpg",
             "arcolinux01.jpg","arcolinux02.jpg", "arcolinux03.jpg", "arcolinux04.jpg","arcolinux05.jpg",
-            "arcolinux06.jpg","arcolinux08.jpg","background-slaze.jpg","background-stylish.jpg","background-tela.jpg",
+            "arcolinux06.jpg","arcolinux07.jpg","arcolinux08.jpg","background-slaze.jpg","background-stylish.jpg","background-tela.jpg",
             "background-vimix.jpg",
             "archlinux01.png","archlinux02.png","archlinux05.png","arcolinux09.png","arcolinux10.png",
             "arcolinux11.png","arcolinux.png", "background.png"]
