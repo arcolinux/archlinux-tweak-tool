@@ -336,7 +336,14 @@ class Main(Gtk.Window):
     def on_remove_wallpaper(self, widget):
         widget.set_sensitive(False)
         if os.path.isfile('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text()):
-            if not "arcolinux" in self.grub_theme_combo.get_active_text() or "archlinux" in self.grub_theme_combo.get_active_text():
+            excludes = ["archlinux03.jpg", "archlinux04.jpg", "archlinux06.jpg", "archlinux07.jpg",
+            "arcolinux01.jpg","arcolinux02.jpg", "arcolinux03.jpg", "arcolinux04.jpg","arcolinux05.jpg",
+            "arcolinux06.jpg","arcolinux08.jpg","background-slaze.jpg","background-stylish.jpg","background-tela.jpg",
+            "background-vimix.jpg",
+            "archlinux01.png","archlinux02.png","archlinux05.png","arcolinux09.png","arcolinux10.png",
+            "arcolinux11.png","arcolinux.png", "background.png"]
+
+            if not self.grub_theme_combo.get_active_text() in excludes:
                 os.unlink('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text())
                 self.pop_themes_grub(self.grub_theme_combo, Functions.get_grub_wallpapers(), True)
                 Functions.show_in_app_notification(self, "Wallpaper removed successfully")
