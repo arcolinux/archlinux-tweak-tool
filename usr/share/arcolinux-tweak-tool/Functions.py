@@ -396,10 +396,15 @@ def set_hblock(self, toggle, state):
 def get_grub_wallpapers():
     if os.path.isdir("/boot/grub/themes/Vimix"):
         lists = os.listdir("/boot/grub/themes/Vimix")
+        
         rems = ['select_e.png', 'terminal_box_se.png', 'select_c.png', 'terminal_box_c.png', 'terminal_box_s.png', 
-        'select_w.png', 'terminal_box_nw.png', 'terminal_box_w.png', 'unifont-regular-16.pf2', 'icons', 'terminal_box_ne.png', 
-        'theme.txt', 'theme.txt.bak', 'terminal_box_sw.png', 'terminal_box_n.png', 'terminal_box_e.png']
-        new_list = [x for x in lists if x not in rems]
+        'select_w.png', 'terminal_box_nw.png', 'terminal_box_w.png', 'terminal_box_ne.png', 
+        'terminal_box_sw.png', 'terminal_box_n.png', 'terminal_box_e.png']
+        
+        ext = ['.png', '.jpeg', '.jpg']
+
+        new_list = [x for x in lists if x not in rems for y in ext if y in x]
+        
         new_list.sort()
         return new_list
 
