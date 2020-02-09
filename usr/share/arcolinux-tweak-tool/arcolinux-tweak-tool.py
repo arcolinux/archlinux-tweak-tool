@@ -5,6 +5,7 @@
 #=================================================================
 import gi
 # import webbrowser
+import Support
 import Functions
 import Settings
 import slim
@@ -100,17 +101,14 @@ class Main(Gtk.Window):
     # =====================================================
     #               PATREON LINK
     # =====================================================
-    def on_social_clicked(self, widget, event, link):
-        t = Functions.threading.Thread(target=self.weblink, args=(link,))
-        t.daemon = True
-        t.start()
-        print("CLICKED")
-        # self.weblink(link)
+    def on_social_clicked(self, widget, event):
+        sup = Support.Support(self)
+        # sup.show_all()
+        response = sup.run()
 
-
-    def weblink(self, link):
-        Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "exo-open --launch webbrowser " + link], shell=False)
-        # webbrowser.open_new_tab(link)
+        if response == Gtk.ResponseType.CANCEL:
+            sup.destroy()
+        
     
     def tooltip_callback(self, widget, x, y, keyboard_mode, tooltip, text):
         tooltip.set_text(text)

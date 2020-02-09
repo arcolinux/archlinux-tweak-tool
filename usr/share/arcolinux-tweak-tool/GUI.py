@@ -197,15 +197,15 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     pE = Gtk.EventBox()
 
     pbp = GdkPixbuf.Pixbuf().new_from_file_at_size(
-        os.path.join(base_dir, 'images/patreon.png'), 28, 28)
+        os.path.join(base_dir, 'images/credits.png'), 58, 58)
     pimage = Gtk.Image().new_from_pixbuf(pbp)
 
     pE.add(pimage)
 
-    pE.connect("button_press_event", self.on_social_clicked, "https://www.patreon.com/hefftor")
+    pE.connect("button_press_event", self.on_social_clicked)
     pE.set_property("has-tooltip", True)
 
-    pE.connect("query-tooltip", self.tooltip_callback, "Support BradHeff on Patreon")
+    pE.connect("query-tooltip", self.tooltip_callback, "Support our developers on Patreon")
 
 
     # =====================================================

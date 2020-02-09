@@ -121,20 +121,16 @@ def _get_position(lists, value):
     position = lists.index(data[0])
     return position
 
-# Search variable and value.
 def _get_variable(lists, value):
     data = [string for string in lists if value in string]
 
-    # Search # line
     if len(data) >= 1:
 
         data1 = [string for string in data if "#" in string]
 
-        # If data1 not empty
         for i in data1:
             if i[:4].find('#') != -1:
                 data.remove(i)
-    # If not empty
     if data:
         data_clean = [data[0].strip('\n').replace(" ", "")][0].split("=")
     return data_clean
