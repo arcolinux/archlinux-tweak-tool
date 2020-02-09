@@ -26,7 +26,8 @@ class Support(Gtk.Dialog):
         label.set_line_wrap(True)
         label.set_markup("Big thank you to our developers for there work on this project.\n\
 Brad Heffernan is the driving force aka developer behind the ArcoLinux Tweak Tool. \n\
-with Krisztian Veress and Erik Dubois")
+With the help of Krisztian Veress and Erik Dubois we were able to give our users an easy and efficient tool. \n\
+If you want to thank and support Brad personally for his initiative and efforts then you can do so by following the links.")
 
         label2 = Gtk.Label()
         label2.set_markup("Support Brad on patreon")
