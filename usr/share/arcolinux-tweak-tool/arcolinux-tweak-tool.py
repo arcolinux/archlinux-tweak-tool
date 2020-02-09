@@ -107,7 +107,7 @@ class Main(Gtk.Window):
         # sup.show_all()
         response = sup.run()
 
-        if response == Gtk.ResponseType.CANCEL:
+        if response == Gtk.ResponseType.DELETE_EVENT:
             sup.destroy()
         
     
