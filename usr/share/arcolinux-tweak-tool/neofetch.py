@@ -129,6 +129,42 @@ def apply_config(self, backend, emblem, ascii_size):
                 Functions.neofetch_set_value(lines, i, "info \"Memory\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"Memory\"", False)
+            if self.gpu_driver.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"GPU Driver\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"GPU Driver\"", False)
+            if self.cpu_usage.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"CPU Usage\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"CPU Usage\"", False)
+            if self.disks.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Disk\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Disk\"", False)
+            if self.font.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Font\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Font\"", False)
+            if self.song.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Song\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Song\"", False)
+            if self.lIP.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Local IP\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Local IP\"", False)
+            if self.PIP.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Public IP\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Public IP\"", False)
+            if self.users.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Users\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Users\"", False)
+            if self.local.get_active():
+                Functions.neofetch_set_value(lines, i, "info \"Locale\"", True)
+            else:
+                Functions.neofetch_set_value(lines, i, "info \"Locale\"", False)
             if self.title.get_active():
                 Functions.neofetch_set_value(lines, i, "info title", True)
                 Functions.neofetch_set_value(lines, i, "info underline", True)
@@ -193,6 +229,16 @@ def get_checkboxes(self):
     self.gpu.set_active(get_state("info \"GPU\""))    
     self.mem.set_active(get_state("info \"Memory\""))
     self.title.set_active(get_state("info title"))
+
+    self.gpu_driver.set_active(get_state("info \"GPU Driver\""))
+    self.cpu_usage.set_active(get_state("info \"CPU Usage\""))
+    self.disks.set_active(get_state("info \"Disk\""))
+    self.font.set_active(get_state("info \"Font\""))
+    self.song.set_active(get_state("info \"Song\""))
+    self.lIP.set_active(get_state("info \"Local IP\""))
+    self.PIP.set_active(get_state("info \"Public IP\""))
+    self.users.set_active(get_state("info \"Users\""))
+    self.local.set_active(get_state("info \"Locale\""))
 
     lines = get_neofetch()
 

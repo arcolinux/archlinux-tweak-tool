@@ -80,6 +80,16 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     
     self.mem = Gtk.CheckButton(label="Show Memory")
 
+    self.gpu_driver = Gtk.CheckButton(label="Show GPU Driver")
+    self.cpu_usage = Gtk.CheckButton(label="Show CPU Usage")
+    self.disks = Gtk.CheckButton(label="Show Disks")
+    self.font = Gtk.CheckButton(label="Show Font")
+    self.song = Gtk.CheckButton(label="Show Song")
+    self.lIP = Gtk.CheckButton(label="Show Local IP")
+    self.PIP = Gtk.CheckButton(label="Show Public IP")
+    self.users = Gtk.CheckButton(label="Show Users")
+    self.local = Gtk.CheckButton(label="Show Local")
+
     self.cblocks = Gtk.CheckButton(label="Show Blocks")
 
     self.title = Gtk.CheckButton(label="Show Title")
@@ -106,6 +116,15 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     flowbox.add(self.cpu)
     flowbox.add(self.gpu)
     flowbox.add(self.mem)
+    flowbox.add(self.gpu_driver)
+    flowbox.add(self.cpu_usage)
+    flowbox.add(self.disks)
+    flowbox.add(self.font)
+    flowbox.add(self.song)
+    flowbox.add(self.lIP)
+    flowbox.add(self.PIP)
+    flowbox.add(self.users)
+    flowbox.add(self.local)
     flowbox.add(self.cblocks)
     flowbox.add(self.title)
 

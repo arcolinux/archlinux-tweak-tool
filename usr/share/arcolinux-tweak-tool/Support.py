@@ -27,7 +27,7 @@ class Support(Gtk.Dialog):
         label = Gtk.Label()
         label.set_line_wrap(True)
         label.set_justify(Gtk.Justification.CENTER)
-        label.set_markup("Big thank you to our developers for there work on this project.\n\
+        label.set_markup("Big thank you to our developers for their work on this project.\n\
 <b>Brad Heffernan</b> is the driving force aka developer behind the ArcoLinux Tweak Tool. \n\
 With the help of <b>Krisztian Veress</b> and <b>Erik Dubois</b> we were able to give our users an easy and efficient tool. \n\
 If you want to thank and support <b>Brad</b> personally for his initiative and efforts then you can do so by following the links.")
