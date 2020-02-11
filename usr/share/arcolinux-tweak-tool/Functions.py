@@ -439,7 +439,7 @@ def get_desktop(self):
     dsk = desktop.stdout.decode().strip().split("\n")
     
     # return dsk[len(dsk)-1].lstrip().rstrip()
-    self.desktop = dsk[len(dsk)-1].lstrip().rstrip()
+    self.desktop = dsk[-1].lstrip().rstrip()
     # print("Desktop: " + self.desktop)
     
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop.capitalize() +"</span>")
