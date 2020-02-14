@@ -79,7 +79,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #========================================================
     label2 = Gtk.Label(xalign=0)
     label2.set_markup("<b>Add custom repo to pacman.conf</b>")
-
+ 
     self.textbox1 = Gtk.TextView()
     self.textbox1.set_wrap_mode(Gtk.WrapMode.WORD)
     self.textbox1.set_editable(True)
