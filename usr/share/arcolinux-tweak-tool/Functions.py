@@ -32,7 +32,13 @@ config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 desktop = ""
 
 
+hefftor_repo = "[hefftor-repo]\n\
+SigLevel = Optional TrustedOnly\n\
+Server = https://bradheff.github.io/$repo/$arch"
 
+bobo_repo = "[bobo-repo]\n\
+SigLevel = Optional TrustedOnly\n\
+Server = https://PeterDauwe.github.io/$repo/$arch"
 #=====================================================
 #               NOTIFICATIONS
 #=====================================================
@@ -190,9 +196,22 @@ def check_repo(value):
         myfile.close()
     
     for line in lines:
-        if "#" + value in line:
-            return False
-    return True
+        if value in line:
+            if "#" + value in line:
+                return False
+            else:
+                return True
+    return False
+
+def repo_exist(value):
+    with open(pacman, "r") as myfile:
+        lines = myfile.readlines()
+        myfile.close()
+    
+    for line in lines:
+        if value in line:
+            return True
+    return False
 
 def pacman_on(repo, lines, i, line):
     if repo in line:
@@ -213,6 +232,25 @@ def pacman_off(repo, lines, i, line):
             if not "#" in lines[i + 2]:
                 lines[i + 2]  = lines[i + 2].replace(lines[i + 2], "#" + lines[i + 2])
 
+def spin_on(repo, lines, i, line):
+    if repo in line:
+        lines[i] = line.replace("#", "")
+        if (i+1) < len(lines):
+            lines[i + 1]  = lines[i + 1].replace("#", "") # you may want to check that i < len(lines)
+        if (i+2) < len(lines):
+            lines[i + 2]  = lines[i + 2].replace("#", "")
+
+def spin_off(repo, lines, i, line):
+    if repo in line:
+        if not "#" in lines[i]:
+            lines[i] = line.replace(lines[i], "#" + lines[i])
+        if (i+1) < len(lines):
+            if not "#" in lines[i + 1]:
+                lines[i + 1]  = lines[i + 1].replace(lines[i + 1], "#" + lines[i + 1]) # you may want to check that i < len(lines)
+        if (i+2) < len(lines):
+            if not "#" in lines[i + 2]:
+                lines[i + 2]  = lines[i + 2].replace(lines[i + 2], "#" + lines[i + 2])
+
 def toggle_test_repos(self, state, widget):
     if not os.path.isfile(pacman + ".bak"):
         shutil.copy(pacman, pacman + ".bak")
@@ -224,6 +262,10 @@ def toggle_test_repos(self, state, widget):
         try:
             for i in range(0, len(lines)):
                 line = lines[i]
+                if widget == "hefftor":
+                    spin_on("[hefftor-repo]", lines, i, line)
+                if widget == "bobo":
+                    spin_on("[bobo-repo]", lines, i, line)
                 if widget == "arco_base":
                     pacman_on("[arcolinux_repo]", lines, i, line)
                 if widget == "arco_a3p":
@@ -252,6 +294,11 @@ def toggle_test_repos(self, state, widget):
         try:
             for i in range(0, len(lines)):
                 line = lines[i]
+                if widget == "hefftor":
+                    spin_off("[hefftor-repo]", lines, i, line)
+                if widget == "bobo":
+                    spin_off("[bobo-repo]", lines, i, line)
+                
                 if widget == "arco_base":
                     pacman_off("[arcolinux_repo]", lines, i, line)
                 if widget == "arco_a3p":

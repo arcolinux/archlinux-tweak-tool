@@ -81,21 +81,34 @@ class Main(Gtk.Window):
         t.daemon = True
         t.start()
 
+        #========================TESTING REPO=============================
         arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
         multi_testing = Functions.check_repo("[multilib-testing]")
         arch_testing = Functions.check_repo("[testing]")
-
+        
+        #========================ARCO REPO=============================
         arco_base = Functions.check_repo("[arcolinux_repo]")
         multi_3p = Functions.check_repo("[arcolinux_repo_3party]")
         arch_xl = Functions.check_repo("[arcolinux_repo_xlarge]")
+
+        #========================SPINOFF REPO=============================
+        hefftor_repo = Functions.check_repo("[hefftor-repo]")
+        bobo_repo = Functions.check_repo("[bobo-repo]")
         
+        #========================ARCO REPO SET TOGGLE=============================
         self.arepo_button.set_active(arco_base)
         self.a3prepo_button.set_active(multi_3p)
         self.axlrepo_button.set_active(arch_xl)
 
+        #========================TESTING REPO SET TOGGLE=============================
         self.checkbutton.set_active(arco_testing)
         self.checkbutton2.set_active(arch_testing)
         self.checkbutton3.set_active(multi_testing)
+
+        #========================SPINOFF REPO SET TOGGLE=============================
+        self.hefftor_button.set_active(hefftor_repo)
+        self.bobo_button.set_active(bobo_repo)
+        
         self.opened = False
 
         if not os.path.isfile("/tmp/att.lock"):
@@ -136,6 +149,20 @@ class Main(Gtk.Window):
     def on_pacman_axl_toggle(self, widget, active):
         if self.opened == False:
             Functions.toggle_test_repos(self, widget.get_active(), "arco_axl")
+
+    def on_hefftor_toggle(self, widget, active):
+        if not Functions.repo_exist("[hefftor-repo]"):
+            Functions.append_repo(self, Functions.hefftor_repo)
+        else:
+            if self.opened == False:
+                Functions.toggle_test_repos(self, widget.get_active(), "hefftor")
+
+    def on_bobo_toggle(self, widget, active):
+        if not Functions.repo_exist("[bobo-repo]"):
+            Functions.append_repo(self, Functions.bobo_repo)
+        else:
+            if self.opened == False:
+                Functions.toggle_test_repos(self, widget.get_active(), "bobo")
 
     def on_pacman_toggle(self, widget, active):
         if self.opened == False:
