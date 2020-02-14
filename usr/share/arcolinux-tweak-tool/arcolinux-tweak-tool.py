@@ -139,16 +139,25 @@ class Main(Gtk.Window):
     #               PACMAN FUNCTIONS
     # =====================================================
     def on_pacman_arepo_toggle(self, widget, active):
-        if self.opened == False:
-            Functions.toggle_test_repos(self, widget.get_active(), "arco_base")
+        if not Functions.repo_exist("[arcolinux_repo]"):
+            Functions.append_repo(self, Functions.arepo)
+        else:
+            if self.opened == False:
+                Functions.toggle_test_repos(self, widget.get_active(), "arco_base")
 
     def on_pacman_a3p_toggle(self, widget, active):
-        if self.opened == False:
-            Functions.toggle_test_repos(self, widget.get_active(), "arco_a3p")
+        if not Functions.repo_exist("[arcolinux_repo_3party]"):
+            Functions.append_repo(self, Functions.a3drepo)
+        else:
+            if self.opened == False:
+                Functions.toggle_test_repos(self, widget.get_active(), "arco_a3p")
 
     def on_pacman_axl_toggle(self, widget, active):
-        if self.opened == False:
-            Functions.toggle_test_repos(self, widget.get_active(), "arco_axl")
+        if not Functions.repo_exist("[arcolinux_repo_xlarge]"):
+            Functions.append_repo(self, Functions.axlrepo)
+        else:
+            if self.opened == False:
+                Functions.toggle_test_repos(self, widget.get_active(), "arco_axl")
 
     def on_hefftor_toggle(self, widget, active):
         if not Functions.repo_exist("[hefftor-repo]"):
@@ -165,8 +174,11 @@ class Main(Gtk.Window):
                 Functions.toggle_test_repos(self, widget.get_active(), "bobo")
 
     def on_pacman_toggle(self, widget, active):
-        if self.opened == False:
-            Functions.toggle_test_repos(self, widget.get_active(), "arco")
+        if not Functions.repo_exist("[arcolinux_repo_testing]"):
+            Functions.append_repo(self, Functions.arepo_test)
+        else:
+            if self.opened == False:
+                Functions.toggle_test_repos(self, widget.get_active(), "arco")
 
     def on_pacman_toggle2(self, widget, active):
         if self.opened == False:

@@ -32,6 +32,22 @@ config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 desktop = ""
 
 
+arepo_test = "[arcolinux_repo_testing]\n\
+SigLevel = Required DatabaseOptional\n\
+Include = /etc/pacman.d/arcolinux-mirrorlist"
+
+arepo = "[arcolinux_repo]\n\
+SigLevel = Required DatabaseOptional\n\
+Include = /etc/pacman.d/arcolinux-mirrorlist"
+
+a3drepo = "[arcolinux_repo_3party]\n\
+SigLevel = Required DatabaseOptional\n\
+Include = /etc/pacman.d/arcolinux-mirrorlist"
+
+axlrepo = "[arcolinux_repo_xlarge]\n\
+SigLevel = Required DatabaseOptional\n\
+Include = /etc/pacman.d/arcolinux-mirrorlist"
+
 hefftor_repo = "[hefftor-repo]\n\
 SigLevel = Optional TrustedOnly\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist-bradheff"
