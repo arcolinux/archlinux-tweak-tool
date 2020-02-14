@@ -83,8 +83,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
     #                   TAB #1 PACMAN
     # ==========================================================
-
-    Pacman_GUI.GUI(self, Gtk, vboxStack1, Functions)
+    if Functions.file_check(Functions.pacman):
+        Pacman_GUI.GUI(self, Gtk, vboxStack1, Functions)
 
     # ==========================================================
     #                 TAB #2 GTK THEMES
@@ -104,32 +104,33 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # ==========================================================
     #                       TAB #5 SLIMLOCK
     # ==========================================================
-    Slimlock_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os)
+    if Functions.file_check(Functions.slimlock_conf):
+        Slimlock_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os)
 
     # ==========================================================
     #                       TAB #6 OBLOGOUT
     # ==========================================================
-
-    Oblogout_GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os)
+    if Functions.file_check(Functions.oblogout_conf):
+        Oblogout_GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os)
 
 
     # # ==========================================================
     # #                     TERMITE CONFIG
     # # ==========================================================
-    
-    Termite_GUI.GUI(self, Gtk, vboxStack7, termite)
+    if Functions.file_check(Functions.termite_config):
+        Termite_GUI.GUI(self, Gtk, vboxStack7, termite)
 
     # # ==========================================================
     # #                     NEOFETCH
     # # ==========================================================
-    
-    Neofetch_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions)
+    if Functions.file_check(Functions.neofetch_config):
+        Neofetch_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions)
 
     # # ==========================================================
     # #                     LIGHTDM
     # # ==========================================================
-    
-    Lightdm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack11, lightdm, Functions)
+    if Functions.file_check(Functions.lightdm_conf):
+        Lightdm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack11, lightdm, Functions)
 
     # # ==========================================================
     # #                     Skelapp

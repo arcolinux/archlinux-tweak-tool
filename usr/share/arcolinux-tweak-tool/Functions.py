@@ -193,12 +193,27 @@ def check_repo(value):
         if "#" + value in line:
             return False
     return True
-def toggle_test_repos(self, state, widget):
-#     authority.check_authorization(subject, action_id, None, Polkit.CheckAuthorizationFlags.ALLOW_USER_INTERACTION, cancellable, set_test_repos, None, state, widget)
 
-# def set_test_repos(authority, res, loop, state, widget):
-#     result = authority.check_authorization_finish(res)
-#     if result.get_is_authorized():
+def pacman_on(repo, lines, i, line):
+    if repo in line:
+        lines[i] = line.replace("#", "")
+        if (i+1) < len(lines):
+            lines[i + 1]  = lines[i + 1].replace("#", "") # you may want to check that i < len(lines)
+        if (i+2) < len(lines) and "Include" in lines[i+2]:
+            lines[i + 2]  = lines[i + 2].replace("#", "")
+
+def pacman_off(repo, lines, i, line):
+    if repo in line:
+        if not "#" in lines[i]:
+            lines[i] = line.replace(lines[i], "#" + lines[i])
+        if (i+1) < len(lines):
+            if not "#" in lines[i + 1]:
+                lines[i + 1]  = lines[i + 1].replace(lines[i + 1], "#" + lines[i + 1]) # you may want to check that i < len(lines)
+        if (i+2) < len(lines) and "Include" in lines[i+2]:
+            if not "#" in lines[i + 2]:
+                lines[i + 2]  = lines[i + 2].replace(lines[i + 2], "#" + lines[i + 2])
+
+def toggle_test_repos(self, state, widget):
     if not os.path.isfile(pacman + ".bak"):
         shutil.copy(pacman, pacman + ".bak")
     lines = ""
@@ -209,27 +224,19 @@ def toggle_test_repos(self, state, widget):
         try:
             for i in range(0, len(lines)):
                 line = lines[i]
+                if widget == "arco_base":
+                    pacman_on("[arcolinux_repo]", lines, i, line)
+                if widget == "arco_a3p":
+                    pacman_on("[arcolinux_repo_3party]", lines, i, line)
+                if widget == "arco_axl":
+                    pacman_on("[arcolinux_repo_xlarge]", lines, i, line)
+
                 if widget == "arco":
-                    if "[arcolinux_repo_testing]" in line:
-                        lines[i] = line.replace("#", "")
-                        if (i+1) < len(lines):
-                            lines[i + 1]  = lines[i + 1].replace("#", "") # you may want to check that i < len(lines)
-                        if (i+2) < len(lines) and "Include" in lines[i+2]:
-                            lines[i + 2]  = lines[i + 2].replace("#", "")
+                    pacman_on("[arcolinux_repo_testing]", lines, i, line)
                 if widget == "arch":
-                    if "[testing]" in line:
-                        lines[i] = line.replace("#", "")
-                        if (i+1) < len(lines):
-                            lines[i + 1]  = lines[i + 1].replace("#", "") # you may want to check that i < len(lines)
-                        if (i+2) < len(lines) and "Include" in lines[i+2]:
-                            lines[i + 2]  = lines[i + 2].replace("#", "")
+                    pacman_on("[testing]", lines, i, line)
                 if widget == "multilib":
-                    if "[multilib-testing]" in line:
-                        lines[i] = line.replace("#", "")
-                        if (i+1) < len(lines):
-                            lines[i + 1]  = lines[i + 1].replace("#", "") # you may want to check that i < len(lines)
-                        if (i+2) < len(lines) and "Include" in lines[i+2]:
-                            lines[i + 2]  = lines[i + 2].replace("#", "")
+                    pacman_on("[multilib-testing]", lines, i, line)
 
             with open(pacman, 'w') as f:
                 # lines = f.readlines()
@@ -245,36 +252,19 @@ def toggle_test_repos(self, state, widget):
         try:
             for i in range(0, len(lines)):
                 line = lines[i]
+                if widget == "arco_base":
+                    pacman_off("[arcolinux_repo]", lines, i, line)
+                if widget == "arco_a3p":
+                    pacman_off("[arcolinux_repo_3party]", lines, i, line)
+                if widget == "arco_axl":
+                    pacman_off("[arcolinux_repo_xlarge]", lines, i, line)
+
                 if widget == "arco":
-                    if "[arcolinux_repo_testing]" in line:
-                        if not "#" in lines[i]:
-                            lines[i] = line.replace(lines[i], "#" + lines[i])
-                        if (i+1) < len(lines):
-                            if not "#" in lines[i + 1]:
-                                lines[i + 1]  = lines[i + 1].replace(lines[i + 1], "#" + lines[i + 1]) # you may want to check that i < len(lines)
-                        if (i+2) < len(lines) and "Include" in lines[i+2]:
-                            if not "#" in lines[i + 2]:
-                                lines[i + 2]  = lines[i + 2].replace(lines[i + 2], "#" + lines[i + 2])
+                    pacman_off("[arcolinux_repo_testing]", lines, i, line)
                 if widget == "arch":
-                    if "[testing]" in line:
-                        if not "#" in lines[i]:
-                            lines[i] = line.replace(lines[i], "#" + lines[i])
-                        if (i+1) < len(lines):
-                            if not "#" in lines[i + 1]:
-                                lines[i + 1]  = lines[i + 1].replace(lines[i + 1], "#" + lines[i + 1]) # you may want to check that i < len(lines)
-                        if (i+2) < len(lines) and "Include" in lines[i+2]:
-                            if not "#" in lines[i + 2]:
-                                lines[i + 2]  = lines[i + 2].replace(lines[i + 2], "#" + lines[i + 2])
+                    pacman_off("[testing]", lines, i, line)
                 if widget == "multilib":
-                    if "[multilib-testing]" in line:
-                        if not "#" in lines[i]:
-                            lines[i] = line.replace(lines[i], "#" + lines[i])
-                        if (i+1) < len(lines):
-                            if not "#" in lines[i + 1]:
-                                lines[i + 1]  = lines[i + 1].replace(lines[i + 1], "#" + lines[i + 1]) # you may want to check that i < len(lines)
-                        if (i+2) < len(lines) and "Include" in lines[i+2]:
-                            if not "#" in lines[i + 2]:
-                                lines[i + 2]  = lines[i + 2].replace(lines[i + 2], "#" + lines[i + 2])
+                    pacman_off("[multilib-testing]", lines, i, line)
             with open(pacman, 'w') as f:
                 f.writelines(lines)
                 f.close()

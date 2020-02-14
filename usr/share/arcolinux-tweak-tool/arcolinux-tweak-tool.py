@@ -85,6 +85,14 @@ class Main(Gtk.Window):
         multi_testing = Functions.check_repo("[multilib-testing]")
         arch_testing = Functions.check_repo("[testing]")
 
+        arco_base = Functions.check_repo("[arcolinux_repo]")
+        multi_3p = Functions.check_repo("[arcolinux_repo_3party]")
+        arch_xl = Functions.check_repo("[arcolinux_repo_xlarge]")
+        
+        self.arepo_button.set_active(arco_base)
+        self.a3prepo_button.set_active(multi_3p)
+        self.axlrepo_button.set_active(arch_xl)
+
         self.checkbutton.set_active(arco_testing)
         self.checkbutton2.set_active(arch_testing)
         self.checkbutton3.set_active(multi_testing)
@@ -117,6 +125,17 @@ class Main(Gtk.Window):
     # =====================================================
     #               PACMAN FUNCTIONS
     # =====================================================
+    def on_pacman_arepo_toggle(self, widget, active):
+        if self.opened == False:
+            Functions.toggle_test_repos(self, widget.get_active(), "arco_base")
+
+    def on_pacman_a3p_toggle(self, widget, active):
+        if self.opened == False:
+            Functions.toggle_test_repos(self, widget.get_active(), "arco_a3p")
+
+    def on_pacman_axl_toggle(self, widget, active):
+        if self.opened == False:
+            Functions.toggle_test_repos(self, widget.get_active(), "arco_axl")
 
     def on_pacman_toggle(self, widget, active):
         if self.opened == False:
