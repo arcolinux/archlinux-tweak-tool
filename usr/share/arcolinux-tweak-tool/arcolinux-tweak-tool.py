@@ -92,8 +92,8 @@ class Main(Gtk.Window):
         arch_xl = Functions.check_repo("[arcolinux_repo_xlarge]")
 
         #========================SPINOFF REPO=============================
-        hefftor_repo = Functions.check_repo("[hefftor-repo]")
-        bobo_repo = Functions.check_repo("[bobo-repo]")
+        # hefftor_repo = Functions.check_repo("[hefftor-repo]")
+        # bobo_repo = Functions.check_repo("[bobo-repo]")
         
         #========================ARCO REPO SET TOGGLE=============================
         self.arepo_button.set_active(arco_base)
@@ -106,8 +106,8 @@ class Main(Gtk.Window):
         self.checkbutton3.set_active(multi_testing)
 
         #========================SPINOFF REPO SET TOGGLE=============================
-        self.hefftor_button.set_active(hefftor_repo)
-        self.bobo_button.set_active(bobo_repo)
+        # self.hefftor_button.set_active(hefftor_repo)
+        # self.bobo_button.set_active(bobo_repo)
         
         self.opened = False
 
