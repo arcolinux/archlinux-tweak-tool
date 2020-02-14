@@ -34,11 +34,11 @@ desktop = ""
 
 hefftor_repo = "[hefftor-repo]\n\
 SigLevel = Optional TrustedOnly\n\
-Server = https://bradheff.github.io/$repo/$arch"
+Include = /etc/pacman.d/arcolinux-mirrorlist-bradheff"
 
 bobo_repo = "[bobo-repo]\n\
 SigLevel = Optional TrustedOnly\n\
-Server = https://PeterDauwe.github.io/$repo/$arch"
+Include = /etc/pacman.d/arcolinux-mirrorlist-bobo"
 #=====================================================
 #               NOTIFICATIONS
 #=====================================================

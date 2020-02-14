@@ -171,7 +171,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     vboxStack1.pack_start(frame, False, False, 0)
 
     #=================SPINOFF REPO========================
-    # vboxStack1.pack_start(frame2, False, False, 0)
+    vboxStack1.pack_start(frame2, False, False, 0)
 
     #=================CUSTOM REPO========================
     vboxStack1.pack_start(hboxStack2, False, False, 0)
