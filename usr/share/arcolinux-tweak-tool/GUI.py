@@ -136,7 +136,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # #                     Skelapp
     # # ==========================================================
     
-    # SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
+    SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
     
     # ==========================================================
     #                     ADD TO WINDOW
@@ -167,7 +167,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     
     # stack.add_titled(vboxStack2, "stack9", "Theming")
 
-    # stack.add_titled(vboxStack9, "stack10", "Tweak Skel")
+    stack.add_titled(vboxStack9, "stack10", "Tweak Skel")
     
     
 

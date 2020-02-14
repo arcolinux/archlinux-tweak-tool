@@ -19,7 +19,11 @@ def GUI(self, Gtk, vboxStack1, Functions):
 
     #========================================================
     #               ARCO REPOS
-    #========================================================    
+    #======================================================== 
+    frame3 = Gtk.Frame(label="")
+    frame3lbl = frame3.get_label_widget()
+    frame3lbl.set_markup("<b>ARCOLINUX REPO'S</b>")
+
     self.arepo_button = Gtk.Switch()
     self.arepo_button.connect("notify::active", self.on_pacman_arepo_toggle)
     label5 = Gtk.Label(xalign=0)
@@ -35,17 +39,21 @@ def GUI(self, Gtk, vboxStack1, Functions):
     label7 = Gtk.Label(xalign=0)
     label7.set_markup("Enable ArcoLinux x-large repo")
     
-    #========================================================
-    #               TESTING REPOS
-    #========================================================
-    frame = Gtk.Frame(label="")
-    framelbl = frame.get_label_widget()
-    framelbl.set_markup("<b>TESTING REPO'S</b>")
+    frame4 = Gtk.Frame(label="")
+    frame4lbl = frame4.get_label_widget()
+    frame4lbl.set_markup("<b>ARCOLINUX TEST REPO'S</b>")
 
     self.checkbutton = Gtk.Switch()
     self.checkbutton.connect("notify::active", self.on_pacman_toggle)
     label1 = Gtk.Label(xalign=0)
     label1.set_markup("Enable ArcoLinux test repo")
+
+    #========================================================
+    #               ARCHLINUX REPOS
+    #========================================================
+    frame = Gtk.Frame(label="")
+    framelbl = frame.get_label_widget()
+    framelbl.set_markup("<b>ARCHLINUX REPO'S</b>")
 
     self.checkbutton2 = Gtk.Switch()
     self.checkbutton2.connect("notify::active", self.on_pacman_toggle2)
@@ -111,6 +119,12 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack8.pack_end(self.a3prepo_button, False, False, 10)
     hboxStack9.pack_start(label7, False, True, 10)
     hboxStack9.pack_end(self.axlrepo_button, False, False, 10)
+    hboxStack1.pack_start(label1, False, True, 10)
+    hboxStack1.pack_end(self.checkbutton, False, False, 10)
+    
+    vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    vboxStack2.pack_start(hboxStack1, False, False, 10)
+    
 
     #========================================================
     #               SPINOFF REPOS PACKING
@@ -119,17 +133,18 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack10.pack_end(self.hefftor_button, False, False, 10)
     hboxStack11.pack_start(label9, False, True, 10)
     hboxStack11.pack_end(self.bobo_button, False, False, 10)
-    
+    vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    vboxStack4.pack_start(hboxStack11, False, False, 10)
     #========================================================
     #               TESTING REPOS PACKING
     #========================================================
-    hboxStack1.pack_start(label1, False, True, 10)
-    hboxStack1.pack_end(self.checkbutton, False, False, 10)
     hboxStack5.pack_start(label3, False, True, 10)
     hboxStack5.pack_end(self.checkbutton2, False, False, 10)
     hboxStack6.pack_start(label4, False, True, 10)
     hboxStack6.pack_end(self.checkbutton3, False, False, 10)
 
+    vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    vboxStack3.pack_start(hboxStack6, False, False, 10)
     #========================================================
     #               CUSTOM REPOS PACKING
     #========================================================
@@ -145,30 +160,37 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #========================================================
     #               TESTING REPOS PACKING TO FRAME
     #========================================================
-    vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vbox.pack_start(hboxStack1, False, False, 0)
+    vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vbox.pack_start(hboxStack5, False, False, 0)
-    vbox.pack_start(hboxStack6, False, False, 0)
+    vbox.pack_start(vboxStack3, False, False, 0)
     frame.add(vbox)
 
     #========================================================
     #               SPINOFF REPOS PACKING TO FRAME
     #========================================================
-    vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vbox2.pack_start(hboxStack10, False, False, 0)
-    vbox2.pack_start(hboxStack11, False, False, 0)
+    vbox2.pack_start(vboxStack4, False, False, 0)
     frame2.add(vbox2)
 
+    vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vbox3.pack_start(hboxStack7, False, False, 0)
+    vbox3.pack_start(hboxStack8, False, False, 0)
+    vbox3.pack_start(hboxStack9, False, False, 0)
+    vbox3.pack_start(frame4, False, False, 0)
+    frame4.add(vboxStack2)
+    frame3.add(vbox3)
     #========================================================
     #               PACK TO WINDOW
     #========================================================
     #=================ARCO REPO========================
-    vboxStack1.pack_start(hboxStack7, False, False, 0)
-    vboxStack1.pack_start(hboxStack8, False, False, 0)
-    vboxStack1.pack_start(hboxStack9, False, False, 0)
-
+    # vboxStack1.pack_start(hboxStack7, False, False, 0)
+    # vboxStack1.pack_start(hboxStack8, False, False, 0)
+    # vboxStack1.pack_start(hboxStack9, False, False, 0)
+    vboxStack1.pack_start(frame3, False, False, 5)
+    # frame4.add(hboxStack1)
     #=================TESTING REPO========================
-    vboxStack1.pack_start(frame, False, False, 0)
+    vboxStack1.pack_start(frame, False, False, 5)
 
     #=================SPINOFF REPO========================
     vboxStack1.pack_start(frame2, False, False, 0)
