@@ -109,7 +109,7 @@ def Delete_Backup(self):
         GLib.idle_add(refresh, self)
         GLib.idle_add(refresh_inner, self)
         GLib.idle_add(setProgress, self.progressbar, 1)
-        GLib.idle_add(Functions.MessageBox,self, "Success!!","Config backups cleaned.")
+        GLib.idle_add(Functions.show_in_app_notification,self, "Config backups cleaned.")
     GLib.idle_add(button_toggles, self, True)
     GLib.idle_add(setMessage,self.label_info, "Idle ...")
     GLib.idle_add(setProgress, self.progressbar, 0)
@@ -137,7 +137,7 @@ def Delete_Inner_Backup(self):
             
         GLib.idle_add(refresh_inner, self)
         GLib.idle_add(setProgress, self.progressbar, 1)
-        GLib.idle_add(Functions.MessageBox,self, "Success!!", "Config backups cleaned.")
+        GLib.idle_add(Functions.show_in_app_notification,self, "Config backups cleaned.")
         GLib.idle_add(setMessage,self.label_info, "Idle ...")
     GLib.idle_add(button_toggles, self, True)
     GLib.idle_add(setProgress, self.progressbar, 0)
@@ -154,7 +154,7 @@ def Flush_All(self):
                 Functions.shutil.rmtree(Functions.home + "/" + Functions.bd + "/" + filename)            
                 
 
-        GLib.idle_add(Functions.MessageBox,self, "Success!!", ".ATT_Backups directory has been cleaned.")
+        GLib.idle_add(Functions.show_in_app_notification,self, "Backups directory has been cleaned.")
         GLib.idle_add(refresh, self)
         GLib.idle_add(refresh_inner, self)
         GLib.idle_add(setProgress, self.progressbar, 0)
@@ -219,7 +219,8 @@ def bash_upgrade(self):
         Functions.copy_func("/etc/skel/.bashrc", Functions.home + "/.bashrc")
         Functions.permissions(Functions.home + "/.bashrc")
         GLib.idle_add(setMessage,self.label_info1, ".bashrc upgrade done")
-        GLib.idle_add(Functions.MessageBox,self, "Success!!", "bashrc upgraded")
+        
+        GLib.idle_add(Functions.show_in_app_notification,self, "bashrc upgraded")
     else:
         GLib.idle_add(Functions.MessageBox,self, 
             "Failed!!", "bashrc upgrade failed, you dont have a .bashrc in skel")
