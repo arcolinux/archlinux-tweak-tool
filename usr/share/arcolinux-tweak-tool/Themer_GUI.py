@@ -5,6 +5,9 @@
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     
+    i3_list = themer.get_list(Functions.i3wm_config)
+    awesome_list = themer.get_list(Functions.awesome_config)
+
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
     
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
@@ -26,7 +29,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
     self.i3_combo.set_size_request(180, 0)
-    themer.get_i3_themes(self.i3_combo)
+    themer.get_i3_themes(i3_list)
 
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -41,10 +44,22 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     #                       AWESOMEWM TAB
     #==================================================================
     label2 = Gtk.Label("Select theme")
-    self.awesome_combo = Gtk.ComboBoxText()
-    self.awesome_combo.set_size_request(180, 0)
-    themer.get_awesome_themes(self.awesome_combo)
+    store = Gtk.ListStore(int, str)
+    awesome_lines = themer.get_awesome_themes(awesome_list)
+    for x in range(len(awesome_lines)):
+        store.append([x, awesome_lines[x]])
+    
+    self.awesome_combo = Gtk.ComboBox.new_with_model(store)
+    renderer_text = Gtk.CellRendererText()
 
+    val = int(themer.get_value(awesome_list, "local chosen_theme =").replace("themes[", "").replace("]", ""))
+    self.awesome_combo.set_active(val-1)
+    
+
+    self.awesome_combo.pack_start(renderer_text, False)
+    self.awesome_combo.add_attribute(renderer_text, "text", 1)
+    self.awesome_combo.set_entry_text_column(1)
+    
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 

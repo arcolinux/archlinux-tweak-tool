@@ -16,6 +16,7 @@ import termite
 import neofetch
 import skelapp
 import lightdm
+import themer
 import GUI
 import pwd
 
@@ -41,6 +42,7 @@ class Main(Gtk.Window):
         self.timeout_id = None
 
         # print(Functions.get_grub_wallpapers())
+        # print(themer.get_awesome_themes(""))
         if not Functions.os.path.isdir(Functions.home + "/" +  Functions.bd):
             try:
                 Functions.os.makedirs(Functions.home + "/" + Functions.bd, 0o766)
