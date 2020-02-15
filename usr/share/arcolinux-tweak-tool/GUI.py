@@ -11,6 +11,7 @@ import termite
 import neofetch
 import skelapp
 import lightdm
+import themer
 
 #=============GUI=================
 import Termite_GUI
@@ -23,6 +24,7 @@ import Pacman_GUI
 import GTK_GUI
 import SkelApp_GUI
 import Lightdm_GUI
+import Themer_GUI
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     #=======================================================
@@ -76,10 +78,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
-    # ==========================================================
-    #                   TAB #0 WELCOME
-    # ==========================================================
-    # Welcome_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, welcome, Functions)
+    
     # ==========================================================
     #                   TAB #1 PACMAN
     # ==========================================================
@@ -139,6 +138,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
     
     # ==========================================================
+    #                   TAB #0 WELCOME
+    # ==========================================================
+    
+    Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions)
+
+
+    # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
     # stack.add_titled(vboxStack10, "stack0", "Welcome")
@@ -168,6 +174,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # stack.add_titled(vboxStack2, "stack9", "Theming")
 
     stack.add_titled(vboxStack9, "stack10", "Tweak Skel")
+
+    stack.add_titled(vboxStack10, "stack11", "Theme Changer")
     
     
 

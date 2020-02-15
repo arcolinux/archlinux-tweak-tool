@@ -32,6 +32,9 @@ config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 desktop = ""
 
 
+i3wm_config = home + "/.config/i3/config"
+awesome_config = home + "/.config/awesome/rc.lua"
+
 arepo_test = "[arcolinux_repo_testing]\n\
 SigLevel = Required DatabaseOptional\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
