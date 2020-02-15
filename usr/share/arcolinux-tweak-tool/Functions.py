@@ -167,6 +167,11 @@ def check_value(list, value):
                 data.remove(i)
     return data
 
+def check_backups(now):
+    if not os.path.exists(home + "/" + bd + "/Backup-" + now.strftime("%Y-%m-%d %H")):
+        os.makedirs(home + "/" + bd + "/Backup-" +
+                    now.strftime("%Y-%m-%d %H"), 0o777)
+        permissions(home + "/" + bd + "/Backup-" + now.strftime("%Y-%m-%d %H"))
 #=====================================================
 #               Check if File Exists
 #=====================================================

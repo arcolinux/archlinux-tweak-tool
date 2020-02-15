@@ -82,7 +82,7 @@ def restore_item(self):
                 Functions.permissions(Functions.home + "/" + value.split("-backup")[0])
             elif os.path.isdir(file_path):
                 dirs = Functions.home + "/" +  value.split("-backup")[0]
-                old_dir = Functions.home + "/" + value
+                # old_dir = Functions.home + "/" + value
                 GLib.idle_add(setMessage,self.label_info, "Removing Existing Destination Folder ...")
                 Functions.subprocess.call(["rm", "-rf", dirs])
                 GLib.idle_add(setMessage,self.label_info, "Copying " + value + " to " + value.split("-backup")[0])
@@ -200,11 +200,7 @@ def bash_upgrade(self):
     now = datetime.datetime.now()
     GLib.idle_add(setMessage,self.label_info1, "Running Backup")
 
-    if not os.path.exists(Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H")):
-        os.makedirs(Functions.home + "/" + Functions.bd + "/Backup-" +
-                    now.strftime("%Y-%m-%d %H"), 0o777)
-        Functions.permissions(Functions.home + "/" + Functions.bd + "/Backup-" +
-                    now.strftime("%Y-%m-%d %H"))
+    Functions.check_backups(now)
 
     if os.path.isfile(Functions.home + '/.bashrc'):
         Functions.copy_func(
@@ -249,11 +245,7 @@ def do_pulse(data, self, progress):
 def processing(self, active_text, label, progress):
     now = datetime.datetime.now()
     
-    if not os.path.isdir(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H")):
-        os.makedirs(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H"), 0o777)
-        Functions.permissions(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H"))
-        
-        
+    Functions.check_backups(now)
 
     GLib.idle_add(setProgress, progress, 0.1)
 
@@ -271,7 +263,10 @@ def processing(self, active_text, label, progress):
                 now.strftime("%Y-%m-%d %H:%M:%S"))
 
     # GLib.idle_add(setProgress, self, 0.3)
-
+    GLib.source_remove(timeout_id)
+    timeout_id = None
+    
+    GLib.idle_add(setProgress, progress, 0.5)
     # ============================
     #       LOACAL
     # ============================
@@ -281,11 +276,7 @@ def processing(self, active_text, label, progress):
     Functions.permissions(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + '/.local-backup-' +
                 now.strftime("%Y-%m-%d %H:%M:%S"))
     
-    GLib.source_remove(timeout_id)
-    timeout_id = None
-    
-    GLib.idle_add(setProgress, progress, 0.5)
-
+    GLib.idle_add(setProgress, progress, 0.7)
     # ============================
     #       BASH
     # ============================
@@ -298,7 +289,7 @@ def processing(self, active_text, label, progress):
         Functions.permissions(Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.bashrc-backup-" +
             now.strftime("%Y-%m-%d %H:%M:%S"))
     
-    GLib.idle_add(setProgress, progress, 0.6)
+    GLib.idle_add(setProgress, progress, 0.8)
     # ============================
     #       ZSH
     # ============================
@@ -309,7 +300,7 @@ def processing(self, active_text, label, progress):
             now.strftime("%Y-%m-%d %H:%M:%S"))
         Functions.permissions(Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.zshrc-backup-" +
             now.strftime("%Y-%m-%d %H:%M:%S"))
-    GLib.idle_add(setProgress, progress, 0.7)
+    GLib.idle_add(setProgress, progress, 0.9)
 
     # ============================
     #       CONKY
@@ -329,7 +320,7 @@ def processing(self, active_text, label, progress):
         Functions.permissions(Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.conkyrc-backup-" +
             now.strftime("%Y-%m-%d %H:%M:%S"))
 
-    GLib.idle_add(setProgress, progress, 0.8)
+    GLib.idle_add(setProgress, progress, 1.0)
 
     GLib.idle_add(setMessage, label, "Done")
 
@@ -340,7 +331,6 @@ def processing(self, active_text, label, progress):
         
         GLib.idle_add(skel_run, self, active_text)
     else:
-        GLib.idle_add(setProgress, progress, 1)
         GLib.idle_add(button_toggles,self,True)
         GLib.idle_add(setMessage,label, "Idle...")
         GLib.idle_add(setProgress,progress,0)
