@@ -5,6 +5,7 @@
 #=================================================================
 import gi
 # import webbrowser
+import pacman_functions
 import Support
 import Functions
 import Settings
@@ -82,18 +83,18 @@ class Main(Gtk.Window):
         t.start()
 
         #========================TESTING REPO=============================
-        arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
-        multi_testing = Functions.check_repo("[multilib-testing]")
-        arch_testing = Functions.check_repo("[testing]")
+        arco_testing = pacman_functions.check_repo("[arcolinux_repo_testing]")
+        multi_testing = pacman_functions.check_repo("[multilib-testing]")
+        arch_testing = pacman_functions.check_repo("[testing]")
         
         #========================ARCO REPO=============================
-        arco_base = Functions.check_repo("[arcolinux_repo]")
-        multi_3p = Functions.check_repo("[arcolinux_repo_3party]")
-        arch_xl = Functions.check_repo("[arcolinux_repo_xlarge]")
+        arco_base = pacman_functions.check_repo("[arcolinux_repo]")
+        multi_3p = pacman_functions.check_repo("[arcolinux_repo_3party]")
+        arch_xl = pacman_functions.check_repo("[arcolinux_repo_xlarge]")
 
         #========================SPINOFF REPO=============================
-        hefftor_repo = Functions.check_repo("[hefftor-repo]")
-        bobo_repo = Functions.check_repo("[bobo-repo]")
+        hefftor_repo = pacman_functions.check_repo("[hefftor-repo]")
+        bobo_repo = pacman_functions.check_repo("[bobo-repo]")
         
         #========================ARCO REPO SET TOGGLE=============================
         self.arepo_button.set_active(arco_base)
@@ -139,59 +140,59 @@ class Main(Gtk.Window):
     #               PACMAN FUNCTIONS
     # =====================================================
     def on_pacman_arepo_toggle(self, widget, active):
-        if not Functions.repo_exist("[arcolinux_repo]"):
-            Functions.append_repo(self, Functions.arepo)
+        if not pacman_functions.repo_exist("[arcolinux_repo]"):
+            pacman_functions.append_repo(self, Functions.arepo)
         else:
             if self.opened == False:
-                Functions.toggle_test_repos(self, widget.get_active(), "arco_base")
+                pacman_functions.toggle_test_repos(self, widget.get_active(), "arco_base")
 
     def on_pacman_a3p_toggle(self, widget, active):
-        if not Functions.repo_exist("[arcolinux_repo_3party]"):
-            Functions.append_repo(self, Functions.a3drepo)
+        if not pacman_functions.repo_exist("[arcolinux_repo_3party]"):
+            pacman_functions.append_repo(self, Functions.a3drepo)
         else:
             if self.opened == False:
-                Functions.toggle_test_repos(self, widget.get_active(), "arco_a3p")
+                pacman_functions.toggle_test_repos(self, widget.get_active(), "arco_a3p")
 
     def on_pacman_axl_toggle(self, widget, active):
-        if not Functions.repo_exist("[arcolinux_repo_xlarge]"):
-            Functions.append_repo(self, Functions.axlrepo)
+        if not pacman_functions.repo_exist("[arcolinux_repo_xlarge]"):
+            pacman_functions.append_repo(self, Functions.axlrepo)
         else:
             if self.opened == False:
-                Functions.toggle_test_repos(self, widget.get_active(), "arco_axl")
+                pacman_functions.toggle_test_repos(self, widget.get_active(), "arco_axl")
 
     def on_hefftor_toggle(self, widget, active):
-        if not Functions.repo_exist("[hefftor-repo]"):
-            Functions.append_repo(self, Functions.hefftor_repo)
+        if not pacman_functions.repo_exist("[hefftor-repo]"):
+            pacman_functions.append_repo(self, Functions.hefftor_repo)
         else:
             if self.opened == False:
-                Functions.toggle_test_repos(self, widget.get_active(), "hefftor")
+                pacman_functions.toggle_test_repos(self, widget.get_active(), "hefftor")
 
     def on_bobo_toggle(self, widget, active):
-        if not Functions.repo_exist("[bobo-repo]"):
-            Functions.append_repo(self, Functions.bobo_repo)
+        if not pacman_functions.repo_exist("[bobo-repo]"):
+            pacman_functions.append_repo(self, Functions.bobo_repo)
         else:
             if self.opened == False:
-                Functions.toggle_test_repos(self, widget.get_active(), "bobo")
+                pacman_functions.toggle_test_repos(self, widget.get_active(), "bobo")
 
     def on_pacman_toggle(self, widget, active):
-        if not Functions.repo_exist("[arcolinux_repo_testing]"):
-            Functions.append_repo(self, Functions.arepo_test)
+        if not pacman_functions.repo_exist("[arcolinux_repo_testing]"):
+            pacman_functions.insert_repo(self, Functions.arepo_test)
         else:
             if self.opened == False:
-                Functions.toggle_test_repos(self, widget.get_active(), "arco")
+                pacman_functions.toggle_test_repos(self, widget.get_active(), "arco")
 
     def on_pacman_toggle2(self, widget, active):
         if self.opened == False:
-            Functions.toggle_test_repos(self, widget.get_active(), "arch")
+            pacman_functions.toggle_test_repos(self, widget.get_active(), "arch")
 
     def on_pacman_toggle3(self, widget, active):
         if self.opened == False:
-            Functions.toggle_test_repos(self, widget.get_active(), "multilib")
+            pacman_functions.toggle_test_repos(self, widget.get_active(), "multilib")
 
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
         startiter, enditer = self.text.get_bounds()
-        Functions.append_repo(
+        pacman_functions.append_repo(
             self, self.text.get_text(startiter, enditer, True))
 
     # =====================================================
@@ -268,10 +269,10 @@ class Main(Gtk.Window):
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
 
-        if filez == Functions.pacman:
-            arco_testing = Functions.check_repo("[arcolinux_repo_testing]")
-            multi_testing = Functions.check_repo("[multilib-testing]")
-            arch_testing = Functions.check_repo("[testing]")
+        if filez == pacman:
+            arco_testing = pacman_functions.check_repo("[arcolinux_repo_testing]")
+            multi_testing = pacman_functions.check_repo("[multilib-testing]")
+            arch_testing = pacman_functions.check_repo("[testing]")
 
             self.checkbutton.set_active(arco_testing)
             self.checkbutton2.set_active(arch_testing)

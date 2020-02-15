@@ -1,6 +1,9 @@
 #=================================================================
 #=                  Author: Brad Heffernan                       =
 #=================================================================
+
+import pacman_functions
+
 def GUI(self, Gtk, vboxStack1, Functions):
     # ==========================================================
     #                   GLOBALS
@@ -22,7 +25,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #======================================================== 
     frame3 = Gtk.Frame(label="")
     frame3lbl = frame3.get_label_widget()
-    frame3lbl.set_markup("<b>ARCOLINUX REPO'S</b>")
+    frame3lbl.set_markup("<b>ARCOLINUX REPOS</b>")
 
     self.arepo_button = Gtk.Switch()
     self.arepo_button.connect("notify::active", self.on_pacman_arepo_toggle)
@@ -41,7 +44,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     
     frame4 = Gtk.Frame(label="")
     frame4lbl = frame4.get_label_widget()
-    frame4lbl.set_markup("<b>ARCOLINUX TEST REPO'S</b>")
+    frame4lbl.set_markup("<b>ARCOLINUX TEST REPOS</b>")
 
     self.checkbutton = Gtk.Switch()
     self.checkbutton.connect("notify::active", self.on_pacman_toggle)
@@ -53,7 +56,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #========================================================
     frame = Gtk.Frame(label="")
     framelbl = frame.get_label_widget()
-    framelbl.set_markup("<b>ARCHLINUX REPO'S</b>")
+    framelbl.set_markup("<b>ARCHLINUX REPOS</b>")
 
     self.checkbutton2 = Gtk.Switch()
     self.checkbutton2.connect("notify::active", self.on_pacman_toggle2)
@@ -70,7 +73,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #========================================================
     frame2 = Gtk.Frame(label="")
     frame2lbl = frame2.get_label_widget()
-    frame2lbl.set_markup("<b>SPINOFF REPO'S</b>")
+    frame2lbl.set_markup("<b>SPINOFF REPOS</b>")
 
     self.hefftor_button = Gtk.Switch()
     self.hefftor_button.connect("notify::active", self.on_hefftor_toggle)
