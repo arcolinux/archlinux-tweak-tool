@@ -203,6 +203,14 @@ class Main(Gtk.Window):
     # =====================================================
     #               THEMER FUNCTIONS
     # =====================================================
+    def on_awsome_change(self, widget):
+        tree_iter = self.awesome_combo.get_active_iter()
+        if tree_iter is not None:
+            model = self.awesome_combo.get_model()
+            row_id, name = model[tree_iter][:2]
+        pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.home + "/.config/awesome/themes/" + name + "/wallpaper.jpg", 348, 248)
+        self.image.set_from_pixbuf(pimage)
+
     def awesome_apply_clicked(self, widget):
         if not os.path.isfile(Functions.awesome_config + ".bak"):
             Functions.shutil.copy(Functions.awesome_config, Functions.awesome_config + ".bak")

@@ -65,6 +65,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
 
     self.awesome_combo.pack_start(renderer_text, False)
     self.awesome_combo.add_attribute(renderer_text, "text", 1)
+    self.awesome_combo.connect("changed", self.on_awsome_change)
     self.awesome_combo.set_entry_text_column(1)
     
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -72,9 +73,23 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     vbox3.pack_start(self.awesome_combo, False, False, 0)
-
     hbox2.pack_start(label2, False, False, 10)
     hbox2.pack_end(vbox3, False, False, 10)
+
+    frame = Gtk.Frame(label="")
+    frmlbl = frame.get_label_widget()
+    frmlbl.set_markup("<b>Preview</b>")
+
+    tree_iter = self.awesome_combo.get_active_iter()
+    if tree_iter is not None:
+        model = self.awesome_combo.get_model()
+        row_id, name = model[tree_iter][:2]
+
+    if Functions.os.path.isfile(Functions.home + "/.config/awesome/themes/" + name + "/wallpaper.jpg"):
+        pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.home + "/.config/awesome/themes/" + name + "/wallpaper.jpg", 348, 248)
+        self.image = Gtk.Image().new_from_pixbuf(pimage)
+
+    frame.add(self.image)
 
     apply = Gtk.Button(label="Apply")
     apply.connect("clicked", self.awesome_apply_clicked)
@@ -85,6 +100,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     hbox4.pack_end(reset, False, False, 0)
 
     vboxStack2.pack_start(hbox2, False, False, 10)
+    vboxStack2.pack_start(frame, False, False, 10)
     vboxStack2.pack_end(hbox4, False, False, 0)
 
 
