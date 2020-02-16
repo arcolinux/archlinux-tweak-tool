@@ -4,9 +4,10 @@
 
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
-    
-    i3_list = themer.get_list(Functions.i3wm_config)
-    awesome_list = themer.get_list(Functions.awesome_config)
+    if Functions.os.path.isfile(Functions.i3wm_config):
+        i3_list = themer.get_list(Functions.i3wm_config)
+    if Functions.os.path.isfile(Functions.awesome_config):
+        awesome_list = themer.get_list(Functions.awesome_config)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
     
@@ -31,7 +32,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
     self.i3_combo.set_size_request(180, 0)
-    themer.get_i3_themes(i3_list)
+    if Functions.os.path.isfile(Functions.i3wm_config):
+        themer.get_i3_themes(i3_list)
 
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -47,16 +49,18 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     #==================================================================
     label2 = Gtk.Label("Select theme")
     self.store = Gtk.ListStore(int, str)
-    awesome_lines = themer.get_awesome_themes(awesome_list)
-    for x in range(len(awesome_lines)):
-        self.store.append([x, awesome_lines[x]])
+    if Functions.os.path.isfile(Functions.awesome_config):
+        awesome_lines = themer.get_awesome_themes(awesome_list)
+        for x in range(len(awesome_lines)):
+            self.store.append([x, awesome_lines[x]])
     
     self.awesome_combo = Gtk.ComboBox.new_with_model(self.store)
     self.awesome_combo.set_size_request(180, 0)
     renderer_text = Gtk.CellRendererText()
 
-    val = int(themer.get_value(awesome_list, "local chosen_theme =").replace("themes[", "").replace("]", ""))
-    self.awesome_combo.set_active(val-1)
+    if Functions.os.path.isfile(Functions.awesome_config):
+        val = int(themer.get_value(awesome_list, "local chosen_theme =").replace("themes[", "").replace("]", ""))
+        self.awesome_combo.set_active(val-1)
     
 
     self.awesome_combo.pack_start(renderer_text, False)
