@@ -35,8 +35,12 @@ def set_awesome_theme(lines, val):
         f.close()
 
 def reload_awesome():
-    p = Functions.subprocess.call(["sh", "-c", "\"echo \'awesome.restart()\' | awesome-client\""], shell=False, stdout=Functions.subprocess.PIPE, stderr=Functions.subprocess.STDOUT)
-    print(p.stdout.decode())
+    try:
+        p = Functions.subprocess.Popen(["echo", "\'awesome.restart()\'"], shell=False, stdout=Functions.subprocess.PIPE, stderr=Functions.subprocess.STDOUT)
+        p2 = Functions.subprocess.Popen(["awesome-client"], shell=False, stdin=p.stdout, stdout=Functions.subprocess.PIPE, stderr=Functions.subprocess.STDOUT)
+        print(p.stdout)
+    except:
+        print("ERROR")
 
 def get_value(lists, types):
     try:
