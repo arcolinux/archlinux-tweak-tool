@@ -36,7 +36,7 @@ def set_awesome_theme(lines, val):
 
 def reload_awesome():
     try:
-        p = Functions.subprocess.run("echo 'awesome.restart()' | awesome-client", shell=True, stdout=Functions.subprocess.PIPE, stderr=Functions.subprocess.STDOUT)
+        p = Functions.subprocess.run(["sh", "-c", "su - " + Functions.sudo_username + " -c  \"echo 'awesome.restart()' | awesome-client\""], shell=True, stdout=Functions.subprocess.PIPE, stderr=Functions.subprocess.STDOUT)
         print(p.stdout.decode())
     except Exception as e:
         print(e)
