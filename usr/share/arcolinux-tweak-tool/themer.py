@@ -26,6 +26,14 @@ def get_awesome_themes(lines):
         return_list.append(x.split("\"")[1].strip())
     return return_list
 
+def set_awesome_theme(lines, val):
+    theme_pos = Functions._get_position(lines, "local chosen_theme")
+    lst = lines[theme_pos].split("=")[1].replace("themes[", "").replace("]", "").strip()
+    lines[theme_pos] = lines[theme_pos].replace("themes[" + lst + "]", "themes[" + val + "]")
+    with open(Functions.awesome_config, "w") as f:
+        f.writelines(lines)
+        f.close()
+
 def get_value(lists, types):
     try:
         pos = Functions._get_position(lists, types)

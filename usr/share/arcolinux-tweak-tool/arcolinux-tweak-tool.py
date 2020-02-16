@@ -198,6 +198,34 @@ class Main(Gtk.Window):
             self, self.text.get_text(startiter, enditer, True))
 
     # =====================================================
+    #               THEMER FUNCTIONS
+    # =====================================================
+    def awesome_apply_clicked(self, widget):
+        if not os.path.isfile(Functions.awesome_config + ".bak"):
+            Functions.shutil.copy(Functions.awesome_config, Functions.awesome_config + ".bak")
+
+        tree_iter = self.awesome_combo.get_active_iter()
+        if tree_iter is not None:
+            model = self.awesome_combo.get_model()
+            row_id, name = model[tree_iter][:2]
+
+        themer.set_awesome_theme(themer.get_list(Functions.awesome_config), str(row_id+1))
+
+    def awesome_reset_clicked(self, widget):
+        if os.path.isfile(Functions.awesome_config + ".bak"):
+            Functions.shutil.copy(Functions.awesome_config + ".bak", Functions.awesome_config)
+            Functions.show_in_app_notification(self, "Config reset successfully")
+
+            awesome_list = themer.get_list(Functions.awesome_config)
+            awesome_lines = themer.get_awesome_themes(awesome_list)
+            
+            self.store.clear()
+            for x in range(len(awesome_lines)):
+                self.store.append([x, awesome_lines[x]])
+            val = int(themer.get_value(awesome_list, "local chosen_theme =").replace("themes[", "").replace("]", ""))
+            self.awesome_combo.set_active(val-1)
+
+    # =====================================================
     #               OBLOGOUT FUNCTIONS
     # =====================================================
 

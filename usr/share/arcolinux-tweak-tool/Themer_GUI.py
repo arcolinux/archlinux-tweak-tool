@@ -16,6 +16,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
     stack.set_transition_duration(350)
+    stack.set_hhomogeneous(False)
+    stack.set_vhomogeneous(False)
 
     stack_switcher = Gtk.StackSwitcher()
     stack_switcher.set_orientation(Gtk.Orientation.HORIZONTAL)
@@ -44,12 +46,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     #                       AWESOMEWM TAB
     #==================================================================
     label2 = Gtk.Label("Select theme")
-    store = Gtk.ListStore(int, str)
+    self.store = Gtk.ListStore(int, str)
     awesome_lines = themer.get_awesome_themes(awesome_list)
     for x in range(len(awesome_lines)):
-        store.append([x, awesome_lines[x]])
+        self.store.append([x, awesome_lines[x]])
     
-    self.awesome_combo = Gtk.ComboBox.new_with_model(store)
+    self.awesome_combo = Gtk.ComboBox.new_with_model(self.store)
+    self.awesome_combo.set_size_request(180, 0)
     renderer_text = Gtk.CellRendererText()
 
     val = int(themer.get_value(awesome_list, "local chosen_theme =").replace("themes[", "").replace("]", ""))
@@ -62,13 +65,23 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     vbox3.pack_start(self.awesome_combo, False, False, 0)
 
     hbox2.pack_start(label2, False, False, 10)
     hbox2.pack_end(vbox3, False, False, 10)
 
+    apply = Gtk.Button(label="Apply")
+    apply.connect("clicked", self.awesome_apply_clicked)
+    reset = Gtk.Button(label="Reset")
+    reset.connect("clicked", self.awesome_reset_clicked)
+
+    hbox4.pack_end(apply, False, False, 0)
+    hbox4.pack_end(reset, False, False, 0)
+
     vboxStack2.pack_start(hbox2, False, False, 10)
+    vboxStack2.pack_end(hbox4, False, False, 0)
 
 
     if Functions.os.path.isfile(Functions.i3wm_config):
@@ -80,4 +93,4 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)
 
-    vboxStack10.pack_start(vbox, False, False, 0)
+    vboxStack10.pack_start(vbox, True, True, 0)
