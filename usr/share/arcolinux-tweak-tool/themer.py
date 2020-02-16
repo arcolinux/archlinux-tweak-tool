@@ -35,7 +35,7 @@ def set_awesome_theme(lines, val):
         f.close()
 
 def reload_awesome():
-    Functions.subprocess.run(["sh", "-c", "echo 'awesome.restart()' | awesome-client"], shell=False)
+    Functions.subprocess.run(["sh", "-c", "\"echo 'awesome.restart()' | awesome-client\""], shell=False)
 
 def get_value(lists, types):
     try:
