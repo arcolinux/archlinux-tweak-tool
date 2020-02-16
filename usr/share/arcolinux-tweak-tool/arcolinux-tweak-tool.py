@@ -213,7 +213,6 @@ class Main(Gtk.Window):
             row_id, name = model[tree_iter][:2]
 
         themer.set_awesome_theme(themer.get_list(Functions.awesome_config), str(row_id+1))
-        themer.reload_awesome()
 
     def awesome_reset_clicked(self, widget):
         if os.path.isfile(Functions.awesome_config + ".bak"):
