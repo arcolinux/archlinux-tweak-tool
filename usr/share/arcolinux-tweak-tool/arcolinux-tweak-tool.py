@@ -194,8 +194,11 @@ class Main(Gtk.Window):
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
         startiter, enditer = self.text.get_bounds()
-        pacman_functions.append_repo(
-            self, self.text.get_text(startiter, enditer, True))
+        
+        if not len(self.text.get_text(startiter, enditer, True)) < 5:
+            print(self.text.get_text(startiter, enditer, True))
+            pacman_functions.append_repo(
+                self, self.text.get_text(startiter, enditer, True))
 
     # =====================================================
     #               THEMER FUNCTIONS

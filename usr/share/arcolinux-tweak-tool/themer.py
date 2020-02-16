@@ -19,7 +19,7 @@ def get_awesome_themes(lines):
     
     theme_pos = Functions._get_position(lines, "local themes = {")
     end_theme_pos = Functions._get_position(lines, "local chosen_theme")
-
+    
     coms = [x for x in lines[theme_pos:end_theme_pos] if "\"," in x]
     return_list = []
     for x in coms:
