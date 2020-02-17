@@ -136,7 +136,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # #                     Skelapp
     # # ==========================================================
     
-    # SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
+    SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
     
     # ==========================================================
     #                   TAB #0 WELCOME
@@ -174,7 +174,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     
     # stack.add_titled(vboxStack2, "stack9", "Theming")
 
-    # stack.add_titled(vboxStack9, "stack10", "Tweak Skel")
+    stack.add_titled(vboxStack9, "stack10", "Tweak Skel")
 
     stack.add_titled(vboxStack10, "stack11", "Theme Changer")
     
@@ -196,7 +196,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.3.25</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.3.24</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop +"</span>")

@@ -815,32 +815,29 @@ class Main(Gtk.Window):
     def on_browse_fixed(self, widget):
         if self.rbutton3.get_active():
             dialog = Gtk.FileChooserDialog(
-                title="Please choose a file", action=Gtk.FileChooserAction.OPEN)
-            dialog.set_select_multiple(True)
+                title="Please choose a file", action=Gtk.FileChooserAction.OPEN)            
         elif self.rbutton4.get_active():
             dialog = Gtk.FileChooserDialog(
                 title="Please choose a folder", action=Gtk.FileChooserAction.SELECT_FOLDER)
-            dialog.set_select_multiple(True)
-        
+            
+        dialog.set_select_multiple(True)
         dialog.set_show_hidden(True)
         dialog.set_current_folder("/etc/skel")
-        dialog.add_buttons(
-            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
+        dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open",
+                           Gtk.ResponseType.OK)
+        dialog.connect("response", self.open_response_skel)
 
-        response = dialog.run()
+        dialog.show()
 
+    def open_response_skel(self, dialog, response):
         if response == Gtk.ResponseType.OK:
+            print(dialog.get_filenames())
             foldername = dialog.get_filenames()
-            for item in foldername:
-                self.store.append([item])
-
-            # self.textBox.set_text(str(foldername))
-
+            # for item in foldername:
+            self.stores.append(foldername)
             dialog.destroy()
         elif response == Gtk.ResponseType.CANCEL:
-            # print("Cancel clicked")
             dialog.destroy()
-
 #    # ===============RUN SKEL================
 
     def on_button_fetch_clicked(self, widget):
