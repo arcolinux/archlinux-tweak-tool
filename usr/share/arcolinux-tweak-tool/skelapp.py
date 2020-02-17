@@ -48,11 +48,12 @@ def skel_run(self, cat):
             print(item[0])
             GLib.idle_add(setProgress, self.progressbar1, self.progressbar1.get_fraction() + prog)
             old = item[0]
-            new = old.replace("/etc/skel",Functions.home)
+            new = old.replace("/etc/skel", Functions.home)
             if os.path.isdir(old):
-                Functions.copy_func(old,  os.path.split(new)[0], True)
+                Functions.copy_func(old,  os.path.split(new)[0], True)                
             if os.path.isfile(old):
                 Functions.copy_func(old, new)
+            Functions.permissions(new)
     GLib.idle_add(button_toggles, self, True)
     GLib.idle_add(setMessage,self.label_info1, "Idle ...")
     GLib.idle_add(setProgress, self.progressbar1, 0)
