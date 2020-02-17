@@ -1,16 +1,18 @@
-#=================================================================
-#=                  Author: Brad Heffernan                       =
-#=================================================================
+# =================================================================
+# =                  Author: Brad Heffernan                       =
+# =================================================================
 
 import Functions
 from Functions import GLib
+
 
 def check_lightdm(lists, value):
     pos = Functions._get_position(lists, value)
     val = lists[pos].strip()
     return val
     # comman = Functions.check_lightdm_value(lines[Functions.get_lightdm(lines):], "autologin-user=")
-            
+
+
 def set_lightdm_value(self, lists, value, session, state):
     try:
         pos = Functions._get_position(lists, "autologin-user=")
@@ -42,6 +44,7 @@ def get_lines(files):
             lines = f.readlines()
             f.close()
         return lines
+
 
 def pop_box(self, combo):
     coms = []

@@ -1,8 +1,8 @@
-#=================================================================
-#=                  Author: Brad Heffernan                       =
-#=================================================================
+# =================================================================
+# =                  Author: Brad Heffernan                       =
+# =================================================================
 
-#============Functions============
+# ============Functions============
 import Functions
 import slim
 import Gtk_Functions
@@ -13,7 +13,7 @@ import skelapp
 import lightdm
 import themer
 
-#=============GUI=================
+# =============GUI=================
 import Termite_GUI
 import Neofetch_GUI
 import Oblogout_GUI
@@ -26,10 +26,11 @@ import SkelApp_GUI
 import Lightdm_GUI
 import Themer_GUI
 
+
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
-    #=======================================================
+    # =======================================================
     #                       App Notifications
-    #=======================================================
+    # =======================================================
     hbox0 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     self.notification_revealer = Gtk.Revealer()

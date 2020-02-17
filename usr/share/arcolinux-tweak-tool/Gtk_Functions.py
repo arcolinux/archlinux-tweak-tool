@@ -1,14 +1,16 @@
-#=================================================================
-#=                  Author: Brad Heffernan                       =
-#=================================================================
+# =================================================================
+# =                  Author: Brad Heffernan                       =
+# =================================================================
 import Functions
 from Functions import os, GLib
 import re
 # from xml.etree import ElementTree as et
 
-#====================================================================
+# ====================================================================
 #                       GTK FUNCTIONS
-#====================================================================
+# ====================================================================
+
+
 def get_gtk_themes(self, combo):
     if os.path.isfile(Functions.gtk3_settings):
         try:
@@ -36,6 +38,7 @@ def get_gtk_themes(self, combo):
                     combo.set_active(i)
         except:
             Functions.MessageBox("ERROR!!", "An error has occured getting this setting \'gtk-theme-name\'")
+
 
 def get_icon_themes(self, combo):
     if os.path.isfile(Functions.gtk3_settings):
@@ -65,6 +68,7 @@ def get_icon_themes(self, combo):
         except:
             Functions.MessageBox("ERROR!!", "An error has occured getting this setting \'gtk-icon-theme-name\'")
 
+
 def get_cursor_themes(self, combo):
     if os.path.isfile(Functions.gtk3_settings):
         try:
@@ -93,6 +97,7 @@ def get_cursor_themes(self, combo):
         except:
             Functions.MessageBox("ERROR!!", "An error has occured getting this setting \'gtk-cursor-theme-name\'")
 
+
 def get_mono_font(name):
     if os.path.isfile(Functions.xfce_config):
         try:
@@ -112,6 +117,7 @@ def get_mono_font(name):
 
     return "Roboto 10"
 
+
 def get_gtk_settings(item):
     if os.path.isfile(Functions.gtk3_settings):
         active_cursor = ""
@@ -127,8 +133,9 @@ def get_gtk_settings(item):
             Functions.MessageBox("ERROR!!", "An error has occured getting this setting \'get_gtk_settings\'")
             if item == "gtk-cursor-theme-size":
                 active_cursor = "24"
-        
+
         return active_cursor
+
 
 def gtk2_save_settings(value, item):
     if os.path.isfile(Functions.gtk2_settings):
@@ -155,7 +162,7 @@ def gtk2_save_settings(value, item):
                 f.close()
         except:
             GLib.idle_add(Functions.MessageBox,"ERROR!!", "An error has occured getting this setting \'gtk2_save_settings\'")
-    
+
 
 def gtk3_save_settings(value, item):
     
@@ -184,6 +191,7 @@ def gtk3_save_settings(value, item):
             GLib.idle_add(Functions.MessageBox,"ERROR!!", "An error has occured getting this setting \'gtk3_save_settings\'")
 
 # def set_xfce_settings(theme, icon, cursor, cursize, fonts, monofonts):
+
 def set_xfce_settings(theme, icon, cursor, cursize):
     if os.path.isfile(Functions.xfce_config):
         if not os.path.isfile(Functions.xfce_config + ".bak"):
@@ -252,6 +260,7 @@ def update_index_theme(theme):
                 f.close()
         except:
             pass
+
 
 # def gtk_settings_saved(self, themeCombo, iconCombo, cursorCombo, cursor_size, fonts, monofonts):
 def gtk_settings_saved(self, themeCombo, iconCombo, cursorCombo, cursor_size):

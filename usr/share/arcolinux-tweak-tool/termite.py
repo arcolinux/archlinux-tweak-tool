@@ -1,13 +1,15 @@
-#=================================================================
-#=                  Author: Brad Heffernan                       =
-#=================================================================
+# =================================================================
+# =                  Author: Brad Heffernan                       =
+# =================================================================
 import Functions
 import numpy as np 
 import Settings
 from Functions import os
-#====================================================================
+# ====================================================================
 #                       TERMITE
-#====================================================================
+# ====================================================================
+
+
 def get_themes(combo):
     if os.path.isdir(Functions.home + "/.config/termite/themes/"):
         themes = os.listdir(Functions.home + "/.config/termite/themes/")
@@ -40,6 +42,7 @@ def get_themes(combo):
 
     # print(lines[Functions._get_position(lines, "[colors]") + 1])
 
+
 def get_config():
     if os.path.isfile(Functions.termite_config):
         with open(Functions.termite_config, "r") as f:
@@ -53,6 +56,7 @@ def get_config():
 
         return lists[:target_index]
     return []
+
 
 def set_config(self, theme):
     if not os.path.isfile(Functions.termite_config + ".bak"):

@@ -1,6 +1,6 @@
-#=================================================================
-#=                  Author: Brad Heffernan                       =
-#=================================================================
+# =================================================================
+# =                  Author: Brad Heffernan                       =
+# =================================================================
 
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
@@ -26,9 +26,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     stack_switcher.set_homogeneous(True)
 
 
-    #==================================================================
+    # ==================================================================
     #                       I3WM TAB
-    #==================================================================
+    # ==================================================================
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
     self.i3_combo.set_size_request(180, 0)
@@ -37,16 +37,26 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
 
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     vbox2.pack_start(self.i3_combo, False, False, 0)
+
+    applyi3 = Gtk.Button(label="Apply")
+    applyi3.connect("clicked", self.i3wm_apply_clicked)
+    reseti3 = Gtk.Button(label="Reset")
+    reseti3.connect("clicked", self.i3wm_reset_clicked)
 
     hbox1.pack_start(label, False, False, 10)
     hbox1.pack_end(vbox2, False, False, 10)
 
+    hbox2.pack_end(applyi3, False, False, 10)
+    hbox2.pack_end(reseti3, False, False, 10)
+
     vboxStack1.pack_start(hbox1, False, False, 10)
-    #==================================================================
+    vboxStack1.pack_end(hbox2, False, False, 0)
+    # ==================================================================
     #                       AWESOMEWM TAB
-    #==================================================================
+    # ==================================================================
     label2 = Gtk.Label("Select theme")
     self.store = Gtk.ListStore(int, str)
     if Functions.os.path.isfile(Functions.awesome_config):
@@ -103,12 +113,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     vboxStack2.pack_start(frame, False, False, 10)
     vboxStack2.pack_end(hbox4, False, False, 0)
 
+    # ==================================================================
+    #                       PACK TO STACK
+    # ==================================================================
 
     if Functions.os.path.isfile(Functions.i3wm_config):
         stack.add_titled(vboxStack1, "stack1", "I3WM")
     if Functions.os.path.isfile(Functions.awesome_config):
         stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
-
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)

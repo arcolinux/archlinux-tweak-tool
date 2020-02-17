@@ -6,6 +6,7 @@ from gi.repository import Gtk, GdkPixbuf
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 
+
 class Support(Gtk.Dialog):
 
     def __init__(self, parent):
@@ -92,15 +93,12 @@ If you want to thank and support <b>Brad</b> personally for his initiative and e
         
         self.show_all()
 
-
-
     def on_support_click(self, widget, event, link):
         t = Functions.threading.Thread(target=self.weblink, args=(link,))
         t.daemon = True
         t.start()
         # print("CLICKED")
         # self.weblink(link)
-
 
     def weblink(self, link):
         Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "exo-open --launch webbrowser " + link], shell=False)

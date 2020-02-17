@@ -1,11 +1,12 @@
-#=================================================================
-#=                  Author: Brad Heffernan                       =
-#=================================================================
+# =================================================================
+# =                  Author: Brad Heffernan                       =
+# =================================================================
 import Functions
 from Functions import os
-#====================================================================
+# ====================================================================
 #                       NEOFETCH
-#====================================================================
+# ====================================================================
+
 
 def get_neofetch():
     lines = []
@@ -15,6 +16,7 @@ def get_neofetch():
             f.close()
         
     return lines
+
 
 def pop_neofetch_box(combo):
     if os.path.isfile(Functions.neofetch_config):
@@ -37,7 +39,8 @@ def pop_neofetch_box(combo):
             combo.append_text(com[i])
             if com[i] == active:
                 combo.set_active(i)
-    
+
+
 def check_backend():
     if os.path.isfile(Functions.neofetch_config):
         lines = get_neofetch()
@@ -47,6 +50,8 @@ def check_backend():
                     line = lines[i].split("=")[1].replace("\"", "").strip()
                     return line
     return "ascii"
+
+
 def check_ascii():
     line = "auto"
     if os.path.isfile(Functions.neofetch_config):
@@ -55,6 +60,7 @@ def check_ascii():
             if "ascii_distro=" in lines[i]:
                 line = lines[i].split("=")[1].replace("\"", "").strip()
     return line
+
 
 def apply_config(self, backend, emblem, ascii_size):
     if os.path.isfile(Functions.neofetch_config):
@@ -200,6 +206,7 @@ def apply_config(self, backend, emblem, ascii_size):
         # except:
         #     pass
 
+
 def get_state(value):
     lines = get_neofetch()
 
@@ -208,6 +215,7 @@ def get_state(value):
             if "#" in lines[i]:
                 return False
     return True
+
 
 def get_checkboxes(self):
     

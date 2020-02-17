@@ -2,6 +2,7 @@
 #=                  Author: Brad Heffernan                       =
 #=================================================================
 
+
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)

@@ -1,12 +1,14 @@
-#=================================================================
-#=                  Author: Brad Heffernan                       =
-#=================================================================
+# =================================================================
+# =                  Author: Brad Heffernan                       =
+# =================================================================
 import Functions
 from Functions import os
-#====================================================================
+# ====================================================================
 #                       SLIMLOCK
-#====================================================================
+# ====================================================================
 # @threaded
+
+
 def get_slimlock(combo):
     coms = []
     if os.path.isfile(Functions.slimlock_conf):
@@ -37,6 +39,7 @@ def get_slimlock(combo):
             if(coms[i] == active):
                 combo.set_active(i)
 
+
 def reload_import(combo, theme):
     combo.get_model().clear()
     coms = []
@@ -65,6 +68,7 @@ def reload_import(combo, theme):
             if(coms[i] == theme):
                 combo.set_active(i)
 
+
 def remove_theme(name):
     with open(Functions.slimlock_conf, "r") as f:
         lines = f.readlines()
@@ -85,6 +89,7 @@ def remove_theme(name):
     except Exception as e:
         print(e)
 
+
 def set_slimlock(self, theme):
     if not os.path.isfile(Functions.slimlock_conf + ".bak"):
         Functions.shutil.copy(Functions.slimlock_conf, Functions.slimlock_conf + ".bak")
@@ -97,7 +102,7 @@ def set_slimlock(self, theme):
     for i in range(0, len(lines)):
         line = lines[i]
         if "current_theme" in line:
-            if not "#" in lines[i]:
+            if "#" not in lines[i]:
                 lines[i] = line.replace(lines[i], "#" + lines[i])
     #current_theme       arcolinux
     data = Functions.gtk_check_value(lines, theme)

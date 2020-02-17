@@ -1,11 +1,13 @@
-#=================================================================
-#=                  Author: Brad Heffernan                       =
-#=================================================================
+# =================================================================
+# =                  Author: Brad Heffernan                       =
+# =================================================================
 import Functions
 from Functions import os
-#====================================================================
+# ====================================================================
 #                       OBLOGOUT FUNCTIONS
-#====================================================================
+# ====================================================================
+
+
 def get_shortcut(value):
     if os.path.isfile(Functions.oblogout_conf):
         with open(Functions.oblogout_conf, "r") as f:
@@ -17,6 +19,7 @@ def get_shortcut(value):
         else:
             shortcut = [shortcu[0].lstrip().rstrip().replace(" ", "")][0].split("=")
         return shortcut[1]
+
 
 def set_shorcut(self, value, value_sk):
     if os.path.isfile(Functions.oblogout_conf):
@@ -42,6 +45,7 @@ def set_shorcut(self, value, value_sk):
         except:
             Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_shorcut\'")
 
+
 def oblog_populate(combo):
     if os.path.isfile(Functions.oblogout_conf):
         coms = []
@@ -64,6 +68,7 @@ def oblog_populate(combo):
             combo.append_text(coms[i])
             if(coms[i] == active):
                 combo.set_active(i)
+
 
 def oblogout_change_theme(self, theme):
     if os.path.isfile(Functions.oblogout_conf):
@@ -90,6 +95,7 @@ def oblogout_change_theme(self, theme):
         except:
             Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'oblogout_change_theme\'")
 
+
 def get_opacity():
     if os.path.isfile(Functions.oblogout_conf):
         with open(Functions.oblogout_conf, 'r') as f:
@@ -102,6 +108,7 @@ def get_opacity():
         else:
             opacity = Functions._get_variable(lines, "opacity")
         return int(opacity[1].split(".")[0])
+
 
 def set_opacity(self, value):
     if os.path.isfile(Functions.oblogout_conf):
@@ -123,6 +130,7 @@ def set_opacity(self, value):
         except:
             Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_opacity\'")
 
+
 def set_buttons(self, value):
     if os.path.isfile(Functions.oblogout_conf):
         with open(Functions.oblogout_conf, 'r') as f:
@@ -142,6 +150,7 @@ def set_buttons(self, value):
         except:
             Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_buttons\'")
 
+
 def get_buttons():
     buttons = "You do not have oblogout.conf"
     if os.path.isfile(Functions.oblogout_conf):
@@ -159,6 +168,7 @@ def get_buttons():
     else:
         return buttons
 
+
 def get_command(value):
     if os.path.isfile(Functions.oblogout_conf):
         with open(Functions.oblogout_conf, 'r') as f:
@@ -174,6 +184,7 @@ def get_command(value):
             command[1] = command[1][:1].replace(' ', '') + command[1][1:]
         # command[1] = command1[:1].replace(' ', '')
         return command[1]
+
 
 def set_command(self, value, value_sk):
     if os.path.isfile(Functions.oblogout_conf):
@@ -196,6 +207,7 @@ def set_command(self, value, value_sk):
         except:
             Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_command\'")
 
+
 def get_color():
     color = ""
     if os.path.isfile(Functions.oblogout_conf):
@@ -206,6 +218,7 @@ def get_color():
                     color = line.split("=")[1].lstrip().rstrip()
             f.close()
     return color
+
 
 def set_color(self, color):
     if os.path.isfile(Functions.oblogout_conf):
