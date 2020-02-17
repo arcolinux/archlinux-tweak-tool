@@ -24,17 +24,17 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     btnimport = Gtk.Button(label="Import Selected Image")
     btnimport.connect("clicked", self.on_import_wallpaper)
 
-    self.image = Gtk.Image()
+    self.image_grub = Gtk.Image()
 
     try:
         pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' + self.grub_theme_combo.get_active_text(), 645, 645)
-        self.image.set_from_pixbuf(pixbuf3)
+        self.image_grub.set_from_pixbuf(pixbuf3)
     except:
         pass
     frame = Gtk.Frame(label="Preview")
-    frame.add(self.image)
+    frame.add(self.image_grub)
 
-    self.grub_theme_combo.connect("changed", self.on_grub_theme_change, self.image)
+    self.grub_theme_combo.connect("changed", self.on_grub_theme_change)
 
     grub_apply = Gtk.Button(label="Apply Wallpaper")
     grub_apply.connect("clicked", self.on_set_grub_wallpaper)

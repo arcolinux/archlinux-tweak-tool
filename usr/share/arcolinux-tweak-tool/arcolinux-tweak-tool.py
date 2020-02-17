@@ -25,7 +25,6 @@ from gi.repository import Gtk, Gdk, GdkPixbuf
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 pmf = pacman_functions
-px = GdkPixbuf.Pixbuf()
 
 
 class Main(Gtk.Window):
@@ -241,7 +240,7 @@ class Main(Gtk.Window):
         if tree_iter is not None:
             model = self.awesome_combo.get_model()
             row_id, name = model[tree_iter][:2]
-        pimage = px.new_from_file_at_size(Functions.home +
+        pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.home +
                                           "/.config/awesome/themes/" +
                                           name +
                                           "/wallpaper.jpg",
@@ -497,12 +496,13 @@ class Main(Gtk.Window):
                     if(lists[i] == os.path.basename(self.tbimage.get_text())):
                         combo.set_active(i)
 
-    def on_grub_theme_change(self, widget, image):
+    def on_grub_theme_change(self, widget):
         try:
-            pixbuf3 = px.new_from_file_at_size('/boot/grub/themes/Vimix/' +
+            pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' +
                                                widget.get_active_text(),
                                                645, 645)
-            self.image.set_from_pixbuf(pixbuf3)
+            print(widget.get_active_text())
+            self.image_grub.set_from_pixbuf(pixbuf3)
         except Exception as e:
             print(e)
 
@@ -588,7 +588,7 @@ class Main(Gtk.Window):
     def on_slim_theme_change(self, widget, image):
         try:
             path = '/usr/share/slim/themes/' + widget.get_active_text()
-            pixbuf4 = px.new_from_file_at_size(path + "/background.png", 345, 345)
+            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 345, 345)
             self.image2.set_from_pixbuf(pixbuf4)
         except Exception as e:
             print(e)
@@ -611,7 +611,7 @@ class Main(Gtk.Window):
     def open_response_slim(self, dialog, response):
         if response == Gtk.ResponseType.OK:
             self.slimtext.set_text(dialog.get_filename())
-            pixbuf4 = px.new_from_file_at_size(self.slimtext.get_text(), 345, 345)
+            pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(self.slimtext.get_text(), 345, 345)
             self.image5.set_from_pixbuf(pixbuf4)
             dialog.destroy()
         elif response == Gtk.ResponseType.CANCEL:
@@ -726,7 +726,7 @@ class Main(Gtk.Window):
     def on_elmblem_changed(self, widget):
         path = Functions.home + "/.config/neofetch/" + widget.get_active_text()
 
-        pixbuf6 = px.new_from_file_at_size(path, 145, 145)
+        pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
         self.image4.set_from_pixbuf(pixbuf6)
 
     def radio_toggled(self, widget):
@@ -736,7 +736,7 @@ class Main(Gtk.Window):
             self.small_ascii.set_sensitive(False)
             path = Functions.home + "/.config/neofetch/" + self.emblem.get_active_text()
 
-            pixbuf6 = px.new_from_file_at_size(path, 145, 145)
+            pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
             self.image4.set_from_pixbuf(pixbuf6)
             self.frame3.show()
             self.image4.show()
