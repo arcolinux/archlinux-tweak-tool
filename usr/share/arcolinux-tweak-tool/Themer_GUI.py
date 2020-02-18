@@ -31,9 +31,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):  # noqa
 
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
-    self.i3_combo.set_size_request(180, 0)
+    self.i3_combo.set_size_request(280, 0)
     if Functions.os.path.isfile(Functions.i3wm_config):
-        themer.get_i3_themes(i3_list)
+        themer.get_i3_themes(self.i3_combo, i3_list)
 
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -49,8 +49,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):  # noqa
     hbox1.pack_start(label, False, False, 10)
     hbox1.pack_end(vbox2, False, False, 10)
 
-    hbox2.pack_end(applyi3, False, False, 10)
-    hbox2.pack_end(reseti3, False, False, 10)
+    hbox2.pack_end(applyi3, False, False, 0)
+    hbox2.pack_end(reseti3, False, False, 0)
 
     vboxStack1.pack_start(hbox1, False, False, 10)
     vboxStack1.pack_end(hbox2, False, False, 0)

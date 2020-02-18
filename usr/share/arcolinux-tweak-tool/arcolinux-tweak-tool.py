@@ -141,6 +141,9 @@ class Main(Gtk.Window):
             with open("/tmp/att.lock", "w") as f:
                 f.write("")
 
+        # themer.set_i3_themes(themer.get_list(Functions.i3wm_config),
+                                            #  "arcolinux-mastermind")
+
     def on_close(self, widget, data):
         os.unlink("/tmp/att.lock")
         Gtk.main_quit()
@@ -279,10 +282,21 @@ class Main(Gtk.Window):
             self.awesome_combo.set_active(val-1)
 
     def i3wm_apply_clicked(self, widget):
-        pass
+        themer.set_i3_themes(themer.get_list(Functions.i3wm_config),
+                             self.i3_combo.get_active_text())
+        Functions.show_in_app_notification(self,
+                                           "Theme applied successfully")
 
     def i3wm_reset_clicked(self, widget):
-        pass
+        if os.path.isfile(Functions.i3wm_config + ".bak"):
+            Functions.shutil.copy(Functions.i3wm_config + ".bak",
+                                  Functions.i3wm_config)
+            Functions.show_in_app_notification(self,
+                                               "Config reset successfully")
+
+            i3_list = themer.get_list(Functions.i3wm_config)
+            
+            themer.get_i3_themes(self.i3_combo, i3_list)
 
 # =====================================================
 #               OBLOGOUT FUNCTIONS
