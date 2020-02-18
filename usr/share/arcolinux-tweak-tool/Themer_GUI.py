@@ -3,14 +3,14 @@
 # =================================================================
 
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
+def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):  # noqa
     if Functions.os.path.isfile(Functions.i3wm_config):
         i3_list = themer.get_list(Functions.i3wm_config)
     if Functions.os.path.isfile(Functions.awesome_config):
         awesome_list = themer.get_list(Functions.awesome_config)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
-    
+
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
@@ -25,10 +25,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
     stack_switcher.set_stack(stack)
     stack_switcher.set_homogeneous(True)
 
-
     # ==================================================================
     #                       I3WM TAB
     # ==================================================================
+
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
     self.i3_combo.set_size_request(180, 0)
@@ -54,30 +54,32 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
 
     vboxStack1.pack_start(hbox1, False, False, 10)
     vboxStack1.pack_end(hbox2, False, False, 0)
+
     # ==================================================================
     #                       AWESOMEWM TAB
     # ==================================================================
+
     label2 = Gtk.Label("Select theme")
     self.store = Gtk.ListStore(int, str)
     if Functions.os.path.isfile(Functions.awesome_config):
         awesome_lines = themer.get_awesome_themes(awesome_list)
         for x in range(len(awesome_lines)):
             self.store.append([x, awesome_lines[x]])
-    
+
     self.awesome_combo = Gtk.ComboBox.new_with_model(self.store)
     self.awesome_combo.set_size_request(180, 0)
     renderer_text = Gtk.CellRendererText()
 
     if Functions.os.path.isfile(Functions.awesome_config):
-        val = int(themer.get_value(awesome_list, "local chosen_theme =").replace("themes[", "").replace("]", ""))
+        val = int(themer.get_value(awesome_list, "local chosen_theme =")
+                  .replace("themes[", "").replace("]", ""))
         self.awesome_combo.set_active(val-1)
-    
 
     self.awesome_combo.pack_start(renderer_text, False)
     self.awesome_combo.add_attribute(renderer_text, "text", 1)
     self.awesome_combo.connect("changed", self.on_awsome_change)
     self.awesome_combo.set_entry_text_column(1)
-    
+
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -95,9 +97,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):
         model = self.awesome_combo.get_model()
         row_id, name = model[tree_iter][:2]
 
-    if Functions.os.path.isfile(Functions.home + "/.config/awesome/themes/" + name + "/wallpaper.jpg"):
-        pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.home + "/.config/awesome/themes/" + name + "/wallpaper.jpg", 348, 248)
-        self.image = Gtk.Image().new_from_pixbuf(pimage)
+    self.image = Gtk.Image()
+
+    if Functions.os.path.isfile(Functions.awesome_config):
+        try:
+            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.home + "/.config/awesome/themes/" + name + "/wallpaper.jpg", 348, 248)  # noqa
+            self.image.set_from_pixbuf(pimage)
+        except:  # noqa
+            pass
 
     frame.add(self.image)
 

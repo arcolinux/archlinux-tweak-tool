@@ -5,7 +5,7 @@
 # ============Functions============
 import Functions
 import slim
-import Gtk_Functions
+# import Gtk_Functions
 import oblogout
 import termite
 import neofetch
@@ -21,13 +21,13 @@ import Slimlock_GUI
 import Grub_GUI
 import HBlock_GUI
 import Pacman_GUI
-import GTK_GUI
+# import GTK_GUI
 import SkelApp_GUI
 import Lightdm_GUI
 import Themer_GUI
 
 
-def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
+def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     # =======================================================
     #                       App Notifications
     # =======================================================
@@ -37,7 +37,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     self.notification_revealer.set_reveal_child(False)
 
     self.notification_label = Gtk.Label()
-    
+
     pb_panel = GdkPixbuf.Pixbuf().new_from_file(base_dir + '/images/panel.png')
     panel = Gtk.Image().new_from_pixbuf(pb_panel)
 
@@ -46,9 +46,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     overlayFrame.add_overlay(self.notification_label)
 
     self.notification_revealer.add(overlayFrame)
-    
+
     hbox0.pack_start(self.notification_revealer, True, False, 0)
-    
+
     # ==========================================================
     #                       CONTAINER
     # ==========================================================
@@ -68,7 +68,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     stack.set_transition_duration(350)
 
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    # vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
@@ -79,7 +79,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     vboxStack10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
-    
     # ==========================================================
     #                   TAB #1 PACMAN
     # ==========================================================
@@ -100,7 +99,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     #                       GRUB
     # ==========================================================
     Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions)
-    
+
     # ==========================================================
     #                       TAB #5 SLIMLOCK
     # ==========================================================
@@ -111,8 +110,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     #                       TAB #6 OBLOGOUT
     # ==========================================================
     if Functions.file_check(Functions.oblogout_conf):
-        Oblogout_GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os)
-
+        Oblogout_GUI.GUI(self, Gtk, Gdk, GdkPixbuf,
+                         base_dir, vboxStack6, oblogout, Functions, os)
 
     # # ==========================================================
     # #                     TERMITE CONFIG
@@ -135,34 +134,33 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     # # ==========================================================
     # #                     Skelapp
     # # ==========================================================
-    
+
     SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
-    
+
     # ==========================================================
     #                   TAB #0 WELCOME
     # ==========================================================
-    
-    Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions)
 
+    Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions)
 
     # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
     # stack.add_titled(vboxStack10, "stack0", "Welcome")
-    #     
+    #
     stack.add_titled(vboxStack4, "stack1", "Grub Config")
 
     stack.add_titled(vboxStack3, "stack2", "HBlock")
 
     if Functions.file_check(Functions.lightdm_conf):
         stack.add_titled(vboxStack11, "stack3", "Lightdm Config")
-    
+
     if Functions.file_check(Functions.neofetch_config):
         stack.add_titled(vboxStack8, "stack4", "Neofetch Config")
 
     if Functions.file_check(Functions.oblogout_conf):
         stack.add_titled(vboxStack6, "stack5", "Oblogout Config")
-    
+
     if Functions.file_check(Functions.pacman):
         stack.add_titled(vboxStack1, "stack6", "Pacman Config")
 
@@ -171,14 +169,12 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     if Functions.file_check(Functions.termite_config):
         stack.add_titled(vboxStack7, "stack8", "Termite Themes")
-    
+
     # stack.add_titled(vboxStack2, "stack9", "Theming")
 
     stack.add_titled(vboxStack9, "stack10", "Tweak Skel")
 
     stack.add_titled(vboxStack10, "stack11", "Theme Changer")
-    
-    
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
@@ -191,15 +187,15 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
         os.path.join(base_dir, 'images/arcolinux-one-liner.png'), 145, 145)
     image = Gtk.Image().new_from_pixbuf(pixbuf)
 
-
     # =====================================================
-#                       VERSION
+    #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
     version.set_markup("<span foreground=\'grey\'>v20.3.24</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
-    self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop +"</span>")
+    self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
+                                self.desktop + "</span>")
 
     # =====================================================
     #               PATREON LINK
@@ -215,21 +211,20 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
     pE.connect("button_press_event", self.on_social_clicked)
     pE.set_property("has-tooltip", True)
 
-    pE.connect("query-tooltip", self.tooltip_callback, "Support our developers on Patreon")
-
+    pE.connect("query-tooltip", self.tooltip_callback,
+               "Support our developers on Patreon")
 
     # =====================================================
     #                      PACKS
     # =====================================================
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
-    
-    
+
     hbox1.pack_end(self.lbl_desktop, False, False, 0)
 
     hbox2.pack_start(pE, False, False, 0)
     hbox2.pack_end(version, False, False, 0)
-    
+
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
     ivbox.pack_start(hbox1, False, False, 0)
@@ -237,10 +232,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):
 
     vbox1.pack_start(hbox0, False, False, 0)
     vbox1.pack_start(stack, True, True, 0)
-    
+
     hbox.pack_start(ivbox, False, True, 0)
     hbox.pack_start(vbox1, True, True, 0)
-    
+
     stack.set_hhomogeneous(False)
     stack.set_vhomogeneous(False)
-    
