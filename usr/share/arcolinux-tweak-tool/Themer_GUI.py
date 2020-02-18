@@ -29,6 +29,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):  # noqa
     #                       I3WM TAB
     # ==================================================================
 
+    label3 = Gtk.Label()
+    label3.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.")
+
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
     self.i3_combo.set_size_request(280, 0)
@@ -53,11 +56,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):  # noqa
     hbox2.pack_end(reseti3, False, False, 0)
 
     vboxStack1.pack_start(hbox1, False, False, 10)
+    vboxStack1.pack_start(label3, True, False, 0)
     vboxStack1.pack_end(hbox2, False, False, 0)
 
     # ==================================================================
     #                       AWESOMEWM TAB
     # ==================================================================
+    label4 = Gtk.Label()
+    label4.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.")
 
     label2 = Gtk.Label("Select theme")
     self.store = Gtk.ListStore(int, str)
@@ -118,6 +124,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):  # noqa
 
     vboxStack2.pack_start(hbox2, False, False, 10)
     vboxStack2.pack_start(frame, False, False, 10)
+    vboxStack2.pack_start(label4, True, False, 10)
     vboxStack2.pack_end(hbox4, False, False, 0)
 
     # ==================================================================

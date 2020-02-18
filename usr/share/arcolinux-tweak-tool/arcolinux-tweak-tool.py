@@ -111,6 +111,7 @@ class Main(Gtk.Window):
         arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
         multi_testing = pmf.check_repo("[multilib-testing]")
         arch_testing = pmf.check_repo("[testing]")
+        arch_community = pmf.check_repo("[community-testing]")
 
 #       #========================ARCO REPO=============================
         arco_base = pmf.check_repo("[arcolinux_repo]")
@@ -130,7 +131,7 @@ class Main(Gtk.Window):
         self.checkbutton.set_active(arco_testing)
         self.checkbutton2.set_active(arch_testing)
         self.checkbutton3.set_active(multi_testing)
-
+        self.checkbutton4.set_active(arch_community)
 #       #========================SPINOFF REPO SET TOGGLE==================
         self.hefftor_button.set_active(hefftor_repo)
         self.bobo_button.set_active(bobo_repo)
@@ -224,6 +225,11 @@ class Main(Gtk.Window):
         if self.opened is False:
             pmf.toggle_test_repos(self, widget.get_active(),
                                   "multilib")
+
+    def on_pacman_toggle4(self, widget, active):
+        if self.opened is False:
+            pmf.toggle_test_repos(self, widget.get_active(),
+                                  "community")
 
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()

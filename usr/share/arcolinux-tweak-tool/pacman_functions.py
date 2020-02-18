@@ -21,9 +21,9 @@ def insert_repo(self, text):
         f.close()
     pos = Functions._get_position(lines, "[custom]")
     num = pos+3
-    
+
     lines.insert(num, "\n" + text + "\n")
-    
+
     with open(Functions.pacman, "w") as f:
         f.writelines(lines)
         f.close()
@@ -33,7 +33,7 @@ def check_repo(value):
     with open(Functions.pacman, "r") as myfile:
         lines = myfile.readlines()
         myfile.close()
-    
+
     for line in lines:
         if value in line:
             if "#" + value in line:
@@ -47,7 +47,7 @@ def repo_exist(value):
     with open(Functions.pacman, "r") as myfile:
         lines = myfile.readlines()
         myfile.close()
-    
+
     for line in lines:
         if value in line:
             return True
@@ -58,9 +58,9 @@ def pacman_on(repo, lines, i, line):
     if repo in line:
         lines[i] = line.replace("#", "")
         if (i+1) < len(lines):
-            lines[i + 1]  = lines[i + 1].replace("#", "") # you may want to check that i < len(lines)
+            lines[i + 1] = lines[i + 1].replace("#", "")
         if (i+2) < len(lines) and "Include" in lines[i+2]:
-            lines[i + 2]  = lines[i + 2].replace("#", "")
+            lines[i + 2] = lines[i + 2].replace("#", "")
 
 
 def pacman_off(repo, lines, i, line):
@@ -69,19 +69,21 @@ def pacman_off(repo, lines, i, line):
             lines[i] = line.replace(lines[i], "#" + lines[i])
         if (i+1) < len(lines):
             if "#" not in lines[i + 1]:
-                lines[i + 1]  = lines[i + 1].replace(lines[i + 1], "#" + lines[i + 1]) # you may want to check that i < len(lines)
+                lines[i + 1] = lines[i + 1].replace(lines[i + 1],
+                                                    "#" + lines[i + 1])
         if (i+2) < len(lines) and "Include" in lines[i+2]:
             if "#" not in lines[i + 2]:
-                lines[i + 2]  = lines[i + 2].replace(lines[i + 2], "#" + lines[i + 2])
+                lines[i + 2] = lines[i + 2].replace(lines[i + 2],
+                                                    "#" + lines[i + 2])
 
 
 def spin_on(repo, lines, i, line):
     if repo in line:
         lines[i] = line.replace("#", "")
         if (i+1) < len(lines):
-            lines[i + 1]  = lines[i + 1].replace("#", "") # you may want to check that i < len(lines)
+            lines[i + 1] = lines[i + 1].replace("#", "")
         if (i+2) < len(lines):
-            lines[i + 2]  = lines[i + 2].replace("#", "")
+            lines[i + 2] = lines[i + 2].replace("#", "")
 
 
 def spin_off(repo, lines, i, line):
@@ -90,17 +92,19 @@ def spin_off(repo, lines, i, line):
             lines[i] = line.replace(lines[i], "#" + lines[i])
         if (i+1) < len(lines):
             if "#" not in lines[i + 1]:
-                lines[i + 1]  = lines[i + 1].replace(lines[i + 1], "#" + lines[i + 1]) # you may want to check that i < len(lines)
+                lines[i + 1] = lines[i + 1].replace(lines[i + 1],
+                                                    "#" + lines[i + 1])
         if (i+2) < len(lines):
             if "#" not in lines[i + 2]:
-                lines[i + 2]  = lines[i + 2].replace(lines[i + 2], "#" + lines[i + 2])
+                lines[i + 2] = lines[i + 2].replace(lines[i + 2],
+                                                    "#" + lines[i + 2])
 
 
-def toggle_test_repos(self, state, widget):
+def toggle_test_repos(self, state, widget):  # noqa
     if not Functions.os.path.isfile(Functions.pacman + ".bak"):
         Functions.shutil.copy(Functions.pacman, Functions.pacman + ".bak")
     lines = ""
-    if state == True:
+    if state is True:
         with open(Functions.pacman, 'r') as f:
             lines = f.readlines()
             f.close()
@@ -124,6 +128,8 @@ def toggle_test_repos(self, state, widget):
                     pacman_on("[testing]", lines, i, line)
                 if widget == "multilib":
                     pacman_on("[multilib-testing]", lines, i, line)
+                if widget == "community":
+                    pacman_on("[community-testing]", lines, i, line)
 
             with open(Functions.pacman, 'w') as f:
                 # lines = f.readlines()
@@ -131,7 +137,8 @@ def toggle_test_repos(self, state, widget):
                 f.close()
         except Exception as e:
             print(e)
-            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'toggle_test_repos On\'")
+            Functions.MessageBox(self, "ERROR!!",
+                                 "An error has occurred setting this setting \'toggle_test_repos On\'")  # noqa
     else:
         with open(Functions.pacman, 'r') as f:
             lines = f.readlines()
@@ -143,7 +150,7 @@ def toggle_test_repos(self, state, widget):
                     spin_off("[hefftor-repo]", lines, i, line)
                 if widget == "bobo":
                     spin_off("[bobo-repo]", lines, i, line)
-                
+
                 if widget == "arco_base":
                     pacman_off("[arcolinux_repo]", lines, i, line)
                 if widget == "arco_a3p":
@@ -157,8 +164,11 @@ def toggle_test_repos(self, state, widget):
                     pacman_off("[testing]", lines, i, line)
                 if widget == "multilib":
                     pacman_off("[multilib-testing]", lines, i, line)
+                if widget == "community":
+                    pacman_off("[community-testing]", lines, i, line)
+
             with open(Functions.pacman, 'w') as f:
                 f.writelines(lines)
                 f.close()
-        except:
-            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'toggle_test_repos Off\'")
+        except:  # noqa
+            Functions.MessageBox(self, "ERROR!!", "An error has occurred setting this setting \'toggle_test_repos Off\'")  # noqa
