@@ -106,6 +106,7 @@ class Main(Gtk.Window):
                                        args=(self,))
         t.daemon = True
         t.start()
+        t.join()
 
 #       #========================TESTING REPO=============================
         arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
@@ -141,9 +142,6 @@ class Main(Gtk.Window):
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
                 f.write("")
-
-        # themer.set_i3_themes(themer.get_list(Functions.i3wm_config),
-                                            #  "arcolinux-mastermind")
 
     def on_close(self, widget, data):
         os.unlink("/tmp/att.lock")

@@ -140,8 +140,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     # ==========================================================
     #                   TAB #0 WELCOME
     # ==========================================================
-
-    Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions)
+    if "awesome" in self.desktop or "i3" in self.desktop:
+        Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions)
 
     # ==========================================================
     #                     ADD TO WINDOW
@@ -174,7 +174,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
 
     stack.add_titled(vboxStack9, "stack10", "Tweak Skel")
 
-    stack.add_titled(vboxStack10, "stack11", "Theme Changer")
+    if "awesome" in self.desktop or "i3" in self.desktop:
+        stack.add_titled(vboxStack10, "stack11", "Theme Changer")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)

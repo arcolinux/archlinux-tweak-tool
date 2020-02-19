@@ -7,11 +7,11 @@ import shutil
 import psutil
 # import time
 import subprocess
-import threading
+import threading  # noqa
 import gi
 # import configparser
 gi.require_version('Gtk', '3.0')
-from gi.repository import GLib, Gtk
+from gi.repository import GLib, Gtk  # noqa
 
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
@@ -64,7 +64,7 @@ Include = /etc/pacman.d/arcolinux-mirrorlist-bobo"
 
 
 def show_in_app_notification(self, message):
-    if self.timeout_id != None:
+    if self.timeout_id is not None:
         GLib.source_remove(self.timeout_id)
         self.timeout_id = None
 
@@ -91,7 +91,11 @@ def close_in_app_notification(self):
 def permissions(dst):
     try:
         original_umask = os.umask(0)
-        calls = subprocess.run(["sh", "-c", "cat /etc/passwd | grep " + sudo_username], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        calls = subprocess.run(["sh", "-c", "cat /etc/passwd | grep " +
+                                sudo_username],
+                               shell=False,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.STDOUT)
         id = calls.stdout.decode().split(":")[3].strip()
         os.chown(dst, int(id), int(id))
     finally:
@@ -106,7 +110,7 @@ def copy_func(src, dst, isdir=False):
     if isdir:
         subprocess.run(["cp", "-Rp", src, dst], shell=False)
     else:
-        subprocess.run(["cp" ,"-p", src, dst], shell=False)
+        subprocess.run(["cp", "-p", src, dst], shell=False)
     permissions(dst)
 
 # =====================================================
@@ -115,15 +119,19 @@ def copy_func(src, dst, isdir=False):
 
 
 def source_shell(self):
-    process = subprocess.run(["sh", "-c", "echo \"$SHELL\""], 
-                         stdout=subprocess.PIPE)
+    process = subprocess.run(["sh", "-c", "echo \"$SHELL\""],
+                             stdout=subprocess.PIPE)
 
     output = process.stdout.decode().strip()
     print(output)
     if output == "/bin/bash":
-        subprocess.run(["bash", "-c", "su - " + sudo_username + " -c \"source " + home + "/.bashrc\""], stdout=subprocess.PIPE)
+        subprocess.run(["bash", "-c", "su - " + sudo_username +
+                        " -c \"source " + home + "/.bashrc\""],
+                       stdout=subprocess.PIPE)
     elif output == "/bin/zsh":
-        subprocess.run(["zsh", "-c", "su - " + sudo_username + " -c \"source " + home + "/.zshrc\""], stdout=subprocess.PIPE)
+        subprocess.run(["zsh", "-c", "su - " + sudo_username +
+                        " -c \"source " + home + "/.zshrc\""],
+                       stdout=subprocess.PIPE)
 
 # =====================================================
 #               MESSAGEBOX
@@ -131,7 +139,11 @@ def source_shell(self):
 
 
 def MessageBox(self, title, message):
-    md2 = Gtk.MessageDialog(parent=self, flags=0, message_type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK, text=title)
+    md2 = Gtk.MessageDialog(parent=self,
+                            flags=0,
+                            message_type=Gtk.MessageType.INFO,
+                            buttons=Gtk.ButtonsType.OK,
+                            text=title)
     md2.format_secondary_markup(message)
     md2.run()
     md2.destroy()
@@ -145,7 +157,9 @@ def rgb_to_hex(rgb):
     if "rgb" in rgb:
         rgb = rgb.replace("rgb(", "").replace(")", "")
         vals = rgb.split(",")
-        return "#{0:02x}{1:02x}{2:02x}".format(clamp(int(vals[0])), clamp(int(vals[1])), clamp(int(vals[2])))
+        return "#{0:02x}{1:02x}{2:02x}".format(clamp(int(vals[0])),
+                                               clamp(int(vals[1])),
+                                               clamp(int(vals[2])))
     return rgb
 
 
@@ -192,7 +206,8 @@ def check_value(list, value):
 
 
 def check_backups(now):
-    if not os.path.exists(home + "/" + bd + "/Backup-" + now.strftime("%Y-%m-%d %H")):
+    if not os.path.exists(home + "/" + bd + "/Backup-" +
+                          now.strftime("%Y-%m-%d %H")):
         os.makedirs(home + "/" + bd + "/Backup-" +
                     now.strftime("%Y-%m-%d %H"), 0o777)
         permissions(home + "/" + bd + "/Backup-" + now.strftime("%Y-%m-%d %H"))
@@ -266,7 +281,8 @@ def check_lightdm_value(list, value):
 
 
 def hblock_get_state(self):
-    lines = int(subprocess.check_output('wc -l /etc/hosts', shell=True).strip().split()[0])
+    lines = int(subprocess.check_output('wc -l /etc/hosts',
+                                        shell=True).strip().split()[0])
     if os.path.exists("/usr/local/bin/hblock") and lines > 100:
         return True
 
@@ -295,16 +311,29 @@ def set_hblock(self, toggle, state):
         if state:
             if os.path.exists("/usr/local/bin/hblock"):
                 GLib.idle_add(self.label7.set_text, "Database update...")
-                subprocess.call([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                subprocess.call([enable],
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
             else:
                 GLib.idle_add(self.label7.set_text, "Install Hblock......")
-                subprocess.call(install.split(" "), shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                subprocess.call(install.split(" "),
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
                 GLib.idle_add(self.label7.set_text, "Database update...")
-                subprocess.call([enable], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                subprocess.call([enable],
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
 
         else:
             GLib.idle_add(self.label7.set_text, "Remove update...")
-            subprocess.run(["sh", "-c", "HBLOCK_SOURCES=\'\' /usr/local/bin/hblock"], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            subprocess.run(["sh", "-c",
+                            "HBLOCK_SOURCES=\'\' /usr/local/bin/hblock"],
+                           shell=False,
+                           stdout=subprocess.PIPE,
+                           stderr=subprocess.STDOUT)
 
         GLib.idle_add(self.label7.set_text, "Complete")
         GLib.source_remove(timeout_id)
@@ -331,9 +360,12 @@ def get_grub_wallpapers():
     if os.path.isdir("/boot/grub/themes/Vimix"):
         lists = os.listdir("/boot/grub/themes/Vimix")
 
-        rems = ['select_e.png', 'terminal_box_se.png', 'select_c.png', 'terminal_box_c.png', 'terminal_box_s.png',
-                'select_w.png', 'terminal_box_nw.png', 'terminal_box_w.png', 'terminal_box_ne.png',
-                'terminal_box_sw.png', 'terminal_box_n.png', 'terminal_box_e.png']
+        rems = ['select_e.png', 'terminal_box_se.png', 'select_c.png',
+                'terminal_box_c.png', 'terminal_box_s.png',
+                'select_w.png', 'terminal_box_nw.png',
+                'terminal_box_w.png', 'terminal_box_ne.png',
+                'terminal_box_sw.png', 'terminal_box_n.png',
+                'terminal_box_e.png']
 
         ext = ['.png', '.jpeg', '.jpg']
 
@@ -358,10 +390,10 @@ def set_grub_wallpaper(self, image):
             with open(grub_theme_conf, "w") as f:
                 f.writelines(lists)
                 f.close()
-            
+
             show_in_app_notification(self, "Settings Saved Successfully")
             # MessageBox(self, "Success!!", "Settings Saved Successfully")
-        except:
+        except:  # noqa
             pass
 
 
@@ -395,17 +427,21 @@ def neofetch_set_backend_value(lists, pos, text, value):
 def get_desktop(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
 
-    desktop = subprocess.run(["sh", base_dir + "/find_DE.sh", sudo_username], shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    desktop = subprocess.run(["sh", base_dir + "/find_DE.sh", sudo_username],
+                             shell=False,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT)
     dsk = desktop.stdout.decode().strip().split("\n")
 
     # return dsk[len(dsk)-1].lstrip().rstrip()
     self.desktop = dsk[-1].lstrip().rstrip()
     # print("Desktop: " + self.desktop)
 
-    self.lbl_desktop.set_markup("<span foreground=\'grey\'>" + self.desktop.capitalize() + "</span>")
+    self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
+                                self.desktop.capitalize() + "</span>")
 
 
-def copytree(self, src, dst, symlinks=False, ignore=None):
+def copytree(self, src, dst, symlinks=False, ignore=None):  # noqa
 
     if not os.path.exists(dst):
         os.makedirs(dst)
@@ -428,7 +464,7 @@ def copytree(self, src, dst, symlinks=False, ignore=None):
         else:
             try:
                 shutil.copy2(s, d)
-            except:
+            except:  # noqa
                 print("ERROR3")
                 self.ecode = 1
 
@@ -443,6 +479,8 @@ def checkIfProcessRunning(processName):
             pinfo = proc.as_dict(attrs=['pid', 'name', 'create_time'])
             if processName == pinfo['pid']:
                 return True
-        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+        except (psutil.NoSuchProcess,
+                psutil.AccessDenied,
+                psutil.ZombieProcess):
             pass
     return False
