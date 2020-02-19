@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import Splash
 import gi
 import Functions
 import pacman_functions
@@ -15,6 +16,7 @@ import themer
 import GUI
 from Functions import os, pacman
 from subprocess import PIPE, STDOUT
+from time import sleep
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GdkPixbuf  # noqa
 # from Settings import settings, configparser
@@ -41,8 +43,18 @@ class Main(Gtk.Window):
         self.desktop = ""
         self.timeout_id = None
 
-        # print(Functions.get_grub_wallpapers())
-        # print(themer.get_awesome_themes(""))
+        splScr = Splash.splashScreen()
+
+        while Gtk.events_pending():
+            Gtk.main_iteration()
+
+        t = Functions.threading.Thread(target=Functions.get_desktop,
+                                       args=(self,))
+        t.daemon = True
+        t.start()
+        t.join()
+        splScr.window.destroy()
+
         if not Functions.os.path.isdir(Functions.home + "/" +
                                        Functions.bd):
             try:
@@ -101,12 +113,8 @@ class Main(Gtk.Window):
                 Functions.os.umask(original_umask)
 
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
-
-        t = Functions.threading.Thread(target=Functions.get_desktop,
-                                       args=(self,))
-        t.daemon = True
-        t.start()
-        t.join()
+        self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
+                                    self.desktop.capitalize() + "</span>")
 
 #       #========================TESTING REPO=============================
         arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
@@ -299,7 +307,7 @@ class Main(Gtk.Window):
                                                "Config reset successfully")
 
             i3_list = themer.get_list(Functions.i3wm_config)
-            
+
             themer.get_i3_themes(self.i3_combo, i3_list)
 
 # =====================================================
@@ -951,8 +959,8 @@ if __name__ == "__main__":
         with open("/tmp/att.pid", "w") as f:
             f.write(str(os.getpid()))
             f.close()
-        w = Main()
-        w.show_all()
+        w = Main()        
+        w.show_all()        
         Gtk.main()
     else:
         md = Gtk.MessageDialog(parent=Main(),
@@ -962,7 +970,7 @@ if __name__ == "__main__":
                                text="Lock File Found")
         md.format_secondary_markup(
             "The lock file has been found. This indicates there is already an instance of <b>ArcoLinux Tweak tool</b> running.\n\
-click yes to remove the lock file and try running again")
+click yes to remove the lock file and try running again")  # noqa
 
         result = md.run()
         md.destroy()
