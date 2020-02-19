@@ -53,7 +53,7 @@ class Main(Gtk.Window):
         t.daemon = True
         t.start()
         t.join()
-        splScr.window.destroy()
+        splScr.destroy()
 
         if not Functions.os.path.isdir(Functions.home + "/" +
                                        Functions.bd):
