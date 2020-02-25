@@ -816,6 +816,21 @@ class Main(Gtk.Window):
         Functions.show_in_app_notification(self, "Default Settings Applied")
 
 #    #====================================================================
+#    #                       DESKTOPR
+#    #====================================================================
+
+    def on_d_combo_changed(self, widget):
+        try:
+            pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir +
+                                                            "/desktop_data/" +
+                                                            self.d_combo.get_active_text() + ".png",  # noqa
+                                                            345,
+                                                            345)
+            self.image_DE.set_from_pixbuf(pixbuf3)
+        except:  # noqa
+            pass
+
+#    #====================================================================
 #    #                       SkelApp
 #    #====================================================================
 

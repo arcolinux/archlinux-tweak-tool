@@ -12,6 +12,7 @@ import neofetch
 import skelapp
 import lightdm
 import themer
+import desktopr
 
 # =============GUI=================
 import Termite_GUI
@@ -25,6 +26,7 @@ import Pacman_GUI
 import SkelApp_GUI
 import Lightdm_GUI
 import Themer_GUI
+import desktopr_GUI
 
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
@@ -78,6 +80,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     vboxStack9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack12 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     # ==========================================================
     #                   TAB #1 PACMAN
@@ -138,44 +141,51 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
 
     # ==========================================================
-    #                   TAB #0 WELCOME
+    #                       Themer
     # ==========================================================
     if "awesome" in self.desktop or "i3" in self.desktop:
         Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions)
+
+    # ==========================================================
+    #                       Themer
+    # ==========================================================
+    desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir)
 
     # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
     # stack.add_titled(vboxStack10, "stack0", "Welcome")
     #
-    stack.add_titled(vboxStack4, "stack1", "Grub Config")
+    stack.add_titled(vboxStack4, "stack1", "Grub config")
 
     stack.add_titled(vboxStack3, "stack2", "HBlock")
 
     if Functions.file_check(Functions.lightdm_conf):
-        stack.add_titled(vboxStack11, "stack3", "Lightdm Config")
+        stack.add_titled(vboxStack11, "stack3", "Lightdm config")
 
     if Functions.file_check(Functions.neofetch_config):
-        stack.add_titled(vboxStack8, "stack4", "Neofetch Config")
+        stack.add_titled(vboxStack8, "stack4", "Neofetch config")
 
     if Functions.file_check(Functions.oblogout_conf):
-        stack.add_titled(vboxStack6, "stack5", "Oblogout Config")
+        stack.add_titled(vboxStack6, "stack5", "Oblogout config")
 
     if Functions.file_check(Functions.pacman):
-        stack.add_titled(vboxStack1, "stack6", "Pacman Config")
+        stack.add_titled(vboxStack1, "stack6", "Pacman config")
 
     if Functions.file_check(Functions.slimlock_conf):
         stack.add_titled(vboxStack5, "stack7", "Slimlock")
 
     if Functions.file_check(Functions.termite_config):
-        stack.add_titled(vboxStack7, "stack8", "Termite Themes")
+        stack.add_titled(vboxStack7, "stack8", "Termite themes")
 
     # stack.add_titled(vboxStack2, "stack9", "Theming")
 
-    stack.add_titled(vboxStack9, "stack10", "Tweak Skel")
+    stack.add_titled(vboxStack9, "stack10", "Tweak skel")
 
     if "awesome" in self.desktop or "i3" in self.desktop:
         stack.add_titled(vboxStack10, "stack11", "Theme Changer")
+
+    stack.add_titled(vboxStack12, "stack12", "Desktop installer")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
