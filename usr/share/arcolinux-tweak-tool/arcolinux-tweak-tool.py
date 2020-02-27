@@ -13,6 +13,7 @@ import neofetch
 import skelapp
 import lightdm
 import themer
+import desktopr
 import GUI
 from Functions import os, pacman
 from subprocess import PIPE, STDOUT
@@ -829,6 +830,11 @@ class Main(Gtk.Window):
             self.image_DE.set_from_pixbuf(pixbuf3)
         except:  # noqa
             pass
+
+    def on_install_clicked(self, widget):
+        if desktopr.check_desktop(self.d_combo.get_active_text()) is not True:
+            print("installing {}".format(self.d_combo.get_active_text()))
+            desktopr.install_desktop(self, self.d_combo.get_active_text())
 
 #    #====================================================================
 #    #                       SkelApp

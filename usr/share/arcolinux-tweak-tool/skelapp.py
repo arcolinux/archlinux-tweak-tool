@@ -1,17 +1,20 @@
-#=================================================================
-#=                  Author: Brad Heffernan                       =
-#=================================================================
+# =================================================================
+# =                  Author: Brad Heffernan                       =
+# =================================================================
 import Functions
 import threading
 import datetime
 
 from Functions import os, GLib
 
+
 def setMessage(label, message):
     label.set_markup("<i>" + message + "</i>")
 
+
 def setProgress(prog, value):
     prog.set_fraction(value)
+
 
 def skel_check(self):
     passes = True
@@ -30,8 +33,7 @@ def skel_check(self):
                 t1.start()
             else:
                 setMessage(self.label_info1, "Running Skel")
-                t1 = threading.Thread(target=skel_run,
-                                        args=(self, text,))
+                t1 = threading.Thread(target=skel_run, args=(self, text,))
                 t1.daemon = True
                 t1.start()
         else:

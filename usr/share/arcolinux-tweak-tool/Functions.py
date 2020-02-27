@@ -27,7 +27,7 @@ slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
 lightdm_conf = "/etc/lightdm/lightdm.conf"
-bd = ".att_Backups"
+bd = ".att_backups"
 config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 desktop = ""
 
