@@ -831,11 +831,29 @@ class Main(Gtk.Window):
         except:  # noqa
             pass
 
+    def on_uninstall_clicked(self, widget):
+        secs = Settings.read_section()
+        if "DESKTOP" in secs:
+            desktopr.uninstall_desktop_check(self,
+                                             self.d_combo.get_active_text())
+        else:
+            Functions.show_in_app_notification(self,
+                                               "You Must Set Default First")
+
     def on_install_clicked(self, widget):
         if desktopr.check_desktop(self.d_combo.get_active_text()) is not True:
             print("installing {}".format(self.d_combo.get_active_text()))
             desktopr.install_desktop(self, self.d_combo.get_active_text())
 
+    def on_default_clicked(self, widget):
+        secs = Settings.read_section()
+        if "DESKTOP" in secs:
+            Settings.write_settings("DESKTOP",
+                                    "default",
+                                    self.d_combo.get_active_text())
+        else:
+            Settings.new_settings("DESKTOP",
+                                  {"default": self.d_combo.get_active_text()})
 #    #====================================================================
 #    #                       SkelApp
 #    #====================================================================
