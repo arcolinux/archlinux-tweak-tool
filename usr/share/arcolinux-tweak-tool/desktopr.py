@@ -14,7 +14,7 @@ desktops = [
     "plasma",
     "xfce"
 ]
-pkexec = ["pkexec", "pacman", "-S", "--needed"]
+pkexec = ["pkexec", "pacman", "-S", "--needed", "--noconfirm"]
 
 plasma = [
     "plasma-meta",
