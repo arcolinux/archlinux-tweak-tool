@@ -14,6 +14,7 @@ import skelapp
 import lightdm
 import themer
 import desktopr
+import autostart
 import GUI
 from Functions import os, pacman
 from subprocess import PIPE, STDOUT
@@ -148,6 +149,8 @@ class Main(Gtk.Window):
 
         self.opened = False
 
+        # autostart.add_autostart()
+
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
                 f.write("")
@@ -155,6 +158,21 @@ class Main(Gtk.Window):
     def on_close(self, widget, data):
         os.unlink("/tmp/att.lock")
         Gtk.main_quit()
+
+    def create_autostart_columns(self, treeView):
+        rendererText = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn("", rendererText, text=0)
+        column.set_sort_column_id(0)
+        column2 = Gtk.TreeViewColumn("Name", rendererText, text=1)
+        column2.set_sort_column_id(0)
+        treeView.append_column(column)
+        treeView.append_column(column2)
+        
+    def create_columns(self, treeView):
+        rendererText = Gtk.CellRendererText()
+        column = Gtk.TreeViewColumn("Name", rendererText, text=0)
+        column.set_sort_column_id(0)
+        treeView.append_column(column)
 
 # =====================================================
 #               PATREON LINK
@@ -854,15 +872,57 @@ class Main(Gtk.Window):
         else:
             Settings.new_settings("DESKTOP",
                                   {"default": self.d_combo.get_active_text()})
+
+
+#    #====================================================================
+#    #                       autostart
+#    #====================================================================
+
+    def on_remove_auto(self, widget):
+        selection = self.treeView4.get_selection()
+        model, paths = selection.get_selected_rows()
+
+        # Get the TreeIter instance for each path
+        for path in paths:
+            iter = model.get_iter(path)
+            # Remove the ListStore row referenced by iter
+            value = model.get_value(iter, 0)
+            model.remove(iter)
+            Functions.os.unlink(Functions.home + "/.config/autostart/" + value + ".desktop")  #  noqa
+
+    def on_add_autostart(self, widget):
+        if len(self.txtbox1.get_text()) > 1 and len(self.txtbox2.get_text()) > 1:  # noqa
+            autostart.add_autostart(self, self.txtbox1.get_text(),
+                                    self.txtbox2.get_text())
+
+    def on_exec_browse(self, widget):
+
+        dialog = Gtk.FileChooserDialog(
+            title="Please choose a file",
+            action=Gtk.FileChooserAction.OPEN)
+
+        dialog.set_select_multiple(False)
+        dialog.set_show_hidden(False)
+        dialog.set_current_folder(Functions.home)
+        dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open",
+                           Gtk.ResponseType.OK)
+        dialog.connect("response", self.open_response_auto)
+
+        dialog.show()
+
+    def open_response_auto(self, dialog, response):
+        if response == Gtk.ResponseType.OK:
+            print(dialog.get_filenames())
+            foldername = dialog.get_filenames()
+            # for item in foldername:
+            self.txtbox2.set_text(foldername[0])
+            dialog.destroy()
+        elif response == Gtk.ResponseType.CANCEL:
+            dialog.destroy()
+
 #    #====================================================================
 #    #                       SkelApp
 #    #====================================================================
-
-    def create_columns(self, treeView):
-        rendererText = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Name", rendererText, text=0)
-        column.set_sort_column_id(0)
-        treeView.append_column(column)
 
     def on_bashrc_upgrade(self, widget):
         skelapp.button_toggles(self, False)

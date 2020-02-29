@@ -13,6 +13,7 @@ import skelapp
 import lightdm
 import themer
 import desktopr
+import autostart
 
 # =============GUI=================
 import Termite_GUI
@@ -27,6 +28,7 @@ import SkelApp_GUI
 import Lightdm_GUI
 import Themer_GUI
 import desktopr_GUI
+import autostart_GUI
 
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
@@ -81,6 +83,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     vboxStack10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack12 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack13 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     # ==========================================================
     #                   TAB #1 PACMAN
@@ -149,7 +152,14 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     # ==========================================================
     #                       Themer
     # ==========================================================
-    desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir)
+    desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr,
+                     Functions, base_dir)
+
+    # ==========================================================
+    #                       Autostart
+    # ==========================================================
+    autostart_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart,
+                      Functions, base_dir)
 
     # ==========================================================
     #                     ADD TO WINDOW
@@ -186,6 +196,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
         stack.add_titled(vboxStack10, "stack11", "Theme Changer")
 
     stack.add_titled(vboxStack12, "stack12", "Desktop installer")
+
+    stack.add_titled(vboxStack13, "stack12", "Autostart")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
