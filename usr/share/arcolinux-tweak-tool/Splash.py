@@ -11,7 +11,7 @@ class splashScreen(Gtk.Window):
         Gtk.Window.__init__(self, Gtk.WindowType.POPUP, title='')
         self.set_decorated(False)
         self.set_resizable(False)
-        self.set_size_request(400, 150)
+        self.set_size_request(500, 250)
         self.set_position(Gtk.WindowPosition.CENTER)
 
         main_vbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=1)
