@@ -197,7 +197,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
 
     stack.add_titled(vboxStack12, "stack12", "Desktop installer")
 
-    stack.add_titled(vboxStack13, "stack12", "Autostart")
+    stack.add_titled(vboxStack13, "stack13", "Autostart")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
