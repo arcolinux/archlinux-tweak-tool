@@ -13,7 +13,7 @@ function detect_awesome()
     then
 	return 0
     fi
-    VERSION=`awesome --version | awk '{print $2}'`
+    VERSION=`awesome --version | head -1 | awk '{print $2}'`
     DESKTOP="AWESOME"
     return 1
 }
@@ -25,19 +25,19 @@ function detect_bspwm()
     then
 	return 0
     fi
-    VERSION=`bspwm --version | awk '{print $2}'`
+    VERSION=`bspwm -v | awk '{print $1}'`
     DESKTOP="BSPWM"
     return 1
 }
 
 function detect_budgie()
 {
-    ps -e | grep -E '^.* budgie$' > /dev/null
+    ps -e | grep -E '^.* budgie-wm$' > /dev/null
     if [ $? -ne 0 ];
     then
 	return 0
     fi
-    VERSION=`budgie-desktop --version | awk '{print $2}'`
+    VERSION=`budgie-desktop --version | head -1 | awk '{print $2}'`
     DESKTOP="BUDGIE-DESKTOP"
     return 1
 }
@@ -68,24 +68,24 @@ function detect_deepin()
 
 function detect_gnome()
 {
-    ps -e | grep -E '^.* gnome-session$' > /dev/null
+    ps -e | grep -E '^.* gnome-shell$' > /dev/null
     if [ $? -ne 0 ];
     then
 	return 0
     fi
-    VERSION=`gnome-session --version | awk '{print $2}'`
+    VERSION=`gnome-shell --version | awk '{print $3}'`
     DESKTOP="GNOME"
     return 1
 }
 
 function detect_hlwm()
 {
-    ps -e | grep -E '^.* herbstluft$' > /dev/null
+    ps -e | grep -E '^.* herbstluftwm$' > /dev/null
     if [ $? -ne 0 ];
     then
 	return 0
     fi
-    VERSION=`herbstluftwm --version | awk '{print $2}'`
+    VERSION=`herbstluftwm --version |  head -1 | awk '{print $2}'`
     DESKTOP="HERBSTLUFTWM"
     return 1
 }
@@ -97,7 +97,7 @@ function detect_i3wm()
     then
 	return 0
     fi
-    VERSION=`i3 --version | awk '{print $2}'`
+    VERSION=`i3 --version | awk '{print $3}'`
     DESKTOP="I3"
     return 1
 }
@@ -130,14 +130,27 @@ function detect_lxde()
     return 1
 }
 
+#needs to be here because of lxqt
+function detect_openbox()
+{
+    ps -e | grep -E '^.* openbox$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+	     return 0
+    fi
+    VERSION=`openbox --version |   head -1 | awk '{print $2}'`
+    DESKTOP="OPENBOX"
+    return 1
+}
+
 function detect_lxqt()
 {
-    ps -e | grep -E '^.* lxqt$' > /dev/null
+    ps -e | grep -E '^.* lxqt-session$' > /dev/null
     if [ $? -ne 0 ];
     then
 	return 0
     fi
-    VERSION=`lxqt-about --version | awk '{print $2}'`
+    VERSION=`lxqt-about --version |  head -1 | awk '{print $2}'`
     DESKTOP="LXQT"
     return 1
 }
@@ -151,18 +164,6 @@ function detect_mate()
     fi
     VERSION=`mate-about --version | awk '{print $4}'`
     DESKTOP="MATE"
-    return 1
-}
-
-function detect_openbox()
-{
-    ps -e | grep -E '^.* openbox$' > /dev/null
-    if [ $? -ne 0 ];
-    then
-	     return 0
-    fi
-    VERSION=`openbox --version | awk '{print $2}'`
-    DESKTOP="OPENBOX"
     return 1
 }
 
