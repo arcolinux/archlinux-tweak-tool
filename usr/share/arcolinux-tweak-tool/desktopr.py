@@ -25,7 +25,7 @@ desktops = [
     "xfce",
     "xmonad"
 ]
-pkexec = ["pkexec", "pacman", "-S", "--needed"]  # , "--noconfirm"]
+pkexec = ["pkexec", "pacman", "-S", "--needed", "--noconfirm"]
 
 awesome = [
     "awesome",
