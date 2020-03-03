@@ -44,7 +44,7 @@ class Main(Gtk.Window):
         self.firstrun = True
         self.desktop = ""
         self.timeout_id = None
-        
+
         self.desktop_status = Gtk.Label()
         self.image_DE = Gtk.Image()
 
@@ -171,7 +171,7 @@ class Main(Gtk.Window):
         column.set_sort_column_id(0)
         column2 = Gtk.TreeViewColumn("Comment", rendererText, text=1)
         column2.set_sort_column_id(1)
-        
+
         treeView.append_column(column)
         treeView.append_column(column2)
 
@@ -544,7 +544,7 @@ class Main(Gtk.Window):
 
             val = Functions._get_position(listss, "desktop-image: ")
             bg_image = listss[val].split(" ")[1].replace("\"", "").strip()
-            
+
             for x in self.fb.get_children():
                 self.fb.remove(x)
 
@@ -843,14 +843,14 @@ class Main(Gtk.Window):
         if self.sessions.get_active_text() is not None:
             t1 = Functions.threading.Thread(target=lightdm.set_lightdm_value,
                                             args=(self,
-                                                lightdm.get_lines(Functions.lightdm_conf),  # noqa 
+                                                lightdm.get_lines(Functions.lightdm_conf),  # noqa
                                                 Functions.sudo_username,
                                                 self.sessions.get_active_text(),
                                                 self.autologin.get_active()))
             t1.daemon = True
             t1.start()
         else:
-            Functions.show_in_app_notification(self, "Need to select desktop first")    
+            Functions.show_in_app_notification(self, "Need to select desktop first")
     def on_click_lightdm_reset(self, widget):
         if Functions.os.path.isfile(Functions.lightdm_conf + ".bak"):
             Functions.shutil.copy(Functions.lightdm_conf + ".bak",
@@ -871,7 +871,7 @@ class Main(Gtk.Window):
         try:
             pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir +
                                                             "/desktop_data/" +
-                                                            self.d_combo.get_active_text() + ".png",  # noqa
+                                                            self.d_combo.get_active_text() + ".jpg",  # noqa
                                                             345,
                                                             345)
             self.image_DE.set_from_pixbuf(pixbuf3)
@@ -1098,8 +1098,8 @@ if __name__ == "__main__":
         with open("/tmp/att.pid", "w") as f:
             f.write(str(os.getpid()))
             f.close()
-        w = Main()        
-        w.show_all()        
+        w = Main()
+        w.show_all()
         Gtk.main()
     else:
         md = Gtk.MessageDialog(parent=Main(),

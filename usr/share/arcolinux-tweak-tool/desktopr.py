@@ -93,6 +93,7 @@ i3wm = [
 lxqt = [
     "lxqt",
     "arcolinux-lxqt-git",
+    "lxqt-arc-dark-theme-git",
     "dmenu"
 ]
 mate = [
