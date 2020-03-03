@@ -49,7 +49,7 @@ bspwm = [
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git"
 ]
-budgie = [
+budgie-desktop = [
     "budgie-desktop",
     "budgie-extras",
     "gnome",
