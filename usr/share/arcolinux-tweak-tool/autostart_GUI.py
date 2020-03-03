@@ -50,7 +50,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     lbl1 = Gtk.Label("Name")
     lbl2 = Gtk.Label("Command")
     lbl3 = Gtk.Label("Comment")
-    
+
 
     self.txtbox1 = Gtk.Entry()  # Name
     self.txtbox2 = Gtk.Entry()  # EXEC
