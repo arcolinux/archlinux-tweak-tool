@@ -891,12 +891,13 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self,
                                                "You Must Set Default First")
 
-    def on_install_clicked(self, widget):
+    def on_install_clicked(self, widget, state):
         if desktopr.check_desktop(self.d_combo.get_active_text()) is not True:
             print("installing {}".format(self.d_combo.get_active_text()))
             t1 = Functions.threading.Thread(target=desktopr.install_desktop,
                                             args=(self,
-                                                  self.d_combo.get_active_text(),))
+                                                  self.d_combo.get_active_text(),
+                                                  state))
             t1.daemon = True
             t1.start()
 

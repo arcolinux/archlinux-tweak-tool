@@ -26,6 +26,7 @@ desktops = [
     "xmonad"
 ]
 pkexec = ["pkexec", "pacman", "-S", "--needed", "--noconfirm"]
+pkexec_reinstall = ["pkexec", "pacman", "-S", "--noconfirm"]
 
 awesome = [
     "awesome",
@@ -218,7 +219,7 @@ def uninstall_desktop(desktop):
     print("Uninstalling.....")
 
 
-def install_desktop(self, desktop):
+def install_desktop(self, desktop, state):
     if desktop == "awesome":
         command = awesome
     elif desktop == "bspwm":
@@ -256,8 +257,13 @@ def install_desktop(self, desktop):
 
     timeout_id = None
     timeout_id = GLib.timeout_add(100, fn.do_pulse, None, self.desktopr_prog)
+    
+    if state == "reinst":
+        com1 = pkexec_reinstall
+    else:
+        com1 = pkexec
 
-    with fn.subprocess.Popen(list(np.append(pkexec, command)), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
+    with fn.subprocess.Popen(list(np.append(com1, command)), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
         for line in p.stdout:
             GLib.idle_add(self.desktopr_stat.set_text, line.strip())
 
