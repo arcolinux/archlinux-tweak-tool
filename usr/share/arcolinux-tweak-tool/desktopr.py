@@ -15,7 +15,7 @@ desktops = [
     "cinnamon",
     "deepin",
     "gnome",
-    "herbstluftwm",
+    "hlwm",
     "i3",
     "lxqt",
     "mate",
