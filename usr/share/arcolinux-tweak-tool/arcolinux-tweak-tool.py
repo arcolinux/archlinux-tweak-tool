@@ -46,6 +46,7 @@ class Main(Gtk.Window):
         self.timeout_id = None
         
         self.desktop_status = Gtk.Label()
+        self.image_DE = Gtk.Image()
 
         self.grub_image_path = ""
         self.fb = Gtk.FlowBox()
@@ -893,6 +894,12 @@ class Main(Gtk.Window):
     def on_install_clicked(self, widget):
         if desktopr.check_desktop(self.d_combo.get_active_text()) is not True:
             print("installing {}".format(self.d_combo.get_active_text()))
+            # t1 = Functions.threading.Thread(target=desktopr.install_desktop,
+            #                                 args=(self,
+            #                                       self.d_combo.get_active_text(),))
+            # t1.daemon = True
+            # t1.start()
+
             desktopr.install_desktop(self, self.d_combo.get_active_text())
 
     def on_default_clicked(self, widget):

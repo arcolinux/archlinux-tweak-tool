@@ -29,7 +29,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     dropbox.pack_start(self.d_combo, False, False, 0)
 
     # =======================================
-    #               BUTTONS
+    #               STATUS
     # =======================================
     statbox.pack_start(self.desktop_status, True, False, 0)
 
@@ -56,10 +56,19 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     defaultbox.pack_end(set_default, False, False, 0)
 
     # =======================================
+    #               TEXTVIEW
+    # =======================================
+    self.inst_tv = Gtk.TextView()
+    self.inst_tv.set_editable(False)
+    
+    self.sb = Gtk.ScrolledWindow()
+    self.sb.set_size_request(0, 200)
+    self.sb.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+    self.sb.add(self.inst_tv)
+
+    # =======================================
     #               FRAME PREVIEW
     # =======================================
-    self.image_DE = Gtk.Image()
-
     try:
         pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir +
                                                            "/desktop_data/" +
@@ -72,6 +81,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     frame = Gtk.Frame(label="Preview")
     frame.add(self.image_DE)
 
+    lbl = Gtk.Label(xalign=0)
+    lbl.set_text("Installation output")
+
     # =======================================
     #               PACK TO BOXES
     # =======================================
@@ -79,11 +91,15 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     vbox.pack_start(statbox, False, False, 0)
     vbox.pack_start(buttonbox, False, False, 0)
     vbox.pack_start(defaultbox, False, False, 0)
-
+    
     hbox.pack_start(vbox, True, True, 10)
     hbox.pack_start(frame, True, True, 10)
 
+    vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vbox1.pack_start(hbox, False, False, 10)
+    vbox1.pack_start(lbl, False, False, 0)
+    vbox1.pack_start(self.sb, True, True, 0)
     # =======================================
     #               PACK TO WINDOW
     # =======================================
-    vboxStack12.pack_start(hbox, False, False, 0)
+    vboxStack12.pack_start(vbox1, False, False, 0)

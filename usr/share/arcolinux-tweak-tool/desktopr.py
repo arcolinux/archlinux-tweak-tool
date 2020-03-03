@@ -4,6 +4,9 @@
 import numpy as np
 import Functions as fn
 import Settings
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import GLib  # noqa
 
 desktops = [
     "gnome",
@@ -14,7 +17,7 @@ desktops = [
     "plasma",
     "xfce"
 ]
-pkexec = ["pkexec", "pacman", "-S", "--needed", "--noconfirm"]
+pkexec = ["pkexec", "pacman", "-S", "--needed"]  # , "--noconfirm"]
 
 plasma = [
     "plasma-meta",
@@ -159,5 +162,21 @@ def install_desktop(self, desktop):
     if desktop == "mate":
         command = mate
 
-    fn.subprocess.call(list(np.append(pkexec, command)))
-    fn.show_in_app_notification(self, desktop + " has been installed")
+    # fn.subprocess.call(list(np.append(pkexec, command)))
+
+    with fn.subprocess.Popen(list(np.append(pkexec, command)), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
+        for line in p.stdout:
+            # GLib.idle_add(self.inst_tv.get_buffer())
+            text = self.inst_tv.get_buffer()
+            # start_iter, end_iter = text.get_iter()
+            try:
+                end_iter = text.get_end_iter()
+                text.insert(end_iter, line.strip() + "/n")
+            except:
+                pass
+            # GLib.idle_add(self.inst_tv.scroll_to_mark, text.get_insert(), 0.0, False, 0.5, 0.5)
+
+            # adj = self.sb.get_vadjustment()
+            # adj.set_value(adj.get_upper() - adj.get_page_size())
+
+    GLib.idle_add(fn.show_in_app_notification, self, desktop + " has been installed")
