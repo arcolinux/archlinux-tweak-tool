@@ -166,6 +166,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     # ==========================================================
     # stack.add_titled(vboxStack10, "stack0", "Welcome")
     #
+    stack.add_titled(vboxStack13, "stack13", "Autostart")
+
+    stack.add_titled(vboxStack12, "stack12", "Desktop installer")
+
     stack.add_titled(vboxStack4, "stack1", "Grub config")
 
     stack.add_titled(vboxStack3, "stack2", "HBlock")
@@ -194,10 +198,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
 
     if "awesome" in self.desktop or "i3" in self.desktop:
         stack.add_titled(vboxStack10, "stack11", "Theme Changer")
-
-    stack.add_titled(vboxStack12, "stack12", "Desktop installer")
-
-    stack.add_titled(vboxStack13, "stack13", "Autostart")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
