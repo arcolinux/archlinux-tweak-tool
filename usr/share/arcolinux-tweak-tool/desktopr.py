@@ -29,7 +29,7 @@ pkexec = ["pkexec", "pacman", "-S", "--needed"]  # , "--noconfirm"]
 
 awesome = [
     "awesome",
-    "vivious",
+    "vicious",
     "arcolinux-awesome-git",
     "dmenu",
     "arcolinux-oblogout",
