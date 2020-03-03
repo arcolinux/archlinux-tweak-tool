@@ -115,6 +115,7 @@ openbox = [
     "nitrogen",
     "arcolinux-nitrogen-git",
     "tint2",
+    "arcolinux-tint2-git",
     "arcolinux-tint2-themes-git",
     "dmenu",
     "arcolinux-oblogout",
