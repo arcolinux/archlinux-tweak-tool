@@ -130,19 +130,6 @@ function detect_lxde()
     return 1
 }
 
-#needs to be here because of lxqt
-function detect_openbox()
-{
-    ps -e | grep -E '^.* openbox$' > /dev/null
-    if [ $? -ne 0 ];
-    then
-	     return 0
-    fi
-    VERSION=`openbox --version | head -1 | awk '{print $2}'`
-    DESKTOP="OPENBOX"
-    return 1
-}
-
 function detect_lxqt()
 {
     ps -e | grep -E '^.* lxqt-session$' > /dev/null
@@ -164,6 +151,18 @@ function detect_mate()
     fi
     VERSION=`mate-about --version | awk '{print $4}'`
     DESKTOP="MATE"
+    return 1
+}
+
+function detect_openbox()
+{
+    ps -e | grep -E '^.* openbox$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+	     return 0
+    fi
+    VERSION=`openbox --version | head -1 | awk '{print $2}'`
+    DESKTOP="OPENBOX"
     return 1
 }
 
@@ -224,10 +223,11 @@ detect_deepin;
 detect_gnome;
 detect_hlwm;
 detect_i3wm;
-detect_lxde;
-detect_lxqt;
 detect_mate;
 detect_openbox;
+#needs to be here because of lxqt and openbox
+detect_lxde;
+detect_lxqt;
 detect_plasma;
 detect_qtile;
 detect_xfce;
