@@ -9,24 +9,115 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import GLib  # noqa
 
 desktops = [
-    "gnome",
+    "awesome",
+    "bspwm",
+    "budgie",
     "cinnamon",
     "deepin",
+    "gnome",
+    "hlwm",
+    "i3wm",
+    "lxqt",
     "mate",
-    "budgie",
+    "openbox",
     "plasma",
-    "xfce"
+    "qtile",
+    "xfce",
+    "xmonad"
 ]
 pkexec = ["pkexec", "pacman", "-S", "--needed"]  # , "--noconfirm"]
 
+awesome = [
+    "awesome",
+    "vivious",
+    "arcolinux-awesome-git",
+    "dmenu",
+    "arcolinux-oblogout",
+    "arcolinux-oblogout-themes-git"
+]
+bspwm = [
+    "bspwm",
+    "arcolinux-bspwm-git",
+    "sxhkd",
+    "awesome-terminal-fonts",
+    "polybar",
+    "arcolinux-polybar-git",
+    "sutils-git",
+    "xtitle-git",
+    "dmenu",
+    "arcolinux-oblogout",
+    "arcolinux-oblogout-themes-git"
+]
+budgie = [
+    "budgie-desktop",
+    "budgie-extras",
+    "gnome",
+    "gnome-extra"
+]
+cinnamon = [
+    "cinnamon",
+    "nemo-fileroller",
+    "cinnamon-translations",
+    "gnome-terminal",
+    "gnome-system-monitor",
+    "gnome-screenshot",
+    "mintlocale",
+    "iso-flag-png"
+]
+deepin = [
+    "deepin",
+    "deepin-extra"
+]
+gnome = [
+    "gnome",
+    "gnome-extra",
+    "guake"
+]
+hlwm = [
+    "herbstluftwm",
+    "arcolinux-herbstluftwm-git",
+    "sxhkd",
+    "polybar",
+    "arcolinux-polybar-git",
+    "xtitle-git",
+    "dmenu",
+    "arcolinux-oblogout",
+    "arcolinux-oblogout-themes-git"
+]
+i3wm = [
+    "i3-gaps",
+    "i3status",
+    "arcolinux-i3wm-git",
+    "dmenu"
+]
+lxqt = [
+    "lxqt",
+    "arcolinux-lxqt-git",
+    "dmenu"
+]
+mate = [
+    "mate",
+    "mate-extra",
+    "mate-tweak"
+]
+openbox = [
+    "openbox",
+    "obmenu-generator",
+    "obconf",
+    "obmenu3",
+    "gtk2-perl",
+    "perl-linux-desktopfiles",
+    "arcolinux-openbox-git",
+    "arcolinux-obmenu-generator-git",
+    "arcolinux-pipemenus-git",
+    "dmenu",
+    "arcolinux-oblogout",
+    "arcolinux-oblogout-themes-git"
+]
 plasma = [
     "plasma-meta",
     "packagekit-qt5",
     "partitionmanager",
-    "kdeconnect",
-    "systemd-kcm",
-    "ocs-url",
-    "systemd-kcm",
     "yakuake",
     "spectacle",
     "okular",
@@ -38,7 +129,17 @@ plasma = [
     "kdeadmin-meta",
     "kdebase-meta"
 ]
+qtile = [
+    "qtile",
+    "python-psutil",
+    "arcolinux-qtile-git",
+    "dmenu",
+    "arcolinux-oblogout",
+    "arcolinux-oblogout-themes-git"
+]
 xfce = [
+    "xfce4",
+    "xfce4-goodies",
     "ristretto",
     "thunar-archive-plugin",
     "thunar-media-tags-plugin",
@@ -74,48 +175,18 @@ xfce = [
     "xfce4-whiskermenu-plugin",
     "xfce4-xkb-plugin"
 ]
-gnome = [
-    "gnome",
-    "gnome-extra",
-    "nautilus-image-converter",
-    "gnome-mplayer",
-    "gnome-multi-writer",
-    "gnome-pie",
-    "chrome-gnome-shell",
-    "libappindicator-gtk3",
-    "guake"
-]
-budgie = [
-    "budgie-desktop",
-    "budgie-extras",
-    "gnome",
-    "gnome-extra",
-    "nautilus-image-converter",
-    "gnome-mplayer",
-    "gnome-multi-writer",
-    "gnome-pie",
-    "gnome-screensaver",
-    "guake"
-]
-deepin = [
-    "deepin",
-    "deepin-extra",
-    "dtkwidget",
-    "linux-headers"
-]
-cinnamon = [
-    "cinnamon",
-    "nemo-fileroller",
-    "cinnamon-translations",
-    "gnome-terminal",
-    "gnome-system-monitor",
-    "gnome-screenshot"
-]
-mate = [
-    "mate",
-    "mate-extra",
-    "pasystray",
-    "paprefs"
+xmonad = [
+    "xmonad",
+    "xmonad-contrib",
+    "haskell-dbus",
+    "polybar",
+    "arcolinux-polybar-git",
+    "xmonad-utils",
+    "xmonad-log",
+    "arcolinux-xmonad-polybar-git",
+    "dmenu",
+    "arcolinux-oblogout",
+    "arcolinux-oblogout-themes-git"
 ]
 
 
@@ -136,7 +207,7 @@ def uninstall_desktop_check(self, desktop):
             uninstall_desktop(desktop)
         else:
             fn.show_in_app_notification(self,
-                                        "Not installed...")    
+                                        "Not installed...")
     else:
         fn.show_in_app_notification(self,
                                     "That is your default desktop!")
@@ -147,21 +218,36 @@ def uninstall_desktop(desktop):
 
 
 def install_desktop(self, desktop):
-    if desktop == "plasma":
-        command = plasma
-    if desktop == "xfce":
-        command = xfce
-    if desktop == "gnome":
-        command = gnome
+    if desktop == "awesome":
+        command = awesome
+    if desktop == "bspwm":
+        command = bspwm
     if desktop == "budgie":
         command = budgie
-    if desktop == "deepin":
-        command = deepin
     if desktop == "cinnamon":
         command = cinnamon
+    if desktop == "deepin":
+        command = deepin
+    if desktop == "gnome":
+        command = gnome
+    if desktop == "hlwm":
+        command = hlwm
+    if desktop == "i3wm":
+        command = i3wm
+    if desktop == "lxqt":
+        command = lxqt
     if desktop == "mate":
         command = mate
-
+    if desktop == "openbox":
+        command = openbox
+    if desktop == "plasma":
+        command = plasma
+    if desktop == "qtile":
+        command = qtile
+    if desktop == "xfce":
+        command = xfce
+    if desktop == "xmonad":
+        command = xmonad
     # fn.subprocess.call(list(np.append(pkexec, command)))
 
     with fn.subprocess.Popen(list(np.append(pkexec, command)), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
