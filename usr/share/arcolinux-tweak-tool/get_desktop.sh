@@ -138,7 +138,7 @@ function detect_openbox()
     then
 	     return 0
     fi
-    VERSION=`openbox --version |   head -1 | awk '{print $2}'`
+    VERSION=`openbox --version | head -1 | awk '{print $2}'`
     DESKTOP="OPENBOX"
     return 1
 }
@@ -150,7 +150,7 @@ function detect_lxqt()
     then
 	return 0
     fi
-    VERSION=`lxqt-about --version |  head -1 | awk '{print $2}'`
+    VERSION=`lxqt-about --version | head -1 | awk '{print $2}'`
     DESKTOP="LXQT"
     return 1
 }
@@ -169,12 +169,12 @@ function detect_mate()
 
 function detect_plasma()
 {
-    ps -e | grep -E '^.* plasma$' > /dev/null
+    ps -e | grep -E '^.* plasmashell$' > /dev/null
     if [ $? -ne 0 ];
     then
         return 0
     else
-        VERSION=`plasmashell --version | grep -m 1 'KDE' | awk -F ':' '{print $2}' | awk '{print $1}'`
+        VERSION=`plasmashell --version | awk '{print $2}'`
         DESKTOP="PLASMA"
         return 1
     fi
@@ -191,7 +191,6 @@ function detect_qtile()
     DESKTOP="QTILE"
     return 1
 }
-
 
 function detect_xfce()
 {
