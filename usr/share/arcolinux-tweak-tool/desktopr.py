@@ -112,6 +112,10 @@ openbox = [
     "arcolinux-openbox-git",
     "arcolinux-obmenu-generator-git",
     "arcolinux-pipemenus-git",
+    "nitrogen",
+    "arcolinux-nitrogen-git",
+    "tint2",
+    "arcolinux-tint2-themes-git",
     "dmenu",
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git"
@@ -257,7 +261,7 @@ def install_desktop(self, desktop, state):
 
     timeout_id = None
     timeout_id = GLib.timeout_add(100, fn.do_pulse, None, self.desktopr_prog)
-    
+
     if state == "reinst":
         com1 = pkexec_reinstall
     else:
@@ -270,5 +274,5 @@ def install_desktop(self, desktop, state):
     GLib.source_remove(timeout_id)
     timeout_id = None
     GLib.idle_add(self.desktopr_prog.set_fraction, 0)
-    GLib.idle_add(self.desktopr_stat.set_text, "")            
+    GLib.idle_add(self.desktopr_stat.set_text, "")
     GLib.idle_add(fn.show_in_app_notification, self, desktop + " has been installed")
