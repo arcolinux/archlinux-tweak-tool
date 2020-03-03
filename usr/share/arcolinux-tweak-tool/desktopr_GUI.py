@@ -36,7 +36,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     # =======================================
     #               BUTTONS
     # =======================================
-    button_install = Gtk.Button(label="Install")
+    button_install = Gtk.Button(label="Install/Re-install")
     button_uninstall = Gtk.Button(label="Uninstall")
 
     button_uninstall.connect("clicked", self.on_uninstall_clicked)
