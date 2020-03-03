@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#======================================================
+#           Author:  alexeevdv 
+#======================================================
+
 function detect_gnome()
 {
     ps -e | grep -E '^.* gnome-session$' > /dev/null
