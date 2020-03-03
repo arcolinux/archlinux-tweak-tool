@@ -45,6 +45,8 @@ class Main(Gtk.Window):
         self.desktop = ""
         self.timeout_id = None
         
+        self.desktop_status = Gtk.Label()
+
         self.grub_image_path = ""
         self.fb = Gtk.FlowBox()
 
@@ -873,7 +875,11 @@ class Main(Gtk.Window):
                                                             345)
             self.image_DE.set_from_pixbuf(pixbuf3)
         except:  # noqa
-            pass
+            self.image_DE.set_from_pixbuf(None)
+        if desktopr.check_desktop(self.d_combo.get_active_text()):
+            self.desktop_status.set_text("This desktop is installed")
+        else:
+            self.desktop_status.set_text("This desktop is NOT installed")
 
     def on_uninstall_clicked(self, widget):
         secs = Settings.read_section()

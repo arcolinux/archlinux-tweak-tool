@@ -8,6 +8,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     buttonbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     defaultbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    statbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     dropbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
@@ -26,6 +27,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
 
     dropbox.pack_start(label, False, False, 0)
     dropbox.pack_start(self.d_combo, False, False, 0)
+
+    # =======================================
+    #               BUTTONS
+    # =======================================
+    statbox.pack_start(self.desktop_status, True, False, 0)
 
     # =======================================
     #               BUTTONS
@@ -70,6 +76,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     #               PACK TO BOXES
     # =======================================
     vbox.pack_start(dropbox, False, False, 0)
+    vbox.pack_start(statbox, False, False, 0)
     vbox.pack_start(buttonbox, False, False, 0)
     vbox.pack_start(defaultbox, False, False, 0)
 
