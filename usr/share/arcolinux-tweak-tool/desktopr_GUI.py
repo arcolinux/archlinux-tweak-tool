@@ -11,6 +11,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     statbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    
+    vboxprog = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+    
     dropbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
 
     # =======================================
@@ -58,13 +61,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     # =======================================
     #               TEXTVIEW
     # =======================================
-    self.inst_tv = Gtk.TextView()
-    self.inst_tv.set_editable(False)
+    self.desktopr_prog = Gtk.ProgressBar()
+    self.desktopr_stat = Gtk.Label(xalign=0)
 
-    self.sb = Gtk.ScrolledWindow()
-    self.sb.set_size_request(0, 200)
-    self.sb.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-    self.sb.add(self.inst_tv)
+    vboxprog.pack_start(self.desktopr_stat, False, False, 0)
+    vboxprog.pack_start(self.desktopr_prog, False, False, 0)
 
     # =======================================
     #               FRAME PREVIEW
@@ -97,9 +98,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
 
     vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vbox1.pack_start(hbox, False, False, 10)
-    vbox1.pack_start(lbl, False, False, 0)
-    vbox1.pack_start(self.sb, True, True, 0)
+    vbox1.pack_end(vboxprog, False, False, 0)
     # =======================================
     #               PACK TO WINDOW
     # =======================================
-    vboxStack12.pack_start(vbox1, False, False, 0)
+    vboxStack12.pack_start(vbox1, True, True, 0)

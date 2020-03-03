@@ -894,23 +894,27 @@ class Main(Gtk.Window):
     def on_install_clicked(self, widget):
         if desktopr.check_desktop(self.d_combo.get_active_text()) is not True:
             print("installing {}".format(self.d_combo.get_active_text()))
-            # t1 = Functions.threading.Thread(target=desktopr.install_desktop,
-            #                                 args=(self,
-            #                                       self.d_combo.get_active_text(),))
-            # t1.daemon = True
-            # t1.start()
+            t1 = Functions.threading.Thread(target=desktopr.install_desktop,
+                                            args=(self,
+                                                  self.d_combo.get_active_text(),))
+            t1.daemon = True
+            t1.start()
 
-            desktopr.install_desktop(self, self.d_combo.get_active_text())
+            # desktopr.install_desktop(self, self.d_combo.get_active_text())
 
     def on_default_clicked(self, widget):
-        secs = Settings.read_section()
-        if "DESKTOP" in secs:
-            Settings.write_settings("DESKTOP",
-                                    "default",
-                                    self.d_combo.get_active_text())
+        if desktopr.check_desktop(self.d_combo.get_active_text()) is True:
+            secs = Settings.read_section()
+            if "DESKTOP" in secs:
+                Settings.write_settings("DESKTOP",
+                                        "default",
+                                        self.d_combo.get_active_text())
+            else:
+                Settings.new_settings("DESKTOP",
+                                    {"default": self.d_combo.get_active_text()})
         else:
-            Settings.new_settings("DESKTOP",
-                                  {"default": self.d_combo.get_active_text()})
+            Functions.show_in_app_notification(self,
+                                               "That desktop is not installed")
 
 
 #    #====================================================================

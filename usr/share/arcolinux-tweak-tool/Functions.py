@@ -290,8 +290,8 @@ def hblock_get_state(self):
     return False
 
 
-def do_pulse(data, self):
-    self.progress.pulse()
+def do_pulse(data, prog):
+    prog.pulse()
     return True
 
 
@@ -301,7 +301,7 @@ def set_hblock(self, toggle, state):
     GLib.idle_add(self.progress.set_fraction, 0.2)
 
     timeout_id = None
-    timeout_id = GLib.timeout_add(100, do_pulse, None, self)
+    timeout_id = GLib.timeout_add(100, do_pulse, None, self.progress)
 
     try:
 

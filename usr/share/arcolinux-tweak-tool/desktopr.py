@@ -25,7 +25,7 @@ desktops = [
     "xfce",
     "xmonad"
 ]
-pkexec = ["pkexec", "pacman", "-S", "--needed", "--noconfirm"]
+pkexec = ["pkexec", "pacman", "-S", "--needed"]  # , "--noconfirm"]
 
 awesome = [
     "awesome",
@@ -221,49 +221,48 @@ def uninstall_desktop(desktop):
 def install_desktop(self, desktop):
     if desktop == "awesome":
         command = awesome
-    if desktop == "bspwm":
+    elif desktop == "bspwm":
         command = bspwm
-    if desktop == "budgie":
+    elif desktop == "budgie":
         command = budgie
-    if desktop == "cinnamon":
+    elif desktop == "cinnamon":
         command = cinnamon
-    if desktop == "deepin":
+    elif desktop == "deepin":
         command = deepin
-    if desktop == "gnome":
+    elif desktop == "gnome":
         command = gnome
-    if desktop == "hlwm":
+    elif desktop == "hlwm":
         command = hlwm
-    if desktop == "i3wm":
+    elif desktop == "i3wm":
         command = i3wm
-    if desktop == "lxqt":
+    elif desktop == "lxqt":
         command = lxqt
-    if desktop == "mate":
+    elif desktop == "mate":
         command = mate
-    if desktop == "openbox":
+    elif desktop == "openbox":
         command = openbox
-    if desktop == "plasma":
+    elif desktop == "plasma":
         command = plasma
-    if desktop == "qtile":
+    elif desktop == "qtile":
         command = qtile
-    if desktop == "xfce":
+    elif desktop == "xfce":
         command = xfce
-    if desktop == "xmonad":
+    elif desktop == "xmonad":
         command = xmonad
     # fn.subprocess.call(list(np.append(pkexec, command)))
 
+    GLib.idle_add(self.desktopr_stat.set_text, "installing " + self.d_combo.get_active_text() + "...")
+    GLib.idle_add(self.desktopr_prog.set_fraction, 0.2)
+
+    timeout_id = None
+    timeout_id = GLib.timeout_add(100, fn.do_pulse, None, self.desktopr_prog)
+
     with fn.subprocess.Popen(list(np.append(pkexec, command)), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
         for line in p.stdout:
-            # GLib.idle_add(self.inst_tv.get_buffer())
-            text = self.inst_tv.get_buffer()
-            # start_iter, end_iter = text.get_iter()
-            try:
-                end_iter = text.get_end_iter()
-                text.insert(end_iter, line.strip() + "/n")
-            except:
-                pass
-            # GLib.idle_add(self.inst_tv.scroll_to_mark, text.get_insert(), 0.0, False, 0.5, 0.5)
+            GLib.idle_add(self.desktopr_stat.set_text, line.strip())
 
-            # adj = self.sb.get_vadjustment()
-            # adj.set_value(adj.get_upper() - adj.get_page_size())
-
+    GLib.source_remove(timeout_id)
+    timeout_id = None
+    GLib.idle_add(self.desktopr_prog.set_fraction, 0)
+    GLib.idle_add(self.desktopr_stat.set_text, "")            
     GLib.idle_add(fn.show_in_app_notification, self, desktop + " has been installed")
