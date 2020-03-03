@@ -11,11 +11,11 @@ from gi.repository import GLib  # noqa
 desktops = [
     "awesome",
     "bspwm",
-    "budgie",
+    "budgie-desktop",
     "cinnamon",
     "deepin",
     "gnome",
-    "hlwm",
+    "herbstluftwm",
     "i3",
     "lxqt",
     "mate",
