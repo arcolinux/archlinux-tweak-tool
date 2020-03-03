@@ -60,7 +60,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     # =======================================
     self.inst_tv = Gtk.TextView()
     self.inst_tv.set_editable(False)
-    
+
     self.sb = Gtk.ScrolledWindow()
     self.sb.set_size_request(0, 200)
     self.sb.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -72,7 +72,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     try:
         pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir +
                                                            "/desktop_data/" +
-                                                           self.d_combo.get_active_text() + ".png",  # noqa
+                                                           self.d_combo.get_active_text() + ".jpg",  # noqa
                                                            345,
                                                            345)
         self.image_DE.set_from_pixbuf(pixbuf3)
@@ -91,7 +91,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     vbox.pack_start(statbox, False, False, 0)
     vbox.pack_start(buttonbox, False, False, 0)
     vbox.pack_start(defaultbox, False, False, 0)
-    
+
     hbox.pack_start(vbox, True, True, 10)
     hbox.pack_start(frame, True, True, 10)
 
