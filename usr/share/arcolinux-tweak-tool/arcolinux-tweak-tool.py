@@ -44,6 +44,9 @@ class Main(Gtk.Window):
         self.firstrun = True
         self.desktop = ""
         self.timeout_id = None
+        
+        self.grub_image_path = ""
+        self.fb = Gtk.FlowBox()
 
         splScr = Splash.splashScreen()
 
@@ -510,9 +513,15 @@ class Main(Gtk.Window):
 #   #                       GRUB
 #   #====================================================================
 
+    def on_grub_item_clicked(self, widget, data):
+        for x in data:
+            self.grub_image_path = x.get_name()
+
     def on_set_grub_wallpaper(self, widget):
+        # Functions.set_grub_wallpaper(self,
+        #                              self.grub_theme_combo.get_active_text())
         Functions.set_grub_wallpaper(self,
-                                     self.grub_theme_combo.get_active_text())
+                                     self.grub_image_path)
 
     def on_reset_grub_wallpaper(self, widget):
         if os.path.isfile(Functions.grub_theme_conf + ".bak"):
@@ -531,15 +540,25 @@ class Main(Gtk.Window):
 
             val = Functions._get_position(listss, "desktop-image: ")
             bg_image = listss[val].split(" ")[1].replace("\"", "").strip()
+            
+            for x in self.fb.get_children():
+                self.fb.remove(x)
 
-            for i in range(len(lists)):
-                combo.append_text(lists[i])
-                if start is True:
-                    if(lists[i] == bg_image):
-                        combo.set_active(i)
-                else:
-                    if(lists[i] == os.path.basename(self.tbimage.get_text())):
-                        combo.set_active(i)
+            for x in lists:
+                pb = GdkPixbuf.Pixbuf().new_from_file_at_size("/boot/grub/themes/Vimix/" + x, 128, 128) # noqa
+                pimage = Gtk.Image()
+                pimage.set_name("/boot/grub/themes/Vimix/" + x)
+                pimage.set_from_pixbuf(pb)
+                self.fb.add(pimage)
+                pimage.show_all()
+            # for i in range(len(lists)):
+            #     combo.append_text(lists[i])
+            #     if start is True:
+            #         if(lists[i] == bg_image):
+            #             combo.set_active(i)
+            #     else:
+            #         if(lists[i] == os.path.basename(self.tbimage.get_text())):
+            #             combo.set_active(i)
 
     def on_grub_theme_change(self, widget):
         try:
@@ -562,8 +581,10 @@ class Main(Gtk.Window):
 
     def on_remove_wallpaper(self, widget):
         widget.set_sensitive(False)
-        if os.path.isfile('/boot/grub/themes/Vimix/' +
-                          self.grub_theme_combo.get_active_text()):
+        if os.path.isfile(self.grub_image_path):
+
+        # if os.path.isfile('/boot/grub/themes/Vimix/' +
+        #                   self.grub_theme_combo.get_active_text()):
             excludes = ["archlinux03.jpg", "archlinux04.jpg",
                         "archlinux06.jpg", "archlinux07.jpg",
                         "arcolinux01.jpg", "arcolinux02.jpg",
@@ -578,9 +599,11 @@ class Main(Gtk.Window):
                         "arcolinux10.png", "arcolinux11.png", "arcolinux.png",
                         "background.png"]
 
-            if not self.grub_theme_combo.get_active_text() in excludes:
-                os.unlink('/boot/grub/themes/Vimix/' +
-                          self.grub_theme_combo.get_active_text())
+            # if not self.grub_theme_combo.get_active_text() in excludes:
+            if not Functions.os.path.basename(self.grub_image_path) in excludes:
+                # os.unlink('/boot/grub/themes/Vimix/' +
+                #           self.grub_theme_combo.get_active_text())
+                os.unlink(self.grub_image_path)
                 self.pop_themes_grub(self.grub_theme_combo,
                                      Functions.get_grub_wallpapers(),
                                      True)

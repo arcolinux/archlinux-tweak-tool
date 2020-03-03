@@ -385,7 +385,7 @@ def set_grub_wallpaper(self, image):
                 f.close()
 
             val = _get_position(lists, "desktop-image: ")
-            lists[val] = "desktop-image: \"" + image + "\"" + "\n"
+            lists[val] = "desktop-image: \"" + os.path.basename(image) + "\"" + "\n"
 
             with open(grub_theme_conf, "w") as f:
                 f.writelines(lists)
