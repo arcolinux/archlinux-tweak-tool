@@ -1,55 +1,44 @@
 #!/bin/bash
 
 #======================================================
-#           Author:  alexeevdv 
+#           Author:  alexeevdv & Erik Dubois
 #======================================================
 
-function detect_gnome()
+DESKTOP="UNKNOWN"
+
+function detect_awesome()
 {
-    ps -e | grep -E '^.* gnome-session$' > /dev/null
+    ps -e | grep -E '^.* awesome$' > /dev/null
     if [ $? -ne 0 ];
     then
 	return 0
     fi
-    VERSION=`gnome-session --version | awk '{print $2}'`
-    DESKTOP="GNOME"
+    VERSION=`awesome --version | awk '{print $2}'`
+    DESKTOP="AWESOME"
     return 1
 }
 
-function detect_kde()
+function detect_bspwm()
 {
-    ps -e | grep -E '^.* kded4$' > /dev/null
-    if [ $? -ne 0 ];
-    then
-        return 0
-    else    
-        VERSION=`kded4 --version | grep -m 1 'KDE' | awk -F ':' '{print $2}' | awk '{print $1}'`
-        DESKTOP="KDE"
-        return 1
-    fi
-}
-
-function detect_unity()
-{
-    ps -e | grep -E 'unity-panel' > /dev/null
+    ps -e | grep -E '^.* bspwm$' > /dev/null
     if [ $? -ne 0 ];
     then
 	return 0
     fi
-    VERSION=`unity --version | awk '{print $2}'`
-    DESKTOP="UNITY"
+    VERSION=`bspwm --version | awk '{print $2}'`
+    DESKTOP="BSPWM"
     return 1
 }
 
-function detect_xfce()
+function detect_budgie()
 {
-    ps -e | grep -E '^.* xfce4-session$' > /dev/null
+    ps -e | grep -E '^.* budgie$' > /dev/null
     if [ $? -ne 0 ];
     then
 	return 0
     fi
-    VERSION=`xfce4-session --version | grep xfce4-session | awk '{print $2}'`
-    DESKTOP="XFCE"
+    VERSION=`budgie-desktop --version | awk '{print $2}'`
+    DESKTOP="BUDGIE-DESKTOP"
     return 1
 }
 
@@ -65,15 +54,51 @@ function detect_cinnamon()
     return 1
 }
 
-function detect_mate()
+function detect_deepin()
 {
-    ps -e | grep -E '^.* mate-panel$' > /dev/null
+    ps -e | grep -E '^.* deepin$' > /dev/null
     if [ $? -ne 0 ];
     then
 	return 0
     fi
-    VERSION=`mate-about --version | awk '{print $4}'`
-    DESKTOP="MATE"
+    VERSION=`deepin --version | awk '{print $2}'`
+    DESKTOP="DEEPIN"
+    return 1
+}
+
+function detect_gnome()
+{
+    ps -e | grep -E '^.* gnome-session$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+	return 0
+    fi
+    VERSION=`gnome-session --version | awk '{print $2}'`
+    DESKTOP="GNOME"
+    return 1
+}
+
+function detect_hlwm()
+{
+    ps -e | grep -E '^.* herbstluft$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+	return 0
+    fi
+    VERSION=`herbstluftwm --version | awk '{print $2}'`
+    DESKTOP="HERBSTLUFTWM"
+    return 1
+}
+
+function detect_i3wm()
+{
+    ps -e | grep -E '^.* i3$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+	return 0
+    fi
+    VERSION=`i3 --version | awk '{print $2}'`
+    DESKTOP="I3"
     return 1
 }
 
@@ -97,7 +122,7 @@ function detect_lxde()
 	    # For Fedora
 	    VERSION=`yum list lxde-common | grep lxde-common | awk '{print $2}' | awk -F '-' '{print $1}'`
 	fi
-    else    
+    else
 	# For Lubuntu and Knoppix
 	VERSION=`apt-cache show lxde-common /| grep 'Version:' | awk '{print $2}' | awk -F '-' '{print $1}'`
     fi
@@ -105,41 +130,131 @@ function detect_lxde()
     return 1
 }
 
-function detect_sugar()
+function detect_lxqt()
 {
-    if [ "$DESKTOP_SESSION" == "sugar" ];
+    ps -e | grep -E '^.* lxqt$' > /dev/null
+    if [ $? -ne 0 ];
     then
-	VERSION=`python -c "from jarabe import config; print config.version"`
-	DESKTOP="SUGAR"
-    else
 	return 0
+    fi
+    VERSION=`lxqt-about --version | awk '{print $2}'`
+    DESKTOP="LXQT"
+    return 1
+}
+
+function detect_mate()
+{
+    ps -e | grep -E '^.* mate-panel$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+	     return 0
+    fi
+    VERSION=`mate-about --version | awk '{print $4}'`
+    DESKTOP="MATE"
+    return 1
+}
+
+function detect_openbox()
+{
+    ps -e | grep -E '^.* openbox$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+	     return 0
+    fi
+    VERSION=`openbox --version | awk '{print $2}'`
+    DESKTOP="OPENBOX"
+    return 1
+}
+
+function detect_plasma()
+{
+    ps -e | grep -E '^.* plasma$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+        return 0
+    else
+        VERSION=`plasmashell --version | grep -m 1 'KDE' | awk -F ':' '{print $2}' | awk '{print $1}'`
+        DESKTOP="PLASMA"
+        return 1
     fi
 }
 
-
-DESKTOP="UNKNOWN"
-if detect_unity;
-then
-    if detect_kde;
+function detect_qtile()
+{
+    ps -e | grep -E '^.* qtile$' > /dev/null
+    if [ $? -ne 0 ];
     then
-	if detect_gnome;
-	then
-	    if detect_xfce;
-	    then
-		if detect_cinnamon;
-		then
-		    if detect_mate;
-		    then
-			if detect_lxde;
-			then
-			    detect_sugar
-			fi
-		    fi
-		fi
-	    fi
-	fi
+	     return 0
     fi
-fi
+    VERSION=`qtile --version | awk '{print $1}'`
+    DESKTOP="QTILE"
+    return 1
+}
+
+
+function detect_xfce()
+{
+    ps -e | grep -E '^.* xfce4-session$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+	return 0
+    fi
+    VERSION=`xfce4-session --version | grep xfce4-session | awk '{print $2}'`
+    DESKTOP="XFCE"
+    return 1
+}
+
+function detect_xmonad()
+{
+    ps -e | grep -E '^.* xmonad$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+	return 0
+    fi
+    VERSION=`xmonad --version | awk '{print $2}'`
+    DESKTOP="XMONAD"
+    return 1
+}
+
+detect_awesome;
+detect_bspwm;
+detect_budgie;
+detect_cinnamon;
+detect_deepin;
+detect_gnome;
+detect_hlwm;
+detect_i3wm;
+detect_lxde;
+detect_lxqt;
+detect_mate;
+detect_openbox;
+detect_plasma;
+detect_qtile;
+detect_xfce;
+detect_xmonad;
+
+# if detect_unity;
+# then
+#     if detect_kde;
+#     then
+# 	if detect_gnome;
+# 	then
+# 	    if detect_xfce;
+# 	    then
+# 		if detect_cinnamon;
+# 		then
+# 		    if detect_mate;
+# 		    then
+# 			if detect_lxde;
+# 			then
+# 			    detect_sugar
+# 			fi
+# 		    fi
+# 		fi
+# 	    fi
+# 	fi
+#     fi
+# fi
 
 
 if [ "$1" == '-v' ];
