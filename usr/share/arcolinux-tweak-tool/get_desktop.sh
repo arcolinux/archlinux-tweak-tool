@@ -206,7 +206,7 @@ function detect_xfce()
 
 function detect_xmonad()
 {
-    ps -e | grep -E '^.* xmonad$' > /dev/null
+    ps -e | grep -E '^.* xmonad-86_64-linux$' > /dev/null
     if [ $? -ne 0 ];
     then
 	return 0
