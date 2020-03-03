@@ -11,7 +11,7 @@ from gi.repository import GLib  # noqa
 desktops = [
     "awesome",
     "bspwm",
-    "budgie-desktop",
+    "budgie",
     "cinnamon",
     "deepin",
     "gnome",
@@ -49,7 +49,7 @@ bspwm = [
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git"
 ]
-budgie-desktop = [
+budgie = [
     "budgie-desktop",
     "budgie-extras",
     "gnome",
