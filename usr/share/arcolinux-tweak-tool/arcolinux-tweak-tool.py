@@ -164,13 +164,14 @@ class Main(Gtk.Window):
 
     def create_autostart_columns(self, treeView):
         rendererText = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Comment", rendererText, text=0)
-        column.set_sort_column_id(1)
-        column2 = Gtk.TreeViewColumn("Name", rendererText, text=0)
-        column2.set_sort_column_id(0)
+        column = Gtk.TreeViewColumn("Name", rendererText, text=0)
+        column.set_sort_column_id(0)
+        column2 = Gtk.TreeViewColumn("Comment", rendererText, text=1)
+        column2.set_sort_column_id(1)
+        
         treeView.append_column(column)
         treeView.append_column(column2)
-        
+
     def create_columns(self, treeView):
         rendererText = Gtk.CellRendererText()
         column = Gtk.TreeViewColumn("Name", rendererText, text=0)

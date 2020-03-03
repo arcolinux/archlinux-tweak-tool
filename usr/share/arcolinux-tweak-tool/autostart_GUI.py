@@ -26,10 +26,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     sw.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
     sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
-    self.startups = Gtk.ListStore(str)
+    self.startups = Gtk.ListStore(str, str)
 
     self.treeView4 = Gtk.TreeView(self.startups)
-    self.create_columns(self.treeView4)
+    self.create_autostart_columns(self.treeView4)
     # treeView.connect("row-activated", self.on_activated)
     self.treeView4.set_rules_hint(True)
     sw.set_size_request(270, 320)

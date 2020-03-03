@@ -8,7 +8,16 @@ def get_startups(self):
     lst = fn.os.listdir(fn.home + "/.config/autostart/")
 
     for n in [x.replace(".desktop", "") for x in lst]:
-        self.startups.append([n])
+        with open(fn.home + "/.config/autostart/" + n + ".desktop") as f:
+            lines = f.readlines()
+            f.close()
+        comment = ""
+        try:
+            pos = fn._get_position(lines, "Comment=")
+            comment = lines[pos].split("=")[1].strip()
+        except:  # noqa
+            pass
+        self.startups.append([n, comment])
 
 
 def add_autostart(self, name, com, comnt):
