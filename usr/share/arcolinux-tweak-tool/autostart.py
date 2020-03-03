@@ -11,17 +11,17 @@ def get_startups(self):
         self.startups.append([n])
 
 
-def add_autostart(self, name, com):
+def add_autostart(self, name, com, comnt):
     content = "[Desktop Entry]\n\
 Encoding=UTF-8\n\
-Version=0.9.4\n\
+Version=1.0\n\
 Type=Application\n\
 Name=" + name + "\n\
-Comment=\n\
+Comment=" + comnt + "\n\
 Exec=" + com + "\n\
-OnlyShowIn=XFCE;\n\
-RunHook=0\n\
+TryExec=" + com + "\n\
 StartupNotify=false\n\
+X-GNOME-Autostart-enabled=true\n\
 Terminal=false\n\
 Hidden=false\n"
 

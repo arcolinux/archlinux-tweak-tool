@@ -30,7 +30,7 @@ def set_lightdm_value(self, lists, value, session, state):
             f.writelines(lists)
             f.close()
 
-        GLib.idle_add(Functions.show_in_app_notification,self, "Settings Saved Successfully")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
 
         # GLib.idle_add(Functions.MessageBox,self, "Success!!", "Settings applied successfully")
     except Exception as e:
@@ -57,8 +57,8 @@ def pop_box(self, combo):
     # pos = Functions._get_position(lines, "user-session=")
     name = check_lightdm(lines, "autologin-session=").split("=")[1]
 
-    if name == "":
-        name = check_lightdm(lines, "user-session=").split("=")[1]
+    # if name == "":
+    #     name = check_lightdm(lines, "user-session=").split("=")[1]
     
     coms.sort()
     for i in range(len(coms)):

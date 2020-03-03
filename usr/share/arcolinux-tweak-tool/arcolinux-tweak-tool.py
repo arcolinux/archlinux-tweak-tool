@@ -836,15 +836,17 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.lightdm_conf,
                                   Functions.lightdm_conf + ".bak")
 
-        t1 = Functions.threading.Thread(target=lightdm.set_lightdm_value,
-                                        args=(self,
-                                              lightdm.get_lines(Functions.lightdm_conf),  # noqa 
-                                              Functions.sudo_username,
-                                              self.sessions.get_active_text(),
-                                              self.autologin.get_active()))
-        t1.daemon = True
-        t1.start()
-
+        if self.sessions.get_active_text() is not None:
+            t1 = Functions.threading.Thread(target=lightdm.set_lightdm_value,
+                                            args=(self,
+                                                lightdm.get_lines(Functions.lightdm_conf),  # noqa 
+                                                Functions.sudo_username,
+                                                self.sessions.get_active_text(),
+                                                self.autologin.get_active()))
+            t1.daemon = True
+            t1.start()
+        else:
+            Functions.show_in_app_notification(self, "Need to select desktop first")    
     def on_click_lightdm_reset(self, widget):
         if Functions.os.path.isfile(Functions.lightdm_conf + ".bak"):
             Functions.shutil.copy(Functions.lightdm_conf + ".bak",
@@ -916,7 +918,8 @@ class Main(Gtk.Window):
     def on_add_autostart(self, widget):
         if len(self.txtbox1.get_text()) > 1 and len(self.txtbox2.get_text()) > 1:  # noqa
             autostart.add_autostart(self, self.txtbox1.get_text(),
-                                    self.txtbox2.get_text())
+                                    self.txtbox2.get_text(),
+                                    self.txtbox3.get_text())
 
     def on_exec_browse(self, widget):
 

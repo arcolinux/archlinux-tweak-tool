@@ -9,6 +9,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
 
     vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
 
+    vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+    vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+    vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+
+    vbox5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+    vbox6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+
+
     labelbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
 
     # ==========================================
@@ -42,12 +50,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     lbl1 = Gtk.Label("Name")
     lbl2 = Gtk.Label("Command")
     lbl3 = Gtk.Label("Comment")
-    lbl1.set_size_request(180, 0)
-    lbl2.set_size_request(240, 0)
-    lbl3.set_size_request(180, 0)
-    labelbox.pack_start(lbl1, False, False, 0)
-    labelbox.pack_start(lbl2, False, False, 0)
-    labelbox.pack_start(lbl3, False, False, 0)
+    
 
     self.txtbox1 = Gtk.Entry()  # Name
     self.txtbox2 = Gtk.Entry()  # EXEC
@@ -64,11 +67,23 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
 
     abutton.connect("clicked", self.on_add_autostart)
 
-    hbox2.pack_start(self.txtbox1, False, False, 5)
-    hbox2.pack_start(self.txtbox2, False, False, 0)
-    hbox2.pack_start(bbutton, False, False, 0)
-    hbox2.pack_start(self.txtbox3, False, False, 5)
-    hbox2.pack_start(abutton, False, False, 5)
+    vbox2.pack_start(lbl1, False, False, 0)
+    vbox2.pack_start(self.txtbox1, False, False, 0)
+
+    vbox3.pack_start(lbl2, False, False, 0)
+    vbox3.pack_start(self.txtbox2, False, False, 0)
+
+    vbox4.pack_start(lbl3, False, False, 0)
+    vbox4.pack_start(self.txtbox3, False, False, 0)
+
+    vbox5.pack_end(bbutton, False, False, 0)
+    vbox6.pack_end(abutton, False, False, 0)
+
+    hbox2.pack_start(vbox2, False, False, 5)
+    hbox2.pack_start(vbox3, False, False, 0)
+    hbox2.pack_start(vbox5, False, False, 0)
+    hbox2.pack_start(vbox4, False, False, 5)
+    hbox2.pack_start(vbox6, False, False, 5)
 
     hbox.pack_start(sw, True, True, 0)
     vbox1.pack_end(rbutton, False, False, 0)
