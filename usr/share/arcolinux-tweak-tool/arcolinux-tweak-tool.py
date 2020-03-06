@@ -168,11 +168,19 @@ class Main(Gtk.Window):
 
     def create_autostart_columns(self, treeView):
         rendererText = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Name", rendererText, text=0)
-        column.set_sort_column_id(0)
-        column2 = Gtk.TreeViewColumn("Comment", rendererText, text=1)
-        column2.set_sort_column_id(1)
+        renderer_checkbox = Gtk.CellRendererToggle()
+        column_checkbox = Gtk.TreeViewColumn("", renderer_checkbox, active=0)
+        renderer_checkbox.connect("toggled", self.renderer_checkbox, self.startups)
+        renderer_checkbox.set_activatable(True)
+        column_checkbox.set_sort_column_id(0)
 
+        column = Gtk.TreeViewColumn("Name", rendererText, text=1)
+        column.set_sort_column_id(1)
+
+        column2 = Gtk.TreeViewColumn("Comment", rendererText, text=2)
+        column2.set_sort_column_id(2)
+
+        treeView.append_column(column_checkbox)
         treeView.append_column(column)
         treeView.append_column(column2)
 
@@ -181,6 +189,41 @@ class Main(Gtk.Window):
         column = Gtk.TreeViewColumn("Name", rendererText, text=0)
         column.set_sort_column_id(0)
         treeView.append_column(column)
+
+    def renderer_checkbox(self, renderer, path, model):
+        if path is not None:
+            it = model.get_iter(path)
+            model[it][0] = not model[it][0]
+
+    def on_activated(self, treeview, path, column):
+        failed = False
+        treestore, selected_treepaths = treeview.get_selection().get_selected_rows()
+        selected_treepath = selected_treepaths[0]
+        selected_row = treestore[selected_treepath]
+        bool = selected_row[0]
+        text = selected_row[1]
+
+        if bool:
+            bools = False
+        else:
+            bools = True
+
+        with open(Functions.home + "/.config/autostart/" + text + ".desktop", "r") as f:
+            lines = f.readlines()
+            f.close()
+        try:
+            pos = Functions._get_position(lines, "Hidden=")
+        except:
+            failed = True
+            with open(Functions.home + "/.config/autostart/" + text + ".desktop", "a") as f:
+                f.write("Hidden=" + str(bools))
+                f.close()
+        if not failed:
+            val = lines[pos].split("=")[1].strip()
+            lines[pos] = lines[pos].replace(val, str(bools).lower())
+            with open(Functions.home + "/.config/autostart/" + text + ".desktop", "w") as f:
+                f.writelines(lines)
+                f.close()
 
 # =====================================================
 #               PATREON LINK

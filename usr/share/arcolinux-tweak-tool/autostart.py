@@ -12,12 +12,23 @@ def get_startups(self):
             lines = f.readlines()
             f.close()
         comment = ""
+        state = True
         try:
             pos = fn._get_position(lines, "Comment=")
             comment = lines[pos].split("=")[1].strip()
         except:  # noqa
             pass
-        self.startups.append([n, comment])
+        try:
+            pos = fn._get_position(lines, "Hidden=")
+            state = lines[pos].split("=")[1].strip()
+            
+            state = state.capitalize()
+                
+            state = not eval(state)
+        except:
+            pass
+
+        self.startups.append([state, n, comment])
 
 
 def add_autostart(self, name, com, comnt):
