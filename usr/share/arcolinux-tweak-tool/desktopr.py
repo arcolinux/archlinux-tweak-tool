@@ -295,13 +295,14 @@ def install_desktop(self, desktop, state):
 
     if twm is True:
         for x in src:
-            dest = x.replace("/etc/skel", fn.home)
-            # print(dest)
-            l1 = np.append(copy, [x])
-            l2 = np.append(l1, [dest])
-            GLib.idle_add(self.desktopr_stat.set_text, "Copying " + x + " to " + dest)
+            if fn.os.path.isdir(x):
+                dest = x.replace("/etc/skel", fn.home)
+                # print(dest)
+                l1 = np.append(copy, [x])
+                l2 = np.append(l1, [dest])
+                GLib.idle_add(self.desktopr_stat.set_text, "Copying " + x + " to " + dest)
 
-            fn.subprocess.call(list(l2), shell=False, stdout=fn.subprocess.PIPE)
+                fn.subprocess.call(list(l2), shell=False, stdout=fn.subprocess.PIPE)
 
     GLib.source_remove(timeout_id)
     timeout_id = None
