@@ -278,7 +278,6 @@ def install_desktop(self, desktop, state):
         twm = True
     # fn.subprocess.call(list(np.append(pkexec, command)))
 
-    GLib.idle_add(self.desktopr_stat.set_text, "installing " + self.d_combo.get_active_text() + "...")
     GLib.idle_add(self.desktopr_prog.set_fraction, 0.2)
 
     timeout_id = None
@@ -291,6 +290,8 @@ def install_desktop(self, desktop, state):
             fn.subprocess.call(["pacman", "-Scc"], shell=False, stdout=fn.subprocess.PIPE)
     else:
         com1 = pkexec
+
+    GLib.idle_add(self.desktopr_stat.set_text, "installing " + self.d_combo.get_active_text() + "...")
 
     with fn.subprocess.Popen(list(np.append(com1, command)), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
         for line in p.stdout:
