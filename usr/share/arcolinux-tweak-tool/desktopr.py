@@ -27,6 +27,7 @@ desktops = [
 ]
 pkexec = ["pkexec", "pacman", "-S", "--needed", "--noconfirm"]
 pkexec_reinstall = ["pkexec", "pacman", "-S", "--noconfirm"]
+copy = ["cp", "-Rv"]
 
 awesome = [
     "awesome",
@@ -225,10 +226,17 @@ def uninstall_desktop(desktop):
 
 
 def install_desktop(self, desktop, state):
+    src = ["/etc/skel/.config/polybar", "/etc/skel/.config/rofi", "/etc/skel/.config/qt5ct"]
+    twm = False
+    
     if desktop == "awesome":
         command = awesome
+        src.append("/etc/skel/.config/awesome")
+        twm = True
     elif desktop == "bspwm":
         command = bspwm
+        src.append("/etc/skel/.config/bspwm")
+        twm = True
     elif desktop == "budgie-desktop":
         command = budgie
     elif desktop == "cinnamon":
@@ -239,22 +247,35 @@ def install_desktop(self, desktop, state):
         command = gnome
     elif desktop == "herbstluftwm":
         command = hlwm
+        src.append("/etc/skel/.config/herbstluftwm")
+        twm = True
     elif desktop == "i3wm":
         command = i3wm
+        src.append("/etc/skel/.config/i3")
+        twm = True
     elif desktop == "lxqt":
         command = lxqt
+        # src.append([])
+        # twm = True
     elif desktop == "mate":
         command = mate
     elif desktop == "openbox":
         command = openbox
+        src.append("/etc/skel/.config/openbox")
+        src.append("/etc/skel/.config/obmenu-generator")
+        twm = True
     elif desktop == "plasma":
         command = plasma
     elif desktop == "qtile":
         command = qtile
+        src.append("/etc/skel/.config/qtile")
+        twm = True
     elif desktop == "xfce":
         command = xfce
     elif desktop == "xmonad":
         command = xmonad
+        src.append("/etc/skel/.xmonad")
+        twm = True
     # fn.subprocess.call(list(np.append(pkexec, command)))
 
     GLib.idle_add(self.desktopr_stat.set_text, "installing " + self.d_combo.get_active_text() + "...")
@@ -271,6 +292,16 @@ def install_desktop(self, desktop, state):
     with fn.subprocess.Popen(list(np.append(com1, command)), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
         for line in p.stdout:
             GLib.idle_add(self.desktopr_stat.set_text, line.strip())
+
+    if twm is True:
+        for x in src:
+            dest = x.replace("/etc/skel", fn.home)
+            # print(dest)
+            l1 = np.append(copy, [x])
+            l2 = np.append(l1, [dest])
+            GLib.idle_add(self.desktopr_stat.set_text, "Copying " + x + " to " + dest)
+
+            fn.subprocess.call(list(l2), shell=False, stdout=fn.subprocess.PIPE)
 
     GLib.source_remove(timeout_id)
     timeout_id = None

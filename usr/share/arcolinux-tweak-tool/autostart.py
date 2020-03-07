@@ -48,4 +48,4 @@ Hidden=false\n"
     with open(fn.home + "/.config/autostart/" + name + ".desktop", "w") as f:
         f.write(content)
         f.close()
-    self.startups.append([name])
+    self.startups.append([True, name, comnt])

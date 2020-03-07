@@ -974,7 +974,7 @@ class Main(Gtk.Window):
         for path in paths:
             iter = model.get_iter(path)
             # Remove the ListStore row referenced by iter
-            value = model.get_value(iter, 0)
+            value = model.get_value(iter, 1)
             model.remove(iter)
             Functions.os.unlink(Functions.home + "/.config/autostart/" + value + ".desktop")  #  noqa
 
