@@ -7,7 +7,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
 
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     buttonbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    defaultbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # defaultbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     statbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
@@ -55,11 +55,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     #               BUTTONS
     # =======================================
 
-    set_default = Gtk.Button(label="Set Default")
-    set_default.set_size_request(195, 0)
+    # set_default = Gtk.Button(label="Set Default")
+    # set_default.set_size_request(195, 0)
 
-    set_default.connect("clicked", self.on_default_clicked)
-    defaultbox.pack_end(set_default, False, False, 0)
+    # set_default.connect("clicked", self.on_default_clicked)
+    # defaultbox.pack_end(set_default, False, False, 0)
 
     # =======================================
     #               TEXTVIEW
@@ -94,7 +94,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     vbox.pack_start(dropbox, False, False, 0)
     vbox.pack_start(statbox, False, False, 0)
     vbox.pack_start(buttonbox, False, False, 0)
-    vbox.pack_start(defaultbox, False, False, 0)
+    # vbox.pack_start(defaultbox, False, False, 0)
 
     hbox.pack_start(vbox, True, True, 10)
     hbox.pack_start(frame, True, True, 10)

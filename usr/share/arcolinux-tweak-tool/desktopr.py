@@ -11,11 +11,11 @@ from gi.repository import GLib  # noqa
 desktops = [
     "awesome",
     "bspwm",
-    "budgie",
+    "budgie-desktop",
     "cinnamon",
     "deepin",
     "gnome",
-    "hlwm",
+    "herbstluftwm",
     "i3",
     "lxqt",
     "mate",
@@ -229,7 +229,7 @@ def install_desktop(self, desktop, state):
         command = awesome
     elif desktop == "bspwm":
         command = bspwm
-    elif desktop == "budgie":
+    elif desktop == "budgie-desktop":
         command = budgie
     elif desktop == "cinnamon":
         command = cinnamon
@@ -237,7 +237,7 @@ def install_desktop(self, desktop, state):
         command = deepin
     elif desktop == "gnome":
         command = gnome
-    elif desktop == "hlwm":
+    elif desktop == "herbstluftwm":
         command = hlwm
     elif desktop == "i3wm":
         command = i3wm
