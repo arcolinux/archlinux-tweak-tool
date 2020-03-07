@@ -895,6 +895,7 @@ class Main(Gtk.Window):
             t1.start()
         else:
             Functions.show_in_app_notification(self, "Need to select desktop first")
+
     def on_click_lightdm_reset(self, widget):
         if Functions.os.path.isfile(Functions.lightdm_conf + ".bak"):
             Functions.shutil.copy(Functions.lightdm_conf + ".bak",
@@ -940,12 +941,12 @@ class Main(Gtk.Window):
         print("installing {}".format(self.d_combo.get_active_text()))
         t1 = Functions.threading.Thread(target=desktopr.install_desktop,
                                         args=(self,
-                                                self.d_combo.get_active_text(),
-                                                state))
+                                              self.d_combo.get_active_text(),
+                                              state))
         t1.daemon = True
         t1.start()
 
-            # desktopr.install_desktop(self, self.d_combo.get_active_text())
+        # desktopr.install_desktop(self, self.d_combo.get_active_text())
 
     def on_default_clicked(self, widget):
         if desktopr.check_desktop(self.d_combo.get_active_text()) is True:
@@ -956,11 +957,10 @@ class Main(Gtk.Window):
                                         self.d_combo.get_active_text())
             else:
                 Settings.new_settings("DESKTOP",
-                                    {"default": self.d_combo.get_active_text()})
+                                      {"default": self.d_combo.get_active_text()})
         else:
             Functions.show_in_app_notification(self,
                                                "That desktop is not installed")
-
 
 #    #====================================================================
 #    #                       autostart
