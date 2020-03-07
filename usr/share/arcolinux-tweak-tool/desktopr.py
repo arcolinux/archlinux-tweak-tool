@@ -312,4 +312,5 @@ def install_desktop(self, desktop, state):
     timeout_id = None
     GLib.idle_add(self.desktopr_prog.set_fraction, 0)
     GLib.idle_add(self.desktopr_stat.set_text, "")
+    GLib.idle_add(self.desktop_status.set_text, "This desktop is installed")
     GLib.idle_add(fn.show_in_app_notification, self, desktop + " has been installed")
