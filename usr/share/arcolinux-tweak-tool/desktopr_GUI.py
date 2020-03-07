@@ -9,7 +9,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     buttonbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     # defaultbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     statbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-
+    checkbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     
     vboxprog = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
@@ -61,6 +61,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     # set_default.connect("clicked", self.on_default_clicked)
     # defaultbox.pack_end(set_default, False, False, 0)
 
+    self.ch1 = Gtk.CheckButton(label="Select to clear cache before Re-install")
+    checkbox.pack_start(self.ch1, False, False, 0)
     # =======================================
     #               TEXTVIEW
     # =======================================
@@ -93,6 +95,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     # =======================================
     vbox.pack_start(dropbox, False, False, 0)
     vbox.pack_start(statbox, False, False, 0)
+    vbox.pack_start(checkbox, False, False, 0)
     vbox.pack_start(buttonbox, False, False, 0)
     # vbox.pack_start(defaultbox, False, False, 0)
 
