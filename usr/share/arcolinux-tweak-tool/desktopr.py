@@ -249,8 +249,8 @@ def install_desktop(self, desktop, state):
         command = hlwm
         src.append("/etc/skel/.config/herbstluftwm")
         twm = True
-    elif desktop == "i3wm":
-        command = i3wm
+    elif desktop == "i3":
+        command = i3
         src.append("/etc/skel/.config/i3")
         twm = True
     elif desktop == "lxqt":
