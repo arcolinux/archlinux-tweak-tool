@@ -226,7 +226,7 @@ def uninstall_desktop(desktop):
 
 
 def install_desktop(self, desktop, state):
-    src = ["/etc/skel/.config/polybar", "/etc/skel/.config/rofi"]
+    src = ["/etc/skel/.config/polybar"]
     twm = False
     
     if desktop == "awesome":
