@@ -308,7 +308,7 @@ def install_desktop(self, desktop, state):
 
                 fn.subprocess.call(list(l2), shell=False, stdout=fn.subprocess.PIPE)
                 fn.permissions(dest)
-                
+
     GLib.source_remove(timeout_id)
     timeout_id = None
     GLib.idle_add(self.desktopr_prog.set_fraction, 0)
