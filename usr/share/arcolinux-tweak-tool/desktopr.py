@@ -86,7 +86,7 @@ hlwm = [
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git"
 ]
-i3wm = [
+i3 = [
     "i3-gaps",
     "i3status",
     "arcolinux-i3wm-git",
@@ -228,7 +228,7 @@ def uninstall_desktop(desktop):
 def install_desktop(self, desktop, state):
     src = ["/etc/skel/.config/polybar"]
     twm = False
-    
+
     if desktop == "awesome":
         command = awesome
         src.append("/etc/skel/.config/awesome")
