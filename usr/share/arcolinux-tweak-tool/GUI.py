@@ -9,7 +9,7 @@ import slim
 import oblogout
 import termite
 import neofetch
-import skelapp
+#import skelapp
 import lightdm
 import themer
 import desktopr
@@ -24,7 +24,7 @@ import Grub_GUI
 import HBlock_GUI
 import Pacman_GUI
 # import GTK_GUI
-import SkelApp_GUI
+#import SkelApp_GUI
 import Lightdm_GUI
 import Themer_GUI
 import desktopr_GUI
@@ -141,7 +141,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     # #                     Skelapp
     # # ==========================================================
 
-    SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
+    #SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
 
     # ==========================================================
     #                       Themer
@@ -194,7 +194,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
 
     # stack.add_titled(vboxStack2, "stack9", "Theming")
 
-    stack.add_titled(vboxStack9, "stack10", "Tweak skel")
+    #stack.add_titled(vboxStack9, "stack10", "Tweak skel")
 
     if "awesome" in self.desktop or "i3" in self.desktop:
         stack.add_titled(vboxStack10, "stack11", "Theme Changer")
@@ -214,7 +214,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.3.75</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.3.76</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
