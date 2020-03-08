@@ -9,7 +9,7 @@ import slim
 import oblogout
 import termite
 import neofetch
-#import skelapp
+import skelapp
 import lightdm
 import themer
 import desktopr
@@ -24,7 +24,7 @@ import Grub_GUI
 import HBlock_GUI
 import Pacman_GUI
 # import GTK_GUI
-#import SkelApp_GUI
+import SkelApp_GUI
 import Lightdm_GUI
 import Themer_GUI
 import desktopr_GUI
@@ -141,7 +141,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     # #                     Skelapp
     # # ==========================================================
 
-    #SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
+    SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
 
     # ==========================================================
     #                       Themer
