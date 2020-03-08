@@ -83,7 +83,7 @@ hlwm = [
     "arcolinux-polybar-git",
     "xtitle-git",
     "dmenu",
-    "awesome-terminal-fonts",    
+    "awesome-terminal-fonts",
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git"
 ]
@@ -289,7 +289,7 @@ def install_desktop(self, desktop, state):
         com1 = pkexec_reinstall
         if self.ch1.get_active():
             GLib.idle_add(self.desktopr_stat.set_text, "Clearing cache .....")
-            fn.subprocess.call(["pkexec", "pacman", "-Scc"], shell=False, stdout=fn.subprocess.PIPE)
+            fn.subprocess.call(["yes", "|", "pkexec", "pacman", "-Scc"], shell=False, stdout=fn.subprocess.PIPE)
     else:
         com1 = pkexec
 
