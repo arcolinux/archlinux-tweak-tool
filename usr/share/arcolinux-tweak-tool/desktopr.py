@@ -83,6 +83,7 @@ hlwm = [
     "arcolinux-polybar-git",
     "xtitle-git",
     "dmenu",
+    "awesome-terminal-fonts",    
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git"
 ]
