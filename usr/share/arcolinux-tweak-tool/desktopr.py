@@ -193,6 +193,7 @@ xmonad = [
     "xmonad-log",
     "arcolinux-xmonad-polybar-git",
     "dmenu",
+    "awesome-terminal-fonts",
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git"
 ]
