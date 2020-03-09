@@ -64,6 +64,11 @@ class Main(Gtk.Window):
         sleep(2)
         splScr.destroy()
 
+        if not Functions.os.path.exists(Functions.home + "/.config/autostart"):
+            Functions.MessageBox(self, "oops!",
+                                 "some directories are missing. run 'skel' in terminal and try starting again.")
+            Gtk.main_quit()
+
         if not Functions.os.path.isdir(Functions.home + "/" +
                                        Functions.bd):
             try:
