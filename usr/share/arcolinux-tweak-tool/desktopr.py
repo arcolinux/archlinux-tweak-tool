@@ -37,7 +37,9 @@ awesome = [
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git",
     "picom",
-    "polkit-gnome"
+    "polkit-gnome",
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 bspwm = [
     "bspwm",
@@ -52,13 +54,16 @@ bspwm = [
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git",
     "picom",
-    "polkit-gnome"
+    "polkit-gnome",
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 budgie = [
     "budgie-desktop",
     "budgie-extras",
     "gnome",
-    "gnome-extra"
+    "gnome-extra",
+    "arcolinux-wallpapers-git"
 ]
 cinnamon = [
     "cinnamon",
@@ -68,16 +73,19 @@ cinnamon = [
     "gnome-system-monitor",
     "gnome-screenshot",
     "mintlocale",
-    "iso-flag-png"
+    "iso-flag-png",
+    "arcolinux-wallpapers-git"
 ]
 deepin = [
     "deepin",
-    "deepin-extra"
+    "deepin-extra",
+    "arcolinux-wallpapers-git"
 ]
 gnome = [
     "gnome",
     "gnome-extra",
-    "guake"
+    "guake",
+    "arcolinux-wallpapers-git"
 ]
 hlwm = [
     "herbstluftwm",
@@ -91,7 +99,9 @@ hlwm = [
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git",
     "picom",
-    "polkit-gnome"
+    "polkit-gnome",
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 i3 = [
     "i3-gaps",
@@ -99,18 +109,22 @@ i3 = [
     "arcolinux-i3wm-git",
     "dmenu",
     "picom",
-    "polkit-gnome"
+    "polkit-gnome",
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 lxqt = [
     "lxqt",
     "arcolinux-lxqt-git",
     "lxqt-arc-dark-theme-git",
-    "dmenu"
+    "dmenu",
+    "arcolinux-wallpapers-git"
 ]
 mate = [
     "mate",
     "mate-extra",
-    "mate-tweak"
+    "mate-tweak",
+    "arcolinux-wallpapers-git"
 ]
 openbox = [
     "openbox",
@@ -139,7 +153,9 @@ openbox = [
     "geany",
     "thunar",
     "arcolinux-xfce-git",
-    "polkit-gnome"
+    "polkit-gnome",
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 plasma = [
     "plasma-meta",
@@ -154,7 +170,8 @@ plasma = [
     "ark",
     "ffmpegthumbs",
     "kdeadmin-meta",
-    "kdebase-meta"
+    "kdebase-meta",
+    "arcolinux-wallpapers-git"
 ]
 qtile = [
     "qtile",
@@ -164,7 +181,9 @@ qtile = [
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git",
     "picom",
-    "polkit-gnome"
+    "polkit-gnome",
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 xfce = [
     "xfce4",
@@ -202,7 +221,8 @@ xfce = [
     "xfce4-wavelan-plugin",
     "xfce4-weather-plugin",
     "xfce4-whiskermenu-plugin",
-    "xfce4-xkb-plugin"
+    "xfce4-xkb-plugin",
+    "arcolinux-wallpapers-git"
 ]
 xmonad = [
     "xmonad",
@@ -218,7 +238,9 @@ xmonad = [
     "arcolinux-oblogout",
     "arcolinux-oblogout-themes-git",
     "picom",
-    "polkit-gnome"
+    "polkit-gnome",
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 
 
