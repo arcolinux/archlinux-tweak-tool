@@ -47,7 +47,7 @@ def skel_run(self, cat):
         prog = (count/count)/count
         self.ecode = 0
         for item in cat:
-            print(item[0])
+            # print(item[0])
             GLib.idle_add(setProgress, self.progressbar1, self.progressbar1.get_fraction() + prog)
             old = item[0]
             new = old.replace("/etc/skel", Functions.home)

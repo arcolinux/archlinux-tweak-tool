@@ -50,7 +50,7 @@ class Main(Gtk.Window):
 
         self.grub_image_path = ""
         self.fb = Gtk.FlowBox()
-
+        # Functions.test("/etc/skel/.config/bspwm")
         splScr = Splash.splashScreen()
 
         while Gtk.events_pending():

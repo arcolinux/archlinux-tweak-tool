@@ -88,6 +88,20 @@ def close_in_app_notification(self):
 # =====================================================
 
 
+def test(dst):
+    for root, dirs, filesr in os.walk(dst):
+        # print(root)
+        for folder in dirs:
+            pass
+            # print(dst + "/" + folder)
+            for file in filesr:
+                pass
+                # print(dst + "/" + folder + "/" + file)
+        for file in filesr:
+            pass
+            # print(dst + "/" + file)
+
+
 def permissions(dst):
     try:
         original_umask = os.umask(0)
@@ -98,7 +112,22 @@ def permissions(dst):
                                stderr=subprocess.STDOUT)
         ids = calls.stdout.decode().split(":")[2].strip()
         group = calls.stdout.decode().split(":")[3].strip()
-        os.chown(dst, int(ids), int(group))
+        for root, dirs, filesr in os.walk(dst):
+            # print(root)
+            os.chown(root, int(ids), int(group))
+            for folder in dirs:
+                try:
+                    # print(folder)
+                    os.chown(os.path.join(root, folder), int(ids), int(group))
+                except:
+                    pass
+            for file in filesr:
+                try:
+                    # print(file)
+                    os.chown(os.path.join(root, file), int(ids), int(group))
+                except:
+                    pass
+        # os.chown(dst, int(ids), int(group))
     finally:
         os.umask(original_umask)
 
@@ -112,7 +141,7 @@ def copy_func(src, dst, isdir=False):
         subprocess.run(["cp", "-Rp", src, dst], shell=False)
     else:
         subprocess.run(["cp", "-p", src, dst], shell=False)
-    permissions(dst)
+    # permissions(dst)
 
 # =====================================================
 #               SOURCE
