@@ -35,7 +35,8 @@ awesome = [
     "arcolinux-awesome-git",
     "dmenu",
     "arcolinux-oblogout",
-    "arcolinux-oblogout-themes-git"
+    "arcolinux-oblogout-themes-git",
+    "picom"
 ]
 bspwm = [
     "bspwm",
@@ -48,7 +49,8 @@ bspwm = [
     "xtitle-git",
     "dmenu",
     "arcolinux-oblogout",
-    "arcolinux-oblogout-themes-git"
+    "arcolinux-oblogout-themes-git",
+    "picom"
 ]
 budgie = [
     "budgie-desktop",
@@ -85,13 +87,15 @@ hlwm = [
     "dmenu",
     "awesome-terminal-fonts",
     "arcolinux-oblogout",
-    "arcolinux-oblogout-themes-git"
+    "arcolinux-oblogout-themes-git",
+    "picom"
 ]
 i3 = [
     "i3-gaps",
     "i3status",
     "arcolinux-i3wm-git",
-    "dmenu"
+    "dmenu",
+    "picom"
 ]
 lxqt = [
     "lxqt",
@@ -121,7 +125,12 @@ openbox = [
     "arcolinux-tint2-themes-git",
     "dmenu",
     "arcolinux-oblogout",
-    "arcolinux-oblogout-themes-git"
+    "arcolinux-oblogout-themes-git",
+    "yad",
+    "picom",
+    "arcolinux-slim",
+    "arcolinux-slimlock-themes-git",
+    "arcolinux-common-git"
 ]
 plasma = [
     "plasma-meta",
@@ -144,7 +153,8 @@ qtile = [
     "arcolinux-qtile-git",
     "dmenu",
     "arcolinux-oblogout",
-    "arcolinux-oblogout-themes-git"
+    "arcolinux-oblogout-themes-git",
+    "picom"
 ]
 xfce = [
     "xfce4",
@@ -196,7 +206,8 @@ xmonad = [
     "dmenu",
     "awesome-terminal-fonts",
     "arcolinux-oblogout",
-    "arcolinux-oblogout-themes-git"
+    "arcolinux-oblogout-themes-git",
+    "picom"
 ]
 
 
