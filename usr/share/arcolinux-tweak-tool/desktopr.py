@@ -130,7 +130,9 @@ openbox = [
     "picom",
     "arcolinux-slim",
     "arcolinux-slimlock-themes-git",
-    "arcolinux-common-git"
+    "arcolinux-common-git",
+    "gksu",
+    "geany"
 ]
 plasma = [
     "plasma-meta",
