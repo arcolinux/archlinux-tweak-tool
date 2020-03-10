@@ -96,8 +96,9 @@ def permissions(dst):
                                shell=False,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT)
-        id = calls.stdout.decode().split(":")[2].strip()
-        os.chown(dst, int(id), int(id))
+        ids = calls.stdout.decode().split(":")[2].strip()
+        group = calls.stdout.decode().split(":")[3].strip()
+        os.chown(dst, int(ids), int(group))
     finally:
         os.umask(original_umask)
 
