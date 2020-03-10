@@ -194,7 +194,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
 
     # stack.add_titled(vboxStack2, "stack9", "Theming")
 
-    stack.add_titled(vboxStack9, "stack10", "Tweak skel")
+    #stack.add_titled(vboxStack9, "stack10", "Tweak skel")
 
     if "awesome" in self.desktop or "i3" in self.desktop:
         stack.add_titled(vboxStack10, "stack11", "Theme Changer")
@@ -214,7 +214,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.3.82</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.3.84</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
