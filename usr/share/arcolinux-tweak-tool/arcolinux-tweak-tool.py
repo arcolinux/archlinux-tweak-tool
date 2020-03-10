@@ -71,60 +71,25 @@ class Main(Gtk.Window):
 
         if not Functions.os.path.isdir(Functions.home + "/" +
                                        Functions.bd):
-            try:
-                Functions.os.makedirs(Functions.home + "/" +
-                                      Functions.bd, 0o766)
-                original_umask = Functions.os.umask(0)
-                calls = Functions.subprocess.run(["sh", "-c",
-                                                  "cat /etc/passwd | grep " +
-                                                  Functions.sudo_username],
-                                                 shell=False,
-                                                 stdout=PIPE,
-                                                 stderr=STDOUT)
-                id = calls.stdout.decode().split(":")[3].strip()
-                Functions.os.chown(Functions.home + "/" +
-                                   Functions.bd, int(id), int(id))
-            finally:
-                Functions.os.umask(original_umask)
+            Functions.os.makedirs(Functions.home + "/" +
+                                  Functions.bd, 0o766)
+            Functions.permissions(Functions.home + "/" +
+                                  Functions.bd)
 
         if not Functions.os.path.isdir(Functions.home +
                                        "/.config/arcolinux-tweak-tool"):
-            try:
-                Functions.os.makedirs(Functions.home +
-                                      "/.config/arcolinux-tweak-tool", 0o766)
-                original_umask = Functions.os.umask(0)
-                calls = Functions.subprocess.run(["sh", "-c",
-                                                  "cat /etc/passwd | grep " +
-                                                  Functions.sudo_username],
-                                                 shell=False,
-                                                 stdout=PIPE,
-                                                 stderr=STDOUT)
-                id = calls.stdout.decode().split(":")[3].strip()
-                Functions.os.chown(Functions.home +
-                                   "/.config/arcolinux-tweak-tool",
-                                   int(id), int(id))
-            finally:
-                Functions.os.umask(original_umask)
+
+            Functions.os.makedirs(Functions.home +
+                                  "/.config/arcolinux-tweak-tool", 0o766)
+            Functions.permissions(Functions.home +
+                                  "/.config/arcolinux-tweak-tool")
 
             # os.mkdir(Functions.home + "/.ATT_Backups")
 
         if not Functions.os.path.isfile(Functions.config):
             key = {"theme": ""}
             Settings.make_file("TERMITE", key)
-            try:
-                original_umask = Functions.os.umask(0)
-                calls = Functions.subprocess.run(["sh", "-c",
-                                                  "cat /etc/passwd | grep " +
-                                                  Functions.sudo_username],
-                                                 shell=False,
-                                                 stdout=PIPE,
-                                                 stderr=STDOUT)
-
-                id = calls.stdout.decode().split(":")[3].strip()
-                Functions.os.chown(Functions.config, int(id), int(id))
-                Functions.os.chmod(Functions.config, 0o766)
-            finally:
-                Functions.os.umask(original_umask)
+            Functions.permissions(Functions.config)
 
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
         self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
