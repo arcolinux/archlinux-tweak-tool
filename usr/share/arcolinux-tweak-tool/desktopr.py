@@ -132,7 +132,9 @@ openbox = [
     "arcolinux-slimlock-themes-git",
     "arcolinux-common-git",
     "gksu",
-    "geany"
+    "geany",
+    "thunar",
+    "arcolinux-xfce-git"
 ]
 plasma = [
     "plasma-meta",
