@@ -38,7 +38,8 @@ awesome = [
     "arcolinux-oblogout-themes-git",
     "picom",
     "polkit-gnome",
-    "arcolinux-wallpapers-git"
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 bspwm = [
     "bspwm",
@@ -54,7 +55,8 @@ bspwm = [
     "arcolinux-oblogout-themes-git",
     "picom",
     "polkit-gnome",
-    "arcolinux-wallpapers-git"
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 budgie = [
     "budgie-desktop",
@@ -98,7 +100,8 @@ hlwm = [
     "arcolinux-oblogout-themes-git",
     "picom",
     "polkit-gnome",
-    "arcolinux-wallpapers-git"
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 i3 = [
     "i3-gaps",
@@ -107,7 +110,8 @@ i3 = [
     "dmenu",
     "picom",
     "polkit-gnome",
-    "arcolinux-wallpapers-git"
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 lxqt = [
     "lxqt",
@@ -150,7 +154,8 @@ openbox = [
     "thunar",
     "arcolinux-xfce-git",
     "polkit-gnome",
-    "arcolinux-wallpapers-git"
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 plasma = [
     "plasma-meta",
@@ -177,7 +182,8 @@ qtile = [
     "arcolinux-oblogout-themes-git",
     "picom",
     "polkit-gnome",
-    "arcolinux-wallpapers-git"
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 xfce = [
     "xfce4",
@@ -233,7 +239,8 @@ xmonad = [
     "arcolinux-oblogout-themes-git",
     "picom",
     "polkit-gnome",
-    "arcolinux-wallpapers-git"
+    "arcolinux-wallpapers-git",
+    "feh"
 ]
 
 
