@@ -856,7 +856,7 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.lightdm_conf,
                                   Functions.lightdm_conf + ".bak")
 
-        if self.sessions.get_active_text() is not None:
+        if (self.sessions.get_active_text() is not None and self.autologin.get_active() is True) or self.autologin.get_active() is False:
             t1 = Functions.threading.Thread(target=lightdm.set_lightdm_value,
                                             args=(self,
                                                 lightdm.get_lines(Functions.lightdm_conf),  # noqa
