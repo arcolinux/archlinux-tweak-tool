@@ -128,6 +128,13 @@ class Main(Gtk.Window):
 
         self.opened = False
 
+        if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):
+            self.autologin.set_active(False)
+            self.sessions.set_sensitive(False)
+        else:
+            self.autologin.set_active(True)
+            self.sessions.set_sensitive(True)
+
         # autostart.add_autostart()
 
         if not os.path.isfile("/tmp/att.lock"):
@@ -880,6 +887,11 @@ class Main(Gtk.Window):
 
         Functions.show_in_app_notification(self, "Default Settings Applied")
 
+    def on_autologin_activated(self, widget, gparam):
+        if widget.get_active():
+            self.sessions.set_sensitive(True)
+        else:
+            self.sessions.set_sensitive(False)
 #    #====================================================================
 #    #                       DESKTOPR
 #    #====================================================================
