@@ -34,7 +34,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     hbox.pack_start(label, False, False, 10)
     hbox.pack_end(self.autologin, False, False, 10)
 
-    hbox3.pack_start(label_note, False, False, 0)
+    hbox3.pack_start(label_note, False, False, 10)
 
     hbox1.pack_start(label1, False, False, 10)
     hbox1.pack_end(self.sessions, True, True, 10)
