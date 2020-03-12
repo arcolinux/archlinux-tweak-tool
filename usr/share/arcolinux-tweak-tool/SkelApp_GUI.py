@@ -26,7 +26,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):  # noqa
     stack.add_titled(vboxStack1, "main_stack", "Main")
 
     label = Gtk.Label(xalign=0)
-    label.set_markup("<big>Exclude File/Folder from above selections</big>")
+    label.set_markup("<big>Exclude file/folder from above selections</big>")
 
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -41,10 +41,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):  # noqa
     #                   TREE VIEW
     # ============================================
 
-    self.browse = Gtk.Button(label="ADD")
+    self.browse = Gtk.Button(label="Add")
     self.browse.connect("clicked", self.on_browse_fixed)
 
-    self.remove = Gtk.Button(label="REMOVE")
+    self.remove = Gtk.Button(label="Remove")
     self.remove.connect("clicked", self.on_remove_fixed)
 
     sw = Gtk.ScrolledWindow()
@@ -81,12 +81,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):  # noqa
     # ============================================
 
     labelBacks = Gtk.Label(xalign=0)
-    labelBacks.set_markup("<b>Run Backup Before Skel</b>")
+    labelBacks.set_markup("<b>Run backup before skel</b>")
 
     self.switch = Gtk.Switch()
     self.switch.set_active(True)
 
-    self.btn2 = Gtk.Button(label="Run Skel")
+    self.btn2 = Gtk.Button(label="Run skel")
     self.btn2.connect("clicked", self.on_button_fetch_clicked)
 
     self.progressbar1 = Gtk.ProgressBar()
@@ -139,7 +139,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):  # noqa
     stack.add_titled(vboxStack2, "backup_stack", "Backups")
 
     label1 = Gtk.Label()
-    label1.set_markup("<big>Under Construction!</big>")
+    label1.set_markup("<big>Under construction!</big>")
 
     # ============================================
     #               PACKING BOXES
@@ -180,9 +180,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):  # noqa
     # ============================================
     #               SECOND ROW BUTTONS
     # ============================================
-    self.btn12 = Gtk.Button(label="Run Full Backup")
+    self.btn12 = Gtk.Button(label="Run full backup")
     self.btn12.set_size_request(0, 80)
-    self.btn9 = Gtk.Button(label="Delete All Backups")
+    self.btn9 = Gtk.Button(label="Delete all backups")
 
     # ============================================
     #               TREEVIEW
@@ -216,7 +216,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):  # noqa
     self.btn11.connect("clicked", self.on_restore_inner_clicked)  # Restore Item button # noqa
 
     label4 = Gtk.Label(xalign=0)
-    label4.set_markup("<b>Delete Backups</b>")
+    label4.set_markup("<b>Delete backups</b>")
 
     # ============================================
     #                FOOTER

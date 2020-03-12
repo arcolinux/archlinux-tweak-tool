@@ -57,7 +57,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
     browse2 = Gtk.Button(label=". . .")
     browse2.connect("clicked", self.on_browser_clicked)
 
-    importtheme = Gtk.Button(label="Create Theme")
+    importtheme = Gtk.Button(label="Create theme")
     importtheme.connect("clicked", self.on_create_theme_clicked)
 
 

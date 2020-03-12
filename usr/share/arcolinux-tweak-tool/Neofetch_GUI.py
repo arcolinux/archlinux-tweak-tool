@@ -12,7 +12,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     self.w3m = Gtk.RadioButton(label="Enable image backend")
     self.w3m.connect("toggled", self.radio_toggled)
-    
+
     self.asci = Gtk.RadioButton.new_from_widget(self.w3m)
     self.asci.set_label("Enable ascii backend")
     self.asci.connect("toggled", self.radio_toggled)
@@ -22,20 +22,20 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     self.off.connect("toggled", self.radio_toggled)
 
     self.big_ascii = Gtk.RadioButton(label="Use normal ascii")
-    
+
     self.small_ascii = Gtk.RadioButton.new_from_widget(self.big_ascii)
     self.small_ascii.set_label("Use small ascii")
 
     backend = neofetch.check_backend()
     asci = neofetch.check_ascii()
-    
+
     self.emblem = Gtk.ComboBoxText()
     neofetch.pop_neofetch_box(self.emblem)
     self.emblem.connect("changed", self.on_elmblem_changed)
 
     applyneofetch = Gtk.Button(label="Apply")
     resetneofetch = Gtk.Button(label="Reset")
-    
+
     applyneofetch.connect("clicked", self.on_apply_neo)
     resetneofetch.connect("clicked", self.on_reset_neo)
 
@@ -48,7 +48,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
         self.image4.set_from_pixbuf(pixbuf6)
     except:
         pass
-    
+
     self.frame3 = Gtk.Frame(label="Preview")
     self.frame3.set_no_show_all(True)
     self.frame3.add(self.image4)
@@ -58,44 +58,44 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     hbox24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     self.hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    
-    self.os = Gtk.CheckButton(label="Show OS")
-    self.host = Gtk.CheckButton(label="Show Hostname")
-    self.kernel = Gtk.CheckButton(label="Show Kernel")
 
-    self.uptime = Gtk.CheckButton(label="Show Uptime")
-    self.packages = Gtk.CheckButton(label="Show Packages")
-    self.shell = Gtk.CheckButton(label="Show Shell")
-    
-    self.res = Gtk.CheckButton(label="Show Resolution")
-    self.de = Gtk.CheckButton(label="Show DE")
-    self.wm = Gtk.CheckButton(label="Show WM")
-    self.wmtheme = Gtk.CheckButton(label="Show WM Theme")
-    
-    self.themes = Gtk.CheckButton(label="Show Theme")
-    self.icons = Gtk.CheckButton(label="Show Icons")
-    self.term = Gtk.CheckButton(label="Show Terminal")
-    
-    self.termfont = Gtk.CheckButton(label="Show Terminal Font")
-    self.cpu = Gtk.CheckButton(label="Show CPU")
-    self.gpu = Gtk.CheckButton(label="Show GPU")
-    
-    self.mem = Gtk.CheckButton(label="Show Memory")
+    self.os = Gtk.CheckButton(label="Show os")
+    self.host = Gtk.CheckButton(label="Show hostname")
+    self.kernel = Gtk.CheckButton(label="Show kernel")
 
-    self.gpu_driver = Gtk.CheckButton(label="Show GPU Driver")
-    self.cpu_usage = Gtk.CheckButton(label="Show CPU Usage")
-    self.disks = Gtk.CheckButton(label="Show Disks")
-    self.font = Gtk.CheckButton(label="Show Font")
-    self.song = Gtk.CheckButton(label="Show Song")
-    self.lIP = Gtk.CheckButton(label="Show Local IP")
-    self.PIP = Gtk.CheckButton(label="Show Public IP")
+    self.uptime = Gtk.CheckButton(label="Show uptime")
+    self.packages = Gtk.CheckButton(label="Show packages")
+    self.shell = Gtk.CheckButton(label="Show shell")
+
+    self.res = Gtk.CheckButton(label="Show resolution")
+    self.de = Gtk.CheckButton(label="Show de")
+    self.wm = Gtk.CheckButton(label="Show wm")
+    self.wmtheme = Gtk.CheckButton(label="Show wm theme")
+
+    self.themes = Gtk.CheckButton(label="Show theme")
+    self.icons = Gtk.CheckButton(label="Show icons")
+    self.term = Gtk.CheckButton(label="Show terminal")
+
+    self.termfont = Gtk.CheckButton(label="Show terminal font")
+    self.cpu = Gtk.CheckButton(label="Show cpu")
+    self.gpu = Gtk.CheckButton(label="Show cpu")
+
+    self.mem = Gtk.CheckButton(label="Show memory")
+
+    self.gpu_driver = Gtk.CheckButton(label="Show gpu driver")
+    self.cpu_usage = Gtk.CheckButton(label="Show cpu usage")
+    self.disks = Gtk.CheckButton(label="Show disks")
+    self.font = Gtk.CheckButton(label="Show font")
+    self.song = Gtk.CheckButton(label="Show song")
+    self.lIP = Gtk.CheckButton(label="Show local ip")
+    self.PIP = Gtk.CheckButton(label="Show public ip")
     self.users = Gtk.CheckButton(label="Show Users")
     self.local = Gtk.CheckButton(label="Show Local")
 
-    self.cblocks = Gtk.CheckButton(label="Show Blocks")
+    self.cblocks = Gtk.CheckButton(label="Show blocks")
 
-    self.title = Gtk.CheckButton(label="Show Title")
-    
+    self.title = Gtk.CheckButton(label="Show title")
+
     flowbox = Gtk.FlowBox()
     flowbox.set_valign(Gtk.Align.START)
     flowbox.set_max_children_per_line(10)
@@ -138,9 +138,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     hbox22.pack_start(self.w3m, True, False, 10)
     hbox22.pack_end(self.off, True, False, 10)
     hbox22.pack_end(self.asci, True, False, 10)
-    
 
-        
+
+
     self.hbox26.pack_start(self.big_ascii, True, False, 10)
     self.hbox26.pack_start(self.small_ascii, True, False, 10)
 
@@ -149,7 +149,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     hbox25.pack_start(self.frame3, False, False, 10)
     hbox25.pack_start(flowbox, True, True, 10)
-    
+
     hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(resetneofetch, False, False, 0)
 
@@ -160,7 +160,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     vboxStack8.pack_end(hbox24, False, False, 0) #Buttons
     vboxStack8.pack_end(label14, False, False, 0) #Buttons
 
-    
+
 
 
     if backend == "ascii":
@@ -181,9 +181,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
         self.small_ascii.set_sensitive(False)
         self.frame3.show()
         self.image4.show()
-    
+
     if asci == "auto":
         self.big_ascii.set_active(True)
     else:
         self.small_ascii.set_active(True)
-        

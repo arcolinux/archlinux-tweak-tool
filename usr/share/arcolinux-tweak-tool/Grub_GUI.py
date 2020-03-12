@@ -22,7 +22,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     self.tbimage = Gtk.Entry()
     btnsearch = Gtk.Button(label=". . .")
     btnsearch.connect("clicked", self.on_choose_wallpaper)
-    btnimport = Gtk.Button(label="Import Selected Image")
+    btnimport = Gtk.Button(label="Import selected image")
     btnimport.connect("clicked", self.on_import_wallpaper)
 
     # self.image_grub = Gtk.Image()
