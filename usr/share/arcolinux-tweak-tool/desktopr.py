@@ -271,6 +271,7 @@ def uninstall_desktop(desktop):
     print("Uninstalling.....")
 
 
+
 def install_desktop(self, desktop, state):
     src = ["/etc/skel/.config/polybar"]
     twm = False
@@ -342,6 +343,13 @@ def install_desktop(self, desktop, state):
     with fn.subprocess.Popen(list(np.append(com1, command)), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
         for line in p.stdout:
             GLib.idle_add(self.desktopr_stat.set_text, line.strip())
+            if "error" in line:
+                GLib.idle_add(self.desktopr_stat.set_text, "An error has occured in installation")
+                twm = False
+                GLib.source_remove(timeout_id)
+                timeout_id = None
+                GLib.idle_add(self.desktopr_prog.set_fraction, 0)
+                return 0
 
     if twm is True:
         for x in src:
