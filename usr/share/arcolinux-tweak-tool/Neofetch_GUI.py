@@ -89,8 +89,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     self.song = Gtk.CheckButton(label="Show song")
     self.lIP = Gtk.CheckButton(label="Show local ip")
     self.PIP = Gtk.CheckButton(label="Show public ip")
-    self.users = Gtk.CheckButton(label="Show Users")
-    self.local = Gtk.CheckButton(label="Show Local")
+    self.users = Gtk.CheckButton(label="Show users")
+    self.local = Gtk.CheckButton(label="Show local")
 
     self.cblocks = Gtk.CheckButton(label="Show blocks")
 
