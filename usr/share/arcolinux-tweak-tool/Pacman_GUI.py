@@ -46,7 +46,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
 
     frame4 = Gtk.Frame(label="")
     frame4lbl = frame4.get_label_widget()
-    frame4lbl.set_markup("<b>Arcolinux test repos</b>")
+    frame4lbl.set_markup("<b>ArcoLinux test repos</b>")
 
     self.checkbutton = Gtk.Switch()
     self.checkbutton.connect("notify::active", self.on_pacman_toggle)
