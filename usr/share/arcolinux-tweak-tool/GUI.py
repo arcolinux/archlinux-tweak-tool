@@ -172,7 +172,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
 
     stack.add_titled(vboxStack4, "stack1", "Grub config")
 
-    stack.add_titled(vboxStack3, "stack2", "HBlock")
+    stack.add_titled(vboxStack3, "stack2", "Hblock")
 
     if Functions.file_check(Functions.lightdm_conf):
         stack.add_titled(vboxStack11, "stack3", "Lightdm config")
@@ -214,7 +214,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.3.104</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.3.105</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +

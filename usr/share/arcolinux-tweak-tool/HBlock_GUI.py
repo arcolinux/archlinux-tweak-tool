@@ -13,11 +13,11 @@ def GUI(self, Gtk, vboxStack3, Functions):
     label.set_text("Enable hblock")
 
     self.label7 = Gtk.Label(xalign=0)
-    
+
 
     self.progress = Gtk.ProgressBar()
     self.progress.set_pulse_step(0.2)
-    
+
     state = Functions.hblock_get_state(self)
 
     self.hbswich = Gtk.Switch()
@@ -25,9 +25,9 @@ def GUI(self, Gtk, vboxStack3, Functions):
     self.hbswich.set_active(state)
 
     if state:
-        self.label7.set_text("HBlock active")
+        self.label7.set_text("Hblock active")
     else:
-        self.label7.set_text("HBlock inactive")
+        self.label7.set_text("Hblock inactive")
 
     label2 = Gtk.Label()
     label2.set_markup("Improve your <b>security</b> and <b>privacy</b> by blocking ads, tracking and malware domains.")
