@@ -371,4 +371,5 @@ def install_desktop(self, desktop, state):
         GLib.idle_add(self.desktop_status.set_text, "This desktop is installed")
         GLib.idle_add(fn.show_in_app_notification, self, desktop + " has been installed")
     else:
+        GLib.idle_add(self.desktopr_stat.set_text, "An error has occured in installation")
         GLib.idle_add(fn.show_in_app_notification, self, desktop + " has not been installed")
