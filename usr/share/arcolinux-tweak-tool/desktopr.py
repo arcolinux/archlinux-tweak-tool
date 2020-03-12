@@ -275,6 +275,7 @@ def uninstall_desktop(desktop):
 def install_desktop(self, desktop, state):
     src = ["/etc/skel/.config/polybar"]
     twm = False
+    error = False
 
     if desktop == "awesome":
         command = awesome
@@ -346,10 +347,8 @@ def install_desktop(self, desktop, state):
             if "error" in line:
                 GLib.idle_add(self.desktopr_stat.set_text, "An error has occured in installation")
                 twm = False
-                GLib.source_remove(timeout_id)
-                timeout_id = None
-                GLib.idle_add(self.desktopr_prog.set_fraction, 0)
-                return 0
+                error = True
+                break
 
     if twm is True:
         for x in src:
@@ -366,6 +365,10 @@ def install_desktop(self, desktop, state):
     GLib.source_remove(timeout_id)
     timeout_id = None
     GLib.idle_add(self.desktopr_prog.set_fraction, 0)
-    GLib.idle_add(self.desktopr_stat.set_text, "")
-    GLib.idle_add(self.desktop_status.set_text, "This desktop is installed")
-    GLib.idle_add(fn.show_in_app_notification, self, desktop + " has been installed")
+    
+    if not error:
+        GLib.idle_add(self.desktopr_stat.set_text, "")
+        GLib.idle_add(self.desktop_status.set_text, "This desktop is installed")
+        GLib.idle_add(fn.show_in_app_notification, self, desktop + " has been installed")
+    else:
+        GLib.idle_add(fn.show_in_app_notification, self, desktop + " has not been installed")
