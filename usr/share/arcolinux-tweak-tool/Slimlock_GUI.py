@@ -11,8 +11,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
     label9.set_text("Slimlock theme")
 
     self.slimbox = Gtk.ComboBoxText()
-    
-    slimset = Gtk.Button(label="Apply Theme")
+
+    slimset = Gtk.Button(label="Apply theme")
     slimreset = Gtk.Button(label="Reset")
     slimremove = Gtk.Button(label="Remove")
 
@@ -24,7 +24,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
 
     self.image2 = Gtk.Image()
     self.image5 = Gtk.Image()
-    
+
     try:
         path = '/usr/share/slim/themes/' + self.slimbox.get_active_text()
 
@@ -33,7 +33,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
 
     except:
         pass
-    
+
     frame2 = Gtk.Frame(label="Preview")
     frame4 = Gtk.Frame(label="Preview")
 
@@ -69,7 +69,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
     hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    
+
     hbox13.pack_start(label9, False, False, 10)
     hbox13.pack_start(self.slimbox, True, True, 10)
     hbox13.pack_start(slimremove, False, False, 10)
@@ -78,7 +78,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
 
     hbox17.pack_start(label11, False, False, 10)
     hbox17.pack_start(self.slimtheme, True, True, 10)
-    
+
     hbox27.pack_start(label12, True, False, 10)
 
     hbox16.pack_start(label10, False, False, 10)
@@ -91,13 +91,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
 
     hbox14.pack_end(slimset, False, False, 0)
     hbox14.pack_end(slimreset, False, False, 0)
-    
+
     vboxStack5.pack_start(hbox13, False, False, 0) #combobox
     vboxStack5.pack_start(hbox35, False, False, 0) #Preview Theme
 
     vboxStack5.pack_start(hbox16, False, False, 0) #Choose Theme Txtbox
     vboxStack5.pack_start(hbox17, False, False, 0) #Theme Name Text
-    vboxStack5.pack_start(hbox27, False, False, 0) #Info Text    
+    vboxStack5.pack_start(hbox27, False, False, 0) #Info Text
     vboxStack5.pack_start(hbox26, False, False, 0) #Preview Chosen Image
 
     vboxStack5.pack_start(hbox18, False, False, 0) #Create Theme

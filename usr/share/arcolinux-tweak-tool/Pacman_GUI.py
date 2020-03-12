@@ -21,10 +21,10 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    
+
     # ========================================================
     #               ARCO REPOS
-    # ======================================================== 
+    # ========================================================
     frame3 = Gtk.Frame(label="")
     frame3lbl = frame3.get_label_widget()
     frame3lbl.set_markup("<b>ARCOLINUX REPOS</b>")
@@ -43,7 +43,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.axlrepo_button.connect("notify::active", self.on_pacman_axl_toggle)
     label7 = Gtk.Label(xalign=0)
     label7.set_markup("Enable ArcoLinux x-large repo")
-    
+
     frame4 = Gtk.Frame(label="")
     frame4lbl = frame4.get_label_widget()
     frame4lbl.set_markup("<b>ARCOLINUX TEST REPOS</b>")
@@ -97,7 +97,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     label2 = Gtk.Label(xalign=0)
     label2.set_markup("<b>Add custom repo to pacman.conf</b>")
- 
+
     self.textbox1 = Gtk.TextView()
     self.textbox1.set_wrap_mode(Gtk.WrapMode.WORD)
     self.textbox1.set_editable(True)
@@ -114,9 +114,9 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               FOOTER
     # ========================================================
-    self.button1 = Gtk.Button(label="Apply Custom Repo")
+    self.button1 = Gtk.Button(label="Apply custom repo")
     self.button1.connect('clicked', self.button1_clicked)
-    reset_pacman = Gtk.Button(label="Reset Pacman")
+    reset_pacman = Gtk.Button(label="Reset pacman")
     reset_pacman.connect("clicked", self.reset_settings, Functions.pacman)
 
     # ========================================================
@@ -130,10 +130,10 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack9.pack_end(self.axlrepo_button, False, False, 10)
     hboxStack1.pack_start(label1, False, True, 10)
     hboxStack1.pack_end(self.checkbutton, False, False, 10)
-    
+
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vboxStack2.pack_start(hboxStack1, False, False, 10)
-    
+
 
     # ========================================================
     #               SPINOFF REPOS PACKING
@@ -210,6 +210,6 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # =================CUSTOM REPO========================
     vboxStack1.pack_start(hboxStack2, False, False, 0)
     vboxStack1.pack_start(hboxStack3, True, True, 0)
-    
+
     # =================FOOTER========================
     vboxStack1.pack_end(hboxStack4, False, False, 0)

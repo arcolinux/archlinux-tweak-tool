@@ -12,7 +12,7 @@ def GUI(self, Gtk, vboxStack7, termite):
 
     self.term_themes = Gtk.ComboBoxText()
 
-    termset = Gtk.Button(label="Apply Theme")
+    termset = Gtk.Button(label="Apply theme")
     termreset = Gtk.Button(label="Reset")
 
     termset.connect("clicked", self.on_term_apply)
@@ -30,4 +30,4 @@ def GUI(self, Gtk, vboxStack7, termite):
     hbox20.pack_end(termreset, False, False, 0)
 
     vboxStack7.pack_start(hbox19, False, False, 0)  #Combobox
-    vboxStack7.pack_end(hbox20, False, False, 0)  #Buttons 
+    vboxStack7.pack_end(hbox20, False, False, 0)  #Buttons

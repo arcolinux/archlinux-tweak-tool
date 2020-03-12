@@ -14,7 +14,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os
     image2 = Gtk.Image().new_from_pixbuf(pixbuf2)
     hbox6.pack_start(image2, True, True, 0)
 
-    
+
     # ==================Opacity Slider==============================
 
     try:
@@ -220,10 +220,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os
     # hbox9.pack_start(self.colorchooser, True, True, 10)
 
     hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    save_oblogout = Gtk.Button(label="Save Settings")
+    save_oblogout = Gtk.Button(label="Save settings")
     save_oblogout.connect("clicked", self.save_oblogout)
 
-    reset_oblogout = Gtk.Button(label="Reset Settings")
+    reset_oblogout = Gtk.Button(label="Reset settings")
     reset_oblogout.connect("clicked", self.reset_settings,
                            Functions.oblogout_conf)
 
