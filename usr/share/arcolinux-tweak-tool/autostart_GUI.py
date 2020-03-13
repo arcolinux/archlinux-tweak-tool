@@ -17,6 +17,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     vbox6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
 
 
+    toplabelbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     labelbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
 
     # ==========================================
@@ -38,6 +39,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
 
     autostart.get_startups(self)
 
+    lbls = Gtk.Label(xalign=0)
+    lbls.set_text("Taken from .config/autostart/")
+    toplabelbox.pack_start(lbls, False, False, 0)
     # ==========================================
     #              Remove Button
     # ==========================================
@@ -89,6 +93,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     hbox.pack_start(sw, True, True, 0)
     vbox1.pack_end(rbutton, False, False, 0)
     hbox.pack_start(vbox1, False, False, 0)
+    vboxStack13.pack_start(toplabelbox, False, False, 0)
     vboxStack13.pack_start(hbox, False, False, 0)
     vboxStack13.pack_start(labelbox, False, False, 0)
     vboxStack13.pack_start(hbox2, False, False, 0)
