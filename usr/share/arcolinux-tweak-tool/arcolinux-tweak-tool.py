@@ -86,8 +86,6 @@ class Main(Gtk.Window):
             Functions.permissions(Functions.home +
                                   "/.config/arcolinux-tweak-tool")
 
-            # os.mkdir(Functions.home + "/.ATT_Backups")
-
         if not Functions.os.path.isfile(Functions.config):
             key = {"theme": ""}
             Settings.make_file("TERMITE", key)
