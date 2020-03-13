@@ -311,6 +311,7 @@ def install_desktop(self, desktop, state):
         command = openbox
         src.append("/etc/skel/.config/openbox")
         src.append("/etc/skel/.config/obmenu-generator")
+        src.append("/etc/skel/.config/tint2")
         twm = True
     elif desktop == "plasma":
         command = plasma
