@@ -6,7 +6,7 @@ import Functions as fn
 import Settings
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import GLib  # noqa
+from gi.repository import GLib, Gtk  # noqa
 
 desktops = [
     "awesome",
@@ -271,11 +271,45 @@ def uninstall_desktop(desktop):
     print("Uninstalling.....")
 
 
+def check_lock(self, desktop, state):
+    if fn.os.path.isfile("/var/lib/pacman/db.lck"):
+        md = Gtk.MessageDialog(parent=self,
+                            flags=0,
+                            message_type=Gtk.MessageType.INFO,
+                            buttons=Gtk.ButtonsType.YES_NO,
+                            text="Lock File Found")
+        md.format_secondary_markup(
+            "pacman lock file found, do you want to remove it and continue?")  # noqa
+
+        result = md.run()
+        md.destroy()
+
+        if result in (Gtk.ResponseType.OK, Gtk.ResponseType.YES):
+            fn.os.unlink("/var/lib/pacman/db.lck")
+            # print("YES")
+            t1 = fn.threading.Thread(target=install_desktop,
+                                    args=(self,
+                                        self.d_combo.get_active_text(),
+                                        state))
+            t1.daemon = True
+            t1.start()
+    else:
+        # print("NO FILE")
+        t1 = fn.threading.Thread(target=install_desktop,
+                                 args=(self,
+                                       self.d_combo.get_active_text(),
+                                       state))
+        t1.daemon = True
+        t1.start()
+
+    return False
+
 
 def install_desktop(self, desktop, state):
+
     src = ["/etc/skel/.config/polybar"]
     twm = False
-    error = False
+    # error = False
 
     if desktop == "awesome":
         command = awesome
