@@ -128,12 +128,13 @@ class Main(Gtk.Window):
 
         self.opened = False
 
-        if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):
-            self.autologin.set_active(False)
-            self.sessions.set_sensitive(False)
-        else:
-            self.autologin.set_active(True)
-            self.sessions.set_sensitive(True)
+        if not Functions.os.path.isfile(Functions.lightdm_conf):
+            if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):
+                self.autologin.set_active(False)
+                self.sessions.set_sensitive(False)
+            else:
+                self.autologin.set_active(True)
+                self.sessions.set_sensitive(True)
 
         # autostart.add_autostart()
 
