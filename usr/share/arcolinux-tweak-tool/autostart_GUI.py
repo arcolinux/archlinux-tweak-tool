@@ -40,7 +40,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     autostart.get_startups(self)
 
     lbls = Gtk.Label(xalign=0)
-    lbls.set_text("Taken from .config/autostart/")
+    lbls.set_text("Current content of ~/.config/autostart/")
     toplabelbox.pack_start(lbls, False, False, 0)
     # ==========================================
     #              Remove Button
