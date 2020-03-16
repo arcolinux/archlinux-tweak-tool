@@ -171,6 +171,10 @@ def source_shell(self):
                         " -c \"source " + home + "/.zshrc\""],
                        stdout=subprocess.PIPE)
 
+
+def run_as_user(script):
+    subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)
+
 # =====================================================
 #               MESSAGEBOX
 # =====================================================

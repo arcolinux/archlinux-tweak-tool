@@ -1010,15 +1010,14 @@ class Main(Gtk.Window):
 
         polybar.set_config(self, self.pbcombo.get_active_text(), state)
         if Functions.os.path.isfile(polybar.launch):
-            Functions.subprocess.call([polybar.launch], shell=False)
+            Functions.run_as_user(polybar.launch)            
         else:
             Functions.MessageBox(self, "ERROR!!", "You dont seem to have a <b>launch.sh</b> file to launch/relaunch polybar")
-
 
     def on_pb_browse_config(self, widget):
         dialog = Gtk.FileChooserDialog(title="Please choose a file", action=Gtk.FileChooserAction.OPEN)
         dialog.set_select_multiple(False)
-        
+
         dialog.set_current_folder(Functions.home)
         dialog.add_buttons(
             Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
