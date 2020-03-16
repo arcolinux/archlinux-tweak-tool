@@ -78,7 +78,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     self.termfont = Gtk.CheckButton(label="Show terminal font")
     self.cpu = Gtk.CheckButton(label="Show cpu")
-    self.gpu = Gtk.CheckButton(label="Show cpu")
+    self.gpu = Gtk.CheckButton(label="Show gpu")
 
     self.mem = Gtk.CheckButton(label="Show memory")
 

@@ -155,7 +155,8 @@ openbox = [
     "arcolinux-xfce-git",
     "polkit-gnome",
     "arcolinux-wallpapers-git",
-    "feh"
+    "feh",
+    "xcape"
 ]
 plasma = [
     "plasma-meta",
@@ -346,6 +347,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/openbox")
         src.append("/etc/skel/.config/obmenu-generator")
         src.append("/etc/skel/.config/tint2")
+        src.append("/etc/skel/.config/nitrogen")
         twm = True
     elif desktop == "plasma":
         command = plasma
