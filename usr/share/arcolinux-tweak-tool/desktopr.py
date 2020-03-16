@@ -155,7 +155,8 @@ openbox = [
     "arcolinux-xfce-git",
     "polkit-gnome",
     "arcolinux-wallpapers-git",
-    "feh"
+    "feh",
+    "xcape"
 ]
 plasma = [
     "plasma-meta",
