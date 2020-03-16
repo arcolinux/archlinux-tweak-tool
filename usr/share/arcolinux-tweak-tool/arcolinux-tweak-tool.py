@@ -15,6 +15,7 @@ import lightdm
 import themer
 import desktopr
 import autostart
+import polybar
 import GUI
 from Functions import os, pacman
 from subprocess import PIPE, STDOUT
@@ -85,6 +86,16 @@ class Main(Gtk.Window):
                                   "/.config/arcolinux-tweak-tool", 0o766)
             Functions.permissions(Functions.home +
                                   "/.config/arcolinux-tweak-tool")
+
+        if not Functions.path_check(polybar.config_dir + "images"):
+            Functions.os.makedirs(polybar.config_dir + "images", 0o766)
+            for x in Functions.os.listdir(base_dir + "/polybar_data/"):
+                Functions.copy_func(base_dir + "/polybar_data/" + x, polybar.config_dir + "images", False)
+            Functions.permissions(polybar.config_dir + "images")
+        else:
+            for x in Functions.os.listdir(base_dir + "/polybar_data/"):
+                Functions.copy_func(base_dir + "/polybar_data/" + x, polybar.config_dir + "images", False)
+            Functions.permissions(polybar.config_dir + "images")
 
         if not Functions.os.path.isfile(Functions.config):
             key = {"theme": ""}
@@ -986,6 +997,76 @@ class Main(Gtk.Window):
             dialog.destroy()
         elif response == Gtk.ResponseType.CANCEL:
             dialog.destroy()
+
+#    #====================================================================
+#    #                       polybar
+#    #====================================================================
+
+    def on_polybar_apply_clicked(self, widget):
+        if self.pbrbutton.get_active():
+            state = True
+        else:
+            state = False
+
+        polybar.set_config(self, self.pbcombo.get_active_text(), state)
+        if Functions.os.path.isfile(polybar.launch):
+            Functions.subprocess.call([polybar.launch], shell=False)
+        else:
+            Functions.MessageBox(self, "ERROR!!", "You dont seem to have a <b>launch.sh</b> file to launch/relaunch polybar")
+
+
+    def on_pb_browse_config(self, widget):
+        dialog = Gtk.FileChooserDialog(title="Please choose a file", action=Gtk.FileChooserAction.OPEN)
+        dialog.set_select_multiple(False)
+        
+        dialog.set_current_folder(Functions.home)
+        dialog.add_buttons(
+            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
+        dialog.connect("response", self.open_config_response)
+
+        dialog.show()
+
+    def on_pb_browse_image(self, widget):
+        dialog = Gtk.FileChooserDialog(title="Please choose a file", action=Gtk.FileChooserAction.OPEN)
+        dialog.set_select_multiple(False)
+        filter = Gtk.FileFilter()
+        filter.set_name("IMAGE Files")
+        filter.add_mime_type("image/png")
+        filter.add_mime_type("image/jpg")
+        filter.add_mime_type("image/jpeg")
+        dialog.set_filter(filter)
+        dialog.set_current_folder(Functions.home)
+        dialog.add_buttons(
+            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
+        dialog.connect("response", self.open_image_response)
+
+        dialog.show()
+
+    def open_image_response(self, dialog, response):
+
+        if response == Gtk.ResponseType.OK:
+            self.pbtextbox2.set_text(dialog.get_filename())
+            dialog.destroy()
+        elif response == Gtk.ResponseType.CANCEL:
+            dialog.destroy()
+
+    def open_config_response(self, dialog, response):
+
+        if response == Gtk.ResponseType.OK:
+            self.pbtextbox1.set_text(dialog.get_filename())            
+            dialog.destroy()
+        elif response == Gtk.ResponseType.CANCEL:
+            dialog.destroy()
+
+    def on_pb_import_clicked(self, widget):
+        polybar.import_config(self, self.pbtextbox1.get_text(), self.pbtextbox2.get_text())
+
+    def on_pb_change_item(self, widget):
+        try:
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.config_dir + '/images/' + widget.get_active_text() + '.jpg', 385, 385)
+            self.pbimage.set_from_pixbuf(pixbuf)
+        except:
+            self.pbimage.set_from_pixbuf(None)
 
 #    #====================================================================
 #    #                       SkelApp

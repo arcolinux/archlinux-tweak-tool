@@ -29,6 +29,8 @@ neofetch_config = home + "/.config/neofetch/config.conf"
 lightdm_conf = "/etc/lightdm/lightdm.conf"
 bd = ".att_backups"
 config = home + "/.config/arcolinux-tweak-tool/settings.ini"
+config_dir = home + "/.config/arcolinux-tweak-tool/"
+polybar = home + "/.config/polybar/"
 desktop = ""
 
 
@@ -255,6 +257,13 @@ def check_backups(now):
 
 def file_check(file):
     if os.path.isfile(file):
+        return True
+
+    return False
+
+
+def path_check(path):
+    if os.path.isdir(path):
         return True
 
     return False

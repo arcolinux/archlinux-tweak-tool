@@ -14,6 +14,7 @@ import lightdm
 import themer
 import desktopr
 import autostart
+import polybar
 
 # =============GUI=================
 import Termite_GUI
@@ -29,6 +30,7 @@ import Lightdm_GUI
 import Themer_GUI
 import desktopr_GUI
 import autostart_GUI
+import polybar_GUI
 
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
@@ -84,6 +86,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack12 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack13 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     # ==========================================================
     #                   TAB #1 PACMAN
@@ -162,6 +165,12 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
                       Functions, base_dir)
 
     # ==========================================================
+    #                       Polybar
+    # ==========================================================
+    if Functions.path_check(Functions.polybar):
+        polybar_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar,
+                        Functions, base_dir)
+    # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
     # stack.add_titled(vboxStack10, "stack0", "Welcome")
@@ -185,6 +194,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
 
     if Functions.file_check(Functions.pacman):
         stack.add_titled(vboxStack1, "stack6", "Pacman config")
+
+    if Functions.path_check(Functions.polybar):
+        stack.add_titled(vboxStack14, "stack12", "Polybar Changer")
 
     if Functions.file_check(Functions.slimlock_conf):
         stack.add_titled(vboxStack5, "stack7", "Slimlock")
