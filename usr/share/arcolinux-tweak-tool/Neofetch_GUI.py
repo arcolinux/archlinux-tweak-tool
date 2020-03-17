@@ -84,7 +84,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     self.gpu_driver = Gtk.CheckButton(label="Show gpu driver")
     self.cpu_usage = Gtk.CheckButton(label="Show cpu usage")
-    self.disks = Gtk.CheckButton(label="Show disks")
+    self.disks = Gtk.CheckButton(label="Show disk")
     self.font = Gtk.CheckButton(label="Show font")
     self.song = Gtk.CheckButton(label="Show song")
     self.lIP = Gtk.CheckButton(label="Show local ip")
