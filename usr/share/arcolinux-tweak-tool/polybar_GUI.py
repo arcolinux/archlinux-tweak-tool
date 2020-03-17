@@ -4,18 +4,10 @@
 
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, Functions, base_dir):
-    #=======================================================
+    # =======================================================
     #                       GLOBALS
-    #=======================================================
+    # =======================================================
 
-    vbox = Gtk.Box(
-        orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vbox1 = Gtk.Box(
-        orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    
-    self.add(vbox)
-
-    hbox0 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -26,12 +18,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, Functions, base_dir):
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     spacer = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #=======================================================
+    # =======================================================
     #                       THEME SELECTION
-    #=======================================================
+    # =======================================================
 
     label = Gtk.Label("Select your theme")
     self.pbcombo = Gtk.ComboBoxText()
@@ -41,13 +32,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, Functions, base_dir):
     self.pbrbutton2 = Gtk.RadioButton.new_from_widget(self.pbrbutton)
     self.pbrbutton2.set_label("Bottom Bar")
     self.pbrbutton.set_active(True)
-    
 
     self.pbframe = Gtk.Frame()
 
     self.pbimage = Gtk.Image()
-    # pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.images + '/images/config.jpg', 385, 385)
-    # self.image.new_from_pixbuf(pixbuf)
     self.pbframe.add(self.pbimage)
 
     hbox1.pack_start(label, False, False, 0)
@@ -56,10 +44,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, Functions, base_dir):
 
     hbox10.pack_start(self.pbrbutton, True, False, 0)
     hbox10.pack_start(self.pbrbutton2, True, False, 0)
-    
-    #=======================================================
+
+    # =======================================================
     #                       IMPORT SECTION
-    #=======================================================
+    # =======================================================
 
     title_intro = Gtk.Label(xalign=0)
     title_intro.set_markup("<big><b><u>Import Config</u></b></big>")
@@ -72,8 +60,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, Functions, base_dir):
     browse1 = Gtk.Button(label=". . .")
     browse1.connect("clicked", self.on_pb_browse_config)
 
-    hbox4.pack_start(label2 ,False,False, 0)
-    hbox4.pack_start(self.pbtextbox1 ,True, True, 0)
+    hbox4.pack_start(label2, False, False, 0)
+    hbox4.pack_start(self.pbtextbox1, True, True, 0)
     hbox4.pack_start(browse1, False, False, 0)
 
     label3 = Gtk.Label("Select image to import(Optional)")
@@ -88,22 +76,19 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, Functions, base_dir):
     # # self.frame2.set_no_show_all(True)
     # self.image2 = Gtk.Image()
     # self.frame2.add(self.image2)
-    
-    hbox8.pack_start(title_intro ,False,False, 0)
-    hbox9.pack_start(import_intro ,True,False, 0)
 
-    hbox5.pack_start(label3 ,False,False, 0)
-    hbox5.pack_start(self.pbtextbox2 ,True, True, 0)
+    hbox8.pack_start(title_intro, False, False, 0)
+    hbox9.pack_start(import_intro, True, False, 0)
+
+    hbox5.pack_start(label3, False, False, 0)
+    hbox5.pack_start(self.pbtextbox2, True, True, 0)
     hbox5.pack_start(browse2, False, False, 0)
     hbox7.pack_start(import_image, True, True, 0)
     # hbox6.pack_start(self.frame2, True, False, 0)
-    
 
-
-
-    #=======================================================
+    # =======================================================
     #                       FOOTER
-    #=======================================================
+    # =======================================================
 
     self.pblabel4 = Gtk.Label(xalign=0)
     self.pblabel4.set_markup("")
@@ -116,26 +101,24 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, Functions, base_dir):
     hbox3.pack_start(self.pblabel4, False, False, 0)
     hbox3.pack_end(button1, False, False, 0)
 
-
-    #=======================================================
+    # =======================================================
     #                       PACK TO WINDOW
-    #=======================================================
+    # =======================================================
 
-    vboxStack14.pack_start(hbox1, False, False, 0) #Combo Section
-    vboxStack14.pack_start(hbox10, False, False, 0) #Combo Section
-    vboxStack14.pack_start(hbox2, False, False, 0) #Preview Section
+    vboxStack14.pack_start(hbox1, False, False, 0)  # Combo Section
+    vboxStack14.pack_start(hbox10, False, False, 0)  # Combo Section
+    vboxStack14.pack_start(hbox2, False, False, 0)  # Preview Section
 
-    vboxStack14.pack_start(spacer, False, False, 0) #Spacer
-    vboxStack14.pack_start(hbox8, False, False, 0) #title
-    vboxStack14.pack_start(hbox9, False, False, 0) #message
-    vboxStack14.pack_start(hbox4, False, False, 0) #Import Section
-    vboxStack14.pack_start(hbox5, False, False, 0) #Import Section
-    vboxStack14.pack_start(hbox7, False, False, 0) #Import Button
-    vboxStack14.pack_start(hbox6, False, False, 0) #Preview Section
-    
-    vboxStack14.pack_end(hbox3, False, False, 0) #Button Section
+    vboxStack14.pack_start(spacer, False, False, 0)  # Spacer
+    vboxStack14.pack_start(hbox8, False, False, 0)  # title
+    vboxStack14.pack_start(hbox9, False, False, 0)  # message
+    vboxStack14.pack_start(hbox4, False, False, 0)  # Import Section
+    vboxStack14.pack_start(hbox5, False, False, 0)  # Import Section
+    vboxStack14.pack_start(hbox7, False, False, 0)  # Import Button
+    vboxStack14.pack_start(hbox6, False, False, 0)  # Preview Section
 
-    
-    #===============Populate Combobox=======================
+    vboxStack14.pack_end(hbox3, False, False, 0)  # Button Section
+
+    # ===============Populate Combobox=======================
 
     polybar.pop_bar(self)
