@@ -955,6 +955,85 @@ class Main(Gtk.Window):
 #    #                       autostart
 #    #====================================================================
 
+    def on_auto_toggle(self, widget, data, lbl):
+        failed = False
+        with open(Functions.autostart + lbl + ".desktop", "r") as f:
+            lines = f.readlines()
+            f.close()
+        try:
+            pos = Functions._get_position(lines, "Hidden=")
+        except:
+            failed = True
+            with open(Functions.autostart + lbl + ".desktop", "a") as f:
+                f.write("Hidden=" + str(not widget.get_active()).lower())
+                f.close()
+        if not failed:
+            val = lines[pos].split("=")[1].strip()
+            lines[pos] = lines[pos].replace(val, str(not widget.get_active()).lower())
+            with open(Functions.autostart + lbl + ".desktop", "w") as f:
+                f.writelines(lines)
+                f.close()
+
+    def on_auto_remove_clicked(self, widget, data, listbox, lbl):
+        os.unlink(Functions.autostart + lbl + ".desktop")
+        self.vvbox.remove(listbox)
+
+    def clear_autostart(self):
+        for x in self.vvbox.get_children():
+            self.vvbox.remove(x)
+
+    def load_autostart(self, files):
+        self.clear_autostart()
+
+        for x in files:
+            self.add_row(x)
+
+    def add_row(self, x):
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+
+        lbl = Gtk.Label(xalign=0)
+        lbl.set_text(x)
+
+        swtch = Gtk.Switch()
+        swtch.connect("notify::active", self.on_auto_toggle, lbl.get_text())
+        swtch.set_active(autostart.get_startups(self, lbl.get_text()))
+
+        listbox = Gtk.ListBox()
+
+        fbE = Gtk.EventBox()
+
+        pbfb = GdkPixbuf.Pixbuf().new_from_file_at_size(
+            os.path.join(base_dir, 'images/remove.png'), 28, 28)
+        fbimage = Gtk.Image().new_from_pixbuf(pbfb)
+
+        fbE.add(fbimage)
+
+        fbE.connect("button_press_event",
+                    self.on_auto_remove_clicked,
+                    listbox,
+                    lbl.get_text())
+
+        fbE.set_property("has-tooltip", True)
+
+        fbE.connect("query-tooltip", self.tooltip_callback, "Remove")
+
+        hbox.pack_start(lbl, False, False, 0)
+        hbox.pack_end(fbE, False, False, 0)
+        vbox2.pack_start(swtch, False, False, 10)
+        hbox.pack_end(vbox2, False, False, 0)
+
+        vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        vbox1.pack_start(hbox, False, False, 5)
+
+        listbox.set_selection_mode(Gtk.SelectionMode.NONE)
+        listboxrow = Gtk.ListBoxRow()
+        listboxrow.add(vbox1)
+        listbox.add(listboxrow)
+
+        self.vvbox.pack_start(listbox, False, False, 0)
+        self.vvbox.show_all()
+
     def on_remove_auto(self, widget):
         selection = self.treeView4.get_selection()
         model, paths = selection.get_selected_rows()

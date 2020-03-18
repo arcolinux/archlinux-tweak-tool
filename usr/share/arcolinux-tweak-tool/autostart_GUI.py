@@ -23,32 +23,47 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     # ==========================================
     #              TREEVIEW
     # ==========================================
-    sw = Gtk.ScrolledWindow()
-    sw.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
-    sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+    # sw = Gtk.ScrolledWindow()
+    # sw.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
+    # sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
-    self.startups = Gtk.ListStore(bool, str, str)
+    # self.startups = Gtk.ListStore(bool, str, str)
 
-    self.treeView4 = Gtk.TreeView(self.startups)
-    self.create_autostart_columns(self.treeView4)
-    self.treeView4.connect("row-activated", self.on_activated)
-    self.treeView4.set_rules_hint(True)
-    self.treeView4.set_activate_on_single_click(True)
-    sw.set_size_request(270, 320)
-    sw.add(self.treeView4)
+    # self.treeView4 = Gtk.TreeView(self.startups)
+    # self.create_autostart_columns(self.treeView4)
+    # self.treeView4.connect("row-activated", self.on_activated)
+    # self.treeView4.set_rules_hint(True)
+    # self.treeView4.set_activate_on_single_click(True)
+    # sw.set_size_request(270, 320)
+    # sw.add(self.treeView4)
 
-    autostart.get_startups(self)
+    # autostart.get_startups(self)
 
     lbls = Gtk.Label(xalign=0)
     lbls.set_text("Current content of ~/.config/autostart/")
     toplabelbox.pack_start(lbls, False, False, 0)
-    # ==========================================
-    #              Remove Button
-    # ==========================================
-    rbutton = Gtk.Button(label="Remove")
-    rbutton.set_size_request(140, 0)
+    # # ==========================================
+    # #              Remove Button
+    # # ==========================================
+    # rbutton = Gtk.Button(label="Remove")
+    # rbutton.set_size_request(140, 0)
 
-    rbutton.connect("clicked", self.on_remove_auto)
+    # rbutton.connect("clicked", self.on_remove_auto)
+
+    files = [x.replace(".desktop", "") for x in Functions.os.listdir(Functions.autostart)]
+
+    mainbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+
+    sw = Gtk.ScrolledWindow()
+    sw.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+    
+    self.vvbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    
+    sw.add(self.vvbox)
+    mainbox.pack_start(sw, True, True, 0)
+    
+    self.load_autostart(files)
+
     # ==========================================
     #              Button
     # ==========================================
@@ -90,10 +105,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     hbox2.pack_start(vbox4, False, False, 5)
     hbox2.pack_start(vbox6, False, False, 5)
 
-    hbox.pack_start(sw, True, True, 0)
-    vbox1.pack_end(rbutton, False, False, 0)
-    hbox.pack_start(vbox1, False, False, 0)
+    # hbox.pack_start(mainbox, True, True, 0)
+    # vbox1.pack_end(rbutton, False, False, 0)
+    # hbox.pack_start(vbox1, False, False, 0)
     vboxStack13.pack_start(toplabelbox, False, False, 0)
-    vboxStack13.pack_start(hbox, False, False, 0)
+    vboxStack13.pack_start(mainbox, True, True, 0)
     vboxStack13.pack_start(labelbox, False, False, 0)
     vboxStack13.pack_start(hbox2, False, False, 0)

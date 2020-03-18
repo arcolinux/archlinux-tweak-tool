@@ -32,6 +32,7 @@ config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 config_dir = home + "/.config/arcolinux-tweak-tool/"
 polybar = home + "/.config/polybar/"
 desktop = ""
+autostart = home + "/.config/autostart/"
 
 
 i3wm_config = home + "/.config/i3/config"
