@@ -196,7 +196,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
         stack.add_titled(vboxStack1, "stack6", "Pacman config")
 
     if Functions.path_check(Functions.polybar):
-        stack.add_titled(vboxStack14, "stack14", "Polybar Changer")
+        stack.add_titled(vboxStack14, "stack14", "Polybar changer")
 
     if Functions.file_check(Functions.slimlock_conf):
         stack.add_titled(vboxStack5, "stack7", "Slimlock")
@@ -209,7 +209,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     # stack.add_titled(vboxStack9, "stack10", "Tweak skel")
 
     if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
-        stack.add_titled(vboxStack10, "stack11", "Theme Changer")
+        stack.add_titled(vboxStack10, "stack11", "Theme changer")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
