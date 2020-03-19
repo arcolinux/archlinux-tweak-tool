@@ -210,7 +210,6 @@ xfce = [
     "xfce4-notes-plugin",
     "xfce4-notifyd",
     "xfce4-pulseaudio-plugin",
-    "xfce4-screensaver",
     "xfce4-screenshooter",
     "xfce4-sensors-plugin",
     "xfce4-smartbookmark-plugin",
