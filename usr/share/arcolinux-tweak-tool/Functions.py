@@ -477,7 +477,7 @@ def neofetch_set_backend_value(lists, pos, text, value):
 def get_desktop(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
 
-    desktop = subprocess.run(["sh", base_dir + "/get_desktop.sh"],
+    desktop = subprocess.run(["sh", base_dir + "/get_desktop.sh", "-n"],
                              shell=False,
                              stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)

@@ -87,15 +87,15 @@ class Main(Gtk.Window):
             Functions.permissions(Functions.home +
                                   "/.config/arcolinux-tweak-tool")
 
-        if not Functions.path_check(polybar.config_dir + "images"):
-            Functions.os.makedirs(polybar.config_dir + "images", 0o766)
+        if not Functions.path_check(Functions.config_dir + "images"):
+            Functions.os.makedirs(Functions.config_dir + "images", 0o766)
             for x in Functions.os.listdir(base_dir + "/polybar_data/"):
-                Functions.copy_func(base_dir + "/polybar_data/" + x, polybar.config_dir + "images", False)
-            Functions.permissions(polybar.config_dir + "images")
+                Functions.copy_func(base_dir + "/polybar_data/" + x, Functions.config_dir + "images", False)
+            Functions.permissions(Functions.config_dir + "images")
         else:
             for x in Functions.os.listdir(base_dir + "/polybar_data/"):
-                Functions.copy_func(base_dir + "/polybar_data/" + x, polybar.config_dir + "images", False)
-            Functions.permissions(polybar.config_dir + "images")
+                Functions.copy_func(base_dir + "/polybar_data/" + x, Functions.config_dir + "images", False)
+            Functions.permissions(Functions.config_dir + "images")
 
         if not Functions.os.path.isfile(Functions.config):
             key = {"theme": ""}
@@ -104,7 +104,7 @@ class Main(Gtk.Window):
 
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
         self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
-                                    self.desktop.capitalize() + "</span>")
+                                    self.desktop.lower() + "</span>")
 
 #       #========================TESTING REPO=============================
         arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
@@ -1089,7 +1089,7 @@ class Main(Gtk.Window):
 
         polybar.set_config(self, self.pbcombo.get_active_text(), state)
         if Functions.os.path.isfile(polybar.launch):
-            Functions.run_as_user(polybar.launch)            
+            Functions.show_in_app_notification(self, "Restart polybar to see changes")
         else:
             Functions.MessageBox(self, "ERROR!!", "You dont seem to have a <b>launch.sh</b> file to launch/relaunch polybar")
 

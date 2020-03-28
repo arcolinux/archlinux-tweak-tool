@@ -18,8 +18,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, Functions, base_dir):
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     spacer = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    
+    
+    message = Gtk.Label("You will need to manually restart polybar for changes to take effect. Hint:(add to keybind)")
+    hbox11.pack_start(message, True, False, 0)
     # =======================================================
     #                       THEME SELECTION
     # =======================================================
@@ -104,7 +109,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, Functions, base_dir):
     # =======================================================
     #                       PACK TO WINDOW
     # =======================================================
-
+    vboxStack14.pack_start(hbox11, False, False, 0)  # Message Section
     vboxStack14.pack_start(hbox1, False, False, 0)  # Combo Section
     vboxStack14.pack_start(hbox10, False, False, 0)  # Combo Section
     vboxStack14.pack_start(hbox2, False, False, 0)  # Preview Section

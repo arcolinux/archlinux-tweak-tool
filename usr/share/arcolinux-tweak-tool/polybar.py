@@ -1,10 +1,10 @@
 # =================================================================
 # =                  Author: Brad Heffernan                       =
 # =================================================================
-from Functions import home, polybar, config_dir, os, show_in_app_notification
+from Functions import home, polybar, config_dir, os, show_in_app_notification, shutil
 
 launch = home + "/.config/polybar/launch.sh"
-images = home + "/.config/Hefftor-Polybar-Switcher"
+images = config_dir
 
 
 def import_config(self, config, new_image):
@@ -14,7 +14,7 @@ def import_config(self, config, new_image):
             name = os.path.basename(config)
             if "config" not in name:
                 name = "config_" + name
-        
+
             shutil.copy(config, polybar + name)
             if len(new_image) > 1:
                 shutil.copy(new_image, config_dir + "/images/" + os.path.basename(config) + ".jpg")
@@ -46,7 +46,7 @@ def pop_bar(self, *args, **kwargs):
     else:
         self.pblabel4.set_markup("<span foreground=\"orange\">launch.sh <b>NOT</b> found!</span>")                    
     
-    if not kwargs.get('imported', None) == None:
+    if kwargs.get('imported', None) is not None:
         name = kwargs.get('impname', None)
 
     if os.path.isdir(home + "/.config/polybar"):
@@ -57,11 +57,11 @@ def pop_bar(self, *args, **kwargs):
                     active = i
                 self.pbcombo.append_text(items[i])
     self.pbcombo.set_active(active)
-            
+
 
 def set_config(self, config, state):
 
-    lists = ["herbstluftwm)", "openbox)", "xmonad)","i3)","bspwm)"]
+    lists = ["herbstluftwm)", "openbox)", "xmonad)", "i3)", "bspwm)"]
 
     if os.path.isfile(launch):
         with open(launch, "r") as f:
@@ -69,7 +69,7 @@ def set_config(self, config, state):
             f.close()
         try:
             for j in range(len(lines)):
-                
+
                 for wm in lists:
                     if wm in lines[j]:
                         if state:                        
@@ -99,7 +99,7 @@ def set_config(self, config, state):
                 f.writelines(lines)
                 f.close()
 
-            show_in_app_notification(self, "Config Applied Successfully")
+            # show_in_app_notification(self, "Config Applied Successfully")
             # MessageBox(self, "Success!!", "Config Applied Successfully")
         except Exception as e:
             print(e)

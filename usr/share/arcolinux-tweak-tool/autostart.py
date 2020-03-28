@@ -32,7 +32,7 @@ import Functions as fn
 
 
 def get_startups(self, n):
-    
+
     with open(fn.autostart + n + ".desktop") as f:
         lines = f.readlines()
         f.close()
@@ -46,7 +46,7 @@ def get_startups(self, n):
         state = not eval(state)
         return state
     except Exception as e:
-        print(e)
+        # print(e)
         return True
 
 
