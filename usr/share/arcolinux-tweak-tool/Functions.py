@@ -119,9 +119,10 @@ def permissions(dst):
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
         for x in groups.stdout.decode().split(" "):
-            if "groups" in x:
-                g = x.split(",")[0]
-                group = g.split("(")[1].replace(")", "").strip()
+            if "gid" in x:
+                g = x.split("(")[1]
+                group = g.replace(")", "").strip()
+        print(group)
         # name = calls.stdout.decode().split(":")[0].strip()
         # group = calls.stdout.decode().split(":")[4].strip()
 
