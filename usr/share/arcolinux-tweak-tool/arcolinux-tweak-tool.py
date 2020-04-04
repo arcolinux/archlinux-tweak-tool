@@ -974,16 +974,19 @@ class Main(Gtk.Window):
 
     def on_auto_toggle(self, widget, data, lbl):
         failed = False
-        with open(Functions.autostart + lbl + ".desktop", "r") as f:
-            lines = f.readlines()
-            f.close()
         try:
-            pos = Functions._get_position(lines, "Hidden=")
-        except:
-            failed = True
-            with open(Functions.autostart + lbl + ".desktop", "a") as f:
-                f.write("Hidden=" + str(not widget.get_active()).lower())
+            with open(Functions.autostart + lbl + ".desktop", "r") as f:
+                lines = f.readlines()
                 f.close()
+            try:
+                pos = Functions._get_position(lines, "Hidden=")
+            except:
+                failed = True
+                with open(Functions.autostart + lbl + ".desktop", "a") as f:
+                    f.write("Hidden=" + str(not widget.get_active()).lower())
+                    f.close()
+        except:
+            pass
         if not failed:
             val = lines[pos].split("=")[1].strip()
             lines[pos] = lines[pos].replace(val, str(not widget.get_active()).lower())
