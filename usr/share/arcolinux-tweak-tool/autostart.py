@@ -33,10 +33,13 @@ import Functions as fn
 
 def get_startups(self, n):
 
-    with open(fn.autostart + n + ".desktop") as f:
-        lines = f.readlines()
-        f.close()
-    state = True
+    try:
+        with open(fn.autostart + n + ".desktop") as f:
+            lines = f.readlines()
+            f.close()
+        state = True
+    except Exception as e:
+        return True
 
     try:
         pos = fn._get_position(lines, "Hidden=")
@@ -46,7 +49,7 @@ def get_startups(self, n):
         state = not eval(state)
         return state
     except Exception as e:
-        # print(e)
+        print(e)
         return True
 
 

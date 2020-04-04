@@ -167,9 +167,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     # ==========================================================
     #                       Polybar
     # ==========================================================
-    if Functions.path_check(Functions.polybar):
-        polybar_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar,
-                        Functions, base_dir)
+    # if Functions.path_check(Functions.polybar):
+    #     polybar_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar,
+    #                     Functions, base_dir)
     # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
@@ -195,8 +195,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     if Functions.file_check(Functions.pacman):
         stack.add_titled(vboxStack1, "stack6", "Pacman config")
 
-    if Functions.path_check(Functions.polybar):
-        stack.add_titled(vboxStack14, "stack14", "Polybar changer")
+    # if Functions.path_check(Functions.polybar):
+    #     stack.add_titled(vboxStack14, "stack14", "Polybar changer")
 
     if Functions.file_check(Functions.slimlock_conf):
         stack.add_titled(vboxStack5, "stack7", "Slimlock")
@@ -226,7 +226,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.4.10</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.4.12</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
