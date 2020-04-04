@@ -86,16 +86,33 @@ class Main(Gtk.Window):
                                   "/.config/arcolinux-tweak-tool", 0o766)
             Functions.permissions(Functions.home +
                                   "/.config/arcolinux-tweak-tool")
+        # Force Permissions
+        a1 = Functions.os.stat(Functions.home + "/.config/autostart")
+        a2 = Functions.os.stat(Functions.home + "/.config/arcolinux-tweak-tool")
+        a3 = Functions.os.stat(Functions.home + "/" + Functions.bd)
+        autostart = a1.st_uid
+        att = a2.st_uid
+        backup = a3.st_uid
 
-        if not Functions.path_check(Functions.config_dir + "images"):
-            Functions.os.makedirs(Functions.config_dir + "images", 0o766)
-            for x in Functions.os.listdir(base_dir + "/polybar_data/"):
-                Functions.copy_func(base_dir + "/polybar_data/" + x, Functions.config_dir + "images", False)
-            Functions.permissions(Functions.config_dir + "images")
-        else:
-            for x in Functions.os.listdir(base_dir + "/polybar_data/"):
-                Functions.copy_func(base_dir + "/polybar_data/" + x, Functions.config_dir + "images", False)
-            Functions.permissions(Functions.config_dir + "images")
+        if autostart == 0:
+            Functions.permissions(Functions.home + "/.config/autostart")
+            print("Fix autostart permissions...")
+        if att == 0:
+            Functions.permissions(Functions.home + "/.config/arcolinux-tweak-tool")
+            print("Fix arcolinux-tweak-tool permissions...")
+        if backup == 0:
+            Functions.permissions(Functions.home + "/" + Functions.bd)
+            print("Fix .att_backup permissions...")
+
+        # if not Functions.path_check(Functions.config_dir + "images"):
+        #     Functions.os.makedirs(Functions.config_dir + "images", 0o766)
+        #     for x in Functions.os.listdir(base_dir + "/polybar_data/"):
+        #         Functions.copy_func(base_dir + "/polybar_data/" + x, Functions.config_dir + "images", False)
+        #     Functions.permissions(Functions.config_dir + "images")
+        # else:
+        #     for x in Functions.os.listdir(base_dir + "/polybar_data/"):
+        #         Functions.copy_func(base_dir + "/polybar_data/" + x, Functions.config_dir + "images", False)
+        #     Functions.permissions(Functions.config_dir + "images")
 
         if not Functions.os.path.isfile(Functions.config):
             key = {"theme": ""}

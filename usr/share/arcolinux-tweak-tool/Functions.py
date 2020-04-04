@@ -107,37 +107,27 @@ def test(dst):
 
 def permissions(dst):
     try:
-    #     original_umask = os.umask(0)
-        calls = subprocess.run(["sh", "-c", "cat /etc/passwd | grep " +
-                                sudo_username],
-                               shell=False,
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.STDOUT)
-        # ids = calls.stdout.decode().split(":")[2].strip()
-        # group = calls.stdout.decode().split(":")[3].strip()
-        name = calls.stdout.decode().split(":")[0].strip()
-        group = calls.stdout.decode().split(":")[4].strip()
+        # original_umask = os.umask(0)
+        # calls = subprocess.run(["sh", "-c", "cat /etc/passwd | grep " +
+        #                         sudo_username],
+        #                        shell=False,
+        #                        stdout=subprocess.PIPE,
+        #                        stderr=subprocess.STDOUT)
+        groups = subprocess.run(["sh", "-c", "id " +
+                                 sudo_username],
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+        for x in groups.stdout.decode().split(" "):
+            if "groups" in x:
+                g = x.split(",")[0]
+                group = g.split("(")[1].replace(")", "").strip()
+        # name = calls.stdout.decode().split(":")[0].strip()
+        # group = calls.stdout.decode().split(":")[4].strip()
 
-        subprocess.call(["chown", "-R", name + ":" + group, dst], shell=False)
+        subprocess.call(["chown", "-R",
+                         sudo_username + ":" + group, dst], shell=False)
 
-    #     for root, dirs, filesr in os.walk(dst):
-    #         # print(root)
-    #         os.chown(root, int(ids), int(group))
-    #         for folder in dirs:
-    #             try:
-    #                 # print(folder)
-    #                 os.chown(os.path.join(root, folder), int(ids), int(group))
-    #             except:
-    #                 pass
-    #         for file in filesr:
-    #             try:
-    #                 # print(file)
-    #                 os.chown(os.path.join(root, file), int(ids), int(group))
-    #             except:
-    #                 pass
-    #     # os.chown(dst, int(ids), int(group))
-    # finally:
-    #     os.umask(original_umask)
     except Exception as e:
         print(e)
 # =====================================================
