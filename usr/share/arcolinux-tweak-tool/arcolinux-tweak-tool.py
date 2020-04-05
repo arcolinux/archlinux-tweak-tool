@@ -951,7 +951,7 @@ class Main(Gtk.Window):
         # if desktopr.check_desktop(self.d_combo.get_active_text()) is not True:
         print("installing {}".format(self.d_combo.get_active_text()))
         desktopr.check_lock(self,self.d_combo.get_active_text(),state)
-        
+
         # desktopr.install_desktop(self, self.d_combo.get_active_text())
 
     def on_default_clicked(self, widget):
@@ -972,7 +972,7 @@ class Main(Gtk.Window):
 #    #                       autostart
 #    #====================================================================
     def on_comment_changed(self, widget):
-        if len(self.txtbox1.get_text()) => 3 and len(self.txtbox2.get_text()) => 3:
+        if len(self.txtbox1.get_text()) >= 3 and len(self.txtbox2.get_text()) >= 3:
             self.abutton.set_sensitive(True)
 
     def on_auto_toggle(self, widget, data, lbl):
@@ -1154,7 +1154,7 @@ class Main(Gtk.Window):
     def open_config_response(self, dialog, response):
 
         if response == Gtk.ResponseType.OK:
-            self.pbtextbox1.set_text(dialog.get_filename())            
+            self.pbtextbox1.set_text(dialog.get_filename())
             dialog.destroy()
         elif response == Gtk.ResponseType.CANCEL:
             dialog.destroy()
