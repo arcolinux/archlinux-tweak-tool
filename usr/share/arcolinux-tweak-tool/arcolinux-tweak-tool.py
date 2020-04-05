@@ -971,6 +971,9 @@ class Main(Gtk.Window):
 #    #====================================================================
 #    #                       autostart
 #    #====================================================================
+    def on_comment_changed(self, widget):
+        if len(self.txtbox1.get_text()) => 3 and len(self.txtbox2.get_text()) => 3:
+            self.abutton.set_sensitive(True)
 
     def on_auto_toggle(self, widget, data, lbl):
         failed = False

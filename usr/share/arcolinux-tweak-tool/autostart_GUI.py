@@ -78,14 +78,17 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     self.txtbox1.set_size_request(180, 0)
     self.txtbox2.set_size_request(180, 0)
     self.txtbox3.set_size_request(180, 0)
+    self.txtbox1.connect("changed", self.on_comment_changed)
+    self.txtbox2.connect("changed", self.on_comment_changed)
 
     bbutton = Gtk.Button(label="...")
-    abutton = Gtk.Button(label="Add")
-    abutton.set_size_request(140, 0)
+    self.abutton = Gtk.Button(label="Add")
+    self.abutton.set_size_request(140, 0)
+    self.abutton.set_sensitive(False)
 
     bbutton.connect("clicked", self.on_exec_browse)
 
-    abutton.connect("clicked", self.on_add_autostart)
+    self.abutton.connect("clicked", self.on_add_autostart)
 
     vbox2.pack_start(lbl1, False, False, 0)
     vbox2.pack_start(self.txtbox1, False, False, 0)
@@ -97,7 +100,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     vbox4.pack_start(self.txtbox3, False, False, 0)
 
     vbox5.pack_end(bbutton, False, False, 0)
-    vbox6.pack_end(abutton, False, False, 0)
+    vbox6.pack_end(self.abutton, False, False, 0)
 
     hbox2.pack_start(vbox2, False, False, 5)
     hbox2.pack_start(vbox3, False, False, 0)
