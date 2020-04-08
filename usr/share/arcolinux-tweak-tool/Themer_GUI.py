@@ -3,7 +3,7 @@
 # =================================================================
 
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):  # noqa
+def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     if Functions.os.path.isfile(Functions.i3wm_config):
         i3_list = themer.get_list(Functions.i3wm_config)
     if Functions.os.path.isfile(Functions.awesome_config):
@@ -90,6 +90,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):  # noqa
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
+    vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
     vbox3.pack_start(self.awesome_combo, False, False, 0)
     hbox2.pack_start(label2, False, False, 10)
     hbox2.pack_end(vbox3, False, False, 10)
@@ -107,12 +110,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):  # noqa
 
     if Functions.os.path.isfile(Functions.awesome_config):
         try:
-            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.home + "/.config/awesome/themes/" + name + "/wallpaper.jpg", 348, 248)  # noqa
+            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/" + name + ".jpg", 598, 598)  # noqa
             self.image.set_from_pixbuf(pimage)
         except:  # noqa
             pass
-
+    frame.set_name("awesome")
     frame.add(self.image)
+
+    hbox5.pack_start(frame, True, False, 10)
 
     apply = Gtk.Button(label="Apply")
     apply.connect("clicked", self.awesome_apply_clicked)
@@ -123,7 +128,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):  # noqa
     hbox4.pack_end(reset, False, False, 0)
 
     vboxStack2.pack_start(hbox2, False, False, 10)
-    vboxStack2.pack_start(frame, False, False, 10)
+    vboxStack2.pack_start(hbox5, False, False, 10)
     vboxStack2.pack_start(label4, True, False, 10)
     vboxStack2.pack_end(hbox4, False, False, 0)
 
@@ -133,8 +138,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions):  # noqa
 
     if Functions.os.path.isfile(Functions.i3wm_config):
         stack.add_titled(vboxStack1, "stack1", "I3WM")
-    if Functions.os.path.isfile(Functions.awesome_config):
-        stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
+    # if Functions.os.path.isfile(Functions.awesome_config):
+    stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)

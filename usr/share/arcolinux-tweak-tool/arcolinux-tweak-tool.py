@@ -331,11 +331,10 @@ class Main(Gtk.Window):
         if tree_iter is not None:
             model = self.awesome_combo.get_model()
             row_id, name = model[tree_iter][:2]
-        pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.home +
-                                                          "/.config/awesome/themes/" +  # noqa
+        pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/" +  # noqa
                                                           name +
-                                                          "/wallpaper.jpg",
-                                                          348, 248)
+                                                          ".jpg",
+                                                          598, 598)
         self.image.set_from_pixbuf(pimage)
 
     def awesome_apply_clicked(self, widget):
@@ -1307,6 +1306,14 @@ if __name__ == "__main__":
         with open("/tmp/att.pid", "w") as f:
             f.write(str(os.getpid()))
             f.close()
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_path(base_dir + "/att.css")
+
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            style_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
         w = Main()
         w.show_all()
         Gtk.main()
