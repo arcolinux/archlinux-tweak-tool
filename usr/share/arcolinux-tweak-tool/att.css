@@ -3,4 +3,5 @@ frame#awesome * {
     padding-right: 20px;
     padding-bottom: 20px;
     padding-top: 10px;
+    border-color: transparent;
 }
