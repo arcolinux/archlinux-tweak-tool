@@ -217,13 +217,13 @@ function detect_xmonad()
 
 function detect_jwm()
 {
-    ps -e | grep -E '^.* xmonad-x86_64-l$' > /dev/null
+    ps -e | grep -E '^.* jwm$' > /dev/null
     if [ $? -ne 0 ];
     then
 	return 0
     fi
-    VERSION=`xmonad --version | awk '{print $2}'`
-    DESKTOP="XMONAD"
+    VERSION=`jwm -v | grep JWM | awk '{print $2}'`
+    DESKTOP="JWM"
     return 1
 }
 
