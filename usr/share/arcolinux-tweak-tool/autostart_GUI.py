@@ -58,6 +58,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     sw.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
     
     self.vvbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    self.vvbox.set_name("vbox")
     
     sw.add(self.vvbox)
     mainbox.pack_start(sw, True, True, 0)

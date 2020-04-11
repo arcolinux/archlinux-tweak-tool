@@ -5,3 +5,7 @@ frame#awesome * {
     padding-top: 10px;
     border-color: transparent;
 }
+
+box#vbox {
+    padding-right: 20px;
+}
