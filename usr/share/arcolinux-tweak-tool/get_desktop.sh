@@ -215,6 +215,19 @@ function detect_xmonad()
     return 1
 }
 
+function detect_jwm()
+{
+    ps -e | grep -E '^.* xmonad-x86_64-l$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+	return 0
+    fi
+    VERSION=`xmonad --version | awk '{print $2}'`
+    DESKTOP="XMONAD"
+    return 1
+}
+
+
 detect_awesome;
 detect_bspwm;
 detect_budgie;
