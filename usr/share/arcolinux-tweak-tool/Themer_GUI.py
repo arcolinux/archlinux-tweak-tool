@@ -68,18 +68,24 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     label2 = Gtk.Label("Select theme")
     self.store = Gtk.ListStore(int, str)
     if Functions.os.path.isfile(Functions.awesome_config):
-        awesome_lines = themer.get_awesome_themes(awesome_list)
-        for x in range(len(awesome_lines)):
-            self.store.append([x, awesome_lines[x]])
+        try:
+            awesome_lines = themer.get_awesome_themes(awesome_list)
+            for x in range(len(awesome_lines)):
+                self.store.append([x, awesome_lines[x]])
+        except:
+            pass
 
     self.awesome_combo = Gtk.ComboBox.new_with_model(self.store)
     self.awesome_combo.set_size_request(180, 0)
     renderer_text = Gtk.CellRendererText()
 
     if Functions.os.path.isfile(Functions.awesome_config):
-        val = int(themer.get_value(awesome_list, "local chosen_theme =")
-                  .replace("themes[", "").replace("]", ""))
-        self.awesome_combo.set_active(val-1)
+        try:
+            val = int(themer.get_value(awesome_list, "local chosen_theme =")
+                    .replace("themes[", "").replace("]", ""))
+            self.awesome_combo.set_active(val-1)
+        except:
+            pass
 
     self.awesome_combo.pack_start(renderer_text, False)
     self.awesome_combo.add_attribute(renderer_text, "text", 1)
@@ -138,8 +144,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     if Functions.os.path.isfile(Functions.i3wm_config):
         stack.add_titled(vboxStack1, "stack1", "I3WM")
-    # if Functions.os.path.isfile(Functions.awesome_config):
-    stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
+    if Functions.os.path.isfile(Functions.awesome_config):
+        stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)
