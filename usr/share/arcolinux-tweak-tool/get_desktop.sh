@@ -236,6 +236,7 @@ detect_deepin;
 detect_gnome;
 detect_hlwm;
 detect_i3wm;
+detect_jwm;
 detect_mate;
 detect_openbox;
 #needs to be here because of lxqt and openbox
