@@ -15,14 +15,20 @@ def check_lightdm(lists, value):
 
 def set_lightdm_value(self, lists, value, session, state):
     try:
+        com = Functions.subprocess.run(["sh", "-c", "su - " + Functions.sudo_username + " -c groups"], shell=False, stdout=Functions.subprocess.PIPE)
+        groups = com.stdout.decode().strip().split(" ")
+        # print(groups)
+        if "autologin" not in groups:
+            Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "autologin"], shell=False)            
+        
         pos = Functions._get_position(lists, "autologin-user=")
         pos_session = Functions._get_position(lists, "autologin-session=")
-        
+
         if state:
             lists[pos] = "autologin-user=" + value + "\n"
             lists[pos_session] = "autologin-session=" + session + "\n"
         else:
-            if not "#" in lists[pos]:
+            if "#" not in lists[pos]:
                 lists[pos] = "#" + lists[pos]
                 lists[pos_session] = "#" + lists[pos_session]
 
