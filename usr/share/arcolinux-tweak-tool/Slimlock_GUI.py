@@ -92,13 +92,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
     hbox14.pack_end(slimset, False, False, 0)
     hbox14.pack_end(slimreset, False, False, 0)
 
-    vboxStack5.pack_start(hbox13, False, False, 0) #combobox
-    vboxStack5.pack_start(hbox35, False, False, 0) #Preview Theme
+    vboxStack5.pack_start(hbox13, False, False, 0)  # combobox
+    vboxStack5.pack_start(hbox35, False, False, 0)  # Preview Theme
 
-    vboxStack5.pack_start(hbox16, False, False, 0) #Choose Theme Txtbox
-    vboxStack5.pack_start(hbox17, False, False, 0) #Theme Name Text
-    vboxStack5.pack_start(hbox27, False, False, 0) #Info Text
-    vboxStack5.pack_start(hbox26, False, False, 0) #Preview Chosen Image
+    vboxStack5.pack_start(hbox16, False, False, 0)  # Choose Theme Txtbox
+    vboxStack5.pack_start(hbox17, False, False, 0)  # Theme Name Text
+    vboxStack5.pack_start(hbox27, False, False, 0)  # Info Text
+    vboxStack5.pack_start(hbox26, False, False, 0)  # Preview Chosen Image
 
     vboxStack5.pack_start(hbox18, False, False, 0) #Create Theme
     vboxStack5.pack_end(hbox14, False, False, 0) #Buttons
