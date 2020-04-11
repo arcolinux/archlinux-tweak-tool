@@ -46,7 +46,7 @@ If you want to thank and support <b>Brad</b> personally for his initiative and e
         pimage = Gtk.Image().new_from_pixbuf(pbp)
 
         logo = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            os.path.join(base_dir, 'images/arcolinux-red.png'), 100, 100)
+            os.path.join(base_dir, 'images/arcolinux-froly.png'), 100, 100)
         logo_image = Gtk.Image().new_from_pixbuf(logo)
 
         pE.add(pimage)
