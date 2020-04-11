@@ -27,7 +27,9 @@ def get_startups(self, n):
 
 
 def add_autostart(self, name, com, comnt):
-    content = "[Desktop Entry]\n\
+    lists = [x for x in fn.os.listdir(fn.home + "/.config/autostart/")]
+    if not (name + ".desktop") in lists:
+        content = "[Desktop Entry]\n\
 Encoding=UTF-8\n\
 Version=1.0\n\
 Type=Application\n\
@@ -40,8 +42,8 @@ X-GNOME-Autostart-enabled=true\n\
 Terminal=false\n\
 Hidden=false\n"
 
-    with open(fn.home + "/.config/autostart/" + name + ".desktop", "w") as f:
-        f.write(content)
-        f.close()
-    self.add_row(name)
-    # self.startups.append([True, name, comnt])
+        with open(fn.home + "/.config/autostart/" + name + ".desktop", "w") as f:
+            f.write(content)
+            f.close()
+        self.add_row(name)
+        # self.startups.append([True, name, comnt])
