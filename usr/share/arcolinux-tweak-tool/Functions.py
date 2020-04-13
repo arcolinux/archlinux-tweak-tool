@@ -33,7 +33,7 @@ config_dir = home + "/.config/arcolinux-tweak-tool/"
 polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
-
+zsh_config = home + "/.zshrc"
 
 i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"

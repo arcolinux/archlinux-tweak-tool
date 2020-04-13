@@ -16,6 +16,7 @@ import themer
 import desktopr
 import autostart
 import polybar
+import zsh_theme
 import GUI
 from Functions import os, pacman
 from subprocess import PIPE, STDOUT
@@ -801,6 +802,23 @@ class Main(Gtk.Window):
             if Functions.os.path.isfile(Functions.config):
                 Settings.write_settings("TERMITE", "theme", '')
                 termite.get_themes(self.term_themes)
+
+#    #====================================================================
+#    #                       ZSH THEMES
+#    #====================================================================
+
+    def on_zsh_apply(self, widget):
+        if self.zsh_themes.get_active_text() is not None:
+            widget.set_sensitive(False)
+            zsh_theme.set_config(self, self.zsh_themes.get_active_text())
+            widget.set_sensitive(True)
+
+    def on_zsh_reset(self, widget):
+        if os.path.isfile(Functions.zsh_config + ".bak"):
+            Functions.shutil.copy(Functions.zsh_config + ".bak",
+                                  Functions.zsh_config)
+            Functions.show_in_app_notification(self,
+                                               "Default Settings Applied")
 
 #    #====================================================================
 #    #                       NEOFETCH CONFIG

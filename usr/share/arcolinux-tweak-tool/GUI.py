@@ -15,6 +15,7 @@ import themer
 import desktopr
 import autostart
 import polybar
+import zsh_theme
 
 # =============GUI=================
 import Termite_GUI
@@ -31,9 +32,15 @@ import Themer_GUI
 import desktopr_GUI
 import autostart_GUI
 import polybar_GUI
+import zsh_theme_GUI
 
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
+    process = Functions.subprocess.run(["sh", "-c", "echo \"$SHELL\""],
+                             stdout=Functions.subprocess.PIPE)
+
+    output = process.stdout.decode().strip()
+
     # =======================================================
     #                       App Notifications
     # =======================================================
@@ -87,6 +94,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     vboxStack12 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack13 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack15 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     # ==========================================================
     #                   TAB #1 PACMAN
@@ -170,6 +178,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     # if Functions.path_check(Functions.polybar):
     #     polybar_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar,
     #                     Functions, base_dir)
+
+    # ==========================================================
+    #                       Autostart
+    # ==========================================================
+    if output == "/bin/zsh":
+        zsh_theme_GUI.GUI(self, Gtk, vboxStack15, zsh_theme)
+
     # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
@@ -210,6 +225,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
 
     if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
         stack.add_titled(vboxStack10, "stack11", "Theme changer")
+    
+    if output == "/bin/zsh":
+        stack.add_titled(vboxStack15, "stack15", "ZSH themes")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)
