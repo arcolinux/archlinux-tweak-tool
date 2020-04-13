@@ -8,7 +8,7 @@ def GUI(self, Gtk, vboxStack15, zsh_themes):
     #                     TERMITE CONFIG
     # ==========================================================
     label12 = Gtk.Label()
-    label12.set_text("Termite themes")
+    label12.set_text("Zsh themes")
 
     self.zsh_themes = Gtk.ComboBoxText()
 

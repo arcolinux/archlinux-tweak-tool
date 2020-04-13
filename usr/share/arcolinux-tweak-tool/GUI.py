@@ -227,7 +227,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
         stack.add_titled(vboxStack10, "stack11", "Theme changer")
     
     if output == "/bin/zsh":
-        stack.add_titled(vboxStack15, "stack15", "ZSH themes")
+        stack.add_titled(vboxStack15, "stack15", "Zsh themes")
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_stack(stack)

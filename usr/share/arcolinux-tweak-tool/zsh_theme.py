@@ -11,6 +11,7 @@ def check_oh_my():
 def get_themes(combo):
     if check_oh_my():
         lists = [x for x in os.listdir("/usr/share/oh-my-zsh/themes")]
+        lists = sorted(lists)
         with open(Functions.zsh_config, "r") as f:
             theme_list = f.readlines()
             f.close()
