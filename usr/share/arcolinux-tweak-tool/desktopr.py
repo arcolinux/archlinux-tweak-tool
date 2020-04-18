@@ -406,10 +406,11 @@ def install_desktop(self, desktop, state):
     GLib.idle_add(self.desktopr_prog.set_fraction, 0)
 
     if check_desktop(desktop):
+        print(src)
         if twm is True:
             for x in src:
                 if fn.os.path.isdir(x) or fn.os.path.isfile(x):
-                    # print(x)
+                    print(x)
                     dest = x.replace("/etc/skel", fn.home)
                     # print(dest)
                     l1 = np.append(copy, [x])

@@ -122,7 +122,7 @@ def permissions(dst):
             if "gid" in x:
                 g = x.split("(")[1]
                 group = g.replace(")", "").strip()
-        print(group)
+        # print(group)
         # name = calls.stdout.decode().split(":")[0].strip()
         # group = calls.stdout.decode().split(":")[4].strip()
 
