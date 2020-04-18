@@ -408,13 +408,14 @@ def install_desktop(self, desktop, state):
     if check_desktop(desktop):
         if twm is True:
             for x in src:
-                if fn.os.path.isdir(x):
+                if fn.os.path.isdir(x) or fn.os.path.isfile(x):
+                    # print(x)
                     dest = x.replace("/etc/skel", fn.home)
                     # print(dest)
                     l1 = np.append(copy, [x])
                     l2 = np.append(l1, [dest])
                     GLib.idle_add(self.desktopr_stat.set_text, "Copying " + x + " to " + dest)
-
+                    # print(list(l2))
                     fn.subprocess.call(list(l2), shell=False, stdout=fn.subprocess.PIPE)
                     fn.permissions(dest)
 
