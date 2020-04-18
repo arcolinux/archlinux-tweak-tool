@@ -8,6 +8,10 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk  # noqa
 
+arco_logout = [
+    "arcolinux-logout-git"
+]
+
 desktops = [
     "awesome",
     "bspwm",
@@ -17,6 +21,7 @@ desktops = [
     "gnome",
     "herbstluftwm",
     "i3",
+    "jwm",
     "lxqt",
     "mate",
     "openbox",
@@ -113,6 +118,13 @@ i3 = [
     "arcolinux-wallpapers-git",
     "feh",
     "polybar"
+]
+jwm = [
+    "arcolinux-jwm-git",
+    "jwm",
+    "xdgmenumaker",
+    "sxhkd",
+    "autorandr"
 ]
 lxqt = [
     "lxqt",
@@ -271,7 +283,6 @@ def uninstall_desktop_check(self, desktop):
 def uninstall_desktop(desktop):
     print("Uninstalling.....")
 
-
 def check_lock(self, desktop, state):
     if fn.os.path.isfile("/var/lib/pacman/db.lck"):
         md = Gtk.MessageDialog(parent=self,
@@ -313,11 +324,11 @@ def install_desktop(self, desktop, state):
     # error = False
 
     if desktop == "awesome":
-        command = awesome
+        command = list(np.append(awesome, arco_logout))
         src.append("/etc/skel/.config/awesome")
         twm = True
     elif desktop == "bspwm":
-        command = bspwm
+        command = list(np.append(bspwm, arco_logout))
         src.append("/etc/skel/.config/bspwm")
         twm = True
     elif desktop == "budgie-desktop":
@@ -329,21 +340,26 @@ def install_desktop(self, desktop, state):
     elif desktop == "gnome":
         command = gnome
     elif desktop == "herbstluftwm":
-        command = hlwm
+        command = list(np.append(hlwm, arco_logout))
         src.append("/etc/skel/.config/herbstluftwm")
         twm = True
     elif desktop == "i3":
-        command = i3
+        command = list(np.append(i3, arco_logout))
         src.append("/etc/skel/.config/i3")
         twm = True
+    elif desktop == "jwm":
+        command = list(np.append(jwm, arco_logout))
+        src.append("/etc/skel/.config/jwm")
+        twm = True
+    
     elif desktop == "lxqt":
-        command = lxqt
+        command = list(np.append(lxqt, arco_logout))
         # src.append([])
         # twm = True
     elif desktop == "mate":
         command = mate
     elif desktop == "openbox":
-        command = openbox
+        command = list(np.append(openbox, arco_logout))
         src.append("/etc/skel/.config/openbox")
         src.append("/etc/skel/.config/obmenu-generator")
         src.append("/etc/skel/.config/tint2")
@@ -352,13 +368,13 @@ def install_desktop(self, desktop, state):
     elif desktop == "plasma":
         command = plasma
     elif desktop == "qtile":
-        command = qtile
+        command = list(np.append(qtile, arco_logout))
         src.append("/etc/skel/.config/qtile")
         twm = True
     elif desktop == "xfce":
-        command = xfce
+        command = list(np.append(xfce, arco_logout))
     elif desktop == "xmonad":
-        command = xmonad
+        command = list(np.append(xmonad, arco_logout))
         src.append("/etc/skel/.xmonad")
         twm = True
     # fn.subprocess.call(list(np.append(pkexec, command)))
@@ -367,6 +383,7 @@ def install_desktop(self, desktop, state):
 
     timeout_id = None
     timeout_id = GLib.timeout_add(100, fn.do_pulse, None, self.desktopr_prog)
+    # print(command)
 
     if state == "reinst":
         com1 = pkexec_reinstall
@@ -375,6 +392,8 @@ def install_desktop(self, desktop, state):
             fn.subprocess.call(["sh", "-c", "yes | pkexec pacman -Scc"], shell=False, stdout=fn.subprocess.PIPE)
     else:
         com1 = pkexec
+
+    # print(list(np.append(com1, command)))
 
     GLib.idle_add(self.desktopr_stat.set_text, "installing " + self.d_combo.get_active_text() + "...")
 
