@@ -376,6 +376,10 @@ class Main(Gtk.Window):
             self.awesome_combo.set_active(val-1)
 
     def i3wm_apply_clicked(self, widget):
+        if os.path.isfile(Functions.i3wm_config):
+            Functions.shutil.copy(Functions.i3wm_config,
+                                  Functions.i3wm_config + ".bak")
+
         themer.set_i3_themes(themer.get_list(Functions.i3wm_config),
                              self.i3_combo.get_active_text())
         if not themer.check_polybar(themer.get_list(Functions.i3wm_config)):
