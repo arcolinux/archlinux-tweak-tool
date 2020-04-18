@@ -14,6 +14,24 @@ def get_list(fle):
     return lines
 
 
+def move_file(state):
+    if state:
+        fn.subprocess.run(["mv", fn.home + "/.config/i3/config", fn.home + "/.config/i3/config-bar"])
+        fn.subprocess.run(["mv", fn.home + "/.config/i3/config-polybar", fn.home + "/.config/i3/config"])
+    else:
+        fn.subprocess.run(["mv", fn.home + "/.config/i3/config", fn.home + "/.config/i3/config-polybar"])
+        fn.subprocess.run(["mv", fn.home + "/.config/i3/config-bar", fn.home + "/.config/i3/config"])
+
+
+def toggle_polybar(lines, state):
+    if state:
+        if not check_polybar(lines):
+            move_file(True)
+    else:
+        if check_polybar(lines):
+            move_file(False)
+
+
 def check_polybar(lines):
     pos = fn._get_position(lines, "~/.config/polybar/launch.sh")
     if "#" in lines[pos]:

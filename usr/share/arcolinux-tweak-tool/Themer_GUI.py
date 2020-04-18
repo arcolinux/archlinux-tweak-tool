@@ -41,6 +41,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     vbox2.pack_start(self.i3_combo, False, False, 0)
 
@@ -48,6 +49,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     applyi3.connect("clicked", self.i3wm_apply_clicked)
     reseti3 = Gtk.Button(label="Reset")
     reseti3.connect("clicked", self.i3wm_reset_clicked)
+
+    lbls = Gtk.Label(label="Toggle polybar")
+    polybar = Gtk.Switch()
+    if themer.check_polybar(themer.get_list(Functions.i3wm_config)):
+        polybar.set_active(True)
+    polybar.connect("notify::active", self.on_polybar_toggle)
 
     hbox1.pack_start(label, False, False, 10)
     hbox1.pack_end(vbox2, False, False, 10)
@@ -58,7 +65,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     hbox2.pack_end(applyi3, False, False, 0)
     hbox2.pack_end(reseti3, False, False, 0)
 
+    hbox3.pack_end(polybar, False, False, 0)
+    hbox3.pack_end(lbls, False, False, 0)
+
     vboxStack1.pack_start(hbox1, False, False, 10)
+    vboxStack1.pack_start(hbox3, False, False, 0)
     vboxStack1.pack_start(i3_image, False, False, 0)
     vboxStack1.pack_start(label3, True, False, 0)
     vboxStack1.pack_end(hbox2, False, False, 0)
