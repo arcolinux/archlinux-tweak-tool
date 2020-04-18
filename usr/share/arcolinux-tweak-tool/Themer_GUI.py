@@ -52,8 +52,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     lbls = Gtk.Label(label="Toggle polybar")
     self.poly = Gtk.Switch()
-    if themer.check_polybar(themer.get_list(Functions.i3wm_config)):
-        self.poly.set_active(True)
+    if Functions.os.path.isfile(Functions.i3wm_config):
+        if themer.check_polybar(themer.get_list(Functions.i3wm_config)):
+            self.poly.set_active(True)
     self.poly.connect("notify::active", self.on_polybar_toggle)
 
     hbox1.pack_start(label, False, False, 10)
