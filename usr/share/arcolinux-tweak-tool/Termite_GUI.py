@@ -3,7 +3,7 @@
 # =================================================================
 
 
-def GUI(self, Gtk, vboxStack7, termite):
+def GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir):
     # ==========================================================
     #                     TERMITE CONFIG
     # ==========================================================
@@ -26,8 +26,12 @@ def GUI(self, Gtk, vboxStack7, termite):
     hbox19.pack_start(label12, False, False, 10)
     hbox19.pack_start(self.term_themes, True, True, 10)
 
+    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/termite-sample.jpg", 645, 645)
+    image = Gtk.Image().new_from_pixbuf(pixbuf)
+
     hbox20.pack_end(termset, False, False, 0)
     hbox20.pack_end(termreset, False, False, 0)
 
-    vboxStack7.pack_start(hbox19, False, False, 0)  #Combobox
-    vboxStack7.pack_end(hbox20, False, False, 0)  #Buttons
+    vboxStack7.pack_start(hbox19, False, False, 0)  # Combobox
+    vboxStack7.pack_start(image, False, False, 0)  # Image
+    vboxStack7.pack_end(hbox20, False, False, 0)  # Buttons

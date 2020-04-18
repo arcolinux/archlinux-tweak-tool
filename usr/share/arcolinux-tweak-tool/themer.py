@@ -14,16 +14,47 @@ def get_list(fle):
     return lines
 
 
+def check_polybar(lines):
+    pos = fn._get_position(lines, "~/.config/polybar/launch.sh")
+    if "#" in lines[pos]:
+        return False
+    else:
+        return True
+
+
 def set_i3_themes(lines, theme):
     try:
-        pos1 = fn._get_position(lines, "##START THEMING")
-        pos2 = fn._get_position(lines, "##STOP THEMING")
+        pos1 = fn._get_position(lines, "##START THEMING WM")
+        pos2 = fn._get_position(lines, "##STOP THEMING WM")
+        name = theme.lower().replace(" ", "-")
+        with open(fn.home + "/.config/i3/" + name + ".theme", "r") as f:
+            theme_lines = f.readlines()
+            f.close()
+        pos3 = fn._get_position(theme_lines, "##START THEMING WM")
+        pos4 = fn._get_position(theme_lines, "##STOP THEMING WM")
+
+        lines[pos1:pos2 + 1] = theme_lines[pos3:pos4 + 1]
+
+        with open(fn.i3wm_config, "w") as f:
+            f.writelines(lines)
+            f.close()
+    except Exception as e:
+        print(e)
+
+
+def set_i3_themes_bar(lines, theme):
+    try:
+        pos1 = fn._get_position(lines, "##START THEMING BAR")
+        pos2 = fn._get_position(lines, "##STOP THEMING BAR")
         name = theme.lower().replace(" ", "-")
         with open(fn.home + "/.config/i3/" + name + ".theme", "r") as f:
             theme_lines = f.readlines()
             f.close()
 
-        lines[pos1:pos2 + 1] = theme_lines
+        pos3 = fn._get_position(theme_lines, "##START THEMING BAR")
+        pos4 = fn._get_position(theme_lines, "##STOP THEMING BAR")
+
+        lines[pos1:pos2 + 1] = theme_lines[pos3:pos4 + 1]
 
         with open(fn.i3wm_config, "w") as f:
             f.writelines(lines)

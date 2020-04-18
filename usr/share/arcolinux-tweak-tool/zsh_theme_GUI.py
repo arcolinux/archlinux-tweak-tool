@@ -3,7 +3,7 @@
 # =================================================================
 
 
-def GUI(self, Gtk, vboxStack15, zsh_themes):
+def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     # ==========================================================
     #                     TERMITE CONFIG
     # ==========================================================
@@ -26,11 +26,15 @@ def GUI(self, Gtk, vboxStack15, zsh_themes):
     hbox19.pack_start(label12, False, False, 10)
     hbox19.pack_start(self.zsh_themes, True, True, 10)
 
+    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh-sample.jpg", 645, 645)
+    image = Gtk.Image().new_from_pixbuf(pixbuf)
+
     hbox20.pack_end(termset, False, False, 0)
     hbox20.pack_end(termreset, False, False, 0)
-    
-    vboxStack15.pack_start(hbox19, False, False, 0)  #Combobox
-    vboxStack15.pack_end(hbox20, False, False, 0)  #Buttons
+
+    vboxStack15.pack_start(hbox19, False, False, 0)  # Combobox
+    vboxStack15.pack_start(image, False, False, 0)  # image
+    vboxStack15.pack_end(hbox20, False, False, 0)  # Buttons
 
     if not zsh_themes.check_oh_my():
         termset.set_sensitive(False)

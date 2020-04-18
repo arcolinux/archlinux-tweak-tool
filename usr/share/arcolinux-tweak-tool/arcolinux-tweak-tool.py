@@ -372,6 +372,10 @@ class Main(Gtk.Window):
     def i3wm_apply_clicked(self, widget):
         themer.set_i3_themes(themer.get_list(Functions.i3wm_config),
                              self.i3_combo.get_active_text())
+        if not themer.check_polybar(themer.get_list(Functions.i3wm_config)):
+            themer.set_i3_themes_bar(themer.get_list(Functions.i3wm_config),
+                                     self.i3_combo.get_active_text())
+            print("BAR CHANGED THEME")
         Functions.show_in_app_notification(self,
                                            "Theme applied successfully")
 

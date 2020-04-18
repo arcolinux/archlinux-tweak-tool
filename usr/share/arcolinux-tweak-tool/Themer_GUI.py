@@ -52,10 +52,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     hbox1.pack_start(label, False, False, 10)
     hbox1.pack_end(vbox2, False, False, 10)
 
+    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/i3-sample.jpg", 645, 645)
+    i3_image = Gtk.Image().new_from_pixbuf(pixbuf)
+
     hbox2.pack_end(applyi3, False, False, 0)
     hbox2.pack_end(reseti3, False, False, 0)
 
     vboxStack1.pack_start(hbox1, False, False, 10)
+    vboxStack1.pack_start(i3_image, False, False, 0)
     vboxStack1.pack_start(label3, True, False, 0)
     vboxStack1.pack_end(hbox2, False, False, 0)
 
