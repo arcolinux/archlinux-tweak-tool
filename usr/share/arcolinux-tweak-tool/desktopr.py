@@ -123,8 +123,7 @@ jwm = [
     "arcolinux-jwm-git",
     "jwm",
     "xdgmenumaker",
-    "sxhkd",
-    "autorandr"
+    "sxhkd"
 ]
 lxqt = [
     "lxqt",
