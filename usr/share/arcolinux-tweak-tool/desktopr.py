@@ -111,7 +111,8 @@ i3 = [
     "picom",
     "polkit-gnome",
     "arcolinux-wallpapers-git",
-    "feh"
+    "feh",
+    "polybar"
 ]
 lxqt = [
     "lxqt",
