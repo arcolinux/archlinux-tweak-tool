@@ -28,7 +28,7 @@ def GUI(self, Gtk, vboxStack15, zsh_themes):
 
     hbox20.pack_end(termset, False, False, 0)
     hbox20.pack_end(termreset, False, False, 0)
-
+    
     vboxStack15.pack_start(hbox19, False, False, 0)  #Combobox
     vboxStack15.pack_end(hbox20, False, False, 0)  #Buttons
 
