@@ -120,8 +120,8 @@ i3 = [
     "polybar"
 ]
 jwm = [
-    "arcolinux-jwm-git",
     "jwm",
+    "arcolinux-jwm-git",
     "xdgmenumaker",
     "sxhkd"
 ]
