@@ -349,6 +349,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "jwm":
         command = list(np.append(jwm, arco_logout))
         src.append("/etc/skel/.config/jwm")
+        src.append("/etc/skel/.jwmrc")
         twm = True
     
     elif desktop == "lxqt":
