@@ -14,22 +14,26 @@ def get_list(fle):
     return lines
 
 
-def move_file(state):
+def move_file(self, state):
     if state:
-        fn.subprocess.run(["mv", fn.home + "/.config/i3/config", fn.home + "/.config/i3/config-bar"])
-        fn.subprocess.run(["mv", fn.home + "/.config/i3/config-polybar", fn.home + "/.config/i3/config"])
+        if fn.os.path.isfile(fn.home + "/.config/i3/config-polybar"):
+            fn.subprocess.run(["mv", fn.home + "/.config/i3/config", fn.home + "/.config/i3/config-bar"])
+            fn.subprocess.run(["mv", fn.home + "/.config/i3/config-polybar", fn.home + "/.config/i3/config"])
+        else:
+            fn.MessageBox(self, "OOPS!", "you dont seem to have <b>config-polybar</b> file in your <i>~/.config/i3</i> directory. So we can not enable this feature.")
+            self.poly.set_active(False)
     else:
         fn.subprocess.run(["mv", fn.home + "/.config/i3/config", fn.home + "/.config/i3/config-polybar"])
         fn.subprocess.run(["mv", fn.home + "/.config/i3/config-bar", fn.home + "/.config/i3/config"])
 
 
-def toggle_polybar(lines, state):
+def toggle_polybar(self, lines, state):
     if state:
         if not check_polybar(lines):
-            move_file(True)
+            move_file(self, True)
     else:
         if check_polybar(lines):
-            move_file(False)
+            move_file(self, False)
 
 
 def check_polybar(lines):

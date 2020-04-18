@@ -329,9 +329,9 @@ class Main(Gtk.Window):
 
     def on_polybar_toggle(self, widget, active):
         if widget.get_active():
-            themer.toggle_polybar(themer.get_list(Functions.i3wm_config), True)
+            themer.toggle_polybar(self, themer.get_list(Functions.i3wm_config), True)
         else:
-            themer.toggle_polybar(themer.get_list(Functions.i3wm_config), False)
+            themer.toggle_polybar(self, themer.get_list(Functions.i3wm_config), False)
             Functions.subprocess.run(["killall", "-q", "polybar"], shell=False)
 
     def on_awsome_change(self, widget):
