@@ -37,11 +37,15 @@ def toggle_polybar(self, lines, state):
 
 
 def check_polybar(lines):
-    pos = fn._get_position(lines, "~/.config/polybar/launch.sh")
-    if "#" in lines[pos]:
+    try:
+        pos = fn._get_position(lines, "~/.config/polybar/launch.sh")
+        if "#" in lines[pos]:
+            return False
+        else:
+            return True
+    except Exception as e:
+        print(e)
         return False
-    else:
-        return True
 
 
 def set_i3_themes(lines, theme):
