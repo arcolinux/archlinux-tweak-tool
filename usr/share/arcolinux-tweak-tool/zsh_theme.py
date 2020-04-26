@@ -10,20 +10,23 @@ def check_oh_my():
 
 def get_themes(combo):
     if check_oh_my():
-        lists = [x for x in os.listdir("/usr/share/oh-my-zsh/themes")]
-        lists = sorted(lists)
-        with open(Functions.zsh_config, "r") as f:
-            theme_list = f.readlines()
-            f.close()
-        pos = Functions._get_position(theme_list, "ZSH_THEME=")
-        name = theme_list[pos].split("=")[1].strip()
-        active = 0
-        combo.append_text("random")
-        for x in range(len(lists)):
-            if name in lists[x]:
-                active = x
-            combo.append_text(lists[x].split(".")[0].strip())
-        combo.set_active(active)
+        try:
+            lists = [x for x in os.listdir("/usr/share/oh-my-zsh/themes")]
+            lists = sorted(lists)
+            with open(Functions.zsh_config, "r") as f:
+                theme_list = f.readlines()
+                f.close()
+            pos = Functions._get_position(theme_list, "ZSH_THEME=")
+            name = theme_list[pos].split("=")[1].strip()
+            active = 0
+            combo.append_text("random")
+            for x in range(len(lists)):
+                if name in lists[x]:
+                    active = x
+                combo.append_text(lists[x].split(".")[0].strip())
+            combo.set_active(active)
+        except Exception as e:
+            print(e)
     else:
         combo.append_text("oh-my-zsh not installed...")
         combo.set_active(0)
