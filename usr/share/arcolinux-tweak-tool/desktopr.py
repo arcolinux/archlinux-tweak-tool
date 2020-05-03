@@ -462,28 +462,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/nitrogen")
         twm = True
     elif desktop == "plasma":
-        command = list(np.append(plasma, arco_logout))
-        src.append("/etc/skel/.config/autostart/org.kde.kgpg.desktop")
-        src.append("/etc/skel/.config/autostart/org.kde.yakuake.desktop")
-        src.append("/etc/skel/.config/kactivitymanagerdrc")
-        src.append("/etc/skel/.config/kactivitymanagerd-statsrc")
-        src.append("/etc/skel/.config/kcmfonts")
-        src.append("/etc/skel/.config/kcminputrc")
-        src.append("/etc/skel/.config/kdeglobals")
-        src.append("/etc/skel/.config/kglobalshortcutsrc")
-        src.append("/etc/skel/.config/khotkeysrc")
-        src.append("/etc/skel/.config/konsolerc")
-        src.append("/etc/skel/.config/kscreenlockerrc")
-        src.append("/etc/skel/.config/ksmserverrc")
-        src.append("/etc/skel/.config/ksplashrc")
-        src.append("/etc/skel/.config/kwinrc")
-        src.append("/etc/skel/.config/plasma-org.kde.plasma.desktop-appletsrc")
-        src.append("/etc/skel/.config/plasmarc")
-        src.append("/etc/skel/.config/yakuakerc")
-        src.append("/etc/skel/.local/share/kactivitymanagerd")
-        src.append("/etc/skel/.local/share/konsole")
-        src.append("/etc/skel/.local/share/kwin")
-        twm = True
+        command = plasma
     elif desktop == "qtile":
         command = list(np.append(qtile, arco_logout))
         src.append("/etc/skel/.config/qtile")
