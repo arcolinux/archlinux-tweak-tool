@@ -123,7 +123,7 @@ hlwm = [
     "herbstluftwm",
     "awesome-terminal-fonts",
     "dmenu",
-    "feh"
+    "feh",
     "gmrun",
     "picom",
     "polkit-gnome",
