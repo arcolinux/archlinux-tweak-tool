@@ -520,11 +520,16 @@ def install_desktop(self, desktop, state):
                     print(x)
                     dest = x.replace("/etc/skel", fn.home)
                     # print(dest)
+                    if fn.os.path.isdir(x):
+                        dest = fn.os.path.split(dest)[0]
                     l1 = np.append(copy, [x])
                     l2 = np.append(l1, [dest])
                     GLib.idle_add(self.desktopr_stat.set_text, "Copying " + x + " to " + dest)
-                    # print(list(l2))
-                    fn.subprocess.call(list(l2), shell=False, stdout=fn.subprocess.PIPE)
+                    
+                    with fn.subprocess.Popen(list(l2), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
+                        for line in p.stdout:
+                            GLib.idle_add(self.desktopr_stat.set_text, line.strip())
+                    # fn.subprocess.call(list(l2), shell=False, stdout=fn.subprocess.PIPE)
                     fn.permissions(dest)
 
         GLib.idle_add(self.desktopr_stat.set_text, "")

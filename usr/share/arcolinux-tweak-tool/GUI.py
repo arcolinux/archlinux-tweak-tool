@@ -35,7 +35,7 @@ import polybar_GUI
 import zsh_theme_GUI
 
 
-def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
+def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     process = Functions.subprocess.run(["sh", "-c", "echo \"$SHELL\""],
                              stdout=Functions.subprocess.PIPE)
 
@@ -247,6 +247,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os):  # noqa
     version.set_markup("<span foreground=\'grey\'>v20.5-28</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
+    self.lbl_desktop.set_ellipsize (Pango.EllipsizeMode.MIDDLE)
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
                                 self.desktop + "</span>")
 
