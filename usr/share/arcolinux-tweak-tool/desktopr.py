@@ -267,9 +267,7 @@ openbox = [
 plasma = [
     "plasma-meta",
     "ark",
-    "cryfs",
     "discover",
-    "dolphin-plugins",
     "ffmpegthumbs",
     "gwenview",
     "kdeadmin-meta",
@@ -280,7 +278,6 @@ plasma = [
     "spectacle",
     "surfn-arc-breeze-icons-git",
     "arcolinux-arc-kde",
-    "arcolinux-plasma-git",
     "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
