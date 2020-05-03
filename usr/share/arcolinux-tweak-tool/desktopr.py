@@ -462,7 +462,10 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/nitrogen")
         twm = True
     elif desktop == "plasma":
-        command = plasma
+        command = list(np.append(plasma, arco_logout))
+        src.append("/etc/skel/.config")
+        src.append("/etc/skel/.local")
+        twm = True
     elif desktop == "qtile":
         command = list(np.append(qtile, arco_logout))
         src.append("/etc/skel/.config/qtile")
