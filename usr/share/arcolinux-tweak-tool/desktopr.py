@@ -277,6 +277,7 @@ plasma = [
     "yakuake",
     "spectacle",
     "surfn-arc-breeze-icons-git",
+    "arcolinux-plasma-git",
     "arcolinux-arc-kde",
     "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
@@ -405,11 +406,13 @@ def check_lock(self, desktop, state):
 
     return False
 
-def check_catfish(self):
-    if fn.os.path.isfile("/usr/bin/catfish"):
-        with fn.subprocess.Popen(["sh", "-c", "yes | pkexec pacman -R catfish"], bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
+
+def check_package(self, path, package):
+    if fn.os.path.isfile(path + "/" + package):
+        with fn.subprocess.Popen(["sh", "-c", "yes | pkexec pacman -R " + package], bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
             for line in p.stdout:
                 GLib.idle_add(self.desktopr_stat.set_text, line.strip())
+
 
 def install_desktop(self, desktop, state):
 
@@ -426,11 +429,12 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/bspwm")
         twm = True
     elif desktop == "budgie-desktop":
-        check_catfish(self)
+        check_package(self, "/usr/bin", "catfish")
         command = budgie
     elif desktop == "cinnamon":
         command = cinnamon
     elif desktop == "deepin":
+        check_package(self, "/usr/bin", "qt5ct")
         command = deepin
     elif desktop == "gnome":
         command = gnome
@@ -465,7 +469,11 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/nitrogen")
         twm = True
     elif desktop == "plasma":
+        check_package(self, "/usr/bin", "qt5ct")
         command = plasma
+        src.append("/etc/skel/.config")
+        src.append("/etc/skel/.local/share")
+        twm = True
     elif desktop == "qtile":
         command = list(np.append(qtile, arco_logout))
         src.append("/etc/skel/.config/qtile")
