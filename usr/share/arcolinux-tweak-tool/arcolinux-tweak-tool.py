@@ -22,7 +22,7 @@ from Functions import os, pacman
 from subprocess import PIPE, STDOUT
 from time import sleep
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk, GdkPixbuf  # noqa
+from gi.repository import Gtk, Gdk, GdkPixbuf, Pango  # noqa
 # from Settings import settings, configparser
 
 #                #=======================================================
@@ -120,7 +120,7 @@ class Main(Gtk.Window):
             Settings.make_file("TERMITE", key)
             Functions.permissions(Functions.config)
 
-        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os)
+        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango)
         self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
                                     self.desktop.lower() + "</span>")
 
