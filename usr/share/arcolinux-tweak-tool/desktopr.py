@@ -443,11 +443,14 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/jwm")
         src.append("/etc/skel/.jwmrc")
         twm = True
-
     elif desktop == "lxqt":
         command = list(np.append(lxqt, arco_logout))
-        # src.append([])
-        # twm = True
+        src.append("/etc/skel/.config/lxqt")
+        src.append("/etc/skel/.config/openbox")
+        src.append("/etc/skel/.config/pcmanfm-qt")
+        src.append("/etc/skel/.config/qterminal.org")
+        src.append("/etc/skel/.local/share/filemanager/actions/")
+        twm = True
     elif desktop == "mate":
         command = mate
     elif desktop == "openbox":
