@@ -145,6 +145,7 @@ hlwm = [
 i3 = [
     "i3-gaps",
     "i3status",
+    "autotiling",
     "dmenu",
     "feh",
     "picom",
