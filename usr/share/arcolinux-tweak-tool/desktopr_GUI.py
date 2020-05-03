@@ -68,7 +68,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir):
     # =======================================
     self.desktopr_prog = Gtk.ProgressBar()
     self.desktopr_stat = Gtk.Label(xalign=0)
-
+    self.desktopr_stat.set_ellipsize (Pango.EllipsizeMode.MIDDLE)
+    
     vboxprog.pack_start(self.desktopr_stat, False, False, 0)
     vboxprog.pack_start(self.desktopr_prog, False, False, 0)
 

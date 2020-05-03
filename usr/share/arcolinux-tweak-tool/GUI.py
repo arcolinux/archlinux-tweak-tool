@@ -247,7 +247,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     version.set_markup("<span foreground=\'grey\'>v20.5-28</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
-    self.lbl_desktop.set_ellipsize (Pango.EllipsizeMode.MIDDLE)
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
                                 self.desktop + "</span>")
 
