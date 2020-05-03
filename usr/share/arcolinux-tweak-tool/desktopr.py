@@ -405,6 +405,11 @@ def check_lock(self, desktop, state):
 
     return False
 
+def check_catfish(self):
+    if fn.os.path.isfile("/usr/bin/catfish"):
+        with fn.subprocess.Popen(["sh", "-c", "yes | pkexec pacman -R catfish"], bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
+            for line in p.stdout:
+                GLib.idle_add(self.desktopr_stat.set_text, line.strip())
 
 def install_desktop(self, desktop, state):
 
@@ -421,6 +426,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/bspwm")
         twm = True
     elif desktop == "budgie-desktop":
+        check_catfish(self)
         command = budgie
     elif desktop == "cinnamon":
         command = cinnamon
