@@ -433,10 +433,12 @@ def install_desktop(self, desktop, state):
     if desktop == "awesome":
         command = list(np.append(awesome, arco_logout))
         src.append("/etc/skel/.config/awesome")
+        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "bspwm":
         command = list(np.append(bspwm, arco_logout))
         src.append("/etc/skel/.config/bspwm")
+        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "budgie-desktop":
         check_package(self, "/usr/bin", "catfish")
@@ -451,15 +453,18 @@ def install_desktop(self, desktop, state):
     elif desktop == "herbstluftwm":
         command = list(np.append(hlwm, arco_logout))
         src.append("/etc/skel/.config/herbstluftwm")
+        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "i3":
         command = list(np.append(i3, arco_logout))
         src.append("/etc/skel/.config/i3")
+        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "jwm":
         command = list(np.append(jwm, arco_logout))
         src.append("/etc/skel/.config/jwm")
         src.append("/etc/skel/.jwmrc")
+        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "lxqt":
         command = list(np.append(lxqt, arco_logout))
@@ -477,6 +482,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/obmenu-generator")
         src.append("/etc/skel/.config/tint2")
         src.append("/etc/skel/.config/nitrogen")
+        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "plasma":
         check_package(self, "/usr/bin", "qt5ct")
@@ -487,12 +493,14 @@ def install_desktop(self, desktop, state):
     elif desktop == "qtile":
         command = list(np.append(qtile, arco_logout))
         src.append("/etc/skel/.config/qtile")
+        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "xfce":
         command = list(np.append(xfce, arco_logout))
     elif desktop == "xmonad":
         command = list(np.append(xmonad, arco_logout))
         src.append("/etc/skel/.xmonad")
+        src.append("/etc/skel/.config/termite")
         twm = True
     # fn.subprocess.call(list(np.append(pkexec, command)))
 
