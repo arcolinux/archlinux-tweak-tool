@@ -244,7 +244,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.5-34</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.5-35</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +

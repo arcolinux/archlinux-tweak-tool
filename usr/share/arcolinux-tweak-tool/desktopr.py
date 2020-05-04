@@ -45,7 +45,6 @@ awesome = [
     "arcolinux-awesome-git",
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
-    "arcolinux-termite-themes-git",
     "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
@@ -70,7 +69,6 @@ bspwm = [
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-polybar-git",
-    "arcolinux-termite-themes-git",
     "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
@@ -136,7 +134,6 @@ hlwm = [
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-polybar-git",
-    "arcolinux-termite-themes-git",
     "arcolinux-tweak-tool-git",
     "arcolinux-xfce-git",
     "arcolinux-wallpapers-git",
@@ -158,7 +155,6 @@ i3 = [
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-polybar-git",
-    "arcolinux-termite-themes-git",
     "arcolinux-tweak-tool-git",
     "arcolinux-xfce-git",
     "arcolinux-wallpapers-git",
@@ -179,7 +175,6 @@ jwm = [
     "arcolinux-jwm-git",
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
-    "arcolinux-termite-themes-git",
     "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
@@ -202,7 +197,6 @@ lxqt = [
     "xscreensaver",
     "arcolinux-logout-git",
     "arcolinux-lxqt-git",
-    "arcolinux-termite-themes-git",
     "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
@@ -257,7 +251,6 @@ openbox = [
     "arcolinux-pipemenus-git",
     "arcolinux-rofi-git",
     "arcolinux-rofi-themes-git",
-    "arcolinux-termite-themes-git",
     "arcolinux-tint2-git",
     "arcolinux-tint2-themes-git",
     "arcolinux-tweak-tool-git",
@@ -305,7 +298,6 @@ qtile = [
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-qtile-git",
-    "arcolinux-termite-themes-git",
     "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
@@ -322,7 +314,6 @@ xfce = [
     "polkit-gnome",
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
-    "arcolinux-termite-themes-git",
     "arcolinux-tweak-tool-git",
     "arcolinux-xfce-git",
     "arcolinux-wallpapers-git",
@@ -345,7 +336,6 @@ xmonad = [
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-polybar-git",
-    "arcolinux-termite-themes-git",
     "arcolinux-tweak-tool-git",
     "arcolinux-xfce-git",
     "arcolinux-xmonad-polybar-git",
@@ -433,12 +423,10 @@ def install_desktop(self, desktop, state):
     if desktop == "awesome":
         command = list(np.append(awesome, arco_logout))
         src.append("/etc/skel/.config/awesome")
-        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "bspwm":
         command = list(np.append(bspwm, arco_logout))
         src.append("/etc/skel/.config/bspwm")
-        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "budgie-desktop":
         check_package(self, "/usr/bin", "catfish")
@@ -453,18 +441,15 @@ def install_desktop(self, desktop, state):
     elif desktop == "herbstluftwm":
         command = list(np.append(hlwm, arco_logout))
         src.append("/etc/skel/.config/herbstluftwm")
-        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "i3":
         command = list(np.append(i3, arco_logout))
         src.append("/etc/skel/.config/i3")
-        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "jwm":
         command = list(np.append(jwm, arco_logout))
         src.append("/etc/skel/.config/jwm")
         src.append("/etc/skel/.jwmrc")
-        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "lxqt":
         command = list(np.append(lxqt, arco_logout))
@@ -482,7 +467,6 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/obmenu-generator")
         src.append("/etc/skel/.config/tint2")
         src.append("/etc/skel/.config/nitrogen")
-        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "plasma":
         check_package(self, "/usr/bin", "qt5ct")
@@ -493,14 +477,12 @@ def install_desktop(self, desktop, state):
     elif desktop == "qtile":
         command = list(np.append(qtile, arco_logout))
         src.append("/etc/skel/.config/qtile")
-        src.append("/etc/skel/.config/termite")
         twm = True
     elif desktop == "xfce":
         command = list(np.append(xfce, arco_logout))
     elif desktop == "xmonad":
         command = list(np.append(xmonad, arco_logout))
         src.append("/etc/skel/.xmonad")
-        src.append("/etc/skel/.config/termite")
         twm = True
     # fn.subprocess.call(list(np.append(pkexec, command)))
 
