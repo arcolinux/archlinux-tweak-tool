@@ -240,7 +240,7 @@ openbox = [
     "polkit-gnome",
     "rofi",
     "tint2",
-    "xcape"
+    "xcape",
     "yad",
     "arcolinux-common-git",
     "arcolinux-local-xfce4-git",
