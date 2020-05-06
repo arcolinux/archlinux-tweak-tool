@@ -117,6 +117,3 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     #               PACK TO WINDOW
     # =======================================
     vboxStack12.pack_start(vbox1, True, True, 0)
-
-    label2 = Gtk.Label()
-    label2.set_markup("Improve your <b>security</b> and <b>privacy</b> by blocking ads, tracking and malware domains.")
