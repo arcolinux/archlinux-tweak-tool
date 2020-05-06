@@ -69,9 +69,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     self.desktopr_prog = Gtk.ProgressBar()
     self.desktopr_stat = Gtk.Label(xalign=0)
     self.desktopr_stat.set_ellipsize (Pango.EllipsizeMode.MIDDLE)
-    
+
     noice = Gtk.Label(xalign=0)
-    noice.set_text("If you want to install Deepin you do that first before any other desktop. If ATT will not install it then type sudo pacman -S deepin deepin-extra in a terminal and you decide whether you want to resolve the conflicting files. It may result in other unstable desktops.")
+    noice.set_text("Install Deepin first before any other desktop to avoid conflicting packages.")
     noice.set_line_wrap(True)
     self.desktopr_error = Gtk.Label(xalign=0)
 

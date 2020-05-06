@@ -525,7 +525,7 @@ def install_desktop(self, desktop, state):
                     l1 = np.append(copy, [x])
                     l2 = np.append(l1, [dest])
                     GLib.idle_add(self.desktopr_stat.set_text, "Copying " + x + " to " + dest)
-                    
+
                     with fn.subprocess.Popen(list(l2), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
                         for line in p.stdout:
                             GLib.idle_add(self.desktopr_stat.set_text, line.strip())
@@ -537,6 +537,6 @@ def install_desktop(self, desktop, state):
         GLib.idle_add(fn.show_in_app_notification, self, desktop + " has been installed")
     else:
         GLib.idle_add(self.desktop_status.set_markup, "This desktop is <b>NOT</b> installed")
-        GLib.idle_add(self.desktopr_error, "Install " + desktop + " via terminal")
+        GLib.idle_add(self.desktopr_error, "Install this " + desktop + " via terminal")
         # GLib.idle_add(self.desktopr_stat.set_text, "An error has occured in installation")
         GLib.idle_add(fn.show_in_app_notification, self, desktop + " has not been installed")
