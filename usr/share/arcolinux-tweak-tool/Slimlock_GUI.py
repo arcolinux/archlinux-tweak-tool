@@ -5,9 +5,12 @@
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Slimlock Editor")
     lbl1.set_name("title")
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
     # ==========================================================
     #                       TAB #5 SLIMLOCK
@@ -98,6 +101,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
     hbox14.pack_end(slimreset, False, False, 0)
 
     vboxStack5.pack_start(hbox3, False, False, 0)  # combobox
+    vboxStack5.pack_start(hbox4, False, False, 0)  # combobox
         
     vboxStack5.pack_start(hbox13, False, False, 0)  # combobox
     vboxStack5.pack_start(hbox35, False, False, 0)  # Preview Theme

@@ -5,9 +5,12 @@
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Grub Themes")
     lbl1.set_name("title")
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
     # ==========================================================
     #                       GRUB
@@ -79,6 +82,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     hbox9.pack_end(grub_reset, False, False, 0)
 
     vboxStack4.pack_start(hbox3, False, False, 0) #Add theme
+    vboxStack4.pack_start(hbox4, False, False, 0) #Add theme
     vboxStack4.pack_start(hbox11, False, False, 0) #Add theme
     vboxStack4.pack_start(hbox12, False, False, 0) #btn Import
     vboxStack4.pack_start(scrolled, True, True, 0) #Preview

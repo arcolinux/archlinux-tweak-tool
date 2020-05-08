@@ -5,9 +5,12 @@
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Oblogout Editor")
     lbl1.set_name("title")
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox8.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
     # ==========================================================
     #                       TAB #6 OBLOGOUT
@@ -237,6 +240,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os
 
     # vboxStack6.pack_start(hbox6, False, False, 0)  # image
     vboxStack6.pack_start(hbox3, False, False, 0)  # slider
+    vboxStack6.pack_start(hbox8, False, False, 0)  # slider
     vboxStack6.pack_start(hbox5, False, False, 0)  # slider
     vboxStack6.pack_start(hbox4, False, False, 0)  # themes
     vboxStack6.pack_start(hbox7, False, False, 0)  # button label

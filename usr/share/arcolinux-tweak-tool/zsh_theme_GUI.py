@@ -5,9 +5,12 @@
 
 def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("ZSH Themes")
     lbl1.set_name("title")
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
     # ==========================================================
     #                     TERMITE CONFIG
@@ -38,6 +41,7 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     hbox20.pack_end(termreset, False, False, 0)
 
     vboxStack15.pack_start(hbox3, False, False, 0)  # Combobox
+    vboxStack15.pack_start(hbox4, False, False, 0)  # Combobox
     vboxStack15.pack_start(hbox19, False, False, 0)  # Combobox
     vboxStack15.pack_start(image, False, False, 0)  # image
     vboxStack15.pack_end(hbox20, False, False, 0)  # Buttons

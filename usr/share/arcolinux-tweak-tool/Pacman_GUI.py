@@ -7,9 +7,12 @@
 
 def GUI(self, Gtk, vboxStack1, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Pacman Config Editor")
     lbl1.set_name("title")
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
     # ==========================================================
     #                   GLOBALS
@@ -205,6 +208,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # vboxStack1.pack_start(hboxStack8, False, False, 0)
     # vboxStack1.pack_start(hboxStack9, False, False, 0)
     vboxStack1.pack_start(hbox3, False, False, 5)
+    vboxStack1.pack_start(hbox4, False, False, 5)
     vboxStack1.pack_start(frame3, False, False, 5)
     # frame4.add(hboxStack1)
     # =================TESTING REPO========================

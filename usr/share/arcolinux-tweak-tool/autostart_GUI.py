@@ -7,6 +7,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
 
     vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
 
@@ -43,6 +44,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Autostart")
     lbl1.set_name("title")
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
 
     lbls = Gtk.Label(xalign=0)
@@ -119,6 +122,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     # vbox1.pack_end(rbutton, False, False, 0)
     # hbox.pack_start(vbox1, False, False, 0)
     vboxStack13.pack_start(hbox3, False, False, 0)
+    vboxStack13.pack_start(hbox4, False, False, 0)
     vboxStack13.pack_start(toplabelbox, False, False, 0)
     vboxStack13.pack_start(mainbox, True, True, 0)
     vboxStack13.pack_start(labelbox, False, False, 0)
