@@ -77,7 +77,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     self.desktopr_stat.set_ellipsize (Pango.EllipsizeMode.MIDDLE)
 
     noice = Gtk.Label(xalign=0)
-    noice.set_text("Install Deepin first before any other desktop to avoid conflicting packages.")
+    noice.set_text("Install Deepin first before any other desktop to avoid conflicting packages")
     noice.set_line_wrap(True)
     self.desktopr_error = Gtk.Label(xalign=0)
 
