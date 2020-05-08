@@ -4,6 +4,11 @@
 
 
 def GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir):
+    hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    lbl1 = Gtk.Label(xalign=0)
+    lbl1.set_text("Termite Themes")
+    lbl1.set_name("title")
+    hbox3.pack_start(lbl1, False, False, 0)
     # ==========================================================
     #                     TERMITE CONFIG
     # ==========================================================
@@ -32,6 +37,7 @@ def GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir):
     hbox20.pack_end(termset, False, False, 0)
     hbox20.pack_end(termreset, False, False, 0)
 
+    vboxStack7.pack_start(hbox3, False, False, 0)  # Combobox
     vboxStack7.pack_start(hbox19, False, False, 0)  # Combobox
     vboxStack7.pack_start(image, False, False, 0)  # Image
     vboxStack7.pack_end(hbox20, False, False, 0)  # Buttons

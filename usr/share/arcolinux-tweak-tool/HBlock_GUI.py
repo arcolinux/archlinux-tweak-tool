@@ -4,6 +4,11 @@
 
 
 def GUI(self, Gtk, vboxStack3, Functions):
+    hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    lbl1 = Gtk.Label(xalign=0)
+    lbl1.set_text("HBlock Addblocker")
+    lbl1.set_name("title")
+    hbox3.pack_start(lbl1, False, False, 0)
     # ==========================================================
     #                       HBLOCK
     # ==========================================================
@@ -35,6 +40,7 @@ def GUI(self, Gtk, vboxStack3, Functions):
     hbox7.pack_start(label, False, False, 10)
     hbox7.pack_end(self.hbswich, False, False, 10)
 
+    vboxStack3.pack_start(hbox3, False, False, 0)
     vboxStack3.pack_start(hbox7, False, False, 0)
     vboxStack3.pack_start(label2, True, False, 0)
     vboxStack3.pack_end(self.progress, False, False, 0)

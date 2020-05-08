@@ -4,6 +4,11 @@
 
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
+    hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    lbl1 = Gtk.Label(xalign=0)
+    lbl1.set_text("Neofetch Editor")
+    lbl1.set_name("title")
+    hbox3.pack_start(lbl1, False, False, 0)
     # ==========================================================
     #                     NEOFETCH
     # ==========================================================
@@ -153,6 +158,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(resetneofetch, False, False, 0)
 
+    vboxStack8.pack_start(hbox3, False, False, 0) #Backend RadioButtons
     vboxStack8.pack_start(hbox22, False, False, 0) #Backend RadioButtons
     vboxStack8.pack_start(self.hbox26, False, False, 0) #Ascii RadioButtons
     vboxStack8.pack_start(hbox23, False, False, 0) #ComboBox

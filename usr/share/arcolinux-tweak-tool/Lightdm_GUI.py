@@ -4,6 +4,12 @@
 
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    lbl1 = Gtk.Label(xalign=0)
+    lbl1.set_text("Lightdm Autologin")
+    lbl1.set_name("title")
+    hbox4.pack_start(lbl1, False, False, 0)
+
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -42,6 +48,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     hbox2.pack_end(apply, False, False, 0)
     hbox2.pack_end(reset, False, False, 0)
 
+    vboxStack10.pack_start(hbox4, False, False, 10)
     vboxStack10.pack_start(hbox, False, False, 10)
     vboxStack10.pack_start(hbox3, False, False, 0)
     vboxStack10.pack_start(hbox1, False, False, 0)

@@ -6,6 +6,7 @@
 def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango):
 
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     buttonbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     # defaultbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     statbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -15,6 +16,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     vboxprog = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
 
     dropbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=1)
+
+    lbl1 = Gtk.Label(xalign=0)
+    lbl1.set_text("Desktop Installer")
+    lbl1.set_name("title")
+    hbox3.pack_start(lbl1, False, False, 0)
 
     # =======================================
     #               DROPDOWN
@@ -116,4 +122,5 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     # =======================================
     #               PACK TO WINDOW
     # =======================================
+    vboxStack12.pack_start(hbox3, False, False, 0)
     vboxStack12.pack_start(vbox1, True, True, 0)

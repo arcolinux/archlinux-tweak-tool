@@ -4,6 +4,12 @@
 
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
+    hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    lbl1 = Gtk.Label(xalign=0)
+    lbl1.set_text("Theme Switcher")
+    lbl1.set_name("title")
+    hbox6.pack_start(lbl1, False, False, 0)
+
     if Functions.os.path.isfile(Functions.i3wm_config):
         i3_list = themer.get_list(Functions.i3wm_config)
     if Functions.os.path.isfile(Functions.awesome_config):
@@ -166,4 +172,5 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)
 
+    vboxStack10.pack_start(hbox6, False, False, 0)
     vboxStack10.pack_start(vbox, True, True, 0)
