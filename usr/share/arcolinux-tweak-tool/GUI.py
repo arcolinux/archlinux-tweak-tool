@@ -120,34 +120,73 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     #                       TAB #5 SLIMLOCK
     # ==========================================================
-    if Functions.file_check(Functions.slimlock_conf):
-        Slimlock_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os)
+    # if Functions.file_check(Functions.slimlock_conf):
+    #     Slimlock_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os)
 
     # ==========================================================
     #                       TAB #6 OBLOGOUT
     # ==========================================================
-    if Functions.file_check(Functions.oblogout_conf):
-        Oblogout_GUI.GUI(self, Gtk, Gdk, GdkPixbuf,
-                         base_dir, vboxStack6, oblogout, Functions, os)
+    # if Functions.file_check(Functions.oblogout_conf):
+    #     Oblogout_GUI.GUI(self, Gtk, Gdk, GdkPixbuf,
+    #                      base_dir, vboxStack6, oblogout, Functions, os)
 
     # # ==========================================================
     # #                     TERMITE CONFIG
     # # ==========================================================
     if Functions.file_check(Functions.termite_config):
         Termite_GUI.GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir)
-
+    else:
+        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        lbl1 = Gtk.Label(xalign=0)
+        lbl1.set_text("Termite Themes")
+        lbl1.set_name("title")
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox41.pack_start(hseparator, True, True, 0)
+        hbox31.pack_start(lbl1, False, False, 0)
+        vboxStack7.pack_start(hbox31, False, False, 0)
+        vboxStack7.pack_start(hbox41, False, False, 0)
+        ls = Gtk.Label()
+        ls.set_markup("If you install <b>ArcoLinux termite themes</b> you can choose the theme")
+        vboxStack7.pack_start(ls, True, False, 0)
     # # ==========================================================
     # #                     NEOFETCH
     # # ==========================================================
     if Functions.file_check(Functions.neofetch_config):
         Neofetch_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions)
-
+    else:
+        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        lbl1 = Gtk.Label(xalign=0)
+        lbl1.set_text("Neofetch Editor")
+        lbl1.set_name("title")
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox41.pack_start(hseparator, True, True, 0)
+        hbox31.pack_start(lbl1, False, False, 0)
+        vboxStack8.pack_start(hbox31, False, False, 0)
+        vboxStack8.pack_start(hbox41, False, False, 0)
+        ls = Gtk.Label()
+        ls.set_markup("If you install <b>Neofetch</b> and the <i>ArcoLinux themes</i> you can customize <b>Neofetch</b>")
+        vboxStack8.pack_start(ls, True, False, 0)
     # # ==========================================================
     # #                     LIGHTDM
     # # ==========================================================
     if Functions.file_check(Functions.lightdm_conf):
         Lightdm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack11, lightdm, Functions)
-
+    else:
+        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        lbl1 = Gtk.Label(xalign=0)
+        lbl1.set_text("Lightdm Autologin")
+        lbl1.set_name("title")
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox41.pack_start(hseparator, True, True, 0)
+        hbox31.pack_start(lbl1, False, False, 0)
+        vboxStack11.pack_start(hbox31, False, False, 0)
+        vboxStack11.pack_start(hbox41, False, False, 0)
+        ls = Gtk.Label()
+        ls.set_markup("If you install <b>lightdm</b> you can toggle autologin and set your default desktop session")
+        vboxStack11.pack_start(ls, True, False, 0)
     # # ==========================================================
     # #                     Skelapp
     # # ==========================================================
@@ -159,7 +198,20 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
         Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
-
+    else:
+        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        lbl1 = Gtk.Label(xalign=0)
+        lbl1.set_text("Theme Switcher")
+        lbl1.set_name("title")
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox41.pack_start(hseparator, True, True, 0)
+        hbox31.pack_start(lbl1, False, False, 0)
+        vboxStack10.pack_start(hbox31, False, False, 0)
+        vboxStack10.pack_start(hbox41, False, False, 0)
+        ls = Gtk.Label()
+        ls.set_markup("Change your themes on <b>I3</b> or <b>Awesome</b>")
+        vboxStack10.pack_start(ls, True, False, 0)
     # ==========================================================
     #                       Themer
     # ==========================================================
@@ -184,7 +236,20 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     if output == "/bin/zsh":
         zsh_theme_GUI.GUI(self, Gtk, vboxStack15, zsh_theme, base_dir, GdkPixbuf)
-
+    else:
+        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        lbl1 = Gtk.Label(xalign=0)
+        lbl1.set_text("ZSH Themes")
+        lbl1.set_name("title")
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox41.pack_start(hseparator, True, True, 0)
+        hbox31.pack_start(lbl1, False, False, 0)
+        vboxStack15.pack_start(hbox31, False, False, 0)
+        vboxStack15.pack_start(hbox41, False, False, 0)
+        ls = Gtk.Label()
+        ls.set_markup("If you switch to <b>ZSH</b> you can change the theme")
+        vboxStack15.pack_start(ls, True, False, 0)
     # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
@@ -200,36 +265,36 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack3, "stack2", "") # Hblock
 
-    if Functions.file_check(Functions.lightdm_conf):
-        stack.add_titled(vboxStack11, "stack3", "") # Lightdm config
+    # if Functions.file_check(Functions.lightdm_conf):
+    stack.add_titled(vboxStack11, "stack3", "") # Lightdm config
 
-    if Functions.file_check(Functions.neofetch_config):
-        stack.add_titled(vboxStack8, "stack4", "") # Neofetch config
+    # if Functions.file_check(Functions.neofetch_config):
+    stack.add_titled(vboxStack8, "stack4", "") # Neofetch config
 
-    if Functions.file_check(Functions.oblogout_conf):
-        stack.add_titled(vboxStack6, "stack5", "") # Oblogout config
+    # if Functions.file_check(Functions.oblogout_conf):
+    #     stack.add_titled(vboxStack6, "stack5", "") # Oblogout config
 
-    if Functions.file_check(Functions.pacman):
-        stack.add_titled(vboxStack1, "stack6", "") # Pacman config
+    # if Functions.file_check(Functions.pacman):
+    stack.add_titled(vboxStack1, "stack6", "") # Pacman config
 
     # if Functions.path_check(Functions.polybar):
     #     stack.add_titled(vboxStack14, "stack14", "Polybar changer")
 
-    if Functions.file_check(Functions.slimlock_conf):
-        stack.add_titled(vboxStack5, "stack7", "") # Slimlock
+    # if Functions.file_check(Functions.slimlock_conf):
+    #     stack.add_titled(vboxStack5, "stack7", "") # Slimlock
 
-    if Functions.file_check(Functions.termite_config):
-        stack.add_titled(vboxStack7, "stack8", "") # Termite themes
+    # if Functions.file_check(Functions.termite_config):
+    stack.add_titled(vboxStack7, "stack8", "") # Termite themes
 
     # stack.add_titled(vboxStack2, "stack9", "Theming")
 
     # stack.add_titled(vboxStack9, "stack10", "Tweak skel")
 
-    if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
-        stack.add_titled(vboxStack10, "stack11", "") # Theme changer
+    # if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
+    stack.add_titled(vboxStack10, "stack11", "") # Theme changer
 
-    if output == "/bin/zsh":
-        stack.add_titled(vboxStack15, "stack15", "") # Zsh themes
+    # if output == "/bin/zsh":
+    stack.add_titled(vboxStack15, "stack15", "") # Zsh themes
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_name("sidebar")
@@ -247,7 +312,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.5-43</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.5-44</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
