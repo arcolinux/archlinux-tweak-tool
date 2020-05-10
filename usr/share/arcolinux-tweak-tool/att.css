@@ -10,12 +10,12 @@ box#vbox {
     padding-right: 20px;
 }
 
-#sidebar * {
+#sidebar label * {
     font-family: 'FontAwesome';
     font-size: 18px;
     font-weight: 100;
-    padding-left: 7px;
-    padding-right: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 label#title {
