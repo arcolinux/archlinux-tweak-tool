@@ -196,7 +196,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack12, "stack12", "") # Desktop installer
 
-    stack.add_titled(vboxStack4, "stack1", "") # Grub config
+    stack.add_titled(vboxStack4, "stack1", "")  # Grub config
 
     stack.add_titled(vboxStack3, "stack2", "") # Hblock
 
