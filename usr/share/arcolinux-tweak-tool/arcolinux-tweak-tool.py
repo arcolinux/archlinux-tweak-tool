@@ -22,7 +22,7 @@ from Functions import os, pacman
 from subprocess import PIPE, STDOUT
 from time import sleep
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk, GdkPixbuf, Pango  # noqa
+from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib  # noqa
 # from Settings import settings, configparser
 
 #                #=======================================================
@@ -801,6 +801,24 @@ class Main(Gtk.Window):
 #    #====================================================================
 #    #                       TERMITE THEMES
 #    #====================================================================
+
+    def on_install_termite_themes(self, widget):
+        self.btn_term.set_sensitive(False)
+        ll = self.btn_term.get_child()
+        ll.set_text("Installing ....")
+        t1 = Functions.threading.Thread(target=self.install_term_themes, args=())
+        t1.daemon = True
+        t1.start()
+
+    def install_term_themes(self):
+        Functions.subprocess.run(['pkexec', 'pacman', '-S', 'arcolinux-termite-themes-git', '--noconfirm', '--needed'])
+        Functions.copy_func("/etc/skel/.config/termite", Functions.home + "./.config/", True)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Themes Installed")
+
+        GLib.idle_add(self.btn_term.set_sensitive, True)
+        ll = self.btn_term.get_child()
+        GLib.idle_add(ll.set_text, "Install termite themes")
+        GLib.idle_add(self.ls2.set_markup, "Please restart the <b>ArcoLinux Tweak Tool</b>")
 
     def on_term_apply(self, widget):
         if self.term_themes.get_active_text() is not None:

@@ -138,6 +138,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     else:
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox42 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        vbox41 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         lbl1 = Gtk.Label(xalign=0)
         lbl1.set_text("Termite Themes")
         lbl1.set_name("title")
@@ -148,7 +150,15 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack7.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
         ls.set_markup("If you install <b>ArcoLinux termite themes</b> you can choose the theme")
-        vboxStack7.pack_start(ls, True, False, 0)
+        self.ls2 = Gtk.Label()
+        self.ls2.set_markup("")
+        self.btn_term = Gtk.Button(label="Install termite themes")
+        self.btn_term.connect("clicked", self.on_install_termite_themes)
+        vbox41.pack_start(ls, False, False, 0)
+        hbox42.pack_start(self.btn_term, True, False, 0)
+        vbox41.pack_start(hbox42, False, False, 0)
+        vbox41.pack_start(self.ls2, False, False, 0)
+        vboxStack7.pack_start(vbox41, True, False, 0)
     # # ==========================================================
     # #                     NEOFETCH
     # # ==========================================================
