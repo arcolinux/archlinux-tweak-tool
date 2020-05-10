@@ -813,6 +813,7 @@ class Main(Gtk.Window):
     def install_term_themes(self):
         Functions.subprocess.run(['pkexec', 'pacman', '-S', 'arcolinux-termite-themes-git', '--noconfirm', '--needed'])
         Functions.copy_func("/etc/skel/.config/termite", Functions.home + "/.config/", True)
+        Functions.permissions(Functions.home + "/.config/termite")
         GLib.idle_add(Functions.show_in_app_notification, self, "Themes Installed")
 
         GLib.idle_add(self.btn_term.set_sensitive, True)
