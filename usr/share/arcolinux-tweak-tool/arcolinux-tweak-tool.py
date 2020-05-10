@@ -121,8 +121,8 @@ class Main(Gtk.Window):
             Functions.permissions(Functions.config)
 
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango)
-        self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
-                                    self.desktop.lower() + "</span>")
+        # self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
+        #                             self.desktop.lower() + "</span>")
 
 #       #========================TESTING REPO=============================
         arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
