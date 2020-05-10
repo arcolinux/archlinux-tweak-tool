@@ -206,8 +206,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     if Functions.file_check(Functions.neofetch_config):
         stack.add_titled(vboxStack8, "stack4", "") # Neofetch config
 
-    if Functions.file_check(Functions.oblogout_conf):
-        stack.add_titled(vboxStack6, "stack5", "") # Oblogout config
+    # if Functions.file_check(Functions.oblogout_conf):
+    stack.add_titled(vboxStack6, "stack5", "") # Oblogout config
 
     if Functions.file_check(Functions.pacman):
         stack.add_titled(vboxStack1, "stack6", "") # Pacman config
@@ -215,21 +215,21 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # if Functions.path_check(Functions.polybar):
     #     stack.add_titled(vboxStack14, "stack14", "Polybar changer")
 
-    if Functions.file_check(Functions.slimlock_conf):
-        stack.add_titled(vboxStack5, "stack7", "") # Slimlock
+    # if Functions.file_check(Functions.slimlock_conf):
+    stack.add_titled(vboxStack5, "stack7", "") # Slimlock
 
-    if Functions.file_check(Functions.termite_config):
-        stack.add_titled(vboxStack7, "stack8", "") # Termite themes
+    # if Functions.file_check(Functions.termite_config):
+    stack.add_titled(vboxStack7, "stack8", "") # Termite themes
 
     # stack.add_titled(vboxStack2, "stack9", "Theming")
 
     # stack.add_titled(vboxStack9, "stack10", "Tweak skel")
 
-    if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
-        stack.add_titled(vboxStack10, "stack11", "") # Theme changer
+    # if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
+    stack.add_titled(vboxStack10, "stack11", "") # Theme changer
 
-    if output == "/bin/zsh":
-        stack.add_titled(vboxStack15, "stack15", "") # Zsh themes
+    # if output == "/bin/zsh":
+    stack.add_titled(vboxStack15, "stack15", "") # Zsh themes
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_name("sidebar")
@@ -247,7 +247,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.5-42</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.5-43</span>")
 
     self.lbl_desktop = Gtk.Label(xalign=0)
     self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
