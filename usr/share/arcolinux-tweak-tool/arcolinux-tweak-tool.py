@@ -817,7 +817,7 @@ class Main(Gtk.Window):
 
         GLib.idle_add(self.btn_term.set_sensitive, True)
         ll = self.btn_term.get_child()
-        GLib.idle_add(ll.set_text, "Install termite themes")
+        GLib.idle_add(ll.set_text, "Install Termite themes")
         GLib.idle_add(self.ls2.set_markup, "Please restart the <b>ArcoLinux Tweak Tool</b>")
 
     def on_term_apply(self, widget):
