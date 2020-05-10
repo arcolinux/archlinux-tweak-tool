@@ -258,7 +258,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack15.pack_start(hbox31, False, False, 0)
         vboxStack15.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
-        ls.set_markup("If you switch to <b>ZSH</b> you can change the theme")
+        ls.set_markup("If you switch to <b>Zsh</b> you can change the theme")
         vboxStack15.pack_start(ls, True, False, 0)
     # ==========================================================
     #                     ADD TO WINDOW
@@ -322,7 +322,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                       VERSION
     # =====================================================
     version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v20.5-47</span>")
+    version.set_markup("<span foreground=\'grey\'>v20.5-48</span>")
 
     # self.lbl_desktop = Gtk.Label(xalign=0)
     # self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
