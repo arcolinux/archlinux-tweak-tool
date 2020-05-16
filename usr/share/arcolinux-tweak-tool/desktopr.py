@@ -270,7 +270,7 @@ plasma = [
     "discover",
     "ffmpegthumbs",
     "gwenview",
-    "kde-system-meta"",
+    "kde-system-meta",
     "okular",
     "packagekit-qt5",
     "yakuake",
