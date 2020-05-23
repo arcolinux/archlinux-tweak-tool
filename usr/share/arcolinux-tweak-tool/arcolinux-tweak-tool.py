@@ -6,6 +6,7 @@ import pacman_functions
 import Support
 import Settings
 import slim
+import signal
 import Gtk_Functions
 import oblogout
 import termite
@@ -1353,7 +1354,14 @@ class Main(Gtk.Window):
 # ====================================================================
 
 
+def signal_handler(sig, frame):
+    print('\nATT is Closing.')
+    os.unlink("/tmp/att.lock")
+    Gtk.main_quit(0)
+
+
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, signal_handler)
     if not os.path.isfile("/tmp/att.lock"):
         with open("/tmp/att.pid", "w") as f:
             f.write(str(os.getpid()))
