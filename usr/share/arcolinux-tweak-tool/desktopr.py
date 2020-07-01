@@ -315,6 +315,7 @@ ukui = [
     "arcolinux-ukui-git",
     "arcolinux-qt5-git",
     "thunar",
+    "dmenu",
     "thunar-archive-plugin",
     "thunar-volman",
     "xfce4-terminal",
