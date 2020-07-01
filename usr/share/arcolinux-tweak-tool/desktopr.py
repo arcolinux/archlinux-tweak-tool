@@ -27,6 +27,7 @@ desktops = [
     "openbox",
     "plasma",
     "qtile",
+    "ukui",
     "xfce",
     "xmonad"
 ]
@@ -305,6 +306,27 @@ qtile = [
     "thunar-volman",
     "xfce4-terminal",
 ]
+ukui = [
+    "ukui",
+    "arcolinux-local-xfce4-git",
+    "arcolinux-ukui-git",
+    "arcolinux-tweak-tool-git",
+    "arcolinux-wallpapers-git",
+    "arcolinux-ukui-git",
+    "arcolinux-qt5-git",
+    "thunar",
+    "thunar-archive-plugin",
+    "thunar-volman",
+    "xfce4-terminal",
+    "gvfs",
+    "qt5-quickcontrols",
+    "accountsservice",
+    "gnome-screenshot",
+    "redshift",
+    "mate-control-center",
+    "mate-system-monitor",
+    "mate-terminal",
+]
 xfce = [
     "xfce4",
     "xfce4-goodies",
@@ -476,6 +498,10 @@ def install_desktop(self, desktop, state):
     elif desktop == "qtile":
         command = list(np.append(qtile, arco_logout))
         src.append("/etc/skel/.config/qtile")
+        twm = True
+    elif desktop == "ukui":
+        command = list(np.append(ukui, arco_logout))
+        src.append("/etc/skel/.config/")
         twm = True
     elif desktop == "xfce":
         command = list(np.append(xfce, arco_logout))
