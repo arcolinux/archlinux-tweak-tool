@@ -528,6 +528,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "spectrwm":
         command = list(np.append(spectrwm, arco_logout))
         src.append("/etc/skel/.config/spectrwm")
+        src.append("/etc/skel/.spectrwm.conf")
         twm = True
     elif desktop == "ukui":
         command = list(np.append(ukui, arco_logout))
