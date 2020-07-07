@@ -328,6 +328,8 @@ spectrwm = [
     "thunar-archive-plugin",
     "thunar-volman",
     "xfce4-terminal",
+    "pavucontrol",
+    "pulseaudio",
 ]
 ukui = [
     "ukui",
