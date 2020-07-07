@@ -27,6 +27,7 @@ desktops = [
     "openbox",
     "plasma",
     "qtile",
+    "spectrwm",
     "ukui",
     "xfce",
     "xmonad"
@@ -306,6 +307,27 @@ qtile = [
     "thunar-volman",
     "xfce4-terminal",
 ]
+spectrwm = [
+    "spectrwm",
+    "polybar",
+    "sxhkd",
+    "dmenu",
+    "feh",
+    "gmrun",
+    "picom",
+    "polkit-gnome",
+    "python-psutil",
+    "arcolinux-local-xfce4-git",
+    "arcolinux-logout-git",
+    "arcolinux-spectrwm-git",
+    "arcolinux-tweak-tool-git",
+    "arcolinux-wallpapers-git",
+    "arcolinux-xfce-git",
+    "thunar",
+    "thunar-archive-plugin",
+    "thunar-volman",
+    "xfce4-terminal",
+]
 ukui = [
     "ukui",
     "arcolinux-local-xfce4-git",
@@ -499,6 +521,10 @@ def install_desktop(self, desktop, state):
     elif desktop == "qtile":
         command = list(np.append(qtile, arco_logout))
         src.append("/etc/skel/.config/qtile")
+        twm = True
+    elif desktop == "spectrwm":
+        command = list(np.append(qtile, arco_logout))
+        src.append("/etc/skel/.config/spectrwm")
         twm = True
     elif desktop == "ukui":
         command = list(np.append(ukui, arco_logout))
