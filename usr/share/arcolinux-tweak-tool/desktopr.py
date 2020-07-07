@@ -310,6 +310,7 @@ qtile = [
 spectrwm = [
     "spectrwm",
     "polybar",
+    "arcolinux-polybar-git",
     "sxhkd",
     "dmenu",
     "feh",
