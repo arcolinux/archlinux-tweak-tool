@@ -523,7 +523,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/qtile")
         twm = True
     elif desktop == "spectrwm":
-        command = list(np.append(qtile, arco_logout))
+        command = list(np.append(spectrwm, arco_logout))
         src.append("/etc/skel/.config/spectrwm")
         twm = True
     elif desktop == "ukui":
