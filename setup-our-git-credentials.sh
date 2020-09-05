@@ -123,9 +123,9 @@ case $CHOICE in
 			git config --global credential.helper cache
 			git config --global credential.helper 'cache --timeout=32000'
       ;;
-		7 )
-			echo
-		  ;;
+    7 )
+      echo
+      ;;
     8 )
       echo
       ;;
