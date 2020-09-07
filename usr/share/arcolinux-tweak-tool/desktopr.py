@@ -265,6 +265,7 @@ openbox = [
     "xfce4-settings",
     "xfce4-taskmanager",
     "xfce4-terminal",
+    "openbox-arc-git",
 ]
 plasma = [
     "plasma-meta",
