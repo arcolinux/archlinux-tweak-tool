@@ -21,6 +21,7 @@ desktops = [
     "gnome",
     "herbstluftwm",
     "i3",
+    "icewm",
     "jwm",
     "lxqt",
     "mate",
@@ -163,6 +164,28 @@ i3 = [
     "thunar",
     "thunar-archive-plugin",
     "thunar-volman",
+    "xfce4-terminal",
+]
+icewm = [
+    "icewm",
+    "autorandr",
+    "dmenu",
+    "feh",
+    "picom",
+    "polkit-gnome",
+    "xdgmenumaker",
+    "arcolinux-icewm-git",
+    "arcolinux-local-xfce4-git",
+    "arcolinux-logout-git",
+    "arcolinux-tweak-tool-git",
+    "arcolinux-wallpapers-git",
+    "arcolinux-xfce-git",
+    "thunar",
+    "thunar-archive-plugin",
+    "thunar-volman",
+    "xfce4-notifyd",
+    "xfce4-screenshooter",
+    "xfce4-taskmanager",
     "xfce4-terminal",
 ]
 jwm = [
@@ -493,6 +516,10 @@ def install_desktop(self, desktop, state):
     elif desktop == "i3":
         command = list(np.append(i3, arco_logout))
         src.append("/etc/skel/.config/i3")
+        twm = True
+    elif desktop == "icewm":
+        command = list(np.append(icewm, arco_logout))
+        src.append("/etc/skel/.config/icewm")
         twm = True
     elif desktop == "jwm":
         command = list(np.append(jwm, arco_logout))
