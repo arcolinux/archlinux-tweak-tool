@@ -529,7 +529,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "dwm":
         command = list(np.append(dwm, arco_logout))
         src.append("/etc/skel/.config/arco-dwm")
-        twm = True    
+        twm = True
     elif desktop == "gnome":
         command = gnome
     elif desktop == "herbstluftwm":
