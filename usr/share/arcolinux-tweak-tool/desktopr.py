@@ -132,9 +132,9 @@ dwm = [
     "gmrun",
     "picom",
     "polkit-gnome",
-    "sxhkd"
-    "arcolinux-dwm-git"
-    "arcolinux-dwm-slstatus-git"
+    "sxhkd",
+    "arcolinux-dwm-git",
+    "arcolinux-dwm-slstatus-git",
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-wallpapers-git",
