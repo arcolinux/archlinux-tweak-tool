@@ -18,6 +18,7 @@ desktops = [
     "budgie-desktop",
     "cinnamon",
     "deepin",
+    "dwm",
     "gnome",
     "herbstluftwm",
     "i3",
@@ -48,7 +49,6 @@ awesome = [
     "arcolinux-awesome-git",
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
     "thunar",
@@ -72,7 +72,6 @@ bspwm = [
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-polybar-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
     "thunar",
@@ -88,7 +87,6 @@ budgie = [
     "guake",
     "ttf-hack",
     "arcolinux-budgie-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
 ]
 cinnamon = [
@@ -101,17 +99,52 @@ cinnamon = [
     "mintlocale",
     "iso-flag-png",
     "arcolinux-cinnamon-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
     "xfce4-terminal",
 ]
+    #issues with deepin screenrecorder and screenshot for group "deepin-extra",
 deepin = [
     "deepin",
-    "deepin-extra",
+    "deepin-album",
+    "deepin-boot-maker",
+    "deepin-calculator",
+    "deepin-clipboard",
+    "deepin-clone",
+    "deepin-community-wallpapers",
+    "deepin-compressor",
+    "deepin-draw",
+    "deepin-editor",
+    "deepin-movie",
+    "deepin-music",
+    "deepin-picker",
+    "deepin-printer",
+    "deepin-reader",
+    "deepin-screensaver-pp",
+    "deepin-terminal",
+    "deepin-voice-note",
     "arcolinux-deepin-git",
     "arcolinux-wallpapers-git",
-    "arcolinux-tweak-tool-git",
+]
+dwm = [
+    "dmenu",
+    "feh",
+    "gmrun",
+    "picom",
+    "polkit-gnome",
+    "sxhkd"
+    "arcolinux-dwm-git"
+    "arcolinux-dwm-slstatus-git"
+    "arcolinux-local-xfce4-git",
+    "arcolinux-logout-git",
+    "arcolinux-wallpapers-git",
+    "arcolinux-xfce-git",
+    "thunar",
+    "thunar-archive-plugin",
+    "thunar-volman",
+    "xfce4-terminal",
+    "gsimplecal",
+    "xfce4-taskmanager",
 ]
 gnome = [
     "gnome",
@@ -119,7 +152,6 @@ gnome = [
     "guake",
     "ttf-hack",
     "arcolinux-gnome-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
 ]
 hlwm = [
@@ -137,7 +169,6 @@ hlwm = [
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-polybar-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-xfce-git",
     "arcolinux-wallpapers-git",
     "thunar",
@@ -158,7 +189,6 @@ i3 = [
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-polybar-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-xfce-git",
     "arcolinux-wallpapers-git",
     "thunar",
@@ -177,7 +207,6 @@ icewm = [
     "arcolinux-icewm-git",
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
     "thunar",
@@ -200,7 +229,6 @@ jwm = [
     "arcolinux-jwm-git",
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
     "thunar",
@@ -222,7 +250,6 @@ lxqt = [
     "xscreensaver",
     "arcolinux-logout-git",
     "arcolinux-lxqt-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
     "thunar",
@@ -239,7 +266,6 @@ mate = [
     "dmenu",
     "gnome-screenshot",
     "arcolinux-mate-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
     "thunar",
@@ -278,7 +304,6 @@ openbox = [
     "arcolinux-rofi-themes-git",
     "arcolinux-tint2-git",
     "arcolinux-tint2-themes-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
     "thunar",
@@ -304,7 +329,6 @@ plasma = [
     "surfn-arc-breeze-icons-git",
     "arcolinux-plasma-git",
     "arcolinux-arc-kde",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
     "thunar",
@@ -323,7 +347,6 @@ qtile = [
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-qtile-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
     "thunar",
@@ -345,7 +368,6 @@ spectrwm = [
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-spectrwm-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
     "thunar",
@@ -359,7 +381,6 @@ ukui = [
     "ukui",
     "arcolinux-local-xfce4-git",
     "arcolinux-ukui-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-wallpapers-git",
     "arcolinux-ukui-git",
     "arcolinux-qt5-git",
@@ -385,7 +406,6 @@ xfce = [
     "polkit-gnome",
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-xfce-git",
     "arcolinux-wallpapers-git",
 ]
@@ -407,7 +427,6 @@ xmonad = [
     "arcolinux-local-xfce4-git",
     "arcolinux-logout-git",
     "arcolinux-polybar-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-xfce-git",
     "arcolinux-xmonad-polybar-git",
     "arcolinux-wallpapers-git",
@@ -507,6 +526,10 @@ def install_desktop(self, desktop, state):
     elif desktop == "deepin":
         check_package(self, "/usr/bin", "qt5ct")
         command = deepin
+    elif desktop == "dwm":
+        command = list(np.append(dwm, arco_logout))
+        src.append("/etc/skel/.config/arco-dwm")
+        twm = True        
     elif desktop == "gnome":
         command = gnome
     elif desktop == "herbstluftwm":
