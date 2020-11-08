@@ -342,6 +342,7 @@ qtile = [
     "feh",
     "gmrun",
     "picom",
+    "sxhkd",
     "polkit-gnome",
     "python-psutil",
     "arcolinux-local-xfce4-git",
