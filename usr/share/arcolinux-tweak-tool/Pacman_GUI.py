@@ -27,7 +27,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    #hboxStack11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
     # ========================================================
@@ -95,10 +95,10 @@ def GUI(self, Gtk, vboxStack1, Functions):
     label8 = Gtk.Label(xalign=0)
     label8.set_markup("Enable Hefftor's repo")
 
-    self.bobo_button = Gtk.Switch()
-    self.bobo_button.connect("notify::active", self.on_bobo_toggle)
-    label9 = Gtk.Label(xalign=0)
-    label9.set_markup("Enable Bobo's repo")
+    # self.bobo_button = Gtk.Switch()
+    # self.bobo_button.connect("notify::active", self.on_bobo_toggle)
+    # label9 = Gtk.Label(xalign=0)
+    # label9.set_markup("Enable Bobo's repo")
 
     # ========================================================
     #               CUSTOM REPOS
@@ -148,10 +148,10 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     hboxStack10.pack_start(label8, False, True, 10)
     hboxStack10.pack_end(self.hefftor_button, False, False, 10)
-    hboxStack11.pack_start(label9, False, True, 10)
-    hboxStack11.pack_end(self.bobo_button, False, False, 10)
-    vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
-    vboxStack4.pack_start(hboxStack11, False, False, 10)
+    #hboxStack11.pack_start(label9, False, True, 10)
+    #hboxStack11.pack_end(self.bobo_button, False, False, 10)
+    #vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    #vboxStack4.pack_start(hboxStack11, False, False, 10)
     # ========================================================
     #               TESTING REPOS PACKING
     # ========================================================
@@ -190,7 +190,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vbox2.pack_start(hboxStack10, False, False, 0)
-    vbox2.pack_start(vboxStack4, False, False, 0)
+    #vbox2.pack_start(vboxStack4, False, False, 0)
     frame2.add(vbox2)
 
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
