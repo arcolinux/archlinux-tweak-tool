@@ -17,6 +17,7 @@ desktops = [
     "bspwm",
     "budgie-desktop",
     "cinnamon",
+    "cwm",
     "deepin",
     "dwm",
     "gnome",
