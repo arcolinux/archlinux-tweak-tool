@@ -121,7 +121,7 @@ cwm = [
 ]
 deepin = [
     "deepin",
- 	"deepin-extra"
+ 	"deepin-extra",
     "arcolinux-deepin-git",
     "arcolinux-wallpapers-git",
 ]
