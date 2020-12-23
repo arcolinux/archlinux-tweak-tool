@@ -103,26 +103,24 @@ cinnamon = [
     "arcolinux-xfce-git",
     "xfce4-terminal",
 ]
-    #issues with deepin screenrecorder and screenshot for group "deepin-extra",
+cwm = [
+    "cwm",
+    "dmenu",
+    "sxhkd",
+    "autorandr",
+    "polybar",
+    "arcolinux-cwm-git",
+    "arcolinux-wallpapers-git",
+    "arcolinux-xfce-git",
+    "xfce4-terminal",
+    "arcolinux-logout-git",
+    "thunar",
+    "thunar-archive-plugin",
+    "thunar-volman",      
+]
 deepin = [
     "deepin",
-    "deepin-album",
-    "deepin-boot-maker",
-    "deepin-calculator",
-    "deepin-clipboard",
-    "deepin-clone",
-    "deepin-community-wallpapers",
-    "deepin-compressor",
-    "deepin-draw",
-    "deepin-editor",
-    "deepin-movie",
-    "deepin-music",
-    "deepin-picker",
-    "deepin-printer",
-    "deepin-reader",
-    "deepin-screensaver-pp",
-    "deepin-terminal",
-    "deepin-voice-note",
+ 	"deepin-extra"
     "arcolinux-deepin-git",
     "arcolinux-wallpapers-git",
 ]
@@ -524,6 +522,12 @@ def install_desktop(self, desktop, state):
         command = budgie
     elif desktop == "cinnamon":
         command = cinnamon
+    elif desktop == "cwm":
+        command = list(np.append(cwm, arco_logout))
+        src.append("/etc/skel/.config/cwm")
+        src.append("/etc/.cwmrc")
+        src.append("/etc/.xprofile")
+        twm = True        
     elif desktop == "deepin":
         check_package(self, "/usr/bin", "qt5ct")
         command = deepin
