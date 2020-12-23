@@ -526,8 +526,8 @@ def install_desktop(self, desktop, state):
     elif desktop == "cwm":
         command = list(np.append(cwm, arco_logout))
         src.append("/etc/skel/.config/cwm")
-        src.append("/etc/.cwmrc")
-        src.append("/etc/.xprofile")
+        src.append("/etc/skel/.cwmrc")
+        src.append("/etc/skel/.xprofile")
         twm = True        
     elif desktop == "deepin":
         check_package(self, "/usr/bin", "qt5ct")
