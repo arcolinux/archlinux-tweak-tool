@@ -266,6 +266,7 @@ mate = [
     "gnome-screenshot",
     "arcolinux-mate-git",
     "arcolinux-wallpapers-git",
+    "arcolinux-xfce-git",
     "xfce4-terminal",
 ]
 openbox = [
@@ -372,6 +373,7 @@ spectrwm = [
 ukui = [
     "ukui",
     "arcolinux-local-xfce4-git",
+    "arcolinux-xfce-git",
     "arcolinux-ukui-git",
     "arcolinux-wallpapers-git",
     "arcolinux-ukui-git",
