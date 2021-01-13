@@ -266,10 +266,6 @@ mate = [
     "gnome-screenshot",
     "arcolinux-mate-git",
     "arcolinux-wallpapers-git",
-    "arcolinux-xfce-git",
-    "thunar",
-    "thunar-archive-plugin",
-    "thunar-volman",
     "xfce4-terminal",
 ]
 openbox = [
@@ -329,10 +325,6 @@ plasma = [
     "arcolinux-plasma-git",
     "arcolinux-arc-kde",
     "arcolinux-wallpapers-git",
-    "arcolinux-xfce-git",
-    "thunar",
-    "thunar-archive-plugin",
-    "thunar-volman",
 ]
 qtile = [
     "qtile",
@@ -384,8 +376,8 @@ ukui = [
     "arcolinux-wallpapers-git",
     "arcolinux-ukui-git",
     "arcolinux-qt5-git",
-    "thunar",
     "dmenu",
+    "thunar",
     "thunar-archive-plugin",
     "thunar-volman",
     "xfce4-terminal",
