@@ -500,7 +500,7 @@ def check_package(self, path, package):
 
 def install_desktop(self, desktop, state):
 
-    src = ["/etc/skel/.config/polybar"]
+    src = [""]
     twm = False
     # error = False
 
@@ -511,6 +511,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "bspwm":
         command = list(np.append(bspwm, arco_logout))
         src.append("/etc/skel/.config/bspwm")
+        src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "budgie-desktop":
         check_package(self, "/usr/bin", "catfish")
@@ -522,6 +523,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/cwm")
         src.append("/etc/skel/.cwmrc")
         src.append("/etc/skel/.xprofile")
+        src.append("/etc/skel/.config/polybar")
         twm = True        
     elif desktop == "deepin":
         check_package(self, "/usr/bin", "qt5ct")
@@ -535,10 +537,12 @@ def install_desktop(self, desktop, state):
     elif desktop == "herbstluftwm":
         command = list(np.append(hlwm, arco_logout))
         src.append("/etc/skel/.config/herbstluftwm")
+        src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "i3":
         command = list(np.append(i3, arco_logout))
         src.append("/etc/skel/.config/i3")
+        src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "icewm":
         command = list(np.append(icewm, arco_logout))
@@ -580,6 +584,7 @@ def install_desktop(self, desktop, state):
         command = list(np.append(spectrwm, arco_logout))
         src.append("/etc/skel/.config/spectrwm")
         src.append("/etc/skel/.spectrwm.conf")
+        src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "ukui":
         command = list(np.append(ukui, arco_logout))
@@ -590,6 +595,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "xmonad":
         command = list(np.append(xmonad, arco_logout))
         src.append("/etc/skel/.xmonad")
+        src.append("/etc/skel/.config/polybar")
         twm = True
     # fn.subprocess.call(list(np.append(pkexec, command)))
 
