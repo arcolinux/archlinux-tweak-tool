@@ -56,6 +56,7 @@ awesome = [
     "thunar-archive-plugin",
     "thunar-volman",
     "xfce4-terminal",
+    "noto-fonts",
 ]
 bspwm = [
     "bspwm",
