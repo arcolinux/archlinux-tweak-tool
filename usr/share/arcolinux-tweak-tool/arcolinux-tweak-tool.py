@@ -138,7 +138,7 @@ class Main(Gtk.Window):
 
 #       #========================SPINOFF REPO=============================
         hefftor_repo = pmf.check_repo("[hefftor-repo]")
-        bobo_repo = pmf.check_repo("[bobo-repo]")
+        bobo_repo = pmf.check_repo("[chaotic-aur]")
 
 #       #========================ARCO REPO SET TOGGLE=====================
         self.arepo_button.set_active(arco_base)
