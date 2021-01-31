@@ -59,7 +59,7 @@ SigLevel = Optional TrustedOnly\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist-bradheff"
 
 bobo_repo = "[chaotic-aur]\n\
-SigLevel = Optional TrustedOnly\n\
+SigLevel = Required DatabaseOptional\n\
 Include = /etc/pacman.d/chaotic-mirrorlist"
 # =====================================================
 #               NOTIFICATIONS
