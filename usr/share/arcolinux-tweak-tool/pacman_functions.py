@@ -114,7 +114,7 @@ def toggle_test_repos(self, state, widget):  # noqa
                 if widget == "hefftor":
                     spin_on("[hefftor-repo]", lines, i, line)
                 if widget == "bobo":
-                    spin_on("[bobo-repo]", lines, i, line)
+                    spin_on("[chaotic-aur]", lines, i, line)
                 if widget == "arco_base":
                     pacman_on("[arcolinux_repo]", lines, i, line)
                 if widget == "arco_a3p":
@@ -149,7 +149,7 @@ def toggle_test_repos(self, state, widget):  # noqa
                 if widget == "hefftor":
                     spin_off("[hefftor-repo]", lines, i, line)
                 if widget == "bobo":
-                    spin_off("[bobo-repo]", lines, i, line)
+                    spin_off("[chaotic-aur]", lines, i, line)
 
                 if widget == "arco_base":
                     pacman_off("[arcolinux_repo]", lines, i, line)
