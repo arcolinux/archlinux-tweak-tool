@@ -498,7 +498,6 @@ def check_package(self, path, package):
                 GLib.idle_add(self.desktopr_stat.set_text, line.strip())
 
 
-
 def install_desktop(self, desktop, state):
 
     src = []
@@ -628,23 +627,23 @@ def install_desktop(self, desktop, state):
 
     if check_desktop(desktop):
         print(src)
-        # if twm is True:
-        for x in src:
-            if fn.os.path.isdir(x) or fn.os.path.isfile(x):
-                print(x)
-                dest = x.replace("/etc/skel", fn.home)
-                # print(dest)
-                if fn.os.path.isdir(x):
-                    dest = fn.os.path.split(dest)[0]
-                l1 = np.append(copy, [x])
-                l2 = np.append(l1, [dest])
-                GLib.idle_add(self.desktopr_stat.set_text, "Copying " + x + " to " + dest)
+        if twm is True:
+            for x in src:
+                if fn.os.path.isdir(x) or fn.os.path.isfile(x):
+                    print(x)
+                    dest = x.replace("/etc/skel", fn.home)
+                    # print(dest)
+                    if fn.os.path.isdir(x):
+                        dest = fn.os.path.split(dest)[0]
+                    l1 = np.append(copy, [x])
+                    l2 = np.append(l1, [dest])
+                    GLib.idle_add(self.desktopr_stat.set_text, "Copying " + x + " to " + dest)
 
-                with fn.subprocess.Popen(list(l2), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
-                    for line in p.stdout:
-                        GLib.idle_add(self.desktopr_stat.set_text, line.strip())
-                # fn.subprocess.call(list(l2), shell=False, stdout=fn.subprocess.PIPE)
-                fn.permissions(dest)
+                    with fn.subprocess.Popen(list(l2), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
+                        for line in p.stdout:
+                            GLib.idle_add(self.desktopr_stat.set_text, line.strip())
+                    # fn.subprocess.call(list(l2), shell=False, stdout=fn.subprocess.PIPE)
+                    fn.permissions(dest)
 
         GLib.idle_add(self.desktopr_stat.set_text, "")
         GLib.idle_add(self.desktop_status.set_text, "This desktop is installed")

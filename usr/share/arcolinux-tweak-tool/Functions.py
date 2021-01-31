@@ -58,9 +58,9 @@ hefftor_repo = "[hefftor-repo]\n\
 SigLevel = Optional TrustedOnly\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist-bradheff"
 
-bobo_repo = "[bobo-repo]\n\
+bobo_repo = "[chaotic-aur]\n\
 SigLevel = Optional TrustedOnly\n\
-Include = /etc/pacman.d/arcolinux-mirrorlist-bobo"
+Include = /etc/pacman.d/chaotic-mirrorlist"
 # =====================================================
 #               NOTIFICATIONS
 # =====================================================
