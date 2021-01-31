@@ -285,7 +285,7 @@ class Main(Gtk.Window):
                                       "hefftor")
 
     def on_bobo_toggle(self, widget, active):
-        if not pmf.repo_exist("[bobo-repo]"):
+        if not pmf.repo_exist("[chaotic-aur]"):
             pmf.append_repo(self, Functions.bobo_repo)
         else:
             if self.opened is False:
