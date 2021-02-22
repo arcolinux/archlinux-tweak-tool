@@ -5,6 +5,7 @@ import numpy as np
 import Functions as fn
 import Settings
 import gi
+import datetime
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk  # noqa
 
@@ -504,7 +505,9 @@ def install_desktop(self, desktop, state):
     src = []
     twm = False
     # error = False
-
+    # make backup of your .config
+    now = datetime.datetime.now()
+    fn.copy_func(fn.home + "/.config/", fn.home + "/.config-att-" + now.strftime("%Y-%m-%d-%H-%M-%S"), isdir=True)
     if desktop == "awesome":
         command = list(np.append(awesome, arco_logout))
         src.append("/etc/skel/.config/awesome")
