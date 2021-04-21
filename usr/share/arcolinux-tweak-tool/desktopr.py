@@ -824,6 +824,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/obmenu-generator")
         src.append("/etc/skel/.config/tint2")
         src.append("/etc/skel/.config/nitrogen")
+        src.append("/etc/skel/.config/picom.conf")
         twm = True
     elif desktop == "plasma":
         check_package(self, "/usr/bin", "qt5ct")
