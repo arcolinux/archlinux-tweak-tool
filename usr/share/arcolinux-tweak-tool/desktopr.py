@@ -785,6 +785,7 @@ def install_desktop(self, desktop, state):
         command = list(np.append(fvwm3, arco_logout))
         src.append("/etc/skel/.config/fvwm3")
         src.append("/etc/skel/.fvwm")
+        src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "gnome":
         command = gnome
