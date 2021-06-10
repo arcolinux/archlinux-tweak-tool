@@ -90,10 +90,10 @@ def GUI(self, Gtk, vboxStack1, Functions):
     frame2lbl = frame2.get_label_widget()
     frame2lbl.set_markup("<b>Other repos</b>")
 
-    self.hefftor_button = Gtk.Switch()
-    self.hefftor_button.connect("notify::active", self.on_hefftor_toggle)
-    label8 = Gtk.Label(xalign=0)
-    label8.set_markup("Enable Hefftors repo")
+    #self.hefftor_button = Gtk.Switch()
+    #self.hefftor_button.connect("notify::active", self.on_hefftor_toggle)
+    #label8 = Gtk.Label(xalign=0)
+    #label8.set_markup("Enable Hefftors repo")
 
     self.bobo_button = Gtk.Switch()
     self.bobo_button.connect("notify::active", self.on_bobo_toggle)
@@ -146,8 +146,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               SPINOFF REPOS PACKING
     # ========================================================
-    hboxStack10.pack_start(label8, False, True, 10)
-    hboxStack10.pack_end(self.hefftor_button, False, False, 10)
+    #hboxStack10.pack_start(label8, False, True, 10)
+    #hboxStack10.pack_end(self.hefftor_button, False, False, 10)
     hboxStack11.pack_start(label9, False, True, 10)
     hboxStack11.pack_end(self.bobo_button, False, False, 10)
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)

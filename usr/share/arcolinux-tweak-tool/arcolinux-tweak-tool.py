@@ -151,7 +151,7 @@ class Main(Gtk.Window):
         self.checkbutton3.set_active(multi_testing)
         self.checkbutton4.set_active(arch_community)
 #       #========================SPINOFF REPO SET TOGGLE==================
-        self.hefftor_button.set_active(hefftor_repo)
+        #self.hefftor_button.set_active(hefftor_repo)
         self.bobo_button.set_active(bobo_repo)
 
         self.opened = False
