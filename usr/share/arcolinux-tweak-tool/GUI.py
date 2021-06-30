@@ -265,27 +265,27 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     # stack.add_titled(vboxStack10, "stack0", "Welcome")
     #
-    stack.add_titled(vboxStack13, "stack13", "")  # Autostart
+    stack.add_titled(vboxStack13, "stack13", "Autostart")  # Autostart
     # prop.set_property("has-tooltip", True)
     # prop.connect("query-tooltip", self.tooltip_callback, "Support BradHeff on Patreon")
 
-    stack.add_titled(vboxStack12, "stack12", "")  # Desktop installer
+    stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
 
-    stack.add_titled(vboxStack4, "stack1", "")  # Grub config
+    stack.add_titled(vboxStack4, "stack1", "Grub")  # Grub config
 
-    stack.add_titled(vboxStack3, "stack2", "")  # Hblock
+    stack.add_titled(vboxStack3, "stack2", "Privacy")  # Hblock
 
     # if Functions.file_check(Functions.lightdm_conf):
-    stack.add_titled(vboxStack11, "stack3", "")  # Lightdm config
+    stack.add_titled(vboxStack11, "stack3", "Lightdm")  # Lightdm config
 
     # if Functions.file_check(Functions.neofetch_config):
-    stack.add_titled(vboxStack8, "stack4", "")  # Neofetch config
+    stack.add_titled(vboxStack8, "stack4", "Neofetch")  # Neofetch config
 
     # if Functions.file_check(Functions.oblogout_conf):
     #     stack.add_titled(vboxStack6, "stack5", "") # Oblogout config
 
     # if Functions.file_check(Functions.pacman):
-    stack.add_titled(vboxStack1, "stack6", "")  # Pacman config
+    stack.add_titled(vboxStack1, "stack6", "Pacman")  # Pacman config
 
     # if Functions.path_check(Functions.polybar):
     #     stack.add_titled(vboxStack14, "stack14", "Polybar changer")
@@ -294,17 +294,17 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #     stack.add_titled(vboxStack5, "stack7", "") # Slimlock
 
     # if Functions.file_check(Functions.termite_config):
-    stack.add_titled(vboxStack7, "stack8", "")  # Termite themes
+    stack.add_titled(vboxStack7, "stack8", "Termite")  # Termite themes
 
     # stack.add_titled(vboxStack2, "stack9", "Theming")
 
     # stack.add_titled(vboxStack9, "stack10", "Tweak skel")
 
     # if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
-    stack.add_titled(vboxStack10, "stack11", "")  # Theme changer
+    stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
 
     # if output == "/bin/zsh":
-    stack.add_titled(vboxStack15, "stack15", "")  # Zsh themes
+    stack.add_titled(vboxStack15, "stack15", "Zsh")  # Zsh themes
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_name("sidebar")

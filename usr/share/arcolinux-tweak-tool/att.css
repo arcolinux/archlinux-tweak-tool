@@ -11,9 +11,8 @@ box#vbox {
 }
 
 #sidebar label {
-    font-family: 'FontAwesome';
-    font-size: 18px;
-    font-weight: 100;
+    font-size: 14px;
+    font-weight: 500;
     padding-left: 15px;
     padding-right: 15px;
 }
