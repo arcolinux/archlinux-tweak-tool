@@ -506,7 +506,7 @@ plasma = [
     "kde-system-meta",
     "arcolinux-arc-kde",
     "arcolinux-config-plasma-git",
-    "arcolinux-gtk3-surfn-arc-breeze-git",
+    "arcolinux-gtk3-surfn-plasma-dark-git",
     "arcolinux-plasma-dconf-git",
     "arcolinux-plasma-git",
     "arcolinux-plasma-kservices-git",
@@ -534,7 +534,7 @@ plasma = [
     "partitionmanager",
     "sddm-kcm",
     "spectacle",
-    "surfn-arc-breeze-icons-git",
+    "surfn-plasma-dark-icons-git",
     "systemd-kcm",
     "yakuake",
 ]
