@@ -61,7 +61,7 @@ awesome = [
     "feh",
     "gmrun",
     "lxappearance",
-    "noto-fonts"
+    "noto-fonts",
     "picom",
     "polkit-gnome",
     "rofi",
