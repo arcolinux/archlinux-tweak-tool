@@ -27,7 +27,7 @@ from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib  # noqa
 # from Settings import settings, configparser
 
 #                #=======================================================
-#                #=                  Author: Brad Heffernan             =
+#                #=     Author: Brad Heffernan - Erik Dubois            =
 #                #=======================================================
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
