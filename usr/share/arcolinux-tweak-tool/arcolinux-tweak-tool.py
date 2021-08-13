@@ -12,12 +12,14 @@ import oblogout
 import termite
 import neofetch
 import skelapp
+import sddm
 import lightdm
 import themer
 import desktopr
 import autostart
 import polybar
 import zsh_theme
+import user
 import GUI
 from Functions import os, pacman
 from subprocess import PIPE, STDOUT
@@ -136,6 +138,9 @@ class Main(Gtk.Window):
         multi_3p = pmf.check_repo("[arcolinux_repo_3party]")
         arch_xl = pmf.check_repo("[arcolinux_repo_xlarge]")
 
+#       #========================ARCO MIRROR=============================
+        arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
+
 #       #========================SPINOFF REPO=============================
         hefftor_repo = pmf.check_repo("[hefftor-repo]")
         bobo_repo = pmf.check_repo("[chaotic-aur]")
@@ -144,6 +149,9 @@ class Main(Gtk.Window):
         self.arepo_button.set_active(arco_base)
         self.a3prepo_button.set_active(multi_3p)
         self.axlrepo_button.set_active(arch_xl)
+
+#       #========================ARCO MIRROR SET TOGGLE=====================
+        self.aseed_button.set_active(arco_mirror_seed)
 
 #       #========================TESTING REPO SET TOGGLE==================
         self.checkbutton.set_active(arco_testing)
@@ -163,6 +171,14 @@ class Main(Gtk.Window):
             else:
                 self.autologin.set_active(True)
                 self.sessions.set_sensitive(True)
+
+        if Functions.os.path.isfile(Functions.sddm_conf):
+            if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf),"User="):
+                self.autologin_sddm.set_active(False)
+                self.sessions_sddm.set_sensitive(False)
+            else:
+                self.autologin_sddm.set_active(True)
+                self.sessions_sddm.set_sensitive(True)
 
         # autostart.add_autostart()
 
@@ -259,6 +275,14 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_base")
+
+    def on_mirror_seed_repo_toggle(self, widget, active):
+        if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
+            pmf.append_mirror(self, Functions.seedhostmirror)
+        else:
+            if self.opened is False:
+                pmf.toggle_mirrorlist(self, widget.get_active(),
+                                      "arco_mirror_seed")                
 
     def on_pacman_a3p_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_3party]"):
@@ -971,6 +995,81 @@ class Main(Gtk.Window):
             self.sessions.set_sensitive(True)
         else:
             self.sessions.set_sensitive(False)
+            
+    # ====================================================================
+    #                       SDDM
+    # ====================================================================
+
+    def on_click_sddm_apply(self, widget):
+        if not Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
+            Functions.shutil.copy(Functions.sddm_conf,
+                                  Functions.sddm_conf + ".bak")
+
+        if (self.sessions_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or self.autologin_sddm.get_active() is False:
+            t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
+                                            args=(self,
+                                                sddm.get_sddm_lines(Functions.sddm_conf),  # noqa
+                                                Functions.sudo_username,
+                                                self.sessions_sddm.get_active_text(),
+                                                self.autologin_sddm.get_active(),
+                                                self.theme_sddm.get_active_text()))
+            t1.daemon = True
+            t1.start()
+        else:
+            Functions.show_in_app_notification(self, "Need to select desktop first")
+
+    def on_click_sddm_reset(self, widget):
+        if Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
+            Functions.shutil.copy(Functions.sddm_conf + ".bak",
+                                  Functions.sddm_conf)
+
+        if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
+            self.autologin_sddm.set_active(False)
+        else:
+            self.autologin_sddm.set_active(True)
+
+        Functions.show_in_app_notification(self, "Default Settings Applied")
+
+    def on_autologin_sddm_activated(self, widget, gparam):
+        if widget.get_active():
+            self.sessions_sddm.set_sensitive(True)
+        else:
+            self.sessions_sddm.set_sensitive(False)
+
+    def on_click_install_sddm_themes(self,widget):
+        command = 'pacman -S arcolinux-meta-sddm-themes --needed --noconfirm'
+        GLib.idle_add(self.label7.set_text, "Installing...")
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)     
+        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm Themes Installed")
+
+    def on_click_remove_sddm_themes(self,widget):
+        command = 'pacman -Rss arcolinux-meta-sddm-themes --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)     
+        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed")
+
+        if self.keep_default_theme.get_active() is True:
+            command = 'pacman -S arcolinux-sddm-sugar-candy-git --needed --noconfirm'
+            Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)     
+            GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
+
+
+
+    # ====================================================================
+    #                       USER
+    # ====================================================================
+
+    def on_click_user_apply(self, widget):
+        user.create_user(self)
+                        
 #    #====================================================================
 #    #                       DESKTOPR
 #    #====================================================================

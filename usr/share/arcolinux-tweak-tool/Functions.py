@@ -16,6 +16,7 @@ from gi.repository import GLib, Gtk  # noqa
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
 
+arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
@@ -27,6 +28,7 @@ slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
 lightdm_conf = "/etc/lightdm/lightdm.conf"
+sddm_conf = "/etc/sddm.conf"
 bd = ".att_backups"
 config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 config_dir = home + "/.config/arcolinux-tweak-tool/"
@@ -34,9 +36,11 @@ polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
 zsh_config = home + "/.zshrc"
-
+account_list = ["Standard","Administrator"]
 i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
+
+seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
 
 arepo_test = "[arcolinux_repo_testing]\n\
 SigLevel = Required DatabaseOptional\n\
@@ -211,7 +215,6 @@ def _get_position(lists, value):
     position = lists.index(data[0])
     return position
 
-
 def _get_variable(lists, value):
     data = [string for string in lists if value in string]
 
@@ -310,6 +313,18 @@ def get_commands(conflist):
 
 
 def check_lightdm_value(list, value):
+    data = [string for string in list if value in string]
+    # if len(data) >= 1:
+    #     data1 = [string for string in data if "#" in string]
+
+    return data
+
+# =====================================================
+#               SDDM CONF
+# =====================================================
+
+
+def check_sddm_value(list, value):
     data = [string for string in list if value in string]
     # if len(data) >= 1:
     #     data1 = [string for string in data if "#" in string]

@@ -16,6 +16,8 @@ import desktopr
 import autostart
 import polybar
 import zsh_theme
+import sddm
+import user
 
 # =============GUI=================
 import Termite_GUI
@@ -28,11 +30,14 @@ import Pacman_GUI
 # import GTK_GUI
 import SkelApp_GUI
 import Lightdm_GUI
+import Sddm_GUI
 import Themer_GUI
 import desktopr_GUI
 import autostart_GUI
 import polybar_GUI
 import zsh_theme_GUI
+import Arcolinuxmirrors_GUI
+import User_GUI
 
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
@@ -90,17 +95,25 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     vboxStack8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #lightdm
     vboxStack12 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack13 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack15 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-
+    vboxStack16 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack17 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #sddm
+    vboxStack18 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #user
     # ==========================================================
     #                   TAB #1 PACMAN
     # ==========================================================
     if Functions.file_check(Functions.pacman):
         Pacman_GUI.GUI(self, Gtk, vboxStack1, Functions)
+
+    # ==========================================================
+    #                   TAB MIRRORLIST ARCOLINUX
+    # ==========================================================
+
+    Arcolinuxmirrors_GUI.GUI(self, Gtk, vboxStack16, Functions)
 
     # ==========================================================
     #                 TAB #2 GTK THEMES
@@ -197,6 +210,35 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         ls = Gtk.Label()
         ls.set_markup("If you install <b>lightdm</b> you can toggle autologin and set your default desktop session")
         vboxStack11.pack_start(ls, True, False, 0)
+        
+    # # ==========================================================
+    # #                     SDDM
+    # # ==========================================================
+    if Functions.file_check(Functions.sddm_conf):
+        Sddm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack17, sddm, Functions)
+    else:
+        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        lbl1 = Gtk.Label(xalign=0)
+        lbl1.set_text("Sddm Autologin")
+        lbl1.set_name("title")
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox41.pack_start(hseparator, True, True, 0)
+        hbox31.pack_start(lbl1, False, False, 0)
+        vboxStack17.pack_start(hbox31, False, False, 0)
+        vboxStack17.pack_start(hbox41, False, False, 0)
+        ls = Gtk.Label()
+        ls.set_markup("No /etc/sddm.conf configuration file found. Install <b>Sddm</b> to use this tab.")
+        vboxStack17.pack_start(ls, True, False, 0)       
+
+    # # ==========================================================
+    # #                     USER
+    # # ==========================================================
+    User_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack18, user, Functions)
+    ls = Gtk.Label()
+    ls.set_markup("Fill in the fields and create your account")
+    vboxStack18.pack_start(ls, True, False, 0) 
+        
     # # ==========================================================
     # #                     Skelapp
     # # ==========================================================
@@ -273,10 +315,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack4, "stack1", "Grub")  # Grub config
 
-    stack.add_titled(vboxStack3, "stack2", "Privacy")  # Hblock
-
     # if Functions.file_check(Functions.lightdm_conf):
     stack.add_titled(vboxStack11, "stack3", "Lightdm")  # Lightdm config
+
+    # arcolinux mirrors
+    stack.add_titled(vboxStack16, "stack16", "Mirrors")  # mirrors
 
     # if Functions.file_check(Functions.neofetch_config):
     stack.add_titled(vboxStack8, "stack4", "Neofetch")  # Neofetch config
@@ -290,8 +333,12 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # if Functions.path_check(Functions.polybar):
     #     stack.add_titled(vboxStack14, "stack14", "Polybar changer")
 
+    stack.add_titled(vboxStack3, "stack2", "Privacy")  # Hblock
+
     # if Functions.file_check(Functions.slimlock_conf):
     #     stack.add_titled(vboxStack5, "stack7", "") # Slimlock
+
+    stack.add_titled(vboxStack17, "stack17", "Sddm")  # Sddm config
 
     # if Functions.file_check(Functions.termite_config):
     stack.add_titled(vboxStack7, "stack8", "Termite")  # Termite themes
@@ -302,6 +349,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     # if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
     stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
+
+    stack.add_titled(vboxStack18, "stack18", "User")  # Sddm config
 
     # if output == "/bin/zsh":
     stack.add_titled(vboxStack15, "stack15", "Zsh")  # Zsh themes
