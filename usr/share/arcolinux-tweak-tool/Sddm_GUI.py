@@ -26,6 +26,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10) 
     hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     label = Gtk.Label(xalign=0)
     label.set_text("Autologin")
@@ -101,6 +102,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox12.pack_end(self.keep_default_theme, False, False, 10)
     hbox12.pack_end(label_keep_default, False, False, 10)
     
+    # ======================================================================
+    #                       REFRESH THEMES
+    # ======================================================================
+    btnRefreshThemes = Gtk.Button(label="Refresh the list of Sddm themes")
+    btnRefreshThemes.connect('clicked', self.on_refresh_themes_clicked)
+
+    hbox13.pack_end(btnRefreshThemes, True, False, 0)
+    
     hbox9.pack_start(label2, False, False, 10)
     hbox9.pack_end(self.theme_sddm, True, True, 10) 
 
@@ -118,4 +127,5 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     vboxStack10.pack_start(hbox10, False, False, 0)
     vboxStack10.pack_start(hbox11, False, False, 0)
     vboxStack10.pack_start(hbox12, False, False, 0)
+    vboxStack10.pack_start(hbox13, False, False, 0)
     vboxStack10.pack_end(hbox2, False, False, 0)

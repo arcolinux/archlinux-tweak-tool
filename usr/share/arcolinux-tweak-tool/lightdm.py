@@ -10,8 +10,6 @@ def check_lightdm(lists, value):
     pos = Functions._get_position(lists, value)
     val = lists[pos].strip()
     return val
-    # comman = Functions.check_lightdm_value(lines[Functions.get_lightdm(lines):], "autologin-user=")
-
 
 def set_lightdm_value(self, lists, value, session, state):
     try:

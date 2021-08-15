@@ -3,6 +3,7 @@
 # =================================================================
 
 import os
+import sys
 import shutil
 import psutil
 # import time
@@ -540,3 +541,7 @@ def checkIfProcessRunning(processName):
                 psutil.ZombieProcess):
             pass
     return False
+
+def restart_program():
+    python = sys.executable
+    os.execl(python, python, *sys.argv)

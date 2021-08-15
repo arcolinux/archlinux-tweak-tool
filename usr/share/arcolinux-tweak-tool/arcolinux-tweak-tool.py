@@ -1005,7 +1005,7 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.sddm_conf,
                                   Functions.sddm_conf + ".bak")
 
-        if (self.sessions_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or self.autologin_sddm.get_active() is False:
+        if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None :
             t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
                                             args=(self,
                                                 sddm.get_sddm_lines(Functions.sddm_conf),  # noqa
@@ -1016,7 +1016,7 @@ class Main(Gtk.Window):
             t1.daemon = True
             t1.start()
         else:
-            Functions.show_in_app_notification(self, "Need to select desktop first")
+            Functions.show_in_app_notification(self, "Need to select desktop and/or theme first")
 
     def on_click_sddm_reset(self, widget):
         if Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
@@ -1061,6 +1061,9 @@ class Main(Gtk.Window):
                             stderr=Functions.subprocess.STDOUT)     
             GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
 
+    def on_refresh_themes_clicked(self, desktop):
+        os.unlink("/tmp/att.lock")
+        Functions.restart_program()
 
 
     # ====================================================================
