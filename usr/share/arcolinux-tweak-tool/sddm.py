@@ -2,7 +2,7 @@
 # =                  Author: Erik Dubois                          =
 # =================================================================
 
-import Functions
+import Functions, os
 from Functions import GLib
 
 
@@ -80,20 +80,17 @@ def pop_theme_box(self, combo):
     coms = []
     combo.get_model().clear()
 
-    for items in Functions.os.listdir("/usr/share/sddm/themes/"):
-        coms.append(items.split(".")[0].lower())
-    lines = get_sddm_lines(Functions.sddm_conf)
+    if os.path.exists("/usr/share/sddm"):
+        for items in Functions.os.listdir("/usr/share/sddm/themes/"):
+            coms.append(items.split(".")[0].lower())
+        lines = get_sddm_lines(Functions.sddm_conf)
 
-    # pos = Functions._get_position(lines, "Session=")
-    name = check_sddm(lines, "Current=").split("=")[1]
+        name = check_sddm(lines, "Current=").split("=")[1]
 
-    # if name == "":
-    #     name = check_sddm(lines, "User=").split("=")[1]
-    
-    coms.sort()
-    for i in range(len(coms)):
-        #excludes = ['maya', 'maldives', 'elarun', '']
-        #if not coms[i] in excludes:
-        combo.append_text(coms[i])
-        if name.lower() == coms[i].lower():
-            combo.set_active(i)
+        coms.sort()
+        for i in range(len(coms)):
+            #excludes = ['maya', 'maldives', 'elarun', '']
+            #if not coms[i] in excludes:
+            combo.append_text(coms[i])
+            if name.lower() == coms[i].lower():
+                combo.set_active(i)
