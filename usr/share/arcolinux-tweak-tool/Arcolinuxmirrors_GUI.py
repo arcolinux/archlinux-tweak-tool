@@ -125,7 +125,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #self.button1 = Gtk.Button(label="Apply custom repo")
     #self.button1.connect('clicked', self.button1_clicked)
     reset_mirror = Gtk.Button(label="Reset ArcoLinux Mirrorlist")
-    reset_mirror.connect("clicked", self.reset_settings, Functions.arcolinux_mirrorlist)
+    reset_mirror.connect("clicked", self.on_click_reset_arcolinux_mirrorlist)
 
     # ========================================================
     #               ARCO REPOS PACKING

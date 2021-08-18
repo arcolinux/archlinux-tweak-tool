@@ -1,5 +1,5 @@
 #=================================================================
-#=                  Author: Brad Heffernan                       =
+#=                  Author: Erik Dubois                          =
 #=================================================================
 
 
@@ -27,6 +27,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10) 
     hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     label = Gtk.Label(xalign=0)
     label.set_text("Autologin")
@@ -48,6 +49,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
 
     label2 = Gtk.Label(xalign=0)
     label2.set_text("Theme")
+    
+    label_sddm_config = Gtk.Label(xalign=0)
+    label_sddm_config.set_text("Set our sddm configuration back or yours")
     
     label_empty1 = Gtk.Label(xalign=0)
     label_empty1.set_text("")
@@ -76,8 +80,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
 
     apply_sddm = Gtk.Button(label="Apply settings")
     apply_sddm.connect("clicked", self.on_click_sddm_apply)
+ 
+    reset_sddm_original = Gtk.Button(label="Apply the sddm.conf from ArcoLinux")
+    reset_sddm_original.connect("clicked", self.on_click_sddm_reset_original)
     
-    reset_sddm = Gtk.Button(label="Reset")
+    reset_sddm = Gtk.Button(label="Apply your backup of sddm.conf")
     reset_sddm.connect("clicked", self.on_click_sddm_reset)
 
 
@@ -96,6 +103,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox8.pack_start(label_empty2, False, False, 10)
     
     hbox10.pack_start(label_empty3, False, False, 10)
+    
     hbox11.pack_start(install_sddm_themes, False, False, 10)
     hbox11.pack_end(remove_sddm_themes, False, False, 10)
     
@@ -105,20 +113,23 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     # ======================================================================
     #                       REFRESH THEMES
     # ======================================================================
-    btnRefreshThemes = Gtk.Button(label="Refresh the list of Sddm themes")
-    btnRefreshThemes.connect('clicked', self.on_refresh_themes_clicked)
+    btnRefreshAtt = Gtk.Button(label="Refresh the list of Sddm themes")
+    btnRefreshAtt.connect('clicked', self.on_refresh_att_clicked)
 
-    hbox13.pack_end(btnRefreshThemes, True, False, 0)
     
     hbox9.pack_start(label2, False, False, 10)
     hbox9.pack_end(self.theme_sddm, True, True, 10) 
 
-    hbox2.pack_end(apply_sddm, False, False, 0)
-    hbox2.pack_end(reset_sddm, False, False, 0)
+    hbox14.pack_start(label_sddm_config, False, False, 10)
 
+    hbox13.pack_start(reset_sddm_original, False, False, 10)
+    hbox13.pack_end(reset_sddm, False, False, 10)
+
+    hbox2.pack_end(apply_sddm, False, False, 0)
+    hbox2.pack_start(btnRefreshAtt, False, False, 0)
+    
     vboxStack10.pack_start(hbox4, False, False, 10)
     vboxStack10.pack_start(hbox, False, False, 0)
-    vboxStack10.pack_start(hbox7, False, False, 0)
     vboxStack10.pack_start(hbox3, False, False, 0)
     vboxStack10.pack_start(hbox1, False, False, 0)
     vboxStack10.pack_start(hbox8, False, False, 0)
@@ -127,5 +138,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     vboxStack10.pack_start(hbox10, False, False, 0)
     vboxStack10.pack_start(hbox11, False, False, 0)
     vboxStack10.pack_start(hbox12, False, False, 0)
+    vboxStack10.pack_start(hbox7, False, False, 0)
+    vboxStack10.pack_start(hbox14, False, False, 0)
     vboxStack10.pack_start(hbox13, False, False, 0)
     vboxStack10.pack_end(hbox2, False, False, 0)

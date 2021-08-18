@@ -18,6 +18,7 @@ import polybar
 import zsh_theme
 import sddm
 import user
+import fixes
 
 # =============GUI=================
 import Termite_GUI
@@ -38,6 +39,7 @@ import polybar_GUI
 import zsh_theme_GUI
 import Arcolinuxmirrors_GUI
 import User_GUI
+import Fixes_GUI
 
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
@@ -103,6 +105,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     vboxStack16 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack17 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #sddm
     vboxStack18 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #user
+    vboxStack19 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #user    
     # ==========================================================
     #                   TAB #1 PACMAN
     # ==========================================================
@@ -228,16 +231,34 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack17.pack_start(hbox31, False, False, 0)
         vboxStack17.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
-        ls.set_markup("No /etc/sddm.conf configuration file found. Install <b>Sddm</b> to use this tab.")
-        vboxStack17.pack_start(ls, True, False, 0)       
-
+        ls.set_markup("No /etc/sddm.conf configuration file found. \nInstall <b>Sddm</b> and the configuration file to use this tab.")
+        reset_sddm_original = Gtk.Button(label="Apply the sddm.conf from ArcoLinux")
+        reset_sddm_original.connect("clicked", self.on_click_no_sddm_reset_original)
+        install_sddm = Gtk.Button(label="Install Sddm")
+        install_sddm.connect("clicked", self.on_click_att_sddm_clicked)        
+        reset_sddm_original_restart = Gtk.Button(label="Restart ArcoLinux Tweak Tool")
+        reset_sddm_original_restart.connect("clicked", self.on_refresh_att_clicked)   
+        
+        vboxStack17.pack_start(ls, False, False, 0)
+        vboxStack17.pack_end(reset_sddm_original_restart, False, False, 0)
+        vboxStack17.pack_end(reset_sddm_original, False, False, 0)      
+        vboxStack17.pack_end(install_sddm, False, False, 0)
     # # ==========================================================
     # #                     USER
     # # ==========================================================
     User_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack18, user, Functions)
     ls = Gtk.Label()
     ls.set_markup("Fill in the fields and create your account")
-    vboxStack18.pack_start(ls, True, False, 0) 
+    vboxStack18.pack_start(ls, True, False, 0)
+    
+    
+    # # ==========================================================
+    # #                     FIXES
+    # # ==========================================================
+    Fixes_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack19, user, Functions)
+    #ls = Gtk.Label()
+    #ls.set_markup("Fill in the fields and create your account")
+    #vboxStack19.pack_start(ls, True, False, 0)     
         
     # # ==========================================================
     # #                     Skelapp
@@ -314,6 +335,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
 
     stack.add_titled(vboxStack4, "stack1", "Grub")  # Grub config
+
+    stack.add_titled(vboxStack19, "stack19", "Fixes")  # Fixes
 
     # if Functions.file_check(Functions.lightdm_conf):
     stack.add_titled(vboxStack11, "stack3", "Lightdm")  # Lightdm config

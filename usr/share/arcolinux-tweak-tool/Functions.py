@@ -18,6 +18,7 @@ sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
 
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
+arcolinux_mirrorlist_original = "/usr/local/share/arcolinux/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
@@ -30,6 +31,7 @@ termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
 lightdm_conf = "/etc/lightdm/lightdm.conf"
 sddm_conf = "/etc/sddm.conf"
+sddm_conf_original = "/usr/local/share/arcolinux/sddm.conf"
 bd = ".att_backups"
 config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 config_dir = home + "/.config/arcolinux-tweak-tool/"
@@ -324,12 +326,8 @@ def check_lightdm_value(list, value):
 #               SDDM CONF
 # =====================================================
 
-
 def check_sddm_value(list, value):
     data = [string for string in list if value in string]
-    # if len(data) >= 1:
-    #     data1 = [string for string in data if "#" in string]
-
     return data
 
 # =====================================================
@@ -407,6 +405,20 @@ def set_hblock(self, toggle, state):
         MessageBox(self, "ERROR!!", str(e))
         print(e)
 
+# =====================================================
+#               ALACRITTY
+# =====================================================
+
+def install_alacritty(self):
+    install = 'pacman -S alacritty --needed --noconfirm'
+    
+    if os.path.exists("/usr/bin/alacritty"):
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
 
 # =====================================================
 #               GRUB CONF

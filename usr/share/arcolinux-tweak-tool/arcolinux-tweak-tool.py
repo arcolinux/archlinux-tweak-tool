@@ -20,8 +20,9 @@ import autostart
 import polybar
 import zsh_theme
 import user
+import fixes
 import GUI
-from Functions import os, pacman
+from Functions import install_alacritty, os, pacman
 from subprocess import PIPE, STDOUT
 from time import sleep
 gi.require_version('Gtk', '3.0')
@@ -43,7 +44,7 @@ class Main(Gtk.Window):
         self.connect("delete-event", self.on_close)
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_from_file(os.path.join(base_dir, 'images/arcolinux.png'))
-        self.set_default_size(800, 650)
+        self.set_default_size(800, 700)
 
         self.opened = True
         self.firstrun = True
@@ -68,6 +69,18 @@ class Main(Gtk.Window):
         t.join()
         sleep(2)
         splScr.destroy()
+
+        #if not Functions.os.path.exists(Functions.sddm_conf):
+        #    Functions.shutil.copy(Functions.sddm_conf_original,
+        #                          Functions.sddm_conf)
+
+        if os.path.exists("/usr/bin/sddm"):
+            if not Functions.os.path.exists(Functions.sddm_conf):
+                Functions.shutil.copy(Functions.sddm_conf_original,
+                                      Functions.sddm_conf)   
+            if  os.path.getsize(Functions.sddm_conf) == 0:
+                Functions.shutil.copy(Functions.sddm_conf_original,
+                                      Functions.sddm_conf)
 
         if not Functions.os.path.exists(Functions.home + "/.config/autostart"):
             # Functions.MessageBox(self, "oops!",
@@ -179,8 +192,6 @@ class Main(Gtk.Window):
             else:
                 self.autologin_sddm.set_active(True)
                 self.sessions_sddm.set_sensitive(True)
-
-        # autostart.add_autostart()
 
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
@@ -516,6 +527,8 @@ class Main(Gtk.Window):
     def reset_settings(self, widget, filez):  # noqa
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
+            Functions.show_in_app_notification(self,
+                                               "Default Settings Applied")            
 
         if filez == pacman:
             arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
@@ -880,6 +893,21 @@ class Main(Gtk.Window):
                                                "Default Settings Applied")
 
 #    #====================================================================
+#    #                       ARCOLINUX MIRRORLIST
+#    #===================================================================
+
+    def on_click_reset_arcolinux_mirrorlist(self, widget):
+        if not Functions.os.path.isfile(Functions.arcolinux_mirrorlist + ".bak"):
+            Functions.shutil.copy(Functions.arcolinux_mirrorlist,
+                                  Functions.arcolinux_mirrorlist + ".bak")
+            
+        if Functions.os.path.isfile(Functions.arcolinux_mirrorlist_original):
+            Functions.shutil.copy(Functions.arcolinux_mirrorlist_original,
+                                  Functions.arcolinux_mirrorlist)
+            Functions.show_in_app_notification(self, "Original ArcoLinux mirrorlist is applied")
+
+
+#    #====================================================================
 #    #                       NEOFETCH CONFIG
 #    #====================================================================
 
@@ -1023,12 +1051,36 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.sddm_conf + ".bak",
                                   Functions.sddm_conf)
 
+            if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
+                self.autologin_sddm.set_active(False)
+            else:
+                self.autologin_sddm.set_active(True)
+        
+            Functions.show_in_app_notification(self, "Your sddm.conf backup is now applied")
+        else:
+            Functions.show_in_app_notification(self, "We did not find a backup file for sddm.conf")
+
+    def on_click_sddm_reset_original(self, widget):
+        if not Functions.os.path.isfile(Functions.sddm_conf + ".bak") and Functions.os.path.isfile(Functions.sddm_conf) == True:
+            Functions.shutil.copy(Functions.sddm_conf,
+                                  Functions.sddm_conf + ".bak")
+            
+        if Functions.os.path.isfile(Functions.sddm_conf_original):
+            Functions.shutil.copy(Functions.sddm_conf_original,
+                                  Functions.sddm_conf)
+
         if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
             self.autologin_sddm.set_active(False)
         else:
             self.autologin_sddm.set_active(True)
 
-        Functions.show_in_app_notification(self, "Default Settings Applied")
+        Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
+
+    def on_click_no_sddm_reset_original(self, widget):           
+        if Functions.os.path.isfile(Functions.sddm_conf_original):
+            Functions.shutil.copyfile(Functions.sddm_conf_original,
+                                  Functions.sddm_conf)
+        Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
 
     def on_autologin_sddm_activated(self, widget, gparam):
         if widget.get_active():
@@ -1061,7 +1113,15 @@ class Main(Gtk.Window):
                             stderr=Functions.subprocess.STDOUT)     
             GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
 
-    def on_refresh_themes_clicked(self, desktop):
+    def on_click_att_sddm_clicked(self, desktop):
+        command = 'pacman -S sddm --noconfirm --needed'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)     
+        GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed")
+
+    def on_refresh_att_clicked(self, desktop):
         os.unlink("/tmp/att.lock")
         Functions.restart_program()
 
@@ -1072,6 +1132,34 @@ class Main(Gtk.Window):
 
     def on_click_user_apply(self, widget):
         user.create_user(self)
+
+    # ====================================================================
+    #                       FIXES
+    # ====================================================================
+        
+    def on_click_fix_pacman_keys(self,widget):
+        install_alacritty(self)
+        Functions.subprocess.call("alacritty -e /usr/local/bin/arcolinux-fix-pacman-databases-and-keys",
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)     
+        GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")        
+
+    def on_click_fix_osbeck(self,widget):
+        command = '/usr/local/bin/arcolinux-osbeck-as-mirror'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT) 
+        GLib.idle_add(Functions.show_in_app_notification, self, "Osbeck set as Arch Linux")   
+
+    def on_click_fix_mirrors(self,widget):
+        install_alacritty(self)
+        Functions.subprocess.call("alacritty -e /usr/local/bin/arcolinux-get-mirrors",
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT) 
+        GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved")
                         
 #    #====================================================================
 #    #                       DESKTOPR
