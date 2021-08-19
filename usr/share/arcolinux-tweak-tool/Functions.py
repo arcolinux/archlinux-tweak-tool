@@ -492,7 +492,6 @@ def neofetch_set_backend_value(lists, pos, text, value):
 #                       CUSTOM FUNCTION
 # ====================================================================
 
-
 def get_desktop(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -501,14 +500,7 @@ def get_desktop(self):
                              stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
     dsk = desktop.stdout.decode().strip().split("\n")
-    # with open(home + "/.dmrc") as f:
-    #     lines = f.readlines()
-    #     f.close()
-    # pos = _get_position(lines, "Session=")
-
-    # self.desktop = lines[pos].split("=")[1].strip()
     self.desktop = dsk[-1].strip()
-
 
 def copytree(self, src, dst, symlinks=False, ignore=None):  # noqa
 

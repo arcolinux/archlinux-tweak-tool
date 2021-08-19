@@ -185,13 +185,14 @@ class Main(Gtk.Window):
                 self.autologin.set_active(True)
                 self.sessions.set_sensitive(True)
 
-        if Functions.os.path.isfile(Functions.sddm_conf):
-            if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf),"User="):
-                self.autologin_sddm.set_active(False)
-                self.sessions_sddm.set_sensitive(False)
-            else:
-                self.autologin_sddm.set_active(True)
-                self.sessions_sddm.set_sensitive(True)
+        if not "plasma" in self.desktop.lower():
+            if Functions.os.path.isfile(Functions.sddm_conf):
+                if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf),"User="):
+                    self.autologin_sddm.set_active(False)
+                    self.sessions_sddm.set_sensitive(False)
+                else:
+                    self.autologin_sddm.set_active(True)
+                    self.sessions_sddm.set_sensitive(True)
 
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:

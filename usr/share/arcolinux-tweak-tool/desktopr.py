@@ -704,7 +704,6 @@ xmonad = [
     "xmonad-utils",
 ]
 
-
 def check_desktop(desktop):
     # /usr/share/xsessions/xfce.desktop
     lst = fn.os.listdir("/usr/share/xsessions/")
@@ -713,7 +712,6 @@ def check_desktop(desktop):
             return True
 
     return False
-
 
 def uninstall_desktop_check(self, desktop):
     dsk = Settings.read_settings("DESKTOP", "default")

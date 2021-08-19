@@ -217,9 +217,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # # ==========================================================
     # #                     SDDM
     # # ==========================================================
-    if Functions.file_check(Functions.sddm_conf):
-        Sddm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack17, sddm, Functions)
-    else:
+    if "plasma" in self.desktop.lower():
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         lbl1 = Gtk.Label(xalign=0)
@@ -231,18 +229,41 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack17.pack_start(hbox31, False, False, 0)
         vboxStack17.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
-        ls.set_markup("No /etc/sddm.conf configuration file found. \nInstall <b>Sddm</b> and the configuration file to use this tab.")
+        ls.set_markup("Use the Plasma settings manager to set Sddm")
         reset_sddm_original = Gtk.Button(label="Apply the sddm.conf from ArcoLinux")
         reset_sddm_original.connect("clicked", self.on_click_no_sddm_reset_original)
-        install_sddm = Gtk.Button(label="Install Sddm")
-        install_sddm.connect("clicked", self.on_click_att_sddm_clicked)        
-        reset_sddm_original_restart = Gtk.Button(label="Restart ArcoLinux Tweak Tool")
-        reset_sddm_original_restart.connect("clicked", self.on_refresh_att_clicked)   
         
-        vboxStack17.pack_start(ls, False, False, 0)
-        vboxStack17.pack_end(reset_sddm_original_restart, False, False, 0)
-        vboxStack17.pack_end(reset_sddm_original, False, False, 0)      
-        vboxStack17.pack_end(install_sddm, False, False, 0)
+        vboxStack17.pack_end(reset_sddm_original, False, False, 0)
+        vboxStack17.pack_start(ls, True, False, 0)
+        
+    else:
+            
+        if Functions.file_check(Functions.sddm_conf):
+            Sddm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack17, sddm, Functions)
+        else:
+            hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+            hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+            lbl1 = Gtk.Label(xalign=0)
+            lbl1.set_text("Sddm Autologin")
+            lbl1.set_name("title")
+            hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+            hbox41.pack_start(hseparator, True, True, 0)
+            hbox31.pack_start(lbl1, False, False, 0)
+            vboxStack17.pack_start(hbox31, False, False, 0)
+            vboxStack17.pack_start(hbox41, False, False, 0)
+            ls = Gtk.Label()
+            ls.set_markup("No /etc/sddm.conf configuration file found. \nInstall <b>Sddm</b> and the configuration file to use this tab.")
+            reset_sddm_original = Gtk.Button(label="Apply the sddm.conf from ArcoLinux")
+            reset_sddm_original.connect("clicked", self.on_click_no_sddm_reset_original)
+            install_sddm = Gtk.Button(label="Install Sddm")
+            install_sddm.connect("clicked", self.on_click_att_sddm_clicked)        
+            reset_sddm_original_restart = Gtk.Button(label="Restart ArcoLinux Tweak Tool")
+            reset_sddm_original_restart.connect("clicked", self.on_refresh_att_clicked)   
+            
+            vboxStack17.pack_start(ls, False, False, 0)
+            vboxStack17.pack_end(reset_sddm_original_restart, False, False, 0)
+            vboxStack17.pack_end(reset_sddm_original, False, False, 0)      
+            vboxStack17.pack_end(install_sddm, False, False, 0)
     # # ==========================================================
     # #                     USER
     # # ==========================================================
