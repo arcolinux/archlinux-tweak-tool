@@ -123,7 +123,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox14.pack_start(label_sddm_config, False, False, 10)
 
     hbox13.pack_start(reset_sddm_original, False, False, 10)
-    hbox13.pack_end(reset_sddm, False, False, 10)
+    #hbox13.pack_end(reset_sddm, False, False, 10)
 
     hbox2.pack_end(apply_sddm, False, False, 0)
     hbox2.pack_start(btnRefreshAtt, False, False, 0)

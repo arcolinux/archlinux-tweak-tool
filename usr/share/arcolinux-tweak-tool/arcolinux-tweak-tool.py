@@ -1030,9 +1030,9 @@ class Main(Gtk.Window):
     # ====================================================================
 
     def on_click_sddm_apply(self, widget):
-        if not Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
-            Functions.shutil.copy(Functions.sddm_conf,
-                                  Functions.sddm_conf + ".bak")
+        #if not Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
+        #    Functions.shutil.copy(Functions.sddm_conf,
+        #                          Functions.sddm_conf + ".bak")
 
         if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None :
             t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
@@ -1048,27 +1048,27 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self, "Need to select desktop and/or theme first")
 
     def on_click_sddm_reset(self, widget):
-        if Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
-            Functions.shutil.copy(Functions.sddm_conf + ".bak",
-                                  Functions.sddm_conf)
-
+        #if Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
+        #    Functions.shutil.copy(Functions.sddm_conf + ".bak",
+        #                          Functions.sddm_conf)
+        if Functions.os.path.isfile(Functions.sddm_conf):
             if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
                 self.autologin_sddm.set_active(False)
             else:
                 self.autologin_sddm.set_active(True)
-        
             Functions.show_in_app_notification(self, "Your sddm.conf backup is now applied")
         else:
             Functions.show_in_app_notification(self, "We did not find a backup file for sddm.conf")
 
-    def on_click_sddm_reset_original(self, widget):
-        if not Functions.os.path.isfile(Functions.sddm_conf + ".bak") and Functions.os.path.isfile(Functions.sddm_conf) == True:
-            Functions.shutil.copy(Functions.sddm_conf,
-                                  Functions.sddm_conf + ".bak")
-            
-        if Functions.os.path.isfile(Functions.sddm_conf_original):
-            Functions.shutil.copy(Functions.sddm_conf_original,
-                                  Functions.sddm_conf)
+    def on_click_sddm_reset_original(self, widget):     
+        if Functions.sddm_conf == "/etc/sddm.conf.d/kde_settings.conf":
+            Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
+                                  Functions.sddm_default_d1)
+            Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
+                                  Functions.sddm_default_d2)
+        else:
+            Functions.shutil.copy(Functions.sddm_default_original,
+                                  Functions.sddm_default)
 
         if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
             self.autologin_sddm.set_active(False)
@@ -1161,7 +1161,15 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT) 
         GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved")
-                        
+
+    def on_click_fix_sddm_conf(self,widget):
+        command = '/usr/local/bin/arcolinux-fix-sddm-config'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT) 
+        GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/sddm.conf")
+                                
 #    #====================================================================
 #    #                       DESKTOPR
 #    #====================================================================
