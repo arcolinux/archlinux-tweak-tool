@@ -28,6 +28,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)    
+    hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10) 
+    hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     label = Gtk.Label(xalign=0)
     label.set_text("Autologin")
@@ -41,11 +44,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     self.autologin_sddm = Gtk.Switch()
     self.autologin_sddm.connect("notify::active", self.on_autologin_sddm_activated)
 
-    self.sessions_sddm = Gtk.ComboBoxText()
-    sddm.pop_box(self, self.sessions_sddm)
-
     label_theme = Gtk.Label(xalign=0)
     label_theme.set_text("Choose the Sddm theme")
+    
+    label_cursor = Gtk.Label(xalign=0)
+    label_cursor.set_text("Type your cursor theme for the login screen")    
+
+    label_cursor_ex = Gtk.Label(xalign=0)
+    label_cursor_ex.set_text("Cursor theme")  
 
     label2 = Gtk.Label(xalign=0)
     label2.set_text("Theme")
@@ -62,12 +68,19 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     label_empty3 = Gtk.Label(xalign=0)
     label_empty3.set_text("")
 
+    label_empty4 = Gtk.Label(xalign=0)
+    label_empty4.set_text("")    
+
+    self.entry_cursor_name = Gtk.Entry()
+
+    self.sessions_sddm = Gtk.ComboBoxText()
+    sddm.pop_box(self, self.sessions_sddm)
+
     self.theme_sddm = Gtk.ComboBoxText()
+    sddm.pop_theme_box(self, self.theme_sddm)
 
     self.keep_default_theme = Gtk.Switch()
     #self.keep_default_theme.connect("notify::active", self.on_keep_default_theme_activated)
-
-    sddm.pop_theme_box(self, self.theme_sddm)
 
     install_sddm_themes = Gtk.Button(label="Install Missing ArcoLinux Sddm Themes")
     install_sddm_themes.connect("clicked", self.on_click_install_sddm_themes)
@@ -95,14 +108,19 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
 
     hbox1.pack_start(label1, False, False, 10)
     hbox1.pack_end(self.sessions_sddm, True, True, 10)
-    
-    hbox6.pack_start(label_theme, False, False, 10)
+
+    hbox15.pack_start(label_cursor_ex, False, False, 10)    
+    hbox15.pack_start(self.entry_cursor_name, True, True, 10)
+   
+    hbox17.pack_start(label_cursor, False, False, 10)
     
     hbox7.pack_start(label_empty1, False, False, 10)
     
     hbox8.pack_start(label_empty2, False, False, 10)
     
     hbox10.pack_start(label_empty3, False, False, 10)
+    
+    hbox16.pack_start(label_empty4, False, False, 10)
     
     hbox11.pack_start(install_sddm_themes, False, False, 10)
     hbox11.pack_end(remove_sddm_themes, False, False, 10)
@@ -135,6 +153,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     vboxStack10.pack_start(hbox8, False, False, 0)
     vboxStack10.pack_start(hbox6, False, False, 0)
     vboxStack10.pack_start(hbox9, False, False, 0)
+    vboxStack10.pack_start(hbox16, False, False, 0)  
+    vboxStack10.pack_start(hbox17, False, False, 0)
+    vboxStack10.pack_start(hbox15, False, False, 0)
     vboxStack10.pack_start(hbox10, False, False, 0)
     vboxStack10.pack_start(hbox11, False, False, 0)
     vboxStack10.pack_start(hbox12, False, False, 0)

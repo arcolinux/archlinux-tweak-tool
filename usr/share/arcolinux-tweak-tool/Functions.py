@@ -6,6 +6,7 @@ import os
 import sys
 import shutil
 import psutil
+import datetime
 # import time
 import subprocess
 import threading  # noqa
@@ -79,6 +80,26 @@ Include = /etc/pacman.d/arcolinux-mirrorlist-bradheff"
 bobo_repo = "[chaotic-aur]\n\
 SigLevel = Required DatabaseOptional\n\
 Include = /etc/pacman.d/chaotic-mirrorlist"
+
+# =====================================================
+#               Create log file
+# =====================================================
+
+log_dir="/var/log/arcolinux/"
+att_log_dir="/var/log/arcolinux/att/"
+
+def create_log(self):
+    print('Making log in /var/log/arcolinux')
+    now = datetime.datetime.now()
+    time = now.strftime("%Y-%m-%d-%H-%M-%S" )
+    destination = att_log_dir + 'att-log-' + time
+    command = 'sudo pacman -Q > ' + destination
+    subprocess.call(command,
+                    shell=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT)     
+    #GLib.idle_add(show_in_app_notification, self, "Log file created")
+
 # =====================================================
 #               NOTIFICATIONS
 # =====================================================

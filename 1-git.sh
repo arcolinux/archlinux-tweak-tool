@@ -20,15 +20,18 @@ git pull
 workdir=$(pwd)
 echo "getting latest .bashrc"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-root/master/etc/skel/.bashrc-latest -O $workdir/usr/local/share/arcolinux/.bashrc
-echo "getting latest /etc/sddm.conf"
-wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/sddm.conf -O $workdir/usr/local/share/arcolinux/sddm.conf
+
+echo "getting latest NEW /etc/sddm.conf"
+wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/sddm.conf -O $workdir/usr/local/share/arcolinux/sddm.conf.d/sddm.conf
+
+wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/sddm.conf.d/kde_settings.conf -O $workdir/usr/local/share/arcolinux/sddm.conf.d/kde_settings.conf
 FIND="Session=xfce"
 REPLACE="#Session="
-sed -i "s/$FIND/$REPLACE/g" $workdir/usr/local/share/arcolinux/sddm.conf
+sed -i "s/$FIND/$REPLACE/g" $workdir/usr/local/share/arcolinux/sddm.conf.d/kde_settings.conf
 
 FIND="User=liveuser"
 REPLACE="#User="
-sed -i "s/$FIND/$REPLACE/g" $workdir/usr/local/share/arcolinux/sddm.conf
+sed -i "s/$FIND/$REPLACE/g" $workdir/usr/local/share/arcolinux/sddm.conf.d/kde_settings.conf
 
 echo "getting latest arcolinux-mirrorlist"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-mirrorlist/master/etc/pacman.d/arcolinux-mirrorlist -O $workdir/usr/local/share/arcolinux/arcolinux-mirrorlist

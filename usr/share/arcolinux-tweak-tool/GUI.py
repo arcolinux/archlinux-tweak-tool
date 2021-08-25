@@ -149,32 +149,32 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # # ==========================================================
     # #                     TERMITE CONFIG
     # # ==========================================================
-    if Functions.file_check(Functions.termite_config):
-        Termite_GUI.GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir)
-    else:
-        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        hbox42 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        vbox41 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        lbl1 = Gtk.Label(xalign=0)
-        lbl1.set_text("Termite Themes")
-        lbl1.set_name("title")
-        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        hbox41.pack_start(hseparator, True, True, 0)
-        hbox31.pack_start(lbl1, False, False, 0)
-        vboxStack7.pack_start(hbox31, False, False, 0)
-        vboxStack7.pack_start(hbox41, False, False, 0)
-        ls = Gtk.Label()
-        ls.set_markup("If you install <b>ArcoLinux Termite themes</b> you can choose the theme")
-        self.ls2 = Gtk.Label()
-        self.ls2.set_markup("")
-        self.btn_term = Gtk.Button(label="Install Termite themes")
-        self.btn_term.connect("clicked", self.on_install_termite_themes)
-        vbox41.pack_start(ls, False, False, 0)
-        hbox42.pack_start(self.btn_term, True, False, 0)
-        vbox41.pack_start(hbox42, False, False, 0)
-        vbox41.pack_start(self.ls2, False, False, 0)
-        vboxStack7.pack_start(vbox41, True, False, 0)
+    #if Functions.file_check(Functions.termite_config):
+    Termite_GUI.GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir)
+    # else:
+    #     hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     hbox42 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     vbox41 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    #     lbl1 = Gtk.Label(xalign=0)
+    #     lbl1.set_text("Terminals")
+    #     lbl1.set_name("title")
+    #     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    #     hbox41.pack_start(hseparator, True, True, 0)
+    #     hbox31.pack_start(lbl1, False, False, 0)
+    #     vboxStack7.pack_start(hbox31, False, False, 0)
+    #     vboxStack7.pack_start(hbox41, False, False, 0)
+    #     ls = Gtk.Label()
+    #     ls.set_markup("If you install <b>ArcoLinux Termite themes</b> you can choose the theme")
+    #     self.ls2 = Gtk.Label()
+    #     self.ls2.set_markup("")
+    #     self.btn_term = Gtk.Button(label="Install Termite themes")
+    #     self.btn_term.connect("clicked", self.on_install_termite_themes)
+    #     vbox41.pack_start(ls, False, False, 0)
+    #     hbox42.pack_start(self.btn_term, True, False, 0)
+    #     vbox41.pack_start(hbox42, False, False, 0)
+    #     vbox41.pack_start(self.ls2, False, False, 0)
+    #     vboxStack7.pack_start(vbox41, True, False, 0)
     # # ==========================================================
     # #                     NEOFETCH
     # # ==========================================================
@@ -385,7 +385,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     stack.add_titled(vboxStack17, "stack17", "Sddm")  # Sddm config
 
     # if Functions.file_check(Functions.termite_config):
-    stack.add_titled(vboxStack7, "stack8", "Termite")  # Termite themes
+    stack.add_titled(vboxStack7, "stack8", "Terminals")  # Termite themes
 
     # stack.add_titled(vboxStack2, "stack9", "Theming")
 

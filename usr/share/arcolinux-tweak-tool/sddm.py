@@ -39,10 +39,25 @@ def set_sddm_value(self, lists, value, session, state, theme):
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
 
-        # GLib.idle_add(Functions.MessageBox,self, "Success!!", "Settings applied successfully")
     except Exception as e:
         print(e)
         Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
+ 
+def set_sddm_cursor(self, lists, cursor):    
+    try:                    
+
+        pos_theme = Functions._get_position(lists, "CursorTheme=")
+        lists[pos_theme] = "CursorTheme=" + cursor + "\n" 
+
+        with open(Functions.sddm_default, "w") as f:
+            f.writelines(lists)
+            f.close()
+
+        GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
+
+    except Exception as e:
+            print(e)
+            Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
 
 
 def get_sddm_lines(files):
@@ -53,28 +68,31 @@ def get_sddm_lines(files):
         return lines
 
 
-def pop_box(self, combo):
-    coms = []
-    combo.get_model().clear()
+def pop_box(self, combos):
+    comss = []
+    combos.get_model().clear()
 
     for items in Functions.os.listdir("/usr/share/xsessions/"):
-        coms.append(items.split(".")[0].lower())
+        comss.append(items.split(".")[0].lower())
     lines = get_sddm_lines(Functions.sddm_conf)
 
-    # pos = Functions._get_position(lines, "Session=")
     name = check_sddm(lines, "Session=").split("=")[1]
 
-    # if name == "":
-    #     name = check_sddm(lines, "User=").split("=")[1]
     
-    coms.sort()
-    for i in range(len(coms)):
-        excludes = ['gnome-classic', 'gnome-xorg', 'i3-with-shmlog', 'openbox-kde', 'cinnamon2d', '']
-        if not coms[i] in excludes:
-            combo.append_text(coms[i])
-            if name.lower() == coms[i].lower():
-                # print("Name = " + name)
-                combo.set_active(i)
+    comss.sort()
+    if 'i3-with-shmlog' in comss:
+        comss.remove('i3-with-shmlog')
+    if 'openbox-kde' in comss:
+        comss.remove('openbox-kde')
+    if 'cinnamon2d' in comss:
+        comss.remove('cinnamon2d')
+    if 'icewm-session' in comss:
+        comss.remove('icewm-session')
+
+    for i in range(len(comss)):
+        combos.append_text(comss[i])
+        if name.lower() == comss[i].lower():
+           combos.set_active(i)
 
 def pop_theme_box(self, combo):
     coms = []

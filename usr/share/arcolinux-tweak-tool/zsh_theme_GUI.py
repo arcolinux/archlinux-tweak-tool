@@ -19,6 +19,10 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     label12.set_text("Zsh themes")
 
     self.zsh_themes = Gtk.ComboBoxText()
+    
+    label13 = Gtk.Label()
+    label13.set_text("Restart your terminal to apply the new Zsh theme")
+    label13.set_margin_top(30) 
 
     termset = Gtk.Button(label="Apply theme")
     termreset = Gtk.Button(label="Reset")
@@ -30,9 +34,11 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
 
     hbox19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     hbox19.pack_start(label12, False, False, 10)
     hbox19.pack_start(self.zsh_themes, True, True, 10)
+    hbox21.pack_start(label13, True, False, 10)
 
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh-sample.jpg", 645, 645)
     image = Gtk.Image().new_from_pixbuf(pixbuf)
@@ -44,6 +50,7 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     vboxStack15.pack_start(hbox4, False, False, 0)  # Combobox
     vboxStack15.pack_start(hbox19, False, False, 0)  # Combobox
     vboxStack15.pack_start(image, False, False, 0)  # image
+    vboxStack15.pack_start(hbox21, False, False, 0)  # image
     vboxStack15.pack_end(hbox20, False, False, 0)  # Buttons
 
     if not zsh_themes.check_oh_my():

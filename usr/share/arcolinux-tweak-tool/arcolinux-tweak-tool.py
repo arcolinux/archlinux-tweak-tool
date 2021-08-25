@@ -74,6 +74,18 @@ class Main(Gtk.Window):
         #    Functions.shutil.copy(Functions.sddm_conf_original,
         #                          Functions.sddm_conf)
 
+        if not os.path.isdir(Functions.log_dir):
+            try:
+                os.mkdir(Functions.log_dir)
+            except Exception as e:
+                print(e)
+        
+        if not os.path.isdir(Functions.att_log_dir):
+            try:
+                os.mkdir(Functions.att_log_dir)
+            except Exception as e:
+                print(e)
+                       
         if os.path.exists("/usr/bin/sddm"):
             if not Functions.os.path.exists(Functions.sddm_conf):
                 Functions.shutil.copy(Functions.sddm_conf_original,
@@ -193,6 +205,9 @@ class Main(Gtk.Window):
                 else:
                     self.autologin_sddm.set_active(True)
                     self.sessions_sddm.set_sensitive(True)
+            if Functions.os.path.isfile(Functions.sddm_default):
+                read_cursor_name=sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default),"CursorTheme=").split("=")[1]
+                self.entry_cursor_name.set_text(read_cursor_name)
 
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
@@ -838,7 +853,38 @@ class Main(Gtk.Window):
             print(e)
 
 #    #====================================================================
-#    #                       TERMITE THEMES
+#    #                       TERMINALS
+#    #====================================================================
+
+    def on_clicked_install_alacritty_themes(self,widget):
+        command = 'pacman -S alacritty alacritty-themes base16-alacritty-git --needed --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)     
+        GLib.idle_add(Functions.show_in_app_notification, self, "Alacritty Themes Installed")
+
+    def on_clicked_install_xfce4_themes(self,widget):
+        command = 'pacman -S xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)     
+        GLib.idle_add(Functions.show_in_app_notification, self, "Xfce4-terminal Themes Installed")
+
+    def on_clicked_install_termite_themes(self,widget):
+        command = 'pacman -S termite arcolinux-termite-themes-git --needed --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        Functions.copy_func("/etc/skel/.config/termite", Functions.home + "/.config/", True)
+        Functions.permissions(Functions.home + "/.config/termite")    
+        GLib.idle_add(Functions.show_in_app_notification, self, "Termite Themes Installed")
+
+
+#    #====================================================================
+#    #                       TERMITE
 #    #====================================================================
 
     def on_install_termite_themes(self, widget):
@@ -1034,6 +1080,13 @@ class Main(Gtk.Window):
         #    Functions.shutil.copy(Functions.sddm_conf,
         #                          Functions.sddm_conf + ".bak")
 
+        t1 = Functions.threading.Thread(target=sddm.set_sddm_cursor,
+                                        args=(self,
+                                        sddm.get_sddm_lines(Functions.sddm_default),  # noqa
+                                        self.entry_cursor_name.get_text()))
+        t1.daemon = True
+        t1.start()
+      
         if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None :
             t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
                                             args=(self,
@@ -1091,7 +1144,6 @@ class Main(Gtk.Window):
 
     def on_click_install_sddm_themes(self,widget):
         command = 'pacman -S arcolinux-meta-sddm-themes --needed --noconfirm'
-        GLib.idle_add(self.label7.set_text, "Installing...")
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
@@ -1199,6 +1251,7 @@ class Main(Gtk.Window):
                                                "You Must Set Default First")
 
     def on_install_clicked(self, widget, state):
+        Functions.create_log(self)
         # if desktopr.check_desktop(self.d_combo.get_active_text()) is not True:
         print("installing {}".format(self.d_combo.get_active_text()))
         desktopr.check_lock(self,self.d_combo.get_active_text(),state)
@@ -1206,6 +1259,7 @@ class Main(Gtk.Window):
         # desktopr.install_desktop(self, self.d_combo.get_active_text())
 
     def on_default_clicked(self, widget):
+        Functions.create_log(self)
         if desktopr.check_desktop(self.d_combo.get_active_text()) is True:
             secs = Settings.read_section()
             if "DESKTOP" in secs:

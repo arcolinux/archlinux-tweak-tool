@@ -80,7 +80,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     self.desktopr_stat.set_ellipsize (Pango.EllipsizeMode.MIDDLE)
 
     noice = Gtk.Label(xalign=0)
-    noice.set_text("We will backup and overwrite your ~/.config when installing desktops - backup is in ~/.config-ATT folder")
+    noice.set_text("We will backup and overwrite your ~/.config when installing desktops\nBackup is in ~/.config-ATT folder\nLog files are located in /var/log/arcolinux")
     noice.set_line_wrap(True)
     self.desktopr_error = Gtk.Label(xalign=0)
 
