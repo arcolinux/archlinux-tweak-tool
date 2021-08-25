@@ -41,7 +41,15 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     button_Apply_Mirrors = Gtk.Button(label="Reset the sddm.conf")
     button_Apply_Mirrors.connect ("clicked", self.on_click_fix_sddm_conf)
     hbox5.pack_start(hbox5_label, False, False, 10)
-    hbox5.pack_end(button_Apply_Mirrors, False, False, 10) 
+    hbox5.pack_end(button_Apply_Mirrors, False, False, 10)
+    
+    hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox6_label = Gtk.Label(xalign=0)
+    hbox6_label.set_text("Get the original ArcoLinux /etc/pacman.conf")   
+    button_Apply_Pacman_Conf = Gtk.Button(label="Reset the pacman.conf")
+    button_Apply_Pacman_Conf.connect ("clicked", self.on_click_fix_pacman_conf)
+    hbox6.pack_start(hbox6_label, False, False, 10)
+    hbox6.pack_end(button_Apply_Pacman_Conf, False, False, 10) 
     
     # hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
@@ -78,6 +86,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     vboxStack19.pack_start(hbox3, False, False, 0)
     vboxStack19.pack_start(hbox4, False, False, 0)
     vboxStack19.pack_start(hbox5, False, False, 0)
+    vboxStack19.pack_start(hbox6, False, False, 0)
 #    vboxStack19.pack_start(hbox6, False, False, 0)
 #    vboxStack19.pack_start(hbox7, False, False, 0)
 #    vboxStack19.pack_start(hbox8, False, False, 0)
