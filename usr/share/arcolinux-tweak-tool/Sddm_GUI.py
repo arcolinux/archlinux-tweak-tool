@@ -57,7 +57,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     label2.set_text("Theme")
     
     label_sddm_config = Gtk.Label(xalign=0)
-    label_sddm_config.set_text("Set our sddm configuration back or yours")
+    label_sddm_config.set_text("Set our sddm configuration back")
     
     label_empty1 = Gtk.Label(xalign=0)
     label_empty1.set_text("")

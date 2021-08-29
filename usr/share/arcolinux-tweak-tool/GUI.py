@@ -212,6 +212,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack11.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
         ls.set_markup("If you install <b>lightdm</b> you can toggle autologin and set your default desktop session")
+        
+        install_lightdm = Gtk.Button(label="Install Lightdm and enable it")
+        install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked) 
+        
+        vboxStack11.pack_start(install_lightdm, False, False, 0)
         vboxStack11.pack_start(ls, True, False, 0)
         
     # # ==========================================================
@@ -255,7 +260,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
             ls.set_markup("No /etc/sddm.conf configuration file found. \nInstall <b>Sddm</b> and the configuration file to use this tab.")
             reset_sddm_original = Gtk.Button(label="Apply the sddm.conf from ArcoLinux")
             reset_sddm_original.connect("clicked", self.on_click_no_sddm_reset_original)
-            install_sddm = Gtk.Button(label="Install Sddm")
+            install_sddm = Gtk.Button(label="Install Sddm and enable it")
             install_sddm.connect("clicked", self.on_click_att_sddm_clicked)        
             reset_sddm_original_restart = Gtk.Button(label="Restart ArcoLinux Tweak Tool")
             reset_sddm_original_restart.connect("clicked", self.on_refresh_att_clicked)   

@@ -18,6 +18,7 @@ desktops = [
     "bspwm",
     "budgie-desktop",
     "cinnamon",
+    "cutefish-xsession",
     "cwm",
     "deepin",
     "fvwm3",
@@ -139,6 +140,10 @@ cinnamon = [
     "mintlocale",
     "nemo-fileroller",
     "xfce4-terminal",
+]
+cutefish = [
+    "cutefish",
+    "arcolinux-cutefish-git",
 ]
 cwm = [
     "arcolinux-config-all-desktops-git",
@@ -766,6 +771,10 @@ def install_desktop(self, desktop, state):
     elif desktop == "budgie-desktop":
         check_package(self, "/usr/bin", "catfish")
         command = budgie
+    elif desktop == "cutefish-xsession":
+        command = cutefish
+        src.append("/etc/skel/.config/cutefishos")
+        twm = True     
     elif desktop == "cinnamon":
         command = cinnamon
     elif desktop == "cwm":

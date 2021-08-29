@@ -5,6 +5,53 @@
 import Functions, os
 from Functions import GLib
 
+def check_sddmk_session(value):
+    with open(Functions.sddm_conf, "r") as myfile:
+        lines = myfile.readlines()
+        myfile.close()
+
+    for line in lines:
+        if value in line:          
+            return True
+    return False
+
+def insert_session(text):
+    with open(Functions.sddm_conf, "r") as f:
+        lines = f.readlines()
+        f.close()
+    pos = Functions._get_position(lines, "[Autologin]")
+    num = pos+2
+
+    lines.insert(num, text + "\n")
+
+    with open(Functions.sddm_conf, "w") as f:
+        f.writelines(lines)
+        f.close() 
+
+
+def check_sddmk_user(value):
+    with open(Functions.sddm_conf, "r") as myfile:
+        lines = myfile.readlines()
+        myfile.close()
+
+    for line in lines:
+        if value in line:          
+            return True
+    return False
+
+def insert_user(text):
+    with open(Functions.sddm_conf, "r") as f:
+        lines = f.readlines()
+        f.close()
+    pos = Functions._get_position(lines, "[Autologin]")
+    num = pos+3
+
+    lines.insert(num, text + "\n")
+
+    with open(Functions.sddm_conf, "w") as f:
+        f.writelines(lines)
+        f.close() 
+
 
 def check_sddm(lists, value):
     pos = Functions._get_position(lists, value)
@@ -18,7 +65,7 @@ def set_sddm_value(self, lists, value, session, state, theme):
         # print(groups)
         if "autologin" not in groups:
             Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "autologin"], shell=False)            
-        
+       
         pos = Functions._get_position(lists, "Session=")
         pos_session = Functions._get_position(lists, "User=")
 
@@ -37,7 +84,7 @@ def set_sddm_value(self, lists, value, session, state, theme):
             f.writelines(lists)
             f.close()
 
-        GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
+#        GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
 
     except Exception as e:
         print(e)

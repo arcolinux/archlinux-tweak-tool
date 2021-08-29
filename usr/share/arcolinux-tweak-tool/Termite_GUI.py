@@ -17,7 +17,7 @@ def GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir):
     hbox3.pack_start(lbl1, False, False, 0)
     
     label25 = Gtk.Label()
-    label25.set_text("Termite themes :\n     Use the button to install - select the theme here")
+    label25.set_text("Termite themes :\n     Use the button to install - Select the theme here")
     hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)    
     hbox25.pack_start(label25, False, False, 10)   
 

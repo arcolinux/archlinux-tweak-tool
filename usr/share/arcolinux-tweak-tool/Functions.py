@@ -23,6 +23,7 @@ sddm_default_original = "/usr/local/share/arcolinux/sddm/sddm.conf"
 
 sddm_default_d1 = "/etc/sddm.conf"
 sddm_default_d2 = "/etc/sddm.conf.d/kde_settings.conf"
+sddm_default_d2_dir = "/etc/sddm.conf.d/"
 sddm_default_d_sddm_original_1 = "/usr/local/share/arcolinux/sddm.conf.d/sddm.conf"
 sddm_default_d_sddm_original_2 = "/usr/local/share/arcolinux/sddm.conf.d/kde_settings.conf"
 
