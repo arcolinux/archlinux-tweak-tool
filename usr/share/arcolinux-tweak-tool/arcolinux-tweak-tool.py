@@ -22,6 +22,7 @@ import zsh_theme
 import user
 import fixes
 import GUI
+import subprocess
 from Functions import install_alacritty, os, pacman
 from subprocess import PIPE, STDOUT
 from time import sleep
@@ -116,12 +117,12 @@ class Main(Gtk.Window):
             Functions.os.makedirs(Functions.home + "/.config/autostart", 0o766)
             Functions.permissions(Functions.home + "/.config/autostart")
 
-        if not Functions.os.path.isdir(Functions.home + "/" +
-                                       Functions.bd):
-            Functions.os.makedirs(Functions.home + "/" +
-                                  Functions.bd, 0o766)
-            Functions.permissions(Functions.home + "/" +
-                                  Functions.bd)
+        #if not Functions.os.path.isdir(Functions.home + "/" +
+        #                               Functions.bd):
+            #Functions.os.makedirs(Functions.home + "/" +
+            #                      Functions.bd, 0o766)
+            #Functions.permissions(Functions.home + "/" +
+            #                      Functions.bd)
 
         if not Functions.os.path.isdir(Functions.home +
                                        "/.config/arcolinux-tweak-tool"):
@@ -133,10 +134,10 @@ class Main(Gtk.Window):
         # Force Permissions
         a1 = Functions.os.stat(Functions.home + "/.config/autostart")
         a2 = Functions.os.stat(Functions.home + "/.config/arcolinux-tweak-tool")
-        a3 = Functions.os.stat(Functions.home + "/" + Functions.bd)
+        #a3 = Functions.os.stat(Functions.home + "/" + Functions.bd)
         autostart = a1.st_uid
         att = a2.st_uid
-        backup = a3.st_uid
+        #backup = a3.st_uid
 
         if autostart == 0:
             Functions.permissions(Functions.home + "/.config/autostart")
@@ -144,9 +145,9 @@ class Main(Gtk.Window):
         if att == 0:
             Functions.permissions(Functions.home + "/.config/arcolinux-tweak-tool")
             print("Fix arcolinux-tweak-tool permissions...")
-        if backup == 0:
-            Functions.permissions(Functions.home + "/" + Functions.bd)
-            print("Fix .att_backup permissions...")
+        #if backup == 0:
+        #    Functions.permissions(Functions.home + "/" + Functions.bd)
+        #    print("Fix .att_backup permissions...")
 
         # if not Functions.path_check(Functions.config_dir + "images"):
         #     Functions.os.makedirs(Functions.config_dir + "images", 0o766)
@@ -953,6 +954,21 @@ class Main(Gtk.Window):
                                   Functions.zsh_config)
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
+    def tozsh_apply(self,widget):
+        command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/zsh'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+            
+    def tobash_apply(self,widget):
+        command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/bash'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
 
 #    #====================================================================
 #    #                       ARCOLINUX MIRRORLIST
@@ -1087,7 +1103,7 @@ class Main(Gtk.Window):
             self.sessions.set_sensitive(False)
 
     def on_click_att_lightdm_clicked(self, desktop):
-        command = 'pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm --needed'
+        command = 'pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
@@ -1100,6 +1116,14 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)   
        
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been installed and enabled - reboot")
+
+    def on_click_lightdm_enable(self, desktop):
+        command = 'systemctl enable lightdm.service -f'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been enabled - reboot")
             
     # ====================================================================
     #                       SDDM
@@ -1218,10 +1242,22 @@ class Main(Gtk.Window):
         
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed and enabled - reboot")
 
+    def on_click_sddm_enable(self, desktop):
+        command = 'systemctl enable sddm.service -f'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been enabled - reboot")
+
+    def on_launch_adt_clicked(self, desktop):
+        command = 'arcolinux-desktop-trasher'
+        subprocess.Popen("arcolinux-desktop-trasher")
+        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched")            
+        
     def on_refresh_att_clicked(self, desktop):
         os.unlink("/tmp/att.lock")
         Functions.restart_program()
-
 
     # ====================================================================
     #                       USER

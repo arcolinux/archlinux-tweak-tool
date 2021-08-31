@@ -211,7 +211,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack11.pack_start(hbox31, False, False, 0)
         vboxStack11.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
-        ls.set_markup("If you install <b>lightdm</b> you can toggle autologin and set your default desktop session")
+        ls.set_markup("We did not find an <b>/etc/lightdm/lightdm.conf</b> file\nIf you install <b>lightdm</b> you can toggle autologin and set your default desktop session")
         
         install_lightdm = Gtk.Button(label="Install Lightdm and enable it")
         install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked) 
@@ -333,22 +333,22 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     #                       Autostart
     # ==========================================================
-    if output == "/bin/zsh":
-        zsh_theme_GUI.GUI(self, Gtk, vboxStack15, zsh_theme, base_dir, GdkPixbuf)
-    else:
-        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        lbl1 = Gtk.Label(xalign=0)
-        lbl1.set_text("ZSH Themes")
-        lbl1.set_name("title")
-        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        hbox41.pack_start(hseparator, True, True, 0)
-        hbox31.pack_start(lbl1, False, False, 0)
-        vboxStack15.pack_start(hbox31, False, False, 0)
-        vboxStack15.pack_start(hbox41, False, False, 0)
-        ls = Gtk.Label()
-        ls.set_markup("If you switch to <b>Zsh</b> you can change the theme (use tozsh and tobash)")
-        vboxStack15.pack_start(ls, True, False, 0)
+    #if output == "/bin/zsh":
+    zsh_theme_GUI.GUI(self, Gtk, vboxStack15, zsh_theme, base_dir, GdkPixbuf)
+    # else:
+    #     hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     lbl1 = Gtk.Label(xalign=0)
+    #     lbl1.set_text("ZSH Themes")
+    #     lbl1.set_name("title")
+    #     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    #     hbox41.pack_start(hseparator, True, True, 0)
+    #     hbox31.pack_start(lbl1, False, False, 0)
+    #     vboxStack15.pack_start(hbox31, False, False, 0)
+    #     vboxStack15.pack_start(hbox41, False, False, 0)
+    #     ls = Gtk.Label()
+    #     ls.set_markup("If you switch to <b>Zsh</b> you can change the theme (use tozsh and tobash)")
+    #     vboxStack15.pack_start(ls, True, False, 0)
     # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
@@ -443,6 +443,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     pE.connect("query-tooltip", self.tooltip_callback,
                "Support our developers on Patreon")
 
+    btnReStartAtt = Gtk.Button(label="Restart ATT")
+    btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
+
     # =====================================================
     #                      PACKS
     # =====================================================
@@ -452,7 +455,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     # hbox1.pack_start(self.lbl_desktop, False, False, 0)
 
-    hbox3.pack_start(pE, False, False, 0)
+    hbox3.pack_start(btnReStartAtt, False, False, 0)
     #hbox2.pack_start(version, False, False, 0)
 
     ivbox.pack_start(image, False, False, 0)
