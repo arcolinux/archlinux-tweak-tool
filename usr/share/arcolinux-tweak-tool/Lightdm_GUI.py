@@ -54,8 +54,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     hbox2.pack_end(reset, False, False, 0)
     hbox2.pack_end(enable_lightdm, False, False, 0)
 
-    vboxStack10.pack_start(hbox4, False, False, 10)
-    vboxStack10.pack_start(hbox5, False, False, 10)
+    vboxStack10.pack_start(hbox4, False, False, 0)
+    vboxStack10.pack_start(hbox5, False, False, 0)
     vboxStack10.pack_start(hbox, False, False, 10)
     vboxStack10.pack_start(hbox3, False, False, 0)
     vboxStack10.pack_start(hbox1, False, False, 0)

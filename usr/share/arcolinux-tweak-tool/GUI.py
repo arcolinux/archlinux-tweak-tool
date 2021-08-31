@@ -445,6 +445,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     btnReStartAtt = Gtk.Button(label="Restart ATT")
     btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
+    #btnReStartAtt.set_property("has-tooltip", True)
+    #btnReStartAtt.connect("query-tooltip", self.tooltip_callback,
+    #           "Restart the ArcoLinux Tweak Tool")
 
     # =====================================================
     #                      PACKS

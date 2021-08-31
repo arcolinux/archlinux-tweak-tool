@@ -5,20 +5,19 @@
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Sddm Configuration")
     lbl1.set_name("title")
-    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-    hbox5.pack_start(hseparator, True, True, 0)
     hbox4.pack_start(lbl1, False, False, 0)
+    
+    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox5.pack_start(hseparator, True, True, 0)    
 
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -148,7 +147,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox2.pack_end(btnRefreshAtt, False, False, 0)
     hbox2.pack_end(enable_sddm, False, False, 10)   
     
-    vboxStack10.pack_start(hbox4, False, False, 10)
+    vboxStack10.pack_start(hbox4, False, False, 0)
+    vboxStack10.pack_start(hbox5, False, False, 0)
     vboxStack10.pack_start(hbox, False, False, 0)
     vboxStack10.pack_start(hbox3, False, False, 0)
     vboxStack10.pack_start(hbox1, False, False, 0)

@@ -5,13 +5,14 @@
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Create User")
     lbl1.set_name("title")
+    hbox4.pack_start(lbl1, False, False, 0)
+
+    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox5.pack_start(hseparator, True, True, 0)
-    hbox4.pack_start(lbl1, False, False, 0)
 
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -90,6 +91,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     hbox2.pack_end(apply_sddm, False, False, 0)
 
     vboxStack10.pack_start(hbox4, False, False, 0)
+    vboxStack10.pack_start(hbox5, False, False, 0)
     vboxStack10.pack_start(hbox3, False, False, 0)
     vboxStack10.pack_start(hbox, False, False, 0)
     #vboxStack10.pack_start(hbox7, False, False, 0)

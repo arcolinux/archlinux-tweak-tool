@@ -368,7 +368,6 @@ def check_sddm_value(list, value):
 #               HBLOCK CONF
 # =====================================================
 
-
 def hblock_get_state(self):
     lines = int(subprocess.check_output('wc -l /etc/hosts',
                                         shell=True).strip().split()[0])
@@ -378,11 +377,9 @@ def hblock_get_state(self):
     self.firstrun = False
     return False
 
-
 def do_pulse(data, prog):
     prog.pulse()
     return True
-
 
 def set_hblock(self, toggle, state):
     GLib.idle_add(toggle.set_sensitive, False)
@@ -440,6 +437,56 @@ def set_hblock(self, toggle, state):
         print(e)
 
 # =====================================================
+#               UBLOCK ORIGIN
+# =====================================================
+
+def ublock_get_state(self):
+    if os.path.exists("/usr/lib/firefox/browser/extensions/uBlock0@raymondhill.net.xpi"):
+        return True
+    return False
+
+def set_firefox_ublock(self, toggle, state):
+    GLib.idle_add(toggle.set_sensitive, False)
+    GLib.idle_add(self.label7.set_text, "Run..")
+    GLib.idle_add(self.progress.set_fraction, 0.2)
+
+    timeout_id = None
+    timeout_id = GLib.timeout_add(100, do_pulse, None, self.progress)
+
+    try:
+
+        install_ublock = "pacman -S firefox-ublock-origin --needed --noconfirm"
+        uninstall_ublock = 'pacman -Rs firefox-ublock-origin --noconfirm'
+
+        if state:
+            GLib.idle_add(self.label7.set_text, "Installing ublock Origin...")
+            subprocess.call(install_ublock.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+        else:
+            GLib.idle_add(self.label7.set_text, "Removing ublock Origin...")
+            subprocess.call(uninstall_ublock.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+
+        GLib.idle_add(self.label7.set_text, "Complete")
+        GLib.source_remove(timeout_id)
+        timeout_id = None
+        GLib.idle_add(self.progress.set_fraction, 0)
+
+        GLib.idle_add(toggle.set_sensitive, True)
+        if state:
+            GLib.idle_add(self.label7.set_text, "uBlock Origin installed")
+        else:
+            GLib.idle_add(self.label7.set_text, "uBlock Origin removed")
+
+    except Exception as e:
+        MessageBox(self, "ERROR!!", str(e))
+        print(e)
+
+# =====================================================
 #               ALACRITTY
 # =====================================================
 
@@ -447,6 +494,21 @@ def install_alacritty(self):
     install = 'pacman -S alacritty --needed --noconfirm'
     
     if os.path.exists("/usr/bin/alacritty"):
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+# =====================================================
+#               ARCOLINUX-DESKTOP-TRASHER
+# =====================================================
+
+def install_adt(self):
+    install = 'pacman -S arcolinux-desktop-trasher-git --noconfirm'
+    
+    if os.path.exists("/usr/local/bin/arcolinux-desktop-trasher"):
         pass
     else:
         subprocess.call(install.split(" "),

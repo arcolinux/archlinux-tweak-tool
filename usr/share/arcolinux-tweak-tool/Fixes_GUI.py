@@ -10,6 +10,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     hbox1_label.set_text("ArcoLinux Fixes")
     hbox1_label.set_name("title")
     hbox1.pack_start(hbox1_label, False, False, 10)
+    
+    hbox0 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox0.pack_start(hseparator, True, True, 0)
 
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2_label = Gtk.Label(xalign=0)
@@ -91,6 +95,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     #                       VBOX STACK 
     # ======================================================================
     vboxStack19.pack_start(hbox1, False, False, 0)
+    vboxStack19.pack_start(hbox0, False, False, 0)    
     vboxStack19.pack_start(hbox2, False, False, 0)
     vboxStack19.pack_start(hbox3, False, False, 0)
     vboxStack19.pack_start(hbox4, False, False, 0)

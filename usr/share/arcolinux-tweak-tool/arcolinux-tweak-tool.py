@@ -636,17 +636,21 @@ class Main(Gtk.Window):
                                                "Default Settings Applied")
 
 #   #====================================================================
-#   #                       HBlock
+#   #                       HBLOCK SECURITY PRIVACY
 #   #====================================================================
+
     def set_hblock(self, widget, state):
         if self.firstrun is not True:
             t = Functions.threading.Thread(target=Functions.set_hblock, args=(
                 self, widget, widget.get_active()))
-            # t.daemon = True
             t.start()
-            # Functions.set_hblock(self, widget, widget.get_active())
         else:
             self.firstrun = False
+
+    def set_ublock_firefox(self, widget, state):
+        t = Functions.threading.Thread(target=Functions.set_firefox_ublock, args=(
+                self, widget, widget.get_active()))
+        t.start()
 
 #   #====================================================================
 #   #                       GRUB
