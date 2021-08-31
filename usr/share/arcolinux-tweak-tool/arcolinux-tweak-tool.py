@@ -1251,8 +1251,7 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been enabled - reboot")
 
     def on_launch_adt_clicked(self, desktop):
-        command = 'arcolinux-desktop-trasher'
-        subprocess.Popen("arcolinux-desktop-trasher")
+        subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched")            
         
     def on_refresh_att_clicked(self, desktop):
