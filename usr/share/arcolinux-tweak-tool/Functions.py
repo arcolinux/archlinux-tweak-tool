@@ -55,6 +55,7 @@ zsh_config = home + "/.zshrc"
 account_list = ["Standard","Administrator"]
 i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
+qtile_config = home + "/.config/qtile/config.py"
 
 seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
 
