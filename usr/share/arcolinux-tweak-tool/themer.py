@@ -96,7 +96,7 @@ def get_i3_themes(combo, lines):
 
         current_theme = fn._get_position(lines, "Theme name :")
         theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
-        print(theme_name)
+        #print(theme_name)
         active = 0
         for i in range(len(menu)):
             if theme_name in menu[i]:

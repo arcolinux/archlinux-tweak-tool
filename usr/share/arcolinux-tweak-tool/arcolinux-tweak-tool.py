@@ -1308,6 +1308,16 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT) 
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.conf")
+
+    def on_click_fix_pacman_gpg_conf(self,widget):
+        command = '/usr/local/bin/arcolinux-fix-pacman-gpg-conf'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT) 
+        GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.d/gnupg/gpg.conf")
+
+
                                 
 #    #====================================================================
 #    #                       DESKTOPR
