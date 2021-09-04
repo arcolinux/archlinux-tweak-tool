@@ -30,9 +30,9 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib  # noqa
 # from Settings import settings, configparser
 
-#                #=======================================================
-#                #=     Author: Brad Heffernan - Erik Dubois            =
-#                #=======================================================
+#      #============================================================
+#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
+#      #============================================================
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 pmf = pacman_functions
@@ -76,25 +76,25 @@ class Main(Gtk.Window):
                 os.mkdir(Functions.log_dir)
             except Exception as e:
                 print(e)
-        
+
         if not os.path.isdir(Functions.att_log_dir):
             try:
                 os.mkdir(Functions.att_log_dir)
             except Exception as e:
                 print(e)
-                       
+
         if os.path.exists("/usr/bin/sddm"):
             if not os.path.isdir(Functions.sddm_default_d2_dir):
                 try:
                     os.mkdir(Functions.sddm_default_d2_dir)
                 except Exception as e:
                     print(e)
-            
+
             if not Functions.os.path.exists(Functions.sddm_conf):
                 Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
-                                      Functions.sddm_default_d1)   
+                                      Functions.sddm_default_d1)
                 Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
-                                      Functions.sddm_default_d2) 
+                                      Functions.sddm_default_d2)
             if  os.path.getsize(Functions.sddm_conf) == 0:
                 Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                       Functions.sddm_default_d1)
@@ -325,7 +325,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(),
-                                      "arco_mirror_seed")                
+                                      "arco_mirror_seed")
 
     def on_pacman_a3p_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_3party]"):
@@ -402,16 +402,20 @@ class Main(Gtk.Window):
             themer.toggle_polybar(self, themer.get_list(Functions.i3wm_config), False)
             Functions.subprocess.run(["killall", "-q", "polybar"], shell=False)
 
-    def on_awsome_change(self, widget):
+    def on_awesome_change(self, widget):
         tree_iter = self.awesome_combo.get_active_iter()
         if tree_iter is not None:
             model = self.awesome_combo.get_model()
             row_id, name = model[tree_iter][:2]
-        pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/" +  # noqa
-                                                          name +
-                                                          ".jpg",
-                                                          598, 598)
-        self.image.set_from_pixbuf(pimage)
+        #Errors here indicate that the image doesn't exist - lets catch that use case.
+        try:
+            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/" +  # noqa
+                                                              name +
+                                                              ".jpg",
+                                                              598, 598)
+            self.image.set_from_pixbuf(pimage)
+        except:
+            pass
 
     def awesome_apply_clicked(self, widget):
         if not os.path.isfile(Functions.awesome_config + ".bak"):
@@ -454,7 +458,6 @@ class Main(Gtk.Window):
         if not themer.check_polybar(themer.get_list(Functions.i3wm_config)):
             themer.set_i3_themes_bar(themer.get_list(Functions.i3wm_config),
                                      self.i3_combo.get_active_text())
-            print("BAR CHANGED THEME")
         Functions.show_in_app_notification(self,
                                            "Theme applied successfully")
 
@@ -468,6 +471,27 @@ class Main(Gtk.Window):
             i3_list = themer.get_list(Functions.i3wm_config)
 
             themer.get_i3_themes(self.i3_combo, i3_list)
+
+    def qtile_apply_clicked(self, widget):
+        if os.path.isfile(Functions.qtile_config):
+            Functions.shutil.copy(Functions.qtile_config,
+                                  Functions.qtile_config + ".bak")
+
+        themer.set_qtile_themes(themer.get_list(Functions.qtile_config),
+                             self.qtile_combo.get_active_text())
+        Functions.show_in_app_notification(self,
+                                           "Theme applied successfully")
+
+    def qtile_reset_clicked(self, widget):
+        if os.path.isfile(Functions.qtile_config + ".bak"):
+            Functions.shutil.copy(Functions.qtile_config + ".bak",
+                                  Functions.qtile_config)
+            Functions.show_in_app_notification(self,
+                                               "Config reset successfully")
+
+            qtile_list = themer.get_list(Functions.qtile_config)
+
+            themer.get_qtile_themes(self.qtile_combo, qtile_list)
 
 # =====================================================
 #               OBLOGOUT FUNCTIONS
@@ -560,7 +584,7 @@ class Main(Gtk.Window):
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
             Functions.show_in_app_notification(self,
-                                               "Default Settings Applied")            
+                                               "Default Settings Applied")
 
         if filez == pacman:
             arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
@@ -881,15 +905,15 @@ class Main(Gtk.Window):
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)     
+                        stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Alacritty Themes Installed")
 
     def on_clicked_install_xfce4_themes(self,widget):
-        command = 'pacman -S xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
+        command = 'pacman -S xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)     
+                        stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Xfce4-terminal Themes Installed")
 
     def on_clicked_install_termite_themes(self,widget):
@@ -899,7 +923,7 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         Functions.copy_func("/etc/skel/.config/termite", Functions.home + "/.config/", True)
-        Functions.permissions(Functions.home + "/.config/termite")    
+        Functions.permissions(Functions.home + "/.config/termite")
         GLib.idle_add(Functions.show_in_app_notification, self, "Termite Themes Installed")
 
 
@@ -965,7 +989,7 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
-            
+
     def tobash_apply(self,widget):
         command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/bash'
         Functions.subprocess.call(command,
@@ -974,6 +998,31 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
 
+    def update_image(self, widget, image, theme_type, att_base, image_width, image_height):
+        sample_path = ""
+        preview_path = ""
+        if theme_type == "zsh":
+            sample_path = att_base+"/images/zsh-sample.jpg"
+            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "qtile":
+            sample_path = att_base+"/images/qtile-sample.jpg"
+            preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "i3":
+            sample_path = att_base+"/images/i3-sample.jpg"
+            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+        #elif theme_type == "awesome":
+        #    sample_path = att_base+"/images/i3-sample.jpg"
+        #    preview_path = att_base+"/themer_data/awesomewm/"+widget.get_active_text() + ".jpg"
+        else:
+            #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
+                print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
+                print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
+        source_pixbuf = image.get_pixbuf()
+        if os.path.isfile(preview_path) and widget.get_active_text() != "random":
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(preview_path, image_width, image_height)
+        else:
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
+        image.set_from_pixbuf(pixbuf)
 #    #====================================================================
 #    #                       ARCOLINUX MIRRORLIST
 #    #===================================================================
@@ -982,7 +1031,7 @@ class Main(Gtk.Window):
         if not Functions.os.path.isfile(Functions.arcolinux_mirrorlist + ".bak"):
             Functions.shutil.copy(Functions.arcolinux_mirrorlist,
                                   Functions.arcolinux_mirrorlist + ".bak")
-            
+
         if Functions.os.path.isfile(Functions.arcolinux_mirrorlist_original):
             Functions.shutil.copy(Functions.arcolinux_mirrorlist_original,
                                   Functions.arcolinux_mirrorlist)
@@ -1117,8 +1166,8 @@ class Main(Gtk.Window):
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)   
-       
+                        stderr=Functions.subprocess.STDOUT)
+
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been installed and enabled - reboot")
 
     def on_click_lightdm_enable(self, desktop):
@@ -1128,7 +1177,7 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been enabled - reboot")
-            
+
     # ====================================================================
     #                       SDDM
     # ====================================================================
@@ -1138,7 +1187,7 @@ class Main(Gtk.Window):
         #    Functions.shutil.copy(Functions.sddm_conf,
         #                          Functions.sddm_conf + ".bak")
 
-      
+
         if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or (self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None) :
             t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
                                             args=(self,
@@ -1149,7 +1198,7 @@ class Main(Gtk.Window):
                                                 self.theme_sddm.get_active_text()))
             t1.daemon = True
             t1.start()
-                        
+
             t1 = Functions.threading.Thread(target=sddm.set_sddm_cursor,
                                             args=(self,
                                             sddm.get_sddm_lines(Functions.sddm_default),  # noqa
@@ -1158,7 +1207,7 @@ class Main(Gtk.Window):
             t1.start()
 
             GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
-            
+
         else:
             Functions.show_in_app_notification(self, "You need to select desktop and/or theme first")
 
@@ -1175,7 +1224,7 @@ class Main(Gtk.Window):
         else:
             Functions.show_in_app_notification(self, "We did not find a backup file for sddm.conf")
 
-    def on_click_sddm_reset_original(self, widget):               
+    def on_click_sddm_reset_original(self, widget):
         if Functions.sddm_conf == "/etc/sddm.conf.d/kde_settings.conf":
             Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                   Functions.sddm_default_d1)
@@ -1192,13 +1241,13 @@ class Main(Gtk.Window):
 
         Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
 
-    def on_click_no_sddm_reset_original(self, widget):           
+    def on_click_no_sddm_reset_original(self, widget):
         if Functions.os.path.isfile(Functions.sddm_default_d_sddm_original_1):
             Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_1,
                                   Functions.sddm_default_d1)
             Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_2,
                                   Functions.sddm_default_d2)
-                        
+
         Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
 
     def on_autologin_sddm_activated(self, widget, gparam):
@@ -1212,7 +1261,7 @@ class Main(Gtk.Window):
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)     
+                        stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm Themes Installed")
 
     def on_click_remove_sddm_themes(self,widget):
@@ -1220,7 +1269,7 @@ class Main(Gtk.Window):
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)     
+                        stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed")
 
         if self.keep_default_theme.get_active() is True:
@@ -1228,7 +1277,7 @@ class Main(Gtk.Window):
             Functions.subprocess.call(command.split(" "),
                             shell=False,
                             stdout=Functions.subprocess.PIPE,
-                            stderr=Functions.subprocess.STDOUT)     
+                            stderr=Functions.subprocess.STDOUT)
             GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
 
     def on_click_att_sddm_clicked(self, desktop):
@@ -1236,14 +1285,14 @@ class Main(Gtk.Window):
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)     
+                        stderr=Functions.subprocess.STDOUT)
 
         command = 'systemctl enable sddm.service -f'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT) 
-        
+                        stderr=Functions.subprocess.STDOUT)
+
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed and enabled - reboot")
 
     def on_click_sddm_enable(self, desktop):
@@ -1255,9 +1304,10 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been enabled - reboot")
 
     def on_launch_adt_clicked(self, desktop):
+        Functions.install_adt(self)
         subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
-        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched")            
-        
+        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched")
+
     def on_refresh_att_clicked(self, desktop):
         os.unlink("/tmp/att.lock")
         Functions.restart_program()
@@ -1272,29 +1322,29 @@ class Main(Gtk.Window):
     # ====================================================================
     #                       FIXES
     # ====================================================================
-        
+
     def on_click_fix_pacman_keys(self,widget):
         install_alacritty(self)
         Functions.subprocess.call("alacritty -e /usr/local/bin/arcolinux-fix-pacman-databases-and-keys",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)     
-        GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")        
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")
 
     def on_click_fix_osbeck(self,widget):
         command = '/usr/local/bin/arcolinux-osbeck-as-mirror'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT) 
-        GLib.idle_add(Functions.show_in_app_notification, self, "Osbeck set as Arch Linux")   
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Osbeck set as Arch Linux")
 
     def on_click_fix_mirrors(self,widget):
         install_alacritty(self)
         Functions.subprocess.call("alacritty -e /usr/local/bin/arcolinux-get-mirrors",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT) 
+                        stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved")
 
     def on_click_fix_sddm_conf(self,widget):
@@ -1302,7 +1352,7 @@ class Main(Gtk.Window):
         Functions.subprocess.call(command,
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT) 
+                        stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/sddm.conf")
 
     def on_click_fix_pacman_conf(self,widget):
@@ -1310,7 +1360,7 @@ class Main(Gtk.Window):
         Functions.subprocess.call(command,
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT) 
+                        stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.conf")
 
     def on_click_fix_pacman_gpg_conf(self,widget):
@@ -1318,11 +1368,10 @@ class Main(Gtk.Window):
         Functions.subprocess.call(command,
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT) 
+                        stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.d/gnupg/gpg.conf")
 
 
-                                
 #    #====================================================================
 #    #                       DESKTOPR
 #    #====================================================================

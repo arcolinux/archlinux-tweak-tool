@@ -99,7 +99,7 @@ def create_log(self):
     subprocess.call(command,
                     shell=True,
                     stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)     
+                    stderr=subprocess.STDOUT)
     #GLib.idle_add(show_in_app_notification, self, "Log file created")
 
 # =====================================================
@@ -492,7 +492,7 @@ def set_firefox_ublock(self, toggle, state):
 
 def install_alacritty(self):
     install = 'pacman -S alacritty --needed --noconfirm'
-    
+
     if os.path.exists("/usr/bin/alacritty"):
         pass
     else:
@@ -507,7 +507,7 @@ def install_alacritty(self):
 
 def install_adt(self):
     install = 'pacman -S arcolinux-desktop-trasher-git --noconfirm'
-    
+
     if os.path.exists("/usr/local/bin/arcolinux-desktop-trasher"):
         pass
     else:

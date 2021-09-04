@@ -51,6 +51,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # =======================================================
     #                       App Notifications
     # =======================================================
+    
     hbox0 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     self.notification_revealer = Gtk.Revealer()
@@ -72,7 +73,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     #                       CONTAINER
     # ==========================================================
-    # grid = Gtk.Grid()
+    
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
     vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
@@ -97,51 +98,57 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     vboxStack8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #lightdm
+    vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack12 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack13 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack15 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack16 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack17 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #sddm
-    vboxStack18 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #user
-    vboxStack19 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #user    
+    vboxStack17 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) 
+    vboxStack18 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) 
+    vboxStack19 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) 
+    
     # ==========================================================
-    #                   TAB #1 PACMAN
+    #                   PACMAN
     # ==========================================================
     if Functions.file_check(Functions.pacman):
         Pacman_GUI.GUI(self, Gtk, vboxStack1, Functions)
 
     # ==========================================================
-    #                   TAB MIRRORLIST ARCOLINUX
+    #                 MIRRORLIST ARCOLINUX
     # ==========================================================
 
     Arcolinuxmirrors_GUI.GUI(self, Gtk, vboxStack16, Functions)
 
     # ==========================================================
-    #                 TAB #2 GTK THEMES
+    #                 GTK THEMES
     # ==========================================================
+    
     # GTK_GUI.GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions)
 
     # ==========================================================
     #                       HBLOCK
     # ==========================================================
+    
     HBlock_GUI.GUI(self, Gtk, vboxStack3, Functions)
 
     # ==========================================================
     #                       GRUB
     # ==========================================================
+    
     Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions)
 
     # ==========================================================
-    #                       TAB #5 SLIMLOCK
+    #                       SLIMLOCK
     # ==========================================================
+    
     # if Functions.file_check(Functions.slimlock_conf):
     #     Slimlock_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os)
 
     # ==========================================================
-    #                       TAB #6 OBLOGOUT
+    #                       OBLOGOUT
     # ==========================================================
+    
     # if Functions.file_check(Functions.oblogout_conf):
     #     Oblogout_GUI.GUI(self, Gtk, Gdk, GdkPixbuf,
     #                      base_dir, vboxStack6, oblogout, Functions, os)
@@ -149,35 +156,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # # ==========================================================
     # #                     TERMITE CONFIG
     # # ==========================================================
-    #if Functions.file_check(Functions.termite_config):
+ 
     Termite_GUI.GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir)
-    # else:
-    #     hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #     hbox42 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #     vbox41 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    #     lbl1 = Gtk.Label(xalign=0)
-    #     lbl1.set_text("Terminals")
-    #     lbl1.set_name("title")
-    #     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-    #     hbox41.pack_start(hseparator, True, True, 0)
-    #     hbox31.pack_start(lbl1, False, False, 0)
-    #     vboxStack7.pack_start(hbox31, False, False, 0)
-    #     vboxStack7.pack_start(hbox41, False, False, 0)
-    #     ls = Gtk.Label()
-    #     ls.set_markup("If you install <b>ArcoLinux Termite themes</b> you can choose the theme")
-    #     self.ls2 = Gtk.Label()
-    #     self.ls2.set_markup("")
-    #     self.btn_term = Gtk.Button(label="Install Termite themes")
-    #     self.btn_term.connect("clicked", self.on_install_termite_themes)
-    #     vbox41.pack_start(ls, False, False, 0)
-    #     hbox42.pack_start(self.btn_term, True, False, 0)
-    #     vbox41.pack_start(hbox42, False, False, 0)
-    #     vbox41.pack_start(self.ls2, False, False, 0)
-    #     vboxStack7.pack_start(vbox41, True, False, 0)
+
     # # ==========================================================
     # #                     NEOFETCH
     # # ==========================================================
+    
     if Functions.file_check(Functions.neofetch_config):
         Neofetch_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions)
     else:
@@ -194,9 +179,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         ls = Gtk.Label()
         ls.set_markup("If you install <b>Neofetch</b> and the <i>ArcoLinux themes</i> you can customize <b>Neofetch</b>")
         vboxStack8.pack_start(ls, True, False, 0)
+        
     # # ==========================================================
     # #                     LIGHTDM
     # # ==========================================================
+    
     if Functions.file_check(Functions.lightdm_conf):
         Lightdm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack11, lightdm, Functions)
     else:
@@ -212,16 +199,17 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack11.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
         ls.set_markup("We did not find an <b>/etc/lightdm/lightdm.conf</b> file\nIf you install <b>lightdm</b> you can toggle autologin and set your default desktop session")
-        
+
         install_lightdm = Gtk.Button(label="Install Lightdm and enable it")
-        install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked) 
-        
+        install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked)
+
         vboxStack11.pack_start(install_lightdm, False, False, 0)
         vboxStack11.pack_start(ls, True, False, 0)
-        
+
     # # ==========================================================
     # #                     SDDM
     # # ==========================================================
+    
     if "plasma" in self.desktop.lower():
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -237,12 +225,12 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         ls.set_markup("Use the Plasma settings manager to set Sddm")
         reset_sddm_original = Gtk.Button(label="Apply the sddm.conf from ArcoLinux")
         reset_sddm_original.connect("clicked", self.on_click_fix_sddm_conf)
-        
+
         vboxStack17.pack_end(reset_sddm_original, False, False, 0)
         vboxStack17.pack_start(ls, True, False, 0)
-        
+
     else:
-            
+
         if Functions.file_check(Functions.sddm_conf):
             Sddm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack17, sddm, Functions)
         else:
@@ -261,97 +249,74 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
             reset_sddm_original = Gtk.Button(label="Apply the sddm.conf from ArcoLinux")
             reset_sddm_original.connect("clicked", self.on_click_no_sddm_reset_original)
             install_sddm = Gtk.Button(label="Install Sddm and enable it")
-            install_sddm.connect("clicked", self.on_click_att_sddm_clicked)        
+            install_sddm.connect("clicked", self.on_click_att_sddm_clicked)
             reset_sddm_original_restart = Gtk.Button(label="Restart ArcoLinux Tweak Tool")
-            reset_sddm_original_restart.connect("clicked", self.on_refresh_att_clicked)   
-            
+            reset_sddm_original_restart.connect("clicked", self.on_refresh_att_clicked)
+
             vboxStack17.pack_start(ls, False, False, 0)
             vboxStack17.pack_end(reset_sddm_original_restart, False, False, 0)
-            vboxStack17.pack_end(reset_sddm_original, False, False, 0)      
+            vboxStack17.pack_end(reset_sddm_original, False, False, 0)
             vboxStack17.pack_end(install_sddm, False, False, 0)
+
     # # ==========================================================
     # #                     USER
     # # ==========================================================
+    
     User_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack18, user, Functions)
     ls = Gtk.Label()
     ls.set_markup("Fill in the fields and create your account")
     vboxStack18.pack_start(ls, True, False, 0)
-    
-    
+
+
     # # ==========================================================
     # #                     FIXES
     # # ==========================================================
+
     Fixes_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack19, user, Functions)
-    #ls = Gtk.Label()
-    #ls.set_markup("Fill in the fields and create your account")
-    #vboxStack19.pack_start(ls, True, False, 0)     
-        
+
     # # ==========================================================
-    # #                     Skelapp
+    # #                     SKELAPP
     # # ==========================================================
 
     # SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
 
     # ==========================================================
-    #                       Themer
+    #                       THEMER
     # ==========================================================
-    if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
-        Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
-    else:
-        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        lbl1 = Gtk.Label(xalign=0)
-        lbl1.set_text("Theme Switcher")
-        lbl1.set_name("title")
-        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        hbox41.pack_start(hseparator, True, True, 0)
-        hbox31.pack_start(lbl1, False, False, 0)
-        vboxStack10.pack_start(hbox31, False, False, 0)
-        vboxStack10.pack_start(hbox41, False, False, 0)
-        ls = Gtk.Label()
-        ls.set_markup("Change your themes on <b>I3</b> or <b>Awesome</b>")
-        vboxStack10.pack_start(ls, True, False, 0)
+    
+    Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
+    
     # ==========================================================
-    #                       Themer
+    #                       DESKTOP
     # ==========================================================
+    
     desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr,
                      Functions, base_dir, Pango)
 
     # ==========================================================
-    #                       Autostart
+    #                       AUTOSTART
     # ==========================================================
+    
     autostart_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart,
                       Functions, base_dir)
 
     # ==========================================================
-    #                       Polybar
+    #                       POLYBAR
     # ==========================================================
     # if Functions.path_check(Functions.polybar):
     #     polybar_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar,
     #                     Functions, base_dir)
 
     # ==========================================================
-    #                       Autostart
+    #                       ZSH
     # ==========================================================
-    #if output == "/bin/zsh":
+
     zsh_theme_GUI.GUI(self, Gtk, vboxStack15, zsh_theme, base_dir, GdkPixbuf)
-    # else:
-    #     hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #     lbl1 = Gtk.Label(xalign=0)
-    #     lbl1.set_text("ZSH Themes")
-    #     lbl1.set_name("title")
-    #     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-    #     hbox41.pack_start(hseparator, True, True, 0)
-    #     hbox31.pack_start(lbl1, False, False, 0)
-    #     vboxStack15.pack_start(hbox31, False, False, 0)
-    #     vboxStack15.pack_start(hbox41, False, False, 0)
-    #     ls = Gtk.Label()
-    #     ls.set_markup("If you switch to <b>Zsh</b> you can change the theme (use tozsh and tobash)")
-    #     vboxStack15.pack_start(ls, True, False, 0)
+
     # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
+    
     # stack.add_titled(vboxStack10, "stack0", "Welcome")
     #
     stack.add_titled(vboxStack13, "stack13", "Autostart")  # Autostart
@@ -416,32 +381,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         os.path.join(base_dir, 'images/arcolinux-stock.png'), 45, 45)
     image = Gtk.Image().new_from_pixbuf(pixbuf)
 
-    # =====================================================
-    #                       VERSION
-    # =====================================================
-    version = Gtk.Label(xalign=0)
-    version.set_markup("<span foreground=\'grey\'>v21.04-05</span>")
-
-    # self.lbl_desktop = Gtk.Label(xalign=0)
-    # self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
-    #                             self.desktop + "</span>")
 
     # =====================================================
-    #               PATREON LINK
+    #               RESTART BUTTON
     # =====================================================
-    pE = Gtk.EventBox()
-
-    pbp = GdkPixbuf.Pixbuf().new_from_file_at_size(
-        os.path.join(base_dir, 'images/credits.png'), 58, 58)
-    pimage = Gtk.Image().new_from_pixbuf(pbp)
-
-    pE.add(pimage)
-
-    pE.connect("button_press_event", self.on_social_clicked)
-    pE.set_property("has-tooltip", True)
-
-    pE.connect("query-tooltip", self.tooltip_callback,
-               "Support our developers on Patreon")
 
     btnReStartAtt = Gtk.Button(label="Restart ATT")
     btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
@@ -452,18 +395,16 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # =====================================================
     #                      PACKS
     # =====================================================
+    
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
 
-    # hbox1.pack_start(self.lbl_desktop, False, False, 0)
-
     hbox3.pack_start(btnReStartAtt, False, False, 0)
-    #hbox2.pack_start(version, False, False, 0)
-
+  
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
-    # ivbox.pack_start(hbox1, False, False, 0)
+
     ivbox.pack_start(hbox2, False, False, 0)
     ivbox.pack_start(hbox3, False, False, 0)
 

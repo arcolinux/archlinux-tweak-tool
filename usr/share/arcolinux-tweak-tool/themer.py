@@ -1,11 +1,8 @@
 # =================================================================
-# =                  Author: Brad Heffernan                       =
+# =          Authors: Erik Dubois - Cameron Percival
 # =================================================================
 
 import Functions as fn
-# import numpy as np
-# from Functions import os
-
 
 def get_list(fle):
     with open(fle, "r") as f:
@@ -13,6 +10,14 @@ def get_list(fle):
         f.close()
     return lines
 
+def get_value(lists, types):
+    try:
+        pos = fn._get_position(lists, types)
+        color = lists[pos].split("=")[-1].strip()
+
+        return color
+    except Exception as e:
+        print(e)
 
 def move_file(self, state):
     if state:
@@ -26,7 +31,6 @@ def move_file(self, state):
         fn.subprocess.run(["mv", fn.home + "/.config/i3/config", fn.home + "/.config/i3/config-polybar"])
         fn.subprocess.run(["mv", fn.home + "/.config/i3/config-bar", fn.home + "/.config/i3/config"])
 
-
 def toggle_polybar(self, lines, state):
     if state:
         if not check_polybar(lines):
@@ -34,7 +38,6 @@ def toggle_polybar(self, lines, state):
     else:
         if check_polybar(lines):
             move_file(self, False)
-
 
 def check_polybar(lines):
     try:
@@ -47,6 +50,27 @@ def check_polybar(lines):
         print(e)
         return False
 
+# =================================================================
+# =                  I3WM
+# =================================================================
+
+def get_i3_themes(combo, lines):
+    combo.get_model().clear()
+    try:
+        menu = [x for x in fn.os.listdir(fn.home + "/.config/i3") if ".theme" in x]
+
+        current_theme = fn._get_position(lines, "Theme name :")
+        theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
+        #print(theme_name)
+        active = 0
+        sorted_menu = sorted(menu)
+        for i in range(len(sorted_menu)):
+            if theme_name in sorted_menu[i]:
+                active = i
+            combo.append_text(sorted_menu[i].replace(".theme", ""))
+        combo.set_active(active)
+    except Exception as e:
+        print(e)
 
 def set_i3_themes(lines, theme):
     try:
@@ -88,36 +112,20 @@ def set_i3_themes_bar(lines, theme):
     except Exception as e:
         print(e)
 
-
-def get_i3_themes(combo, lines):
-    combo.get_model().clear()
-    try:
-        menu = [x for x in fn.os.listdir(fn.home + "/.config/i3") if ".theme" in x]
-
-        current_theme = fn._get_position(lines, "Theme name :")
-        theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
-        #print(theme_name)
-        active = 0
-        for i in range(len(menu)):
-            if theme_name in menu[i]:
-                active = i
-            combo.append_text(menu[i].replace(".theme", ""))
-        combo.set_active(active)
-    except Exception as e:
-        print(e)
-
+# =================================================================
+# =                  AWESOME
+# =================================================================
 
 def get_awesome_themes(lines):
-
     theme_pos = fn._get_position(lines, "local themes = {")
     end_theme_pos = fn._get_position(lines, "local chosen_theme")
 
     coms = [x for x in lines[theme_pos:end_theme_pos] if "\"," in x]
-    return_list = []
+    list = []
     for x in coms:
-        return_list.append(x.split("\"")[1].strip())
+        list.append(x.split("\"")[1].strip())
+    return_list = sorted(list)
     return return_list
-
 
 def set_awesome_theme(lines, val):
     theme_pos = fn._get_position(lines, "local chosen_theme")
@@ -130,12 +138,42 @@ def set_awesome_theme(lines, val):
         f.writelines(lines)
         f.close()
 
+# =================================================================
+# =                  QTILE
+# =================================================================
 
-def get_value(lists, types):
+def get_qtile_themes(combo, lines):
+    combo.get_model().clear()
     try:
-        pos = fn._get_position(lists, types)
-        color = lists[pos].split("=")[-1].strip()
+        menu = [x for x in fn.os.listdir(fn.home + "/.config/qtile/themes/") if ".theme" in x]
 
-        return color
+        current_theme = fn._get_position(lines, "Theme name :")
+        theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
+        active = 0
+        sorted_menu = sorted(menu)
+        for i in range(len(sorted_menu)):
+            if theme_name in sorted_menu[i]:
+                active = i
+            combo.append_text(sorted_menu[i].replace(".theme", ""))
+        combo.set_active(active)
+    except Exception as e:
+        print(e)
+
+def set_qtile_themes(lines, theme):
+    try:
+        pos1 = fn._get_position(lines, "# COLORS FOR THE BAR")
+        pos2 = fn._get_position(lines, "colors = init_colors()")
+        name = theme.lower().replace(" ", "-")
+        with open(fn.home + "/.config/qtile/themes/" + name + ".theme", "r") as f:
+            theme_lines = f.readlines()
+            f.close()
+        pos3 = fn._get_position(theme_lines, "# COLORS FOR THE BAR")
+        pos4 = fn._get_position(theme_lines, "colors = init_colors()")
+
+        lines[pos1:pos2 + 1] = theme_lines[pos3:pos4 + 1]
+
+        with open(fn.qtile_config, "w") as f:
+            f.writelines(lines)
+            f.close()
     except Exception as e:
         print(e)

@@ -1,9 +1,13 @@
 # =================================================================
-# =                  Author: Brad Heffernan                       =
+# =          Author: Brad Heffernan - Erik Dubois - Cameron Percival
 # =================================================================
 
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
+
+    #Image Dimensions. Change once here - apply to ALL the items in this GUI.
+    image_width = 645
+    image_height = 645
     hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -17,11 +21,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
         i3_list = themer.get_list(Functions.i3wm_config)
     if Functions.os.path.isfile(Functions.awesome_config):
         awesome_list = themer.get_list(Functions.awesome_config)
+    if Functions.os.path.isfile(Functions.qtile_config):
+        qtile_list = themer.get_list(Functions.qtile_config)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -39,7 +46,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     # ==================================================================
 
     label3 = Gtk.Label()
-    label3.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.")
+    label3.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes..\nInstall the desktop with ATT to theme it.")
 
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
@@ -66,11 +73,22 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
             self.poly.set_active(True)
     self.poly.connect("notify::active", self.on_polybar_toggle)
 
+    if not Functions.os.path.isfile(Functions.i3wm_config):
+        applyi3.set_sensitive(False)
+        reseti3.set_sensitive(False)
+        self.poly.set_sensitive(False)   
+
     hbox1.pack_start(label, False, False, 10)
     hbox1.pack_end(vbox2, False, False, 10)
 
-    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/i3-sample.jpg", 645, 645)
+    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/i3-sample.jpg", image_width, image_height)
+    if self.i3_combo.get_active_text() is None:
+        pass
+    elif Functions.os.path.isfile(base_dir+"/themer_data/i3"+self.i3_combo.get_active_text()+".jpg"):
+        pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/i3/"+self.i3_combo.get_active_text()+".jpg", image_width, image_height)
     i3_image = Gtk.Image().new_from_pixbuf(pixbuf)
+
+    self.i3_combo.connect("changed", self.update_image, i3_image, "i3", base_dir, image_width, image_height)
 
     hbox2.pack_end(applyi3, False, False, 0)
     hbox2.pack_end(reseti3, False, False, 0)
@@ -87,8 +105,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     # ==================================================================
     #                       AWESOMEWM TAB
     # ==================================================================
+
     label4 = Gtk.Label()
-    label4.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.")
+    label4.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes..\nInstall the desktop with ATT to theme it.")
 
     label2 = Gtk.Label("Select theme")
     self.store = Gtk.ListStore(int, str)
@@ -114,7 +133,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     self.awesome_combo.pack_start(renderer_text, False)
     self.awesome_combo.add_attribute(renderer_text, "text", 1)
-    self.awesome_combo.connect("changed", self.on_awsome_change)
+    self.awesome_combo.connect("changed", self.on_awesome_change)
     self.awesome_combo.set_entry_text_column(1)
 
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -145,6 +164,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
             self.image.set_from_pixbuf(pimage)
         except:  # noqa
             pass
+    else:
+            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/multicolor.jpg", 598, 598)  # noqa
+            self.image.set_from_pixbuf(pimage)
+    
     frame.set_name("awesome")
     frame.add(self.image)
 
@@ -154,6 +177,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     apply.connect("clicked", self.awesome_apply_clicked)
     reset = Gtk.Button(label="Reset")
     reset.connect("clicked", self.awesome_reset_clicked)
+    
+    if not Functions.os.path.isfile(Functions.awesome_config):
+            apply.set_sensitive(False)
+            reset.set_sensitive(False)    
 
     hbox4.pack_end(apply, False, False, 0)
     hbox4.pack_end(reset, False, False, 0)
@@ -164,13 +191,70 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     vboxStack2.pack_end(hbox4, False, False, 0)
 
     # ==================================================================
+    #                       Qtile TAB
+    # ==================================================================
+
+    label5 = Gtk.Label()
+    label5.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.\nInstall the desktop with ATT to theme it.")
+
+    labelqt = Gtk.Label("Select theme")
+    self.qtile_combo = Gtk.ComboBoxText()
+    self.qtile_combo.set_size_request(280, 0)
+    if Functions.os.path.isfile(Functions.qtile_config):
+        themer.get_qtile_themes(self.qtile_combo, qtile_list)
+
+    vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
+    vbox4.pack_start(self.qtile_combo, False, False, 0)
+
+    applyqtile = Gtk.Button(label="Apply")
+    applyqtile.connect("clicked", self.qtile_apply_clicked)
+    resetqtile = Gtk.Button(label="Reset")
+    resetqtile.connect("clicked", self.qtile_reset_clicked)
+    
+    if not Functions.os.path.isfile(Functions.qtile_config):
+            applyqtile.set_sensitive(False)
+            resetqtile.set_sensitive(False)
+
+#   Commented out for now. TODO: implement theming for polybar under Qtile
+#   lbls = Gtk.Label(label="Toggle polybar")
+#   self.poly = Gtk.Switch()
+#   if Functions.os.path.isfile(Functions.i3wm_config):
+#       if themer.check_polybar(themer.get_list(Functions.i3wm_config)):
+#           self.poly.set_active(True)
+#   self.poly.connect("notify::active", self.on_polybar_toggle)
+
+    hbox8.pack_start(labelqt, False, False, 10)
+    hbox8.pack_end(vbox4, False, False, 10)
+
+    qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/qtile-sample.jpg", image_width, image_height)
+    if self.qtile_combo.get_active_text() is None:
+        pass
+    elif Functions.os.path.isfile(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg"):
+        qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg", image_width, image_height)
+    qtile_image = Gtk.Image().new_from_pixbuf(qtile_pixbuf)
+
+    self.qtile_combo.connect("changed", self.update_image, qtile_image, "qtile", base_dir, image_width, image_height)
+
+    hbox9.pack_end(applyqtile, False, False, 0)
+    hbox9.pack_end(resetqtile, False, False, 0)
+
+    vboxStack3.pack_start(hbox8, False, False, 0)
+    vboxStack3.pack_start(hbox10, False, False, 0)
+    vboxStack3.pack_start(qtile_image, False, False, 0)
+    vboxStack3.pack_start(label5, True, False, 0)
+    vboxStack3.pack_end(hbox9, False, False, 0)
+
+    # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
 
-    if Functions.os.path.isfile(Functions.i3wm_config):
-        stack.add_titled(vboxStack1, "stack1", "I3WM")
-    if Functions.os.path.isfile(Functions.awesome_config):
-        stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
+    stack.add_titled(vboxStack1, "stack1", "I3WM")
+    stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
+    stack.add_titled(vboxStack3, "stack3", "Qtile")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)

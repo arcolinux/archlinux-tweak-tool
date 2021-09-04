@@ -1,3 +1,7 @@
+# =================================================================
+# =          Authors: Erik Dubois - Cameron Percival
+# =================================================================
+
 import os
 import Functions
 
@@ -12,18 +16,19 @@ def get_themes(combo):
     if check_oh_my():
         try:
             lists = [x for x in os.listdir("/usr/share/oh-my-zsh/themes")]
-            lists = sorted(lists)
+            lists_sorted = sorted(lists)
             with open(Functions.zsh_config, "r") as f:
                 theme_list = f.readlines()
                 f.close()
             pos = Functions._get_position(theme_list, "ZSH_THEME=")
-            name = theme_list[pos].split("=")[1].strip()
+            #stripping whitespace, and quotation marks
+            name = theme_list[pos].split("=")[1].strip().strip('"')
             active = 0
             combo.append_text("random")
-            for x in range(len(lists)):
-                if name in lists[x]:
-                    active = x
-                combo.append_text(lists[x].split(".")[0].strip())
+            for x in range(len(lists_sorted)):
+                if name in lists_sorted[x].replace(".zsh-theme", ""):
+                    active = x+1 #remember; arrays start at ZERO
+                combo.append_text(lists_sorted[x].split(".")[0].strip())
             combo.set_active(active)
         except Exception as e:
             print(e)
