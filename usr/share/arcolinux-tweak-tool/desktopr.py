@@ -562,6 +562,7 @@ qtile = [
     "gvfs",
     "picom",
     "polkit-gnome",
+    "python-setuptools",
     "python-psutil",
     "qtile",
     "rofi",
