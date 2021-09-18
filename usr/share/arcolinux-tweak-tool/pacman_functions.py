@@ -237,8 +237,10 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                 line = lines[i]
                 if widget == "arco_mirror_seed":
                     mirror_on("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch", lines, i, line)
-                # if widget == "arco_a3p":
-                #     pacman_on("[arcolinux_repo_3party]", lines, i, line)
+                if widget == "arco_mirror_belnet":
+                    mirror_on("Server = https://ftp.belnet.be/arcolinux/$repo/$arch", lines, i, line)
+                if widget == "arco_mirror_github":
+                    mirror_on("Server = https://arcolinux.github.io/$repo/$arch", lines, i, line)
                 # if widget == "arco_axl":
                 #     pacman_on("[arcolinux_repo_xlarge]", lines, i, line)
 
@@ -273,10 +275,10 @@ def toggle_mirrorlist(self, state, widget):  # noqa
 
                 if widget == "arco_mirror_seed":
                     mirror_off("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch", lines, i, line)
-                # if widget == "arco_a3p":
-                #     pacman_off("[arcolinux_repo_3party]", lines, i, line)
-                # if widget == "arco_axl":
-                #     pacman_off("[arcolinux_repo_xlarge]", lines, i, line)
+                if widget == "arco_mirror_belnet":
+                    mirror_off("Server = https://ftp.belnet.be/arcolinux/$repo/$arch", lines, i, line)
+                if widget == "arco_mirror_github":
+                    mirror_off("Server = https://arcolinux.github.io/$repo/$arch", lines, i, line)
 
                 # if widget == "arco":
                 #     pacman_off("[arcolinux_repo_testing]", lines, i, line)

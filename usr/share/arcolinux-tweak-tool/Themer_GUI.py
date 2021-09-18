@@ -76,7 +76,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     if not Functions.os.path.isfile(Functions.i3wm_config):
         applyi3.set_sensitive(False)
         reseti3.set_sensitive(False)
-        self.poly.set_sensitive(False)   
+        self.poly.set_sensitive(False)
 
     hbox1.pack_start(label, False, False, 10)
     hbox1.pack_end(vbox2, False, False, 10)
@@ -133,7 +133,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     self.awesome_combo.pack_start(renderer_text, False)
     self.awesome_combo.add_attribute(renderer_text, "text", 1)
-    self.awesome_combo.connect("changed", self.on_awesome_change)
+    #self.awesome_combo.connect("changed", self.on_awesome_change)
     self.awesome_combo.set_entry_text_column(1)
 
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -158,16 +158,21 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     self.image = Gtk.Image()
 
+    image_width = 598
+    image_height = 598
+
     if Functions.os.path.isfile(Functions.awesome_config):
         try:
-            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/" + name + ".jpg", 598, 598)  # noqa
+            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/" + name + ".jpg", image_width, image_height)  # noqa
             self.image.set_from_pixbuf(pimage)
         except:  # noqa
             pass
     else:
-            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/multicolor.jpg", 598, 598)  # noqa
+            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/multicolor.jpg", image_width, image_height)  # noqa
             self.image.set_from_pixbuf(pimage)
-    
+
+    self.awesome_combo.connect("changed", self.update_image, self.image, "awesome", base_dir, image_width, image_height)
+
     frame.set_name("awesome")
     frame.add(self.image)
 
@@ -177,10 +182,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     apply.connect("clicked", self.awesome_apply_clicked)
     reset = Gtk.Button(label="Reset")
     reset.connect("clicked", self.awesome_reset_clicked)
-    
+
     if not Functions.os.path.isfile(Functions.awesome_config):
             apply.set_sensitive(False)
-            reset.set_sensitive(False)    
+            reset.set_sensitive(False)
 
     hbox4.pack_end(apply, False, False, 0)
     hbox4.pack_end(reset, False, False, 0)
@@ -214,7 +219,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     applyqtile.connect("clicked", self.qtile_apply_clicked)
     resetqtile = Gtk.Button(label="Reset")
     resetqtile.connect("clicked", self.qtile_reset_clicked)
-    
+
     if not Functions.os.path.isfile(Functions.qtile_config):
             applyqtile.set_sensitive(False)
             resetqtile.set_sensitive(False)

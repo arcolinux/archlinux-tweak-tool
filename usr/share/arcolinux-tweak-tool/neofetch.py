@@ -14,7 +14,7 @@ def get_neofetch():
         with open(Functions.neofetch_config, "r") as f:
             lines = f.readlines()
             f.close()
-        
+
     return lines
 
 
@@ -24,21 +24,21 @@ def pop_neofetch_box(combo):
         for image in os.listdir(Functions.home + "/.config/neofetch/"):
             if ".png" in image:
                 com.append(image)
-        
-        com.sort()
-        active = ""
+
+        sorted_com = sorted(com)
+        active = 0
         lines = get_neofetch()
-        
+
         for i in range(len(lines)):
             if "image_source" in lines[i]:
                 if not "#" in lines[i]:
                     line = lines[i].split("=")[1].replace("\"", "")
-                    active = os.path.basename(line).strip()
-                            
-        for i in range(len(com)):
-            combo.append_text(com[i])
-            if com[i] == active:
-                combo.set_active(i)
+                    active = i+1
+
+        for i in range(len(sorted_com)):
+            combo.append_text(sorted_com[i])
+            #if sorted_com[i] == active:
+        combo.set_active(i)
 
 
 def check_backend():
@@ -87,7 +87,7 @@ def apply_config(self, backend, emblem, ascii_size):
                 Functions.neofetch_set_value(lines, i, "info \"Packages\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"Packages\"", False)
-            if self.shell.get_active():   
+            if self.shell.get_active():
                 Functions.neofetch_set_value(lines, i, "info \"Shell\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"Shell\"", False)
@@ -99,11 +99,11 @@ def apply_config(self, backend, emblem, ascii_size):
                 Functions.neofetch_set_value(lines, i, "info \"DE\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"DE\"", False)
-            if self.wm.get_active():  
+            if self.wm.get_active():
                 Functions.neofetch_set_value(lines, i, "info \"WM\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"WM\"", False)
-            if self.wmtheme.get_active():  
+            if self.wmtheme.get_active():
                 Functions.neofetch_set_value(lines, i, "info \"WM Theme\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"WM Theme\"", False)
@@ -115,7 +115,7 @@ def apply_config(self, backend, emblem, ascii_size):
                 Functions.neofetch_set_value(lines, i, "info \"Icons\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"Icons\"", False)
-            if self.term.get_active():    
+            if self.term.get_active():
                 Functions.neofetch_set_value(lines, i, "info \"Terminal\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"Terminal\"", False)
@@ -127,7 +127,7 @@ def apply_config(self, backend, emblem, ascii_size):
                 Functions.neofetch_set_value(lines, i, "info \"CPU\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"CPU\"", False)
-            if self.gpu.get_active():   
+            if self.gpu.get_active():
                 Functions.neofetch_set_value(lines, i, "info \"GPU\"", True)
             else:
                 Functions.neofetch_set_value(lines, i, "info \"GPU\"", False)
@@ -177,13 +177,13 @@ def apply_config(self, backend, emblem, ascii_size):
             else:
                 Functions.neofetch_set_value(lines, i, "info title", False)
                 Functions.neofetch_set_value(lines, i, "info underline", False)
-            
+
             if not backend == "ascii" and not backend == "off":
                 Functions.neofetch_set_backend_value(lines, i, "image_backend=\"", "w3m")
                 # Functions.neofetch_set_backend_value(lines, i, "image_backend=\"ascii\"")
                 Functions.neofetch_set_value(lines, i, "image_source=", False)
                 Functions.neofetch_set_value(lines, i, emblem, True)
-                
+
             elif not backend == "w3m" and not backend == "off":
                 Functions.neofetch_set_backend_value(lines, i, "image_backend=\"", "ascii")
                 # Functions.neofetch_set_value(lines, i, "image_backend=\"ascii\"", True)
@@ -192,7 +192,7 @@ def apply_config(self, backend, emblem, ascii_size):
                     lines[i] = "ascii_distro=\"" + ascii_size + "\"\n"
             else:
                 Functions.neofetch_set_backend_value(lines, i, "image_backend=\"", "off")
-                
+
             if self.cblocks.get_active():
                 Functions.neofetch_set_backend_value(lines, i, "color_blocks=\"", "on")
             else:
@@ -218,23 +218,23 @@ def get_state(value):
 
 
 def get_checkboxes(self):
-    
-    self.os.set_active(get_state("info \"OS\""))    
+
+    self.os.set_active(get_state("info \"OS\""))
     self.host.set_active(get_state("info \"Host\""))
     self.kernel.set_active(get_state("info \"Kernel\""))
     self.uptime.set_active(get_state("info \"Uptime\""))
     self.packages.set_active(get_state("info \"Packages\""))
-    self.shell.set_active(get_state("info \"Shell\""))    
+    self.shell.set_active(get_state("info \"Shell\""))
     self.res.set_active(get_state("info \"Resolution\""))
     self.de.set_active(get_state("info \"DE\""))
     self.wm.set_active(get_state("info \"WM\""))
     self.wmtheme.set_active(get_state("info \"WM Theme\""))
     self.themes.set_active(get_state("info \"Theme\""))
     self.icons.set_active(get_state("info \"Icons\""))
-    self.term.set_active(get_state("info \"Terminal\""))    
+    self.term.set_active(get_state("info \"Terminal\""))
     self.termfont.set_active(get_state("info \"Terminal Font\""))
     self.cpu.set_active(get_state("info \"CPU\""))
-    self.gpu.set_active(get_state("info \"GPU\""))    
+    self.gpu.set_active(get_state("info \"GPU\""))
     self.mem.set_active(get_state("info \"Memory\""))
     self.title.set_active(get_state("info title"))
 
@@ -251,7 +251,7 @@ def get_checkboxes(self):
     lines = get_neofetch()
 
     line = [x for x in lines if "color_blocks=" in x]
-    if "on" in line[0]:    
+    if "on" in line[0]:
         self.cblocks.set_active(True)
     else:
         self.cblocks.set_active(False)

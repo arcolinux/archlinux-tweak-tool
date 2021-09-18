@@ -82,9 +82,7 @@ def set_i3_themes(lines, theme):
             f.close()
         pos3 = fn._get_position(theme_lines, "##START THEMING WM")
         pos4 = fn._get_position(theme_lines, "##STOP THEMING WM")
-
         lines[pos1:pos2 + 1] = theme_lines[pos3:pos4 + 1]
-
         with open(fn.i3wm_config, "w") as f:
             f.writelines(lines)
             f.close()

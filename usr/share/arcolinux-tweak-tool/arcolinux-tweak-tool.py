@@ -91,10 +91,23 @@ class Main(Gtk.Window):
                     print(e)
 
             if not Functions.os.path.exists(Functions.sddm_conf):
-                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
-                                      Functions.sddm_default_d1)
-                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
-                                      Functions.sddm_default_d2)
+                try:
+                    Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
+                                          Functions.sddm_default_d1)
+                    Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
+                                          Functions.sddm_default_d2)
+                except OSError as e:
+                    #This will ONLY execute if the sddm files and the underlying sddm files do not exist
+                    if e.errno == 2:
+                        command = '/usr/local/bin/arcolinux-fix-sddm-config'
+                        Functions.subprocess.call(command,
+                                        shell=True,
+                                        stdout=Functions.subprocess.PIPE,
+                                        stderr=Functions.subprocess.STDOUT)
+                        print("The SDDM files in your installation either did not exist, or were corrupted.")
+                        print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
+
+
             if  os.path.getsize(Functions.sddm_conf) == 0:
                 Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                       Functions.sddm_default_d1)
@@ -181,7 +194,8 @@ class Main(Gtk.Window):
 
 #       #========================ARCO MIRROR=============================
         arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
-
+        arco_mirror_belnet = pmf.check_mirror("Server = https://ftp.belnet.be/arcolinux/$repo/$arch")
+        arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
 #       #========================SPINOFF REPO=============================
         hefftor_repo = pmf.check_repo("[hefftor-repo]")
         bobo_repo = pmf.check_repo("[chaotic-aur]")
@@ -193,6 +207,8 @@ class Main(Gtk.Window):
 
 #       #========================ARCO MIRROR SET TOGGLE=====================
         self.aseed_button.set_active(arco_mirror_seed)
+        #self.abelnet_button.set_active(arco_mirror_belnet)
+        #self.agithub_button.set_active(arco_mirror_github)
 
 #       #========================TESTING REPO SET TOGGLE==================
         self.checkbutton.set_active(arco_testing)
@@ -311,14 +327,6 @@ class Main(Gtk.Window):
 #               PACMAN FUNCTIONS
 # =====================================================
 
-    def on_pacman_arepo_toggle(self, widget, active):
-        if not pmf.repo_exist("[arcolinux_repo]"):
-            pmf.append_repo(self, Functions.arepo)
-        else:
-            if self.opened is False:
-                pmf.toggle_test_repos(self, widget.get_active(),
-                                      "arco_base")
-
     def on_mirror_seed_repo_toggle(self, widget, active):
         if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
             pmf.append_mirror(self, Functions.seedhostmirror)
@@ -326,6 +334,30 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(),
                                       "arco_mirror_seed")
+
+    def on_mirror_belnet_repo_toggle(self, widget, active):
+        if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
+            pmf.append_mirror(self, Functions.seedhostmirror)
+        else:
+            if self.opened is False:
+                pmf.toggle_mirrorlist(self, widget.get_active(),
+                                      "arco_mirror_belnet")
+
+    def on_mirror_github_repo_toggle(self, widget, active):
+        if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
+            pmf.append_mirror(self, Functions.seedhostmirror)
+        else:
+            if self.opened is False:
+                pmf.toggle_mirrorlist(self, widget.get_active(),
+                                      "arco_mirror_github")
+
+    def on_pacman_arepo_toggle(self, widget, active):
+        if not pmf.repo_exist("[arcolinux_repo]"):
+            pmf.append_repo(self, Functions.arepo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "arco_base")
 
     def on_pacman_a3p_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_3party]"):
@@ -401,21 +433,6 @@ class Main(Gtk.Window):
         else:
             themer.toggle_polybar(self, themer.get_list(Functions.i3wm_config), False)
             Functions.subprocess.run(["killall", "-q", "polybar"], shell=False)
-
-    def on_awesome_change(self, widget):
-        tree_iter = self.awesome_combo.get_active_iter()
-        if tree_iter is not None:
-            model = self.awesome_combo.get_model()
-            row_id, name = model[tree_iter][:2]
-        #Errors here indicate that the image doesn't exist - lets catch that use case.
-        try:
-            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/" +  # noqa
-                                                              name +
-                                                              ".jpg",
-                                                              598, 598)
-            self.image.set_from_pixbuf(pimage)
-        except:
-            pass
 
     def awesome_apply_clicked(self, widget):
         if not os.path.isfile(Functions.awesome_config + ".bak"):
@@ -998,31 +1015,69 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
 
+    #The intent behind this function is to be a centralised image changer for all portions of ATT that need it
+    #Currently utilising an if tree - this is not best practice: it should be a match: case tree.
+    #But I have not yet got that working.
     def update_image(self, widget, image, theme_type, att_base, image_width, image_height):
         sample_path = ""
         preview_path = ""
+        random_option = False
+    # THIS CODE IS KEPT ON PURPOSE. DO NOT DELETE.
+    # Once Python 3.10 is released and used widely, delete the if statements below the match blocks
+    # and use the match instead. It is faster, and easier to maintain.
+    #    match "zsh":
+    #        case 'zsh':
+    #            sample_path = att_base+"/images/zsh-sample.jpg"
+    #            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+    #        case 'qtile':
+    #            sample_path = att_base+"/images/zsh-sample.jpg"
+    #            previe_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+    #        case 'i3':
+    #            sample_path = att_base+"/images/i3-sample.jpg"
+    #            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+    #        case 'awesome':
+    #            sample_path = att_base+"/images/i3-sample.jpg"
+    #            preview_path = att_base+"/themer_data/awesomewm/"+widget.get_active_text() + ".jpg"
+    #        case 'neofetch':
+    #            sample_path = att_base + widget.get_active_text()
+    #            preview_path = att_base + widget.get_active_text()
+    #        case unknown_command:
+    #            print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
+    #            print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
         if theme_type == "zsh":
             sample_path = att_base+"/images/zsh-sample.jpg"
             preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+            if widget.get_active_text() == "random":
+                random_option = True
         elif theme_type == "qtile":
             sample_path = att_base+"/images/qtile-sample.jpg"
             preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
         elif theme_type == "i3":
             sample_path = att_base+"/images/i3-sample.jpg"
             preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
-        #elif theme_type == "awesome":
-        #    sample_path = att_base+"/images/i3-sample.jpg"
-        #    preview_path = att_base+"/themer_data/awesomewm/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "awesome":
+        #Awesome section doesn't use a ComboBoxText, but a ComboBox - which has different properties.
+            tree_iter = self.awesome_combo.get_active_iter()
+            if tree_iter is not None:
+                model = self.awesome_combo.get_model()
+                row_id, name = model[tree_iter][:2]
+
+            sample_path = att_base+"/images/i3-sample.jpg"
+            preview_path = att_base+"/themer_data/awesomewm/"+name+".jpg"
+        elif theme_type == "neofetch":
+            sample_path = att_base + widget.get_active_text()
+            preview_path = att_base + widget.get_active_text()
         else:
-            #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
+        #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
                 print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
                 print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
         source_pixbuf = image.get_pixbuf()
-        if os.path.isfile(preview_path) and widget.get_active_text() != "random":
+        if os.path.isfile(preview_path) and not random_option:
             pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(preview_path, image_width, image_height)
         else:
             pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
         image.set_from_pixbuf(pixbuf)
+
 #    #====================================================================
 #    #                       ARCOLINUX MIRRORLIST
 #    #===================================================================
@@ -1083,12 +1138,6 @@ class Main(Gtk.Window):
             neofetch.get_checkboxes(self)
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
-
-    def on_elmblem_changed(self, widget):
-        path = Functions.home + "/.config/neofetch/" + widget.get_active_text()
-
-        pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
-        self.image4.set_from_pixbuf(pixbuf6)
 
     def radio_toggled(self, widget):
         if self.w3m.get_active():
