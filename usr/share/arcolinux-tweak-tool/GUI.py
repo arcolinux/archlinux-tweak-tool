@@ -23,6 +23,7 @@ import fixes
 # =============GUI=================
 import Termite_GUI
 import Neofetch_GUI
+import Utilities_GUI
 import Oblogout_GUI
 import Slimlock_GUI
 import Grub_GUI
@@ -51,7 +52,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # =======================================================
     #                       App Notifications
     # =======================================================
-    
+
     hbox0 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     self.notification_revealer = Gtk.Revealer()
@@ -73,7 +74,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     #                       CONTAINER
     # ==========================================================
-    
+
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
     vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
@@ -89,7 +90,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     stack.set_transition_duration(350)
 
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    # vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    #vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
@@ -104,10 +105,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     vboxStack14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack15 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack16 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack17 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) 
-    vboxStack18 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) 
-    vboxStack19 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) 
-    
+    vboxStack17 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack18 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack19 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack20 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+
     # ==========================================================
     #                   PACMAN
     # ==========================================================
@@ -123,32 +125,32 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     #                 GTK THEMES
     # ==========================================================
-    
+
     # GTK_GUI.GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions)
 
     # ==========================================================
     #                       HBLOCK
     # ==========================================================
-    
+
     HBlock_GUI.GUI(self, Gtk, vboxStack3, Functions)
 
     # ==========================================================
     #                       GRUB
     # ==========================================================
-    
+
     Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions)
 
     # ==========================================================
     #                       SLIMLOCK
     # ==========================================================
-    
+
     # if Functions.file_check(Functions.slimlock_conf):
     #     Slimlock_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os)
 
     # ==========================================================
     #                       OBLOGOUT
     # ==========================================================
-    
+
     # if Functions.file_check(Functions.oblogout_conf):
     #     Oblogout_GUI.GUI(self, Gtk, Gdk, GdkPixbuf,
     #                      base_dir, vboxStack6, oblogout, Functions, os)
@@ -156,13 +158,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # # ==========================================================
     # #                     TERMITE CONFIG
     # # ==========================================================
- 
+
     Termite_GUI.GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir)
 
     # # ==========================================================
     # #                     NEOFETCH
     # # ==========================================================
-    
+
     if Functions.file_check(Functions.neofetch_config):
         Neofetch_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions)
     else:
@@ -179,11 +181,17 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         ls = Gtk.Label()
         ls.set_markup("If you install <b>Neofetch</b> and the <i>ArcoLinux themes</i> you can customize <b>Neofetch</b>")
         vboxStack8.pack_start(ls, True, False, 0)
-        
+
+    # # ==========================================================
+    # #                TERMINAL UTILITIES
+    # # ==========================================================
+    Utilities_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack20, Functions)
+
+
     # # ==========================================================
     # #                     LIGHTDM
     # # ==========================================================
-    
+
     if Functions.file_check(Functions.lightdm_conf):
         Lightdm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack11, lightdm, Functions)
     else:
@@ -209,7 +217,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # # ==========================================================
     # #                     SDDM
     # # ==========================================================
-    
+
     if "plasma" in self.desktop.lower():
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -261,7 +269,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # # ==========================================================
     # #                     USER
     # # ==========================================================
-    
+
     User_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack18, user, Functions)
     ls = Gtk.Label()
     ls.set_markup("Fill in the fields and create your account")
@@ -283,20 +291,20 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     #                       THEMER
     # ==========================================================
-    
+
     Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
-    
+
     # ==========================================================
     #                       DESKTOP
     # ==========================================================
-    
+
     desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr,
                      Functions, base_dir, Pango)
 
     # ==========================================================
     #                       AUTOSTART
     # ==========================================================
-    
+
     autostart_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart,
                       Functions, base_dir)
 
@@ -316,7 +324,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     #                     ADD TO WINDOW
     # ==========================================================
-    
+
     # stack.add_titled(vboxStack10, "stack0", "Welcome")
     #
     stack.add_titled(vboxStack13, "stack13", "Autostart")  # Autostart
@@ -338,9 +346,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # if Functions.file_check(Functions.neofetch_config):
     stack.add_titled(vboxStack8, "stack4", "Neofetch")  # Neofetch config
 
-    # if Functions.file_check(Functions.oblogout_conf):
-    #     stack.add_titled(vboxStack6, "stack5", "") # Oblogout config
-
     # if Functions.file_check(Functions.pacman):
     stack.add_titled(vboxStack1, "stack6", "Pacman")  # Pacman config
 
@@ -357,7 +362,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # if Functions.file_check(Functions.termite_config):
     stack.add_titled(vboxStack7, "stack8", "Terminals")  # Termite themes
 
-    # stack.add_titled(vboxStack2, "stack9", "Theming")
+    stack.add_titled(vboxStack20, "stack20", "Terminal Fun")
+    # if Functions.file_check(Functions.oblogout_conf):
+    #     stack.add_titled(vboxStack6, "stack5", "") # Oblogout config
 
     # stack.add_titled(vboxStack9, "stack10", "Tweak skel")
 
@@ -395,13 +402,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # =====================================================
     #                      PACKS
     # =====================================================
-    
+
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
 
     hbox3.pack_start(btnReStartAtt, False, False, 0)
-  
+
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
 

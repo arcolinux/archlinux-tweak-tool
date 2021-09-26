@@ -73,6 +73,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     hbox24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     self.hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
 
     self.os = Gtk.CheckButton(label="Show os")
     self.host = Gtk.CheckButton(label="Show hostname")
@@ -110,6 +111,16 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     self.cblocks = Gtk.CheckButton(label="Show blocks")
 
     self.title = Gtk.CheckButton(label="Show title")
+
+    self.neo_lolcat = Gtk.Switch()
+    self.neo_lolcat.connect("notify::active", self.lolcat_toggle, "neofetch")
+    lolcat_label = Gtk.Label(xalign=0)
+    lolcat_label.set_markup("Use lolcat")
+    self.neo_util = Gtk.Switch()
+    self.neo_util.connect("notify::active", self.util_toggle, "neofetch")
+    neo_util_label = Gtk.Label(xalign=0)
+    neo_util_label.set_markup("Neofetch Enabled")
+
 
     flowbox = Gtk.FlowBox()
     flowbox.set_valign(Gtk.Align.START)
@@ -165,6 +176,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     hbox25.pack_start(self.frame3, False, False, 10)
     hbox25.pack_start(flowbox, True, True, 10)
 
+    hbox27.pack_start(neo_util_label, False, False, 0)
+    hbox27.pack_start(self.neo_util, False, False, 30)
+    hbox27.pack_start(lolcat_label, False, False, 0)
+    hbox27.pack_start(self.neo_lolcat, False, False, 30)
+
     hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(resetneofetch, False, False, 0)
 
@@ -174,6 +190,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     vboxStack8.pack_start(self.hbox26, False, False, 0) #Ascii RadioButtons
     vboxStack8.pack_start(hbox23, False, False, 0) #ComboBox
     vboxStack8.pack_start(hbox25, False, False, 0) #Preview / Options
+    vboxStack8.pack_start(hbox27, False, False, 0) #lolcat
     vboxStack8.pack_end(hbox24, False, False, 0) #Buttons
     vboxStack8.pack_end(label14, False, False, 0) #Buttons
 

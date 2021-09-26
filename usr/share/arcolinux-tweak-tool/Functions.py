@@ -52,12 +52,14 @@ polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
 zsh_config = home + "/.zshrc"
+bash_config = home + "/.bashrc"
 account_list = ["Standard","Administrator"]
 i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
 qtile_config = home + "/.config/qtile/config.py"
 
 seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
+aarnetmirror = "Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"
 
 arepo_test = "[arcolinux_repo_testing]\n\
 SigLevel = Required DatabaseOptional\n\
@@ -204,6 +206,18 @@ def source_shell(self):
                         " -c \"source " + home + "/.zshrc\""],
                        stdout=subprocess.PIPE)
 
+def get_shell():
+    process = subprocess.run(["sh", "-c", "echo \"$SHELL\""],
+                             shell=False,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT)
+
+    output = process.stdout.decode().strip()
+    if output == "/bin/bash":
+        return "bash"
+    elif output == "/bin/zsh":
+        return "zsh"
+
 
 def run_as_user(script):
     subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)
@@ -250,6 +264,13 @@ def clamp(x):
 def _get_position(lists, value):
     data = [string for string in lists if value in string]
     position = lists.index(data[0])
+    return position
+
+def _get_positions(lists, value):
+    data = [string for string in lists if value in string]
+    position = []
+    for d in data:
+        position.append(lists.index(d))
     return position
 
 def _get_variable(lists, value):

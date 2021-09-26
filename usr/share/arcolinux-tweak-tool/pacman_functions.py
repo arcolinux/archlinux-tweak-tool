@@ -1,7 +1,7 @@
 import Functions
 
 # =================================================================
-# =                  Author: Brad Heffernan                       =
+# =             Author: Cameron Percival    Erik Dubois           =
 # =================================================================
 
 
@@ -81,7 +81,7 @@ def mirror_exist(value):
     for line in lines:
         if value in line:
             return True
-    return False    
+    return False
 
 
 def pacman_on(repo, lines, i, line):
@@ -98,7 +98,7 @@ def mirror_on(mirror, lines, i, line):
         if (i+1) < len(lines):
             lines[i + 1] = lines[i + 1].replace("#", "")
         if (i+2) < len(lines) and "Include" in lines[i+2]:
-            lines[i + 2] = lines[i + 2].replace("#", "")            
+            lines[i + 2] = lines[i + 2].replace("#", "")
 
 
 def pacman_off(repo, lines, i, line):
@@ -241,6 +241,8 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                     mirror_on("Server = https://ftp.belnet.be/arcolinux/$repo/$arch", lines, i, line)
                 if widget == "arco_mirror_github":
                     mirror_on("Server = https://arcolinux.github.io/$repo/$arch", lines, i, line)
+                if widget == "arco_mirror_aarnet":
+                    mirror_on("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch", lines, i, line)
                 # if widget == "arco_axl":
                 #     pacman_on("[arcolinux_repo_xlarge]", lines, i, line)
 
@@ -279,7 +281,8 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                     mirror_off("Server = https://ftp.belnet.be/arcolinux/$repo/$arch", lines, i, line)
                 if widget == "arco_mirror_github":
                     mirror_off("Server = https://arcolinux.github.io/$repo/$arch", lines, i, line)
-
+                if widget == "arco_mirror_aarnet":
+                    mirror_off("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch", lines, i, line)
                 # if widget == "arco":
                 #     pacman_off("[arcolinux_repo_testing]", lines, i, line)
                 # if widget == "arch":
