@@ -362,7 +362,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # if Functions.file_check(Functions.termite_config):
     stack.add_titled(vboxStack7, "stack8", "Terminals")  # Termite themes
 
-    stack.add_titled(vboxStack20, "stack20", "Terminal Fun")
+    #stack.add_titled(vboxStack20, "stack20", "Terminal Fun")
     # if Functions.file_check(Functions.oblogout_conf):
     #     stack.add_titled(vboxStack6, "stack5", "") # Oblogout config
 
