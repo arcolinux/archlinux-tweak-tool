@@ -414,6 +414,9 @@ def set_hblock(self, toggle, state):
     timeout_id = None
     timeout_id = GLib.timeout_add(100, do_pulse, None, self.progress)
 
+    if not os.path.isfile("/etc/hosts.bak.att"):
+            shutil.copy("/etc/hosts", "/etc/hosts.bak.att")
+
     try:
 
         install = 'pacman -S arcolinux-hblock-git --needed --noconfirm'
