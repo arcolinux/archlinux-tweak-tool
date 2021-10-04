@@ -28,6 +28,9 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
     # ========================================================
     #               ARCO REPOS
@@ -41,16 +44,21 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.aseed_button.connect("notify::active", self.on_mirror_seed_repo_toggle)
     label5 = Gtk.Label(xalign=0)
     label5.set_markup("Enable Seedhost repo - Do not enable it and save us bandwidth - paid - Netherlands")
+    seedhost_sync = Gtk.Label(xalign=0)
+    seedhost_sync.set_markup("Seedhost is always up-to-date")
     hboxStack7.pack_start(label5, False, True, 10)
     hboxStack7.pack_end(self.aseed_button, False, False, 20)
+    hboxStack13.pack_start(seedhost_sync, False, True, 10)
 
     self.abelnet_button = Gtk.Switch()
     self.abelnet_button.connect("notify::active", self.on_mirror_belnet_repo_toggle)
     label6 = Gtk.Label(xalign=0)
     label6.set_markup("Enable Belnet repo - free bandwidth - Belgium")
+    belnet_sync = Gtk.Label(xalign=0)
+    belnet_sync.set_markup("Belnet syncs twice per day")
     hboxStack8.pack_start(label6, False, True, 10)
     hboxStack8.pack_end(self.abelnet_button, False, False, 20)
-
+    hboxStack14.pack_start(belnet_sync, False, True, 10)
     # self.agithub_button = Gtk.Switch()
     # self.agithub_button.connect("notify::active", self.on_mirror_github_repo_toggle)
     # label7 = Gtk.Label(xalign=0)
@@ -62,8 +70,11 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.aarnet_button.connect("notify::active", self.on_mirror_aarnet_repo_toggle)
     label8 = Gtk.Label(xalign=0)
     label8.set_markup("Enable Aarnet repo - free bandwidth - Australia")
+    aarnet_sync = Gtk.Label(xalign=0)
+    aarnet_sync.set_markup("Aarnet syncs once per day")
     hboxStack10.pack_start(label8, False, True, 10)
     hboxStack10.pack_end(self.aarnet_button, False, False, 20)
+    hboxStack15.pack_start(aarnet_sync, False, True, 10)
 
     warning = Gtk.Label(xalign=0)
     warning.set_markup("If you disable all these mirrors you will no longer have access to the Xlarge repository.")
@@ -87,9 +98,12 @@ def GUI(self, Gtk, vboxStack1, Functions):
     vbox3.pack_start(hboxStack11, False, False, 10)
     vbox3.pack_start(hboxStack12, False, False, 10)
     vbox3.pack_start(hboxStack7, False, False, 10)
+    vbox3.pack_start(hboxStack13, False, False, 10)
     vbox3.pack_start(hboxStack8, False, False, 10)
+    vbox3.pack_start(hboxStack14, False, False, 10)
     #vbox3.pack_start(hboxStack9, False, False, 10)
     vbox3.pack_start(hboxStack10, False, False, 10)
+    vbox3.pack_start(hboxStack15, False, False, 10)
     frame3.add(vbox3)
 
     # ========================================================

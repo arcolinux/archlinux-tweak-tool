@@ -20,7 +20,7 @@ class splashScreen(Gtk.Window):
         self.image = Gtk.Image()
         pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir +
                                                           "/images/splash.png",
-                                                          500, 250)
+                                                          600, 400)
         self.image.set_from_pixbuf(pimage)
 
         main_vbox.pack_start(self.image, True, True, 0)
