@@ -29,6 +29,7 @@ desktops = [
     "i3",
     "icewm",
     "jwm",
+    "leftwm",
     "lxqt",
     "mate",
     "openbox",
@@ -400,6 +401,40 @@ jwm = [
     "volumeicon",
     "xdgmenumaker",
     "xfce4-notifyd",
+    "xfce4-screenshooter",
+    "xfce4-taskmanager",
+    "xfce4-terminal",
+]
+leftwm = [
+    "arcolinux-candy-beauty-git",
+    "arcolinux-config-all-desktops-git",
+    "arcolinux-dconf-all-desktops-git",
+    "arcolinux-local-xfce4-git",
+    "arcolinux-meta-logout",
+    "arcolinux-leftwm-git",
+    "arcolinux-polybar-git",
+    "arcolinux-rofi-git",
+    "arcolinux-rofi-themes-git",    
+    "arcolinux-root-git",
+    "arcolinux-volumeicon-git",
+    "arcolinux-wallpapers-git",
+    "arcolinux-xfce-git",
+    "dmenu",
+    "gvfs",
+    "leftwm",
+    "leftwm-theme-git",
+    "nerd-fonts-source-code-pro",
+    "picom",
+    "polybar",
+    "polkit-gnome",
+    "rofi",
+    "rxvt-unicode",
+    "sxhkd",
+    "thunar",
+    "thunar-archive-plugin",
+    "thunar-volman",
+    "volumeicon",
+    "xfce4-appfinder",
     "xfce4-screenshooter",
     "xfce4-taskmanager",
     "xfce4-terminal",
@@ -821,6 +856,10 @@ def install_desktop(self, desktop, state):
         command = list(np.append(jwm, arco_logout))
         src.append("/etc/skel/.config/jwm")
         src.append("/etc/skel/.jwmrc")
+        twm = True
+    elif desktop == "leftwm":
+        command = list(np.append(leftwm, arco_logout))
+        src.append("/etc/skel/.config/leftwm")
         twm = True
     elif desktop == "lxqt":
         command = list(np.append(lxqt, arco_logout))
