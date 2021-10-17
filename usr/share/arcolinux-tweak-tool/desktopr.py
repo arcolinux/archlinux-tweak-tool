@@ -23,6 +23,7 @@ desktops = [
     "cwm",
     "deepin",
     "fvwm3",
+    "dusk",
     "dwm",
     "gnome",
     "herbstluftwm",
@@ -185,7 +186,39 @@ deepin = [
     "deepin-extra",
     "gvfs",
 ]
+dusk = [
+    "arcolinux-candy-beauty-git",
+    "arcolinux-config-all-desktops-git",
+    "arcolinux-dconf-all-desktops-git",
+    "arcolinux-dwm-st-git", 
+    "arcolinux-dusk-git",
+    "arcolinux-local-xfce4-git",
+    "arcolinux-meta-logout",
+    "arcolinux-root-git",
+    "arcolinux-volumeicon-git",
+    "arcolinux-wallpapers-git",
+    "arcolinux-wallpapers-candy-git",    
+    "arcolinux-xfce-git",
+    "dmenu",
+    "feh",
+    "gvfs",
+    "picom",
+    "polkit-gnome",
+    "rxvt-unicode",
+    "sxhkd",
+    "thunar",
+    "thunar-archive-plugin",
+    "thunar-volman",
+    "volumeicon",
+    "xfce4-notifyd",
+    "xfce4-power-manager",
+    "xfce4-screenshooter",
+    "xfce4-settings",
+    "xfce4-taskmanager",
+    "xfce4-terminal",
+]
 dwm = [
+    "arcolinux-candy-beauty-git",
     "arcolinux-config-all-desktops-git",
     "arcolinux-dconf-all-desktops-git",
     "arcolinux-dwm-git",
@@ -418,6 +451,7 @@ leftwm = [
     "arcolinux-root-git",
     "arcolinux-volumeicon-git",
     "arcolinux-wallpapers-git",
+    "arcolinux-wallpapers-candy-git",     
     "arcolinux-xfce-git",
     "dmenu",
     "gvfs",
@@ -826,6 +860,10 @@ def install_desktop(self, desktop, state):
     elif desktop == "deepin":
         check_package(self, "/usr/bin", "qt5ct")
         command = deepin
+    elif desktop == "dusk":
+        command = list(np.append(dusk, arco_logout))
+        src.append("/etc/skel/.config/arco-dusk")
+        twm = True
     elif desktop == "dwm":
         command = list(np.append(dwm, arco_logout))
         src.append("/etc/skel/.config/arco-dwm")
