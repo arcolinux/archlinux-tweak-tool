@@ -193,6 +193,7 @@ class Main(Gtk.Window):
 
 #       #========================ARCO MIRROR=============================
         arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
+        arco_mirror_gitlab = pmf.check_mirror("Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch")
         arco_mirror_belnet = pmf.check_mirror("Server = https://ftp.belnet.be/arcolinux/$repo/$arch")
         arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
         arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
@@ -207,6 +208,7 @@ class Main(Gtk.Window):
 
 #       #========================ARCO MIRROR SET TOGGLE=====================
         self.aseed_button.set_active(arco_mirror_seed)
+        self.agitlab_button.set_active(arco_mirror_gitlab)
         self.abelnet_button.set_active(arco_mirror_belnet)
         self.aarnet_button.set_active(arco_mirror_aarnet)
         #self.agithub_button.set_active(arco_mirror_github)
@@ -389,6 +391,14 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(),
                                       "arco_mirror_seed")
+
+    def on_mirror_gitlab_repo_toggle(self, widget, active):
+        if not pmf.mirror_exist("Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch"):
+            pmf.append_mirror(self, Functions.seedhostmirror)
+        else:
+            if self.opened is False:
+                pmf.toggle_mirrorlist(self, widget.get_active(),
+                                      "arco_mirror_gitlab")
 
     def on_mirror_belnet_repo_toggle(self, widget, active):
         if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
@@ -1909,7 +1919,13 @@ def signal_handler(sig, frame):
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
-    if not os.path.isfile("/tmp/att.lock"):
+    #These lines offer protection and grace when a kernel has obfuscated or removed basic OS functionality.
+    os_function_support = True
+    try:
+        os.getlogin()
+    except:
+        os_function_support = False
+    if not os.path.isfile("/tmp/att.lock") and os_function_support:
         with open("/tmp/att.pid", "w") as f:
             f.write(str(os.getpid()))
             f.close()
@@ -1925,14 +1941,25 @@ if __name__ == "__main__":
         w.show_all()
         Gtk.main()
     else:
-        md = Gtk.MessageDialog(parent=Main(),
-                               flags=0,
-                               message_type=Gtk.MessageType.INFO,
-                               buttons=Gtk.ButtonsType.YES_NO,
-                               text="Lock File Found")
-        md.format_secondary_markup(
-            "The lock file has been found. This indicates there is already an instance of <b>ArcoLinux Tweak tool</b> running.\n\
-click yes to remove the lock file and try running again")  # noqa
+        md = ""
+
+        if os_function_support:
+            md = Gtk.MessageDialog(parent=Main(),
+                                   flags=0,
+                                   message_type=Gtk.MessageType.INFO,
+                                   buttons=Gtk.ButtonsType.YES_NO,
+                                   text="Lock File Found")
+            md.format_secondary_markup(
+                "The lock file has been found. This indicates there is already an instance of <b>ArcoLinux Tweak Tool</b> running.\n\
+    click yes to remove the lock file and try running again")  # noqa
+        else:
+            md = Gtk.MessageDialog(parent=Main(),
+                                   flags=0,
+                                   message_type=Gtk.MessageType.INFO,
+                                   buttons=Gtk.ButtonsType.CLOSE,
+                                   text="Kernel Not Supported")
+            md.format_secondary_markup(
+                "Your current kernel does not support basic os function calls. <b>ArcoLinux Tweak Tool</b> requires these to work.")  # noqa
 
         result = md.run()
         md.destroy()

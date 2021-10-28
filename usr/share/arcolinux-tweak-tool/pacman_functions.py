@@ -237,6 +237,8 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                 line = lines[i]
                 if widget == "arco_mirror_seed":
                     mirror_on("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch", lines, i, line)
+                if widget == "arco_mirror_gitlab":
+                    mirror_on("Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch", lines, i, line)
                 if widget == "arco_mirror_belnet":
                     mirror_on("Server = https://ftp.belnet.be/arcolinux/$repo/$arch", lines, i, line)
                 if widget == "arco_mirror_github":
@@ -277,6 +279,8 @@ def toggle_mirrorlist(self, state, widget):  # noqa
 
                 if widget == "arco_mirror_seed":
                     mirror_off("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch", lines, i, line)
+                if widget == "arco_mirror_gitlab":
+                    mirror_off("Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch", lines, i, line)
                 if widget == "arco_mirror_belnet":
                     mirror_off("Server = https://ftp.belnet.be/arcolinux/$repo/$arch", lines, i, line)
                 if widget == "arco_mirror_github":

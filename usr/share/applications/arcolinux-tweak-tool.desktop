@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Arcolinux Tweak Tool
-GenericName=Arcolinux Tweak Tool
-X-GNOME-FullName=Arcolinux Tweak Tool
+GenericName=ArcoLinux Tweak Tool
+X-GNOME-FullName=ArcoLinux Tweak Tool
 Comment=Tweak ArcoLinux with ease
 Exec=/usr/local/bin/arcolinux-tweak-tool
 Icon=arcolinux-tweak-tool
