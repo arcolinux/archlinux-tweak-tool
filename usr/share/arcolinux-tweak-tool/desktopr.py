@@ -468,7 +468,6 @@ leftwm = [
     "thunar",
     "thunar-archive-plugin",
     "thunar-volman",
-    "ttf-fantasque-sans-mono",
     "ttf-iosevka-nerd",
 	"ttf-material-design-iconic-font",
     "ttf-meslo-nerd-font-powerlevel10k",
