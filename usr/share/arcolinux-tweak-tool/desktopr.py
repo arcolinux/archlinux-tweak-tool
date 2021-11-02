@@ -259,7 +259,7 @@ fvwm3 = [
     "arcolinux-gtk3-surfn-arc-git",
     "arcolinux-local-xfce4-git",
     "arcolinux-meta-logout",
-    "arcolinux-polybar-git",    
+    "arcolinux-polybar-git",
     "arcolinux-rofi-git",
     "arcolinux-rofi-themes-git",
     "arcolinux-root-git",
@@ -717,7 +717,7 @@ xfce = [
     "polkit-gnome",
     "rxvt-unicode",
     "arcolinux-config-all-desktops-git",
-    "arcolinux-dconf-all-desktops-git",    
+    "arcolinux-dconf-all-desktops-git",
     "arcolinux-local-xfce4-git",
     "arcolinux-meta-logout",
     "arcolinux-root-git",
@@ -834,8 +834,13 @@ def install_desktop(self, desktop, state):
     # make backup of your .config
     now = datetime.datetime.now()
     if not os.path.exists(fn.home + "/.config-att"):
-            os.makedirs(fn.home + "/.config-att")
+        os.makedirs(fn.home + "/.config-att")
+        fn.permissions(fn.home + "/.config-att")
+    #for all users that have now root permissions
+    if os.path.exists(fn.home + "/.config-att"):
+        fn.permissions(fn.home + "/.config-att")
     fn.copy_func(fn.home + "/.config/", fn.home + "/.config-att/config-att-" + now.strftime("%Y-%m-%d-%H-%M-%S"), isdir=True)
+    fn.permissions(fn.home + "/.config-att/config-att-" + now.strftime("%Y-%m-%d-%H-%M-%S"))
     if desktop == "awesome":
         command = list(np.append(awesome, arco_logout))
         src.append("/etc/skel/.config/awesome")
@@ -851,7 +856,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "cutefish-xsession":
         command = cutefish
         src.append("/etc/skel/.config/cutefishos")
-        twm = True     
+        twm = True
     elif desktop == "cinnamon":
         command = cinnamon
     elif desktop == "cwm":
@@ -860,7 +865,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.cwmrc")
         src.append("/etc/skel/.xprofile")
         src.append("/etc/skel/.config/polybar")
-        twm = True        
+        twm = True
     elif desktop == "deepin":
         check_package(self, "/usr/bin", "qt5ct")
         command = deepin
@@ -1005,4 +1010,3 @@ def install_desktop(self, desktop, state):
         # GLib.idle_add(self.desktopr_stat.set_text, "An error has occured in installation")
         GLib.idle_add(fn.show_in_app_notification, self, desktop + " has not been installed")
     fn.create_log(self)
-    

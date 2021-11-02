@@ -151,6 +151,11 @@ class Main(Gtk.Window):
         att = a2.st_uid
         #backup = a3.st_uid
 
+        #fixing root permissions if the folder exists
+        #can be removed later - 02/11/2021 startdate
+        if os.path.exists(Functions.home + "/.config-att"):
+            Functions.permissions(Functions.home + "/.config-att")
+
         if autostart == 0:
             Functions.permissions(Functions.home + "/.config/autostart")
             print("Fix autostart permissions...")
