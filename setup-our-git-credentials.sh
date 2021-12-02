@@ -1,5 +1,14 @@
 #!/bin/bash
 #
+#tput setaf 0 = black
+#tput setaf 1 = red
+#tput setaf 2 = green
+#tput setaf 3 = yellow
+#tput setaf 4 = dark blue
+#tput setaf 5 = purple
+#tput setaf 6 = cyan
+#tput setaf 7 = gray
+#tput setaf 8 = light blue
 ##################################################################################################################
 # Written to be used on 64 bits computers
 # Author 	: 	Erik Dubois
@@ -31,8 +40,9 @@
 #https://blog.nillsf.com/index.php/2021/05/27/github-sso-using-password-protected-ssh-keys
 
 project=$(basename `pwd`)
+githubdir="arcolinux"
 echo "-----------------------------------------------------------------------------"
-echo "this is project https://github.com/arcolinux/"$project
+echo "this is project https://github.com/$githubdir/$project"
 echo "-----------------------------------------------------------------------------"
 
 echo
@@ -70,7 +80,7 @@ case $CHOICE in
 			sudo git config --system core.editor nano
 			#git config --global credential.helper cache
 			#git config --global credential.helper 'cache --timeout=32000'
-      git remote set-url origin git@github.com-arc:arcolinux/$project
+      git remote set-url origin git@github.com-arc:$githubdir/$project
       echo
       echo "Everything set"
       ;;
