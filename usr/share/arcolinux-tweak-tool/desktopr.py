@@ -455,7 +455,7 @@ leftwm = [
     "arcolinux-xfce-git",
     "dmenu",
     "gvfs",
-    "leftwm",
+    "leftwm-dev-git",
     "leftwm-theme-git",
     "nerd-fonts-source-code-pro",
     "picom",
