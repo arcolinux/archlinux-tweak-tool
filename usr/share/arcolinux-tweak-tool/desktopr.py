@@ -38,6 +38,7 @@ desktops = [
     "qtile",
     "spectrwm",
     "ukui",
+    "wmderland",    
     "xfce",
     "xmonad"
 ]
@@ -680,6 +681,34 @@ spectrwm = [
     "xfce4-terminal",
     "xtitle-git",
 ]
+wmderland = [
+    "arcolinux-config-all-desktops-git",
+    "arcolinux-gtk3-sardi-arc-git",
+    "arcolinux-wmderland-git",
+    "arcolinux-local-xfce4-git",
+    "arcolinux-meta-logout",
+    "arcolinux-polybar-git",
+    "arcolinux-rofi-git",
+    "arcolinux-rofi-themes-git",
+    "arcolinux-root-git",
+    "arcolinux-tweak-tool-git",
+    "arcolinux-volumeicon-git",
+    "arcolinux-wallpapers-git",
+    "arcolinux-xfce-git",
+    "dmenu",
+    "feh",
+    "wmderland-git",
+    "picom",
+    "polkit-gnome",
+    "polybar",
+    "rofi",
+    "sxhkd",
+    "thunar",
+    "thunar-archive-plugin",
+    "thunar-volman",
+    "volumeicon",
+    "xfce4-terminal",
+]
 ukui = [
     "arcolinux-config-all-desktops-git",
     "arcolinux-gtk3-sardi-arc-git",
@@ -945,6 +974,11 @@ def install_desktop(self, desktop, state):
     elif desktop == "ukui":
         command = list(np.append(ukui, arco_logout))
         src.append("/etc/skel/.config/")
+        twm = True
+    elif desktop == "wmderland":
+        command = list(np.append(wmderland, arco_logout))
+        src.append("/etc/skel/.config/wmderland")
+        src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "xfce":
         command = list(np.append(xfce, arco_logout))
