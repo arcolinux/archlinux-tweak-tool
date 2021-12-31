@@ -197,11 +197,12 @@ class Main(Gtk.Window):
         arch_xl = pmf.check_repo("[arcolinux_repo_xlarge]")
 
 #       #========================ARCO MIRROR=============================
-        arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
-        arco_mirror_gitlab = pmf.check_mirror("Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch")
-        arco_mirror_belnet = pmf.check_mirror("Server = https://ftp.belnet.be/arcolinux/$repo/$arch")
-        arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
-        arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
+            arco_mirror_gitlab = pmf.check_mirror("Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch")
+            arco_mirror_belnet = pmf.check_mirror("Server = https://ftp.belnet.be/arcolinux/$repo/$arch")
+            arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
+            arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
 #       #========================SPINOFF REPO=============================
         hefftor_repo = pmf.check_repo("[hefftor-repo]")
         bobo_repo = pmf.check_repo("[chaotic-aur]")
@@ -212,11 +213,12 @@ class Main(Gtk.Window):
         self.axlrepo_button.set_active(arch_xl)
 
 #       #========================ARCO MIRROR SET TOGGLE=====================
-        self.aseed_button.set_active(arco_mirror_seed)
-        self.agitlab_button.set_active(arco_mirror_gitlab)
-        self.abelnet_button.set_active(arco_mirror_belnet)
-        self.aarnet_button.set_active(arco_mirror_aarnet)
-        #self.agithub_button.set_active(arco_mirror_github)
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            self.aseed_button.set_active(arco_mirror_seed)
+            self.agitlab_button.set_active(arco_mirror_gitlab)
+            self.abelnet_button.set_active(arco_mirror_belnet)
+            self.aarnet_button.set_active(arco_mirror_aarnet)
+            #self.agithub_button.set_active(arco_mirror_github)
 
 #       #========================TESTING REPO SET TOGGLE==================
         self.checkbutton.set_active(arco_testing)
@@ -1336,6 +1338,16 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been enabled - reboot")
+
+    def on_click_lightdm_slick(self, desktop):
+        self.on_click_att_lightdm_clicked(desktop)
+        self.on_click_lightdm_enable(desktop)
+        command = '/usr/local/bin/arcolinux-install-activate-lightdm-slickgreeter'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Reboot now - Activate manually if needed")
 
     # ====================================================================
     #                       SDDM
