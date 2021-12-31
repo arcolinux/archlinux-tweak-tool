@@ -30,7 +30,7 @@ def GUI(self, Gtk, vboxStack3, Functions):
     hbox11.pack_start(instructions, False, False, 10)
 
     label_hblock = Gtk.Label()
-    label_hblock.set_text("Enable hblock\nYour orignal /etc/hosts file can be found in /etc/hosts.bak.att")
+    label_hblock.set_text("Enable hblock - Your orignal /etc/hosts file can be found in /etc/hosts.bak.att")
 
     self.label7 = Gtk.Label(xalign=0)
     self.progress = Gtk.ProgressBar()
