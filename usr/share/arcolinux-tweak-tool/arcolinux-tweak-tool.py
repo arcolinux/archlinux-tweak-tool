@@ -1079,6 +1079,18 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
     def tozsh_apply(self,widget):
+        # install missing applications for ArcoLinuxD
+        Functions.install_zsh(self)
+        # first make backup if there is a file
+        if not Functions.os.path.isfile(Functions.home + "/.zshrc" + ".bak") and Functions.os.path.isfile(Functions.home + "/.zshrc"):
+            Functions.shutil.copy(Functions.home + "/.zshrc",
+                              Functions.home + "/.zshrc" + ".bak")
+            Functions.permissions(Functions.home + "/.zshrc.bak")
+        if not Functions.os.path.isfile(Functions.home + "/.zshrc"):
+            Functions.shutil.copy("/etc/skel/.zshrc",
+                              Functions.home + "/.zshrc")
+            Functions.permissions(Functions.home + "/.zshrc")
+
         command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/zsh'
         Functions.subprocess.call(command,
                         shell=True,

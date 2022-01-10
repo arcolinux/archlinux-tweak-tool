@@ -529,6 +529,22 @@ def install_alacritty(self):
                         stderr=subprocess.STDOUT)
 
 # =====================================================
+#               ZSH + PACKAGES (ARCOLINUXD)
+# =====================================================
+
+def install_zsh(self):
+    install = 'pacman -S zsh zsh-completions zsh-syntax-highlighting arcolinux-zsh-git oh-my-zsh-git --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/zsh") and os.path.exists("/etc/skel/.zshrc") :
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+
+# =====================================================
 #               ARCOLINUX-DESKTOP-TRASHER
 # =====================================================
 
