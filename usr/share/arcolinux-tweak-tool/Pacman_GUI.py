@@ -29,6 +29,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
     # ========================================================
     #               ARCO REPOS
@@ -100,6 +101,11 @@ def GUI(self, Gtk, vboxStack1, Functions):
     label9 = Gtk.Label(xalign=0)
     label9.set_markup("Enable Chaotics repo")
 
+    self.nemesis_button = Gtk.Switch()
+    self.nemesis_button.connect("notify::active", self.on_nemesis_toggle)
+    label11 = Gtk.Label(xalign=0)
+    label11.set_markup("Enable Nemesis repo")
+
     # ========================================================
     #               CUSTOM REPOS
     # ========================================================
@@ -142,7 +148,6 @@ def GUI(self, Gtk, vboxStack1, Functions):
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vboxStack2.pack_start(hboxStack1, False, False, 10)
 
-
     # ========================================================
     #               SPINOFF REPOS PACKING
     # ========================================================
@@ -150,8 +155,11 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #hboxStack10.pack_end(self.hefftor_button, False, False, 10)
     hboxStack11.pack_start(label9, False, True, 10)
     hboxStack11.pack_end(self.bobo_button, False, False, 10)
+    hboxStack13.pack_start(label11, False, True, 10)
+    hboxStack13.pack_end(self.nemesis_button, False, False, 10)    
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vboxStack4.pack_start(hboxStack11, False, False, 10)
+    vboxStack4.pack_start(hboxStack13, False, False, 10)
     # ========================================================
     #               TESTING REPOS PACKING
     # ========================================================

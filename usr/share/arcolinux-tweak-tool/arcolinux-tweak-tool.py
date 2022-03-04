@@ -206,6 +206,7 @@ class Main(Gtk.Window):
 #       #========================SPINOFF REPO=============================
         hefftor_repo = pmf.check_repo("[hefftor-repo]")
         bobo_repo = pmf.check_repo("[chaotic-aur]")
+        nemesis_repo = pmf.check_repo("[nemesis_repo]")
 
 #       #========================ARCO REPO SET TOGGLE=====================
         self.arepo_button.set_active(arco_base)
@@ -229,7 +230,8 @@ class Main(Gtk.Window):
 #       #========================SPINOFF REPO SET TOGGLE==================
         #self.hefftor_button.set_active(hefftor_repo)
         self.bobo_button.set_active(bobo_repo)
-
+        self.opened = False
+        self.nemesis_button.set_active(nemesis_repo)
         self.opened = False
 
 #       #========================NEOFETCH LOLCAT TOGGLE===================
@@ -469,6 +471,13 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "bobo")
+    def on_nemesis_toggle(self, widget, active):
+        if not pmf.repo_exist("[nemesis_repo]"):
+            pmf.append_repo(self, Functions.nemesis_repo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "nemesis")
 
     def on_pacman_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_testing]"):

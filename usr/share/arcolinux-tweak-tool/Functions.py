@@ -89,6 +89,10 @@ bobo_repo = "[chaotic-aur]\n\
 SigLevel = Required DatabaseOptional\n\
 Include = /etc/pacman.d/chaotic-mirrorlist"
 
+nemesis_repo = "[nemesis_repo]\n\
+SigLevel = Optional TrustedOnly\n\
+Server = https://erikdubois.github.io/$repo/$arch"
+
 # =====================================================
 #               Create log file
 # =====================================================
