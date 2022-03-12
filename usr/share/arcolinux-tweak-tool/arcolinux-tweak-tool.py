@@ -199,7 +199,7 @@ class Main(Gtk.Window):
 #       #========================ARCO MIRROR=============================
         if os.path.isfile(Functions.arcolinux_mirrorlist):
             arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
-            arco_mirror_gitlab = pmf.check_mirror("Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch")
+            arco_mirror_gitlab = pmf.check_mirror("Server = https://gitlab.com/arcolinux/$repo/-/raw/main/$arch")
             arco_mirror_belnet = pmf.check_mirror("Server = https://ftp.belnet.be/arcolinux/$repo/$arch")
             arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
             arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
@@ -402,7 +402,7 @@ class Main(Gtk.Window):
                                       "arco_mirror_seed")
 
     def on_mirror_gitlab_repo_toggle(self, widget, active):
-        if not pmf.mirror_exist("Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch"):
+        if not pmf.mirror_exist("Server = https://gitlab.com/arcolinux/$repo/-/raw/main/$arch"):
             pmf.append_mirror(self, Functions.seedhostmirror)
         else:
             if self.opened is False:
