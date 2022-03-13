@@ -244,6 +244,10 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                     mirror_on("Server = https://gitlab.com/arcolinux/$repo/-/raw/main/$arch", lines, i, line)
                 if widget == "arco_mirror_belnet":
                     mirror_on("Server = https://ftp.belnet.be/arcolinux/$repo/$arch", lines, i, line)
+                if widget == "arco_mirror_codeberg":
+                    mirror_on("Server = https://codeberg.org/arcolinux/$repo/media/branch/main/$arch", lines, i, line)
+                if widget == "arco_mirror_funami":
+                    mirror_on("Server = https://mirror.funami.tech/arcolinux/$repo/$arch", lines, i, line)
                 if widget == "arco_mirror_github":
                     mirror_on("Server = https://arcolinux.github.io/$repo/$arch", lines, i, line)
                 if widget == "arco_mirror_aarnet":
@@ -286,6 +290,10 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                     mirror_off("Server = https://gitlab.com/arcolinux/$repo/-/raw/main/$arch", lines, i, line)
                 if widget == "arco_mirror_belnet":
                     mirror_off("Server = https://ftp.belnet.be/arcolinux/$repo/$arch", lines, i, line)
+                if widget == "arco_mirror_codeberg":
+                    mirror_off("Server = https://codeberg.org/arcolinux/$repo/media/branch/main/$arch", lines, i, line)
+                if widget == "arco_mirror_funami":
+                    mirror_off("Server = https://mirror.funami.tech/arcolinux/$repo/$arch", lines, i, line)
                 if widget == "arco_mirror_github":
                     mirror_off("Server = https://arcolinux.github.io/$repo/$arch", lines, i, line)
                 if widget == "arco_mirror_aarnet":

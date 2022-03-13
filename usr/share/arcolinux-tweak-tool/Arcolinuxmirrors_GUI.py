@@ -32,6 +32,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
     # ========================================================
     #               ARCO REPOS
@@ -45,9 +47,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.aseed_button = Gtk.Switch()
     self.aseed_button.connect("notify::active", self.on_mirror_seed_repo_toggle)
     label5 = Gtk.Label(xalign=0)
-    label5.set_markup("Enable Seedhost repo - Do not enable it and save us bandwidth - paid - Netherlands - Seedhost is always up-to-date")
+    label5.set_markup("Enable Seedhost repo - Do not enable it and save us bandwidth and money - paid - Netherlands - Always up-to-date")
     seedhost_sync = Gtk.Label(xalign=0)
-    #seedhost_sync.set_markup("     Seedhost is always up-to-date")
     hboxStack7.pack_start(label5, False, True, 10)
     hboxStack7.pack_end(self.aseed_button, False, False, 20)
     hboxStack7.pack_start(seedhost_sync, False, True, 10)
@@ -56,9 +57,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.agitlab_button = Gtk.Switch()
     self.agitlab_button.connect("notify::active", self.on_mirror_gitlab_repo_toggle)
     labelGitlab = Gtk.Label(xalign=0)
-    labelGitlab.set_markup("Enable Gitlab repo - free bandwidth - United States - Gitlab syncs daily")
+    labelGitlab.set_markup("Enable Gitlab repo - free bandwidth - United States - Always up-to-date")
     gitlab_sync = Gtk.Label(xalign=0)
-    #seedhost_sync.set_markup("     Seedhost is always up-to-date")
     hboxStack16.pack_start(labelGitlab, False, True, 10)
     hboxStack16.pack_end(self.agitlab_button, False, False, 20)
     hboxStack16.pack_start(gitlab_sync, False, True, 10)
@@ -69,10 +69,29 @@ def GUI(self, Gtk, vboxStack1, Functions):
     label6 = Gtk.Label(xalign=0)
     label6.set_markup("Enable Belnet repo - free bandwidth - Belgium - Belnet syncs twice per day")
     belnet_sync = Gtk.Label(xalign=0)
-    #belnet_sync.set_markup("     Belnet syncs twice per day")
     hboxStack14.pack_start(label6, False, True, 10)
     hboxStack14.pack_end(self.abelnet_button, False, False, 20)
     hboxStack14.pack_start(belnet_sync, False, True, 10)
+
+    # funami
+    self.afunami_button = Gtk.Switch()
+    self.afunami_button.connect("notify::active", self.on_mirror_funami_repo_toggle)
+    labelfunami = Gtk.Label(xalign=0)
+    labelfunami.set_markup("Enable Funami repo - free bandwidth - South Korea - Funami syncs once per day")
+    funami_sync = Gtk.Label(xalign=0)
+    hboxStack18.pack_start(labelfunami, False, True, 10)
+    hboxStack18.pack_end(self.afunami_button, False, False, 20)
+    hboxStack18.pack_start(funami_sync, False, True, 10)
+
+    # codeberg
+    self.acodeberg_button = Gtk.Switch()
+    self.acodeberg_button.connect("notify::active", self.on_mirror_codeberg_repo_toggle)
+    labelacodeberg = Gtk.Label(xalign=0)
+    labelacodeberg.set_markup("Enable Codeberg repo - free bandwidth - Germany - Always up-to-date")
+    codeberg_sync = Gtk.Label(xalign=0)
+    hboxStack17.pack_start(labelacodeberg, False, True, 10)
+    hboxStack17.pack_end(self.acodeberg_button, False, False, 20)
+    hboxStack17.pack_start(codeberg_sync, False, True, 10)
 
     # github - always there as fallback - no extra large repo on github
     # self.agithub_button = Gtk.Switch()
@@ -115,14 +134,18 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #message
     vbox3.pack_start(hboxStack11, False, False, 0)
     vbox3.pack_start(hboxStack12, False, False, 0)
-    #seedhost
-    vbox3.pack_start(hboxStack7, False, False, 0)
     #gitlab
     vbox3.pack_start(hboxStack16, False, False, 0)
+    #codeberg
+    vbox3.pack_start(hboxStack17, False, False, 0)
     #belnet
     vbox3.pack_start(hboxStack14, False, False, 0)
     # aarnet
     vbox3.pack_start(hboxStack10, False, False, 0)
+    #funami
+    vbox3.pack_start(hboxStack18, False, False, 0)
+    #seedhost
+    vbox3.pack_start(hboxStack7, False, False, 0)
 
     frame3.add(vbox3)
 
