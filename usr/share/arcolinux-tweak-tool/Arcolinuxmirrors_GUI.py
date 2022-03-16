@@ -34,6 +34,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
     # ========================================================
     #               ARCO REPOS
@@ -82,6 +83,16 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack18.pack_start(labelfunami, False, True, 10)
     hboxStack18.pack_end(self.afunami_button, False, False, 20)
     hboxStack18.pack_start(funami_sync, False, True, 10)
+
+    # jingk
+    self.ajingk_button = Gtk.Switch()
+    self.ajingk_button.connect("notify::active", self.on_mirror_jingk_repo_toggle)
+    labeljingk = Gtk.Label(xalign=0)
+    labeljingk.set_markup("Enable Jingk repo - free bandwidth - Singapore - Jingk syncs once per day")
+    jingk_sync = Gtk.Label(xalign=0)
+    hboxStack19.pack_start(labeljingk, False, True, 10)
+    hboxStack19.pack_end(self.ajingk_button, False, False, 20)
+    hboxStack19.pack_start(jingk_sync, False, True, 10)
 
     # codeberg
     self.acodeberg_button = Gtk.Switch()
@@ -144,6 +155,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     vbox3.pack_start(hboxStack10, False, False, 0)
     #funami
     vbox3.pack_start(hboxStack18, False, False, 0)
+    #jingk
+    vbox3.pack_start(hboxStack19, False, False, 0)    
     #seedhost
     vbox3.pack_start(hboxStack7, False, False, 0)
 
