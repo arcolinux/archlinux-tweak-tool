@@ -88,7 +88,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.ajingk_button = Gtk.Switch()
     self.ajingk_button.connect("notify::active", self.on_mirror_jingk_repo_toggle)
     labeljingk = Gtk.Label(xalign=0)
-    labeljingk.set_markup("Enable Jingk repo - free bandwidth - Singapore - Jingk syncs once per day")
+    labeljingk.set_markup("Enable Jingk repo - free bandwidth - Singapore - Jingk syncs twice per day")
     jingk_sync = Gtk.Label(xalign=0)
     hboxStack19.pack_start(labeljingk, False, True, 10)
     hboxStack19.pack_end(self.ajingk_button, False, False, 20)
