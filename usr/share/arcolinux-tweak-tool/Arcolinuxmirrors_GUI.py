@@ -148,7 +148,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #gitlab
     vbox3.pack_start(hboxStack16, False, False, 0)
     #codeberg
-    vbox3.pack_start(hboxStack17, False, False, 0)
+    #vbox3.pack_start(hboxStack17, False, False, 0)
     #belnet
     vbox3.pack_start(hboxStack14, False, False, 0)
     # aarnet
