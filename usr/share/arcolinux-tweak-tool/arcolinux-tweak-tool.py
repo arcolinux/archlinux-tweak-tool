@@ -41,7 +41,7 @@ pmf = pacman_functions
 
 class Main(Gtk.Window):
     def __init__(self):
-        super(Main, self).__init__(title="ArcoLinux Tweak Tool")
+        super(Main, self).__init__(title="ArchLinux Tweak Tool")
         self.set_border_width(10)
         self.connect("delete-event", self.on_close)
         self.set_position(Gtk.WindowPosition.CENTER)
@@ -1083,7 +1083,7 @@ class Main(Gtk.Window):
         GLib.idle_add(self.btn_term.set_sensitive, True)
         ll = self.btn_term.get_child()
         GLib.idle_add(ll.set_text, "Install Termite themes")
-        GLib.idle_add(self.ls2.set_markup, "Please restart the <b>ArcoLinux Tweak Tool</b>")
+        GLib.idle_add(self.ls2.set_markup, "Please restart the <b>ArchLinux Tweak Tool</b>")
 
     def on_term_apply(self, widget):
         if self.term_themes.get_active_text() is not None:
@@ -2018,7 +2018,7 @@ if __name__ == "__main__":
                                    buttons=Gtk.ButtonsType.YES_NO,
                                    text="Lock File Found")
             md.format_secondary_markup(
-                "The lock file has been found. This indicates there is already an instance of <b>ArcoLinux Tweak Tool</b> running.\n\
+                "The lock file has been found. This indicates there is already an instance of <b>ArchLinux Tweak Tool</b> running.\n\
     click yes to remove the lock file and try running again")  # noqa
         else:
             md = Gtk.MessageDialog(parent=Main(),
@@ -2027,7 +2027,7 @@ if __name__ == "__main__":
                                    buttons=Gtk.ButtonsType.CLOSE,
                                    text="Kernel Not Supported")
             md.format_secondary_markup(
-                "Your current kernel does not support basic os function calls. <b>ArcoLinux Tweak Tool</b> requires these to work.")  # noqa
+                "Your current kernel does not support basic os function calls. <b>ArchLinux Tweak Tool</b> requires these to work.")  # noqa
 
         result = md.run()
         md.destroy()
