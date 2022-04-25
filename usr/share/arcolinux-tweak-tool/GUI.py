@@ -410,7 +410,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     hbox3.pack_start(btnReStartAtt, False, False, 0)
 
-    ivbox.pack_start(image, False, False, 0)
+    #ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
 
     ivbox.pack_start(hbox2, False, False, 0)
