@@ -3,6 +3,7 @@
 # =================================================================
 
 import os
+import distro
 import sys
 import shutil
 import psutil
@@ -14,6 +15,8 @@ import gi
 # import configparser
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk  # noqa
+
+distr = distro.id()
 
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
@@ -35,6 +38,12 @@ else:
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
 arcolinux_mirrorlist_original = "/usr/local/share/arcolinux/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
+pacman_arco ="/usr/share/arcolinux-tweak-tool/data/arco/pacman.conf"
+pacman_eos ="/usr/share/arcolinux-tweak-tool/data/eos/pacman.conf"
+pacman_garuda ="/usr/share/arcolinux-tweak-tool/data/garuda/pacman.conf"
+blank_pacman_arco ="/usr/share/arcolinux-tweak-tool/data/arco/blank/pacman.conf"
+blank_pacman_eos ="/usr/share/arcolinux-tweak-tool/data/eos/blank/pacman.conf"
+blank_pacman_garuda ="/usr/share/arcolinux-tweak-tool/data/garuda/blank/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
@@ -52,6 +61,9 @@ polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
 zsh_config = ""
+fish_config = ""
+if os.path.isfile(home + "/.config/fish/config.fish"):
+    fish_config = home + "/.config/fish/config.fish"
 if os.path.isfile(home + "/.zshrc"):
     zsh_config = home + "/.zshrc"
 bash_config = ""
@@ -65,7 +77,7 @@ qtile_config = home + "/.config/qtile/config.py"
 seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
 aarnetmirror = "Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"
 
-arepo_test = "[arcolinux_repo_testing]\n\
+atestrepo = "[arcolinux_repo_testing]\n\
 SigLevel = Required DatabaseOptional\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
@@ -81,17 +93,38 @@ axlrepo = "[arcolinux_repo_xlarge]\n\
 SigLevel = Required DatabaseOptional\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
-hefftor_repo = "[hefftor-repo]\n\
-SigLevel = Optional TrustedOnly\n\
-Include = /etc/pacman.d/arcolinux-mirrorlist-bradheff"
-
-bobo_repo = "[chaotic-aur]\n\
+chaotics_repo = "[chaotic-aur]\n\
 SigLevel = Required DatabaseOptional\n\
 Include = /etc/pacman.d/chaotic-mirrorlist"
+
+endeavouros_repo = "[endeavouros]\n\
+SigLevel = PackageRequired\n\
+Include = /etc/pacman.d/endeavouros-mirrorlist"
 
 nemesis_repo = "[nemesis_repo]\n\
 SigLevel = Optional TrustedOnly\n\
 Server = https://erikdubois.github.io/$repo/$arch"
+
+arch_testing_repo = "[testing]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_core_repo = "[core]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_extra_repo = "[extra]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_community_testing_repo = "[community-testing]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_community_repo = "[community]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_multilib_testing_repo = "[multilib-testing]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_multilib_repo = "[multilib]\n\
+Include = /etc/pacman.d/mirrorlist"
 
 # =====================================================
 #               Create log file
@@ -213,6 +246,10 @@ def source_shell(self):
         subprocess.run(["zsh", "-c", "su - " + sudo_username +
                         " -c \"source " + home + "/.zshrc\""],
                        stdout=subprocess.PIPE)
+    elif output == "/usr/bin/fish":
+        subprocess.run(["fish", "-c", "su - " + sudo_username +
+                        " -c \"source " + home + "/.config/fish/config.fish\""],
+                       stdout=subprocess.PIPE)    
 
 def get_shell():
     process = subprocess.run(["su", "-", sudo_username,"-c","echo \"$SHELL\""],
@@ -225,6 +262,8 @@ def get_shell():
         return "bash"
     elif output == "/bin/zsh" or output == "/usr/bin/zsh":
         return "zsh"
+    elif output == "/bin/fish" or output == "/usr/bin/fish":
+        return "fish"    
 
 def run_as_user(script):
     subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)
@@ -547,6 +586,31 @@ def install_zsh(self):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
 
+# =====================================================
+#               FISH + PACKAGES (ARCOLINUXD)
+# =====================================================
+
+def install_fish(self):
+    install = 'pacman -S fish arcolinux-fish-git --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/fish") and os.path.exists("/etc/skel/.config/fish/config.fish") :
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+def remove_fish(self):
+    install = 'pacman -Rs fish --noconfirm'
+
+    if not os.path.exists("/usr/bin/fish") :
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
 
 # =====================================================
 #               ARCOLINUX-DESKTOP-TRASHER

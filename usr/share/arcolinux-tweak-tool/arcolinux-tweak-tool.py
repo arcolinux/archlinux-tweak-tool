@@ -19,6 +19,8 @@ import desktopr
 import autostart
 import polybar
 import zsh_theme
+import fish
+import distro
 import user
 import fixes
 import GUI
@@ -182,20 +184,30 @@ class Main(Gtk.Window):
             Functions.permissions(Functions.config)
 
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango)
-        # self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
-        #                             self.desktop.lower() + "</span>")
-
-#       #========================TESTING REPO=============================
-        arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
-        multi_testing = pmf.check_repo("[multilib-testing]")
-        arch_testing = pmf.check_repo("[testing]")
-        arch_community = pmf.check_repo("[community-testing]")
 
 #       #========================ARCO REPO=============================
-        arco_base = pmf.check_repo("[arcolinux_repo]")
-        multi_3p = pmf.check_repo("[arcolinux_repo_3party]")
-        arch_xl = pmf.check_repo("[arcolinux_repo_xlarge]")
 
+        arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
+        arco_base = pmf.check_repo("[arcolinux_repo]")
+        arco_3p = pmf.check_repo("[arcolinux_repo_3party]")
+        arco_xl = pmf.check_repo("[arcolinux_repo_xlarge]")
+
+#       #========================ARCH REPO=============================
+                
+        arch_testing = pmf.check_repo("[testing]")
+        arch_core = pmf.check_repo("[core]")
+        arch_extra = pmf.check_repo("[extra]")
+        arch_community_testing = pmf.check_repo("[community-testing]")
+        arch_community = pmf.check_repo("[community]")
+        arch_multilib_testing = pmf.check_repo("[multilib-testing]")
+        arch_multilib = pmf.check_repo("[multilib]")
+
+#       #========================OTHER REPO=============================
+        
+        chaotics_repo = pmf.check_repo("[chaotic-aur]")
+        endeavouros_repo = pmf.check_repo("[endeavouros]")
+        nemesis_repo = pmf.check_repo("[nemesis_repo]")
+        
 #       #========================ARCO MIRROR=============================
         if os.path.isfile(Functions.arcolinux_mirrorlist):
             arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
@@ -206,15 +218,6 @@ class Main(Gtk.Window):
             arco_mirror_jingk = pmf.check_mirror("Server = https://mirror.jingk.ai/arcolinux/$repo/$arch")
             arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
             arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
-#       #========================SPINOFF REPO=============================
-        hefftor_repo = pmf.check_repo("[hefftor-repo]")
-        bobo_repo = pmf.check_repo("[chaotic-aur]")
-        nemesis_repo = pmf.check_repo("[nemesis_repo]")
-
-#       #========================ARCO REPO SET TOGGLE=====================
-        self.arepo_button.set_active(arco_base)
-        self.a3prepo_button.set_active(multi_3p)
-        self.axlrepo_button.set_active(arch_xl)
 
 #       #========================ARCO MIRROR SET TOGGLE=====================
         if os.path.isfile(Functions.arcolinux_mirrorlist):
@@ -227,16 +230,29 @@ class Main(Gtk.Window):
             self.aarnet_button.set_active(arco_mirror_aarnet)
             #self.agithub_button.set_active(arco_mirror_github)
 
-#       #========================TESTING REPO SET TOGGLE==================
-        self.checkbutton.set_active(arco_testing)
-        self.checkbutton2.set_active(arch_testing)
-        self.checkbutton3.set_active(multi_testing)
-        self.checkbutton4.set_active(arch_community)
+#       #========================ARCO REPO SET TOGGLE=====================
 
-#       #========================SPINOFF REPO SET TOGGLE==================
-        #self.hefftor_button.set_active(hefftor_repo)
-        self.bobo_button.set_active(bobo_repo)
+        self.atestrepo_button.set_active(arco_testing)
+        self.arepo_button.set_active(arco_base)
+        self.a3prepo_button.set_active(arco_3p)
+        self.axlrepo_button.set_active(arco_xl)
+
+#       #========================ARCH LINUX REPO SET TOGGLE==================
+        
+        self.checkbutton2.set_active(arch_testing)
+        self.checkbutton6.set_active(arch_core)
+        self.checkbutton7.set_active(arch_extra)
+        self.checkbutton4.set_active(arch_community_testing)
+        self.checkbutton5.set_active(arch_community)
+        self.checkbutton3.set_active(arch_multilib_testing)
+        self.checkbutton8.set_active(arch_multilib)
+
+#       #========================OTHER REPO SET TOGGLE==================
+        
+        self.chaotics_button.set_active(chaotics_repo)
         self.opened = False
+        self.endeavouros_button.set_active(endeavouros_repo)
+        self.opened = False        
         self.nemesis_button.set_active(nemesis_repo)
         self.opened = False
 
@@ -461,6 +477,13 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(),
                                       "arco_mirror_github")
+    def on_pacman_atestrepo_toggle(self, widget, active):
+        if not pmf.repo_exist("[arcolinux_repo_testing]"):
+            pmf.append_repo(self, Functions.atestrepo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "arco_testing")
 
     def on_pacman_arepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo]"):
@@ -486,21 +509,22 @@ class Main(Gtk.Window):
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_axl")
 
-    def on_hefftor_toggle(self, widget, active):
-        if not pmf.repo_exist("[hefftor-repo]"):
-            pmf.append_repo(self, Functions.hefftor_repo)
-        else:
-            if self.opened is False:
-                pmf.toggle_test_repos(self, widget.get_active(),
-                                      "hefftor")
-
-    def on_bobo_toggle(self, widget, active):
+    def on_chaotics_toggle(self, widget, active):
         if not pmf.repo_exist("[chaotic-aur]"):
-            pmf.append_repo(self, Functions.bobo_repo)
+            pmf.append_repo(self, Functions.chaotics_repo)
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
-                                      "bobo")
+                                      "chaotics")
+
+    def on_endeavouros_toggle(self, widget, active):
+        if not pmf.repo_exist("[endeavouros]"):
+            pmf.append_repo(self, Functions.endeavouros_repo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "endeavouros")
+
     def on_nemesis_toggle(self, widget, active):
         if not pmf.repo_exist("[nemesis_repo]"):
             pmf.append_repo(self, Functions.nemesis_repo)
@@ -509,29 +533,62 @@ class Main(Gtk.Window):
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "nemesis")
 
-    def on_pacman_toggle(self, widget, active):
-        if not pmf.repo_exist("[arcolinux_repo_testing]"):
-            pmf.insert_repo(self, Functions.arepo_test)
+    def on_pacman_toggle1(self, widget, active):
+        if not pmf.repo_exist("[testing]"):
+            pmf.append_repo(self, Functions.arch_testing_repo)
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
-                                      "arco")
-
+                                      "testing")
+            
     def on_pacman_toggle2(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "arch")
+        if not pmf.repo_exist("[core]"):
+            pmf.append_repo(self, Functions.arch_core_repo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "core")
 
     def on_pacman_toggle3(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "multilib")
+        if not pmf.repo_exist("[extra]"):
+            pmf.append_repo(self, Functions.arch_extra_repo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "extra")
 
     def on_pacman_toggle4(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "community")
+        if not pmf.repo_exist("[community-testing]"):
+            pmf.append_repo(self, Functions.arch_community_testing_repo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "community-testing")
 
+    def on_pacman_toggle5(self, widget, active):
+        if not pmf.repo_exist("[community]"):
+            pmf.append_repo(self, Functions.arch_community_repo)
+        else:        
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "community")
+
+    def on_pacman_toggle6(self, widget, active):
+        if not pmf.repo_exist("[multilib-testing]"):
+            pmf.append_repo(self, Functions.arch_multilib_testing_repo)
+        else:        
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "multilib-testing")
+            
+    def on_pacman_toggle7(self, widget, active):
+        if not pmf.repo_exist("[multilib]"):
+            pmf.append_repo(self, Functions.arch_multilib_repo)
+        else:        
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "multilib")
+      
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
         startiter, enditer = self.text.get_bounds()
@@ -715,6 +772,16 @@ class Main(Gtk.Window):
         Functions.show_in_app_notification(self, "Settings Saved Successfully")
         widget.set_sensitive(True)
 
+    def blank_pacman(source,target):
+        Functions.shutil.copy(Functions.pacman,
+                                  Functions.pacman + ".bak")
+        if distro.id() == "arcolinux":
+            Functions.shutil.copy(Functions.blank_pacman_arco, Functions.pacman)
+        if distro.id() == "endeavouros":
+            Functions.shutil.copy(Functions.blank_pacman_eos, Functions.pacman)
+        if distro.id() == "garuda":
+            Functions.shutil.copy(Functions.blank_pacman_garuda, Functions.pacman)
+            
     def reset_settings(self, widget, filez):  # noqa
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
@@ -722,13 +789,13 @@ class Main(Gtk.Window):
                                                "Default Settings Applied")
 
         if filez == pacman:
-            arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
-            multi_testing = pmf.check_repo("[multilib-testing]")
-            arch_testing = pmf.check_repo("[testing]")
-
-            self.checkbutton.set_active(arco_testing)
-            self.checkbutton2.set_active(arch_testing)
-            self.checkbutton3.set_active(multi_testing)
+            if distro.id() == "arcolinux":
+                Functions.shutil.copy(Functions.pacman_arco, Functions.pacman)
+            if distro.id() == "endeavouros":
+                Functions.shutil.copy(Functions.pacman_eos, Functions.pacman)
+            if distro.id() == "garuda":
+                Functions.shutil.copy(Functions.pacman_garuda, Functions.pacman)
+             
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
         elif filez == Functions.gtk3_settings:
@@ -939,6 +1006,15 @@ class Main(Gtk.Window):
             dialog.destroy()
         elif response == Gtk.ResponseType.CANCEL:
             dialog.destroy()
+
+    def on_click_install_arco_vimix_clicked(self, desktop):
+        command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+
+        GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed - restart ATT")
 
 #    #====================================================================
 #    #                       SLIMLOCK
@@ -1207,6 +1283,137 @@ class Main(Gtk.Window):
         else:
             pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
         image.set_from_pixbuf(pixbuf)
+
+#    #====================================================================
+#    #                       FISH
+#    #====================================================================
+
+    # if os.path.isfile("/usr/bin/fish"): 
+    #     self.fish.set_active(True)
+    # else:
+    #     fish.fish.set_active(False)
+
+    def on_fish_toggle(self, widget, active):
+        if widget.get_active():
+            Functions.install_fish(self)
+            self.fish.set_active(True)
+            GLib.idle_add(Functions.show_in_app_notification, self, "Fish installed")
+        else:
+            Functions.remove_fish(self)
+            self.fish.set_active(False)
+            GLib.idle_add(Functions.show_in_app_notification, self, "Fish removed")
+            
+    def on_ohmyfish_toggle(self, widget, active):
+        if widget.get_active():
+            GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+        else:
+            GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - login")
+
+    def tobash_apply(self,widget):
+        command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/bash'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+
+    def tofish_apply(self,widget):
+        # install missing applications for ArcoLinuxD
+        Functions.install_fish(self)
+        # first make backup if there is a file
+        if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish" + ".bak") \
+                    and Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish"):
+            Functions.shutil.copy(Functions.home + "/.config/fish/config.fish",
+                              Functions.home + "/.config/fish/config.fish" + ".bak")
+            Functions.permissions(Functions.home + "/.config/fish/config.fish.bak")
+        if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish"):
+            Functions.shutil.copy("/etc/skel/.config/fish/config.fish",
+                              Functions.home + "/.config/fish/config.fish")
+            Functions.permissions(Functions.home + "/.config/fish/config.fish")
+
+        command = 'sudo chsh ' + Functions.sudo_username + ' -s /usr/bin/fish'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        widget.set_sensitive(True)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+
+    def on_fish_reset(self, widget):
+        if os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
+            Functions.shutil.copy(Functions.home + "/.config/fish/config.fish.bak",
+                                  Functions.home + "/.config/fish/config.fish")
+        if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
+            Functions.shutil.copy("/etc/skel/.config/fish/config.fish",
+                                  Functions.home + "/.config/fish/config.fish")
+        
+        Functions.permissions(Functions.home + "/.config/fish/config.fish")
+        Functions.show_in_app_notification(self,
+                                            "Default Settings Applied")
+
+    #The intent behind this function is to be a centralised image changer for all portions of ATT that need it
+    #Currently utilising an if tree - this is not best practice: it should be a match: case tree.
+    #But I have not yet got that working.
+    def update_image(self, widget, image, theme_type, att_base, image_width, image_height):
+        sample_path = ""
+        preview_path = ""
+        random_option = False
+    # THIS CODE IS KEPT ON PURPOSE. DO NOT DELETE.
+    # Once Python 3.10 is released and used widely, delete the if statements below the match blocks
+    # and use the match instead. It is faster, and easier to maintain.
+    #    match "zsh":
+    #        case 'zsh':
+    #            sample_path = att_base+"/images/zsh-sample.jpg"
+    #            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+    #        case 'qtile':
+    #            sample_path = att_base+"/images/zsh-sample.jpg"
+    #            previe_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+    #        case 'i3':
+    #            sample_path = att_base+"/images/i3-sample.jpg"
+    #            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+    #        case 'awesome':
+    #            sample_path = att_base+"/images/i3-sample.jpg"
+    #            preview_path = att_base+"/themer_data/awesomewm/"+widget.get_active_text() + ".jpg"
+    #        case 'neofetch':
+    #            sample_path = att_base + widget.get_active_text()
+    #            preview_path = att_base + widget.get_active_text()
+    #        case unknown_command:
+    #            print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
+    #            print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
+        if theme_type == "zsh":
+            sample_path = att_base+"/images/zsh-sample.jpg"
+            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+            if widget.get_active_text() == "random":
+                random_option = True
+        elif theme_type == "qtile":
+            sample_path = att_base+"/images/qtile-sample.jpg"
+            preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "i3":
+            sample_path = att_base+"/images/i3-sample.jpg"
+            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "awesome":
+        #Awesome section doesn't use a ComboBoxText, but a ComboBox - which has different properties.
+            tree_iter = self.awesome_combo.get_active_iter()
+            if tree_iter is not None:
+                model = self.awesome_combo.get_model()
+                row_id, name = model[tree_iter][:2]
+
+            sample_path = att_base+"/images/i3-sample.jpg"
+            preview_path = att_base+"/themer_data/awesomewm/"+name+".jpg"
+        elif theme_type == "neofetch":
+            sample_path = att_base + widget.get_active_text()
+            preview_path = att_base + widget.get_active_text()
+        else:
+        #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
+                print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
+                print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
+        source_pixbuf = image.get_pixbuf()
+        if os.path.isfile(preview_path) and not random_option:
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(preview_path, image_width, image_height)
+        else:
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
+        image.set_from_pixbuf(pixbuf)
+
 
 #    #====================================================================
 #    #                       ARCOLINUX MIRRORLIST

@@ -161,27 +161,36 @@ def toggle_test_repos(self, state, widget):  # noqa
         try:
             for i in range(0, len(lines)):
                 line = lines[i]
-                if widget == "hefftor":
-                    spin_on("[hefftor-repo]", lines, i, line)
-                if widget == "bobo":
+                if widget == "chaotics":
                     spin_on("[chaotic-aur]", lines, i, line)
+                if widget == "endeavouros":
+                    spin_on("[endeavouros]", lines, i, line)                    
                 if widget == "nemesis":
-                    spin_on("[nemesis_repo]", lines, i, line)    
+                    spin_on("[nemesis_repo]", lines, i, line)
+ 
+                if widget == "arco_testing":
+                    pacman_on("[arcolinux_repo_testing]", lines, i, line)
                 if widget == "arco_base":
                     pacman_on("[arcolinux_repo]", lines, i, line)
                 if widget == "arco_a3p":
                     pacman_on("[arcolinux_repo_3party]", lines, i, line)
                 if widget == "arco_axl":
                     pacman_on("[arcolinux_repo_xlarge]", lines, i, line)
-
-                if widget == "arco":
-                    pacman_on("[arcolinux_repo_testing]", lines, i, line)
-                if widget == "arch":
+                   
+                if widget == "testing":
                     pacman_on("[testing]", lines, i, line)
-                if widget == "multilib":
-                    pacman_on("[multilib-testing]", lines, i, line)
-                if widget == "community":
+                if widget == "core":
+                    pacman_on("[core]", lines, i, line)
+                if widget == "extra":
+                    pacman_on("[extra]", lines, i, line)
+                if widget == "community-testing":
                     pacman_on("[community-testing]", lines, i, line)
+                if widget == "community":
+                    pacman_on("[community]", lines, i, line)                                                                            
+                if widget == "multilib-testing":
+                    pacman_on("[multilib-testing]", lines, i, line)
+                if widget == "multilib":
+                    pacman_on("[multilib]", lines, i, line)                    
 
             with open(Functions.pacman, 'w') as f:
                 # lines = f.readlines()
@@ -198,27 +207,36 @@ def toggle_test_repos(self, state, widget):  # noqa
         try:
             for i in range(0, len(lines)):
                 line = lines[i]
-                if widget == "hefftor":
-                    spin_off("[hefftor-repo]", lines, i, line)
-                if widget == "bobo":
+                if widget == "chaotics":
                     spin_off("[chaotic-aur]", lines, i, line)
+                if widget == "endeavouros":
+                    spin_off("[endeavouros]", lines, i, line)
                 if widget == "nemesis":
                     spin_off("[nemesis_repo]", lines, i, line)
+                    
+                if widget == "arco_testing":
+                    pacman_off("[arcolinux_repo_testing]", lines, i, line)
                 if widget == "arco_base":
                     pacman_off("[arcolinux_repo]", lines, i, line)
                 if widget == "arco_a3p":
                     pacman_off("[arcolinux_repo_3party]", lines, i, line)
                 if widget == "arco_axl":
                     pacman_off("[arcolinux_repo_xlarge]", lines, i, line)
-
-                if widget == "arco":
-                    pacman_off("[arcolinux_repo_testing]", lines, i, line)
-                if widget == "arch":
+                    
+                if widget == "testing":
                     pacman_off("[testing]", lines, i, line)
-                if widget == "multilib":
-                    pacman_off("[multilib-testing]", lines, i, line)
-                if widget == "community":
+                if widget == "core":
+                    pacman_off("[core]", lines, i, line)
+                if widget == "extra":
+                    pacman_off("[extra]", lines, i, line)
+                if widget == "community-testing":
                     pacman_off("[community-testing]", lines, i, line)
+                if widget == "community":
+                    pacman_off("[community]", lines, i, line)                                                                            
+                if widget == "multilib-testing":
+                    pacman_off("[multilib-testing]", lines, i, line)
+                if widget == "multilib":
+                    pacman_off("[multilib]", lines, i, line)
 
             with open(Functions.pacman, 'w') as f:
                 f.writelines(lines)
@@ -254,11 +272,7 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                     mirror_on("Server = https://arcolinux.github.io/$repo/$arch", lines, i, line)
                 if widget == "arco_mirror_aarnet":
                     mirror_on("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch", lines, i, line)
-                # if widget == "arco_axl":
-                #     pacman_on("[arcolinux_repo_xlarge]", lines, i, line)
 
-                # if widget == "arco":
-                #     pacman_on("[arcolinux_repo_testing]", lines, i, line)
                 # if widget == "arch":
                 #     pacman_on("[testing]", lines, i, line)
                 # if widget == "multilib":
@@ -281,10 +295,6 @@ def toggle_mirrorlist(self, state, widget):  # noqa
         try:
             for i in range(0, len(lines)):
                 line = lines[i]
-                # if widget == "hefftor":
-                #     spin_off("[hefftor-repo]", lines, i, line)
-                # if widget == "bobo":
-                #     spin_off("[chaotic-aur]", lines, i, line)
 
                 if widget == "arco_mirror_seed":
                     mirror_off("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch", lines, i, line)
@@ -302,8 +312,7 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                     mirror_off("Server = https://arcolinux.github.io/$repo/$arch", lines, i, line)
                 if widget == "arco_mirror_aarnet":
                     mirror_off("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch", lines, i, line)
-                # if widget == "arco":
-                #     pacman_off("[arcolinux_repo_testing]", lines, i, line)
+
                 # if widget == "arch":
                 #     pacman_off("[testing]", lines, i, line)
                 # if widget == "multilib":

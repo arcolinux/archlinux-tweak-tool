@@ -4,44 +4,46 @@
 
 # ============Functions============
 import Functions
-import slim
-# import Gtk_Functions
-import oblogout
-import termite
-import neofetch
-import skelapp
-import lightdm
-import themer
-import desktopr
 import autostart
-import polybar
-import zsh_theme
-import sddm
-import user
+import desktopr
+import fish
+import distro
 import fixes
+import lightdm
+import neofetch
+import sddm
+import termite
+import themer
+import user
+import zsh_theme
+#import polybar
+#import slim
+#import Gtk_Functions
+#import oblogout
+#import skelapp
 
 # =============GUI=================
-import Termite_GUI
-import Neofetch_GUI
-import Utilities_GUI
-import Oblogout_GUI
-import Slimlock_GUI
+import autostart_GUI
+import desktopr_GUI
+import Fish_GUI
+import Fixes_GUI
 import Grub_GUI
 import HBlock_GUI
-import Pacman_GUI
-# import GTK_GUI
-import SkelApp_GUI
 import Lightdm_GUI
+import Arcolinuxmirrors_GUI
+import Neofetch_GUI
+import Pacman_GUI
+import Termite_GUI
+import Utilities_GUI
 import Sddm_GUI
 import Themer_GUI
-import desktopr_GUI
-import autostart_GUI
-import polybar_GUI
 import zsh_theme_GUI
-import Arcolinuxmirrors_GUI
 import User_GUI
-import Fixes_GUI
-
+#import Oblogout_GUI
+#import Slimlock_GUI
+#import polybar_GUI
+#import GTK_GUI
+#import SkelApp_GUI
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     process = Functions.subprocess.run(["sh", "-c", "echo \"$SHELL\""],
@@ -90,19 +92,19 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     stack.set_transition_duration(350)
 
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    #vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    #vboxStack5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    #vboxStack6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack7 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    #vboxStack9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack12 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack13 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    #vboxStack14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack15 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack16 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack17 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
@@ -110,86 +112,62 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     vboxStack19 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack20 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
-    # ==========================================================
-    #                   PACMAN
-    # ==========================================================
-    if Functions.file_check(Functions.pacman):
-        Pacman_GUI.GUI(self, Gtk, vboxStack1, Functions)
+
 
     # ==========================================================
-    #                 MIRRORLIST ARCOLINUX
+    #                AUTOSTART
     # ==========================================================
 
-    Arcolinuxmirrors_GUI.GUI(self, Gtk, vboxStack16, Functions)
+    autostart_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart,
+                      Functions, base_dir)
 
     # ==========================================================
-    #                 GTK THEMES
+    #                DESKTOP
     # ==========================================================
 
-    # GTK_GUI.GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions)
+    desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr,
+                     Functions, base_dir, Pango)
 
     # ==========================================================
-    #                       HBLOCK
+    #                FISH
     # ==========================================================
 
-    HBlock_GUI.GUI(self, Gtk, vboxStack3, Functions)
-
-    # ==========================================================
-    #                       GRUB
-    # ==========================================================
-
-    Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions)
-
-    # ==========================================================
-    #                       SLIMLOCK
-    # ==========================================================
-
-    # if Functions.file_check(Functions.slimlock_conf):
-    #     Slimlock_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os)
-
-    # ==========================================================
-    #                       OBLOGOUT
-    # ==========================================================
-
-    # if Functions.file_check(Functions.oblogout_conf):
-    #     Oblogout_GUI.GUI(self, Gtk, Gdk, GdkPixbuf,
-    #                      base_dir, vboxStack6, oblogout, Functions, os)
+    Fish_GUI.GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf)
 
     # # ==========================================================
-    # #                     TERMITE CONFIG
+    # #               FIXES
     # # ==========================================================
 
-    Termite_GUI.GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir)
+    Fixes_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack19, user, Functions)
 
-    # # ==========================================================
-    # #                     NEOFETCH
-    # # ==========================================================
+    # ==========================================================
+    #                 GRUB
+    # ==========================================================
 
-    if Functions.file_check(Functions.neofetch_config):
-        Neofetch_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions)
+    if Functions.file_check("/boot/grub/themes/Vimix/theme.txt"):
+        Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions)
     else:
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         lbl1 = Gtk.Label(xalign=0)
-        lbl1.set_text("Neofetch Editor")
+        lbl1.set_text("Grub")
         lbl1.set_name("title")
         hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         hbox41.pack_start(hseparator, True, True, 0)
         hbox31.pack_start(lbl1, False, False, 0)
-        vboxStack8.pack_start(hbox31, False, False, 0)
-        vboxStack8.pack_start(hbox41, False, False, 0)
+        vboxStack4.pack_start(hbox31, False, False, 0)
+        vboxStack4.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
-        ls.set_markup("If you install <b>Neofetch</b> and the <i>ArcoLinux themes</i> you can customize <b>Neofetch</b>")
-        vboxStack8.pack_start(ls, True, False, 0)
+        ls.set_markup("We did not find a <b>/boot/grub/themes/Vimix/themes.txt</b> file\nMake sure the ArcoLinux repos are activated in the Pacman tab")
+
+        install_arco_vimix = Gtk.Button(label="Install Vimix theme")
+        install_arco_vimix.connect("clicked", self.on_click_install_arco_vimix_clicked)
+
+        vboxStack4.pack_start(install_arco_vimix, False, False, 0)
+        vboxStack4.pack_start(ls, True, False, 0)
 
     # # ==========================================================
-    # #                TERMINAL UTILITIES
-    # # ==========================================================
-    Utilities_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack20, Functions)
-
-
-    # # ==========================================================
-    # #                     LIGHTDM
+    # #               LIGHTDM
     # # ==========================================================
 
     if Functions.file_check(Functions.lightdm_conf):
@@ -214,8 +192,47 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack11.pack_start(install_lightdm, False, False, 0)
         vboxStack11.pack_start(ls, True, False, 0)
 
+    # ==========================================================
+    #                 MIRRORLIST ARCOLINUX
+    # ==========================================================
+
+    Arcolinuxmirrors_GUI.GUI(self, Gtk, vboxStack16, Functions)
+
     # # ==========================================================
-    # #                     SDDM
+    # #               NEOFETCH
+    # # ==========================================================
+
+    if Functions.file_check(Functions.neofetch_config):
+        Neofetch_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions)
+    else:
+        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        lbl1 = Gtk.Label(xalign=0)
+        lbl1.set_text("Neofetch Editor")
+        lbl1.set_name("title")
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox41.pack_start(hseparator, True, True, 0)
+        hbox31.pack_start(lbl1, False, False, 0)
+        vboxStack8.pack_start(hbox31, False, False, 0)
+        vboxStack8.pack_start(hbox41, False, False, 0)
+        ls = Gtk.Label()
+        ls.set_markup("If you install <b>Neofetch</b> and the <i>ArcoLinux themes</i> you can customize <b>Neofetch</b>")
+        vboxStack8.pack_start(ls, True, False, 0)
+
+    # ==========================================================
+    #                 PACMAN
+    # ==========================================================
+    if Functions.file_check(Functions.pacman):
+        Pacman_GUI.GUI(self, Gtk, vboxStack1, Functions)
+
+    # ==========================================================
+    #                 PRIVACY - HBLOCK
+    # ==========================================================
+
+    HBlock_GUI.GUI(self, Gtk, vboxStack3, Functions)
+    
+    # # ==========================================================
+    # #               SDDM
     # # ==========================================================
 
     if "plasma" in self.desktop.lower():
@@ -267,7 +284,26 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
             vboxStack17.pack_end(install_sddm, False, False, 0)
 
     # # ==========================================================
-    # #                     USER
+    # #               TERMINALS - TERMITE CONFIG
+    # # ==========================================================
+
+    Termite_GUI.GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir)
+
+    # # ==========================================================
+    # #               TERMINAL FUN
+    # # ==========================================================
+ 
+    Utilities_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack20, Functions)
+
+    # ==========================================================
+    #                 THEMES
+    # ==========================================================
+    
+    if distro.id() == "arcolinux":
+        Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
+
+    # # ==========================================================
+    # #                USER
     # # ==========================================================
 
     User_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack18, user, Functions)
@@ -275,106 +311,47 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     ls.set_markup("Fill in the fields and create your account")
     vboxStack18.pack_start(ls, True, False, 0)
 
-
-    # # ==========================================================
-    # #                     FIXES
-    # # ==========================================================
-
-    Fixes_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack19, user, Functions)
-
-    # # ==========================================================
-    # #                     SKELAPP
-    # # ==========================================================
-
-    # SkelApp_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions)
-
-    # ==========================================================
-    #                       THEMER
-    # ==========================================================
-
-    Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
-
-    # ==========================================================
-    #                       DESKTOP
-    # ==========================================================
-
-    desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr,
-                     Functions, base_dir, Pango)
-
-    # ==========================================================
-    #                       AUTOSTART
-    # ==========================================================
-
-    autostart_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart,
-                      Functions, base_dir)
-
-    # ==========================================================
-    #                       POLYBAR
-    # ==========================================================
-    # if Functions.path_check(Functions.polybar):
-    #     polybar_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar,
-    #                     Functions, base_dir)
-
-    # ==========================================================
-    #                       ZSH
+     # ==========================================================
+    #                   ZSH
     # ==========================================================
 
     zsh_theme_GUI.GUI(self, Gtk, vboxStack15, zsh_theme, base_dir, GdkPixbuf)
 
     # ==========================================================
-    #                     ADD TO WINDOW
+    #                   ADD TO WINDOW
     # ==========================================================
 
-    # stack.add_titled(vboxStack10, "stack0", "Welcome")
-    #
     stack.add_titled(vboxStack13, "stack13", "Autostart")  # Autostart
-    # prop.set_property("has-tooltip", True)
-    # prop.connect("query-tooltip", self.tooltip_callback, "Support BradHeff on Patreon")
 
     stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
-
-    stack.add_titled(vboxStack4, "stack1", "Grub")  # Grub config
+    
+    #stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
 
     stack.add_titled(vboxStack19, "stack19", "Fixes")  # Fixes
+    
+    stack.add_titled(vboxStack4, "stack1", "Grub")  # Grub config
 
-    # if Functions.file_check(Functions.lightdm_conf):
     stack.add_titled(vboxStack11, "stack3", "Lightdm")  # Lightdm config
 
-    # arcolinux mirrors
     stack.add_titled(vboxStack16, "stack16", "Mirrors")  # mirrors
 
-    # if Functions.file_check(Functions.neofetch_config):
     stack.add_titled(vboxStack8, "stack4", "Neofetch")  # Neofetch config
 
-    # if Functions.file_check(Functions.pacman):
     stack.add_titled(vboxStack1, "stack6", "Pacman")  # Pacman config
-
-    # if Functions.path_check(Functions.polybar):
-    #     stack.add_titled(vboxStack14, "stack14", "Polybar changer")
 
     stack.add_titled(vboxStack3, "stack2", "Privacy")  # Hblock
 
-    # if Functions.file_check(Functions.slimlock_conf):
-    #     stack.add_titled(vboxStack5, "stack7", "") # Slimlock
-
     stack.add_titled(vboxStack17, "stack17", "Sddm")  # Sddm config
 
-    # if Functions.file_check(Functions.termite_config):
     stack.add_titled(vboxStack7, "stack8", "Terminals")  # Termite themes
 
-    stack.add_titled(vboxStack20, "stack20", "Terminal Fun")
+    stack.add_titled(vboxStack20, "stack20", "Terminal Fun") # lolcat and others
 
-    # if Functions.file_check(Functions.oblogout_conf):
-    #     stack.add_titled(vboxStack6, "stack5", "") # Oblogout config
-
-    # stack.add_titled(vboxStack9, "stack10", "Tweak skel")
-
-    # if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
-    stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
+    if distro.id() == "arcolinux":
+        stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
 
     stack.add_titled(vboxStack18, "stack18", "User")  # Sddm config
 
-    # if output == "/bin/zsh":
     stack.add_titled(vboxStack15, "stack15", "Zsh")  # Zsh themes
 
     stack_switcher = Gtk.StackSidebar()
@@ -384,6 +361,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # =====================================================
     #                       LOGO
     # =====================================================
+    
     ivbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
         os.path.join(base_dir, 'images/arcolinux-stock.png'), 45, 45)
@@ -392,7 +370,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # =====================================================
     #               RESTART BUTTON
     # =====================================================
-
+    
+    lbl_distro = Gtk.Label(xalign=0)
+    lbl_distro.set_markup("Working on\n" + distro.id())
     btnReStartAtt = Gtk.Button(label="Restart ATT")
     btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
     #btnReStartAtt.set_property("has-tooltip", True)
@@ -407,6 +387,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
 
+    hbox2.pack_start(lbl_distro, False, False, 0)
     hbox3.pack_start(btnReStartAtt, False, False, 0)
 
     #ivbox.pack_start(image, False, False, 0)
