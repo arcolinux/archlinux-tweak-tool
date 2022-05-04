@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+pkexec '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
