@@ -27,7 +27,7 @@
 ##################################################################################################################
 
 echo "###############################################################################"
-echo "Getting latest /etc/sddm.conf"
+echo "Getting latest /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf"
 echo "###############################################################################"
 
 Online=0
@@ -88,6 +88,11 @@ if [ $Online -eq 1 ] && [ $file_etc_sddmk -eq 1 ] ; then
 	REPLACE="#User="
 	sudo sed -i "s/$FIND/$REPLACE/g" /etc/sddm.conf.d/kde_settings.conf
 	echo "/etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf saved from github"
+
+    echo "###############################################################################"
+    echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
+    echo "###############################################################################"
+
 fi
 
 #new sddmk config + not online
@@ -97,8 +102,10 @@ if [ $Online -eq 0 ] && [ $file_etc_sddmk -eq 1 ] ; then
 	sudo cp /usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf /etc/sddm.conf
 	sudo cp /usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf /etc/sddm.conf.d/kde_settings.conf
 	echo "/etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf saved from local system"
-fi
 
-echo "###############################################################################"
-echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
-echo "###############################################################################"
+    echo "###############################################################################"
+    echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
+    echo "###############################################################################"
+
+
+fi
