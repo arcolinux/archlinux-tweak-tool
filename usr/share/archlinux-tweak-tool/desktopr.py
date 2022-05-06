@@ -694,7 +694,6 @@ wmderland = [
     "arcolinux-rofi-git",
     "arcolinux-rofi-themes-git",
     "arcolinux-root-git",
-    "arcolinux-tweak-tool-git",
     "arcolinux-volumeicon-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",

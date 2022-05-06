@@ -442,9 +442,9 @@ alias ltupd="leftwm-theme update"
 alias ltupg="leftwm-theme upgrade"
 
 #arcolinux applications
-alias att="arcolinux-tweak-tool"
+alias att="archlinux-tweak-tool"
 alias adt="arcolinux-desktop-trasher"
-alias abl="arcolinux-betterlockscreen"
+alias abl="archlinux-betterlockscreen"
 alias agm="arcolinux-get-mirrors"
 alias amr="arcolinux-mirrorlist-rank-info"
 alias aom="arcolinux-osbeck-as-mirror"
