@@ -2,6 +2,5 @@
 # =                  Author: Erik Dubois                          =
 # =================================================================
 
-import Functions
 from Functions import GLib
 

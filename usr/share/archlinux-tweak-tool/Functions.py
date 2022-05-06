@@ -21,6 +21,12 @@ distr = distro.id()
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
 
+gpg_conf = "/etc/pacman.d/gnupg/gpg.conf"
+gpg_conf_local = home + "/.gnupg/gpg.conf"
+
+gpg_conf_original = "/usr/share/archlinux-tweak-tool/data/any/gpg.conf"
+gpg_conf_local_original = "/usr/share/archlinux-tweak-tool/data/any/gpg.conf"
+
 sddm_default = "/etc/sddm.conf"
 sddm_default_original = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
 
@@ -567,6 +573,36 @@ def install_alacritty(self):
     install = 'pacman -S alacritty --needed --noconfirm'
 
     if os.path.exists("/usr/bin/alacritty"):
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+# =====================================================
+#               REFLECTOR
+# =====================================================
+
+def install_reflector(self):
+    install = 'pacman -S reflector --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/reflector"):
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+# =====================================================
+#               RATE-MIRRORS
+# =====================================================
+
+def install_rate_mirrors(self):
+    install = 'pacman -S rate-mirrors --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/rate-mirrors"):
         pass
     else:
         subprocess.call(install.split(" "),

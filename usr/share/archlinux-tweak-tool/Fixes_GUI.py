@@ -1,13 +1,13 @@
 #=================================================================
 #=                  Author: Erik Dubois                          =
 #=================================================================
-
+import distro,os
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
          
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_label = Gtk.Label(xalign=0)
-    hbox1_label.set_text("ArcoLinux Fixes")
+    hbox1_label.set_text("Fixes for " + distro.id())
     hbox1_label.set_name("title")
     hbox1.pack_start(hbox1_label, False, False, 10)
     
@@ -17,7 +17,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
 
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2_label = Gtk.Label(xalign=0)
-    hbox2_label.set_text("ArcoLinux fix pacman keys")   
+    hbox2_label.set_text("Reset and reload pacman keys")   
     button_Apply_Pacman_Key_Fix = Gtk.Button(label="Fix keys")
     button_Apply_Pacman_Key_Fix.connect ("clicked", self.on_click_fix_pacman_keys)
     hbox2.pack_start(hbox2_label, False, False, 10)
@@ -25,19 +25,27 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
            
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3_label = Gtk.Label(xalign=0)
-    hbox3_label.set_text("Set Osbeck as the only Arch Linux server")   
-    button_Apply_Osbeck = Gtk.Button(label="Set Osbeck")
-    button_Apply_Osbeck.connect ("clicked", self.on_click_fix_osbeck)
+    hbox3_label.set_text("Set mainstream servers for ArchLinux")   
+    button_Apply_Osbeck = Gtk.Button(label="Set mainstream")
+    button_Apply_Osbeck.connect ("clicked", self.on_click_fix_mainstream)
     hbox3.pack_start(hbox3_label, False, False, 10)
     hbox3.pack_end(button_Apply_Osbeck, False, False, 10)    
     
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4_label = Gtk.Label(xalign=0)
     hbox4_label.set_text("Get the best Arch Linux servers (takes a while)")   
-    button_Apply_Mirrors = Gtk.Button(label="Get Arch mirrors")
-    button_Apply_Mirrors.connect ("clicked", self.on_click_fix_mirrors)
+    button_Apply_Mirrors = Gtk.Button(label="Get Arch mirrors (reflector)")
+    button_Apply_Mirrors.connect ("clicked", self.on_click_get_arch_mirrors)
+    button_Apply_Mirrors2 = Gtk.Button(label="Get Arch mirrors (rate-mirrors)")
+    button_Apply_Mirrors2.connect ("clicked", self.on_click_get_arch_mirrors2)
     hbox4.pack_start(hbox4_label, False, False, 10)
-    hbox4.pack_end(button_Apply_Mirrors, False, False, 10)        
+    hbox4.pack_end(button_Apply_Mirrors, False, False, 10)
+    hbox4.pack_end(button_Apply_Mirrors2, False, False, 10)
+
+    if not os.path.exists("/usr/bin/reflector"):
+        button_Apply_Mirrors.set_sensitive(False)
+    if not os.path.exists("/usr/bin/rate-mirrors"):
+        button_Apply_Mirrors2.set_sensitive(False)
     
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox5_label = Gtk.Label(xalign=0)
@@ -57,55 +65,43 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     
     hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox7_label = Gtk.Label(xalign=0)
-    hbox7_label.set_text("Keyservers - get the ArcoLinux /etc/pacman.d/gnupg/gpg.conf")   
-    button_Apply_Pacman_Gpg_Conf = Gtk.Button(label="Reset gpg.conf")
+    hbox7_label.set_text("Get the best keyservers for /etc/pacman.d/gnupg/gpg.conf")   
+    button_Apply_Pacman_Gpg_Conf = Gtk.Button(label="Backup and reset gpg.conf")
     button_Apply_Pacman_Gpg_Conf.connect ("clicked", self.on_click_fix_pacman_gpg_conf)
     hbox7.pack_start(hbox7_label, False, False, 10)
     hbox7.pack_end(button_Apply_Pacman_Gpg_Conf, False, False, 10) 
 
+    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox8_label = Gtk.Label(xalign=0)
+    hbox8_label.set_text("Get the best keyservers for ~/.gnupg/gpg.conf")   
+    button_Apply_Pacman_Gpg_Conf_Local = Gtk.Button(label="Backup and reset gpg.conf")
+    button_Apply_Pacman_Gpg_Conf_Local.connect ("clicked", self.on_click_fix_pacman_gpg_conf_local)
+    hbox8.pack_start(hbox8_label, False, False, 10)
+    hbox8.pack_end(button_Apply_Pacman_Gpg_Conf_Local, False, False, 10)
+    
+    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox9_label = Gtk.Label(xalign=0)
+    hbox9_label.set_markup("<b>Distro specific</b>")
+    hbox9.pack_start(hbox9_label, False, False, 10)
 
-    # hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    
-    # hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    
-    # hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    
-    # hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    
-    # hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    
-    # hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-     
-    # hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    
-    # hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    
-    # hbox99 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    # apply_sddm = Gtk.Button(label="Apply settings")
-    # apply_sddm.connect("clicked", self.on_click_sddm_apply)
-    
-    # reset_sddm = Gtk.Button(label="Reset")
-    # reset_sddm.connect("clicked", self.on_click_sddm_reset)    
-
-    # hbox99.pack_end(apply_sddm, False, False, 0)
-    # hbox99.pack_end(reset_sddm, False, False, 0)
-
-    
+    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox10_label = Gtk.Label(xalign=0)
+    hbox10_label.set_markup("<b>For any Arch based system</b>")
+    hbox10.pack_start(hbox10_label, False, False, 10)     
+   
     # ======================================================================
     #                       VBOX STACK 
     # ======================================================================
+    
     vboxStack19.pack_start(hbox1, False, False, 0)
-    vboxStack19.pack_start(hbox0, False, False, 0)    
+    vboxStack19.pack_start(hbox0, False, False, 0)
+    vboxStack19.pack_start(hbox10, False, False, 20)    
     vboxStack19.pack_start(hbox2, False, False, 0)
     vboxStack19.pack_start(hbox3, False, False, 0)
     vboxStack19.pack_start(hbox4, False, False, 0)
-    vboxStack19.pack_start(hbox5, False, False, 0)
-    vboxStack19.pack_start(hbox6, False, False, 0)
     vboxStack19.pack_start(hbox7, False, False, 0)
-#    vboxStack19.pack_start(hbox8, False, False, 0)
-#    vboxStack19.pack_start(hbox9, False, False, 0)
-#    vboxStack19.pack_start(hbox10, False, False, 0)
-#    vboxStack19.pack_start(hbox11, False, False, 0)
-#    vboxStack19.pack_start(hbox12, False, False, 0)
-#    vboxStack19.pack_start(hbox13, False, False, 0)
-#    vboxStack19.pack_end(hbox99, False, False, 0)
+    vboxStack19.pack_start(hbox8, False, False, 0)
+    vboxStack19.pack_start(hbox9, False, False, 20)    
+    if Functions.distr == "arcolinux":
+        vboxStack19.pack_start(hbox5, False, False, 0)
+        #vboxStack19.pack_start(hbox6, False, False, 0)

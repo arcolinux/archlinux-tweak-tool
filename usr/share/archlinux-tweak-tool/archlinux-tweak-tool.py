@@ -27,7 +27,7 @@ import fixes
 import GUI
 import subprocess
 import utilities
-from Functions import install_alacritty, os, pacman
+from Functions import install_alacritty,install_reflector,install_rate_mirrors, os, pacman
 from subprocess import PIPE, STDOUT
 from time import sleep
 gi.require_version('Gtk', '3.0')
@@ -1766,30 +1766,44 @@ class Main(Gtk.Window):
 
     def on_click_fix_pacman_keys(self,widget):
         install_alacritty(self)
-        Functions.subprocess.call("alacritty -e /usr/local/bin/arcolinux-fix-pacman-databases-and-keys",
+        Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/fix-pacman-databases-and-keys",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")
 
-    def on_click_fix_osbeck(self,widget):
-        command = '/usr/local/bin/arcolinux-osbeck-as-mirror'
+    def on_click_fix_mainstream(self,widget):
+        command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Osbeck set as Arch Linux")
+        command_show = 'alacritty --hold -e cat /etc/pacman.d/mirrorlist'
+        Functions.subprocess.call(command_show.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Mainstream servers have been saved")
 
-    def on_click_fix_mirrors(self,widget):
-        install_alacritty(self)
-        Functions.subprocess.call("alacritty -e /usr/local/bin/arcolinux-get-mirrors",
+    def on_click_get_arch_mirrors(self,widget):
+        install_reflector(self)
+        Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-reflector",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved")
 
+    def on_click_get_arch_mirrors2(self,widget):
+        #install_rate_mirrors(self)
+        Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-rate-mirrors",
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved")
+
+
     def on_click_fix_sddm_conf(self,widget):
-        command = '/usr/local/bin/arcolinux-fix-sddm-config'
+        command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-fix-sddm-config'
         Functions.subprocess.call(command,
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
@@ -1797,7 +1811,7 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/sddm.conf")
 
     def on_click_fix_pacman_conf(self,widget):
-        command = '/usr/local/bin/arcolinux-fix-pacman-conf'
+        command = 'alacritty --hold -e /usr/local/bin/arcolinux-fix-pacman-conf'
         Functions.subprocess.call(command,
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
@@ -1805,13 +1819,35 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.conf")
 
     def on_click_fix_pacman_gpg_conf(self,widget):
-        command = '/usr/local/bin/arcolinux-fix-pacman-gpg-conf'
-        Functions.subprocess.call(command,
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.d/gnupg/gpg.conf")
+        if not os.path.isfile(Functions.gpg_conf + ".bak"):
+            Functions.shutil.copy(Functions.gpg_conf,
+                            Functions.gpg_conf + ".bak")
+        Functions.shutil.copy(Functions.gpg_conf_original,
+                            Functions.gpg_conf)
+            
+        GLib.idle_add(Functions.show_in_app_notification, self, "The new /etc/pacman.d/gnupg/gpg.conf has been saved")
 
+    def on_click_fix_pacman_gpg_conf_local(self,widget):
+        if not os.path.isdir(Functions.home + "/.gnupg"):
+            try:
+                Functions.os.makedirs(Functions.home + "/.gnupg", 0o766)
+                Functions.permissions(Functions.home + "/.gnupg")
+            except Exception as e:
+                print(e)
+        
+        if not os.path.isfile(Functions.gpg_conf_local + ".bak"):
+            try:
+                Functions.shutil.copy(Functions.gpg_conf_local,
+                                Functions.gpg_conf_local + ".bak")
+                Functions.permissions(Functions.gpg_conf_local + ".bak")
+            except Exception as e:
+                print(e)
+            
+        Functions.shutil.copy(Functions.gpg_conf_local_original,
+                            Functions.gpg_conf_local)
+        Functions.permissions(Functions.gpg_conf_local)
+
+        GLib.idle_add(Functions.show_in_app_notification, self, "The new ~/.gnupg/gpg.conf has been saved")
 
 #    #====================================================================
 #    #                       DESKTOPR

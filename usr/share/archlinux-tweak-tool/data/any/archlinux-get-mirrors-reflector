@@ -26,12 +26,8 @@
 #tput setaf 8 = light blue
 ##################################################################################################################
 
-#echo "Fix for icons not showing up in pamac-aur"
+sudo /usr/bin/reflector --score 100 --fastest 10 --number 10 --verbose --save /etc/pacman.d/mirrorlist
 
-zcat /usr/share/app-info/xmls/community.xml.gz | sed 's|<em>||g;s|<\/em>||g;' | gzip > "new.xml.gz"
-mv new.xml.gz /usr/share/app-info/xmls/community.xml.gz
-appstreamcli refresh-cache --force
-
-zcat /usr/share/app-info/xmls/extra.xml.gz | sed 's|<em>||g;s|<\/em>||g;' | gzip > "new.xml.gz"
-mv new.xml.gz /usr/share/app-info/xmls/extra.xml.gz
-appstreamcli refresh-cache --force
+echo "###############################################################################"
+echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
+echo "###############################################################################"

@@ -94,56 +94,11 @@ fi
 if [ $Online -eq 0 ] && [ $file_etc_sddmk -eq 1 ] ; then
     echo "Copying both files locally"
     echo "Edit sddm files with two aliases nsddm or nsddmk and/or with the ArcoLinux Tweak Tool"
-	sudo cp /usr/local/share/arcolinux/sddm.conf.d/sddm.conf /etc/sddm.conf
-	sudo cp /usr/local/share/arcolinux/sddm.conf.d/kde_settings.conf /etc/sddm.conf.d/kde_settings.conf
+	sudo cp /usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf /etc/sddm.conf
+	sudo cp /usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf /etc/sddm.conf.d/kde_settings.conf
 	echo "/etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf saved from local system"
 fi
 
-#putting old sddm config back or not
-if [ $file_etc_sddmk -eq 0 ] ; then
-    echo "ArcoLinux moves away from one sddm file and uses now two files"
-    echo "We use now /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf"
-    echo "Do you want to follow the change then answer (Y/y)"
-    echo "Do you want to keep the old /etc/sddm.conf then answer (N/n)"
-    echo "Answer anything else and nothing will be changed."
-    read answer
-
-    case $answer in 
-        [yY][eE][sS]|[yY] )
-            if [ $Online -eq 1 ] ; then
-                echo "Downloading both files from github and saving them"
-                echo "Edit sddm files with two aliases nsddm or nsddmk and/or with the ArcoLinux Tweak Tool"
-                sudo wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/sddm.conf -O /etc/sddm.conf
-                sudo wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/sddm.conf.d/kde_settings.conf -O /etc/sddm.conf.d/kde_settings.conf
-                
-                FIND="Session=xfce"
-                REPLACE="#Session="
-                sudo sed -i "s/$FIND/$REPLACE/g" /etc/sddm.conf.d/kde_settings.conf
-
-                FIND="User=liveuser"
-                REPLACE="#User="
-                sudo sed -i "s/$FIND/$REPLACE/g" /etc/sddm.conf.d/kde_settings.conf
-                echo "/etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf saved from github"
-            else
-                echo "Copying both files locally"
-                echo "Edit sddm files with two aliases nsddm or nsddmk and/or with the ArcoLinux Tweak Tool"
-                sudo cp /usr/local/share/arcolinux/sddm.conf.d/sddm.conf /etc/sddm.conf
-	            sudo cp /usr/local/share/arcolinux/sddm.conf.d/kde_settings.conf /etc/sddm.conf.d/kde_settings.conf
-	            echo "/etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf saved from local system"
-            fi
-            ;;
-        [nN][oO]|[nN] )
-            echo "Copying the file locally"
-            echo "Edit sddm files with the alias nsddm and/or with the ArcoLinux Tweak Tool"
-            sudo cp /usr/local/share/arcolinux/sddm/sddm.conf /etc/sddm.conf
-            echo "/etc/sddm.conf copied from local system"
-            ;;
-        * )
-            echo "Nothing has been changed"
-            ;;
-	esac
-fi
-
 echo "###############################################################################"
-echo "###                               DONE                                     ####"
+echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
 echo "###############################################################################"
