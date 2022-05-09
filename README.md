@@ -12,11 +12,16 @@ At first we would like the tool to be working on these systems.
 Arch Linux
 
 ArcoLinux
+
 Carli
+
 Alci
+
 Ariser
 
+
 EndeavourOS
+
 Garuda
 
 That gives us already 7 challenges. 
