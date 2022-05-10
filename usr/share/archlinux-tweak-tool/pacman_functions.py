@@ -164,10 +164,10 @@ def toggle_test_repos(self, state, widget):  # noqa
                 if widget == "chaotics":
                     spin_on("[chaotic-aur]", lines, i, line)
                 if widget == "endeavouros":
-                    spin_on("[endeavouros]", lines, i, line)                    
+                    spin_on("[endeavouros]", lines, i, line)
                 if widget == "nemesis":
                     spin_on("[nemesis_repo]", lines, i, line)
- 
+
                 if widget == "arco_testing":
                     pacman_on("[arcolinux_repo_testing]", lines, i, line)
                 if widget == "arco_base":
@@ -176,7 +176,7 @@ def toggle_test_repos(self, state, widget):  # noqa
                     pacman_on("[arcolinux_repo_3party]", lines, i, line)
                 if widget == "arco_axl":
                     pacman_on("[arcolinux_repo_xlarge]", lines, i, line)
-                   
+
                 if widget == "testing":
                     pacman_on("[testing]", lines, i, line)
                 if widget == "core":
@@ -186,11 +186,11 @@ def toggle_test_repos(self, state, widget):  # noqa
                 if widget == "community-testing":
                     pacman_on("[community-testing]", lines, i, line)
                 if widget == "community":
-                    pacman_on("[community]", lines, i, line)                                                                            
+                    pacman_on("[community]", lines, i, line)
                 if widget == "multilib-testing":
                     pacman_on("[multilib-testing]", lines, i, line)
                 if widget == "multilib":
-                    pacman_on("[multilib]", lines, i, line)                    
+                    pacman_on("[multilib]", lines, i, line)
 
             with open(Functions.pacman, 'w') as f:
                 # lines = f.readlines()
@@ -213,7 +213,7 @@ def toggle_test_repos(self, state, widget):  # noqa
                     spin_off("[endeavouros]", lines, i, line)
                 if widget == "nemesis":
                     spin_off("[nemesis_repo]", lines, i, line)
-                    
+
                 if widget == "arco_testing":
                     pacman_off("[arcolinux_repo_testing]", lines, i, line)
                 if widget == "arco_base":
@@ -222,7 +222,7 @@ def toggle_test_repos(self, state, widget):  # noqa
                     pacman_off("[arcolinux_repo_3party]", lines, i, line)
                 if widget == "arco_axl":
                     pacman_off("[arcolinux_repo_xlarge]", lines, i, line)
-                    
+
                 if widget == "testing":
                     pacman_off("[testing]", lines, i, line)
                 if widget == "core":
@@ -232,7 +232,7 @@ def toggle_test_repos(self, state, widget):  # noqa
                 if widget == "community-testing":
                     pacman_off("[community-testing]", lines, i, line)
                 if widget == "community":
-                    pacman_off("[community]", lines, i, line)                                                                            
+                    pacman_off("[community]", lines, i, line)
                 if widget == "multilib-testing":
                     pacman_off("[multilib-testing]", lines, i, line)
                 if widget == "multilib":

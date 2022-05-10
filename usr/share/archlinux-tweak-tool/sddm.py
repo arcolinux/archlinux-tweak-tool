@@ -11,7 +11,7 @@ def check_sddmk_session(value):
         myfile.close()
 
     for line in lines:
-        if value in line:          
+        if value in line:
             return True
     return False
 
@@ -26,7 +26,7 @@ def insert_session(text):
 
     with open(Functions.sddm_conf, "w") as f:
         f.writelines(lines)
-        f.close() 
+        f.close()
 
 
 def check_sddmk_user(value):
@@ -35,7 +35,7 @@ def check_sddmk_user(value):
         myfile.close()
 
     for line in lines:
-        if value in line:          
+        if value in line:
             return True
     return False
 
@@ -50,7 +50,7 @@ def insert_user(text):
 
     with open(Functions.sddm_conf, "w") as f:
         f.writelines(lines)
-        f.close() 
+        f.close()
 
 
 def check_sddm(lists, value):
@@ -64,8 +64,8 @@ def set_sddm_value(self, lists, value, session, state, theme):
         groups = com.stdout.decode().strip().split(" ")
         # print(groups)
         if "autologin" not in groups:
-            Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "autologin"], shell=False)            
-       
+            Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "autologin"], shell=False)
+
         pos = Functions._get_position(lists, "Session=")
         pos_session = Functions._get_position(lists, "User=")
 
@@ -76,9 +76,9 @@ def set_sddm_value(self, lists, value, session, state, theme):
             if "#" not in lists[pos]:
                 lists[pos] = "#" + lists[pos]
                 lists[pos_session] = "#" + lists[pos_session]
-        
+
         pos_theme = Functions._get_position(lists, "Current=")
-        lists[pos_theme] = "Current=" + theme + "\n" 
+        lists[pos_theme] = "Current=" + theme + "\n"
 
         with open(Functions.sddm_conf, "w") as f:
             f.writelines(lists)
@@ -89,12 +89,12 @@ def set_sddm_value(self, lists, value, session, state, theme):
     except Exception as e:
         print(e)
         Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
- 
-def set_sddm_cursor(self, lists, cursor):    
-    try:                    
+
+def set_sddm_cursor(self, lists, cursor):
+    try:
 
         pos_theme = Functions._get_position(lists, "CursorTheme=")
-        lists[pos_theme] = "CursorTheme=" + cursor + "\n" 
+        lists[pos_theme] = "CursorTheme=" + cursor + "\n"
 
         with open(Functions.sddm_default, "w") as f:
             f.writelines(lists)
@@ -125,7 +125,6 @@ def pop_box(self, combos):
 
     name = check_sddm(lines, "Session=").split("=")[1]
 
-    
     comss.sort()
     if 'i3-with-shmlog' in comss:
         comss.remove('i3-with-shmlog')

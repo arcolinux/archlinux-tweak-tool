@@ -1,7 +1,6 @@
 #      #============================================================
-#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
+#      #=        Authors: Erik Dubois - Cameron Percival           =
 #      #============================================================
-import Functions
 
 def GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -12,7 +11,7 @@ def GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf):
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
-    
+
     # ==========================================================
     #                     FISH
     # ==========================================================
@@ -29,7 +28,7 @@ def GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf):
     # ==========================================================
     #                     FISH OH-MY-FISh
     # ==========================================================
- 
+
     label02 = Gtk.Label()
     label02.set_text("Install oh-my-fish")
     hbox02 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -38,7 +37,7 @@ def GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf):
     self.ohmyfish = Gtk.Switch()
     hbox02.pack_end(self.ohmyfish, False, False, 10)
     self.ohmyfish.connect("notify::active", self.on_ohmyfish_toggle)
-    
+
     # ==========================================================
     #                     BUTTONS
     # ==========================================================
@@ -76,7 +75,7 @@ def GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf):
     vboxStack2.pack_start(hbox3, False, False, 0)  # Combobox
     vboxStack2.pack_start(hbox4, False, False, 0)  # Combobox
     vboxStack2.pack_start(hbox01, False, False, 0)  # fish
-    #vboxStack2.pack_start(hbox02, False, False, 0)  # oh-my-fish    
+    #vboxStack2.pack_start(hbox02, False, False, 0)  # oh-my-fish
 
     vboxStack2.pack_start(hbox21, False, False, 0)  # image
     vboxStack2.pack_end(hbox20, False, False, 0)  # Buttons

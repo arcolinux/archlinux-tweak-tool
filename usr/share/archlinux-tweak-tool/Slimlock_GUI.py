@@ -102,7 +102,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
 
     vboxStack5.pack_start(hbox3, False, False, 0)  # combobox
     vboxStack5.pack_start(hbox4, False, False, 0)  # combobox
-        
+
     vboxStack5.pack_start(hbox13, False, False, 0)  # combobox
     vboxStack5.pack_start(hbox35, False, False, 0)  # Preview Theme
 

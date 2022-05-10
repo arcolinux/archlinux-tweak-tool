@@ -9,7 +9,7 @@ images = config_dir
 
 def import_config(self, config, new_image):
     if len(config) > 1:
-    
+
         try:
             name = os.path.basename(config)
             if "config" not in name:
@@ -44,8 +44,8 @@ def pop_bar(self, *args, **kwargs):
                         name = os.path.basename(nline[i])
                         break
     else:
-        self.pblabel4.set_markup("<span foreground=\"orange\">launch.sh <b>NOT</b> found!</span>")                    
-    
+        self.pblabel4.set_markup("<span foreground=\"orange\">launch.sh <b>NOT</b> found!</span>")
+
     if kwargs.get('imported', None) is not None:
         name = kwargs.get('impname', None)
 
@@ -72,7 +72,7 @@ def set_config(self, config, state):
 
                 for wm in lists:
                     if wm in lines[j]:
-                        if state:                        
+                        if state:
                             if "polybar " in lines[j + 3]:
                                 nline3 = lines[j + 3].split(" ")
                                 for i in range(len(nline3)):

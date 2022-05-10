@@ -230,7 +230,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
 
     HBlock_GUI.GUI(self, Gtk, vboxStack3, Functions)
-    
+
     # # ==========================================================
     # #               SDDM
     # # ==========================================================
@@ -292,13 +292,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # # ==========================================================
     # #               TERMINAL FUN
     # # ==========================================================
- 
+
     Utilities_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack20, Functions)
 
     # ==========================================================
     #                 THEMES
     # ==========================================================
-    
+
     if distro.id() == "arcolinux":
         Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
 
@@ -324,11 +324,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     stack.add_titled(vboxStack13, "stack13", "Autostart")  # Autostart
 
     stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
-    
+
     #stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
 
     stack.add_titled(vboxStack19, "stack19", "Fixes")  # Fixes
-    
+
     stack.add_titled(vboxStack4, "stack1", "Grub")  # Grub config
 
     stack.add_titled(vboxStack11, "stack3", "Lightdm")  # Lightdm config
@@ -361,7 +361,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # =====================================================
     #                       LOGO
     # =====================================================
-    
+
     ivbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
         os.path.join(base_dir, 'images/arcolinux-stock.png'), 45, 45)
@@ -370,9 +370,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # =====================================================
     #               RESTART BUTTON
     # =====================================================
-    
+
     lbl_distro = Gtk.Label(xalign=0)
-    lbl_distro.set_markup("Working on\n" + distro.id())
+    lbl_distro.set_markup("Working on\n" + Functions.change_distro_label(distro.id()))
     btnReStartAtt = Gtk.Button(label="Restart ATT")
     btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
     #btnReStartAtt.set_property("has-tooltip", True)

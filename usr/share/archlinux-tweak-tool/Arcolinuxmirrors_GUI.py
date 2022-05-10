@@ -156,7 +156,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #funami
     vbox3.pack_start(hboxStack18, False, False, 0)
     #jingk
-    vbox3.pack_start(hboxStack19, False, False, 0)    
+    vbox3.pack_start(hboxStack19, False, False, 0)
     #seedhost
     vbox3.pack_start(hboxStack7, False, False, 0)
 

@@ -44,7 +44,7 @@ pmf = pacman_functions
 
 class Main(Gtk.Window):
     def __init__(self):
-        super(Main, self).__init__(title="ArchLinux Tweak Tool")
+        super(Main, self).__init__(title="Arch Linux Tweak Tool")
         self.set_border_width(10)
         self.connect("delete-event", self.on_close)
         self.set_position(Gtk.WindowPosition.CENTER)
@@ -199,7 +199,7 @@ class Main(Gtk.Window):
         arco_xl = pmf.check_repo("[arcolinux_repo_xlarge]")
 
 #       #========================ARCH REPO=============================
-                
+
         arch_testing = pmf.check_repo("[testing]")
         arch_core = pmf.check_repo("[core]")
         arch_extra = pmf.check_repo("[extra]")
@@ -209,11 +209,11 @@ class Main(Gtk.Window):
         arch_multilib = pmf.check_repo("[multilib]")
 
 #       #========================OTHER REPO=============================
-        
+
         chaotics_repo = pmf.check_repo("[chaotic-aur]")
         endeavouros_repo = pmf.check_repo("[endeavouros]")
         nemesis_repo = pmf.check_repo("[nemesis_repo]")
-        
+
 #       #========================ARCO MIRROR=============================
         if os.path.isfile(Functions.arcolinux_mirrorlist):
             arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
@@ -244,7 +244,7 @@ class Main(Gtk.Window):
         self.axlrepo_button.set_active(arco_xl)
 
 #       #========================ARCH LINUX REPO SET TOGGLE==================
-        
+
         self.checkbutton2.set_active(arch_testing)
         self.checkbutton6.set_active(arch_core)
         self.checkbutton7.set_active(arch_extra)
@@ -254,11 +254,11 @@ class Main(Gtk.Window):
         self.checkbutton8.set_active(arch_multilib)
 
 #       #========================OTHER REPO SET TOGGLE==================
-        
+
         self.chaotics_button.set_active(chaotics_repo)
         self.opened = False
         self.endeavouros_button.set_active(endeavouros_repo)
-        self.opened = False        
+        self.opened = False
         self.nemesis_button.set_active(nemesis_repo)
         self.opened = False
 
@@ -271,7 +271,7 @@ class Main(Gtk.Window):
         # print(test)
         # if test == False:
         #     #util_switches[1].connect("notify::active", self.util_toggle, utils[1])
-        #     self.util_toggle(self, self.neofetch_util, "neofetch")        
+        #     self.util_toggle(self, self.neofetch_util, "neofetch")
 
         shell = Functions.get_shell()
 
@@ -454,7 +454,7 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(),
                                       "arco_mirror_belnet")
-                
+
     def on_mirror_funami_repo_toggle(self, widget, active):
         if not pmf.mirror_exist("Server = https://mirror.funami.tech/arcolinux/$repo/$arch"):
             pmf.append_mirror(self, Functions.seedhostmirror)
@@ -556,7 +556,7 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "testing")
-            
+
     def on_pacman_toggle2(self, widget, active):
         if not pmf.repo_exist("[core]"):
             pmf.append_repo(self, Functions.arch_core_repo)
@@ -584,7 +584,7 @@ class Main(Gtk.Window):
     def on_pacman_toggle5(self, widget, active):
         if not pmf.repo_exist("[community]"):
             pmf.append_repo(self, Functions.arch_community_repo)
-        else:        
+        else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "community")
@@ -592,19 +592,19 @@ class Main(Gtk.Window):
     def on_pacman_toggle6(self, widget, active):
         if not pmf.repo_exist("[multilib-testing]"):
             pmf.append_repo(self, Functions.arch_multilib_testing_repo)
-        else:        
+        else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "multilib-testing")
-            
+
     def on_pacman_toggle7(self, widget, active):
         if not pmf.repo_exist("[multilib]"):
             pmf.append_repo(self, Functions.arch_multilib_repo)
-        else:        
+        else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "multilib")
-      
+
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
         startiter, enditer = self.text.get_bounds()
@@ -799,7 +799,7 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.blank_pacman_eos, Functions.pacman)
         if distro.id() == "garuda":
             Functions.shutil.copy(Functions.blank_pacman_garuda, Functions.pacman)
-            
+
     def reset_settings(self, widget, filez):  # noqa
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
@@ -808,14 +808,14 @@ class Main(Gtk.Window):
 
         if filez == pacman:
             if distro.id() == "arch":
-                Functions.shutil.copy(Functions.pacman_arch, Functions.pacman)            
+                Functions.shutil.copy(Functions.pacman_arch, Functions.pacman)
             if distro.id() == "arcolinux":
                 Functions.shutil.copy(Functions.pacman_arco, Functions.pacman)
             if distro.id() == "endeavouros":
                 Functions.shutil.copy(Functions.pacman_eos, Functions.pacman)
             if distro.id() == "garuda":
                 Functions.shutil.copy(Functions.pacman_garuda, Functions.pacman)
-             
+
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
         elif filez == Functions.gtk3_settings:
@@ -1300,7 +1300,7 @@ class Main(Gtk.Window):
 #    #                       FISH
 #    #====================================================================
 
-    # if os.path.isfile("/usr/bin/fish"): 
+    # if os.path.isfile("/usr/bin/fish"):
     #     self.fish.set_active(True)
     # else:
     #     fish.fish.set_active(False)
@@ -1314,7 +1314,7 @@ class Main(Gtk.Window):
             Functions.remove_fish(self)
             self.fish.set_active(False)
             GLib.idle_add(Functions.show_in_app_notification, self, "Fish removed")
-            
+
     def on_ohmyfish_toggle(self, widget, active):
         if widget.get_active():
             GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
@@ -1358,7 +1358,7 @@ class Main(Gtk.Window):
         if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
             Functions.shutil.copy("/etc/skel/.config/fish/config.fish",
                                   Functions.home + "/.config/fish/config.fish")
-        
+
         Functions.permissions(Functions.home + "/.config/fish/config.fish")
         Functions.show_in_app_notification(self,
                                             "Default Settings Applied")
@@ -1820,7 +1820,7 @@ class Main(Gtk.Window):
                             Functions.gpg_conf + ".bak")
         Functions.shutil.copy(Functions.gpg_conf_original,
                             Functions.gpg_conf)
-            
+
         GLib.idle_add(Functions.show_in_app_notification, self, "The new /etc/pacman.d/gnupg/gpg.conf has been saved")
 
     def on_click_fix_pacman_gpg_conf_local(self,widget):
@@ -1830,7 +1830,7 @@ class Main(Gtk.Window):
                 Functions.permissions(Functions.home + "/.gnupg")
             except Exception as e:
                 print(e)
-        
+
         if not os.path.isfile(Functions.gpg_conf_local + ".bak"):
             try:
                 Functions.shutil.copy(Functions.gpg_conf_local,
@@ -1838,7 +1838,7 @@ class Main(Gtk.Window):
                 Functions.permissions(Functions.gpg_conf_local + ".bak")
             except Exception as e:
                 print(e)
-            
+
         Functions.shutil.copy(Functions.gpg_conf_local_original,
                             Functions.gpg_conf_local)
         Functions.permissions(Functions.gpg_conf_local)

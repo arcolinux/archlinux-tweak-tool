@@ -21,8 +21,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, Functions, base_dir):
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     spacer = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    
-    
+
+
     message = Gtk.Label("You will need to manually restart polybar for changes to take effect. Hint:(add to keybind)")
     hbox11.pack_start(message, True, False, 0)
     # =======================================================

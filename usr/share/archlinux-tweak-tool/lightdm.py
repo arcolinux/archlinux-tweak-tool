@@ -17,8 +17,8 @@ def set_lightdm_value(self, lists, value, session, state):
         groups = com.stdout.decode().strip().split(" ")
         # print(groups)
         if "autologin" not in groups:
-            Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "autologin"], shell=False)            
-        
+            Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "autologin"], shell=False)
+
         pos = Functions._get_position(lists, "autologin-user=")
         pos_session = Functions._get_position(lists, "autologin-session=")
 
@@ -63,7 +63,7 @@ def pop_box(self, combo):
 
     # if name == "":
     #     name = check_lightdm(lines, "user-session=").split("=")[1]
-    
+
     coms.sort()
     for i in range(len(coms)):
         excludes = ['gnome-classic', 'gnome-xorg', 'i3-with-shmlog', 'openbox-kde', 'cinnamon2d', '']

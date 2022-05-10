@@ -14,12 +14,12 @@ def create_user(self):
     atype = self.combo_account_type.get_active_text()
     password = self.hbox_password.get_text()
     confirm_password = self.hbox_confirm_password.get_text()
-    user_password = "echo " + username + ":" + password    
-    
+    user_password = "echo " + username + ":" + password
+
     if password == confirm_password :
         if atype == "Administrator" :
             useradd ='useradd -m -G audio,video,network,storage,rfkill,wheel -c "'  + name + '" -s /bin/bash ' + username
-            os.system(useradd)          
+            os.system(useradd)
             os.system(user_password + " | " + "chpasswd -c SHA512")
         else:
             useradd ='useradd -m -G audio,video,network,storage,rfkill -c "'  + name + '" -s /bin/bash ' + username

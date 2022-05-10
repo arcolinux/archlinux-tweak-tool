@@ -41,10 +41,10 @@ def GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions):
     self.cursor_size = Gtk.SpinButton()
     self.cursor_size.set_adjustment(adj1)
 
-    
+
     # self.fonts = Gtk.FontButton()
     # self.monofonts = Gtk.FontButton()
-    
+
     self.themeCombo.set_size_request(200, 0)
     self.iconCombo.set_size_request(200, 0)
     self.cursorCombo.set_size_request(200, 0)

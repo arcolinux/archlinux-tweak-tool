@@ -1,12 +1,12 @@
 [Desktop Entry]
-Name=ArchLinux Tweak Tool
-GenericName=ArchLinux Tweak Tool
-X-GNOME-FullName=ArchLinux Tweak Tool
-Comment=ArchLinux Tweak Tool - graphical interface
+Name=Arch Linux Tweak Tool
+GenericName=Arch Linux Tweak Tool
+X-GNOME-FullName=Arch Linux Tweak Tool
+Comment=ArchLinux Tweak Tool - graphical tool to set Arch Linux
 Exec=/usr/local/bin/archlinux-tweak-tool
 Icon=archlinux
 Terminal=false
 Type=Application
 Categories=GTK;GNOME;Utility;Settings;Security;X-GNOME-Settings-Panel;X-GNOME-SystemSettings;X-Unity-Settings-Panel;X-XFCE-SettingsDialog;X-XFCE-SystemSettings;
-Keywords=tweak;tool;
+Keywords=tweak;tool;tweaktool
 StartupNotify=true

@@ -15,7 +15,7 @@ def get_shortcut(value):
             f.close()
         shortcu = Functions.check_value(lines[Functions.get_shortcuts(lines):Functions.get_commands(lines)], value)
         if not shortcu:
-            shortcut = [value, '']            
+            shortcut = [value, '']
         else:
             shortcut = [shortcu[0].lstrip().rstrip().replace(" ", "")][0].split("=")
         return shortcut[1]
@@ -38,8 +38,8 @@ def set_shorcut(self, value, value_sk):
             else:
                 pos = int(Functions._get_position(lines[shortcuts_pos:commandss_pos], value))
                 lines[shortcuts_pos + pos] = value + ' = ' + str(value_sk) + '\n'
-            
-            with open(Functions.oblogout_conf, 'w') as f:            
+
+            with open(Functions.oblogout_conf, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:
@@ -54,14 +54,14 @@ def oblog_populate(combo):
             lines = f.readlines()
             for line in lines:
                 if "buttontheme" in line:
-                    
+
                     value = line.split("=")
                     val = value[1].lstrip().rstrip()
                     coms.append(val)
-                    
+
                     if not "#" in line:
                         active = val
-        
+
         coms.sort()
 
         for i in range(len(coms)):
@@ -85,7 +85,7 @@ def oblogout_change_theme(self, theme):
             for i in range(0, len(lines)):
                 line = lines[i]
                 if "buttontheme" in line:
-                    
+
                     if theme == lines[i].split("=")[1].lstrip().rstrip():
                         lines[i] = line.replace("#","")
 
@@ -124,7 +124,7 @@ def set_opacity(self, value):
                 pos = int(Functions._get_position(lines, 'opacity'))
                 lines[pos] = 'opacity = ' + str(value).split(".")[0] + '\n'
 
-            with open(Functions.oblogout_conf, 'w') as f:            
+            with open(Functions.oblogout_conf, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:
@@ -162,7 +162,7 @@ def get_buttons():
                 if "buttons =" in line:
                     nline = line.split("=")
                     buttons = nline[1].lstrip().rstrip()
-                    
+
             f.close()
             return buttons
     else:
@@ -200,8 +200,8 @@ def set_command(self, value, value_sk):
             else:
                 pos = int(Functions._get_position(lines[commandss_pos:], value))
                 lines[commandss_pos + pos] = value + ' = ' + str(value_sk) + '\n'
-            
-            with open(Functions.oblogout_conf, 'w') as f:            
+
+            with open(Functions.oblogout_conf, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:

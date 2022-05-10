@@ -13,7 +13,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
-    
+
     # ========================================================
     #               FOOTER
     # ========================================================
@@ -23,11 +23,11 @@ def GUI(self, Gtk, vboxStack1, Functions):
     reset_pacman.connect("clicked", self.reset_settings, Functions.pacman)
     blank_pacman = Gtk.Button(label="Blank pacman")
     blank_pacman.connect("clicked", self.blank_pacman)
-    
+
     # ==========================================================
     #                   GLOBALS
     # ==========================================================
-    
+
     hboxStack1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
@@ -51,7 +51,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               ARCO REPOS
     # ========================================================
-    
+
     frame3 = Gtk.Frame(label="")
     frame3lbl = frame3.get_label_widget()
     frame3lbl.set_markup("<b>ArcoLinux repos</b>")
@@ -79,7 +79,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               ARCHLINUX REPOS
     # ========================================================
-    
+
     frame = Gtk.Frame(label="")
     framelbl = frame.get_label_widget()
     framelbl.set_markup("<b>Arch Linux repos</b>")
@@ -92,7 +92,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.checkbutton6 = Gtk.Switch()
     self.checkbutton6.connect("notify::active", self.on_pacman_toggle2)
     label13 = Gtk.Label(xalign=0)
-    label13.set_markup("Enable Arch Linux core repo") 
+    label13.set_markup("Enable Arch Linux core repo")
 
     self.checkbutton7 = Gtk.Switch()
     self.checkbutton7.connect("notify::active", self.on_pacman_toggle3)
@@ -107,7 +107,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.checkbutton5 = Gtk.Switch()
     self.checkbutton5.connect("notify::active", self.on_pacman_toggle5)
     label12 = Gtk.Label(xalign=0)
-    label12.set_markup("Enable Arch Linux community repo")  
+    label12.set_markup("Enable Arch Linux community repo")
 
     self.checkbutton3 = Gtk.Switch()
     self.checkbutton3.connect("notify::active", self.on_pacman_toggle6)
@@ -178,7 +178,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               TESTING REPOS PACKING
     # ========================================================
-    
+
     hboxStack5.pack_start(label3, False, True, 10)
     hboxStack5.pack_end(self.checkbutton2, False, False, 10)
     hboxStack15.pack_start(label13, False, True, 10)
@@ -201,19 +201,19 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack11.pack_start(label9, False, True, 10)
     hboxStack11.pack_end(self.chaotics_button, False, False, 10)
     hboxStack19.pack_start(label16, False, True, 10)
-    hboxStack19.pack_end(self.endeavouros_button, False, False, 10)    
+    hboxStack19.pack_end(self.endeavouros_button, False, False, 10)
     hboxStack13.pack_start(label11, False, True, 10)
     hboxStack13.pack_end(self.nemesis_button, False, False, 10)
-       
+
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vboxStack4.pack_start(hboxStack11, False, False, 10)
     vboxStack4.pack_start(hboxStack19, False, False, 10)
     vboxStack4.pack_start(hboxStack13, False, False, 10)
-    
+
     # ========================================================
     #               CUSTOM REPOS PACKING
     # ========================================================
-    
+
     hboxStack2.pack_start(label2, False, True, 10)
     hboxStack3.pack_start(sw, True, True, 10)
 
@@ -250,10 +250,10 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
 
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vbox3.pack_start(hboxStack18, False, False, 0) 
+    vbox3.pack_start(hboxStack18, False, False, 0)
     vbox3.pack_start(hboxStack7, False, False, 0)
     vbox3.pack_start(hboxStack8, False, False, 0)
-    vbox3.pack_start(hboxStack9, False, False, 0)  
+    vbox3.pack_start(hboxStack9, False, False, 0)
 
     frame3.add(vbox3)
     # ========================================================
@@ -264,7 +264,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     vboxStack1.pack_start(hbox3, False, False, 0)
     vboxStack1.pack_start(hbox4, False, False, 0)
     vboxStack1.pack_start(frame3, False, False, 5)
- 
+
     # =================TESTING REPO========================
     vboxStack1.pack_start(frame, False, False, 0)
 

@@ -24,7 +24,7 @@ def skel_check(self):
             if not "/etc/skel" in item[0]:
                 passes = False
         if passes == True:
-            
+
             if self.switch.get_active() == True:
                 setMessage(self.label_info1, "Running Backup")
                 t1 = threading.Thread(target=processing,
@@ -52,7 +52,7 @@ def skel_run(self, cat):
             old = item[0]
             new = old.replace("/etc/skel", Functions.home)
             if os.path.isdir(old):
-                Functions.copy_func(old,  os.path.split(new)[0], True)                
+                Functions.copy_func(old,  os.path.split(new)[0], True)
             if os.path.isfile(old):
                 Functions.copy_func(old, new)
             Functions.permissions(new)
@@ -125,7 +125,7 @@ def Delete_Inner_Backup(self):
         GLib.idle_add(setMessage,self.label_info, "Removing ...")
         GLib.idle_add(setProgress, self.progressbar, 0.3)
         treeselect = self.treeView2.get_selection()
-        
+
         for filename in os.listdir(Functions.home + "/" + Functions.bd + "/" + self.backs.get_active_text()):
             (model, pathlist) = treeselect.get_selected_rows()
             for path in pathlist :
@@ -137,7 +137,7 @@ def Delete_Inner_Backup(self):
                         Functions.shutil.rmtree(Functions.home + "/" + Functions.bd + "/" + self.backs.get_active_text() + "/" + filename)
                     elif os.path.isfile(Functions.home + "/" + Functions.bd + "/" + self.backs.get_active_text() + "/" + filename):
                         os.unlink(Functions.home + "/" + Functions.bd + "/" + self.backs.get_active_text() + "/" + filename)
-            
+
         GLib.idle_add(refresh_inner, self)
         GLib.idle_add(setProgress, self.progressbar, 1)
         GLib.idle_add(Functions.show_in_app_notification,self, "Config backups cleaned.")
@@ -151,11 +151,11 @@ def Flush_All(self):
     if count > 0:
         count = ((count/count)/count)
         GLib.idle_add(setMessage,self.label_info, "Deleting Backup")
-        for filename in os.listdir(Functions.home + "/" + Functions.bd):                
+        for filename in os.listdir(Functions.home + "/" + Functions.bd):
             if os.path.isdir(Functions.home + "/" + Functions.bd + "/" + filename):
                 GLib.idle_add(setProgress, self.progressbar, self.progressbar.get_fraction() + count)
-                Functions.shutil.rmtree(Functions.home + "/" + Functions.bd + "/" + filename)            
-                
+                Functions.shutil.rmtree(Functions.home + "/" + Functions.bd + "/" + filename)
+
 
         GLib.idle_add(Functions.show_in_app_notification,self, "Backups directory has been cleaned.")
         GLib.idle_add(refresh, self)
@@ -172,11 +172,11 @@ def refresh(self):
 
     self.backs.get_model().clear()
     BACKUPS_CATS = []
-    
+
     for filename in os.listdir(Functions.home + "/" + Functions.bd):
         if os.path.isdir(Functions.home + "/" + Functions.bd + "/" + filename):
             BACKUPS_CATS.append(filename)
-    
+
     for item in BACKUPS_CATS:
         self.backs.append_text(item)
 
@@ -190,16 +190,16 @@ def refresh_inner(self):
     if count > 0:
         if os.path.isdir(Functions.home + "/" + Functions.bd + "/" + active_text):
             self.store2.clear()
-            
+
             for filename in os.listdir(Functions.home + "/" + Functions.bd + "/" + active_text):
                 self.store2.append([filename])
-            
+
     else:
         self.store2.clear()
 
 
 def bash_upgrade(self):
-            
+
     now = datetime.datetime.now()
     GLib.idle_add(setMessage,self.label_info1, "Running Backup")
 
@@ -218,10 +218,10 @@ def bash_upgrade(self):
         Functions.copy_func("/etc/skel/.bashrc", Functions.home + "/.bashrc")
         Functions.permissions(Functions.home + "/.bashrc")
         GLib.idle_add(setMessage,self.label_info1, ".bashrc upgrade done")
-        
+
         GLib.idle_add(Functions.show_in_app_notification,self, "bashrc upgraded")
     else:
-        GLib.idle_add(Functions.MessageBox,self, 
+        GLib.idle_add(Functions.MessageBox,self,
             "Failed!!", "bashrc upgrade failed, you dont have a .bashrc in skel")
 
     Functions.source_shell(self)
@@ -247,7 +247,7 @@ def do_pulse(data, self, progress):
 
 def processing(self, active_text, label, progress):
     now = datetime.datetime.now()
-    
+
     Functions.check_backups(now)
 
     GLib.idle_add(setProgress, progress, 0.1)
@@ -268,7 +268,7 @@ def processing(self, active_text, label, progress):
     # GLib.idle_add(setProgress, self, 0.3)
     GLib.source_remove(timeout_id)
     timeout_id = None
-    
+
     GLib.idle_add(setProgress, progress, 0.5)
     # ============================
     #       LOACAL
@@ -278,7 +278,7 @@ def processing(self, active_text, label, progress):
                 now.strftime("%Y-%m-%d %H:%M:%S"), True)
     Functions.permissions(Functions.home + '/' + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + '/.local-backup-' +
                 now.strftime("%Y-%m-%d %H:%M:%S"))
-    
+
     GLib.idle_add(setProgress, progress, 0.7)
     # ============================
     #       BASH
@@ -291,7 +291,7 @@ def processing(self, active_text, label, progress):
             now.strftime("%Y-%m-%d %H:%M:%S"))
         Functions.permissions(Functions.home + "/" + Functions.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.bashrc-backup-" +
             now.strftime("%Y-%m-%d %H:%M:%S"))
-    
+
     GLib.idle_add(setProgress, progress, 0.8)
     # ============================
     #       ZSH
@@ -327,17 +327,17 @@ def processing(self, active_text, label, progress):
 
     GLib.idle_add(setMessage, label, "Done")
 
-    
+
     if not active_text == "BACKUP":
-        pass    
+        pass
         GLib.idle_add(setMessage, label, "Running Skel")
-        
+
         GLib.idle_add(skel_run, self, active_text)
     else:
         GLib.idle_add(button_toggles,self,True)
         GLib.idle_add(setMessage,label, "Idle...")
         GLib.idle_add(setProgress,progress,0)
-        
+
 
     GLib.idle_add(refresh, self)
     GLib.idle_add(refresh_inner, self)

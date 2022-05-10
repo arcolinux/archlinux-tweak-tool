@@ -12,7 +12,7 @@ class Support(Gtk.Dialog):
     def __init__(self, parent):
         Gtk.Dialog.__init__(self, "Credits - Support Development", parent, 0)
         # self.add_buttons(Gtk.STOCK_OK,Gtk.ResponseType.OK)
-        
+
         self.set_size_request(550, 100)
         # self.set_resizable(False)
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
@@ -24,7 +24,7 @@ class Support(Gtk.Dialog):
 
         box = self.get_content_area()
         box.pack_start(vbox, False, False, 0)
-        
+
         label = Gtk.Label()
         label.set_line_wrap(True)
         label.set_justify(Gtk.Justification.CENTER)
@@ -56,7 +56,7 @@ If you want to thank and support <b>Brad</b> personally for his initiative and e
 
         pE.connect("query-tooltip", self.tooltip_callback, "Support BradHeff on Patreon")
 
-        
+
 
         pbpp = GdkPixbuf.Pixbuf().new_from_file_at_size(
             os.path.join(base_dir, 'images/paypal.png'), 54, 54)
@@ -70,27 +70,27 @@ If you want to thank and support <b>Brad</b> personally for his initiative and e
         ppE.connect("query-tooltip", self.tooltip_callback, "Buy BradHeff a coffee")
 
         pE_label = Gtk.Label("Patreon")
-        
+
         vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
-        
+
         hbox.pack_start(label, True, True, 10)
 
         hbox1.pack_start(label2, False, False, 10)
-        
+
         vbox1.pack_start(pE, False, False, 0)
         vbox1.pack_start(pE_label, False, False, 0)
 
         hbox2.pack_start(vbox1, False, False, 10)
         hbox2.pack_start(ppE, False, False, 10)
-        
+
         hbox3.pack_start(hbox2, True, False, 0)
 
         vbox.pack_start(logo_image, False, False, 10)
         vbox.pack_start(hbox, False, False, 10)
-        
+
         vbox.pack_end(hbox3, False, False, 10)
         vbox.pack_end(hbox1, False, False, 0)
-        
+
         self.show_all()
 
     def on_support_click(self, widget, event, link):

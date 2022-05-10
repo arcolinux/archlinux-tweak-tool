@@ -38,7 +38,7 @@ desktops = [
     "qtile",
     "spectrwm",
     "ukui",
-    "wmderland",    
+    "wmderland",
     "xfce",
     "xmonad"
 ]

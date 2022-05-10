@@ -54,13 +54,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     button_install = Gtk.Button(label="Install")
     # button_uninstall = Gtk.Button(label="Uninstall")
     button_reinstall = Gtk.Button(label="Re-Install")
-    
+
     if Functions.distr == "arcolinux":
         button_adt = Gtk.Button(label="Launch the ArcoLinux Desktop Trasher")
         button_adt.set_margin_top(70)
-        button_adt.set_size_request(100,20)  
+        button_adt.set_size_request(100,20)
         button_adt.connect("clicked",self.on_launch_adt_clicked)
-    
+
     # button_uninstall.connect("clicked", self.on_uninstall_clicked)
     button_install.connect("clicked", self.on_install_clicked, "inst")
     button_reinstall.connect("clicked", self.on_install_clicked, "reinst")
