@@ -29,7 +29,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     #               DROPDOWN
     # =======================================
     label_warning = Gtk.Label(xalign=0)
-    label_warning.set_text("Add and/or activate the ArcoLinux repositories!")
+    label_warning.set_text("If the ArcoLinux repos are not present we will add them")
     label = Gtk.Label(xalign=0)
     label.set_text("Select a desktop")
     self.d_combo = Gtk.ComboBoxText()
@@ -40,7 +40,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     self.d_combo.set_active(0)
 
     dropbox.pack_start(label_warning, False, False, 0)
-    dropbox.pack_start(label, False, False, 0)
+    dropbox.pack_start(label, False, False, 20)
     dropbox.pack_start(self.d_combo, False, False, 0)
 
     # =======================================

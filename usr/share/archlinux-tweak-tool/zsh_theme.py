@@ -35,7 +35,7 @@ def get_themes(combo):
         except Exception as e:
             print(e)
     else:
-        combo.append_text("oh-my-zsh not installed...")
+        combo.append_text("oh-my-zsh-git is not installed...install it manually")
         combo.set_active(0)
 
 
