@@ -29,7 +29,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     #               DROPDOWN
     # =======================================
     label_warning = Gtk.Label(xalign=0)
-    label_warning.set_text("If the ArcoLinux repos are not present we will add them")
+    label_warning.set_markup("If the ArcoLinux repos are not present you need to add them.\nSome of the desktops can only be installed <b>\nif we can install the ArcoLinux packages</b>.")
     label = Gtk.Label(xalign=0)
     label.set_text("Select a desktop")
     self.d_combo = Gtk.ComboBoxText()
@@ -89,7 +89,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     self.desktopr_stat.set_ellipsize (Pango.EllipsizeMode.MIDDLE)
 
     noice = Gtk.Label(xalign=0)
-    noice.set_text("We will backup and overwrite your ~/.config when installing desktops\nBackup is in ~/.config-att folder\nLog files are located in /var/log/archlinux")
+    noice.set_markup("We will backup and overwrite your ~/.config when installing desktops\nBackup is in ~/.config-att folder\nLog files are located in /var/log/archlinux")
     noice.set_line_wrap(True)
     self.desktopr_error = Gtk.Label(xalign=0)
 
