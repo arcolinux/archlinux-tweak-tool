@@ -56,7 +56,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     label2.set_text("Theme")
 
     label_sddm_config = Gtk.Label(xalign=0)
-    label_sddm_config.set_text("Set our sddm configuration back")
+    label_sddm_config.set_text("Set our sddm configuration back\n(/etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
 
     label_empty1 = Gtk.Label(xalign=0)
     label_empty1.set_text("")
@@ -93,7 +93,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     apply_sddm = Gtk.Button(label="Apply settings")
     apply_sddm.connect("clicked", self.on_click_sddm_apply)
 
-    reset_sddm_original = Gtk.Button(label="Apply the sddm.conf from ArcoLinux")
+    reset_sddm_original = Gtk.Button(label="Apply the sddm configuration from ArcoLinux")
     reset_sddm_original.connect("clicked", self.on_click_sddm_reset_original)
 
     enable_sddm = Gtk.Button(label="Enable Sddm")

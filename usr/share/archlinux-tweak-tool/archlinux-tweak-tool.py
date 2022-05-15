@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+
+#      #============================================================
+#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
+#      #============================================================
+
 from pyclbr import Function
 import Splash
 import gi
@@ -32,11 +37,6 @@ from subprocess import PIPE, STDOUT
 from time import sleep
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib  # noqa
-# from Settings import settings, configparser
-
-#      #============================================================
-#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
-#      #============================================================
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 pmf = pacman_functions
@@ -44,6 +44,23 @@ pmf = pacman_functions
 
 class Main(Gtk.Window):
     def __init__(self):
+        print("---------------------------------------------------------------------------")
+        print("If you have errors, report it on the discord channel of ArcoLinux")
+        print("If you have errors, because of SDDM and its cursor, user, theme, ...")
+        print("Try running 'fix-sddm-conf' in a terminal")
+        print("Then launch the Arch Linux Tweak Tool again")
+        print("---------------------------------------------------------------------------")
+        print("Created for :")
+        print(" - ArcoLinux     - https://arcolinux.info")
+        print(" - Arch Linux    - https://archlinux.org")
+        print(" - Alci          - https://alci.online")
+        print(" - Carli         - https://www.arcolinuxiso.com/")
+        print(" - Ariser        - https://ariser.eu/")
+        print(" - EndeavourOS   - https://endeavouros.com/")
+        print(" - Garuda        - https://garudalinux.org/")
+        print("---------------------------------------------------------------------------")
+        print("Other Arch Linux based distros will be visited later")
+        print("---------------------------------------------------------------------------")
         super(Main, self).__init__(title="Arch Linux Tweak Tool")
         self.set_border_width(10)
         self.connect("delete-event", self.on_close)
@@ -85,42 +102,43 @@ class Main(Gtk.Window):
             except Exception as e:
                 print(e)
 
-        if os.path.exists("/usr/bin/sddm"):
-            if not os.path.isdir(Functions.sddm_default_d2_dir):
-                try:
-                    os.mkdir(Functions.sddm_default_d2_dir)
-                except Exception as e:
-                    print(e)
+        # if os.path.exists("/usr/bin/sddm"):
+        #     if not os.path.isdir(Functions.sddm_default_d2_dir):
+        #         try:
+        #             os.mkdir(Functions.sddm_default_d2_dir)
+        #         except Exception as e:
+        #             print(e)
 
-            if not Functions.os.path.exists(Functions.sddm_conf):
-                try:
-                    Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
-                                          Functions.sddm_default_d1)
-                    Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
-                                          Functions.sddm_default_d2)
-                except OSError as e:
-                    #This will ONLY execute if the sddm files and the underlying sddm files do not exist
-                    if e.errno == 2:
-                        command = '/usr/local/bin/arcolinux-fix-sddm-config'
-                        Functions.subprocess.call(command,
-                                        shell=True,
-                                        stdout=Functions.subprocess.PIPE,
-                                        stderr=Functions.subprocess.STDOUT)
-                        print("The SDDM files in your installation either did not exist, or were corrupted.")
-                        print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
+            # if not Functions.os.path.exists(Functions.sddm_conf):
+            #     try:
+            #         Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
+            #                               Functions.sddm_default_d1)
+            #         Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
+            #                               Functions.sddm_default_d2)
+            #     except OSError as e:
+            #         #This will ONLY execute if the sddm files and the underlying sddm files do not exist
+            #         if e.errno == 2:
+            #             command = '/usr/local/bin/arcolinux-fix-sddm-config'
+            #             Functions.subprocess.call(command,
+            #                             shell=True,
+            #                             stdout=Functions.subprocess.PIPE,
+            #                             stderr=Functions.subprocess.STDOUT)
+            #             print("The SDDM files in your installation either did not exist, or were corrupted.")
+            #             print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
 
 
-            if  os.path.getsize(Functions.sddm_conf) == 0:
-                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
-                                      Functions.sddm_default_d1)
-                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
-                                      Functions.sddm_default_d2)
-        if Functions.os.path.isfile(Functions.sddm_conf):
+            # if  os.path.getsize(Functions.sddm_conf) == 0:
+            #     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
+            #                           Functions.sddm_default_d1)
+            #     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
+            #                           Functions.sddm_default_d2)
+
+        if Functions.os.path.isfile(Functions.sddm_default_d2):
             session_exists = sddm.check_sddmk_session("Session=")
             if session_exists is False:
                 sddm.insert_session("#Session=")
 
-        if Functions.os.path.isfile(Functions.sddm_conf):
+        if Functions.os.path.isfile(Functions.sddm_default_d2):
             user_exists = sddm.check_sddmk_user("User=")
             if user_exists is False:
                 sddm.insert_user("#User=")
@@ -334,15 +352,15 @@ class Main(Gtk.Window):
                 self.sessions.set_sensitive(True)
 
         if not "plasma" in self.desktop.lower():
-            if Functions.os.path.isfile(Functions.sddm_conf):
-                if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf),"User="):
+            if Functions.os.path.isfile(Functions.sddm_default_d2):
+                if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2),"User="):
                     self.autologin_sddm.set_active(False)
                     self.sessions_sddm.set_sensitive(False)
                 else:
                     self.autologin_sddm.set_active(True)
                     self.sessions_sddm.set_sensitive(True)
-            if Functions.os.path.isfile(Functions.sddm_default):
-                read_cursor_name=sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default),"CursorTheme=").split("=")[1]
+            if Functions.os.path.isfile(Functions.sddm_default_d1):
+                read_cursor_name=sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d1),"CursorTheme=").split("=")[1]
                 self.entry_cursor_name.set_text(read_cursor_name)
 
         if not os.path.isfile("/tmp/att.lock"):
@@ -1565,6 +1583,7 @@ class Main(Gtk.Window):
                                                 self.autologin.get_active()))
             t1.daemon = True
             t1.start()
+            print("Settings saved successfully")
         else:
             Functions.show_in_app_notification(self, "Need to select desktop first")
 
@@ -1578,10 +1597,21 @@ class Main(Gtk.Window):
         else:
             self.autologin.set_active(True)
 
+        print("Default Settings Applied")
         Functions.show_in_app_notification(self, "Default Settings Applied")
 
     def on_autologin_activated(self, widget, gparam):
         if widget.get_active():
+            command = 'groupadd autologin'
+            try:
+                Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            except Exception as e:
+                    print(e)
+
+            print("We added the group autologin or checked that it exists")
             self.sessions.set_sensitive(True)
         else:
             self.sessions.set_sensitive(False)
@@ -1592,12 +1622,14 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We installed lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings")
 
         command = 'systemctl enable lightdm.service -f'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We enabled lightdm")
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been installed and enabled - reboot")
 
@@ -1607,17 +1639,19 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("Lightdm has been enabled - reboot")
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been enabled - reboot")
 
     def on_click_lightdm_slick(self, desktop):
         self.on_click_att_lightdm_clicked(desktop)
         self.on_click_lightdm_enable(desktop)
-        command = '/usr/local/bin/arcolinux-install-activate-lightdm-slickgreeter'
+        command = '/usr/share/archlinux-tweak-tool/data/any/archlinux-install-activate-lightdm-slickgreeter'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Reboot now - Activate manually if needed")
+        print("Lightdm slickgreeter has been installed and enabled - reboot")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm-slickgreeter installed - Reboot now")
 
     # ====================================================================
     #                       SDDM
@@ -1627,12 +1661,23 @@ class Main(Gtk.Window):
         #if not Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
         #    Functions.shutil.copy(Functions.sddm_conf,
         #                          Functions.sddm_conf + ".bak")
+        command = 'systemctl enable sddm.service -f'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We enabled sddm.service")
 
+        if not os.path.isdir(Functions.sddm_default_d2_dir):
+            try:
+                os.mkdir(Functions.sddm_default_d2_dir)
+            except Exception as e:
+                print(e)
 
         if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or (self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None) :
             t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
                                             args=(self,
-                                                sddm.get_sddm_lines(Functions.sddm_conf),  # noqa
+                                                sddm.get_sddm_lines(Functions.sddm_default_d2),  # noqa
                                                 Functions.sudo_username,
                                                 self.sessions_sddm.get_active_text(),
                                                 self.autologin_sddm.get_active(),
@@ -1646,26 +1691,31 @@ class Main(Gtk.Window):
                                             self.entry_cursor_name.get_text()))
             t1.daemon = True
             t1.start()
-
+            print("Settings Saved Successfully")
             GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
 
         else:
+            print("You need to select desktop and/or theme first")
             Functions.show_in_app_notification(self, "You need to select desktop and/or theme first")
 
     def on_click_sddm_reset(self, widget):
-        #if Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
-        #    Functions.shutil.copy(Functions.sddm_conf + ".bak",
-        #                          Functions.sddm_conf)
-        if Functions.os.path.isfile(Functions.sddm_conf):
-            if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
+        if Functions.os.path.isfile(Functions.sddm_default_d2):
+            if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2), "User="):  # noqa
                 self.autologin_sddm.set_active(False)
             else:
                 self.autologin_sddm.set_active(True)
+            print("Your sddm.conf backup is now applied")
             Functions.show_in_app_notification(self, "Your sddm.conf backup is now applied")
         else:
+            print("We did not find a backup file for sddm.conf")
             Functions.show_in_app_notification(self, "We did not find a backup file for sddm.conf")
 
     def on_click_sddm_reset_original(self, widget):
+        if not os.path.isdir(Functions.sddm_default_d2_dir):
+            try:
+                os.mkdir(Functions.sddm_default_d2_dir)
+            except Exception as e:
+                print(e)
         if Functions.sddm_conf == "/etc/sddm.conf.d/kde_settings.conf":
             Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                   Functions.sddm_default_d1)
@@ -1675,24 +1725,41 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.sddm_default_original,
                                   Functions.sddm_default)
 
-        if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
+        if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2), "User="):  # noqa
             self.autologin_sddm.set_active(False)
         else:
             self.autologin_sddm.set_active(True)
 
+        print("The ArcoLinux sddm configuration is now applied")
+        print("Both files have been changed /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
         Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
 
     def on_click_no_sddm_reset_original(self, widget):
+        if not os.path.isdir(Functions.sddm_default_d2_dir):
+            try:
+                os.mkdir(Functions.sddm_default_d2_dir)
+            except Exception as e:
+                print(e)
         if Functions.os.path.isfile(Functions.sddm_default_d_sddm_original_1):
             Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_1,
                                   Functions.sddm_default_d1)
             Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_2,
                                   Functions.sddm_default_d2)
-
-        Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
+        print("The ArcoLinux sddm configuration is now applied")
+        Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
 
     def on_autologin_sddm_activated(self, widget, gparam):
         if widget.get_active():
+            command = 'groupadd autologin'
+            try:
+                Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            except Exception as e:
+                    print(e)
+
+            print("We added the group autologin or checked that it exists")
             self.sessions_sddm.set_sensitive(True)
         else:
             self.sessions_sddm.set_sensitive(False)
@@ -1703,6 +1770,7 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We installed all ArcoLinux sddm themes")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm Themes Installed")
 
     def on_click_remove_sddm_themes(self,widget):
@@ -1711,30 +1779,62 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We removed all ArcoLinux sddm themes")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed")
 
         if self.keep_default_theme.get_active() is True:
-            command = 'pacman -S arcolinux-sddm-sugar-candy-git --needed --noconfirm'
+            command = 'pacman -S arcolinux-sddm-simplicity-git --needed --noconfirm'
             Functions.subprocess.call(command.split(" "),
                             shell=False,
                             stdout=Functions.subprocess.PIPE,
                             stderr=Functions.subprocess.STDOUT)
+            print("We installed the default ArcoLinux sddm theme again")
             GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
 
+    #if no sddm - press 1
     def on_click_att_sddm_clicked(self, desktop):
-        command = 'pacman -S sddm arcolinux-simplicity-git --noconfirm --needed'
+        command = 'pacman -S sddm --noconfirm --needed'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We installed sddm")
+
+        command = 'pacman -S arcolinux-sddm-simplicity-git --noconfirm --needed'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We installed arcolinux-sddm-simplicity-git")
+
+        command = 'pacman -S bibata-cursor-theme-bin --noconfirm --needed'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We installed bibata-cursor-theme-bin")
 
         command = 'systemctl enable sddm.service -f'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-
+        print("We enabled sddm.service")
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed and enabled - reboot")
+
+        if not os.path.isdir(Functions.sddm_default_d2_dir):
+            try:
+                os.mkdir(Functions.sddm_default_d2_dir)
+            except Exception as e:
+                print(e)
+
+        if Functions.os.path.isfile(Functions.sddm_default_d_sddm_original_1):
+            Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_1,
+                                  Functions.sddm_default_d1)
+            Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_2,
+                                  Functions.sddm_default_d2)
+        print("The ArcoLinux sddm configuration is now applied")
+        Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
 
     def on_click_sddm_enable(self, desktop):
         command = 'systemctl enable sddm.service -f'
@@ -1742,12 +1842,14 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We enabled sddm.service")
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been enabled - reboot")
 
     def on_launch_adt_clicked(self, desktop):
         Functions.install_adt(self)
         subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched")
+        print("We relaunched ATT")
 
     def on_refresh_att_clicked(self, desktop):
         os.unlink("/tmp/att.lock")
