@@ -66,6 +66,7 @@ copy = ["cp", "-Rv"]
 
 if distro.id() == "arcolinux":
     awesome = [
+        "alacritty",
         "arcolinux-awesome-git",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
@@ -97,6 +98,7 @@ if distro.id() == "arcolinux":
         "xfce4-terminal",
     ]
     bspwm = [
+        "alacritty",
         "arcolinux-bspwm-git",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
@@ -169,6 +171,7 @@ if distro.id() == "arcolinux":
         "arcolinux-cutefish-git",
     ]
     cwm = [
+        "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-cwm-git",
         "arcolinux-dconf-all-desktops-git",
@@ -207,6 +210,7 @@ if distro.id() == "arcolinux":
         "gvfs",
     ]
     dusk = [
+        "alacritty",
         "arcolinux-candy-beauty-git",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
@@ -237,6 +241,7 @@ if distro.id() == "arcolinux":
         "xfce4-terminal",
     ]
     dwm = [
+        "alacritty",
         "arcolinux-candy-beauty-git",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
@@ -272,6 +277,7 @@ if distro.id() == "arcolinux":
         "xfce4-terminal",
     ]
     fvwm3 = [
+        "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-fvwm3-git",
@@ -325,6 +331,7 @@ if distro.id() == "arcolinux":
         "ttf-hack",
     ]
     hlwm = [
+        "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-gtk3-sardi-arc-git",
@@ -357,6 +364,7 @@ if distro.id() == "arcolinux":
         "xtitle-git",
     ]
     i3 = [
+        "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-gtk3-sardi-arc-git",
@@ -391,6 +399,7 @@ if distro.id() == "arcolinux":
         "xfce4-terminal",
     ]
     icewm = [
+        "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-gtk3-surfn-arc-git",
@@ -425,6 +434,7 @@ if distro.id() == "arcolinux":
         "xfce4-terminal",
     ]
     jwm = [
+        "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-gtk3-surfn-arc-git",
@@ -458,6 +468,7 @@ if distro.id() == "arcolinux":
         "xfce4-terminal",
     ]
     leftwm = [
+        "alacritty",
         "arcolinux-candy-beauty-git",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
@@ -498,6 +509,7 @@ if distro.id() == "arcolinux":
         "xfce4-terminal",
     ]
     lxqt = [
+        "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-gtk3-sardi-arc-git",
@@ -540,6 +552,7 @@ if distro.id() == "arcolinux":
         "xfce4-terminal",
     ]
     openbox = [
+        "alacritty",
         "arcolinux-common-git",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
@@ -636,6 +649,7 @@ if distro.id() == "arcolinux":
         "yakuake",
     ]
     qtile = [
+    "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-gtk3-sardi-arc-git",
@@ -666,6 +680,7 @@ if distro.id() == "arcolinux":
         "xfce4-terminal",
     ]
     spectrwm = [
+        "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-gtk3-sardi-arc-git",
@@ -700,6 +715,7 @@ if distro.id() == "arcolinux":
         "xtitle-git",
     ]
     wmderland = [
+        "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-gtk3-sardi-arc-git",
         "arcolinux-wmderland-git",
@@ -754,6 +770,7 @@ if distro.id() == "arcolinux":
         "xfce4-terminal",
     ]
     xfce = [
+        "alacritty",
         "xfce4",
         "xfce4-goodies",
         "catfish",
@@ -771,6 +788,7 @@ if distro.id() == "arcolinux":
         "arcolinux-wallpapers-git",
     ]
     xmonad = [
+        "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-gtk3-sardi-arc-git",
@@ -815,6 +833,7 @@ if distro.id() == "arcolinux":
 
 if distro.id() == "arch":
     awesome = [
+        "alacritty",
         "arcolinux-awesome-git",
         "archlinux-logout-git",
         "awesome",
@@ -830,6 +849,7 @@ if distro.id() == "arch":
         "vicious",
     ]
     bspwm = [
+        "alacritty",
         "arcolinux-bspwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -866,6 +886,7 @@ if distro.id() == "arch":
         "cutefish",
     ]
     cwm = [
+        "alacritty",
         "arcolinux-cwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -884,6 +905,7 @@ if distro.id() == "arch":
         "deepin-extra",
     ]
     dusk = [
+        "alacritty",
         "arcolinux-dwm-st-git",
         "arcolinux-dusk-git",
         "archlinux-logout-git",
@@ -897,6 +919,7 @@ if distro.id() == "arch":
         "thunar-volman",
     ]
     dwm = [
+        "alacritty",
         "arcolinux-dwm-git",
         "arcolinux-dwm-slstatus-git",
         "archlinux-logout-git",
@@ -911,6 +934,7 @@ if distro.id() == "arch":
         "thunar-volman",
     ]
     fvwm3 = [
+        "alacritty",
         "arcolinux-fvwm3-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -932,6 +956,7 @@ if distro.id() == "arch":
         "gnome-extra",
     ]
     hlwm = [
+        "alacritty",
         "arcolinux-herbstluftwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -949,6 +974,7 @@ if distro.id() == "arch":
         "xtitle-git",
     ]
     i3 = [
+        "alacritty",
         "arcolinux-i3wm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -964,6 +990,7 @@ if distro.id() == "arch":
         "thunar-volman",
     ]
     icewm = [
+        "alacritty",
         "arcolinux-icewm-git",
         "archlinux-logout-git",
         "dmenu",
@@ -977,6 +1004,7 @@ if distro.id() == "arch":
         "xdgmenumaker",
     ]
     jwm = [
+        "alacritty",
         "arcolinux-jwm-git",
         "archlinux-logout-git",
         "dmenu",
@@ -991,6 +1019,7 @@ if distro.id() == "arch":
         "xdgmenumaker",
     ]
     leftwm = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-leftwm-git",
         "dmenu",
@@ -1012,6 +1041,7 @@ if distro.id() == "arch":
         "ttf-meslo-nerd-font-powerlevel10k",
     ]
     lxqt = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-lxqt-git",
         "dmenu",
@@ -1030,6 +1060,7 @@ if distro.id() == "arch":
         "mate-tweak",
     ]
     openbox = [
+        "alacritty",
         "arcolinux-common-git",
         "arcolinux-docs-git",
         "arcolinux-geany-git",
@@ -1073,6 +1104,7 @@ if distro.id() == "arch":
         "packagekit-qt5",
     ]
     qtile = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-qtile-git",
         "awesome-terminal-fonts",
@@ -1088,6 +1120,7 @@ if distro.id() == "arch":
         "thunar-volman",
     ]
     spectrwm = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
         "arcolinux-spectrwm-git",
@@ -1108,6 +1141,7 @@ if distro.id() == "arch":
         "xtitle-git",
     ]
     wmderland = [
+        "alacritty",
         "arcolinux-wmderland-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1135,11 +1169,13 @@ if distro.id() == "arch":
         "ukui",
     ]
     xfce = [
+        "alacritty",
         "xfce4",
         "xfce4-goodies",
         "polkit-gnome",
     ]
     xmonad = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
         "arcolinux-xmonad-polybar-git",
@@ -1164,6 +1200,7 @@ if distro.id() == "arch":
 
 if distro.id() == "endeavouros":
     awesome = [
+        "alacritty",
         "arcolinux-awesome-git",
         "archlinux-logout-git",
         "awesome",
@@ -1179,6 +1216,7 @@ if distro.id() == "endeavouros":
         "vicious",
     ]
     bspwm = [
+        "alacritty",
         "arcolinux-bspwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1215,6 +1253,7 @@ if distro.id() == "endeavouros":
         "cutefish",
     ]
     cwm = [
+        "alacritty",
         "arcolinux-cwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1233,6 +1272,7 @@ if distro.id() == "endeavouros":
         "deepin-extra",
     ]
     dusk = [
+        "alacritty",
         "arcolinux-dwm-st-git",
         "arcolinux-dusk-git",
         "archlinux-logout-git",
@@ -1246,6 +1286,7 @@ if distro.id() == "endeavouros":
         "thunar-volman",
     ]
     dwm = [
+        "alacritty",
         "arcolinux-dwm-git",
         "arcolinux-dwm-slstatus-git",
         "archlinux-logout-git",
@@ -1260,6 +1301,7 @@ if distro.id() == "endeavouros":
         "thunar-volman",
     ]
     fvwm3 = [
+        "alacritty",
         "arcolinux-fvwm3-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1281,6 +1323,7 @@ if distro.id() == "endeavouros":
         "gnome-extra",
     ]
     hlwm = [
+        "alacritty",
         "arcolinux-herbstluftwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1298,6 +1341,7 @@ if distro.id() == "endeavouros":
         "xtitle-git",
     ]
     i3 = [
+        "alacritty",
         "arcolinux-i3wm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1313,6 +1357,7 @@ if distro.id() == "endeavouros":
         "thunar-volman",
     ]
     icewm = [
+        "alacritty",
         "arcolinux-icewm-git",
         "archlinux-logout-git",
         "dmenu",
@@ -1326,6 +1371,7 @@ if distro.id() == "endeavouros":
         "xdgmenumaker",
     ]
     jwm = [
+        "alacritty",
         "arcolinux-jwm-git",
         "archlinux-logout-git",
         "dmenu",
@@ -1340,6 +1386,7 @@ if distro.id() == "endeavouros":
         "xdgmenumaker",
     ]
     leftwm = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-leftwm-git",
         "dmenu",
@@ -1361,6 +1408,7 @@ if distro.id() == "endeavouros":
         "ttf-meslo-nerd-font-powerlevel10k",
     ]
     lxqt = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-lxqt-git",
         "dmenu",
@@ -1379,6 +1427,7 @@ if distro.id() == "endeavouros":
         "mate-tweak",
     ]
     openbox = [
+        "alacritty",
         "arcolinux-common-git",
         "arcolinux-docs-git",
         "arcolinux-geany-git",
@@ -1422,6 +1471,7 @@ if distro.id() == "endeavouros":
         "packagekit-qt5",
     ]
     qtile = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-qtile-git",
         "awesome-terminal-fonts",
@@ -1437,6 +1487,7 @@ if distro.id() == "endeavouros":
         "thunar-volman",
     ]
     spectrwm = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
         "arcolinux-spectrwm-git",
@@ -1457,6 +1508,7 @@ if distro.id() == "endeavouros":
         "xtitle-git",
     ]
     wmderland = [
+        "alacritty",
         "arcolinux-wmderland-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1484,11 +1536,13 @@ if distro.id() == "endeavouros":
         "ukui",
     ]
     xfce = [
+        "alacritty",
         "xfce4",
         "xfce4-goodies",
         "polkit-gnome",
     ]
     xmonad = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
         "arcolinux-xmonad-polybar-git",
@@ -1513,6 +1567,7 @@ if distro.id() == "endeavouros":
 
 if distro.id() == "garuda":
     awesome = [
+        "alacritty",
         "arcolinux-awesome-git",
         "archlinux-logout-git",
         "awesome",
@@ -1528,6 +1583,7 @@ if distro.id() == "garuda":
         "vicious",
     ]
     bspwm = [
+        "alacritty",
         "arcolinux-bspwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1564,6 +1620,7 @@ if distro.id() == "garuda":
         "cutefish",
     ]
     cwm = [
+        "alacritty",
         "arcolinux-cwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1582,6 +1639,7 @@ if distro.id() == "garuda":
         "deepin-extra",
     ]
     dusk = [
+        "alacritty",
         "arcolinux-dwm-st-git",
         "arcolinux-dusk-git",
         "archlinux-logout-git",
@@ -1595,6 +1653,7 @@ if distro.id() == "garuda":
         "thunar-volman",
     ]
     dwm = [
+        "alacritty",
         "arcolinux-dwm-git",
         "arcolinux-dwm-slstatus-git",
         "archlinux-logout-git",
@@ -1609,6 +1668,7 @@ if distro.id() == "garuda":
         "thunar-volman",
     ]
     fvwm3 = [
+        "alacritty",
         "arcolinux-fvwm3-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1630,6 +1690,7 @@ if distro.id() == "garuda":
         "gnome-extra",
     ]
     hlwm = [
+        "alacritty",
         "arcolinux-herbstluftwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1647,6 +1708,7 @@ if distro.id() == "garuda":
         "xtitle-git",
     ]
     i3 = [
+        "alacritty",
         "arcolinux-i3wm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1662,6 +1724,7 @@ if distro.id() == "garuda":
         "thunar-volman",
     ]
     icewm = [
+        "alacritty",
         "arcolinux-icewm-git",
         "archlinux-logout-git",
         "dmenu",
@@ -1675,6 +1738,7 @@ if distro.id() == "garuda":
         "xdgmenumaker",
     ]
     jwm = [
+        "alacritty",
         "arcolinux-jwm-git",
         "archlinux-logout-git",
         "dmenu",
@@ -1689,6 +1753,7 @@ if distro.id() == "garuda":
         "xdgmenumaker",
     ]
     leftwm = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-leftwm-git",
         "dmenu",
@@ -1710,6 +1775,7 @@ if distro.id() == "garuda":
         "ttf-meslo-nerd-font-powerlevel10k",
     ]
     lxqt = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-lxqt-git",
         "dmenu",
@@ -1728,6 +1794,7 @@ if distro.id() == "garuda":
         "mate-tweak",
     ]
     openbox = [
+        "alacritty",
         "arcolinux-common-git",
         "arcolinux-docs-git",
         "arcolinux-geany-git",
@@ -1771,6 +1838,7 @@ if distro.id() == "garuda":
         "packagekit-qt5",
     ]
     qtile = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-qtile-git",
         "awesome-terminal-fonts",
@@ -1786,6 +1854,7 @@ if distro.id() == "garuda":
         "thunar-volman",
     ]
     spectrwm = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
         "arcolinux-spectrwm-git",
@@ -1806,6 +1875,7 @@ if distro.id() == "garuda":
         "xtitle-git",
     ]
     wmderland = [
+        "alacritty",
         "arcolinux-wmderland-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
@@ -1833,11 +1903,13 @@ if distro.id() == "garuda":
         "ukui",
     ]
     xfce = [
+        "alacritty",
         "xfce4",
         "xfce4-goodies",
         "polkit-gnome",
     ]
     xmonad = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
         "arcolinux-xmonad-polybar-git",

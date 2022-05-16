@@ -26,12 +26,27 @@
 #tput setaf 8 = light blue
 ##################################################################################################################
 
+echo "###############################################################################"
 echo "Copying both files : etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf"
+echo "###############################################################################"
+echo "If file exists, make a backup"
+[ -f /etc/sddm.conf ] && sudo cp -p /etc/sddm.conf /etc/sddm.conf.backup
+echo
+echo "Overwriting /etc/sddm.conf"
+echo
 sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf /etc/sddm.conf
+echo
+echo "If directory /etc/sddm.conf.d does not exist, make it"
 [ -d /etc/sddm.conf.d/ ] || sudo mkdir -p /etc/sddm.conf.d/
+echo "If file exists, make a backup"
+echo
+[ -f /etc/sddm.conf.d/kde_settings.conf ] && sudo cp -p /etc/sddm.conf.d/kde_settings.conf /etc/sddm.conf.d/kde_settings.conf.backup
+echo "Overwriting /etc/sddm.conf.d/kde_settings.conf"
+echo
 sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf /etc/sddm.conf.d/kde_settings.conf
+echo
 echo "/etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf changed with configs of ATT"
-
+echo
 echo "###############################################################################"
 echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
 echo "###############################################################################"
