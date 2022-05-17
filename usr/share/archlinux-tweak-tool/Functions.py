@@ -58,6 +58,7 @@ oblogout_conf = "/etc/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
 gtk2_settings = home + "/.gtkrc-2.0"
 grub_theme_conf = "/boot/grub/themes/Vimix/theme.txt"
+grub_default_grub = "/etc/default/grub"
 xfce_config = home + "/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
 slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
@@ -705,17 +706,73 @@ def set_grub_wallpaper(self, image):
             with open(grub_theme_conf, "w") as f:
                 f.writelines(lists)
                 f.close()
-
-            show_in_app_notification(self, "Settings Saved Successfully")
+            print("Grub wallpaper saved")
+            show_in_app_notification(self, "Grub wallpaper saved")
             # MessageBox(self, "Success!!", "Settings Saved Successfully")
         except:  # noqa
             pass
 
+def set_default_theme(self):
+    if os.path.isfile(grub_default_grub):
+        if not os.path.isfile(grub_default_grub + ".bak"):
+            shutil.copy(grub_default_grub, grub_default_grub + ".bak")
+        try:
+            with open(grub_default_grub, "r") as f:
+                grubd = f.readlines()
+                f.close()
+
+            if distro.id() == "arch":
+                try:
+                    val = _get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                    pass
+
+            if distro.id() == "arch":
+                try:
+                    # for Carli
+                    val = _get_position(grubd, 'GRUB_THEME=/usr/share/grub/themes/poly-dark/theme.txt')
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                    pass
+
+            if distro.id() == "arcolinux":
+                try:
+                    val = _get_position(grubd, "#GRUB_THEME")
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                    pass
+
+            if distro.id() == "endeavouros":
+                try:
+                    val = _get_position(grubd, "GRUB_THEME=/boot/grub/themes/EndeavourOS/theme.txt")
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                    pass
+
+            if distro.id() == "garuda":
+                try:
+                    val = _get_position(grubd, 'GRUB_THEME="/usr/share/grub/themes/garuda/theme.txt"')
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                   pass
+
+            with open(grub_default_grub, "w") as f:
+                f.writelines(grubd)
+                f.close()
+
+            print("Settings saved successfully in /etc/default/grub")
+            print("We made sure you have a backup - /etc/default/grub.bak")
+            print("This line has changed in /etc/default/grub")
+            print('GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"')
+
+            show_in_app_notification(self, "Settings Saved Successfully in /etc/default/grub")
+        except Exception as e:
+            print(e)
 
 # =====================================================
 #               NEOFETCH CONF
 # =====================================================
-
 
 def neofetch_set_value(lists, pos, text, state):
     if state:
@@ -735,7 +792,7 @@ def neofetch_set_backend_value(lists, pos, text, value):
         lists[pos] = text + value + "\"\n"
 
 # ====================================================================
-#                       CUSTOM FUNCTION
+#                      GET DESKTOP
 # ====================================================================
 
 def get_desktop(self):
@@ -747,6 +804,10 @@ def get_desktop(self):
                              stderr=subprocess.STDOUT)
     dsk = desktop.stdout.decode().strip().split("\n")
     self.desktop = dsk[-1].strip()
+
+# =====================================================
+#               COPYTREE
+# =====================================================
 
 def copytree(self, src, dst, symlinks=False, ignore=None):  # noqa
 
@@ -779,7 +840,6 @@ def copytree(self, src, dst, symlinks=False, ignore=None):  # noqa
 #               CHECK RUNNING PROCESS
 # =====================================================
 
-
 def checkIfProcessRunning(processName):
     for proc in psutil.process_iter():
         try:
@@ -792,9 +852,17 @@ def checkIfProcessRunning(processName):
             pass
     return False
 
+# =====================================================
+#               RESTART PROGRAM
+# =====================================================
+
 def restart_program():
     python = sys.executable
     os.execl(python, python, *sys.argv)
+
+# =====================================================
+#               CHECK VALUE true / false
+# =====================================================
 
 def check_content(value, file):         # noqa
     with open(file, "r") as myfile:
@@ -820,4 +888,6 @@ def change_distro_label(name):      # noqa
         name = "Garuda"
     if name == "endeavouros":
         name = "EndeavourOS"
+    if name == "arch":
+        name = "Arch Linux"
     return name

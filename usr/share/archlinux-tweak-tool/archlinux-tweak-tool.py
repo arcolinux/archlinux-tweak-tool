@@ -54,13 +54,14 @@ class Main(Gtk.Window):
         print(" - ArcoLinux     - https://arcolinux.info")
         print(" - Arch Linux    - https://archlinux.org")
         print(" - Alci          - https://alci.online")
-        print(" - Carli         - https://www.arcolinuxiso.com/")
+        print(" - Carli         - https://arcolinuxiso.com/")
         print(" - Ariser        - https://ariser.eu/")
         print(" - EndeavourOS   - https://endeavouros.com/")
         print(" - Garuda        - https://garudalinux.org/")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("---------------------------------------------------------------------------")
+
         super(Main, self).__init__(title="Arch Linux Tweak Tool")
         self.set_border_width(10)
         self.connect("delete-event", self.on_close)
@@ -78,7 +79,7 @@ class Main(Gtk.Window):
 
         self.grub_image_path = ""
         self.fb = Gtk.FlowBox()
-        # Functions.test("/etc/skel/.config/bspwm")
+
         splScr = Splash.splashScreen()
 
         while Gtk.events_pending():
@@ -90,12 +91,19 @@ class Main(Gtk.Window):
         t.start()
         t.join()
 
+        #make backup of /etc/default/grub
+        if not os.path.isfile(Functions.grub_default_grub + ".bak"):
+            Functions.shutil.copy(Functions.grub_default_grub,
+                                  Functions.grub_default_grub + ".bak")
+
+        #make directory if it doesn't exist
         if not os.path.isdir(Functions.log_dir):
             try:
                 os.mkdir(Functions.log_dir)
             except Exception as e:
                 print(e)
 
+        #make directory if it doesn't exist
         if not os.path.isdir(Functions.att_log_dir):
             try:
                 os.mkdir(Functions.att_log_dir)
@@ -133,49 +141,39 @@ class Main(Gtk.Window):
             #     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
             #                           Functions.sddm_default_d2)
 
+        #adding lines to sddm
         if Functions.os.path.isfile(Functions.sddm_default_d2):
             session_exists = sddm.check_sddmk_session("Session=")
             if session_exists is False:
                 sddm.insert_session("#Session=")
 
+        #adding lines to sddm
         if Functions.os.path.isfile(Functions.sddm_default_d2):
             user_exists = sddm.check_sddmk_user("User=")
             if user_exists is False:
                 sddm.insert_user("#User=")
 
+        #ensuring we have neofetch config
         if not Functions.os.path.exists(Functions.home + "/.config/neofetch"):
             Functions.os.makedirs(Functions.home + "/.config/neofetch", 0o766)
             Functions.shutil.copy(Functions.neofetch_arco, Functions.home + "/.config/neofetch/config.conf")
             Functions.permissions(Functions.home + "/.config/neofetch")
 
+        #ensuring we have .autostart
         if not Functions.os.path.exists(Functions.home + "/.config/autostart"):
-            # Functions.MessageBox(self, "oops!",
-            #                      "some directories are missing. run 'skel' in terminal and try starting again.")
-            # Gtk.main_quit()
             Functions.os.makedirs(Functions.home + "/.config/autostart", 0o766)
             Functions.permissions(Functions.home + "/.config/autostart")
 
-        #if not Functions.os.path.isdir(Functions.home + "/" +
-        #                               Functions.bd):
-            #Functions.os.makedirs(Functions.home + "/" +
-            #                      Functions.bd, 0o766)
-            #Functions.permissions(Functions.home + "/" +
-            #                      Functions.bd)
+        #ensuring we have a directory for backups
+        if not Functions.os.path.isdir(Functions.home + "/.config/archlinux-tweak-tool"):
+            Functions.os.makedirs(Functions.home + "/.config/archlinux-tweak-tool", 0o766)
+            Functions.permissions(Functions.home + "/.config/archlinux-tweak-tool")
 
-        if not Functions.os.path.isdir(Functions.home +
-                                       "/.config/archlinux-tweak-tool"):
-
-            Functions.os.makedirs(Functions.home +
-                                  "/.config/archlinux-tweak-tool", 0o766)
-            Functions.permissions(Functions.home +
-                                  "/.config/archlinux-tweak-tool")
-        # Force Permissions
+        #ensuring permissions
         a1 = Functions.os.stat(Functions.home + "/.config/autostart")
         a2 = Functions.os.stat(Functions.home + "/.config/archlinux-tweak-tool")
-        #a3 = Functions.os.stat(Functions.home + "/" + Functions.bd)
         autostart = a1.st_uid
         att = a2.st_uid
-        #backup = a3.st_uid
 
         #fixing root permissions if the folder exists
         #can be removed later - 02/11/2021 startdate
@@ -185,12 +183,10 @@ class Main(Gtk.Window):
         if autostart == 0:
             Functions.permissions(Functions.home + "/.config/autostart")
             print("Fix autostart permissions...")
+
         if att == 0:
             Functions.permissions(Functions.home + "/.config/archlinux-tweak-tool")
             print("Fix archlinux-tweak-tool permissions...")
-        #if backup == 0:
-        #    Functions.permissions(Functions.home + "/" + Functions.bd)
-        #    print("Fix .att_backup permissions...")
 
         # if not Functions.path_check(Functions.config_dir + "images"):
         #     Functions.os.makedirs(Functions.config_dir + "images", 0o766)
@@ -281,15 +277,6 @@ class Main(Gtk.Window):
         self.opened = False
 
 #       #========================NEOFETCH LOLCAT TOGGLE===================
-
-        # config = shell + "_config"
-        # print(config)
-        # config = Functions.config
-        # test = Functions.check_content("neofetch",config)
-        # print(test)
-        # if test == False:
-        #     #util_switches[1].connect("notify::active", self.util_toggle, utils[1])
-        #     self.util_toggle(self, self.neofetch_util, "neofetch")
 
         shell = Functions.get_shell()
 
@@ -925,8 +912,9 @@ class Main(Gtk.Window):
             self.grub_image_path = x.get_name()
 
     def on_set_grub_wallpaper(self, widget):
-        # Functions.set_grub_wallpaper(self,
-        #                              self.grub_theme_combo.get_active_text())
+
+        self.on_click_install_arco_vimix_clicked(self)
+
         Functions.set_grub_wallpaper(self,
                                      self.grub_image_path)
 
@@ -936,7 +924,29 @@ class Main(Gtk.Window):
                                   Functions.grub_theme_conf)
         self.pop_themes_grub(self.grub_theme_combo,
                              Functions.get_grub_wallpapers(), True)
-        Functions.show_in_app_notification(self, "Default Settings Applied")
+
+        self.on_click_install_arco_vimix_clicked(self)
+
+        print("Default Vimix grub wallpaper applied")
+        Functions.show_in_app_notification(self, "Default Vimix grub wallpaper applied")
+
+    def on_reset_grub(self, widget):
+        if os.path.isfile(Functions.grub_default_grub + ".bak"):
+            Functions.shutil.copy(Functions.grub_default_grub + ".bak",
+                                  Functions.grub_default_grub)
+        self.pop_themes_grub(self.grub_theme_combo,
+                             Functions.get_grub_wallpapers(), True)
+
+        print("/etc/default/grub.bak is used to reset your grub")
+        Functions.show_in_app_notification(self, "Default Grub applied")
+
+        command = 'grub-mkconfig -o /boot/grub/grub.cfg'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Your original grub file has been applied")
 
     def pop_themes_grub(self, combo, lists, start):
         if os.path.isfile(Functions.grub_theme_conf):
@@ -1043,8 +1053,38 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("arcolinux-grub-theme-vimix-git has been installed")
 
-        GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed - restart ATT")
+        #changing /etc/default/grub to vimix theme
+        Functions.set_default_theme(self)
+
+        command = 'grub-mkconfig -o /boot/grub/grub.cfg'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Setting saved successfully")
+
+    def on_reset_grub_vimix(self, desktop):
+        command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("arcolinux-grub-theme-vimix-git has been installed")
+
+        #changing /etc/default/grub to vimix theme
+        Functions.set_default_theme(self)
+
+        command = 'grub-mkconfig -o /boot/grub/grub.cfg'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed")
+
 
 #    #====================================================================
 #    #                       SLIMLOCK
@@ -1611,7 +1651,7 @@ class Main(Gtk.Window):
             except Exception as e:
                     print(e)
 
-            print("We added the group autologin or checked that it exists")
+            #print("We added the group autologin or checked that it exists")
             self.sessions.set_sensitive(True)
         else:
             self.sessions.set_sensitive(False)
@@ -1759,7 +1799,7 @@ class Main(Gtk.Window):
             except Exception as e:
                     print(e)
 
-            print("We added the group autologin or checked that it exists")
+            #print("We added the group autologin or checked that it exists")
             self.sessions_sddm.set_sensitive(True)
         else:
             self.sessions_sddm.set_sensitive(False)

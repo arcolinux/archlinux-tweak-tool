@@ -2,7 +2,6 @@
 # =                  Author: Brad Heffernan                       =
 # =================================================================
 
-
 def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -56,8 +55,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
 
     grub_apply = Gtk.Button(label="Apply wallpaper")
     grub_apply.connect("clicked", self.on_set_grub_wallpaper)
-    grub_reset = Gtk.Button(label="Reset theme")
+    grub_reset = Gtk.Button(label="Reset to default Vimix wallpaper")
     grub_reset.connect("clicked", self.on_reset_grub_wallpaper)
+    grub_reset_grub = Gtk.Button(label="Apply the original grub theme")
+    grub_reset_grub.connect("clicked", self.on_reset_grub)
+    grub_reset_vimix = Gtk.Button(label="Apply the Vimix theme")
+    grub_reset_vimix.connect("clicked", self.on_reset_grub_vimix)
 
 
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -79,7 +82,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     # hbox101.pack_start(scrolled, True, True, 10)
 
     hbox9.pack_end(grub_apply, False, False, 0)
-    hbox9.pack_end(grub_reset, False, False, 0)
+    #hbox9.pack_end(grub_reset, False, False, 0)
+    hbox9.pack_end(grub_reset_grub, False, False, 0)
+    hbox9.pack_end(grub_reset_vimix, False, False, 0)
 
     vboxStack4.pack_start(hbox3, False, False, 0) #Add theme
     vboxStack4.pack_start(hbox4, False, False, 0) #Add theme
