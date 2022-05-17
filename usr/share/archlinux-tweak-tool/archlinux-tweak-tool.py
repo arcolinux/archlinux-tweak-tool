@@ -915,7 +915,10 @@ class Main(Gtk.Window):
 
         self.on_click_install_arco_vimix_clicked(self)
 
-        Functions.set_grub_wallpaper(self,
+        if self.grub_image_path == "":
+            Functions.show_in_app_notification(self, "First choose a wallpaper image")
+        else:
+            Functions.set_grub_wallpaper(self,
                                      self.grub_image_path)
 
     def on_reset_grub_wallpaper(self, widget):
