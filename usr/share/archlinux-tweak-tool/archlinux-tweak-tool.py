@@ -32,7 +32,7 @@ import fixes
 import GUI
 import subprocess
 import utilities
-from Functions import install_alacritty,install_reflector,install_rate_mirrors, os, pacman
+from Functions import os, pacman
 from subprocess import PIPE, STDOUT
 from time import sleep
 gi.require_version('Gtk', '3.0')
@@ -95,6 +95,18 @@ class Main(Gtk.Window):
         if not os.path.isfile(Functions.grub_default_grub + ".bak"):
             Functions.shutil.copy(Functions.grub_default_grub,
                                   Functions.grub_default_grub + ".bak")
+
+        #make backup of .config/xfce4/terminal/terminalrc
+        if Functions.file_check(Functions.xfce4_terminal_config):
+            if not os.path.isfile(Functions.xfce4_terminal_config + ".bak"):
+                Functions.shutil.copy(Functions.xfce4_terminal_config,
+                                    Functions.xfce4_terminal_config + ".bak")
+
+        #make backup of .config/alacritty/alacritty.yml
+        if Functions.file_check(Functions.alacritty_config):
+            if not os.path.isfile(Functions.alacritty_config + ".bak"):
+                Functions.shutil.copy(Functions.alacritty_config,
+                                    Functions.alacritty_config + ".bak")
 
         #make directory if it doesn't exist
         if not os.path.isdir(Functions.log_dir):
@@ -1210,6 +1222,22 @@ class Main(Gtk.Window):
         Functions.permissions(Functions.home + "/.config/termite")
         GLib.idle_add(Functions.show_in_app_notification, self, "Termite Themes Installed")
 
+    # def on_clicked_launch_alacritty_themes(self,widget):
+    #     Functions.install_alacritty_themes(self)
+    #     subprocess.call(["su - " + Functions.sudo_username + " -c " +  "/usr/bin/alacritty-themes"], shell=True)
+    #     GLib.idle_add(Functions.show_in_app_notification, self, "Done")
+
+    def on_clicked_reset_xfce4_terminal(self,widget):
+        if os.path.isfile(Functions.xfce4_terminal_config + ".bak"):
+            Functions.shutil.copy(Functions.xfce4_terminal_config + ".bak",
+                                  Functions.xfce4_terminal_config)
+            Functions.permissions(Functions.home + "/.config/xfce4/terminal")
+
+    def on_clicked_reset_alacritty(self,widget):
+        if os.path.isfile(Functions.alacritty_config + ".bak"):
+            Functions.shutil.copy(Functions.alacritty_config + ".bak",
+                                  Functions.alacritty_config)
+            Functions.permissions(Functions.home + "/.config/alacritty")
 
 #    #====================================================================
 #    #                       TERMITE
@@ -1910,7 +1938,7 @@ class Main(Gtk.Window):
     # ====================================================================
 
     def on_click_fix_pacman_keys(self,widget):
-        install_alacritty(self)
+        Functions.install_alacritty(self)
         Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/fix-pacman-databases-and-keys",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
@@ -1927,7 +1955,7 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Mainstream servers have been saved")
 
     def on_click_get_arch_mirrors(self,widget):
-        install_reflector(self)
+        Functions.install_reflector(self)
         Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-reflector",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
@@ -1935,7 +1963,6 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved")
 
     def on_click_get_arch_mirrors2(self,widget):
-        #install_rate_mirrors(self)
         Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-rate-mirrors",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,

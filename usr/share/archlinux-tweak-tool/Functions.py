@@ -60,6 +60,8 @@ gtk2_settings = home + "/.gtkrc-2.0"
 grub_theme_conf = "/boot/grub/themes/Vimix/theme.txt"
 grub_default_grub = "/etc/default/grub"
 xfce_config = home + "/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
+xfce4_terminal_config = home + "/.config/xfce4/terminal/terminalrc"
+alacritty_config = home + "/.config/alacritty/alacritty.yml"
 slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
@@ -567,21 +569,6 @@ def set_firefox_ublock(self, toggle, state):
         print(e)
 
 # =====================================================
-#               ALACRITTY
-# =====================================================
-
-def install_alacritty(self):
-    install = 'pacman -S alacritty --needed --noconfirm'
-
-    if os.path.exists("/usr/bin/alacritty"):
-        pass
-    else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-
-# =====================================================
 #               REFLECTOR
 # =====================================================
 
@@ -891,3 +878,37 @@ def change_distro_label(name):      # noqa
     if name == "arch":
         name = "Arch Linux"
     return name
+
+# =====================================================
+#               ALACRITTY
+# =====================================================
+
+def install_alacritty(self):
+    install = 'pacman -S alacritty --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/alacritty"):
+        #print("Alacritty is already installed")
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Alacritty is now installed")
+
+# =====================================================
+#               ALACRITTY-THEMES
+# =====================================================
+
+def install_alacritty_themes(self):
+    install = 'pacman -S alacritty-themes --noconfirm'
+
+    if os.path.exists("/usr/bin/alacritty-themes"):
+        #print("Alacritty-themes is already installed")
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Alacritty-themes is now installed")
