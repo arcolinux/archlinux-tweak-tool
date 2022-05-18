@@ -126,36 +126,42 @@ class Main(Gtk.Window):
             except Exception as e:
                 print(e)
 
-        # if os.path.exists("/usr/bin/sddm"):
-        #     if not os.path.isdir(Functions.sddm_default_d2_dir):
-        #         try:
-        #             os.mkdir(Functions.sddm_default_d2_dir)
-        #         except Exception as e:
-        #             print(e)
+        #make directory if it doesn't exist'
+        if os.path.exists("/usr/bin/sddm"):
+            if not os.path.isdir(Functions.sddm_default_d2_dir):
+                try:
+                    os.mkdir(Functions.sddm_default_d2_dir)
+                except Exception as e:
+                    print(e)
 
-            # if not Functions.os.path.exists(Functions.sddm_conf):
-            #     try:
-            #         Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
-            #                               Functions.sddm_default_d1)
-            #         Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
-            #                               Functions.sddm_default_d2)
-            #     except OSError as e:
-            #         #This will ONLY execute if the sddm files and the underlying sddm files do not exist
-            #         if e.errno == 2:
-            #             command = '/usr/local/bin/arcolinux-fix-sddm-config'
-            #             Functions.subprocess.call(command,
-            #                             shell=True,
-            #                             stdout=Functions.subprocess.PIPE,
-            #                             stderr=Functions.subprocess.STDOUT)
-            #             print("The SDDM files in your installation either did not exist, or were corrupted.")
-            #             print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
-
-
-            # if  os.path.getsize(Functions.sddm_conf) == 0:
-            #     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
-            #                           Functions.sddm_default_d1)
-            #     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
-            #                           Functions.sddm_default_d2)
+            #if there is an sddm.conf but is empty = 0
+            if Functions.os.path.isfile(Functions.sddm_conf):
+                if  os.path.getsize(Functions.sddm_conf) == 0:
+                    Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
+                                        Functions.sddm_default_d1)
+                    Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
+                                        Functions.sddm_default_d2)
+            #if there is NO sddm.conf
+            if not Functions.os.path.exists(Functions.sddm_conf):
+                try:
+                    Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
+                                          Functions.sddm_default_d1)
+                    Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
+                                          Functions.sddm_default_d2)
+                    os.unlink("/tmp/att.lock")
+                    Functions.restart_program()
+                except OSError as e:
+                    #This will ONLY execute if the sddm files and the underlying sddm files do not exist
+                    if e.errno == 2:
+                        command = '/usr/local/bin/arcolinux-fix-sddm-config'
+                        Functions.subprocess.call(command,
+                                        shell=True,
+                                        stdout=Functions.subprocess.PIPE,
+                                        stderr=Functions.subprocess.STDOUT)
+                        print("The SDDM files in your installation either did not exist, or were corrupted.")
+                        print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
+                        os.unlink("/tmp/att.lock")
+                        Functions.restart_program()
 
         #adding lines to sddm
         if Functions.os.path.isfile(Functions.sddm_default_d2):
@@ -1956,6 +1962,8 @@ class Main(Gtk.Window):
                                   Functions.sddm_default_d2)
         print("The ArcoLinux sddm configuration is now applied")
         Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
+        os.unlink("/tmp/att.lock")
+        Functions.restart_program()
 
     def on_click_sddm_enable(self, desktop):
         command = 'systemctl enable sddm.service -f'
@@ -2102,6 +2110,13 @@ class Main(Gtk.Window):
         desktopr.check_lock(self,self.d_combo.get_active_text(),state)
 
         # desktopr.install_desktop(self, self.d_combo.get_active_text())
+
+    #TO ASK
+    # def on_arco_repo_clicked(self, active):
+
+    #     self.on_pacman_arepo_toggle(self)
+    #     self.on_pacman_a3p_toggle(self)
+    #     self.on_pacman_axl_toggle(self)
 
     def on_default_clicked(self, widget):
         Functions.create_log(self)

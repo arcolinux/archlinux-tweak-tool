@@ -29,9 +29,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     #               DROPDOWN
     # =======================================
     label_warning = Gtk.Label(xalign=0)
-    label_warning.set_markup("If the ArcoLinux repos are not present you need to add them.\nSome of the desktops can only be installed <b>\nif we can install the ArcoLinux packages</b>.")
+    label_warning.set_markup("<b>Make sure the ArcoLinux repos are active - see Pacman tab</b>\n\nSome of the desktops can only be installed\nif we can access the ArcoLinux repositories")
     label = Gtk.Label(xalign=0)
     label.set_text("Select a desktop")
+
+    # button_arco_repo = Gtk.Button(label="Activate ArcoLinux repositories")
+    # button_arco_repo.connect("clicked", self.on_arco_repo_clicked)
+    # button_arco_repo.set_margin_top(30)
+
     self.d_combo = Gtk.ComboBoxText()
     self.d_combo.set_size_request(180, 0)
     self.d_combo.connect("changed", self.on_d_combo_changed)
@@ -40,6 +45,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     self.d_combo.set_active(0)
 
     dropbox.pack_start(label_warning, False, False, 0)
+    # dropbox.pack_start(button_arco_repo, False, False, 0)
     dropbox.pack_start(label, False, False, 20)
     dropbox.pack_start(self.d_combo, False, False, 0)
 
@@ -52,7 +58,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     #               BUTTONS
     # =======================================
     button_install = Gtk.Button(label="Install")
-    # button_uninstall = Gtk.Button(label="Uninstall")
     button_reinstall = Gtk.Button(label="Re-Install")
 
     if Functions.distr == "arcolinux":
