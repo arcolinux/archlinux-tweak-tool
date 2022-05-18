@@ -148,7 +148,6 @@ class Main(Gtk.Window):
                                           Functions.sddm_default_d1)
                     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
                                           Functions.sddm_default_d2)
-                    os.unlink("/tmp/att.lock")
                     Functions.restart_program()
                 except OSError as e:
                     #This will ONLY execute if the sddm files and the underlying sddm files do not exist
@@ -160,7 +159,6 @@ class Main(Gtk.Window):
                                         stderr=Functions.subprocess.STDOUT)
                         print("The SDDM files in your installation either did not exist, or were corrupted.")
                         print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
-                        os.unlink("/tmp/att.lock")
                         Functions.restart_program()
 
         #adding lines to sddm
@@ -939,8 +937,8 @@ class Main(Gtk.Window):
             self.grub_image_path = x.get_name()
 
     def on_set_grub_wallpaper(self, widget):
-
-        self.on_click_install_arco_vimix_clicked(self)
+        if not os.path.isfile(Functions.grub_theme_conf):
+            self.on_click_install_arco_vimix_clicked(self)
 
         if self.grub_image_path == "":
             Functions.show_in_app_notification(self, "First choose a wallpaper image")
@@ -955,7 +953,8 @@ class Main(Gtk.Window):
         self.pop_themes_grub(self.grub_theme_combo,
                              Functions.get_grub_wallpapers(), True)
 
-        self.on_click_install_arco_vimix_clicked(self)
+        if not os.path.isfile(Functions.grub_theme_conf):
+            self.on_click_install_arco_vimix_clicked(self)
 
         print("Default Vimix grub wallpaper applied")
         Functions.show_in_app_notification(self, "Default Vimix grub wallpaper applied")
@@ -1095,6 +1094,7 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         GLib.idle_add(Functions.show_in_app_notification, self, "Setting saved successfully")
+        Functions.restart_program()
 
     def on_reset_grub_vimix(self, desktop):
         command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
@@ -1759,6 +1759,7 @@ class Main(Gtk.Window):
         print("We enabled lightdm")
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been installed and enabled - reboot")
+        Functions.restart_program()
 
     def on_click_lightdm_enable(self, desktop):
         command = 'systemctl enable lightdm.service -f'
@@ -1770,8 +1771,8 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been enabled - reboot")
 
     def on_click_lightdm_slick(self, desktop):
-        self.on_click_att_lightdm_clicked(desktop)
-        self.on_click_lightdm_enable(desktop)
+        #self.on_click_att_lightdm_clicked(desktop)
+        #self.on_click_lightdm_enable(desktop)
         command = '/usr/share/archlinux-tweak-tool/data/any/archlinux-install-activate-lightdm-slickgreeter'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
@@ -1962,7 +1963,6 @@ class Main(Gtk.Window):
                                   Functions.sddm_default_d2)
         print("The ArcoLinux sddm configuration is now applied")
         Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
-        os.unlink("/tmp/att.lock")
         Functions.restart_program()
 
     def on_click_sddm_enable(self, desktop):
@@ -1981,7 +1981,6 @@ class Main(Gtk.Window):
         print("We relaunched ATT")
 
     def on_refresh_att_clicked(self, desktop):
-        os.unlink("/tmp/att.lock")
         Functions.restart_program()
 
     # ====================================================================

@@ -866,6 +866,7 @@ def checkIfProcessRunning(processName):
 # =====================================================
 
 def restart_program():
+    os.unlink("/tmp/att.lock")
     python = sys.executable
     os.execl(python, python, *sys.argv)
 
