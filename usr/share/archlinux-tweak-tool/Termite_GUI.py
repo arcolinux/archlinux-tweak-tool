@@ -60,13 +60,13 @@ def GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir):
    hbox26.set_margin_top(50)
    label26 = Gtk.Label()
    label26.set_markup("Choose your <b>Alcritty</b> theme - type <b>'alacritty-themes'</b> in the terminal")
-   #btn_choose_alacritty_theme = Gtk.Button(label="Open alacritty-themes")
-   #btn_choose_alacritty_theme.connect("clicked", self.on_clicked_launch_alacritty_themes)
+   btn_set_arcolinux_alacritty_theme = Gtk.Button(label="Set ArcoLinux alacritty-theme")
+   btn_set_arcolinux_alacritty_theme.connect("clicked", self.on_clicked_set_arcolinux_alacritty_theme)
    btn_reset_alacritty = Gtk.Button(label="Reset alacritty theme")
    btn_reset_alacritty.connect("clicked", self.on_clicked_reset_alacritty)
    hbox26.pack_start(label26, False, False, 10)
-   #hbox26.pack_start(btn_choose_alacritty_theme, False, False, 10)
    hbox26.pack_start(btn_reset_alacritty, False, False, 10)
+   hbox26.pack_start(btn_set_arcolinux_alacritty_theme, False, False, 10)
 
    #Xfce4-terminal
    hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)

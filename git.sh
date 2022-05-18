@@ -19,6 +19,9 @@ git pull
 
 workdir=$(pwd)
 
+echo "alacritty.yml from ArcoLinux"
+wget https://raw.githubusercontent.com/arcolinux/arcolinux-alacritty/master/etc/skel/.config/alacritty/alacritty.yml -O $workdir/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.yml
+
 echo "getting default osbeck servers"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-osbeck-as-mirror -O $workdir/usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers
 

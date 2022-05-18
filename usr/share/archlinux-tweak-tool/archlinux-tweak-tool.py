@@ -1197,12 +1197,26 @@ class Main(Gtk.Window):
 #    #====================================================================
 
     def on_clicked_install_alacritty_themes(self,widget):
-        command = 'pacman -S alacritty alacritty-themes base16-alacritty-git --needed --noconfirm'
+        command = 'pacman -S alacritty ttf-hack arcolinux-alacritty-git alacritty-themes base16-alacritty-git --needed --noconfirm'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("Installing alacritty ttf-hack arcolinux-alacritty-git alacritty-themes base16-alacritty-git ")
         GLib.idle_add(Functions.show_in_app_notification, self, "Alacritty Themes Installed")
+
+        #if there is no file copy/paste from /etc/skel else alacritty-themes crash
+        if not os.path.isfile(Functions.alacritty_config):
+            if not os.path.isdir(Functions.alacritty_config_dir):
+                try:
+                    os.mkdir(Functions.alacritty_config_dir)
+                except Exception as e:
+                    print(e)
+
+            Functions.shutil.copy(Functions.alacritty_arco,
+                                  Functions.alacritty_config)
+            Functions.permissions(Functions.home + "/.config/alacritty")
+            print("Alacritty config saved")
 
     def on_clicked_install_xfce4_themes(self,widget):
         command = 'pacman -S xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
@@ -1210,6 +1224,7 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("Installing xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal")
         GLib.idle_add(Functions.show_in_app_notification, self, "Xfce4-terminal Themes Installed")
 
     def on_clicked_install_termite_themes(self,widget):
@@ -1220,6 +1235,7 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         Functions.copy_func("/etc/skel/.config/termite", Functions.home + "/.config/", True)
         Functions.permissions(Functions.home + "/.config/termite")
+        print("Installing termite arcolinux-termite-themes-git")
         GLib.idle_add(Functions.show_in_app_notification, self, "Termite Themes Installed")
 
     # def on_clicked_launch_alacritty_themes(self,widget):
@@ -1232,12 +1248,21 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.xfce4_terminal_config + ".bak",
                                   Functions.xfce4_terminal_config)
             Functions.permissions(Functions.home + "/.config/xfce4/terminal")
+            print("xfce4_terminal reset")
 
     def on_clicked_reset_alacritty(self,widget):
         if os.path.isfile(Functions.alacritty_config + ".bak"):
             Functions.shutil.copy(Functions.alacritty_config + ".bak",
                                   Functions.alacritty_config)
             Functions.permissions(Functions.home + "/.config/alacritty")
+            print("Alacritty reset")
+
+    def on_clicked_set_arcolinux_alacritty_theme(self,widget):
+        if os.path.isfile(Functions.alacritty_config):
+            Functions.shutil.copy(Functions.alacritty_arco,
+                                  Functions.alacritty_config)
+            Functions.permissions(Functions.home + "/.config/alacritty")
+            print("Applied ArcoLinux Alacritty theme")
 
 #    #====================================================================
 #    #                       TERMITE
