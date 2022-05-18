@@ -270,7 +270,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
             vboxStack17.pack_start(hbox31, False, False, 0)
             vboxStack17.pack_start(hbox41, False, False, 0)
             ls = Gtk.Label()
-            ls.set_markup("No /etc/sddm.conf or /etc/sddm.conf.d/kde_settings.conf file found. \nUse button 1 to install and enable <b>Sddm</b>.\n ")
+            ls.set_markup("No /usr/bin/sddm, /etc/sddm.conf or /etc/sddm.conf.d/kde_settings.conf file found. \nUse button 1 to install and enable <b>Sddm</b>.\n ")
             #reset_sddm_original = Gtk.Button(label="2. Apply the sddm.conf from ArcoLinux")
             #reset_sddm_original.connect("clicked", self.on_click_no_sddm_reset_original)
             install_sddm = Gtk.Button(label="1. Install Sddm and enable it")

@@ -350,7 +350,7 @@ class Main(Gtk.Window):
                 self.autologin.set_active(True)
                 self.sessions.set_sensitive(True)
 
-        if not "plasma" in self.desktop.lower():
+        if os.path.exists("/usr/bin/sddm"):
             if Functions.os.path.isfile(Functions.sddm_default_d2):
                 if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2),"User="):
                     self.autologin_sddm.set_active(False)
