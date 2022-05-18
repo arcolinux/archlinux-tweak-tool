@@ -1,6 +1,7 @@
 #      #============================================================
 #      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
 #      #============================================================
+import os
 import Functions
 
 def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
@@ -34,23 +35,29 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
 
     tobash = Gtk.Button(label="Apply bash")
     tozsh = Gtk.Button(label="Apply zsh")
+    install_oh_my_zsh = Gtk.Button(label="Install oh-my-zsh")
     #hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     tobash.connect("clicked", self.tobash_apply)
     tozsh.connect("clicked", self.tozsh_apply)
+    install_oh_my_zsh.connect("clicked", Functions.install_oh_my_zsh)
 
     termset = Gtk.Button(label="Apply Zsh theme")
-    termreset = Gtk.Button(label="Reset ~/.zshrc")
+    termreset = Gtk.Button(label="Reset or create ~/.zshrc")
 
     hbox20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     hbox20.pack_start(tobash, False, False, 0)
     hbox20.pack_end(termset, False, False, 0)
     hbox20.pack_end(termreset, False, False, 0)
+    hbox20.pack_end(install_oh_my_zsh, False, False, 0)
     hbox20.pack_end(tozsh, False, False, 0)
 
-    termset.connect("clicked", self.on_zsh_apply)
+    termset.connect("clicked", self.on_zsh_apply_theme)
     termreset.connect("clicked", self.on_zsh_reset)
+
+    if not zsh_themes.check_oh_my():
+        termset.set_sensitive(False)
 
     #image dimensions - this will (in time) allow the image changing function to be re-usable by other parts of the app
     image_width = 600
@@ -72,5 +79,8 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     vboxStack15.pack_start(hbox21, False, False, 0)  # image
     vboxStack15.pack_end(hbox20, False, False, 0)  # Buttons
 
-    if not zsh_themes.check_oh_my():
+    if not zsh_themes.check_oh_my() or not os.path.isfile(Functions.zsh_config):
         termset.set_sensitive(False)
+        termreset.set_sensitive(False)
+    if not os.path.isfile(Functions.zsh_config):
+        termreset.set_sensitive(True)

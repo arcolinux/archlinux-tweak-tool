@@ -31,13 +31,12 @@ def get_themes(combo):
                 combo.append_text(lists_sorted[x].split(".")[0].strip())
             combo.set_active(active)
         except OSError:
-            print("ATT was unable to locate your .zshrc file, please either move your zshrc file to your base home directory (~/.zshrc), or run cz in zsh to restore the Arcolinux default.")
+            print("ATT was unable to locate your ~/.zshrc file, please move your zshrc file to your base home directory (~/.zshrc)")
         except Exception as e:
             print(e)
     else:
-        combo.append_text("oh-my-zsh-git is not installed...install it manually")
+        combo.append_text("oh-my-zsh-git is not installed...install it with the button below and restart ATT")
         combo.set_active(0)
-
 
 def set_config(self, theme):
     if not os.path.isfile(Functions.zsh_config + ".bak"):

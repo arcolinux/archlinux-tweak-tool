@@ -2,7 +2,6 @@
 #=                  Author: Erik Dubois                          =
 #=================================================================
 
-
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)

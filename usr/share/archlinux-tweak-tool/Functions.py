@@ -74,15 +74,19 @@ config_dir = home + "/.config/archlinux-tweak-tool/"
 polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
+
+bash_config = ""
 zsh_config = ""
 fish_config = ""
+
 if os.path.isfile(home + "/.config/fish/config.fish"):
     fish_config = home + "/.config/fish/config.fish"
 if os.path.isfile(home + "/.zshrc"):
     zsh_config = home + "/.zshrc"
-bash_config = ""
 if os.path.isfile(home + "/.bashrc"):
     bash_config = home + "/.bashrc"
+
+zshrc_arco = "/usr/share/archlinux-tweak-tool/data/arco/.zshrc"
 account_list = ["Standard","Administrator"]
 i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
@@ -605,15 +609,31 @@ def install_rate_mirrors(self):
 # =====================================================
 
 def install_zsh(self):
-    install = 'pacman -S zsh zsh-completions zsh-syntax-highlighting arcolinux-zsh-git oh-my-zsh-git --needed --noconfirm'
+    install = 'pacman -S zsh zsh-completions zsh-syntax-highlighting --needed --noconfirm'
 
-    if os.path.exists("/usr/bin/zsh") and os.path.exists("/etc/skel/.zshrc") :
-        pass
-    else:
+    try:
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
+        print("Installing zsh zsh-completions zsh-syntax-highlighting if needed")
+    except Exception as e:
+        print(e)
+
+# =====================================================
+#               ONLY OH-MY-ZSH
+# =====================================================
+
+def install_oh_my_zsh(self):
+    install = 'pacman -S oh-my-zsh-git --noconfirm'
+    try:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Installing oh-my-zsh-git")
+    except Exception as e:
+        print(e)
 
 # =====================================================
 #               FISH + PACKAGES (ARCOLINUXD)
