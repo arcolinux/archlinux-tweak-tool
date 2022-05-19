@@ -1,5 +1,5 @@
 # =================================================================
-# =                  Author: Brad Heffernan                       =
+# =              Author: Brad Heffernan - Erik Dubois
 # =================================================================
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
@@ -11,11 +11,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
+
     # ==========================================================
     #                       GRUB
     # ==========================================================
+
     label7 = Gtk.Label()
-    label7.set_text("Select a wallpaper")
+    label7.set_text("Select a wallpaper and apply")
 
     self.grub_theme_combo = Gtk.ComboBoxText()
     btnremove = Gtk.Button(label="Remove wallpaper")
@@ -69,9 +71,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
 
-    # hbox8.pack_start(label7, False, True, 10)
+    hbox12.pack_start(label7, False, True, 10)
     # hbox8.pack_start(self.grub_theme_combo, True, True, 10)
-    hbox8.pack_end(btnremove, False, False, 10)
+    hbox9.pack_start(btnremove, False, False, 10)
 
     hbox11.pack_start(label8, False, False, 10)
     hbox11.pack_start(self.tbimage, True, True, 10)

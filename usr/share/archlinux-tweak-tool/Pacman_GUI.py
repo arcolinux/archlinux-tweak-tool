@@ -1,8 +1,6 @@
 # =================================================================
-# =                  Author: Brad Heffernan                       =
+# =            Author: Brad Heffernan - Erik Dubois
 # =================================================================
-
-# import pacman_functions
 
 def GUI(self, Gtk, vboxStack1, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -17,10 +15,13 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               FOOTER
     # ========================================================
+
     self.button1 = Gtk.Button(label="Apply custom repo")
     self.button1.connect('clicked', self.button1_clicked)
-    reset_pacman = Gtk.Button(label="Reset pacman")
-    reset_pacman.connect("clicked", self.reset_settings, Functions.pacman)
+    reset_pacman_local = Gtk.Button(label="Reset pacman local")
+    reset_pacman_local.connect("clicked", self.reset_pacman_local)
+    reset_pacman_online = Gtk.Button(label="Reset pacman online")
+    reset_pacman_online.connect("clicked", self.reset_pacman_online)
     blank_pacman = Gtk.Button(label="Blank pacman")
     blank_pacman.connect("clicked", self.blank_pacman)
 
@@ -122,6 +123,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               SPINOFF REPOS
     # ========================================================
+
     frame2 = Gtk.Frame(label="")
     frame2lbl = frame2.get_label_widget()
     frame2lbl.set_markup("<b>Other repos</b>")
@@ -144,6 +146,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               CUSTOM REPOS
     # ========================================================
+
     label2 = Gtk.Label(xalign=0)
     label2.set_markup("<b>Add custom repo to pacman.conf</b>")
 
@@ -163,6 +166,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               ARCO REPOS PACKING
     # ========================================================
+
     hboxStack18.pack_start(label1, False, True, 10)
     hboxStack18.pack_end(self.atestrepo_button, False, False, 10)
     hboxStack7.pack_start(label5, False, True, 10)
@@ -220,13 +224,16 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               BUTTONS PACKING
     # ========================================================
+
     hboxStack4.pack_end(self.button1, False, False, 0)
-    hboxStack4.pack_end(reset_pacman, False, False, 0)
+    hboxStack4.pack_end(reset_pacman_local, False, False, 0)
+    hboxStack4.pack_end(reset_pacman_online, False, False, 0)
     hboxStack4.pack_end(blank_pacman, False, False, 0)
 
     # ========================================================
     #               TESTING REPOS PACKING TO FRAME
     # ========================================================
+
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vbox.pack_start(hboxStack5, False, False, 0)
     vbox.pack_start(hboxStack15, False, False, 0)
@@ -240,6 +247,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               OTHER REPOS PACKING TO FRAME
     # ========================================================
+
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     #vbox2.pack_start(hboxStack10, False, False, 0)
     vbox2.pack_start(vboxStack4, False, False, 0)
@@ -259,6 +267,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               PACK TO WINDOW
     # ========================================================
+
     # =================ARCO REPO========================
 
     vboxStack1.pack_start(hbox3, False, False, 0)
@@ -266,14 +275,18 @@ def GUI(self, Gtk, vboxStack1, Functions):
     vboxStack1.pack_start(frame3, False, False, 5)
 
     # =================TESTING REPO========================
+
     vboxStack1.pack_start(frame, False, False, 0)
 
     # =================OTHER REPO========================
+
     vboxStack1.pack_start(frame2, False, False, 0)
 
     # =================CUSTOM REPO========================
+
     vboxStack1.pack_start(hboxStack2, False, False, 0)
     vboxStack1.pack_start(hboxStack3, True, True, 0)
 
     # =================FOOTER========================
+
     vboxStack1.pack_end(hboxStack4, False, False, 0)

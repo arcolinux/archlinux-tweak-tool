@@ -124,11 +124,26 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack10.pack_start(aarnet_sync, False, True, 10)
 
     warning = Gtk.Label(xalign=0)
-    warning.set_markup("If you disable all these mirrors you will no longer have access to the Xlarge repository.")
+    warning.set_markup("If you disable all these mirrors you will no longer have access to the ArcoLinux Xlarge repository.")
     warning2 = Gtk.Label(xalign=0)
     warning2.set_markup("Change your /etc/pacman.conf accordingly.")
     hboxStack11.pack_start(warning, False, False, 10)
     hboxStack12.pack_start(warning2, False, False, 10)
+
+    frame4 = Gtk.Frame(label="")
+    frame4.set_margin_top(10)
+    frame4lbl = frame4.get_label_widget()
+    frame4lbl.set_markup("<b>Other mirrorlists</b>")
+
+    pace_label = Gtk.Label(xalign=0)
+    pace_label.set_margin_top(0)
+    pace_label.set_markup("We use the <b>pace</b> application to set the mirrors of other repositories.\nYou save the settings in pace by clicking on preview and save. Pace will change the orginal layout.")
+    launch_pace_btn = Gtk.Button(label="Install/launch pace")
+    launch_pace_btn.connect("clicked", self.on_click_launch_pace)
+
+    hboxStack15.pack_start(pace_label, False, False, 10)
+    hboxStack15.pack_start(launch_pace_btn, False, False, 10)
+
     # ========================================================
     #               FOOTER
     # ========================================================
@@ -162,6 +177,12 @@ def GUI(self, Gtk, vboxStack1, Functions):
 
     frame3.add(vbox3)
 
+
+    vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    #message
+    vbox4.pack_start(hboxStack15, False, False, 0)
+    frame4.add(vbox4)
+
     # ========================================================
     #               PACK TO WINDOW
     # ========================================================
@@ -169,4 +190,5 @@ def GUI(self, Gtk, vboxStack1, Functions):
     vboxStack1.pack_start(hbox3, False, False, 0)
     vboxStack1.pack_start(hbox4, False, False, 0)
     vboxStack1.pack_start(frame3, False, False, 10)
+    vboxStack1.pack_start(frame4, False, False, 10)
     vboxStack1.pack_end(hboxStack4, False, False, 0)

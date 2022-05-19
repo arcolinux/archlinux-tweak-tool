@@ -100,6 +100,10 @@ class Main(Gtk.Window):
         if not os.path.isfile(Functions.grub_default_grub + ".bak"):
             Functions.shutil.copy(Functions.grub_default_grub, Functions.grub_default_grub + ".bak")
 
+        #make backup of /etc/pacman.conf
+        if not os.path.isfile(Functions.pacman + ".bak"):
+            Functions.shutil.copy(Functions.pacman, Functions.pacman + ".bak")
+
         #make backup of .config/xfce4/terminal/terminalrc
         if Functions.file_check(Functions.xfce4_terminal_config):
             if not os.path.isfile(Functions.xfce4_terminal_config + ".bak"):
@@ -830,86 +834,87 @@ class Main(Gtk.Window):
         if distro.id() == "garuda":
             Functions.shutil.copy(Functions.blank_pacman_garuda, Functions.pacman)
 
-    def reset_settings(self, widget, filez):  # noqa
-        if os.path.isfile(filez + ".bak"):
-            Functions.shutil.copy(filez + ".bak", filez)
+    def reset_pacman_local(self, widget):  # noqa
+        if os.path.isfile(Functions.pacman + ".bak"):
+            Functions.shutil.copy(Functions.pacman + ".bak", Functions.pacman)
+            print("We have used /etc/pacman.conf.bak to reset /etc/pacman.conf")
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
 
-        if filez == pacman:
-            if distro.id() == "arch":
-                Functions.shutil.copy(Functions.pacman_arch, Functions.pacman)
-            if distro.id() == "arcolinux":
-                Functions.shutil.copy(Functions.pacman_arco, Functions.pacman)
-            if distro.id() == "endeavouros":
-                Functions.shutil.copy(Functions.pacman_eos, Functions.pacman)
-            if distro.id() == "garuda":
-                Functions.shutil.copy(Functions.pacman_garuda, Functions.pacman)
+    def reset_pacman_online(self,widget): # noqa
+        if distro.id() == "arch":
+            Functions.shutil.copy(Functions.pacman_arch, Functions.pacman)
+        if distro.id() == "arcolinux":
+            Functions.shutil.copy(Functions.pacman_arco, Functions.pacman)
+        if distro.id() == "endeavouros":
+            Functions.shutil.copy(Functions.pacman_eos, Functions.pacman)
+        if distro.id() == "garuda":
+            Functions.shutil.copy(Functions.pacman_garuda, Functions.pacman)
+        print("The online version of /etc/pacman.conf is saved")
+        Functions.show_in_app_notification(self,
+                                            "Default Settings Applied")
+        # elif filez == Functions.gtk3_settings:
 
-            Functions.show_in_app_notification(self,
-                                               "Default Settings Applied")
-        elif filez == Functions.gtk3_settings:
+        #     if os.path.isfile(Functions.gtk2_settings + ".bak"):
+        #         Functions.shutil.copy(Functions.gtk2_settings + ".bak",
+        #                               Functions.gtk2_settings)
 
-            if os.path.isfile(Functions.gtk2_settings + ".bak"):
-                Functions.shutil.copy(Functions.gtk2_settings + ".bak",
-                                      Functions.gtk2_settings)
+        #     if os.path.isfile(Functions.xfce_config + ".bak"):
+        #         Functions.shutil.copy(Functions.xfce_config + ".bak",
+        #                               Functions.xfce_config)
 
-            if os.path.isfile(Functions.xfce_config + ".bak"):
-                Functions.shutil.copy(Functions.xfce_config + ".bak",
-                                      Functions.xfce_config)
+        #     Gtk_Functions.get_gtk_themes(self, self.themeCombo)
+        #     Gtk_Functions.get_icon_themes(self, self.iconCombo)
+        #     Gtk_Functions.get_cursor_themes(self, self.cursorCombo)
 
-            Gtk_Functions.get_gtk_themes(self, self.themeCombo)
-            Gtk_Functions.get_icon_themes(self, self.iconCombo)
-            Gtk_Functions.get_cursor_themes(self, self.cursorCombo)
-
-            self.cursor_size.set_value(
-                float(Gtk_Functions.get_gtk_settings("gtk-cursor-theme-size")))
+        #     self.cursor_size.set_value(
+        #         float(Gtk_Functions.get_gtk_settings("gtk-cursor-theme-size")))
             # self.fonts.set_font(
             #     Gtk_Functions.get_gtk_settings("gtk-font-name"))
-            Functions.subprocess.call(["xsetroot -xcf /usr/share/icons/" +
-                                       self.cursorCombo.get_active_text() +
-                                       "/cursors/left_ptr " +
-                                       str(self.cursor_size.get_value())],
-                                      shell=True)
-            Functions.show_in_app_notification(self,
-                                               "Default Settings Applied")
-        elif filez == Functions.oblogout_conf:
-            self.oblog.get_model().clear()
-            vals = oblogout.get_opacity()
-            self.hscale.set_value(vals)
-            try:
-                self.tbcancel.set_text(oblogout.get_shortcut("cancel"))
-                self.tbshutdown.set_text(oblogout.get_shortcut("shutdown"))
-                self.tbsuspend.set_text(oblogout.get_shortcut("suspend"))
-                self.tbrestart.set_text(oblogout.get_shortcut("restart"))
-                self.tblogout.set_text(oblogout.get_shortcut("logout"))
-                self.tbhibernate.set_text(oblogout.get_shortcut("hibernate"))
-                self.tblock.set_text(oblogout.get_shortcut("lock"))
-            except Exception as e:
-                print(e)
+            # Functions.subprocess.call(["xsetroot -xcf /usr/share/icons/" +
+            #                            self.cursorCombo.get_active_text() +
+            #                            "/cursors/left_ptr " +
+            #                            str(self.cursor_size.get_value())],
+            #                           shell=True)
+            # Functions.show_in_app_notification(self,
+            #                                    "Default Settings Applied")
+        # elif filez == Functions.oblogout_conf:
+        #     self.oblog.get_model().clear()
+        #     vals = oblogout.get_opacity()
+        #     self.hscale.set_value(vals)
+        #     try:
+        #         self.tbcancel.set_text(oblogout.get_shortcut("cancel"))
+        #         self.tbshutdown.set_text(oblogout.get_shortcut("shutdown"))
+        #         self.tbsuspend.set_text(oblogout.get_shortcut("suspend"))
+        #         self.tbrestart.set_text(oblogout.get_shortcut("restart"))
+        #         self.tblogout.set_text(oblogout.get_shortcut("logout"))
+        #         self.tbhibernate.set_text(oblogout.get_shortcut("hibernate"))
+        #         self.tblock.set_text(oblogout.get_shortcut("lock"))
+        #     except Exception as e:
+        #         print(e)
             # self.lockBox.set_text(oblogout.get_command("lock"))
             # color = Gdk.RGBA()
             # color.parse(oblogout.get_color())
             # self.colorchooser.set_rgba(color)
-            btnString = oblogout.get_buttons()
-            oblogout.oblog_populate(self.oblog)
+            # btnString = oblogout.get_buttons()
+            # oblogout.oblog_populate(self.oblog)
 
-            if "shutdown" in btnString:
-                self.check_shut.set_active(True)
-            if "lock" in btnString:
-                self.check_lock.set_active(True)
-            if "logout" in btnString:
-                self.check_logout.set_active(True)
-            if "restart" in btnString:
-                self.check_restart.set_active(True)
-            if "cancel" in btnString:
-                self.check_cancel.set_active(True)
-            if "suspend" in btnString:
-                self.check_susp.set_active(True)
-            if "hibernate" in btnString:
-                self.check_hiber.set_active(True)
-            Functions.show_in_app_notification(self,
-                                               "Default Settings Applied")
+            # if "shutdown" in btnString:
+            #     self.check_shut.set_active(True)
+            # if "lock" in btnString:
+            #     self.check_lock.set_active(True)
+            # if "logout" in btnString:
+            #     self.check_logout.set_active(True)
+            # if "restart" in btnString:
+            #     self.check_restart.set_active(True)
+            # if "cancel" in btnString:
+            #     self.check_cancel.set_active(True)
+            # if "suspend" in btnString:
+            #     self.check_susp.set_active(True)
+            # if "hibernate" in btnString:
+            #     self.check_hiber.set_active(True)
+            # Functions.show_in_app_notification(self,
+            #                                    "Default Settings Applied")
 
     #   #====================================================================
     #   #                       HBLOCK SECURITY PRIVACY
@@ -1571,6 +1576,13 @@ class Main(Gtk.Window):
             pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
         image.set_from_pixbuf(pixbuf)
 
+    #    #====================================================================
+    #    #                       ARCOLINUX MIRRORLIST
+    #    #===================================================================
+
+    def on_click_launch_pace(self, widget):
+        Functions.install_pace(self)
+        subprocess.Popen("/usr/bin/pace",shell=False)
 
     #    #====================================================================
     #    #                       ARCOLINUX MIRRORLIST
@@ -1585,6 +1597,7 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.arcolinux_mirrorlist_original,
                                   Functions.arcolinux_mirrorlist)
             Functions.show_in_app_notification(self, "Original ArcoLinux mirrorlist is applied")
+        Functions.restart_program()
 
 
 #    #====================================================================
@@ -1979,7 +1992,7 @@ class Main(Gtk.Window):
         Functions.install_adt(self)
         subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched")
-        print("We relaunched ATT")
+        print("We started ADT")
 
     def on_refresh_att_clicked(self, desktop):
         Functions.restart_program()
@@ -2140,6 +2153,7 @@ class Main(Gtk.Window):
         if len(self.txtbox1.get_text()) >= 3 and len(self.txtbox2.get_text()) >= 3:
             self.abutton.set_sensitive(True)
 
+    #autostart toggle on and off
     def on_auto_toggle(self, widget, data, lbl):
         failed = False
         try:
@@ -2162,8 +2176,10 @@ class Main(Gtk.Window):
                 f.writelines(lines)
                 f.close()
 
+    # remove file from ~/.config/autostart
     def on_auto_remove_clicked(self, widget, data, listbox, lbl):
         os.unlink(Functions.autostart + lbl + ".desktop")
+        print("Removed item from ~/.config/autostart/")
         self.vvbox.remove(listbox)
 
     def clear_autostart(self):

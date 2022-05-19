@@ -935,3 +935,20 @@ def install_alacritty_themes(self):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
         print("Alacritty-themes is now installed")
+
+# =====================================================
+#               INSTALL PACE
+# =====================================================
+
+def install_pace(self):
+    install = 'pacman -S pace --noconfirm --needed'
+
+    if os.path.exists("/usr/bin/pace"):
+        #print("Pace is already installed")
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Pace is now installed")
