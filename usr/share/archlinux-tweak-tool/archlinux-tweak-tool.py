@@ -98,8 +98,8 @@ class Main(Gtk.Window):
 
         #put usable .zshrc file there if nothing
         if not os.path.isfile(Functions.zsh_config):
-            Functions.shutil.copy(Functions.zshrc_arco, Functions.zsh_config)
-            Functions.permissions(Functions.zsh_config)
+            Functions.shutil.copy(Functions.zshrc_arco, Functions.home)
+            Functions.permissions(Functions.home + "/.zshrc")
 
         #make backup of /etc/default/grub
         if not os.path.isfile(Functions.grub_default_grub + ".bak"):
