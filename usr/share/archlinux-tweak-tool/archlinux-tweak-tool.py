@@ -180,6 +180,7 @@ class Main(Gtk.Window):
         #ensuring we have a neofetch directory
         if not Functions.os.path.exists(Functions.home + "/.config/neofetch"):
             Functions.os.makedirs(Functions.home + "/.config/neofetch", 0o766)
+            Functions.permissions(Functions.home + "/.config/neofetch")
 
         #ensuring we have a backup of current neofetch
         if os.path.isfile(Functions.neofetch_config):
