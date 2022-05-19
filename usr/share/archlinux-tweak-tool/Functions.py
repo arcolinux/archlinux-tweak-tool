@@ -621,21 +621,6 @@ def install_zsh(self):
         print(e)
 
 # =====================================================
-#               ONLY OH-MY-ZSH
-# =====================================================
-
-def install_oh_my_zsh(self):
-    install = 'pacman -S oh-my-zsh-git --noconfirm'
-    try:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        print("Installing oh-my-zsh-git")
-    except Exception as e:
-        print(e)
-
-# =====================================================
 #               FISH + PACKAGES (ARCOLINUXD)
 # =====================================================
 

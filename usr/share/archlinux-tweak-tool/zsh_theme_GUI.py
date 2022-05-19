@@ -40,7 +40,7 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
 
     tobash.connect("clicked", self.tobash_apply)
     tozsh.connect("clicked", self.tozsh_apply)
-    install_oh_my_zsh.connect("clicked", Functions.install_oh_my_zsh)
+    install_oh_my_zsh.connect("clicked", self.install_oh_my_zsh)
 
     termset = Gtk.Button(label="Apply Zsh theme")
     termreset = Gtk.Button(label="Reset or create ~/.zshrc")

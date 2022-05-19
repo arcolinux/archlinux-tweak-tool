@@ -177,6 +177,13 @@ class Main(Gtk.Window):
             if user_exists is False:
                 sddm.insert_user("#User=")
 
+        #ensuring we have a backup of neofetch
+        if os.path.isfile(Functions.neofetch_config):
+            if not os.path.isfile(Functions.neofetch_config + ".bak"):
+                Functions.shutil.copy(Functions.neofetch_config,
+                                    Functions.neofetch_config + ".bak")
+                Functions.permissions(Functions.neofetch_config + ".bak")
+
         #ensuring we have neofetch config
         if not Functions.os.path.exists(Functions.home + "/.config/neofetch"):
             Functions.os.makedirs(Functions.home + "/.config/neofetch", 0o766)
@@ -1391,6 +1398,22 @@ class Main(Gtk.Window):
         print("Shell changed to bash for the user - logout")
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed to bash for user - logout")
 
+    def install_oh_my_zsh(self,widget):
+        if os.path.exists("/usr/share/licenses/oh-my-zsh-git/LICENSE"):
+            print("Oh-my-zsh-git already installed")
+            pass
+        else:
+            install = 'pacman -S oh-my-zsh-git --noconfirm'
+            try:
+                subprocess.call(install.split(" "),
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+                print("Installing oh-my-zsh-git")
+            except Exception as e:
+                print(e)
+        GLib.idle_add(Functions.show_in_app_notification, self, "oh-my-zsh-git is installed")
+
     #The intent behind this function is to be a centralised image changer for all portions of ATT that need it
     #Currently utilising an if tree - this is not best practice: it should be a match: case tree.
     #But I have not yet got that working.
@@ -1608,6 +1631,7 @@ class Main(Gtk.Window):
         if not os.path.isfile(Functions.neofetch_config + ".bak"):
             Functions.shutil.copy(Functions.neofetch_config,
                                   Functions.neofetch_config + ".bak")
+            Functions.permissions(Functions.neofetch_config + ".bak")
             Functions.shutil.copy(Functions.bash_config, Functions.bash_config + ".bak")
             Functions.shutil.copy(Functions.zsh_config, Functions.zsh_config + ".bak")
 
