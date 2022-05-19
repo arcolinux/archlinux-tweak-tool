@@ -177,18 +177,20 @@ class Main(Gtk.Window):
             if user_exists is False:
                 sddm.insert_user("#User=")
 
-        #ensuring we have a backup of neofetch
-        if os.path.isfile(Functions.neofetch_config):
-            if not os.path.isfile(Functions.neofetch_config + ".bak"):
-                Functions.shutil.copy(Functions.neofetch_config,
-                                    Functions.neofetch_config + ".bak")
-                Functions.permissions(Functions.neofetch_config + ".bak")
-
-        #ensuring we have neofetch config
+        #ensuring we have a neofetch directory
         if not Functions.os.path.exists(Functions.home + "/.config/neofetch"):
             Functions.os.makedirs(Functions.home + "/.config/neofetch", 0o766)
-            Functions.shutil.copy(Functions.neofetch_arco, Functions.home + "/.config/neofetch/config.conf")
-            Functions.permissions(Functions.home + "/.config/neofetch")
+
+        #ensuring we have a backup of current neofetch
+        if os.path.isfile(Functions.neofetch_config):
+            if not os.path.isfile(Functions.neofetch_config + ".bak"):
+                Functions.shutil.copy(Functions.neofetch_config, Functions.neofetch_config + ".bak")
+                Functions.permissions(Functions.neofetch_config + ".bak")
+
+        #ensuring we have a neofetch config to start with
+        if not os.path.isfile(Functions.neofetch_config):
+            Functions.shutil.copy(Functions.neofetch_arco, Functions.neofetch_config)
+            Functions.permissions(Functions.neofetch_config)
 
         #ensuring we have .autostart
         if not Functions.os.path.exists(Functions.home + "/.config/autostart"):
