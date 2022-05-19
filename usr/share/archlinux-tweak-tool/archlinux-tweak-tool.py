@@ -32,7 +32,7 @@ import GUI
 import subprocess
 import utilities
 from Functions import os, pacman
-from subprocess import PIPE, STDOUT
+from subprocess import PIPE, STDOUT, call
 from time import sleep
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib  # noqa
@@ -95,6 +95,11 @@ class Main(Gtk.Window):
             if not os.path.isfile(Functions.zsh_config + ".bak"):
                 Functions.shutil.copy(Functions.zsh_config, Functions.zsh_config + ".bak")
                 Functions.permissions(Functions.home + "/.zshrc.bak")
+
+        #put usable .zshrc file there if nothing
+        if not os.path.isfile(Functions.zsh_config):
+            Functions.shutil.copy(Functions.zshrc_arco, Functions.zsh_config)
+            Functions.permissions(Functions.zsh_config)
 
         #make backup of /etc/default/grub
         if not os.path.isfile(Functions.grub_default_grub + ".bak"):
@@ -1608,7 +1613,8 @@ class Main(Gtk.Window):
 
     def on_click_launch_pace(self, widget):
         Functions.install_pace(self)
-        subprocess.Popen("/usr/bin/pace",shell=False)
+        #subprocess.Popen("/usr/bin/pace",shell=False)
+        call("pace",shell=True)
 
     #    #====================================================================
     #    #                       ARCOLINUX MIRRORLIST
