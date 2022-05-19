@@ -1900,6 +1900,7 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We installed all ArcoLinux sddm themes")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm Themes Installed")
+        Functions.restart_program()
 
     def on_click_remove_sddm_themes(self,widget):
         command = 'pacman -Rss arcolinux-meta-sddm-themes --noconfirm'

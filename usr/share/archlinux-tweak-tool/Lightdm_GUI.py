@@ -7,7 +7,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
-    lbl1.set_text("Lightdm Autologin")
+    lbl1.set_text("Lightdm (inactive)")
+    if Functions.check_content("lightdm", "/etc/systemd/system/display-manager.service"):
+        lbl1.set_text("Lightdm (active)")
     lbl1.set_name("title")
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox5.pack_start(hseparator, True, True, 0)
