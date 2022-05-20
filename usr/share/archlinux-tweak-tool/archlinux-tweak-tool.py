@@ -1013,58 +1013,27 @@ class Main(Gtk.Window):
     #               Gtk FUNCTIONS
     # =====================================================
 
-    def save_gtk3_settings(self,
-                           widget,
-                           themeCombo,
-                           iconCombo,
-                           cursorCombo,
-                           cursor_size):
-        widget.set_sensitive(False)
+    # def save_gtk3_settings(self,
+    #                        widget,
+    #                        themeCombo,
+    #                        iconCombo,
+    #                        cursorCombo,
+    #                        cursor_size):
+    #     widget.set_sensitive(False)
 
-        t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved,
-                                       args=(self,
-                                             themeCombo.get_active_text(),
-                                             iconCombo.get_active_text(),
-                                             cursorCombo.get_active_text(),
-                                             int(str(cursor_size.get_value()
-                                                     ).split(".")[0])))
-        t.daemon = True
-        t.start()
+    #     t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved,
+    #                                    args=(self,
+    #                                          themeCombo.get_active_text(),
+    #                                          iconCombo.get_active_text(),
+    #                                          cursorCombo.get_active_text(),
+    #                                          int(str(cursor_size.get_value()
+    #                                                  ).split(".")[0])))
+    #     t.daemon = True
+    #     t.start()
 
-        Functions.show_in_app_notification(self, "Settings Saved Successfully")
-        widget.set_sensitive(True)
+    #     Functions.show_in_app_notification(self, "Settings Saved Successfully")
+    #     widget.set_sensitive(True)
 
-    def blank_pacman(source,target):
-        Functions.shutil.copy(Functions.pacman,
-                                  Functions.pacman + ".bak")
-        if distro.id() == "arch":
-            Functions.shutil.copy(Functions.blank_pacman_arch, Functions.pacman)
-        if distro.id() == "arcolinux":
-            Functions.shutil.copy(Functions.blank_pacman_arco, Functions.pacman)
-        if distro.id() == "endeavouros":
-            Functions.shutil.copy(Functions.blank_pacman_eos, Functions.pacman)
-        if distro.id() == "garuda":
-            Functions.shutil.copy(Functions.blank_pacman_garuda, Functions.pacman)
-
-    def reset_pacman_local(self, widget):  # noqa
-        if os.path.isfile(Functions.pacman + ".bak"):
-            Functions.shutil.copy(Functions.pacman + ".bak", Functions.pacman)
-            print("We have used /etc/pacman.conf.bak to reset /etc/pacman.conf")
-            Functions.show_in_app_notification(self,
-                                               "Default Settings Applied")
-
-    def reset_pacman_online(self,widget): # noqa
-        if distro.id() == "arch":
-            Functions.shutil.copy(Functions.pacman_arch, Functions.pacman)
-        if distro.id() == "arcolinux":
-            Functions.shutil.copy(Functions.pacman_arco, Functions.pacman)
-        if distro.id() == "endeavouros":
-            Functions.shutil.copy(Functions.pacman_eos, Functions.pacman)
-        if distro.id() == "garuda":
-            Functions.shutil.copy(Functions.pacman_garuda, Functions.pacman)
-        print("The online version of /etc/pacman.conf is saved")
-        Functions.show_in_app_notification(self,
-                                            "Default Settings Applied")
         # elif filez == Functions.gtk3_settings:
 
         #     if os.path.isfile(Functions.gtk2_settings + ".bak"):
@@ -1824,6 +1793,42 @@ class Main(Gtk.Window):
             print(self.text.get_text(startiter, enditer, True))
             pmf.append_repo(
                 self, self.text.get_text(startiter, enditer, True))
+
+    def blank_pacman(source,target):
+        Functions.shutil.copy(Functions.pacman,
+                                  Functions.pacman + ".bak")
+        if distro.id() == "arch":
+            Functions.shutil.copy(Functions.blank_pacman_arch, Functions.pacman)
+        if distro.id() == "arcolinux":
+            Functions.shutil.copy(Functions.blank_pacman_arco, Functions.pacman)
+        if distro.id() == "endeavouros":
+            Functions.shutil.copy(Functions.blank_pacman_eos, Functions.pacman)
+        if distro.id() == "garuda":
+            Functions.shutil.copy(Functions.blank_pacman_garuda, Functions.pacman)
+        print("We have now a blank pacman /etc/pacman.conf depending on the distro")
+        print("ATT will reboot automatically")
+        print("Now add the repositories in the order you would like them to appear in the /etc/pacman.conf")
+        Functions.restart_program()
+
+    def reset_pacman_local(self, widget):  # noqa
+        if os.path.isfile(Functions.pacman + ".bak"):
+            Functions.shutil.copy(Functions.pacman + ".bak", Functions.pacman)
+            print("We have used /etc/pacman.conf.bak to reset /etc/pacman.conf")
+            Functions.show_in_app_notification(self,
+                                               "Default Settings Applied - check in a terminal")
+
+    def reset_pacman_online(self,widget): # noqa
+        if distro.id() == "arch":
+            Functions.shutil.copy(Functions.pacman_arch, Functions.pacman)
+        if distro.id() == "arcolinux":
+            Functions.shutil.copy(Functions.pacman_arco, Functions.pacman)
+        if distro.id() == "endeavouros":
+            Functions.shutil.copy(Functions.pacman_eos, Functions.pacman)
+        if distro.id() == "garuda":
+            Functions.shutil.copy(Functions.pacman_garuda, Functions.pacman)
+        print("The online version of /etc/pacman.conf is saved")
+        Functions.show_in_app_notification(self,
+                                            "Default Settings Applied - check in a terminal")
 
     # =====================================================
     #               PATREON LINK

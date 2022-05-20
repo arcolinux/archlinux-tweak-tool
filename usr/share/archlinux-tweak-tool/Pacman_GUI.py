@@ -22,8 +22,10 @@ def GUI(self, Gtk, vboxStack1, Functions):
     reset_pacman_local.connect("clicked", self.reset_pacman_local)
     reset_pacman_online = Gtk.Button(label="Reset pacman online")
     reset_pacman_online.connect("clicked", self.reset_pacman_online)
-    blank_pacman = Gtk.Button(label="Blank pacman")
+    blank_pacman = Gtk.Button(label="Blank pacman (autoreboot) and select")
     blank_pacman.connect("clicked", self.blank_pacman)
+    label_backup = Gtk.Label(xalign=0)
+    label_backup.set_text("You can find the backup at /etc/pacman.conf.bak")
 
     # ==========================================================
     #                   GLOBALS
@@ -60,7 +62,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.atestrepo_button = Gtk.Switch()
     self.atestrepo_button.connect("notify::active", self.on_pacman_atestrepo_toggle)
     label1 = Gtk.Label(xalign=0)
-    label1.set_markup("Enable ArcoLinux testing repo")
+    label1.set_markup("# Enable ArcoLinux testing repo")
 
     self.arepo_button = Gtk.Switch()
     self.arepo_button.connect("notify::active", self.on_pacman_arepo_toggle)
@@ -88,7 +90,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.checkbutton2 = Gtk.Switch()
     self.checkbutton2.connect("notify::active", self.on_pacman_toggle1)
     label3 = Gtk.Label(xalign=0)
-    label3.set_markup("Enable Arch Linux testing repo")
+    label3.set_markup("# Enable Arch Linux testing repo")
 
     self.checkbutton6 = Gtk.Switch()
     self.checkbutton6.connect("notify::active", self.on_pacman_toggle2)
@@ -103,7 +105,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.checkbutton4 = Gtk.Switch()
     self.checkbutton4.connect("notify::active", self.on_pacman_toggle4)
     label10 = Gtk.Label(xalign=0)
-    label10.set_markup("Enable Arch Linux community testing repo")
+    label10.set_markup("# Enable Arch Linux community testing repo")
 
     self.checkbutton5 = Gtk.Switch()
     self.checkbutton5.connect("notify::active", self.on_pacman_toggle5)
@@ -113,7 +115,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.checkbutton3 = Gtk.Switch()
     self.checkbutton3.connect("notify::active", self.on_pacman_toggle6)
     label4 = Gtk.Label(xalign=0)
-    label4.set_markup("Enable Arch Linux multilib testing repo")
+    label4.set_markup("# Enable Arch Linux multilib testing repo")
 
     self.checkbutton8 = Gtk.Switch()
     self.checkbutton8.connect("notify::active", self.on_pacman_toggle7)
@@ -229,6 +231,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack4.pack_end(reset_pacman_local, False, False, 0)
     hboxStack4.pack_end(reset_pacman_online, False, False, 0)
     hboxStack4.pack_end(blank_pacman, False, False, 0)
+    hboxStack4.pack_start(label_backup, False, False, 0)
 
     # ========================================================
     #               TESTING REPOS PACKING TO FRAME
