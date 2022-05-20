@@ -1,7 +1,6 @@
 # =================================================================
-# =                  Author: Brad Heffernan                       =
+# =              Author: Brad Heffernan - Erik Dubois             =
 # =================================================================
-
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango):
 
@@ -57,6 +56,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     # =======================================
     #               BUTTONS
     # =======================================
+
     button_install = Gtk.Button(label="Install")
     button_reinstall = Gtk.Button(label="Re-Install")
 
@@ -66,7 +66,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
         button_adt.set_size_request(100,20)
         button_adt.connect("clicked",self.on_launch_adt_clicked)
 
-    # button_uninstall.connect("clicked", self.on_uninstall_clicked)
     button_install.connect("clicked", self.on_install_clicked, "inst")
     button_reinstall.connect("clicked", self.on_install_clicked, "reinst")
 
