@@ -299,8 +299,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                 THEMES
     # ==========================================================
 
-    if distro.id() == "arcolinux":
-        Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
+    #if distro.id() == "arcolinux":
+    Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
 
     # # ==========================================================
     # #                USER
@@ -347,8 +347,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack20, "stack20", "Terminal Fun") # lolcat and others
 
-    if distro.id() == "arcolinux":
-        stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
+    #if distro.id() == "arcolinux":
+    stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
 
     stack.add_titled(vboxStack18, "stack18", "User")  # Sddm config
 
