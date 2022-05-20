@@ -93,6 +93,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "vicious",
         "volumeicon",
         "xfce4-terminal",
@@ -127,6 +128,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xfce4-terminal",
         "xtitle-git",
@@ -195,6 +197,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xfce4-terminal",
     ]
@@ -232,6 +235,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xfce4-notifyd",
         "xfce4-power-manager",
@@ -268,6 +272,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xfce4-notifyd",
         "xfce4-power-manager",
@@ -307,6 +312,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xfce4-notifyd",
         "xfce4-power-manager",
@@ -359,6 +365,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xfce4-terminal",
         "xtitle-git",
@@ -395,6 +402,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xfce4-terminal",
     ]
@@ -424,6 +432,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xdgmenumaker",
         "xfce4-notifyd",
@@ -460,6 +469,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xdgmenumaker",
         "xfce4-notifyd",
@@ -499,6 +509,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "ttf-iosevka-nerd",
         "ttf-material-design-iconic-font",
         "ttf-meslo-nerd-font-powerlevel10k",
@@ -530,6 +541,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xfce4-screenshooter",
         "xfce4-taskmanager",
         "xfce4-terminal",
@@ -603,6 +615,7 @@ if distro.id() == "arcolinux":
         "thunar-archive-plugin",
         "thunar-volman",
         "tint2",
+        "ttf-hack",
         "volumeicon",
         "xcape",
         "xfce4-screenshooter",
@@ -676,6 +689,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xfce4-terminal",
     ]
@@ -709,6 +723,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xdo",
         "xfce4-terminal",
@@ -739,6 +754,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xfce4-terminal",
     ]
@@ -779,6 +795,7 @@ if distro.id() == "arcolinux":
         "mugshot",
         "polkit-gnome",
         "rxvt-unicode",
+        "ttf-hack",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-local-xfce4-git",
@@ -816,6 +833,7 @@ if distro.id() == "arcolinux":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xfce4-terminal",
         "xmonad",
@@ -846,6 +864,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "vicious",
     ]
     bspwm = [
@@ -865,6 +884,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xtitle-git",
     ]
     budgie = [
@@ -899,6 +919,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     deepin = [
         "deepin",
@@ -917,6 +938,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     dwm = [
         "alacritty",
@@ -932,6 +954,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     fvwm3 = [
         "alacritty",
@@ -950,6 +973,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     gnome = [
         "gnome",
@@ -972,6 +996,7 @@ if distro.id() == "arch":
         "thunar-archive-plugin",
         "thunar-volman",
         "xtitle-git",
+        "ttf-hack",
     ]
     i3 = [
         "alacritty",
@@ -988,6 +1013,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     icewm = [
         "alacritty",
@@ -1001,6 +1027,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xdgmenumaker",
     ]
     jwm = [
@@ -1016,6 +1043,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xdgmenumaker",
     ]
     leftwm = [
@@ -1037,6 +1065,7 @@ if distro.id() == "arch":
         "thunar-archive-plugin",
         "thunar-volman",
         "ttf-iosevka-nerd",
+        "ttf-hack",
         "ttf-material-design-iconic-font",
         "ttf-meslo-nerd-font-powerlevel10k",
     ]
@@ -1053,6 +1082,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     mate = [
         "mate",
@@ -1092,6 +1122,7 @@ if distro.id() == "arch":
         "thunar-archive-plugin",
         "thunar-volman",
         "tint2",
+        "ttf-hack",
         "xcape",
         "yad",
     ]
@@ -1118,6 +1149,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     spectrwm = [
         "alacritty",
@@ -1137,6 +1169,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xdo",
         "xtitle-git",
     ]
@@ -1155,6 +1188,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     ukui = [
         "mate-control-center",
@@ -1173,6 +1207,7 @@ if distro.id() == "arch":
         "xfce4",
         "xfce4-goodies",
         "polkit-gnome",
+        "ttf-hack",
     ]
     xmonad = [
         "alacritty",
@@ -1188,6 +1223,7 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xmonad",
         "xmonad-contrib",
         "xmonad-log",
@@ -1213,6 +1249,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "vicious",
     ]
     bspwm = [
@@ -1232,6 +1269,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xtitle-git",
     ]
     budgie = [
@@ -1266,6 +1304,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     deepin = [
         "deepin",
@@ -1284,6 +1323,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     dwm = [
         "alacritty",
@@ -1299,6 +1339,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     fvwm3 = [
         "alacritty",
@@ -1317,6 +1358,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     gnome = [
         "gnome",
@@ -1338,6 +1380,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xtitle-git",
     ]
     i3 = [
@@ -1355,6 +1398,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     icewm = [
         "alacritty",
@@ -1368,6 +1412,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xdgmenumaker",
     ]
     jwm = [
@@ -1383,6 +1428,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xdgmenumaker",
     ]
     leftwm = [
@@ -1404,6 +1450,7 @@ if distro.id() == "endeavouros":
         "thunar-archive-plugin",
         "thunar-volman",
         "ttf-iosevka-nerd",
+        "ttf-hack",
         "ttf-material-design-iconic-font",
         "ttf-meslo-nerd-font-powerlevel10k",
     ]
@@ -1420,6 +1467,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     mate = [
         "mate",
@@ -1459,6 +1507,7 @@ if distro.id() == "endeavouros":
         "thunar-archive-plugin",
         "thunar-volman",
         "tint2",
+        "ttf-hack",
         "xcape",
         "yad",
     ]
@@ -1485,6 +1534,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     spectrwm = [
         "alacritty",
@@ -1504,6 +1554,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xdo",
         "xtitle-git",
     ]
@@ -1522,6 +1573,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     ukui = [
         "mate-control-center",
@@ -1533,6 +1585,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "ukui",
     ]
     xfce = [
@@ -1555,6 +1608,7 @@ if distro.id() == "endeavouros":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xmonad",
         "xmonad-contrib",
         "xmonad-log",
@@ -1580,6 +1634,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "vicious",
     ]
     bspwm = [
@@ -1599,6 +1654,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xtitle-git",
     ]
     budgie = [
@@ -1633,6 +1689,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     deepin = [
         "deepin",
@@ -1651,6 +1708,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     dwm = [
         "alacritty",
@@ -1666,6 +1724,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     fvwm3 = [
         "alacritty",
@@ -1684,6 +1743,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     gnome = [
         "gnome",
@@ -1705,6 +1765,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xtitle-git",
     ]
     i3 = [
@@ -1722,6 +1783,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     icewm = [
         "alacritty",
@@ -1735,6 +1797,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xdgmenumaker",
     ]
     jwm = [
@@ -1750,6 +1813,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xdgmenumaker",
     ]
     leftwm = [
@@ -1771,6 +1835,7 @@ if distro.id() == "garuda":
         "thunar-archive-plugin",
         "thunar-volman",
         "ttf-iosevka-nerd",
+        "ttf-hack",
         "ttf-material-design-iconic-font",
         "ttf-meslo-nerd-font-powerlevel10k",
     ]
@@ -1787,6 +1852,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     mate = [
         "mate",
@@ -1826,6 +1892,7 @@ if distro.id() == "garuda":
         "thunar-archive-plugin",
         "thunar-volman",
         "tint2",
+        "ttf-hack",
         "xcape",
         "yad",
     ]
@@ -1852,6 +1919,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     spectrwm = [
         "alacritty",
@@ -1871,6 +1939,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xdo",
         "xtitle-git",
     ]
@@ -1889,6 +1958,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
     ]
     ukui = [
         "mate-control-center",
@@ -1900,6 +1970,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "ukui",
     ]
     xfce = [
@@ -1907,6 +1978,7 @@ if distro.id() == "garuda":
         "xfce4",
         "xfce4-goodies",
         "polkit-gnome",
+        "ttf-hack",
     ]
     xmonad = [
         "alacritty",
@@ -1922,6 +1994,7 @@ if distro.id() == "garuda":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
+        "ttf-hack",
         "xmonad",
         "xmonad-contrib",
         "xmonad-log",
