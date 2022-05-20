@@ -28,11 +28,7 @@ def GUI(self, Gtk, vboxStack3, Functions):
     hbox8.pack_start(label_top, False, False, 10)
 
     instructions = Gtk.Label()
-    #Garuda has hblock
-    if os.path.exists("/usr/bin/hblock"):
-        instructions.set_markup("To update your hblock hosts file, please disable and enable hblock\n<b>Remove your current hblock to be able to use the hblock switch</b>")
-    else:
-        instructions.set_markup("To update your hblock hosts file, please disable and enable hblock")
+    instructions.set_markup("To update your hblock hosts file, please disable and enable hblock")
     hbox11.pack_start(instructions, False, False, 10)
 
     label_hblock = Gtk.Label()
@@ -47,17 +43,6 @@ def GUI(self, Gtk, vboxStack3, Functions):
     self.hbswich = Gtk.Switch()
     self.hbswich.connect("notify::active", self.set_hblock)
     self.hbswich.set_active(state)
-    if Functions.distr == 'garuda' and os.path.exists("/usr/bin/hblock") :
-            print("Unstall your current hblock and install arcolinux-hblock-git if you want to use this")
-            print("Both packages conflict")
-            self.hbswich.set_sensitive(False)
-    else:
-        self.hbswich.set_sensitive(True)
-
-    # if state:
-    #     self.label7.set_text("Hblock active")
-    # else:
-    #     self.label7.set_text("Hblock inactive")
 
     hbox7.pack_start(label_hblock, False, False, 10)
     hbox7.pack_end(self.hbswich, False, False, 10)
