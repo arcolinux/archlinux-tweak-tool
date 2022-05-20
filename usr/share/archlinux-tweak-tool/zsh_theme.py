@@ -31,7 +31,8 @@ def get_themes(combo):
                 combo.append_text(lists_sorted[x].split(".")[0].strip())
             combo.set_active(active)
         except OSError:
-            print("ATT was unable to locate your ~/.zshrc file, please move your zshrc file to your base home directory (~/.zshrc)")
+            print("ATT was unable to locate your ~/.zshrc file. We have placed a working ~/.zshrc in your base home directory (~/.zshrc)")
+            print("You may need to reload ATT to set the options in the zsh tab")
         except Exception as e:
             print(e)
     else:
