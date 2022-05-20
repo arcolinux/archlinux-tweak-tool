@@ -7,7 +7,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_label = Gtk.Label(xalign=0)
-    hbox1_label.set_text("Fixes for any Arch Linux system")
+    hbox1_label.set_text("Fixes")
     hbox1_label.set_name("title")
     hbox1.pack_start(hbox1_label, False, False, 10)
 
@@ -86,7 +86,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
 
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox10_label = Gtk.Label(xalign=0)
-    hbox10_label.set_markup("<b>For any Arch based system</b>")
+    hbox10_label.set_markup("<b>For any Arch Linux based system</b>")
     hbox10.pack_start(hbox10_label, False, False, 10)
 
     # ======================================================================
