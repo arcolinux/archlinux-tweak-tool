@@ -2,6 +2,8 @@
 # =                  Author: Erik Dubois                          =
 # =================================================================
 
+import os
+
 def GUI(self, Gtk, vboxStack3, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -26,11 +28,15 @@ def GUI(self, Gtk, vboxStack3, Functions):
     hbox8.pack_start(label_top, False, False, 10)
 
     instructions = Gtk.Label()
-    instructions.set_markup("To update your hblock hosts file, please disable and enable hblock")
+    #Garuda has hblock
+    if os.path.exists("/usr/bin/hblock"):
+        instructions.set_markup("To update your hblock hosts file, please disable and enable hblock\n<b>Remove your current hblock to be able to use the hblock switch</b>")
+    else:
+        instructions.set_markup("To update your hblock hosts file, please disable and enable hblock")
     hbox11.pack_start(instructions, False, False, 10)
 
     label_hblock = Gtk.Label()
-    label_hblock.set_text("Enable hblock - Your orignal /etc/hosts file can be found in /etc/hosts.bak.att")
+    label_hblock.set_text("Enable/install hblock - Your orignal /etc/hosts file can be found in /etc/hosts.bak")
 
     self.label7 = Gtk.Label(xalign=0)
     self.progress = Gtk.ProgressBar()
@@ -41,6 +47,12 @@ def GUI(self, Gtk, vboxStack3, Functions):
     self.hbswich = Gtk.Switch()
     self.hbswich.connect("notify::active", self.set_hblock)
     self.hbswich.set_active(state)
+    if Functions.distr == 'garuda' and os.path.exists("/usr/bin/hblock") :
+            print("Unstall your current hblock and install arcolinux-hblock-git if you want to use this")
+            print("Both packages conflict")
+            self.hbswich.set_sensitive(False)
+    else:
+        self.hbswich.set_sensitive(True)
 
     # if state:
     #     self.label7.set_text("Hblock active")
