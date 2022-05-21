@@ -16,6 +16,10 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk  # noqa
 
+# =====================================================
+#              BEGIN DECLARATION OF VARIABLES
+# =====================================================
+
 distr = distro.id()
 
 sudo_username = os.getlogin()
@@ -144,191 +148,24 @@ Include = /etc/pacman.d/mirrorlist"
 arch_multilib_repo = "[multilib]\n\
 Include = /etc/pacman.d/mirrorlist"
 
-# =====================================================
-#               Create log file
-# =====================================================
-
-log_dir="/var/log/archlinux/"
-att_log_dir="/var/log/archlinux/att/"
-
-def create_log(self):
-    print('Making log in /var/log/archlinux')
-    now = datetime.datetime.now()
-    time = now.strftime("%Y-%m-%d-%H-%M-%S" )
-    destination = att_log_dir + 'att-log-' + time
-    command = 'sudo pacman -Q > ' + destination
-    subprocess.call(command,
-                    shell=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
-    #GLib.idle_add(show_in_app_notification, self, "Log file created")
 
 # =====================================================
-#               NOTIFICATIONS
+#              END DECLARATION OF VARIABLES
+# =====================================================
+# =====================================================
+# =====================================================
+# =====================================================
+# =====================================================
+#               BEGIN GLOBAL FUNCTIONS
 # =====================================================
 
-def show_in_app_notification(self, message):
-    if self.timeout_id is not None:
-        GLib.source_remove(self.timeout_id)
-        self.timeout_id = None
-
-    self.notification_label.set_markup("<span foreground=\"white\">" +
-                                       message + "</span>")
-    self.notification_revealer.set_reveal_child(True)
-    self.timeout_id = GLib.timeout_add(3000, timeOut, self)
-
-
-def timeOut(self):
-    close_in_app_notification(self)
-
-
-def close_in_app_notification(self):
-    self.notification_revealer.set_reveal_child(False)
-    GLib.source_remove(self.timeout_id)
-    self.timeout_id = None
-
-# =====================================================
-#               PERMISSIONS
-# =====================================================
-
-
-def test(dst):
-    for root, dirs, filesr in os.walk(dst):
-        # print(root)
-        for folder in dirs:
-            pass
-            # print(dst + "/" + folder)
-            for file in filesr:
-                pass
-                # print(dst + "/" + folder + "/" + file)
-        for file in filesr:
-            pass
-            # print(dst + "/" + file)
-
-
-def permissions(dst):
-    try:
-        # original_umask = os.umask(0)
-        # calls = subprocess.run(["sh", "-c", "cat /etc/passwd | grep " +
-        #                         sudo_username],
-        #                        shell=False,
-        #                        stdout=subprocess.PIPE,
-        #                        stderr=subprocess.STDOUT)
-        groups = subprocess.run(["sh", "-c", "id " +
-                                 sudo_username],
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
-        for x in groups.stdout.decode().split(" "):
-            if "gid" in x:
-                g = x.split("(")[1]
-                group = g.replace(")", "").strip()
-        # print(group)
-        # name = calls.stdout.decode().split(":")[0].strip()
-        # group = calls.stdout.decode().split(":")[4].strip()
-
-        subprocess.call(["chown", "-R",
-                         sudo_username + ":" + group, dst], shell=False)
-
-    except Exception as e:
-        print(e)
-
-# =====================================================
-#               COPY FUNCTION
-# =====================================================
-
-def copy_func(src, dst, isdir=False):
-    if isdir:
-        subprocess.run(["cp", "-Rp", src, dst], shell=False)
-    else:
-        subprocess.run(["cp", "-p", src, dst], shell=False)
-    # permissions(dst)
-
-# =====================================================
-#               SOURCE
-# =====================================================
-
-
-def source_shell(self):
-    process = subprocess.run(["sh", "-c", "echo \"$SHELL\""],
-                             stdout=subprocess.PIPE)
-
-    output = process.stdout.decode().strip()
-    print(output)
-    if output == "/bin/bash":
-        subprocess.run(["bash", "-c", "su - " + sudo_username +
-                        " -c \"source " + home + "/.bashrc\""],
-                       stdout=subprocess.PIPE)
-    elif output == "/bin/zsh":
-        subprocess.run(["zsh", "-c", "su - " + sudo_username +
-                        " -c \"source " + home + "/.zshrc\""],
-                       stdout=subprocess.PIPE)
-    elif output == "/usr/bin/fish":
-        subprocess.run(["fish", "-c", "su - " + sudo_username +
-                        " -c \"source " + home + "/.config/fish/config.fish\""],
-                       stdout=subprocess.PIPE)
-
-def get_shell():
-    process = subprocess.run(["su", "-", sudo_username,"-c","echo \"$SHELL\""],
-                             #shell=False,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.STDOUT)
-
-    output = process.stdout.decode().strip().strip('\n')
-    if output == "/bin/bash" or output == "/usr/bin/bash":
-        return "bash"
-    elif output == "/bin/zsh" or output == "/usr/bin/zsh":
-        return "zsh"
-    elif output == "/bin/fish" or output == "/usr/bin/fish":
-        return "fish"
-
-def run_as_user(script):
-    subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)
-
-# =====================================================
-#               MESSAGEBOX
-# =====================================================
-
-
-def MessageBox(self, title, message):
-    md2 = Gtk.MessageDialog(parent=self,
-                            flags=0,
-                            message_type=Gtk.MessageType.INFO,
-                            buttons=Gtk.ButtonsType.OK,
-                            text=title)
-    md2.format_secondary_markup(message)
-    md2.run()
-    md2.destroy()
-
-# =====================================================
-#               CONVERT COLOR
-# =====================================================
-
-
-def rgb_to_hex(rgb):
-    if "rgb" in rgb:
-        rgb = rgb.replace("rgb(", "").replace(")", "")
-        vals = rgb.split(",")
-        return "#{0:02x}{1:02x}{2:02x}".format(clamp(int(vals[0])),
-                                               clamp(int(vals[1])),
-                                               clamp(int(vals[2])))
-    return rgb
-
-
-def clamp(x):
-    return max(0, min(x, 255))
-
-
-# =====================================================
-#               GLOBAL FUNCTIONS
-# =====================================================
-
-
+# get position in list
 def _get_position(lists, value):
     data = [string for string in lists if value in string]
     position = lists.index(data[0])
     return position
 
+# get positions in list
 def _get_positions(lists, value):
     data = [string for string in lists if value in string]
     position = []
@@ -336,6 +173,7 @@ def _get_positions(lists, value):
         position.append(lists.index(d))
     return position
 
+# get variable from list
 def _get_variable(lists, value):
     data = [string for string in lists if value in string]
 
@@ -351,8 +189,6 @@ def _get_variable(lists, value):
     return data_clean
 
 # Check  value exists
-
-
 def check_value(list, value):
     data = [string for string in list if value in string]
     if len(data) >= 1:
@@ -362,7 +198,7 @@ def check_value(list, value):
                 data.remove(i)
     return data
 
-
+# check backups
 def check_backups(now):
     if not os.path.exists(home + "/" + bd + "/Backup-" +
                           now.strftime("%Y-%m-%d %H")):
@@ -370,217 +206,133 @@ def check_backups(now):
                     now.strftime("%Y-%m-%d %H"), 0o777)
         permissions(home + "/" + bd + "/Backup-" + now.strftime("%Y-%m-%d %H"))
 
-# =====================================================
-#               Check if File Exists
-# =====================================================
+# check process is running
+def checkIfProcessRunning(processName):
+    for proc in psutil.process_iter():
+        try:
+            pinfo = proc.as_dict(attrs=['pid', 'name', 'create_time'])
+            if processName == pinfo['pid']:
+                return True
+        except (psutil.NoSuchProcess,
+                psutil.AccessDenied,
+                psutil.ZombieProcess):
+            pass
+    return False
 
+# copytree
+def copytree(self, src, dst, symlinks=False, ignore=None):  # noqa
 
+    if not os.path.exists(dst):
+        os.makedirs(dst)
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.exists(d):
+            try:
+                shutil.rmtree(d)
+            except Exception as e:
+                print(e)
+                os.unlink(d)
+        if os.path.isdir(s):
+            try:
+                shutil.copytree(s, d, symlinks, ignore)
+            except Exception as e:
+                print(e)
+                print("ERROR2")
+                self.ecode = 1
+        else:
+            try:
+                shutil.copy2(s, d)
+            except:  # noqa
+                print("ERROR3")
+                self.ecode = 1
+
+# check lightdm value
+def check_lightdm_value(list, value):
+    data = [string for string in list if value in string]
+    return data
+
+# check sddm value
+def check_sddm_value(list, value):
+    data = [string for string in list if value in string]
+    return data
+
+# check if file exists
 def file_check(file):
     if os.path.isfile(file):
         return True
 
     return False
 
-
+# check if path exists
 def path_check(path):
     if os.path.isdir(path):
         return True
 
     return False
 
-# =====================================================
-#               GTK3 CONF
-# =====================================================
+# check if value is true or false in file
+def check_content(value, file):         # noqa
+    with open(file, "r") as myfile:
+        lines = myfile.readlines()
+        myfile.close()
 
-
-def gtk_check_value(my_list, value):
-    data = [string for string in my_list if value in string]
-    if len(data) >= 1:
-        data1 = [string for string in data if "#" in string]
-        for i in data1:
-            if i[:4].find('#') != -1:
-                data.remove(i)
-    return data
-
-
-def gtk_get_position(my_list, value):
-    data = [string for string in my_list if value in string]
-    position = my_list.index(data[0])
-    return position
-
-
-# =====================================================
-#               OBLOGOUT CONF
-# =====================================================
-# Get shortcuts index
-
-
-def get_shortcuts(conflist):
-    sortcuts = _get_variable(conflist, "shortcuts")
-    shortcuts_index = _get_position(conflist, sortcuts[0])
-    return int(shortcuts_index)
-
-# Get commands index
-
-
-def get_commands(conflist):
-    commands = _get_variable(conflist, "commands")
-    commands_index = _get_position(conflist, commands[0])
-    return int(commands_index)
-
-# =====================================================
-#               LIGHTDM CONF
-# =====================================================
-
-
-def check_lightdm_value(list, value):
-    data = [string for string in list if value in string]
-    # if len(data) >= 1:
-    #     data1 = [string for string in data if "#" in string]
-
-    return data
-
-# =====================================================
-#               SDDM CONF
-# =====================================================
-
-def check_sddm_value(list, value):
-    data = [string for string in list if value in string]
-    return data
-
-# =====================================================
-#               HBLOCK CONF
-# =====================================================
-
-def hblock_get_state(self):
-    lines = int(subprocess.check_output('wc -l /etc/hosts',
-                                        shell=True).strip().split()[0])
-    if os.path.exists("/usr/bin/hblock") and lines > 100:
-        return True
-
-    self.firstrun = False
-    return False
-
-def do_pulse(data, prog):
-    prog.pulse()
-    return True
-
-def set_hblock(self, toggle, state):
-    GLib.idle_add(toggle.set_sensitive, False)
-    GLib.idle_add(self.label7.set_text, "Run..")
-    GLib.idle_add(self.progress.set_fraction, 0.2)
-
-    timeout_id = None
-    timeout_id = GLib.timeout_add(100, do_pulse, None, self.progress)
-
-    if not os.path.isfile("/etc/hosts.bak"):
-            shutil.copy("/etc/hosts", "/etc/hosts.bak")
-
-    try:
-
-        install = 'pacman -S arcolinux-hblock-git --needed --noconfirm'
-        enable = "/usr/bin/hblock"
-
-        if state:
-            if os.path.exists("/usr/bin/hblock"):
-                GLib.idle_add(self.label7.set_text, "Database update...")
-                subprocess.call([enable],
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
+    for line in lines:
+        if value in line:
+            if value in line:
+                return True
             else:
-                GLib.idle_add(self.label7.set_text, "Install Hblock......")
-                subprocess.call(install.split(" "),
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
-                GLib.idle_add(self.label7.set_text, "Database update...")
-                subprocess.call([enable],
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
-
-        else:
-            GLib.idle_add(self.label7.set_text, "Remove update...")
-            subprocess.run(["sh", "-c",
-                            "HBLOCK_SOURCES=\'\' /usr/bin/hblock"],
-                           shell=False,
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT)
-
-        GLib.idle_add(self.label7.set_text, "Complete")
-        GLib.source_remove(timeout_id)
-        timeout_id = None
-        GLib.idle_add(self.progress.set_fraction, 0)
-
-        GLib.idle_add(toggle.set_sensitive, True)
-        if state:
-            GLib.idle_add(self.label7.set_text, "HBlock Active")
-        else:
-            GLib.idle_add(self.label7.set_text, "HBlock Inactive")
-
-    except Exception as e:
-        MessageBox(self, "ERROR!!", str(e))
-        print(e)
-
-# =====================================================
-#               UBLOCK ORIGIN
-# =====================================================
-
-def ublock_get_state(self):
-    if os.path.exists("/usr/lib/firefox/browser/extensions/uBlock0@raymondhill.net.xpi"):
-        return True
+                return False
     return False
 
-def set_firefox_ublock(self, toggle, state):
-    GLib.idle_add(toggle.set_sensitive, False)
-    GLib.idle_add(self.label7.set_text, "Run..")
-    GLib.idle_add(self.progress.set_fraction, 0.2)
-
-    timeout_id = None
-    timeout_id = GLib.timeout_add(100, do_pulse, None, self.progress)
-
-    try:
-
-        install_ublock = "pacman -S firefox-ublock-origin --needed --noconfirm"
-        uninstall_ublock = 'pacman -Rs firefox-ublock-origin --noconfirm'
-
-        if state:
-            GLib.idle_add(self.label7.set_text, "Installing ublock Origin...")
-            subprocess.call(install_ublock.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
-        else:
-            GLib.idle_add(self.label7.set_text, "Removing ublock Origin...")
-            subprocess.call(uninstall_ublock.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
-
-        GLib.idle_add(self.label7.set_text, "Complete")
-        GLib.source_remove(timeout_id)
-        timeout_id = None
-        GLib.idle_add(self.progress.set_fraction, 0)
-
-        GLib.idle_add(toggle.set_sensitive, True)
-        if state:
-            GLib.idle_add(self.label7.set_text, "uBlock Origin installed")
-        else:
-            GLib.idle_add(self.label7.set_text, "uBlock Origin removed")
-
-    except Exception as e:
-        MessageBox(self, "ERROR!!", str(e))
-        print(e)
-
 # =====================================================
-#               REFLECTOR
+#               END GLOBAL FUNCTIONS
+# =====================================================
+# =====================================================
+# =====================================================
+# =====================================================
+# =====================================================
+#               ALACRITTY
 # =====================================================
 
-def install_reflector(self):
-    install = 'pacman -S reflector --needed --noconfirm'
+def install_alacritty(self):
+    install = 'pacman -S alacritty --needed --noconfirm'
 
-    if os.path.exists("/usr/bin/reflector"):
+    if os.path.exists("/usr/bin/alacritty"):
+        #print("Alacritty is already installed")
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Alacritty is now installed")
+
+# =====================================================
+#               ALACRITTY-THEMES
+# =====================================================
+
+def install_alacritty_themes(self):
+    install = 'pacman -S alacritty-themes --noconfirm'
+
+    if os.path.exists("/usr/bin/alacritty-themes"):
+        #print("Alacritty-themes is already installed")
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Alacritty-themes is now installed")
+
+# =====================================================
+#               ARCOLINUX-DESKTOP-TRASHER
+# =====================================================
+
+def install_adt(self):
+    install = 'pacman -S arcolinux-desktop-trasher-git --noconfirm'
+
+    if os.path.exists("/usr/local/bin/arcolinux-desktop-trasher"):
         pass
     else:
         subprocess.call(install.split(" "),
@@ -589,35 +341,46 @@ def install_reflector(self):
                         stderr=subprocess.STDOUT)
 
 # =====================================================
-#               RATE-MIRRORS
+#               CONVERT COLOR
 # =====================================================
 
-def install_rate_mirrors(self):
-    install = 'pacman -S rate-mirrors --needed --noconfirm'
+def rgb_to_hex(rgb):
+    if "rgb" in rgb:
+        rgb = rgb.replace("rgb(", "").replace(")", "")
+        vals = rgb.split(",")
+        return "#{0:02x}{1:02x}{2:02x}".format(clamp(int(vals[0])),
+                                               clamp(int(vals[1])),
+                                               clamp(int(vals[2])))
+    return rgb
 
-    if os.path.exists("/usr/bin/rate-mirrors"):
-        pass
+
+def clamp(x):
+    return max(0, min(x, 255))
+
+# =====================================================
+#               COPY FUNCTION
+# =====================================================
+
+def copy_func(src, dst, isdir=False):
+    if isdir:
+        subprocess.run(["cp", "-Rp", src, dst], shell=False)
     else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.run(["cp", "-p", src, dst], shell=False)
 
 # =====================================================
-#               ZSH + PACKAGES (ARCOLINUXD)
+#               DISTRO LABEL
 # =====================================================
 
-def install_zsh(self):
-    install = 'pacman -S zsh zsh-completions zsh-syntax-highlighting --needed --noconfirm'
-
-    try:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        print("Installing zsh zsh-completions zsh-syntax-highlighting if needed")
-    except Exception as e:
-        print(e)
+def change_distro_label(name):      # noqa
+    if name == "arcolinux":
+        name = "ArcoLinux"
+    if name == "garuda":
+        name = "Garuda"
+    if name == "endeavouros":
+        name = "EndeavourOS"
+    if name == "arch":
+        name = "Arch Linux"
+    return name
 
 # =====================================================
 #               FISH + PACKAGES (ARCOLINUXD)
@@ -645,25 +408,42 @@ def remove_fish(self):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
 
+# ====================================================================
+#                      GET DESKTOP
+# ====================================================================
+
+def get_desktop(self):
+    base_dir = os.path.dirname(os.path.realpath(__file__))
+
+    desktop = subprocess.run(["sh", base_dir + "/get_desktop.sh", "-n"],
+                             shell=False,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT)
+    dsk = desktop.stdout.decode().strip().split("\n")
+    self.desktop = dsk[-1].strip()
+
 # =====================================================
-#               ARCOLINUX-DESKTOP-TRASHER
+#               GTK3 CONF
 # =====================================================
 
-def install_adt(self):
-    install = 'pacman -S arcolinux-desktop-trasher-git --noconfirm'
+def gtk_check_value(my_list, value):
+    data = [string for string in my_list if value in string]
+    if len(data) >= 1:
+        data1 = [string for string in data if "#" in string]
+        for i in data1:
+            if i[:4].find('#') != -1:
+                data.remove(i)
+    return data
 
-    if os.path.exists("/usr/local/bin/arcolinux-desktop-trasher"):
-        pass
-    else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+
+def gtk_get_position(my_list, value):
+    data = [string for string in my_list if value in string]
+    position = my_list.index(data[0])
+    return position
 
 # =====================================================
 #               GRUB CONF
 # =====================================================
-
 
 def get_grub_wallpapers():
     if os.path.isdir("/boot/grub/themes/Vimix"):
@@ -754,14 +534,123 @@ def set_default_theme(self):
                 f.writelines(grubd)
                 f.close()
 
-            print("Settings saved successfully in /etc/default/grub")
+            print("Grub settings saved successfully in /etc/default/grub")
             print("We made sure you have a backup - /etc/default/grub.bak")
             print("This line has changed in /etc/default/grub")
             print('GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"')
 
-            show_in_app_notification(self, "Settings Saved Successfully in /etc/default/grub")
+            show_in_app_notification(self, "Grub settings saved in /etc/default/grub")
         except Exception as e:
             print(e)
+
+# =====================================================
+#               HBLOCK CONF
+# =====================================================
+
+def hblock_get_state(self):
+    lines = int(subprocess.check_output('wc -l /etc/hosts',
+                                        shell=True).strip().split()[0])
+    if os.path.exists("/usr/bin/hblock") and lines > 100:
+        return True
+
+    self.firstrun = False
+    return False
+
+def do_pulse(data, prog):
+    prog.pulse()
+    return True
+
+def set_hblock(self, toggle, state):
+    GLib.idle_add(toggle.set_sensitive, False)
+    GLib.idle_add(self.label7.set_text, "Run..")
+    GLib.idle_add(self.progress.set_fraction, 0.2)
+
+    timeout_id = None
+    timeout_id = GLib.timeout_add(100, do_pulse, None, self.progress)
+
+    if not os.path.isfile("/etc/hosts.bak"):
+            shutil.copy("/etc/hosts", "/etc/hosts.bak")
+
+    try:
+
+        install = 'pacman -S arcolinux-hblock-git --needed --noconfirm'
+        enable = "/usr/bin/hblock"
+
+        if state:
+            if os.path.exists("/usr/bin/hblock"):
+                GLib.idle_add(self.label7.set_text, "Database update...")
+                subprocess.call([enable],
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+            else:
+                GLib.idle_add(self.label7.set_text, "Install Hblock......")
+                subprocess.call(install.split(" "),
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+                GLib.idle_add(self.label7.set_text, "Database update...")
+                subprocess.call([enable],
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+
+        else:
+            GLib.idle_add(self.label7.set_text, "Remove update...")
+            subprocess.run(["sh", "-c",
+                            "HBLOCK_SOURCES=\'\' /usr/bin/hblock"],
+                           shell=False,
+                           stdout=subprocess.PIPE,
+                           stderr=subprocess.STDOUT)
+
+        GLib.idle_add(self.label7.set_text, "Complete")
+        GLib.source_remove(timeout_id)
+        timeout_id = None
+        GLib.idle_add(self.progress.set_fraction, 0)
+
+        GLib.idle_add(toggle.set_sensitive, True)
+        if state:
+            GLib.idle_add(self.label7.set_text, "HBlock Active")
+        else:
+            GLib.idle_add(self.label7.set_text, "HBlock Inactive")
+
+    except Exception as e:
+        MessageBox(self, "ERROR!!", str(e))
+        print(e)
+
+# =====================================================
+#               LOG FILE CREATION
+# =====================================================
+
+log_dir="/var/log/archlinux/"
+att_log_dir="/var/log/archlinux/att/"
+
+def create_log(self):
+    print('Making log in /var/log/archlinux')
+    now = datetime.datetime.now()
+    time = now.strftime("%Y-%m-%d-%H-%M-%S" )
+    destination = att_log_dir + 'att-log-' + time
+    command = 'sudo pacman -Q > ' + destination
+    subprocess.call(command,
+                    shell=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT)
+    #GLib.idle_add(show_in_app_notification, self, "Log file created")
+
+# =====================================================
+#               MESSAGEBOX
+# =====================================================
+
+
+def MessageBox(self, title, message):
+    md2 = Gtk.MessageDialog(parent=self,
+                            flags=0,
+                            message_type=Gtk.MessageType.INFO,
+                            buttons=Gtk.ButtonsType.OK,
+                            text=title)
+    md2.format_secondary_markup(message)
+    md2.run()
+    md2.destroy()
 
 # =====================================================
 #               NEOFETCH CONF
@@ -779,149 +668,50 @@ def neofetch_set_value(lists, pos, text, state):
 
     return lists
 
-
 def neofetch_set_backend_value(lists, pos, text, value):
     if text in lists[pos] and "#" not in lists[pos]:
         lists[pos] = text + value + "\"\n"
 
-# ====================================================================
-#                      GET DESKTOP
-# ====================================================================
-
-def get_desktop(self):
-    base_dir = os.path.dirname(os.path.realpath(__file__))
-
-    desktop = subprocess.run(["sh", base_dir + "/get_desktop.sh", "-n"],
-                             shell=False,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.STDOUT)
-    dsk = desktop.stdout.decode().strip().split("\n")
-    self.desktop = dsk[-1].strip()
-
 # =====================================================
-#               COPYTREE
+#               NOTIFICATIONS
 # =====================================================
 
-def copytree(self, src, dst, symlinks=False, ignore=None):  # noqa
+def show_in_app_notification(self, message):
+    if self.timeout_id is not None:
+        GLib.source_remove(self.timeout_id)
+        self.timeout_id = None
 
-    if not os.path.exists(dst):
-        os.makedirs(dst)
-    for item in os.listdir(src):
-        s = os.path.join(src, item)
-        d = os.path.join(dst, item)
-        if os.path.exists(d):
-            try:
-                shutil.rmtree(d)
-            except Exception as e:
-                print(e)
-                os.unlink(d)
-        if os.path.isdir(s):
-            try:
-                shutil.copytree(s, d, symlinks, ignore)
-            except Exception as e:
-                print(e)
-                print("ERROR2")
-                self.ecode = 1
-        else:
-            try:
-                shutil.copy2(s, d)
-            except:  # noqa
-                print("ERROR3")
-                self.ecode = 1
+    self.notification_label.set_markup("<span foreground=\"white\">" +
+                                       message + "</span>")
+    self.notification_revealer.set_reveal_child(True)
+    self.timeout_id = GLib.timeout_add(3000, timeOut, self)
+
+def timeOut(self):
+    close_in_app_notification(self)
+
+
+def close_in_app_notification(self):
+    self.notification_revealer.set_reveal_child(False)
+    GLib.source_remove(self.timeout_id)
+    self.timeout_id = None
 
 # =====================================================
-#               CHECK RUNNING PROCESS
+#               OBLOGOUT CONF
 # =====================================================
+# Get shortcuts index
+def get_shortcuts(conflist):
+    sortcuts = _get_variable(conflist, "shortcuts")
+    shortcuts_index = _get_position(conflist, sortcuts[0])
+    return int(shortcuts_index)
 
-def checkIfProcessRunning(processName):
-    for proc in psutil.process_iter():
-        try:
-            pinfo = proc.as_dict(attrs=['pid', 'name', 'create_time'])
-            if processName == pinfo['pid']:
-                return True
-        except (psutil.NoSuchProcess,
-                psutil.AccessDenied,
-                psutil.ZombieProcess):
-            pass
-    return False
-
-# =====================================================
-#               RESTART PROGRAM
-# =====================================================
-
-def restart_program():
-    os.unlink("/tmp/att.lock")
-    python = sys.executable
-    os.execl(python, python, *sys.argv)
+# Get commands index
+def get_commands(conflist):
+    commands = _get_variable(conflist, "commands")
+    commands_index = _get_position(conflist, commands[0])
+    return int(commands_index)
 
 # =====================================================
-#               CHECK VALUE true / false
-# =====================================================
-
-def check_content(value, file):         # noqa
-    with open(file, "r") as myfile:
-        lines = myfile.readlines()
-        myfile.close()
-
-    for line in lines:
-        if value in line:
-            if value in line:
-                return True
-            else:
-                return False
-    return False
-
-# =====================================================
-#               DISTRO LABEL
-# =====================================================
-
-def change_distro_label(name):      # noqa
-    if name == "arcolinux":
-        name = "ArcoLinux"
-    if name == "garuda":
-        name = "Garuda"
-    if name == "endeavouros":
-        name = "EndeavourOS"
-    if name == "arch":
-        name = "Arch Linux"
-    return name
-
-# =====================================================
-#               ALACRITTY
-# =====================================================
-
-def install_alacritty(self):
-    install = 'pacman -S alacritty --needed --noconfirm'
-
-    if os.path.exists("/usr/bin/alacritty"):
-        #print("Alacritty is already installed")
-        pass
-    else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        print("Alacritty is now installed")
-
-# =====================================================
-#               ALACRITTY-THEMES
-# =====================================================
-
-def install_alacritty_themes(self):
-    install = 'pacman -S alacritty-themes --noconfirm'
-
-    if os.path.exists("/usr/bin/alacritty-themes"):
-        #print("Alacritty-themes is already installed")
-        pass
-    else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        print("Alacritty-themes is now installed")
-
-# =====================================================
-#               INSTALL PACE
+#               PACE INSTALLATION
 # =====================================================
 
 def install_pace(self):
@@ -936,3 +726,192 @@ def install_pace(self):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
         print("Pace is now installed")
+
+# =====================================================
+#               PERMISSIONS
+# =====================================================
+
+def test(dst):
+    for root, dirs, filesr in os.walk(dst):
+        # print(root)
+        for folder in dirs:
+            pass
+            # print(dst + "/" + folder)
+            for file in filesr:
+                pass
+                # print(dst + "/" + folder + "/" + file)
+        for file in filesr:
+            pass
+            # print(dst + "/" + file)
+
+def permissions(dst):
+    try:
+        # original_umask = os.umask(0)
+        # calls = subprocess.run(["sh", "-c", "cat /etc/passwd | grep " +
+        #                         sudo_username],
+        #                        shell=False,
+        #                        stdout=subprocess.PIPE,
+        #                        stderr=subprocess.STDOUT)
+        groups = subprocess.run(["sh", "-c", "id " +
+                                 sudo_username],
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+        for x in groups.stdout.decode().split(" "):
+            if "gid" in x:
+                g = x.split("(")[1]
+                group = g.replace(")", "").strip()
+        # print(group)
+        # name = calls.stdout.decode().split(":")[0].strip()
+        # group = calls.stdout.decode().split(":")[4].strip()
+
+        subprocess.call(["chown", "-R",
+                         sudo_username + ":" + group, dst], shell=False)
+
+    except Exception as e:
+        print(e)
+
+# =====================================================
+#               RATE-MIRRORS
+# =====================================================
+
+def install_rate_mirrors(self):
+    install = 'pacman -S rate-mirrors --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/rate-mirrors"):
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+# =====================================================
+#               REFLECTOR
+# =====================================================
+
+def install_reflector(self):
+    install = 'pacman -S reflector --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/reflector"):
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+# =====================================================
+#               RESTART PROGRAM
+# =====================================================
+
+def restart_program():
+    os.unlink("/tmp/att.lock")
+    python = sys.executable
+    os.execl(python, python, *sys.argv)
+
+# =====================================================
+#                       SHELL
+# =====================================================
+
+def source_shell(self):
+    process = subprocess.run(["sh", "-c", "echo \"$SHELL\""],
+                             stdout=subprocess.PIPE)
+
+    output = process.stdout.decode().strip()
+    print(output)
+    if output == "/bin/bash":
+        subprocess.run(["bash", "-c", "su - " + sudo_username +
+                        " -c \"source " + home + "/.bashrc\""],
+                       stdout=subprocess.PIPE)
+    elif output == "/bin/zsh":
+        subprocess.run(["zsh", "-c", "su - " + sudo_username +
+                        " -c \"source " + home + "/.zshrc\""],
+                       stdout=subprocess.PIPE)
+    elif output == "/usr/bin/fish":
+        subprocess.run(["fish", "-c", "su - " + sudo_username +
+                        " -c \"source " + home + "/.config/fish/config.fish\""],
+                       stdout=subprocess.PIPE)
+
+def get_shell():
+    process = subprocess.run(["su", "-", sudo_username,"-c","echo \"$SHELL\""],
+                             #shell=False,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT)
+
+    output = process.stdout.decode().strip().strip('\n')
+    if output == "/bin/bash" or output == "/usr/bin/bash":
+        return "bash"
+    elif output == "/bin/zsh" or output == "/usr/bin/zsh":
+        return "zsh"
+    elif output == "/bin/fish" or output == "/usr/bin/fish":
+        return "fish"
+
+def run_as_user(script):
+    subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)
+
+# =====================================================
+#               UBLOCK ORIGIN
+# =====================================================
+
+def ublock_get_state(self):
+    if os.path.exists("/usr/lib/firefox/browser/extensions/uBlock0@raymondhill.net.xpi"):
+        return True
+    return False
+
+def set_firefox_ublock(self, toggle, state):
+    GLib.idle_add(toggle.set_sensitive, False)
+    GLib.idle_add(self.label7.set_text, "Run..")
+    GLib.idle_add(self.progress.set_fraction, 0.2)
+
+    timeout_id = None
+    timeout_id = GLib.timeout_add(100, do_pulse, None, self.progress)
+
+    try:
+
+        install_ublock = "pacman -S firefox-ublock-origin --needed --noconfirm"
+        uninstall_ublock = 'pacman -Rs firefox-ublock-origin --noconfirm'
+
+        if state:
+            GLib.idle_add(self.label7.set_text, "Installing ublock Origin...")
+            subprocess.call(install_ublock.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+        else:
+            GLib.idle_add(self.label7.set_text, "Removing ublock Origin...")
+            subprocess.call(uninstall_ublock.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+
+        GLib.idle_add(self.label7.set_text, "Complete")
+        GLib.source_remove(timeout_id)
+        timeout_id = None
+        GLib.idle_add(self.progress.set_fraction, 0)
+
+        GLib.idle_add(toggle.set_sensitive, True)
+        if state:
+            GLib.idle_add(self.label7.set_text, "uBlock Origin installed")
+        else:
+            GLib.idle_add(self.label7.set_text, "uBlock Origin removed")
+
+    except Exception as e:
+        MessageBox(self, "ERROR!!", str(e))
+        print(e)
+
+# =====================================================
+#               ZSH + PACKAGES (ARCOLINUXD)
+# =====================================================
+
+def install_zsh(self):
+    install = 'pacman -S zsh zsh-completions zsh-syntax-highlighting --needed --noconfirm'
+
+    try:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Installing zsh zsh-completions zsh-syntax-highlighting if needed")
+    except Exception as e:
+        print(e)

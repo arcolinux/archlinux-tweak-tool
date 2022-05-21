@@ -1261,7 +1261,9 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We have installed arcolinux-grub-theme-vimix-git")
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
+        print("ATT will reboot automatically")
         GLib.idle_add(Functions.show_in_app_notification, self, "Setting saved successfully")
         Functions.restart_program()
 
@@ -1323,7 +1325,7 @@ class Main(Gtk.Window):
                                                 self.autologin.get_active()))
             t1.daemon = True
             t1.start()
-            print("Settings saved successfully")
+            print("Lightdm settings saved successfully")
         else:
             Functions.show_in_app_notification(self, "Need to select desktop first")
 
@@ -1337,7 +1339,7 @@ class Main(Gtk.Window):
         else:
             self.autologin.set_active(True)
 
-        print("Default Settings Applied")
+        print("Lightdm default settings reset")
         Functions.show_in_app_notification(self, "Default Settings Applied")
 
     def on_autologin_activated(self, widget, gparam):
@@ -1440,6 +1442,7 @@ class Main(Gtk.Window):
                 self.w3m.set_active(True)
 
             neofetch.get_checkboxes(self)
+            print("Neofetch default settings applied")
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
 
@@ -1556,7 +1559,7 @@ class Main(Gtk.Window):
             # oblogout.set_color(self, hex.upper())
 
             Functions.show_in_app_notification(self,
-                                               "Settings Saved Successfully")
+                                               "Oblogout settings saved successfully")
         except Exception as e:
             print(e)
 
@@ -1953,8 +1956,8 @@ class Main(Gtk.Window):
                                             self.entry_cursor_name.get_text()))
             t1.daemon = True
             t1.start()
-            print("Settings Saved Successfully")
-            GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
+            print("Sddm settings Saved Successfully")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Sddm settings saved successfully")
 
         else:
             print("You need to select desktop and/or theme first")
@@ -2331,7 +2334,7 @@ class Main(Gtk.Window):
                 slim.remove_theme(self.slimbox.get_active_text())
                 slim.reload_import(self.slimbox, "arcolinux_eyes")
                 Functions.show_in_app_notification(self,
-                                                   "Settings Saved Successfully")  # noqa
+                                                   "Slim settings saved successfully")  # noqa
             else:
                 Functions.show_in_app_notification(self,
                                                    "You can not remove that theme")  # noqa
