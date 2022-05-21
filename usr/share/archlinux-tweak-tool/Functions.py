@@ -90,7 +90,9 @@ if os.path.isfile(home + "/.zshrc"):
 if os.path.isfile(home + "/.bashrc"):
     bash_config = home + "/.bashrc"
 
+bashrc_arco = "/usr/share/archlinux-tweak-tool/data/arco/.bashrc"
 zshrc_arco = "/usr/share/archlinux-tweak-tool/data/arco/.zshrc"
+fish_config_arco = "/usr/share/archlinux-tweak-tool/data/arco/config.fish"
 account_list = ["Standard","Administrator"]
 i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
@@ -398,9 +400,20 @@ def install_fish(self):
                         stderr=subprocess.STDOUT)
 
 def remove_fish(self):
-    install = 'pacman -Rs fish --noconfirm'
+    install = 'pacman -Rs fish arcolinux-fish-git --noconfirm'
 
-    if not os.path.exists("/usr/bin/fish") :
+    if not os.path.exists("/usr/bin/fish") and os.path.exists("/etc/skel/.config/fish/config.fish") :
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+def install_arcolinux_fish(self):
+    install = 'pacman -S fish arcolinux-fish-git --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/fish") and os.path.exists("/etc/skel/.config/fish/config.fish") :
         pass
     else:
         subprocess.call(install.split(" "),
@@ -912,6 +925,5 @@ def install_zsh(self):
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
-        print("Installing zsh zsh-completions zsh-syntax-highlighting if needed")
     except Exception as e:
         print(e)

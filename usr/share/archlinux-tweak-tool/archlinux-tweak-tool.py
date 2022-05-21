@@ -25,6 +25,7 @@ import autostart
 import polybar
 import zsh_theme
 import fish
+import datetime
 import distro
 import user
 import fixes
@@ -138,6 +139,17 @@ class Main(Gtk.Window):
         # =====================================================
         #                   MAKING BACKUPS
         # =====================================================
+
+
+        # ensuring we have a backup of the config.fish
+        if not os.path.isfile(Functions.home + "/.config/fish/config.fish" + ".bak") \
+                    and Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish"):
+            try:
+                Functions.shutil.copy(Functions.home + "/.config/fish/config.fish",
+                                Functions.home + "/.config/fish/config.fish" + ".bak")
+                Functions.permissions(Functions.home + "/.config/fish/config.fish.bak")
+            except Exception as e:
+                print(e)
 
          #ensuring we have a backup or the arcolinux mirrorlist
         if not os.path.isfile(Functions.arcolinux_mirrorlist + ".bak"):
@@ -656,7 +668,6 @@ class Main(Gtk.Window):
             with open(Functions.autostart + lbl + ".desktop", "w") as f:
                 f.writelines(lines)
                 f.close()
-            Functions.show_in_app_notification(self, "Item has been toggled on/off")
 
     # remove file from ~/.config/autostart
     def on_auto_remove_clicked(self, widget, data, listbox, lbl):
@@ -779,6 +790,20 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self, "Original ArcoLinux mirrorlist is applied")
         Functions.restart_program()
 
+    #====================================================================
+    #                       BASH
+    #===================================================================
+
+    def tobash_apply(self,widget):
+        command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/bash'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("Shell changed to bash for the user - logout")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed to bash for user - logout")
+
+
 #    #====================================================================
 #    #                       DESKTOPR
 #    #====================================================================
@@ -830,39 +855,38 @@ class Main(Gtk.Window):
     #    #                       FISH
     #    #====================================================================
 
-    # if os.path.isfile("/usr/bin/fish"):
-    #     self.fish.set_active(True)
-    # else:
-    #     fish.fish.set_active(False)
-
-    def on_fish_toggle(self, widget, active):
-        if widget.get_active():
-            Functions.install_fish(self)
-            self.fish.set_active(True)
-            GLib.idle_add(Functions.show_in_app_notification, self, "Fish installed")
-        else:
-            Functions.remove_fish(self)
-            self.fish.set_active(False)
-            GLib.idle_add(Functions.show_in_app_notification, self, "Fish removed")
-
-    def on_ohmyfish_toggle(self, widget, active):
-        if widget.get_active():
-            GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
-        else:
-            GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - login")
-
-    def tofish_apply(self,widget):
-        # install missing applications for ArcoLinuxD
+    def on_install_fish_clicked(self, widget):
         Functions.install_fish(self)
-        # first make backup if there is a file
-        if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish" + ".bak") \
-                    and Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish"):
-            Functions.shutil.copy(Functions.home + "/.config/fish/config.fish",
-                              Functions.home + "/.config/fish/config.fish" + ".bak")
-            Functions.permissions(Functions.home + "/.config/fish/config.fish.bak")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Fish is installed without a configuration")
+        print("Fish is installed without a configuration")
+
+    def on_remove_fish(self, widget):
+        Functions.remove_fish(self)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Anything fish related is removed")
+        print("Fish is removed - remove the folder in ~/.config/fish manually")
+
+    def on_arcolinux_fish_clicked(self,widget):
+        Functions.install_arcolinux_fish(self)
+
+        #backup whatever is there
+        if Functions.path_check(Functions.home + "/.config/fish"):
+            now = datetime.datetime.now()
+
+            if not os.path.exists(Functions.home + "/.config/fish-att"):
+                os.makedirs(Functions.home + "/.config/fish-att")
+                Functions.permissions(Functions.home + "/.config/fish-att")
+
+            if os.path.exists(Functions.home + "/.config-att"):
+                Functions.permissions(Functions.home + "/.config-att")
+
+            Functions.copy_func(Functions.home + "/.config/fish", Functions.home + "/.config/fish-att/fish-att-" + now.strftime("%Y-%m-%d-%H-%M-%S"), isdir=True)
+            Functions.permissions(Functions.home + "/.config/fish-att/fish-att-" + now.strftime("%Y-%m-%d-%H-%M-%S"))
+
+        Functions.copy_func("/etc/skel/.config/fish", Functions.home + "/.config/", True)
+        Functions.permissions(Functions.home + "/.config/fish")
+
         if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish"):
-            Functions.shutil.copy("/etc/skel/.config/fish/config.fish",
-                              Functions.home + "/.config/fish/config.fish")
+            Functions.shutil.copy("/etc/skel/.config/fish/config.fish", Functions.home + "/.config/fish/config.fish")
             Functions.permissions(Functions.home + "/.config/fish/config.fish")
 
         command = 'sudo chsh ' + Functions.sudo_username + ' -s /usr/bin/fish'
@@ -871,19 +895,20 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         widget.set_sensitive(True)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+        print("ArcoLinux fish config is installed and your old fish folder (if any) is in ~/.config/fish-att")
+        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux fish config is installed")
 
     def on_fish_reset(self, widget):
         if os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
-            Functions.shutil.copy(Functions.home + "/.config/fish/config.fish.bak",
-                                  Functions.home + "/.config/fish/config.fish")
-        if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
-            Functions.shutil.copy("/etc/skel/.config/fish/config.fish",
-                                  Functions.home + "/.config/fish/config.fish")
+            Functions.shutil.copy(Functions.home + "/.config/fish/config.fish.bak", Functions.home + "/.config/fish/config.fish")
+            Functions.permissions(Functions.home + "/.config/fish/config.fish")
 
-        Functions.permissions(Functions.home + "/.config/fish/config.fish")
-        Functions.show_in_app_notification(self,
-                                            "Default Settings Applied")
+        if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
+            Functions.shutil.copy(Functions.fish_config_arco, Functions.home + "/.config/fish/config.fish")
+            Functions.permissions(Functions.home + "/.config/fish/config.fish")
+
+        print("Fish config reset")
+        Functions.show_in_app_notification(self, "Fish config reset")
 
     #The intent behind this function is to be a centralised image changer for all portions of ATT that need it
     #Currently utilising an if tree - this is not best practice: it should be a match: case tree.
@@ -947,6 +972,16 @@ class Main(Gtk.Window):
         else:
             pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
         image.set_from_pixbuf(pixbuf)
+
+    def tofish_apply(self,widget):
+        #Functions.install_fish(self)
+        command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/fish'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("Shell changed to fish for the user - logout")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed to fish for user - logout")
 
     # ====================================================================
     #                       FIXES
@@ -2606,15 +2641,6 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("Shell changed to zsh for the user - logout")
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed to zsh for user - logout")
-
-    def tobash_apply(self,widget):
-        command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/bash'
-        Functions.subprocess.call(command,
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("Shell changed to bash for the user - logout")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed to bash for user - logout")
 
     def install_oh_my_zsh(self,widget):
         if os.path.exists("/usr/share/licenses/oh-my-zsh-git/LICENSE"):

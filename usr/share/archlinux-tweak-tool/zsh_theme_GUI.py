@@ -9,6 +9,12 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("ZSH Themes")
+
+    if Functions.get_shell() == "zsh":
+        lbl1.set_text("ZSH THEMES (Zsh active)")
+    else:
+        lbl1.set_text("ZSH THEMES (Zsh not active)")
+
     lbl1.set_name("title")
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox4.pack_start(hseparator, True, True, 0)
@@ -35,11 +41,13 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
 
     tobash = Gtk.Button(label="Apply bash")
     tozsh = Gtk.Button(label="Apply zsh")
+    tofish = Gtk.Button(label="Apply fish")
     install_oh_my_zsh = Gtk.Button(label="Install oh-my-zsh")
     #hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     tobash.connect("clicked", self.tobash_apply)
     tozsh.connect("clicked", self.tozsh_apply)
+    tofish.connect("clicked", self.tofish_apply)
     install_oh_my_zsh.connect("clicked", self.install_oh_my_zsh)
 
     termset = Gtk.Button(label="Apply Zsh theme")
@@ -47,11 +55,12 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
 
     hbox20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
+    hbox20.pack_start(tozsh, False, False, 0)
     hbox20.pack_start(tobash, False, False, 0)
+    hbox20.pack_start(tofish, False, False, 0)
     hbox20.pack_end(termset, False, False, 0)
     hbox20.pack_end(termreset, False, False, 0)
     hbox20.pack_end(install_oh_my_zsh, False, False, 0)
-    hbox20.pack_end(tozsh, False, False, 0)
 
     termset.connect("clicked", self.on_zsh_apply_theme)
     termreset.connect("clicked", self.on_zsh_reset)

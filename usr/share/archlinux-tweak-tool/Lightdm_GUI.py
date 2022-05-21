@@ -2,7 +2,6 @@
 #=                  Author: Brad Heffernan & Erik Dubois         =
 #=================================================================
 
-
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -10,6 +9,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     lbl1.set_text("Lightdm (inactive)")
     if Functions.check_content("lightdm", "/etc/systemd/system/display-manager.service"):
         lbl1.set_text("Lightdm (active)")
+    if Functions.check_content("lightdm", "/etc/systemd/system/display-manager.service") and \
+        Functions.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
+        lbl1.set_text("Lightdm + slick-greeter (active)")
     lbl1.set_name("title")
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox5.pack_start(hseparator, True, True, 0)
