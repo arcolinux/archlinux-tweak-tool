@@ -1663,7 +1663,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_testing")
-                print("Repo has been toggled on or off")
 
     def on_pacman_arepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo]"):
@@ -1674,7 +1673,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_base")
-                print("Repo has been toggled on or off")
 
     def on_pacman_a3p_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_3party]"):
@@ -1685,7 +1683,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_a3p")
-                print("Repo has been toggled on or off")
 
     def on_pacman_axl_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_xlarge]"):
@@ -1696,7 +1693,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_axl")
-                print("Repo has been toggled on or off")
 
     def on_chaotics_toggle(self, widget, active):
         if not pmf.repo_exist("[chaotic-aur]"):
@@ -1707,7 +1703,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "chaotics")
-                print("Repo has been toggled on or off")
 
     def on_endeavouros_toggle(self, widget, active):
         if not pmf.repo_exist("[endeavouros]"):
@@ -1718,7 +1713,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "endeavouros")
-                print("Repo has been toggled on or off")
 
     def on_nemesis_toggle(self, widget, active):
         if not pmf.repo_exist("[nemesis_repo]"):
@@ -1729,7 +1723,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "nemesis")
-                print("Repo has been toggled on or off")
 
     def on_pacman_toggle1(self, widget, active):
         if not pmf.repo_exist("[testing]"):
@@ -1740,7 +1733,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "testing")
-                print("Repo has been toggled on or off")
 
     def on_pacman_toggle2(self, widget, active):
         if not pmf.repo_exist("[core]"):
@@ -1751,7 +1743,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "core")
-                print("Repo has been toggled on or off")
 
     def on_pacman_toggle3(self, widget, active):
         if not pmf.repo_exist("[extra]"):
@@ -1762,7 +1753,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "extra")
-                print("Repo has been toggled on or off")
 
     def on_pacman_toggle4(self, widget, active):
         if not pmf.repo_exist("[community-testing]"):
@@ -1773,7 +1763,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "community-testing")
-                print("Repo has been toggled on or off")
 
     def on_pacman_toggle5(self, widget, active):
         if not pmf.repo_exist("[community]"):
@@ -1784,7 +1773,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "community")
-                print("Repo has been toggled on or off")
 
     def on_pacman_toggle6(self, widget, active):
         if not pmf.repo_exist("[multilib-testing]"):
@@ -1795,7 +1783,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "multilib-testing")
-                print("Repo has been toggled on or off")
 
     def on_pacman_toggle7(self, widget, active):
         if not pmf.repo_exist("[multilib]"):
@@ -1806,7 +1793,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "multilib")
-                print("Repo has been toggled on or off")
 
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
