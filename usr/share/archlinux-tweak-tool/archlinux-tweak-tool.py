@@ -139,6 +139,29 @@ class Main(Gtk.Window):
         #                   MAKING BACKUPS
         # =====================================================
 
+         #ensuring we have a backup or the arcolinux mirrorlist
+        if not os.path.isfile(Functions.arcolinux_mirrorlist + ".bak"):
+            try:
+                Functions.shutil.copy(Functions.arcolinux_mirrorlist, Functions.arcolinux_mirrorlist + ".bak")
+            except Exception as e:
+                print(e)
+
+        #ensuring we have a backup of /etc/lightdm/lightdm.conf
+        if os.path.isfile("/etc/lightdm/lightdm.conf"):
+            try:
+                if not os.path.isfile("/etc/lightdm/lightdm.conf" + ".bak"):
+                    Functions.shutil.copy("/etc/lightdm/lightdm.conf", "/etc/lightdm/lightdm.conf" + ".bak")
+            except Exception as e:
+                print(e)
+
+        #ensuring we have a backup of /etc/lightdm/lightdm-gtk-greeter.conf
+        if os.path.isfile("/etc/lightdm/lightdm-gtk-greeter.conf"):
+            try:
+                if not os.path.isfile("/etc/lightdm/lightdm-gtk-greeter.conf" + ".bak"):
+                    Functions.shutil.copy("/etc/lightdm/lightdm-gtk-greeter.conf", "/etc/lightdm/lightdm-gtk-greeter.conf" + ".bak")
+            except Exception as e:
+                print(e)
+
         #ensuring we have a backup of current /etc/hosts
         if os.path.isfile("/etc/hosts"):
             try:
@@ -153,6 +176,15 @@ class Main(Gtk.Window):
                 if not os.path.isfile(Functions.neofetch_config + ".bak"):
                     Functions.shutil.copy(Functions.neofetch_config, Functions.neofetch_config + ".bak")
                     Functions.permissions(Functions.neofetch_config + ".bak")
+            except Exception as e:
+                print(e)
+
+        #make backup of ~/.bashrc
+        if os.path.isfile(Functions.bash_config):
+            try:
+                if not os.path.isfile(Functions.bash_config + ".bak"):
+                    Functions.shutil.copy(Functions.bash_config, Functions.bash_config + ".bak")
+                    Functions.permissions(Functions.home + "/.bashrc.bak")
             except Exception as e:
                 print(e)
 
@@ -306,7 +338,7 @@ class Main(Gtk.Window):
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango)
 
         # =====================================================
-        #               READING SETTINGS
+        #               READING AND SETTING
         # =====================================================
 
         #========================ARCO REPO=============================
@@ -624,6 +656,7 @@ class Main(Gtk.Window):
             with open(Functions.autostart + lbl + ".desktop", "w") as f:
                 f.writelines(lines)
                 f.close()
+            Functions.show_in_app_notification(self, "Item has been toggled on/off")
 
     # remove file from ~/.config/autostart
     def on_auto_remove_clicked(self, widget, data, listbox, lbl):
@@ -698,12 +731,16 @@ class Main(Gtk.Window):
             value = model.get_value(iter, 1)
             model.remove(iter)
             Functions.os.unlink(Functions.home + "/.config/autostart/" + value + ".desktop")  #  noqa
+            print("Item has been removed from autostart")
+            Functions.show_in_app_notification(self, "Item has been removed from autostart")
 
     def on_add_autostart(self, widget):
         if len(self.txtbox1.get_text()) > 1 and len(self.txtbox2.get_text()) > 1:  # noqa
             autostart.add_autostart(self, self.txtbox1.get_text(),
                                     self.txtbox2.get_text(),
                                     self.txtbox3.get_text())
+        print("Item has been added to autostart")
+        Functions.show_in_app_notification(self, "Item has been added to autostart")
 
     def on_exec_browse(self, widget):
 
@@ -736,10 +773,6 @@ class Main(Gtk.Window):
     #===================================================================
 
     def on_click_reset_arcolinux_mirrorlist(self, widget):
-        if not Functions.os.path.isfile(Functions.arcolinux_mirrorlist + ".bak"):
-            Functions.shutil.copy(Functions.arcolinux_mirrorlist,
-                                  Functions.arcolinux_mirrorlist + ".bak")
-
         if Functions.os.path.isfile(Functions.arcolinux_mirrorlist_original):
             Functions.shutil.copy(Functions.arcolinux_mirrorlist_original,
                                   Functions.arcolinux_mirrorlist)
@@ -1303,18 +1336,11 @@ class Main(Gtk.Window):
                 self, widget, widget.get_active()))
         t.start()
 
-
-
-
-
     # ====================================================================
     #                       Lightdm
     # ====================================================================
 
     def on_click_lightdm_apply(self, widget):
-        if not Functions.os.path.isfile(Functions.lightdm_conf + ".bak"):
-            Functions.shutil.copy(Functions.lightdm_conf,
-                                  Functions.lightdm_conf + ".bak")
 
         if (self.sessions.get_active_text() is not None and self.autologin.get_active() is True) or self.autologin.get_active() is False:
             t1 = Functions.threading.Thread(target=lightdm.set_lightdm_value,
@@ -1388,25 +1414,19 @@ class Main(Gtk.Window):
     def on_click_lightdm_slick(self, desktop):
         #self.on_click_att_lightdm_clicked(desktop)
         #self.on_click_lightdm_enable(desktop)
-        command = '/usr/share/archlinux-tweak-tool/data/any/archlinux-install-activate-lightdm-slickgreeter'
+        command = '/usr/share/archlinux-tweak-tool/data/any/archlinux-lightdm-slickgreeter'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        print("Lightdm slickgreeter has been installed and enabled - reboot")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm-slickgreeter installed - Reboot now")
+        print("Lightdm slickgreeter has been installed and enabled (or removed and disabled) - reboot")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm-slickgreeter installed or removed - Reboot now")
 
 #    #====================================================================
 #    #                       NEOFETCH CONFIG
 #    #====================================================================
 
     def on_apply_neo(self, widget):
-        if not os.path.isfile(Functions.neofetch_config + ".bak"):
-            Functions.shutil.copy(Functions.neofetch_config,
-                                  Functions.neofetch_config + ".bak")
-            Functions.permissions(Functions.neofetch_config + ".bak")
-            Functions.shutil.copy(Functions.bash_config, Functions.bash_config + ".bak")
-            Functions.shutil.copy(Functions.zsh_config, Functions.zsh_config + ".bak")
 
         small_ascii = "auto"
 
@@ -1917,15 +1937,11 @@ class Main(Gtk.Window):
         except:
             self.pbimage.set_from_pixbuf(None)
 
-
     # ====================================================================
     #                       SDDM
     # ====================================================================
 
     def on_click_sddm_apply(self, widget):
-        #if not Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
-        #    Functions.shutil.copy(Functions.sddm_conf,
-        #                          Functions.sddm_conf + ".bak")
         command = 'systemctl enable sddm.service -f'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
@@ -2582,6 +2598,7 @@ class Main(Gtk.Window):
         # install missing applications
         Functions.install_zsh(self)
         # first make backup if there is a file
+        #keep this check in
         if not Functions.os.path.isfile(Functions.zsh_config + ".bak") and Functions.os.path.isfile(Functions.zsh_config):
             Functions.shutil.copy(Functions.zsh_config,
                               Functions.zsh_config + ".bak")
@@ -2593,7 +2610,6 @@ class Main(Gtk.Window):
                 Functions.shutil.copy("/usr/share/archlinux-tweak-tool/data/arco/.zshrc", Functions.home + "/.zshrc")
                 Functions.permissions(Functions.home + "/.zshrc")
                 print("Providing a valid zshrc")
-
             except Exception as e:
                 print(e)
 
