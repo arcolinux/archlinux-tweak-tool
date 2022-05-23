@@ -287,6 +287,16 @@ def check_content(value, file):         # noqa
                 return False
     return False
 
+# check if package is installed or not
+def check_package_installed(package):         # noqa
+    try:
+        subprocess.check_output("pacman -Qi " + package,shell=True,stderr=subprocess.STDOUT)
+        #package is installed
+        return True
+    except subprocess.CalledProcessError as e:
+        #package is not installed
+        return False
+
 # =====================================================
 #               END GLOBAL FUNCTIONS
 # =====================================================
@@ -389,7 +399,7 @@ def change_distro_label(name):      # noqa
 # =====================================================
 
 def install_fish(self):
-    install = 'pacman -S fish arcolinux-fish-git --needed --noconfirm'
+    install = 'pacman -S fish --needed --noconfirm'
 
     if os.path.exists("/usr/bin/fish") and os.path.exists("/etc/skel/.config/fish/config.fish") :
         pass
@@ -409,6 +419,7 @@ def remove_fish(self):
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
+    self.tobash_apply(self)
 
 def install_arcolinux_fish(self):
     install = 'pacman -S fish arcolinux-fish-git --needed --noconfirm'
