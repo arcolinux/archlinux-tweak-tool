@@ -325,7 +325,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
 
-    #stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
+    stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
 
     stack.add_titled(vboxStack19, "stack19", "Fixes")  # Fixes
 

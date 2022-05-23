@@ -268,12 +268,8 @@ alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias update-fc="sudo fc-cache -fv"
 
 #copy/paste all content of /etc/skel over to home folder - backup of config created - beware
-function skel
-    [ -d ~/.config ] || mkdir ~/.config
-    cp -Rf ~/.config ~/.config-backup-(date +%Y.%m.%d-%H.%M.%S)
-    cp -rf /etc/skel/ ~
-    cp -rf /etc/skel/.* ~
-end
+#skel alias has been replaced with a script at /usr/local/bin/skel
+
 #backup contents of /etc/skel to hidden backup folder in home/user
 alias bupskel="cp -Rf /etc/skel ~/.skel-backup-(date +%Y.%m.%d-%H.%M.%S)"
 
@@ -368,13 +364,13 @@ alias ngrub="sudo $EDITOR /etc/default/grub"
 alias nconfgrub="sudo $EDITOR /boot/grub/grub.cfg"
 alias nmkinitcpio="sudo $EDITOR /etc/mkinitcpio.conf"
 alias nmirrorlist="sudo $EDITOR /etc/pacman.d/mirrorlist"
-alias narcomirrorlist="sudo nano /etc/pacman.d/arcolinux-mirrorlist"
+alias narcomirrorlist="sudo $EDITOR /etc/pacman.d/arcolinux-mirrorlist"
 alias nsddm="sudo $EDITOR /etc/sddm.conf"
 alias nsddmk="sudo $EDITOR /etc/sddm.conf.d/kde_settings.conf"
 alias nfstab="sudo $EDITOR /etc/fstab"
 alias nnsswitch="sudo $EDITOR /etc/nsswitch.conf"
 alias nsamba="sudo $EDITOR /etc/samba/smb.conf"
-alias ngnupgconf="sudo nano /etc/pacman.d/gnupg/gpg.conf"
+alias ngnupgconf="sudo $EDITOR /etc/pacman.d/gnupg/gpg.conf"
 alias nhosts="sudo $EDITOR /etc/hosts"
 alias nb="$EDITOR ~/.bashrc"
 alias nz="$EDITOR ~/.zshrc"
@@ -469,7 +465,7 @@ end
 alias undopush "git push -f origin HEAD^:master"
 
 # reporting tools - install when not installed
-#neofetch
+neofetch
 #screenfetch
 #alsi
 #paleofetch
@@ -477,7 +473,7 @@ alias undopush "git push -f origin HEAD^:master"
 #hfetch
 #sfetch
 #ufetch
-ufetch-arco | lolcat
+#ufetch-arco | lolcat
 #pfetch
 #sysinfo
 #sysinfo-retro
