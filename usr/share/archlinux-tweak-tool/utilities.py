@@ -230,3 +230,5 @@ def get_config_file():
         return Functions.bash_config
     elif Functions.get_shell() == "zsh":
         return Functions.zsh_config
+    elif Functions.get_shell() == "fish":
+        return Functions.fish_config

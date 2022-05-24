@@ -430,7 +430,7 @@ class Main(Gtk.Window):
 
         shell = Functions.get_shell()
 
-        if shell == "zsh" or shell == "bash":
+        if shell == "zsh" or shell == "bash" or shell == "fish":
 
             #========================TERMINAL UTILITIES TOGGLES========================
             #screenfetch
