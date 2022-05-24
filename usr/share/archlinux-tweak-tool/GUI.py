@@ -11,6 +11,7 @@ import distro
 import fixes
 import lightdm
 import neofetch
+import network
 import sddm
 import termite
 import themer
@@ -32,6 +33,7 @@ import HBlock_GUI
 import Lightdm_GUI
 import Arcolinuxmirrors_GUI
 import Neofetch_GUI
+import Network_GUI
 import Pacman_GUI
 import Termite_GUI
 import Utilities_GUI
@@ -104,15 +106,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack12 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack13 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    #vboxStack14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack15 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack16 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack17 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack18 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack19 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack20 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-
-
 
     # ==========================================================
     #                AUTOSTART
@@ -218,6 +218,12 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         ls = Gtk.Label()
         ls.set_markup("If you install <b>Neofetch</b> and the <i>ArcoLinux themes</i> you can customize <b>Neofetch</b>")
         vboxStack8.pack_start(ls, True, False, 0)
+
+    # ==========================================================
+    #                 NETWORK
+    # ==========================================================
+
+    Network_GUI.GUI(self, Gtk, vboxStack14, Functions)
 
     # ==========================================================
     #                 PACMAN
@@ -336,6 +342,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     stack.add_titled(vboxStack16, "stack16", "Mirrors")  # mirrors
 
     stack.add_titled(vboxStack8, "stack4", "Neofetch")  # Neofetch config
+
+    #stack.add_titled(vboxStack14, "stack14", "Network")  # network
 
     stack.add_titled(vboxStack1, "stack6", "Pacman")  # Pacman config
 

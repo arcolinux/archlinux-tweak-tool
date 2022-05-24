@@ -58,8 +58,14 @@ sed -i "s/$FIND/$REPLACE/g" $workdir/usr/share/archlinux-tweak-tool/data/arco/sd
 echo "getting latest arcolinux-mirrorlist"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-mirrorlist/master/etc/pacman.d/arcolinux-mirrorlist -O $workdir/usr/share/archlinux-tweak-tool/data/arco/arcolinux-mirrorlist
 
-echo "getting latest /etc/nsswitch.conf"
+echo "getting latest /etc/nsswitch.conf from ArcoLinux"
 wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/nsswitch.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/nsswitch.conf
+
+#echo "getting latest /etc/nsswitch.conf from Eos"
+#wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/nsswitch.conf -O $workdir/usr/share/archlinux-tweak-tool/data/eos/nsswitch.conf
+
+#echo "getting latest /etc/nsswitch.conf from Garuda"
+#wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/nsswitch.conf -O $workdir/usr/share/archlinux-tweak-tool/data/garuda/nsswitch.conf
 
 #pacman.conf
 echo "get the pacman.conf from ArchLinux"

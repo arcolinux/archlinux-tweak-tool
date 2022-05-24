@@ -57,7 +57,7 @@ def GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf,Functions):
     label13 = Gtk.Label()
     label13.set_text("If you just switched shell, log-out first.\nRestart your terminal to apply the new Fish theme\n\
 \nYou will find scripts in your ~/.config/fish \
-folder to install oh-my-zsh, theme and plugins\n\
+folder to install oh-my-fish, theme and plugins\n\
 if you installed the ArcoLinux Fish configuration")
     label13.set_margin_top(30)
     hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
