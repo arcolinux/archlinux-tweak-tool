@@ -4,39 +4,41 @@
 #      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
 #      #============================================================
 
-import Splash
-import gi
-import Functions
-import pacman_functions
-import Support
-import Settings
-import slim
-import signal
-import Gtk_Functions
-import oblogout
-import termite
-import neofetch
-import skelapp
-import sddm
-import lightdm
-import themer
-import desktopr
-import autostart
-import polybar
-import zsh_theme
-import fish
 import datetime
-import distro
-import user
-import fixes
-import GUI
+import signal
 import subprocess
-import utilities
-from Functions import os, pacman
 from subprocess import PIPE, STDOUT, call
 from time import sleep
+
+import distro
+import gi
+
+import autostart
+import desktopr
+import Functions
+import Gtk_Functions
+import GUI
+import lightdm
+import neofetch
+import oblogout
+import pacman_functions
+import polybar
+import sddm
+import services
+import Settings
+import skelapp
+import slim
+import Splash
+import Support
+import termite
+import themer
+import user
+import utilities
+import zsh_theme
+from Functions import os, pacman
+
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib  # noqa
+from gi.repository import Gdk, GdkPixbuf, GLib, Gtk, Pango  # noqa
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 pmf = pacman_functions
@@ -1372,7 +1374,7 @@ class Main(Gtk.Window):
         t.start()
 
     # ====================================================================
-    #                       Lightdm
+    #                       LIGHTDM
     # ====================================================================
 
     def on_click_lightdm_apply(self, widget):
@@ -2157,6 +2159,41 @@ class Main(Gtk.Window):
 
     def on_refresh_att_clicked(self, desktop):
         Functions.restart_program()
+
+    #====================================================================
+    #                       SERVICES
+    #====================================================================
+
+    def on_install_discovery_clicked(self, widget):
+        Functions.install_discovery(self)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Network discovery is installed - a good nsswitch_config is needed")
+        print("Network discovery is installed")
+
+    def on_remove_discovery_clicked(self, widget):
+        Functions.remove_discovery(self)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Network discovery is removed")
+        print("Network discovery is removed")
+
+
+    def on_click_reset_nsswitch(self, widget):
+        if os.path.isfile(Functions.nsswitch_config + ".bak"):
+            Functions.shutil.copy(Functions.nsswitch_config + ".bak", Functions.nsswitch_config)
+
+        print("/etc/nsswitch.config reset")
+        Functions.show_in_app_notification(self, "Nsswitch config reset")
+
+    def on_click_apply_nsswitch(self,widget):
+        services.choose_nsswitch(self, widget)
+
+    def on_click_install_samba(self,widget):
+        Functions.install_samba(self)
+        print("work in progress")
+        Functions.show_in_app_notification(self, "Work in progress")
+
+    def on_click_uninstall_samba(self,widget):
+        Functions.uninstall_samba(self)
+        print("work in progress")
+        Functions.show_in_app_notification(self, "Work in progress")
 
     #====================================================================
     #                       SKEL

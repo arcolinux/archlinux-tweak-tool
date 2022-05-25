@@ -11,8 +11,8 @@ import distro
 import fixes
 import lightdm
 import neofetch
-import network
 import sddm
+import services
 import termite
 import themer
 import user
@@ -33,11 +33,11 @@ import HBlock_GUI
 import Lightdm_GUI
 import Arcolinuxmirrors_GUI
 import Neofetch_GUI
-import Network_GUI
 import Pacman_GUI
 import Termite_GUI
 import Utilities_GUI
 import Sddm_GUI
+import Services_GUI
 import Themer_GUI
 import zsh_theme_GUI
 import User_GUI
@@ -220,12 +220,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack8.pack_start(ls, True, False, 0)
 
     # ==========================================================
-    #                 NETWORK
-    # ==========================================================
-
-    Network_GUI.GUI(self, Gtk, vboxStack14, Functions)
-
-    # ==========================================================
     #                 PACMAN
     # ==========================================================
     if Functions.file_check(Functions.pacman):
@@ -289,6 +283,12 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         #vboxStack17.pack_end(reset_sddm_original, False, False, 0)
         vboxStack17.pack_end(install_sddm, False, False, 0)
 
+    # ==========================================================
+    #                 SERVICES
+    # ==========================================================
+
+    Services_GUI.GUI(self, Gtk, vboxStack14, Functions)
+
     # # ==========================================================
     # #               TERMINALS - TERMITE CONFIG
     # # ==========================================================
@@ -343,13 +343,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack8, "stack4", "Neofetch")  # Neofetch config
 
-    #stack.add_titled(vboxStack14, "stack14", "Network")  # network
-
     stack.add_titled(vboxStack1, "stack6", "Pacman")  # Pacman config
 
     stack.add_titled(vboxStack3, "stack2", "Privacy")  # Hblock
 
     stack.add_titled(vboxStack17, "stack17", "Sddm")  # Sddm config
+
+    #stack.add_titled(vboxStack14, "stack14", "Services")  # services
 
     stack.add_titled(vboxStack7, "stack8", "Terminals")  # Termite themes
 
