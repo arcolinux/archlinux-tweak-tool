@@ -819,7 +819,7 @@ def install_chaotics(self):
 
 def install_endeavouros(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
-    name1 = "endeavouros-keyring-1-5-any.pkg.tar.zst"
+    name1 = "endeavouros-keyring-20220523-3-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --noconfirm'
         print(base_dir)
