@@ -466,24 +466,18 @@ def get_desktop(self):
     dsk = desktop.stdout.decode().strip().split("\n")
     self.desktop = dsk[-1].strip()
 
-# =====================================================
-#               GTK3 CONF
-# =====================================================
-
-def gtk_check_value(my_list, value):
-    data = [string for string in my_list if value in string]
-    if len(data) >= 1:
-        data1 = [string for string in data if "#" in string]
-        for i in data1:
-            if i[:4].find('#') != -1:
-                data.remove(i)
-    return data
-
-
-def gtk_get_position(my_list, value):
-    data = [string for string in my_list if value in string]
-    position = my_list.index(data[0])
-    return position
+# ====================================================================
+#                      GRUB
+# ====================================================================
+def make_grub(self):
+    try:
+        command = 'grub-mkconfig -o /boot/grub/grub.cfg'
+        subprocess.call(command.split(" "),
+                    shell=False,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT)
+    except Exception as e:
+        print(e)
 
 # =====================================================
 #               GRUB CONF
@@ -586,6 +580,25 @@ def set_default_theme(self):
             show_in_app_notification(self, "Grub settings saved in /etc/default/grub")
         except Exception as e:
             print(e)
+
+# =====================================================
+#               GTK3 CONF
+# =====================================================
+
+def gtk_check_value(my_list, value):
+    data = [string for string in my_list if value in string]
+    if len(data) >= 1:
+        data1 = [string for string in data if "#" in string]
+        for i in data1:
+            if i[:4].find('#') != -1:
+                data.remove(i)
+    return data
+
+
+def gtk_get_position(my_list, value):
+    data = [string for string in my_list if value in string]
+    position = my_list.index(data[0])
+    return position
 
 # =====================================================
 #               HBLOCK CONF

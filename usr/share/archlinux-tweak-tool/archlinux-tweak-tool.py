@@ -1316,6 +1316,7 @@ class Main(Gtk.Window):
         elif response == Gtk.ResponseType.CANCEL:
             dialog.destroy()
 
+    # coming from GUI
     def on_click_install_arco_vimix_clicked(self, desktop):
         command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
         Functions.subprocess.call(command.split(" "),
@@ -1326,12 +1327,11 @@ class Main(Gtk.Window):
 
         #changing /etc/default/grub to vimix theme
         Functions.set_default_theme(self)
+        print("We will update your grub files")
+        print("sudo grub-mkconfig -o /boot/grub/grub.cfg is running")
+        print("Be patient...")
+        Functions.make_grub(self)
 
-        command = 'grub-mkconfig -o /boot/grub/grub.cfg'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
         print("We have installed arcolinux-grub-theme-vimix-git")
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         print("ATT will reboot automatically")
@@ -1348,12 +1348,11 @@ class Main(Gtk.Window):
 
         #changing /etc/default/grub to vimix theme
         Functions.set_default_theme(self)
+        print("We will update your grub files")
+        print("sudo grub-mkconfig -o /boot/grub/grub.cfg is running")
+        print("Be patient...")
+        Functions.make_grub(self)
 
-        command = 'grub-mkconfig -o /boot/grub/grub.cfg'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed")
 
