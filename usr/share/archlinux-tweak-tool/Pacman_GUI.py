@@ -64,6 +64,9 @@ def GUI(self, Gtk, vboxStack1, Functions):
     label1 = Gtk.Label(xalign=0)
     label1.set_markup("# Enable ArcoLinux testing repo")
 
+    self.arcolinux_button = Gtk.Button(label="Install keys and mirrors")
+    self.arcolinux_button.connect("clicked", self.on_arcolinux_clicked)
+
     self.arepo_button = Gtk.Switch()
     self.arepo_button.connect("notify::active", self.on_pacman_arepo_toggle)
     label5 = Gtk.Label(xalign=0)
@@ -123,25 +126,31 @@ def GUI(self, Gtk, vboxStack1, Functions):
     label15.set_markup("Enable Arch Linux multilib repo")
 
     # ========================================================
-    #               SPINOFF REPOS
+    #               OTHER REPOS
     # ========================================================
 
     frame2 = Gtk.Frame(label="")
     frame2lbl = frame2.get_label_widget()
     frame2lbl.set_markup("<b>Other repos</b>")
 
-    self.chaotics_button = Gtk.Switch()
-    self.chaotics_button.connect("notify::active", self.on_chaotics_toggle)
+    self.chaotics_button = Gtk.Button(label="Install keys and mirrors")
+    self.chaotics_button.connect("clicked", self.on_chaotics_clicked)
+
+    self.chaotics_switch = Gtk.Switch()
+    self.chaotics_switch.connect("notify::active", self.on_chaotics_toggle)
     label9 = Gtk.Label(xalign=0)
     label9.set_markup("Enable Chaotics repo - set as last repo")
 
-    self.endeavouros_button = Gtk.Switch()
-    self.endeavouros_button.connect("notify::active", self.on_endeavouros_toggle)
+    self.endeavouros_button = Gtk.Button(label="Install keys and mirrors")
+    self.endeavouros_button.connect("clicked", self.on_endeavouros_clicked)
+
+    self.endeavouros_switch = Gtk.Switch()
+    self.endeavouros_switch.connect("notify::active", self.on_endeavouros_toggle)
     label16 = Gtk.Label(xalign=0)
     label16.set_markup("Enable Endeavour repo")
 
-    self.nemesis_button = Gtk.Switch()
-    self.nemesis_button.connect("notify::active", self.on_nemesis_toggle)
+    self.nemesis_switch = Gtk.Switch()
+    self.nemesis_switch.connect("notify::active", self.on_nemesis_toggle)
     label11 = Gtk.Label(xalign=0)
     label11.set_markup("Enable Nemesis repo")
 
@@ -173,6 +182,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack18.pack_end(self.atestrepo_button, False, False, 10)
     hboxStack7.pack_start(label5, False, True, 10)
     hboxStack7.pack_end(self.arepo_button, False, False, 10)
+    if not Functions.check_package_installed("arcolinux-keyring"):
+        hboxStack7.pack_end(self.arcolinux_button, False, True, 10)
     hboxStack8.pack_start(label6, False, True, 10)
     hboxStack8.pack_end(self.a3prepo_button, False, False, 10)
     hboxStack9.pack_start(label7, False, True, 10)
@@ -205,11 +216,15 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
 
     hboxStack11.pack_start(label9, False, True, 10)
-    hboxStack11.pack_end(self.chaotics_button, False, False, 10)
+    if not Functions.check_package_installed("chaotic-keyring"):
+        hboxStack11.pack_end(self.chaotics_button, False, False, 10)
+    hboxStack11.pack_end(self.chaotics_switch, False, False, 10)
     hboxStack19.pack_start(label16, False, True, 10)
-    hboxStack19.pack_end(self.endeavouros_button, False, False, 10)
+    if not Functions.check_package_installed("endeavouros-keyring"):
+        hboxStack19.pack_end(self.endeavouros_button, False, False, 10)
+    hboxStack19.pack_end(self.endeavouros_switch, False, False, 10)
     hboxStack13.pack_start(label11, False, True, 10)
-    hboxStack13.pack_end(self.nemesis_button, False, False, 10)
+    hboxStack13.pack_end(self.nemesis_switch, False, False, 10)
 
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vboxStack4.pack_start(hboxStack11, False, False, 10)

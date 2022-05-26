@@ -421,11 +421,11 @@ class Main(Gtk.Window):
 
         #========================OTHER REPO SET TOGGLE==================
 
-        self.chaotics_button.set_active(chaotics_repo)
+        self.chaotics_switch.set_active(chaotics_repo)
         self.opened = False
-        self.endeavouros_button.set_active(endeavouros_repo)
+        self.endeavouros_switch.set_active(endeavouros_repo)
         self.opened = False
-        self.nemesis_button.set_active(nemesis_repo)
+        self.nemesis_switch.set_active(nemesis_repo)
         self.opened = False
 
         #========================NEOFETCH LOLCAT TOGGLE===================
@@ -1700,6 +1700,10 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_testing")
+    def on_arcolinux_clicked(self, widget):
+        Functions.install_arcolinux(self)
+        print("ArcoLinux keyring and mirrors added")
+        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux keyring and mirrors added")
 
     def on_pacman_arepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo]"):
@@ -1730,6 +1734,11 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_axl")
+    def on_chaotics_clicked(self, widget):
+        Functions.install_chaotics(self)
+        print("Chaotics keyring and mirrors added")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Chaotics keyring and mirrors added")
+
 
     def on_chaotics_toggle(self, widget, active):
         if not pmf.repo_exist("[chaotic-aur]"):
@@ -1740,6 +1749,11 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "chaotics")
+
+    def on_endeavouros_clicked(self, widget):
+        Functions.install_endeavouros(self)
+        print("EndeavourOS keyring and mirrors added")
+        GLib.idle_add(Functions.show_in_app_notification, self, "EndeavourOS keyring and mirrors added")
 
     def on_endeavouros_toggle(self, widget, active):
         if not pmf.repo_exist("[endeavouros]"):
