@@ -793,8 +793,6 @@ def install_chaotics(self):
     name1 = "chaotic-keyring-20220514-1-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/garuda/packages/' + name1 + ' --noconfirm'
-        print(base_dir)
-        print(install)
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
@@ -807,8 +805,6 @@ def install_chaotics(self):
     name1 = "chaotic-mirrorlist-20220504-2-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/garuda/packages/' + name1 + ' --noconfirm'
-        print(base_dir)
-        print(install)
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
@@ -822,8 +818,6 @@ def install_endeavouros(self):
     name1 = "endeavouros-keyring-20220523-3-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --noconfirm'
-        print(base_dir)
-        print(install)
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
@@ -836,8 +830,6 @@ def install_endeavouros(self):
     name1 = "endeavouros-mirrorlist-4.4.3-1-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --noconfirm'
-        print(base_dir)
-        print(install)
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
@@ -851,8 +843,6 @@ def install_arcolinux(self):
     name1 = "arcolinux-keyring-20230919-6-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/arco/packages/' + name1 + ' --noconfirm'
-        print(base_dir)
-        print(install)
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
@@ -865,8 +855,6 @@ def install_arcolinux(self):
     name1 = "arcolinux-mirrorlist-git-22.04-01-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/arco/packages/' + name1 + ' --noconfirm'
-        print(base_dir)
-        print(install)
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,

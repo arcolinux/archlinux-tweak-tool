@@ -181,9 +181,9 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack18.pack_start(label1, False, True, 10)
     hboxStack18.pack_end(self.atestrepo_button, False, False, 10)
     hboxStack7.pack_start(label5, False, True, 10)
-    hboxStack7.pack_end(self.arepo_button, False, False, 10)
     if not Functions.check_package_installed("arcolinux-keyring"):
         hboxStack7.pack_end(self.arcolinux_button, False, True, 10)
+    hboxStack7.pack_end(self.arepo_button, False, False, 10)
     hboxStack8.pack_start(label6, False, True, 10)
     hboxStack8.pack_end(self.a3prepo_button, False, False, 10)
     hboxStack9.pack_start(label7, False, True, 10)
