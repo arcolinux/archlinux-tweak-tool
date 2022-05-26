@@ -45,7 +45,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     hbox92 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox92_label = Gtk.Label(xalign=0)
     if Functions.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
-        lbl1.set_text("Slick-greeter is active")
         hbox92_label.set_text("Slickgreeter is active")
     else:
         hbox92_label.set_text("Slickgreeter is inactive")
