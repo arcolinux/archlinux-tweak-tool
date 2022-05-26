@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-#      #============================================================
-#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
-#      #============================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
 import datetime
 import signal
@@ -155,11 +155,12 @@ class Main(Gtk.Window):
                 print(e)
 
          #ensuring we have a backup or the arcolinux mirrorlist
-        if not os.path.isfile(Functions.arcolinux_mirrorlist + ".bak"):
-            try:
-                Functions.shutil.copy(Functions.arcolinux_mirrorlist, Functions.arcolinux_mirrorlist + ".bak")
-            except Exception as e:
-                print(e)
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if not os.path.isfile(Functions.arcolinux_mirrorlist + ".bak"):
+                try:
+                    Functions.shutil.copy(Functions.arcolinux_mirrorlist, Functions.arcolinux_mirrorlist + ".bak")
+                except Exception as e:
+                    print(e)
 
         #ensuring we have a backup of /etc/lightdm/lightdm.conf
         if os.path.isfile("/etc/lightdm/lightdm.conf"):
