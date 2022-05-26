@@ -52,11 +52,7 @@ echo "Populating keyring with pacman-key --populate"
 echo "###############################################################################"
 echo 
 sudo pacman-key --populate
-echo 
-
-if [ -f /etc/pacman.d/endeavouros-mirrorlist ]; then
-	sudo pacman-key --lsign-key info@endeavouros.com
-fi
+echo
 
 echo "###############################################################################"
 echo "Getting new databasesw with pacman -Sy"
