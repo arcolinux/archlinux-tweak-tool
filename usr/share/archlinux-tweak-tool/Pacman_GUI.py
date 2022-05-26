@@ -227,9 +227,9 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack13.pack_end(self.nemesis_switch, False, False, 10)
 
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
-    vboxStack4.pack_start(hboxStack11, False, False, 10)
     vboxStack4.pack_start(hboxStack19, False, False, 10)
     vboxStack4.pack_start(hboxStack13, False, False, 10)
+    vboxStack4.pack_start(hboxStack11, False, False, 10)
 
     # ========================================================
     #               CUSTOM REPOS PACKING

@@ -61,6 +61,7 @@ class Main(Gtk.Window):
         print(" - Garuda        - https://garudalinux.org/")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
+        print("Sway is not supported")
         print("---------------------------------------------------------------------------")
         print("We make backups of files related to the ATT.")
         print("You can recognize them by the extension .bak")
@@ -2861,8 +2862,12 @@ if __name__ == "__main__":
                 pid = line.rstrip().lstrip()
                 f.close()
 
-            if Functions.checkIfProcessRunning(int(pid)):
-                Functions.MessageBox("Application Running!",
-                                     "You first need to close the existing application")  # noqa
-            else:
-                os.unlink("/tmp/att.lock")
+            try:
+                if Functions.checkIfProcessRunning(int(pid)):
+                    Functions.MessageBox("Application Running!",
+                                        "You first need to close the existing application")  # noqa
+                else:
+                    os.unlink("/tmp/att.lock")
+            except Exception as e:
+                print("Make sure there is just one instance of ArchLinux Tweak Tool running")
+                print("Then you can restart the application")
