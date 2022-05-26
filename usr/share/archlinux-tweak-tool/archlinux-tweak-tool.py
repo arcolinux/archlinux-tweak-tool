@@ -1451,7 +1451,7 @@ class Main(Gtk.Window):
 
     def on_click_lightdm_slick(self, desktop):
         #self.on_click_att_lightdm_clicked(desktop)
-        #self.on_click_lightdm_enable(desktop)
+        self.on_click_lightdm_enable(desktop)
         command = '/usr/share/archlinux-tweak-tool/data/any/archlinux-lightdm-slickgreeter'
         Functions.subprocess.call(command.split(" "),
                         shell=False,

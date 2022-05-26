@@ -37,6 +37,20 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
 
     lightdm.pop_box(self, self.sessions)
 
+    hbox91 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox91_label = Gtk.Label(xalign=0)
+    hbox91_label.set_text("You can change more settings with the lightdm-gtk-greeter-settings app")
+    hbox91.pack_start(hbox91_label, False, False, 10)
+
+    hbox92 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox92_label = Gtk.Label(xalign=0)
+    if Functions.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
+        lbl1.set_text("Slick-greeter is active")
+        hbox92_label.set_text("Slickgreeter is active")
+    else:
+        hbox92_label.set_text("Slickgreeter is inactive")
+    hbox92.pack_start(hbox92_label, False, False, 10)
+
     enable_lightdm = Gtk.Button(label="Enable Lightdm")
     enable_lightdm.connect("clicked", self.on_click_lightdm_enable)
 
@@ -66,4 +80,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     vboxStack10.pack_start(hbox, False, False, 10)
     vboxStack10.pack_start(hbox3, False, False, 0)
     vboxStack10.pack_start(hbox1, False, False, 0)
+    vboxStack10.pack_start(hbox91, False, False, 0)
+    vboxStack10.pack_start(hbox92, False, False, 0)
     vboxStack10.pack_end(hbox2, False, False, 0)
