@@ -759,31 +759,10 @@ if distro.id() == "arcolinux":
         "xfce4-terminal",
     ]
     ukui = [
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-gtk3-sardi-arc-git",
-        "arcolinux-local-xfce4-git",
-        "arcolinux-qt5-git",
         "arcolinux-root-git",
-        "arcolinux-ukui-dconf-git",
         "arcolinux-ukui-git",
-        "arcolinux-xfce-git",
-        "arcolinux-wallpapers-git",
-        "dmenu",
-        "gnome-screenshot",
         "gvfs",
-        "mate-control-center",
-        "mate-desktop",
-        "mate-menus",
-        "mate-system-monitor",
-        "mate-terminal",
-        "qt5-quickcontrols",
-        "redshift",
-        "rxvt-unicode",
-        "thunar",
-        "thunar-archive-plugin",
-        "thunar-volman",
         "ukui",
-        "xfce4-terminal",
     ]
     xfce = [
         "alacritty",
@@ -1192,15 +1171,9 @@ if distro.id() == "arch":
         "ttf-hack",
     ]
     ukui = [
-        "mate-control-center",
-        "mate-desktop",
-        "mate-menus",
-        "mate-system-monitor",
-        "mate-terminal",
-        "qt5-quickcontrols",
-        "thunar",
-        "thunar-archive-plugin",
-        "thunar-volman",
+        "arcolinux-root-git",
+        "arcolinux-ukui-git",
+        "gvfs",
         "ukui",
     ]
     xfce = [
@@ -1578,16 +1551,9 @@ if distro.id() == "endeavouros":
         "ttf-hack",
     ]
     ukui = [
-        "mate-control-center",
-        "mate-desktop",
-        "mate-menus",
-        "mate-system-monitor",
-        "mate-terminal",
-        "qt5-quickcontrols",
-        "thunar",
-        "thunar-archive-plugin",
-        "thunar-volman",
-        "ttf-hack",
+        "arcolinux-root-git",
+        "arcolinux-ukui-git",
+        "gvfs",
         "ukui",
     ]
     xfce = [
@@ -1964,16 +1930,9 @@ if distro.id() == "garuda":
         "ttf-hack",
     ]
     ukui = [
-        "mate-control-center",
-        "mate-desktop",
-        "mate-menus",
-        "mate-system-monitor",
-        "mate-terminal",
-        "qt5-quickcontrols",
-        "thunar",
-        "thunar-archive-plugin",
-        "thunar-volman",
-        "ttf-hack",
+        "arcolinux-root-git",
+        "arcolinux-ukui-git",
+        "gvfs",
         "ukui",
     ]
     xfce = [

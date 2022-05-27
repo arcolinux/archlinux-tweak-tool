@@ -143,6 +143,13 @@ class Main(Gtk.Window):
         #                   MAKING BACKUPS
         # =====================================================
 
+        # ensuring we have a backup of the nsswitch.conf
+        if os.path.exists("/etc/nsswitch.conf"):
+            if not os.path.isfile("/etc/nsswitch.conf" + ".bak"):
+                try:
+                    Functions.shutil.copy("/etc/nsswitch.conf", "/etc/nsswitch.conf" + ".bak")
+                except Exception as e:
+                    print(e)
 
         # ensuring we have a backup of the config.fish
         if not os.path.isfile(Functions.home + "/.config/fish/config.fish" + ".bak") \
@@ -222,18 +229,20 @@ class Main(Gtk.Window):
                 print(e)
 
         #make backup of /etc/default/grub
-        if not os.path.isfile(Functions.grub_default_grub + ".bak"):
-            try:
-                Functions.shutil.copy(Functions.grub_default_grub, Functions.grub_default_grub + ".bak")
-            except Exception as e:
-                print(e)
+        if os.path.isfile(Functions.grub_default_grub):
+            if not os.path.isfile(Functions.grub_default_grub + ".bak"):
+                try:
+                    Functions.shutil.copy(Functions.grub_default_grub, Functions.grub_default_grub + ".bak")
+                except Exception as e:
+                    print(e)
 
         #make backup of /etc/pacman.conf
-        if not os.path.isfile(Functions.pacman + ".bak"):
-            try:
-                Functions.shutil.copy(Functions.pacman, Functions.pacman + ".bak")
-            except Exception as e:
-                print(e)
+        if os.path.isfile(Functions.pacman):
+            if not os.path.isfile(Functions.pacman + ".bak"):
+                try:
+                    Functions.shutil.copy(Functions.pacman, Functions.pacman + ".bak")
+                except Exception as e:
+                    print(e)
 
         #make backup of .config/xfce4/terminal/terminalrc
         if Functions.file_check(Functions.xfce4_terminal_config):
