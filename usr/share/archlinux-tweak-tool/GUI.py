@@ -375,13 +375,23 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     image = Gtk.Image().new_from_pixbuf(pixbuf)
 
     # =====================================================
-    #               RESTART BUTTON
+    #               RESTART/QUIT BUTTON
     # =====================================================
+
+    def on_quit(self):
+        os.unlink("/tmp/att.lock")
+        Gtk.main_quit()
+        print("Thanks for using ArchLinux Tweak Tool")
+        print("Report issues to make it even better")
+        print("---------------------------------------------------------------------------")
 
     lbl_distro = Gtk.Label(xalign=0)
     lbl_distro.set_markup("Working on\n" + Functions.change_distro_label(distro.id()))
     btnReStartAtt = Gtk.Button(label="Restart ATT")
     btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
+    btnQuitAtt = Gtk.Button(label="  Quit ATT   ")
+    btnQuitAtt.connect('clicked', on_quit)
+
     #btnReStartAtt.set_property("has-tooltip", True)
     #btnReStartAtt.connect("query-tooltip", self.tooltip_callback,
     #           "Restart the Arch Linux Tweak Tool")
@@ -393,15 +403,18 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
 
     hbox2.pack_start(lbl_distro, False, False, 0)
     hbox3.pack_start(btnReStartAtt, False, False, 0)
+    hbox4.pack_start(btnQuitAtt, False, False, 0)
 
     #ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
 
     ivbox.pack_start(hbox2, False, False, 0)
     ivbox.pack_start(hbox3, False, False, 0)
+    ivbox.pack_start(hbox4, False, False, 0)
 
     vbox1.pack_start(hbox0, False, False, 0)
     vbox1.pack_start(stack, True, True, 0)
