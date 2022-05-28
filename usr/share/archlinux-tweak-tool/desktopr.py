@@ -30,6 +30,7 @@ desktops = [
     "fvwm3",
     "dusk",
     "dwm",
+    "enlightenment",
     "gnome",
     "herbstluftwm",
     "i3",
@@ -280,6 +281,9 @@ if distro.id() == "arcolinux":
         "xfce4-settings",
         "xfce4-taskmanager",
         "xfce4-terminal",
+    ]
+    enlightenment = [
+        "enlightenment",
     ]
     fvwm3 = [
         "alacritty",
@@ -935,6 +939,9 @@ if distro.id() == "arch":
         "thunar-volman",
         "ttf-hack",
     ]
+    enlightenment = [
+        "enlightenment",
+    ]
     fvwm3 = [
         "alacritty",
         "arcolinux-fvwm3-git",
@@ -1315,6 +1322,9 @@ if distro.id() == "endeavouros":
         "thunar-volman",
         "ttf-hack",
     ]
+    enlightenment = [
+        "enlightenment",
+    ]
     fvwm3 = [
         "alacritty",
         "arcolinux-fvwm3-git",
@@ -1693,6 +1703,9 @@ if distro.id() == "garuda":
         "thunar-archive-plugin",
         "thunar-volman",
         "ttf-hack",
+    ]
+    enlightenment = [
+        "enlightenment",
     ]
     fvwm3 = [
         "alacritty",
@@ -2080,6 +2093,8 @@ def install_desktop(self, desktop, state):
         command = list(np.append(dwm, default_app))
         src.append("/etc/skel/.config/arco-dwm")
         twm = True
+    elif desktop == "enlightenment":
+        command = enlightenment
     elif desktop == "fvwm3":
         command = list(np.append(fvwm3, default_app))
         src.append("/etc/skel/.config/fvwm3")
