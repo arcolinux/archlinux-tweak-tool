@@ -115,15 +115,19 @@ def GUI(self, Gtk, vboxStack14, Functions):
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox8_label = Gtk.Label(xalign=0)
     hbox8_label.set_text("Remove the selected Samba user")
-    button_delete_samba_user = Gtk.Button(label="Remove the selected user")
+    button_delete_samba_user = Gtk.Button(label="Remove the selected user from Samba")
     button_delete_samba_user.connect ("clicked", self.on_click_delete_samba_user)
+    button_delete_user = Gtk.Button(label="Remove the selected user completely")
+    button_delete_user.connect ("clicked", self.on_click_delete_user)
     self.samba_users = Gtk.ComboBoxText()
-    samba_users = ['toon', 'dries']
+    samba_users= []
+    samba_users = Functions.list_users("/etc/passwd")
     for user in samba_users:
         self.samba_users.append_text(user)
-    self.samba_users.set_active(1)
+    self.samba_users.set_active(0)
     hbox8.pack_start(hbox8_label, False, False, 10)
     hbox8.pack_start(self.samba_users, False, False, 10)
+    hbox8.pack_end(button_delete_user, False, False, 10)
     hbox8.pack_end(button_delete_samba_user, False, False, 10)
 
     # hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)

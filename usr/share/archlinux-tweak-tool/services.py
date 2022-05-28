@@ -88,6 +88,16 @@ def delete_samba_user(self,widget):
         print("Make a selection")
         GLib.idle_add(Functions.show_in_app_notification, self, "Make a selection")
 
+def delete_user(self,widget):
 
+    username = self.samba_users.get_active_text()
+
+    if username:
+        userdel ='userdel ' + username
+        Functions.os.system(userdel)
+        print("The user " + username + " has been completely deleted from your system")
+        GLib.idle_add(Functions.show_in_app_notification, self, "User deleted from system")
+    else:
+        print("Something went wrong")
 
 

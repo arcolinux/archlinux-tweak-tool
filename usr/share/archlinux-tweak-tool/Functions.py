@@ -318,6 +318,27 @@ def check_service(service):         # noqa
     except Exception as e:
         return False
 
+# list normal users
+def list_users(filename): # noqa
+    try:
+        data = []
+        with open(filename, "r") as f:
+            for line in f.readlines():
+                if "1001" in line:
+                    data.append(line.split(":")[0])
+                if "1002" in line:
+                    data.append(line.split(":")[0])
+                if "1003" in line:
+                    data.append(line.split(":")[0])
+                if "1004" in line:
+                    data.append(line.split(":")[0])
+                if "1005" in line:
+                    data.append(line.split(":")[0])
+            data.sort()
+            return data
+    except Exception as e:
+        print(e)
+
 # =====================================================
 #               END GLOBAL FUNCTIONS
 # =====================================================
