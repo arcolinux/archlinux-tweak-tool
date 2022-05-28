@@ -18,11 +18,11 @@ def create_user(self):
 
     if password == confirm_password :
         if atype == "Administrator" :
-            useradd ='useradd -m -G audio,video,network,storage,rfkill,wheel -c "'  + name + '" -s /bin/bash ' + username
+            useradd ='useradd -m -G audio,video,network,storage,rfkill,wheel,autologin,sambashare -c "'  + name + '" -s /bin/bash ' + username
             os.system(useradd)
             os.system(user_password + " | " + "chpasswd -c SHA512")
         else:
-            useradd ='useradd -m -G audio,video,network,storage,rfkill -c "'  + name + '" -s /bin/bash ' + username
+            useradd ='useradd -m -G audio,video,network,storage,rfkill,autologin,sambashare -c "'  + name + '" -s /bin/bash ' + username
             os.system(useradd)
             os.system(user_password + " | " + "chpasswd -c SHA512")
         GLib.idle_add(Functions.show_in_app_notification, self, "User has been created")

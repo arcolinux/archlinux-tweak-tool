@@ -143,6 +143,14 @@ class Main(Gtk.Window):
         #                   MAKING BACKUPS
         # =====================================================
 
+        # ensuring we have a backup of samba.conf
+        if os.path.exists("/etc/samba/smb.conf"):
+            if not os.path.isfile("/etc/samba/smb.conf" + ".bak"):
+                try:
+                    Functions.shutil.copy("/etc/samba/smb.conf", "/etc/samba/smb.conf" + ".bak")
+                except Exception as e:
+                    print(e)
+
         # ensuring we have a backup of the nsswitch.conf
         if os.path.exists("/etc/nsswitch.conf"):
             if not os.path.isfile("/etc/nsswitch.conf" + ".bak"):
@@ -2185,7 +2193,7 @@ class Main(Gtk.Window):
         Functions.restart_program()
 
     #====================================================================
-    #                       SERVICES
+    #                       SERVICES - NSSWITCH
     #====================================================================
 
     def on_install_discovery_clicked(self, widget):
@@ -2209,15 +2217,40 @@ class Main(Gtk.Window):
     def on_click_apply_nsswitch(self,widget):
         services.choose_nsswitch(self, widget)
 
+    #====================================================================
+    #                       SERVICES - SAMBA
+    #====================================================================
+
+    def on_click_create_samba_user(self,widget):
+        services.create_samba_user(self,widget)
+
+    def on_click_delete_samba_user(self,widget):
+        services.delete_samba_user(self,widget)
+
+    def on_click_apply_samba(self,widget):
+        services.choose_smb_conf(self,widget)
+        print("Applying selected samba configuration")
+        Functions.show_in_app_notification(self, "Applying selected samba configuration")
+
+    def on_click_reset_samba(self,widget):
+        if os.path.isfile(Functions.samba_config + ".bak"):
+            Functions.shutil.copy(Functions.samba_config + ".bak", Functions.samba_config)
+            print("We have reset your /etc/samba/smb.conf")
+            Functions.show_in_app_notification(self, "Original smb.conf is applied")
+        if not os.path.isfile(Functions.samba_config + ".bak"):
+            print("We have no original /etc/samba/smb.conf.bak file - we can not reset")
+            print("Instead choose one from the dropdown")
+            Functions.show_in_app_notification(self, "No backup configuration present")
+
     def on_click_install_samba(self,widget):
         Functions.install_samba(self)
-        print("work in progress")
-        Functions.show_in_app_notification(self, "Work in progress")
+        print("Samba has been successfully installed")
+        Functions.show_in_app_notification(self, "Samba has been successfully installed")
 
     def on_click_uninstall_samba(self,widget):
         Functions.uninstall_samba(self)
-        print("work in progress")
-        Functions.show_in_app_notification(self, "Work in progress")
+        print("Samba has been successfully uninstalled")
+        Functions.show_in_app_notification(self, "Samba has been successfully uninstalled")
 
     #====================================================================
     #                       SKEL

@@ -2,7 +2,6 @@
 #=         Author: Erik Dubois and Cameron Percival              =
 #=================================================================
 
-
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -70,7 +69,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
 
     apply_sddm = Gtk.Button(label="Apply settings")
     apply_sddm.connect("clicked", self.on_click_user_apply)
-
 
     grid = Gtk.Grid()
     grid.attach(label_username, 0, 0, 2, 1)

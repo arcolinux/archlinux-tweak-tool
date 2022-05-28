@@ -34,6 +34,8 @@ gpg_conf_local_original = "/usr/share/archlinux-tweak-tool/data/any/gpg.conf"
 sddm_default = "/etc/sddm.conf"
 sddm_default_original = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
 
+samba_config = "/etc/samba/smb.conf"
+
 sddm_default_d1 = "/etc/sddm.conf"
 sddm_default_d2 = "/etc/sddm.conf.d/kde_settings.conf"
 sddm_default_d2_dir = "/etc/sddm.conf.d/"
@@ -1053,10 +1055,6 @@ def install_samba(self):
                         stderr=subprocess.STDOUT)
         print("Samba and gvfs-smb are now installed")
 
-    #input login and password
-    #read -p "What is your login? It will be used to add this user to smb : " choice
-    #sudo smbpasswd -a $choice
-
     command = 'systemctl enable smb.service -f --now'
     subprocess.call(command.split(" "),
                         shell=False,
@@ -1102,6 +1100,19 @@ def uninstall_samba(self):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
         print("gvfs-smb was removed")
+
+# =====================================================
+#               SAMBA CONF COPY
+# =====================================================
+
+def copy_samba(choice):
+    command ="cp /usr/share/archlinux-tweak-tool/data/any/samba/" + choice + "/smb.conf /etc/samba/smb.conf"
+    print(command)
+    subprocess.call(command.split(" "),
+                    shell=False,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT)
+    print("/etc/samba/smb.conf has been overwritten - reboot")
 
 # =====================================================
 #                       SHELL
