@@ -388,8 +388,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     lbl_distro = Gtk.Label(xalign=0)
     lbl_distro.set_markup("Working on\n" + Functions.change_distro_label(distro.id()))
     btnReStartAtt = Gtk.Button(label="Restart ATT")
+    btnReStartAtt.set_size_request(100,30)
     btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
-    btnQuitAtt = Gtk.Button(label="  Quit ATT   ")
+    btnQuitAtt = Gtk.Button(label="Quit ATT")
+    btnQuitAtt.set_size_request(100,30)
     btnQuitAtt.connect('clicked', on_quit)
 
     #btnReStartAtt.set_property("has-tooltip", True)

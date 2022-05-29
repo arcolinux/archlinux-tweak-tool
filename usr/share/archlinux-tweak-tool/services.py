@@ -101,3 +101,11 @@ def delete_user(self,widget):
         print("Something went wrong")
 
 
+def restart_smb(self,widget):
+    restart ='systemctl restart smb'
+    Functions.os.system(restart)
+    print("Restarting smb service...")
+    GLib.idle_add(Functions.show_in_app_notification, self, "Restarting smb service...")
+
+def save_samba_share(self,widget):
+    print("Saving")

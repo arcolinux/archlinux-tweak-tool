@@ -1139,6 +1139,34 @@ def copy_samba(choice):
     print("/etc/samba/smb.conf has been overwritten - reboot")
 
 # =====================================================
+#               SAMBA EDIT
+# =====================================================
+
+def edit_samba(self):
+    if os.path.isfile(samba_config):
+        if not os.path.isfile(samba_config + ".bak"):
+            shutil.copy(samba_config, samba_config + ".bak")
+        try:
+            with open(samba_config, "r") as f:
+                lists = f.readlines()
+                f.close()
+
+            val = _get_position(lists, "path = /home/erik/SHARED\n")
+            lists[val] = "path = /home/jef/SHARED\n"
+
+            with open(samba_config, "w") as f:
+                f.writelines(lists)
+                f.close()
+
+            print("Smb.conf has been saved")
+            show_in_app_notification(self, "Smb.conf has been saved")
+        except:
+            pass
+    else:
+        print("Choose or create your own smb.conf in /etc/samba/smb.conf")
+        show_in_app_notification(self, "Choose or create your own smb.conf")
+
+# =====================================================
 #                       SHELL
 # =====================================================
 

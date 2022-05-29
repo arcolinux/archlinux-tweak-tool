@@ -2230,6 +2230,12 @@ class Main(Gtk.Window):
     def on_click_delete_user(self,widget):
         services.delete_user(self,widget)
 
+    def on_click_restart_smb(self,widget):
+        services.restart_smb(self,widget)
+
+    def on_click_save_samba_share(self,widget):
+        services.save_samba_share(self,widget)
+
     def on_click_apply_samba(self,widget):
         services.choose_smb_conf(self,widget)
         print("Applying selected samba configuration")

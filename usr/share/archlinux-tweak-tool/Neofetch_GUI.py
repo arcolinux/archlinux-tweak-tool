@@ -194,9 +194,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     vboxStack8.pack_end(hbox24, False, False, 0) #Buttons
     vboxStack8.pack_end(label14, False, False, 0) #Buttons
 
-
-
-
     if backend == "ascii":
         self.asci.set_active(True)
         self.emblem.set_sensitive(False)
