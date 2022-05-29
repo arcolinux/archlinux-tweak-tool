@@ -70,7 +70,7 @@ def GUI(self, Gtk, vboxStack14, Functions):
     hbox4_label = Gtk.Label(xalign=0)
     hbox4_label.set_text("Install the samba server - sharing with other computers")
     self.samba_choices = Gtk.ComboBoxText()
-    options_samba = ['ArcoLinux', 'Windows', 'Original']
+    options_samba = ['ArcoLinux', 'Example', 'Original']
     for option in options_samba:
         self.samba_choices.append_text(option)
     self.samba_choices.set_active(0)

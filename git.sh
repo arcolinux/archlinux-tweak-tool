@@ -26,7 +26,7 @@ echo "Get the original samba file from ArcoLinux github"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/etc/samba/smb.conf.arcolinux  -O $workdir/usr/share/archlinux-tweak-tool/data/any/samba/arco/smb.conf
 
 echo "Get the original windows samba file from ArcoLinux github"
-wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/etc/samba/smb.conf.windows  -O $workdir/usr/share/archlinux-tweak-tool/data/any/samba/windows/smb.conf
+wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/etc/samba/smb.conf.example  -O $workdir/usr/share/archlinux-tweak-tool/data/any/samba/example/smb.conf
 
 echo "Keyring and mirror from ArcoLinux"
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-keyring* /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/

@@ -29,15 +29,15 @@ def choose_nsswitch(self,widget):
 def choose_smb_conf(self,widget):
     choice = self.samba_choices.get_active_text()
 
-    #options_samba = ['ArcoLinux', 'Windows', 'Original']
+    #options_samba = ['ArcoLinux', 'Example', 'Original']
     if choice == "ArcoLinux":
         Functions.copy_samba("arco")
         print("smb.conf from ArcoLinux")
         GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf from ArcoLinux")
-    elif choice == "Windows":
-        Functions.copy_samba("windows")
-        print("Smb.conf for windows from ArcoLinux")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf for windows from ArcoLinux")
+    elif choice == "Example":
+        Functions.copy_samba("example")
+        print("Smb.conf as example from ArcoLinux - SHARED FOLDER in /home/$USER/SHARED")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf example from ArcoLinux")
     elif choice == "Original":
         Functions.copy_samba("original")
         print("Smb.conf from gitlab of Samba")
