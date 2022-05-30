@@ -106,6 +106,3 @@ def restart_smb(self,widget):
     Functions.os.system(restart)
     print("Restarting smb service...")
     GLib.idle_add(Functions.show_in_app_notification, self, "Restarting smb service...")
-
-def save_samba_share(self,widget):
-    print("Saving")

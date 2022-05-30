@@ -21,6 +21,7 @@ def GUI(self, Gtk, vboxStack14, Functions):
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -34,7 +35,7 @@ def GUI(self, Gtk, vboxStack14, Functions):
     stack_switcher.set_homogeneous(True)
 
     # ==================================================================
-    #                       SAMBA TAB
+    #                       NETWORK TAB
     # ==================================================================
 
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -63,12 +64,35 @@ def GUI(self, Gtk, vboxStack14, Functions):
     hbox3.pack_start(hbox3_label, False, False, 10)
 
     hbox3.pack_end(button_reset_nsswitch, False, False, 10)
-    hbox3.pack_end(button_apply_nsswitch, False, False, 10)
-    hbox3.pack_end(self.nsswitch_choices, False, False, 10)
+    hbox3.pack_start(button_apply_nsswitch, False, False, 10)
+    hbox3.pack_start(self.nsswitch_choices, False, False, 10)
+
+    # ==================================================================
+    #                       SAMBA TAB
+    # ==================================================================
+
+    hbox_header_samba = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox_header_samba = Gtk.Label(xalign=0)
+    hbox_header_samba.set_text("You only install a samba server if you want to share a folder and its contents with your home network\n\
+You can give access to your shared folder via guest account or via actually creating a user on your machine\n\
+The purpose is to create one shared folder that you can have access to from other computers.\n\
+We use the current user account to access the sambashare\n\
+Follow the instruction numbers below")
 
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4_label = Gtk.Label(xalign=0)
-    hbox4_label.set_text("Install the samba server - sharing with other computers")
+    hbox4_label.set_text("1. Install the samba server - sharing with other computers")
+    button_uninstall_samba = Gtk.Button(label="Uninstall Samba")
+    button_uninstall_samba.connect ("clicked", self.on_click_uninstall_samba)
+    button_install_samba = Gtk.Button(label="Install Samba")
+    button_install_samba.connect ("clicked", self.on_click_install_samba)
+    hbox4.pack_start(hbox4_label, False, False, 10)
+    hbox4.pack_end(button_uninstall_samba, False, False, 10)
+    hbox4.pack_start(button_install_samba, False, False, 10)
+
+    hbox4bis = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox4bis_label = Gtk.Label(xalign=0)
+    hbox4bis_label.set_text("2. Apply the /etc/samba/smb.conf of your choice")
     self.samba_choices = Gtk.ComboBoxText()
     options_samba = ['ArcoLinux', 'Example', 'Original']
     for option in options_samba:
@@ -78,19 +102,20 @@ def GUI(self, Gtk, vboxStack14, Functions):
     button_apply_samba.connect ("clicked", self.on_click_apply_samba)
     button_reset_samba = Gtk.Button(label="Reset to default samba.conf")
     button_reset_samba.connect ("clicked", self.on_click_reset_samba)
-    button_uninstall_samba = Gtk.Button(label="Uninstall Samba")
-    button_uninstall_samba.connect ("clicked", self.on_click_uninstall_samba)
-    button_install_samba = Gtk.Button(label="Install Samba")
-    button_install_samba.connect ("clicked", self.on_click_install_samba)
-    hbox4.pack_start(hbox4_label, False, False, 10)
-    hbox4.pack_start(self.samba_choices, True, False,10)
-    hbox4.pack_start(button_apply_samba, True, False, 10)
-    hbox4.pack_end(button_reset_samba, False, False, 10)
-    hbox4.pack_end(button_uninstall_samba, False, False, 10)
-    hbox4.pack_end(button_install_samba, False, False, 10)
+    # button_uninstall_samba = Gtk.Button(label="Uninstall Samba")
+    # button_uninstall_samba.connect ("clicked", self.on_click_uninstall_samba)
+    # button_install_samba = Gtk.Button(label="Install Samba")
+    # button_install_samba.connect ("clicked", self.on_click_install_samba)
+    hbox4bis.pack_start(hbox4bis_label, False, False, 10)
+    hbox4bis.pack_start(self.samba_choices, True, False,10)
+    hbox4bis.pack_start(button_apply_samba, True, False, 10)
+    hbox4bis.pack_end(button_reset_samba, False, False, 10)
+    # hbox4bis.pack_end(button_uninstall_samba, False, False, 10)
+    # hbox4bis.pack_end(button_install_samba, False, False, 10)
 
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox5_label = Gtk.Label(xalign=0)
+    hbox5.set_margin_top(20)
     hbox5_label.set_text("After installing Samba you need to create an account to be able to access the Samba server")
     hbox5.pack_start(hbox5_label, False, False, 10)
 
@@ -130,9 +155,14 @@ def GUI(self, Gtk, vboxStack14, Functions):
     hbox8.pack_end(button_delete_user, False, False, 10)
     hbox8.pack_end(button_delete_samba_user, False, False, 10)
 
+    hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox15_label = Gtk.Label(xalign=0)
+    hbox15_label.set_text("3. Change the current inactive SAMBASHARE into your own share ")
+    hbox15.pack_start(hbox15_label, False, False, 10)
+
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9_label = Gtk.Label(xalign=0)
-    hbox9_label.set_text("Fill in the path to the shared folder       ")
+    hbox9_label.set_text("Fill in the path to an existing folder e.g. /home/joe/Shared   ")
     self.entry_path = Gtk.Entry()
     #hbox9.pack_start(hbox9_label, False, False, 10)
     #hbox9.pack_start(self.entry_path, False, False, 10)
@@ -168,6 +198,17 @@ def GUI(self, Gtk, vboxStack14, Functions):
     btn_save_samba = Gtk.Button(label="Save settings")
     btn_save_samba.connect ("clicked", self.on_click_save_samba_share)
 
+    hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox16_label = Gtk.Label(xalign=0)
+    hbox16_label.set_text("You can now reboot and enjoy the 'SAMBASHARE' ")
+    hbox16.pack_start(hbox16_label, False, False, 10)
+
+    hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox17_label = Gtk.Label(xalign=0)
+    hbox17_label.set_text("IF you want to share the folder with a third party, you can create an account ")
+    hbox17.pack_start(hbox17_label, False, False, 10)
+
+    hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     grid = Gtk.Grid()
     grid.add(hbox9_label)
     grid.attach_next_to(self.entry_path, hbox9_label, 1, 2, 1)
@@ -179,7 +220,9 @@ def GUI(self, Gtk, vboxStack14, Functions):
     grid.attach_next_to(self.samba_share_public, hbox12_label, 1, 2, 1)
     grid.attach_next_to(hbox13_label, hbox12_label, 3, 2, 1)
     grid.attach_next_to(self.samba_share_writable, hbox13_label, 1, 2, 1)
-    grid.attach_next_to(btn_save_samba, hbox13_label, 3, 2, 1)
+    grid.attach_next_to(btn_save_samba, hbox13_label, 3, 1, 1)
+
+    hbox14.pack_start(grid, False, False, 10)
 
     hbox91 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox91_label = Gtk.Label(xalign=0)
@@ -196,6 +239,8 @@ def GUI(self, Gtk, vboxStack14, Functions):
 
     hbox93 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox93_label = Gtk.Label(xalign=0)
+    hbox94 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox94_label = Gtk.Label(xalign=0)
 
     status1 = Functions.check_service("smb")
     if status1 == True:
@@ -217,24 +262,45 @@ def GUI(self, Gtk, vboxStack14, Functions):
 
     hbox93_label.set_text("Samba : " + status1 + "   Nmb : " + status2 + "   Avahi : " + status3)
     hbox93.pack_start(hbox93_label, False, False,10)
+    hbox94_label.set_text("Samba : " + status1 + "   Nmb : " + status2 + "   Avahi : " + status3)
+    hbox94.pack_start(hbox94_label, False, False,10)
 
+    hbox95 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox95_label = Gtk.Label(xalign=0)
+    hbox95_label.set_text("With the Avahi daemon (network discovery) running on both the server and client,\nthe file manager on the client should automatically find the server- Beware of firewalls")
+    restart_smb = Gtk.Button(label="Restart Smb")
+    restart_smb.connect("clicked", self.on_click_restart_smb)
+    hbox95.pack_start(hbox95_label, False, False,10)
+    hbox95.pack_end(restart_smb, False, False,10)
+
+    #network
     vboxStack1.pack_start(hbox2, False, False, 10)
     vboxStack1.pack_start(hbox3, False, False, 0)
-    vboxStack1.pack_start(hbox4, False, False, 0)
-    vboxStack1.pack_start(hbox5, False, False, 0)
-    vboxStack1.pack_start(hbox6, False, False, 0)
-    vboxStack1.pack_start(hbox7, False, False, 0)
-    vboxStack1.pack_start(hbox8, False, False, 0)
-    vboxStack1.pack_start(hbox9, False, False, 0)
-    vboxStack1.pack_start(hbox10, False, False, 0)
-    vboxStack1.pack_start(hbox11, False, False, 0)
-    vboxStack1.pack_start(hbox12, False, False, 0)
-    vboxStack1.pack_start(hbox13, False, False, 0)
-    vboxStack1.pack_start(grid, False, False, 0)
-    vboxStack1.pack_end(hbox91, False, False, 10)
-    vboxStack1.pack_end(hbox93, False, False, 10)
     if Functions.check_service("firewalld"):
         vboxStack1.pack_end(hbox92, False, False, 10)
+    vboxStack1.pack_end(hbox91, False, False, 10) #noqa
+    vboxStack1.pack_end(hbox93, False, False, 10) #noqa
+    #samba
+    vboxStack2.pack_start(hbox_header_samba, False, False, 10)
+    vboxStack2.pack_start(hbox4, False, False, 0)
+    vboxStack2.pack_start(hbox4bis, False, False, 0)
+    vboxStack2.pack_start(hbox15, False, False, 10)
+    vboxStack2.pack_start(hbox14, False, False, 10)
+    vboxStack2.pack_start(hbox16, False, False, 10)
+    vboxStack2.pack_start(hbox17, False, False, 10)
+    vboxStack2.pack_start(hbox5, False, False, 0)
+    vboxStack2.pack_start(hbox6, False, False, 0)
+    vboxStack2.pack_start(hbox7, False, False, 0)
+    vboxStack2.pack_start(hbox8, False, False, 0)
+    vboxStack2.pack_start(hbox9, False, False, 0)
+    vboxStack2.pack_start(hbox10, False, False, 0)
+    vboxStack2.pack_start(hbox11, False, False, 0)
+    vboxStack2.pack_start(hbox12, False, False, 0)
+    vboxStack2.pack_start(hbox13, False, False, 0)
+
+    vboxStack2.pack_end(hbox95, False, False, 10) #noqa
+    vboxStack2.pack_end(hbox94, False, False, 10) #noqa
+
 
 
 
@@ -253,11 +319,11 @@ def GUI(self, Gtk, vboxStack14, Functions):
     # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
-
-    stack.add_titled(vboxStack1, "stack1", "Samba")
-    stack.add_titled(vboxStack2, "stack2", "Printing")
-    stack.add_titled(vboxStack3, "stack3", "Bluetooth")
-    stack.add_titled(vboxStack4, "stack4", "Audio")
+    stack.add_titled(vboxStack1, "stack1", "Network")
+    stack.add_titled(vboxStack2, "stack2", "Samba")
+    stack.add_titled(vboxStack3, "stack3", "Printing")
+    stack.add_titled(vboxStack4, "stack4", "Bluetooth")
+    stack.add_titled(vboxStack5, "stack5", "Audio")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)
@@ -265,21 +331,3 @@ def GUI(self, Gtk, vboxStack14, Functions):
     vboxStack14.pack_start(hbox1, False, False, 0)
     vboxStack14.pack_start(hbox0, False, False, 0)
     vboxStack14.pack_start(vbox, True, True, 0)
-
-    # ======================================================================
-    #                       VBOX STACK
-    # ======================================================================
-
-    # vboxStack14.pack_start(hbox1, False, False, 0)
-    # vboxStack14.pack_start(hbox0, False, False, 0)
-    # vboxStack14.pack_start(hbox10, False, False, 20) # title for any arch linux based system
-    # vboxStack14.pack_start(hbox2, False, False, 0)
-    # vboxStack14.pack_start(hbox3, False, False, 0)
-    # vboxStack14.pack_start(hbox4, False, False, 0)
-
-    #vboxStack14.pack_start(hbox7, False, False, 0)
-    #vboxStack14.pack_start(hbox8, False, False, 0)
-    #vboxStack14.pack_start(hbox9, False, False, 20)
-    #if Functions.distr == "arcolinux":
-    #    vboxStack14.pack_start(hbox5, False, False, 0)
-        #vboxStack19.pack_start(hbox6, False, False, 0)

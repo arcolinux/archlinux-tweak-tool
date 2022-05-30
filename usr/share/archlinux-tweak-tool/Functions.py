@@ -1142,7 +1142,8 @@ def copy_samba(choice):
 #               SAMBA EDIT
 # =====================================================
 
-def edit_samba(self):
+def save_samba_config(self,widget):
+    #create smb.conf if there is none?
     if os.path.isfile(samba_config):
         if not os.path.isfile(samba_config + ".bak"):
             shutil.copy(samba_config, samba_config + ".bak")
@@ -1151,8 +1152,45 @@ def edit_samba(self):
                 lists = f.readlines()
                 f.close()
 
-            val = _get_position(lists, "path = /home/erik/SHARED\n")
-            lists[val] = "path = /home/jef/SHARED\n"
+            path = self.entry_path.get_text()
+            browseable = self.samba_share_browseable.get_active()
+            if browseable:
+                browseable = "yes"
+            else:
+                browseable = "no"
+            guest = self.samba_share_guest.get_active()
+            if guest:
+                guest = "yes"
+            else:
+                guest = "no"
+            public = self.samba_share_public.get_active()
+            if public:
+                public = "yes"
+            else:
+                public = "no"
+            writable = self.samba_share_writable.get_active()
+            if writable:
+                writable = "yes"
+            else:
+                writable = "no"
+
+            val = _get_position(lists, "[SAMBASHARE]")
+            if lists[val] == ";[SAMBASHARE]\n":
+                lists[val] = "[SAMBASHARE]" +"\n"
+            lists[val+1] = "path = " + path +"\n"
+            lists[val+2] = "browseable  = " + browseable +"\n"
+            lists[val+3] = "guest ok = " + guest +"\n"
+            lists[val+4] = "public = " + public +"\n"
+            lists[val+5] = "writable = " + writable +"\n"
+
+            print("These lines have been saved at the end of /etc/samba/smb.conf")
+            print("Edit this file to add more shares")
+            print(lists[val])
+            print(lists[val+1])
+            print(lists[val+2])
+            print(lists[val+3])
+            print(lists[val+4])
+            print(lists[val+5])
 
             with open(samba_config, "w") as f:
                 f.writelines(lists)
@@ -1163,7 +1201,7 @@ def edit_samba(self):
         except:
             pass
     else:
-        print("Choose or create your own smb.conf in /etc/samba/smb.conf")
+        print("Choose or create your own smb.conf in /etc/samba/smb.conf then change settings")
         show_in_app_notification(self, "Choose or create your own smb.conf")
 
 # =====================================================

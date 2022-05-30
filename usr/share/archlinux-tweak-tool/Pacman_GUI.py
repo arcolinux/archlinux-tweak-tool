@@ -246,7 +246,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack4.pack_end(reset_pacman_local, False, False, 0)
     hboxStack4.pack_end(reset_pacman_online, False, False, 0)
     hboxStack4.pack_end(blank_pacman, False, False, 0)
-    hboxStack4.pack_start(label_backup, False, False, 0)
+    #hboxStack4.pack_start(label_backup, False, False, 0)
 
     # ========================================================
     #               TESTING REPOS PACKING TO FRAME
