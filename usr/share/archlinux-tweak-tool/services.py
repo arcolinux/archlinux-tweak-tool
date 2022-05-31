@@ -37,6 +37,12 @@ def choose_smb_conf(self,widget):
     elif choice == "Easy":
         Functions.copy_samba("example")
         GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf easy configuration applied")
+    elif choice == "Usershares":
+        Functions.copy_samba("userhares")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf usershares configuration applied")
+    elif choice == "Windows":
+        Functions.copy_samba("windows")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf windows configuration applied")
     elif choice == "Original":
         Functions.copy_samba("original")
         print("Smb.conf from gitlab of Samba")
@@ -64,12 +70,20 @@ def create_samba_user(self,widget):
         print("Type in your password for the Sambashare")
         print("Although the user name is shared with Linux system, Samba uses a password")
         print("separate from that of the Linux user accounts.")
-        Functions.subprocess.call("alacritty -e /usr/bin/smbpasswd -a " + username,
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("Created a password for the current user")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Created a password for the current user")
+        if self.samba_choices =="Usershares":
+            Functions.subprocess.call("alacritty -e /usr/bin/smbpasswd -a " + username + "sambashare",
+                            shell=True,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("Created a password for the current user - usershare")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Created a password for the current user")
+        else:
+            Functions.subprocess.call("alacritty -e /usr/bin/smbpasswd -a " + username,
+                            shell=True,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("Created a password for the current user")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Created a password for the current user")
     else:
         print("First fill in your username")
         GLib.idle_add(Functions.show_in_app_notification, self, "First fill in your username")

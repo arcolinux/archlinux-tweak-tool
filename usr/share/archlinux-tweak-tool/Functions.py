@@ -339,6 +339,22 @@ def list_users(filename): # noqa
     except Exception as e:
         print(e)
 
+# check if user is part of the group
+def check_group(group):
+    try:
+        groups = subprocess.run(["sh", "-c", "id " +
+                                sudo_username],
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+        for x in groups.stdout.decode().split(" "):
+            if group in x:
+                return True
+            else:
+                return False
+    except Exception as e:
+        print(e)
+
 # =====================================================
 #               END GLOBAL FUNCTIONS
 # =====================================================
@@ -1157,6 +1173,47 @@ def copy_samba(choice):
             with open(samba_config, "w") as f:
                 f.writelines(lists)
                 f.close()
+        except Exception as e:
+            print(e)
+
+    if choice == "usershares":
+        if not os.path.isdir("/var/lib/samba/usershares"):
+            os.makedirs("/var/lib/samba/usershares", 0o770)
+
+        try:
+            if check_group("sambashare"):
+                pass
+            else:
+                try:
+                    command ="groupadd -r sambashare"
+                    subprocess.call(command.split(" "),
+                                    shell=False,
+                                    stdout=subprocess.PIPE,
+                                    stderr=subprocess.STDOUT)
+                    print("groupadd")
+                except Exception as e:
+                    print(e)
+
+                try:
+                    command ="chown root:sambashare /var/lib/samba/usershares"
+                    subprocess.call(command.split(" "),
+                                    shell=False,
+                                    stdout=subprocess.PIPE,
+                                    stderr=subprocess.STDOUT)
+                    print("root:sambashare")
+                except Exception as e:
+                    print(e)
+
+                # try:
+                #     command ="chmod 1770 /var/lib/samba/usershares"
+                #     subprocess.call(command.split(" "),
+                #                     shell=False,
+                #                     stdout=subprocess.PIPE,
+                #                     stderr=subprocess.STDOUT)
+                #     print("chmod")
+                # except Exception as e:
+                #     print(e)
+
         except Exception as e:
             print(e)
 

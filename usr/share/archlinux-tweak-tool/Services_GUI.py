@@ -76,6 +76,7 @@ def GUI(self, Gtk, vboxStack14, Functions):
     hbox_header_samba.set_markup("You install a samba server if you need to share a folder and its contents in your home network\n\
 The purpose is to create <b>one</b> shared folder - the current user can later access this folder from other computers\n\
 The easy configuration will create the folder 'Shared' in your home directory if it is not already there\n\
+The usershares configuration will not create a 'Shared' folder - you share any folder you like\n\
 Follow the instruction numbers below - <b>we recommend the easy configuration</b>")
 
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -93,7 +94,7 @@ Follow the instruction numbers below - <b>we recommend the easy configuration</b
     hbox4bis_label = Gtk.Label(xalign=0)
     hbox4bis_label.set_text("2. Apply the /etc/samba/smb.conf of your choice")
     self.samba_choices = Gtk.ComboBoxText()
-    options_samba = ['Easy', 'ArcoLinux', 'Original']
+    options_samba = ['Easy', 'Usershares', 'Windows','ArcoLinux', 'Original']
     for option in options_samba:
         self.samba_choices.append_text(option)
     self.samba_choices.set_active(0)
