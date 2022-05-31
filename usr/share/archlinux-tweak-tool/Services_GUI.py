@@ -327,7 +327,7 @@ All computers in your network must have a unique name /etc/hostname")
     #                       PACK TO STACK
     # ==================================================================
     stack.add_titled(vboxStack1, "stack1", "Network")
-    stack.add_titled(vboxStack2, "stack2", "Samba Easy")
+    stack.add_titled(vboxStack2, "stack2", "Samba")
     #stack.add_titled(vboxStack3, "stack3", "Samba Advanced")
     #stack.add_titled(vboxStack4, "stack4", "Printing")
     #stack.add_titled(vboxStack5, "stack5", "Bluetooth")
