@@ -255,7 +255,9 @@ Follow the instruction numbers below - <b>we recommend the easy configuration</b
 
     hbox95 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox95_label = Gtk.Label(xalign=0)
-    hbox95_label.set_text("With the Avahi daemon (network discovery) running on both the server and client,\nthe file manager on the client should automatically find the server- Beware of firewalls")
+    hbox95_label.set_text("With the Avahi daemon (network discovery) running on both the server and client,\n\
+the file manager on the client should automatically find the server- Beware of firewalls\n\
+All computers in your network must have a unique name /etc/hostname")
     restart_smb = Gtk.Button(label="Restart Smb")
     restart_smb.connect("clicked", self.on_click_restart_smb)
     hbox95.pack_start(hbox95_label, False, False,10)
