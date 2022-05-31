@@ -1067,7 +1067,7 @@ def remove_discovery(self):
 def install_samba(self):
     install = 'pacman -S samba gvfs-smb --needed --noconfirm'
 
-    if not os.path("/var/cache/samba"):
+    if not os.path.isdir("/var/cache/samba"):
                 os.makedirs("/var/cache/samba", 0o755)
 
     if check_package_installed("samba") and check_package_installed("gvfs-smb"):
@@ -1131,12 +1131,34 @@ def uninstall_samba(self):
 
 def copy_samba(choice):
     command ="cp /usr/share/archlinux-tweak-tool/data/any/samba/" + choice + "/smb.conf /etc/samba/smb.conf"
-    print(command)
     subprocess.call(command.split(" "),
                     shell=False,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT)
-    print("/etc/samba/smb.conf has been overwritten - reboot")
+    if choice == "example":
+        if not os.path.isdir("/home/" + sudo_username + "/Shared"):
+            os.makedirs("/home/" + sudo_username + "/Shared", 0o755)
+        permissions("/home/" + sudo_username + "/Shared")
+        try:
+            with open(samba_config, "r") as f:
+                lists = f.readlines()
+                f.close()
+
+            val = _get_position(lists, "[SAMBASHARE]")
+            lists[val+1] = "path = " + "/home/" + sudo_username + "/Shared\n"
+
+            print("You have choosen for the easy setup")
+            print("We have added a folder called 'Shared' to your home directory")
+            print("You can access this folder from any computer in your network")
+            print("You can write and remove items from the shared folder")
+            print("Reboot or restart smb first")
+            print(lists[val+1])
+
+            with open(samba_config, "w") as f:
+                f.writelines(lists)
+                f.close()
+        except Exception as e:
+            print(e)
 
 # =====================================================
 #               SAMBA EDIT

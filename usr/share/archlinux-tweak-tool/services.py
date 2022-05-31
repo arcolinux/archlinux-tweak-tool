@@ -34,10 +34,9 @@ def choose_smb_conf(self,widget):
         Functions.copy_samba("arco")
         print("smb.conf from ArcoLinux")
         GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf from ArcoLinux")
-    elif choice == "Example":
+    elif choice == "Easy":
         Functions.copy_samba("example")
-        print("Smb.conf as example from ArcoLinux - SHARED FOLDER in /home/$USER/SHARED")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf example from ArcoLinux")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf easy configuration applied")
     elif choice == "Original":
         Functions.copy_samba("original")
         print("Smb.conf from gitlab of Samba")
@@ -45,32 +44,35 @@ def choose_smb_conf(self,widget):
 
 def create_samba_user(self,widget):
 
-    username = self.entry_username.get_text()
-    password = self.entry_password.get_text()
+    username = Functions.sudo_username
+    #password = self.entry_password.get_text()
 
-    if username or password:
-        user_password = "echo " + username + ":" + password
+    if username:
+        #user_password = "echo " + username + ":" + password
 
-        com = Functions.subprocess.run(["sh", "-c", "su - " + Functions.sudo_username + " -c groups"], shell=False, stdout=Functions.subprocess.PIPE)
-        groups = com.stdout.decode().strip().split(" ")
-        # print(groups)
-        if "sambashare" not in groups:
-            Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "sambashare"], shell=False)
+        # com = Functions.subprocess.run(["sh", "-c", "su - " + Functions.sudo_username + " -c groups"], shell=False, stdout=Functions.subprocess.PIPE)
+        # groups = com.stdout.decode().strip().split(" ")
+        # # print(groups)
+        # if "sambashare" not in groups:
+        #     Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "sambashare"], shell=False)
 
-        useradd ='useradd -m -G autologin,audio,video,network,storage,rfkill,wheel,sambashare -c "'  + username + '" -s /bin/bash ' + username
-        Functions.os.system(useradd)
-        Functions.os.system(user_password + " | " + "chpasswd -c SHA512")
+        # useradd ='useradd -m -G autologin,audio,video,network,storage,rfkill,wheel,sambashare -c "'  + username + '" -s /bin/bash ' + username
+        # Functions.os.system(useradd)
+        # Functions.os.system(user_password + " | " + "chpasswd -c SHA512")
 
         Functions.install_alacritty(self)
+        print("Type in your password for the Sambashare")
+        print("Although the user name is shared with Linux system, Samba uses a password")
+        print("separate from that of the Linux user accounts.")
         Functions.subprocess.call("alacritty -e /usr/bin/smbpasswd -a " + username,
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        print("Creating a new user for Samba...")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Creating a new user for Samba...")
+        print("Created a password for the current user")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Created a password for the current user")
     else:
-        print("First fill in your username and password")
-        GLib.idle_add(Functions.show_in_app_notification, self, "First fill in your username and password")
+        print("First fill in your username")
+        GLib.idle_add(Functions.show_in_app_notification, self, "First fill in your username")
 
 def delete_samba_user(self,widget):
 
@@ -100,9 +102,15 @@ def delete_user(self,widget):
     else:
         print("Something went wrong")
 
-
 def restart_smb(self,widget):
-    restart ='systemctl restart smb'
-    Functions.os.system(restart)
-    print("Restarting smb service...")
-    GLib.idle_add(Functions.show_in_app_notification, self, "Restarting smb service...")
+
+    if Functions.check_service("smb"):
+        restart ='systemctl restart smb'
+        Functions.os.system(restart)
+        print("Restarting smb service...")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Restarting smb service...")
+    else:
+        print("Did you install samba - check for errors")
+        print("Type in a terminal")
+        print("   sudo systemctl status smb")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Did you install samba - check for errors")
