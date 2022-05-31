@@ -38,7 +38,7 @@ def choose_smb_conf(self,widget):
         Functions.copy_samba("example")
         GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf easy configuration applied")
     elif choice == "Usershares":
-        Functions.copy_samba("userhares")
+        Functions.copy_samba("usershares")
         GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf usershares configuration applied")
     elif choice == "Windows":
         Functions.copy_samba("windows")
@@ -70,20 +70,15 @@ def create_samba_user(self,widget):
         print("Type in your password for the Sambashare")
         print("Although the user name is shared with Linux system, Samba uses a password")
         print("separate from that of the Linux user accounts.")
-        if self.samba_choices =="Usershares":
-            Functions.subprocess.call("alacritty -e /usr/bin/smbpasswd -a " + username + "sambashare",
-                            shell=True,
-                            stdout=Functions.subprocess.PIPE,
-                            stderr=Functions.subprocess.STDOUT)
-            print("Created a password for the current user - usershare")
-            GLib.idle_add(Functions.show_in_app_notification, self, "Created a password for the current user")
-        else:
+        try:
             Functions.subprocess.call("alacritty -e /usr/bin/smbpasswd -a " + username,
                             shell=True,
                             stdout=Functions.subprocess.PIPE,
                             stderr=Functions.subprocess.STDOUT)
             print("Created a password for the current user")
             GLib.idle_add(Functions.show_in_app_notification, self, "Created a password for the current user")
+        except Exception as e:
+           print(e)
     else:
         print("First fill in your username")
         GLib.idle_add(Functions.show_in_app_notification, self, "First fill in your username")

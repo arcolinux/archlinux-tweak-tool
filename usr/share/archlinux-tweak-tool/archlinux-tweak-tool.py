@@ -2236,6 +2236,9 @@ class Main(Gtk.Window):
     def on_click_save_samba_share(self,widget):
         Functions.save_samba_config(self,widget)
 
+    def on_click_install_arco_thunar_plugin(self,widget):
+        Functions.install_arco_thunar_plugin(self,widget)
+
     def on_click_apply_samba(self,widget):
         services.choose_smb_conf(self,widget)
         print("Applying selected samba configuration")

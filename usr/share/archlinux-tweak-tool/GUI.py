@@ -349,7 +349,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack17, "stack17", "Sddm")  # Sddm config
 
-    #stack.add_titled(vboxStack14, "stack14", "Services")  # services
+    stack.add_titled(vboxStack14, "stack14", "Services")  # services
 
     stack.add_titled(vboxStack7, "stack8", "Terminals")  # Termite themes
 

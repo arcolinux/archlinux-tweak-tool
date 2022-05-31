@@ -117,8 +117,14 @@ Follow the instruction numbers below - <b>we recommend the easy configuration</b
 
     hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox16_label = Gtk.Label(xalign=0)
-    hbox16_label.set_text("You can now reboot and enjoy the 'SAMBASHARE' ")
+    hbox16_label.set_markup("You can now reboot and enjoy the <b>'Shared'</b> folder if you choose '<b>easy</b>' ")
     hbox16.pack_start(hbox16_label, False, False, 10)
+
+    hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox18_label = Gtk.Label(xalign=0)
+    hbox18_label.set_markup("If you choose '<b>usershares</b>' then install also thunar and its plugin and \
+right-click to share any folder in your home directory ")
+    hbox18.pack_start(hbox18_label, False, False, 10)
 
     # ==================================================================
     #                       SAMBA ADVANCED TAB
@@ -216,6 +222,8 @@ Follow the instruction numbers below - <b>we recommend the easy configuration</b
     hbox91 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox91_label = Gtk.Label(xalign=0)
     hbox91_label.set_text("With the Avahi daemon (network discovery) running on both the server and client,\nthe file manager on the client should automatically find the server- Beware of firewalls")
+    install_arco_thunar_plugin = Gtk.Button(label="Install ArcoLinux Thunar plugin")
+    install_arco_thunar_plugin.connect("clicked", self.on_click_restart_smb)
     restart_smb = Gtk.Button(label="Restart Smb")
     restart_smb.connect("clicked", self.on_click_restart_smb)
     hbox91.pack_start(hbox91_label, False, False,10)
@@ -259,10 +267,13 @@ Follow the instruction numbers below - <b>we recommend the easy configuration</b
     hbox95_label.set_text("With the Avahi daemon (network discovery) running on both the server and client,\n\
 the file manager on the client should automatically find the server- Beware of firewalls\n\
 All computers in your network must have a unique name /etc/hostname")
+    install_arco_thunar_plugin = Gtk.Button(label="Install ArcoLinux Thunar plugin + Thunar")
+    install_arco_thunar_plugin.connect("clicked", self.on_click_install_arco_thunar_plugin)
     restart_smb = Gtk.Button(label="Restart Smb")
     restart_smb.connect("clicked", self.on_click_restart_smb)
     hbox95.pack_start(hbox95_label, False, False,10)
     hbox95.pack_end(restart_smb, False, False,10)
+    hbox95.pack_end(install_arco_thunar_plugin, False, False,10)
 
     ##network
     vboxStack1.pack_start(hbox2, False, False, 10)
@@ -278,6 +289,7 @@ All computers in your network must have a unique name /etc/hostname")
     vboxStack2.pack_start(hbox4bis, False, False, 0)
     vboxStack2.pack_start(hbox5, False, False, 0)
     vboxStack2.pack_start(hbox16, False, False, 10)
+    vboxStack2.pack_start(hbox18, False, False, 10)
 
     ##samba advanced
     vboxStack3.pack_start(hbox15, False, False, 10)
@@ -316,10 +328,10 @@ All computers in your network must have a unique name /etc/hostname")
     # ==================================================================
     stack.add_titled(vboxStack1, "stack1", "Network")
     stack.add_titled(vboxStack2, "stack2", "Samba Easy")
-    stack.add_titled(vboxStack3, "stack3", "Samba Advanced")
-    stack.add_titled(vboxStack4, "stack4", "Printing")
-    stack.add_titled(vboxStack5, "stack5", "Bluetooth")
-    stack.add_titled(vboxStack6, "stack6", "Audio")
+    #stack.add_titled(vboxStack3, "stack3", "Samba Advanced")
+    #stack.add_titled(vboxStack4, "stack4", "Printing")
+    #stack.add_titled(vboxStack5, "stack5", "Bluetooth")
+    #stack.add_titled(vboxStack6, "stack6", "Audio")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)
