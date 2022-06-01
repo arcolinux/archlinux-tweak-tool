@@ -122,8 +122,8 @@ Follow the instruction numbers below - <b>we recommend the easy configuration</b
 
     hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox18_label = Gtk.Label(xalign=0)
-    hbox18_label.set_markup("If you choose '<b>usershares</b>' then install also thunar and its plugin and \
-right-click to share any folder in your home directory ")
+    hbox18_label.set_markup("If you choose '<b>usershares</b>' then we recommend you install also thunar and its plugin and \
+right-click to share any folder in your home directory\nThere are other filemanagers with their plugins at the bottom")
     hbox18.pack_start(hbox18_label, False, False, 10)
 
     hbox19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)

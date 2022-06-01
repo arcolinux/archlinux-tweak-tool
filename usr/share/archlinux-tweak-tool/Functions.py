@@ -278,17 +278,21 @@ def path_check(path):
 
 # check if value is true or false in file
 def check_content(value, file):         # noqa
-    with open(file, "r") as myfile:
-        lines = myfile.readlines()
-        myfile.close()
+    try:
+        with open(file, "r") as myfile:
+            lines = myfile.readlines()
+            myfile.close()
 
-    for line in lines:
-        if value in line:
+        for line in lines:
             if value in line:
-                return True
-            else:
-                return False
-    return False
+                if value in line:
+                    return True
+                else:
+                    return False
+        return False
+    except Exception as e:
+        #print(e)
+        return False
 
 # check if package is installed or not
 def check_package_installed(package):         # noqa
@@ -412,6 +416,22 @@ def install_adt(self):
                         stderr=subprocess.STDOUT)
 
 # =====================================================
+#                    BASH
+# =====================================================
+
+def install_bash(self):
+    install = 'pacman -S bash bash-completion --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/bash"):
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        restart_program()
+
+# =====================================================
 #              CAJA SHARE PLUGIN
 # =====================================================
 
@@ -488,6 +508,7 @@ def install_fish(self):
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
+        restart_program()
 
 def remove_fish(self):
     install = 'pacman -Rs fish arcolinux-fish-git --noconfirm'
@@ -511,6 +532,7 @@ def install_arcolinux_fish(self):
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
+        print("ATT has been restarted to see the tab FISH")
 
 # ====================================================================
 #                      GET DESKTOP
@@ -1451,7 +1473,15 @@ def set_firefox_ublock(self, toggle, state):
 
 def install_zsh(self):
     install = 'pacman -S zsh zsh-completions zsh-syntax-highlighting --needed --noconfirm'
+    try:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+    except Exception as e:
+        print(e)
 
+    install = 'pacman -S zsh --needed --noconfirm'
     try:
         subprocess.call(install.split(" "),
                         shell=False,

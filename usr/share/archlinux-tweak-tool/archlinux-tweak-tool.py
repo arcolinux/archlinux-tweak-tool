@@ -824,6 +824,32 @@ class Main(Gtk.Window):
         print("Shell changed to bash for the user - logout")
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed to bash for user - logout")
 
+    def on_install_bash_clicked(self, widget):
+        Functions.install_bash(self)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Bash is installed without a configuration")
+        print("Bash is installed without a configuration")
+
+    def on_arcolinux_bash_clicked(self, widget):
+        try:
+            if os.path.isfile(Functions.bashrc_arco):
+                Functions.shutil.copy(Functions.bashrc_arco, Functions.bash_config)
+                Functions.permissions(Functions.home + "/.bashrc")
+        except Exception as e:
+            print(e)
+
+        print("ArcoLinux ~/.bashrc is applied - logout")
+        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux ~/.bashrc is applied - logout")
+
+    def on_bash_reset_clicked(self, widget):
+        try:
+            if os.path.isfile(Functions.bash_config + ".bak"):
+                Functions.shutil.copy(Functions.bash_config + ".bak", Functions.bash_config)
+                Functions.permissions(Functions.home + "/.bashrc")
+        except Exception as e:
+            print(e)
+
+        print("Your personal ~/.bashrc is applied again - logout")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Your personal ~/.bashrc is applied again - logout")
 
 #    #====================================================================
 #    #                       DESKTOPR
@@ -2108,7 +2134,7 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We installed all ArcoLinux sddm themes")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm Themes Installed")
-        Functions.restart_program()
+        sddm.pop_theme_box(self, self.theme_sddm)
 
     def on_click_remove_sddm_themes(self,widget):
         command = 'pacman -Rss arcolinux-meta-sddm-themes --noconfirm'
@@ -2127,6 +2153,8 @@ class Main(Gtk.Window):
                             stderr=Functions.subprocess.STDOUT)
             print("We installed the default ArcoLinux sddm theme again")
             GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
+
+        sddm.pop_theme_box(self, self.theme_sddm)
 
     #if no sddm - press 1
     def on_click_att_sddm_clicked(self, desktop):

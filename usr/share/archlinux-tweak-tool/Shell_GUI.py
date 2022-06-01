@@ -1,0 +1,362 @@
+#=================================================================
+#=                  Author: Erik Dubois                          =
+#=================================================================
+import os
+import Functions
+
+def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions):
+
+    hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox1_lbl = Gtk.Label(xalign=0)
+    hbox1_lbl.set_markup("Shells")
+    hbox1_lbl.set_name("title")
+    hbox1.pack_start(hbox1_lbl, False, False, 10)
+
+    hbox0 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox0.pack_start(hseparator, True, True, 0)
+
+    vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+
+    vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+
+    stack = Gtk.Stack()
+    stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
+    stack.set_transition_duration(350)
+    stack.set_hhomogeneous(False)
+    stack.set_vhomogeneous(False)
+
+    stack_switcher = Gtk.StackSwitcher()
+    stack_switcher.set_orientation(Gtk.Orientation.HORIZONTAL)
+    stack_switcher.set_stack(stack)
+    stack_switcher.set_homogeneous(True)
+
+    if Functions.check_package_installed("bash"):
+
+        # ======================================================================
+        #                              BASH
+        # ======================================================================
+
+        hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox5_lbl = Gtk.Label(xalign=0)
+        if Functions.get_shell() == "bash":
+            hbox5_lbl.set_markup("Bash (active)")
+        else:
+            hbox5_lbl.set_markup("Bash (not active)")
+        hbox5_lbl.set_name("title")
+        hbox5.pack_start(hbox5_lbl, False, False, 0)
+
+        hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox6.pack_start(hseparator, True, True, 0)
+
+        hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        hbox7_lbl = Gtk.Label()
+        if Functions.check_package_installed("bash"):
+            hbox7_lbl.set_markup("Bash is already installed)")
+        else:
+            hbox7_lbl.set_markup("Bash is not installed")
+        self.bash = Gtk.Button("Install Bash")
+        self.bash.connect("clicked", self.on_install_bash_clicked)
+        hbox7.pack_start(hbox7_lbl, False, False, 10)
+        hbox7.pack_end(self.bash, False, False, 10)
+
+        hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        hbox8_lbl = Gtk.Label()
+        hbox8_lbl.set_markup("Overwrite your ~/.bashrc with the ArcoLinux bashrc")
+        self.arcolinux_bash = Gtk.Button("Install the ArcoLinux bashrc configuration")
+        self.arcolinux_bash.connect("clicked", self.on_arcolinux_bash_clicked)
+        self.bash_reset = Gtk.Button("Reset back to the original ~/.bashrc")
+        self.bash_reset.connect("clicked", self.on_bash_reset_clicked)
+        hbox8.pack_start(hbox8_lbl, False, False, 10)
+        hbox8.pack_end(self.bash_reset, False, False, 10)
+        hbox8.pack_end(self.arcolinux_bash, False, False, 10)
+
+        hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox9_lbl = Gtk.Label()
+        hbox9_lbl.set_markup("\n<b>If you just switched shell, log-out first</b>")
+        #hbox9_lbl.set_margin_top(30)
+        hbox9.pack_start(hbox9_lbl, False, False, 10)
+
+        # ==========================================================
+        #                     BUTTONS
+        # ==========================================================
+
+        hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        tobash = Gtk.Button(label="Apply bash")
+        tobash.connect("clicked", self.tobash_apply)
+        tofish = Gtk.Button(label="Apply fish")
+        tofish.connect("clicked", self.tofish_apply)
+        tozsh = Gtk.Button(label="Apply zsh")
+        tozsh.connect("clicked", self.tozsh_apply)
+        #bashreset = Gtk.Button(label="Reset bash")
+        #bashreset.connect("clicked", self.on_bash_reset_clicked)
+
+        hbox10.pack_start(tobash, False, False, 0)
+        hbox10.pack_start(tofish, False, False, 0)
+        hbox10.pack_start(tozsh, False, False, 0)
+        #hbox10.pack_end(bashreset, False, False, 0)
+
+        # ==========================================================
+        #                     VBOXSTACK
+        # ==========================================================
+
+        vboxStack1.pack_start(hbox5, False, False, 0)  # Combobox
+        vboxStack1.pack_start(hbox6, False, False, 0)  # Combobox
+        vboxStack1.pack_start(hbox7, False, False, 0)  # fish
+        vboxStack1.pack_start(hbox8, False, False, 0)  # oh-my-fish
+        vboxStack1.pack_start(hbox9, False, False, 0)  # image
+        vboxStack1.pack_end(hbox10, False, False, 0)  # Buttons
+
+    else:
+       #no bash installed
+        hbox36 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox36_lbl = Gtk.Label(xalign=0)
+        hbox36_lbl.set_markup("Bash is not installed")
+        hbox36_lbl.set_name("title")
+        hbox36.pack_start(hbox36_lbl, False, False, 0)
+
+        hbox37 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox37.pack_start(hseparator, True, True, 0)
+
+        ls = Gtk.Label()
+        ls.set_markup("<b>Bash does not seem to be installed</b>")
+
+        vboxStack1.pack_start(hbox36, False, False, 0)
+        vboxStack1.pack_start(hbox37, False, False, 0)
+        vboxStack1.pack_start(ls, False, False, 0)
+
+    # ==================================================================
+    #                       ZSH
+    # ==================================================================
+
+    if Functions.check_package_installed("zsh"):
+
+        hbox19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox19_lbl = Gtk.Label(xalign=0)
+        hbox19_lbl.set_markup("Zsh (inactive)")
+        if Functions.get_shell() == "zsh":
+            hbox19_lbl.set_markup("ZSH THEMES (Zsh active)")
+        else:
+            hbox19_lbl.set_markup("ZSH THEMES (Zsh not active)")
+        hbox19_lbl.set_name("title")
+        hbox19.pack_start(hbox19_lbl, False, False, 0)
+
+        hbox20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox20.pack_start(hseparator, True, True, 0)
+
+        # ==========================================================
+
+        hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        hbox21_lbl = Gtk.Label()
+        hbox21_lbl.set_markup("Zsh themes")
+        self.zsh_themes = Gtk.ComboBoxText()
+        zsh_themes.get_themes(self.zsh_themes)
+        hbox21.pack_start(hbox21_lbl, False, False, 10)
+        hbox21.pack_start(self.zsh_themes, True, True, 10)
+
+        #image dimensions - this will (in time) allow the image changing function to be re-usable by other parts of the app
+        image_width = 600
+        image_height = 480
+        pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh-sample.jpg", image_width, image_height)
+        if self.zsh_themes.get_active_text() is None:
+            pass
+        elif Functions.os.path.isfile(base_dir+"/images/zsh_previews/"+self.zsh_themes.get_active_text()+".jpg"):
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh_previews/"+self.zsh_themes.get_active_text()+".jpg", image_width, image_height)
+        image = Gtk.Image().new_from_pixbuf(pixbuf)
+        image.set_margin_top(30)
+
+        self.zsh_themes.connect("changed", self.update_image, image, "zsh", base_dir, image_width, image_height)
+
+        hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox23_lbl = Gtk.Label()
+        hbox23_lbl.set_markup("Restart your terminal to apply the new Zsh theme\n\n<b>If you just switched shell, log-out first</b>\n")
+        hbox23_lbl.set_margin_top(30)
+        hbox23.pack_start(hbox23_lbl, False, False, 10)
+
+        hbox24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        tozsh = Gtk.Button(label="Apply zsh")
+        tobash = Gtk.Button(label="Apply bash")
+        tofish = Gtk.Button(label="Apply fish")
+        install_oh_my_zsh = Gtk.Button(label="Install oh-my-zsh")
+        termreset = Gtk.Button(label="Reset or create ~/.zshrc")
+        termset = Gtk.Button(label="Apply Zsh theme")
+
+        tozsh.connect("clicked", self.tozsh_apply)
+        tobash.connect("clicked", self.tobash_apply)
+        tofish.connect("clicked", self.tofish_apply)
+        install_oh_my_zsh.connect("clicked", self.install_oh_my_zsh)
+        termreset.connect("clicked", self.on_zsh_reset)
+        termset.connect("clicked", self.on_zsh_apply_theme)
+
+        if not zsh_themes.check_oh_my():
+            termset.set_sensitive(False)
+
+        hbox24.pack_start(tozsh, False, False, 0)
+        hbox24.pack_start(tobash, False, False, 0)
+        hbox24.pack_start(tofish, False, False, 0)
+        hbox24.pack_end(termset, False, False, 0)
+        hbox24.pack_end(termreset, False, False, 0)
+        hbox24.pack_end(install_oh_my_zsh, False, False, 0)
+
+        vboxStack2.pack_start(hbox19, False, False, 0)
+        vboxStack2.pack_start(hbox20, False, False, 0)
+        vboxStack2.pack_start(hbox21, False, False, 0)
+        vboxStack2.pack_start(image, False, False, 0)
+        vboxStack2.pack_start(hbox23, False, False, 0)
+        vboxStack2.pack_end(hbox24, False, False, 0)
+
+        if not zsh_themes.check_oh_my() or not os.path.isfile(Functions.zsh_config):
+            termset.set_sensitive(False)
+            termreset.set_sensitive(False)
+        if not os.path.isfile(Functions.zsh_config):
+            termreset.set_sensitive(True)
+
+    else:
+       #no zsh installed
+        hbox32 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox32_lbl = Gtk.Label(xalign=0)
+        hbox32_lbl.set_markup("Zsh is not installed")
+        hbox32_lbl.set_name("title")
+        hbox32.pack_start(hbox32_lbl, False, False, 0)
+
+        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox41.pack_start(hseparator, True, True, 0)
+
+        ls = Gtk.Label()
+        ls.set_markup("<b>Zsh does not seem to be installed</b>")
+
+        install_zsh = Gtk.Button(label="Install Zsh and enable it - autoreboot")
+        install_zsh.connect("clicked", Functions.install_zsh)
+
+        vboxStack2.pack_start(hbox32, False, False, 0)
+        vboxStack2.pack_start(hbox41, False, False, 0)
+        vboxStack2.pack_start(ls, False, False, 0)
+        vboxStack2.pack_start(install_zsh, False, False, 0)
+
+    # ==================================================================
+    #                       FISH
+    # ==================================================================
+
+    if Functions.check_package_installed("fish"):
+
+        hbox30 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox30_lbl = Gtk.Label(xalign=0)
+        if Functions.get_shell() == "fish":
+            hbox30_lbl.set_markup("Fish (active)")
+        else:
+            hbox30_lbl.set_markup("Fish (not active)")
+        hbox30_lbl.set_name("title")
+        hbox30.pack_start(hbox30_lbl, False, False, 0)
+
+        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox31.pack_start(hseparator, True, True, 0)
+
+        hbox32 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        hbox32_lbl = Gtk.Label()
+        if Functions.check_package_installed("fish"):
+            hbox32_lbl.set_markup("Install Fish (already installed)")
+        else:
+            hbox32_lbl.set_markup("Install Fish (not installed)")
+        self.fish = Gtk.Button("Install Fish")
+        self.fish.connect("clicked", self.on_install_fish_clicked)
+        hbox32.pack_start(hbox32_lbl, False, False, 10)
+        hbox32.pack_end(self.fish, False, False, 10)
+
+        hbox33 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        hbox33_lbl = Gtk.Label()
+        if Functions.check_package_installed("arcolinux-fish-git"):
+            hbox33_lbl.set_markup("ArcoLinux fish incl. oh-my-fish, themes and plugins (already installed)")
+        else:
+            hbox33_lbl.set_markup("ArcoLinux fish incl. oh-my-fish, themes and plugins (not installed)")
+        self.arcolinux_fish = Gtk.Button("Install the ArcoLinux Fish configuration")
+        self.arcolinux_fish.connect("clicked", self.on_arcolinux_fish_clicked)
+        hbox33.pack_start(hbox33_lbl, False, False, 10)
+        hbox33.pack_end(self.arcolinux_fish, False, False, 10)
+
+        hbox34 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox34_lbl = Gtk.Label()
+        hbox34_lbl.set_markup("Restart your terminal to apply the new Fish theme\n\
+\nYou will find scripts in your ~/.config/fish \
+folder to install oh-my-fish, theme and plugins\n\
+if you installed the ArcoLinux Fish configuration\n\n<b>If you just switched shell, log-out first</b>\n")
+        hbox34_lbl.set_margin_top(30)
+        hbox34.pack_start(hbox34_lbl, False, False, 10)
+
+        # ==========================================================
+        #                     BUTTONS
+        # ==========================================================
+
+        hbox35 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        tofish = Gtk.Button(label="Apply fish")
+        tofish.connect("clicked", self.tofish_apply)
+        tobash = Gtk.Button(label="Apply bash")
+        tobash.connect("clicked", self.tobash_apply)
+        tozsh = Gtk.Button(label="Apply zsh")
+        tozsh.connect("clicked", self.tozsh_apply)
+        termreset = Gtk.Button(label="Reset fish")
+        termreset.connect("clicked", self.on_fish_reset)
+        removefish = Gtk.Button(label="Remove all Fish related packages")
+        removefish.connect("clicked", self.on_remove_fish)
+
+        hbox35.pack_start(tofish, False, False, 0)
+        hbox35.pack_start(tobash, False, False, 0)
+        hbox35.pack_start(tozsh, False, False, 0)
+        hbox35.pack_end(removefish, False, False, 0)
+        hbox35.pack_end(termreset, False, False, 0)
+
+        # ==========================================================
+        #                     VBOXSTACK
+        # ==========================================================
+
+        vboxStack3.pack_start(hbox30, False, False, 0)  # Combobox
+        vboxStack3.pack_start(hbox31, False, False, 0)  # Combobox
+        vboxStack3.pack_start(hbox32, False, False, 0)  # fish
+        vboxStack3.pack_start(hbox33, False, False, 0)  # oh-my-fish
+        vboxStack3.pack_start(hbox34, False, False, 0)  # image
+        vboxStack3.pack_end(hbox35, False, False, 0)  # Buttons
+
+    else:
+       #no fish installed
+        hbox36 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox36_lbl = Gtk.Label(xalign=0)
+        hbox36_lbl.set_markup("Fish is not installed")
+        hbox36_lbl.set_name("title")
+        hbox36.pack_start(hbox36_lbl, False, False, 0)
+
+        hbox37 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox37.pack_start(hseparator, True, True, 0)
+
+        ls = Gtk.Label()
+        ls.set_markup("<b>Fish does not seem to be installed\
+                    Restart Att to see the information</b>")
+
+        install_fish = Gtk.Button(label="Install Fish and enable it - autoreboot")
+        install_fish.connect("clicked", Functions.install_fish)
+
+        vboxStack3.pack_start(hbox36, False, False, 0)
+        vboxStack3.pack_start(hbox37, False, False, 0)
+        vboxStack3.pack_start(ls, False, False, 0)
+        vboxStack3.pack_start(install_fish, False, False, 0)
+
+    # ==================================================================
+    #                       PACK TO STACK
+    # ==================================================================
+
+    stack.add_titled(vboxStack1, "stack1", "BASH")
+    stack.add_titled(vboxStack2, "stack2", "ZSH")
+    stack.add_titled(vboxStack3, "stack3", "FISH")
+
+    vbox.pack_start(stack_switcher, False, False, 0)
+    vbox.pack_start(stack, True, True, 0)
+
+    vboxStack23.pack_start(hbox1, False, False, 0)
+    vboxStack23.pack_start(hbox0, False, False, 0)
+    vboxStack23.pack_start(vbox, True, True, 0)

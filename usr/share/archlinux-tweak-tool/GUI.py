@@ -10,10 +10,14 @@ import fish
 import distro
 import fixes
 import lightdm
+import login
 import neofetch
+import os
 import sddm
 import services
+import shell
 import termite
+import template
 import themer
 import user
 import zsh_theme
@@ -24,34 +28,37 @@ import zsh_theme
 #import skelapp
 
 # =============GUI=================
-import autostart_GUI
-import desktopr_GUI
-import Fish_GUI
+import Autostart_GUI
+import Desktopr_GUI
+#import Fish_GUI
 import Fixes_GUI
 import Grub_GUI
 import HBlock_GUI
-import Lightdm_GUI
+#import Lightdm_GUI
+import Login_GUI
 import Arcolinuxmirrors_GUI
 import Neofetch_GUI
 import Pacman_GUI
 import Termite_GUI
+#import Template_GUI
 import Utilities_GUI
-import Sddm_GUI
+#import Sddm_GUI
 import Services_GUI
+import Shell_GUI
 import Themer_GUI
-import zsh_theme_GUI
+#import Zsh_theme_GUI
 import User_GUI
 #import Oblogout_GUI
 #import Slimlock_GUI
-#import polybar_GUI
+#import Polybar_GUI
 #import GTK_GUI
 #import SkelApp_GUI
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
-    process = Functions.subprocess.run(["sh", "-c", "echo \"$SHELL\""],
-                             stdout=Functions.subprocess.PIPE)
+    # process = Functions.subprocess.run(["sh", "-c", "echo \"$SHELL\""],
+    #                          stdout=Functions.subprocess.PIPE)
 
-    output = process.stdout.decode().strip()
+    # output = process.stdout.decode().strip()
 
     # =======================================================
     #                       App Notifications
@@ -113,26 +120,29 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     vboxStack18 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack19 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack20 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack21 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack22 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack23 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     # ==========================================================
     #                AUTOSTART
     # ==========================================================
 
-    autostart_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart,
+    Autostart_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart,
                       Functions, base_dir)
 
     # ==========================================================
     #                DESKTOP
     # ==========================================================
 
-    desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr,
+    Desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr,
                      Functions, base_dir, Pango)
 
     # ==========================================================
     #                FISH
     # ==========================================================
 
-    Fish_GUI.GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf, Functions)
+    #Fish_GUI.GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf, Functions)
 
     # # ==========================================================
     # #               FIXES
@@ -170,27 +180,33 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # #               LIGHTDM
     # # ==========================================================
 
-    if Functions.file_check(Functions.lightdm_conf):
-        Lightdm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack11, lightdm, Functions)
-    else:
-        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        lbl1 = Gtk.Label(xalign=0)
-        lbl1.set_text("Lightdm (inactive)")
-        lbl1.set_name("title")
-        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        hbox41.pack_start(hseparator, True, True, 0)
-        hbox31.pack_start(lbl1, False, False, 0)
-        vboxStack11.pack_start(hbox31, False, False, 0)
-        vboxStack11.pack_start(hbox41, False, False, 0)
-        ls = Gtk.Label()
-        ls.set_markup("We did not find an <b>/etc/lightdm/lightdm.conf</b> file\nIf you install <b>lightdm</b> you can toggle autologin and set your default desktop session\nWe will reload ATT automatically ")
+    # if Functions.file_check(Functions.lightdm_conf):
+    #     Lightdm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack11, lightdm, Functions)
+    # else:
+    #     hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     lbl1 = Gtk.Label(xalign=0)
+    #     lbl1.set_text("Lightdm (inactive)")
+    #     lbl1.set_name("title")
+    #     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    #     hbox41.pack_start(hseparator, True, True, 0)
+    #     hbox31.pack_start(lbl1, False, False, 0)
+    #     vboxStack11.pack_start(hbox31, False, False, 0)
+    #     vboxStack11.pack_start(hbox41, False, False, 0)
+    #     ls = Gtk.Label()
+    #     ls.set_markup("We did not find an <b>/etc/lightdm/lightdm.conf</b> file\nIf you install <b>lightdm</b> you can toggle autologin and set your default desktop session\nWe will reload ATT automatically ")
 
-        install_lightdm = Gtk.Button(label="Install Lightdm and enable it")
-        install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked)
+    #     install_lightdm = Gtk.Button(label="Install Lightdm and enable it")
+    #     install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked)
 
-        vboxStack11.pack_start(install_lightdm, False, False, 0)
-        vboxStack11.pack_start(ls, True, False, 0)
+    #     vboxStack11.pack_start(install_lightdm, False, False, 0)
+    #     vboxStack11.pack_start(ls, True, False, 0)
+
+    # ==========================================================
+    #                         LOGIN
+    # ==========================================================
+
+    Login_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions)
 
     # ==========================================================
     #                 MIRRORLIST ARCOLINUX
@@ -256,38 +272,51 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     # else:
 
-    if Functions.file_check(Functions.sddm_default_d1) and Functions.file_check(Functions.sddm_default_d2) and os.path.exists("/usr/bin/sddm"):
-        Sddm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack17, sddm, Functions)
-    else:
-        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        lbl1 = Gtk.Label(xalign=0)
-        lbl1.set_text("Sddm (inactive)")
-        lbl1.set_name("title")
-        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        hbox41.pack_start(hseparator, True, True, 0)
-        hbox31.pack_start(lbl1, False, False, 0)
-        vboxStack17.pack_start(hbox31, False, False, 0)
-        vboxStack17.pack_start(hbox41, False, False, 0)
-        ls = Gtk.Label()
-        ls.set_markup("No /usr/bin/sddm, /etc/sddm.conf and/or /etc/sddm.conf.d/kde_settings.conf file found. \nUse button below to install and enable <b>Sddm</b>.\n ")
-        #reset_sddm_original = Gtk.Button(label="2. Apply the sddm.conf from ArcoLinux")
-        #reset_sddm_original.connect("clicked", self.on_click_no_sddm_reset_original)
-        install_sddm = Gtk.Button(label="Install Sddm and enable it")
-        install_sddm.connect("clicked", self.on_click_att_sddm_clicked)
-        #reset_sddm_original_restart = Gtk.Button(label="2. Restart ArchLinux Tweak Tool")
-        #reset_sddm_original_restart.connect("clicked", self.on_refresh_att_clicked)
+    # if Functions.file_check(Functions.sddm_default_d1) and Functions.file_check(Functions.sddm_default_d2) and os.path.exists("/usr/bin/sddm"):
+    #     Sddm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack17, sddm, Functions)
+    # else:
+    #     hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     lbl1 = Gtk.Label(xalign=0)
+    #     lbl1.set_text("Sddm (inactive)")
+    #     lbl1.set_name("title")
+    #     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    #     hbox41.pack_start(hseparator, True, True, 0)
+    #     hbox31.pack_start(lbl1, False, False, 0)
+    #     vboxStack17.pack_start(hbox31, False, False, 0)
+    #     vboxStack17.pack_start(hbox41, False, False, 0)
+    #     ls = Gtk.Label()
+    #     ls.set_markup("No /usr/bin/sddm, /etc/sddm.conf and/or /etc/sddm.conf.d/kde_settings.conf file found. \nUse button below to install and enable <b>Sddm</b>.\n ")
+    #     #reset_sddm_original = Gtk.Button(label="2. Apply the sddm.conf from ArcoLinux")
+    #     #reset_sddm_original.connect("clicked", self.on_click_no_sddm_reset_original)
+    #     install_sddm = Gtk.Button(label="Install Sddm and enable it")
+    #     install_sddm.connect("clicked", self.on_click_att_sddm_clicked)
+    #     #reset_sddm_original_restart = Gtk.Button(label="2. Restart ArchLinux Tweak Tool")
+    #     #reset_sddm_original_restart.connect("clicked", self.on_refresh_att_clicked)
 
-        vboxStack17.pack_start(ls, False, False, 0)
-        #vboxStack17.pack_end(reset_sddm_original_restart, False, False, 0)
-        #vboxStack17.pack_end(reset_sddm_original, False, False, 0)
-        vboxStack17.pack_end(install_sddm, False, False, 0)
+    #     vboxStack17.pack_start(ls, False, False, 0)
+    #     #vboxStack17.pack_end(reset_sddm_original_restart, False, False, 0)
+    #     #vboxStack17.pack_end(reset_sddm_original, False, False, 0)
+    #     vboxStack17.pack_end(install_sddm, False, False, 0)
 
     # ==========================================================
-    #                 SERVICES
+    #                      SERVICES
     # ==========================================================
 
     Services_GUI.GUI(self, Gtk, vboxStack14, Functions)
+
+
+    # ==========================================================
+    #                        SHELL
+    # ==========================================================
+
+    Shell_GUI.GUI(self, Gtk, vboxStack23, zsh_theme, fish, base_dir,GdkPixbuf, Functions)
+
+    # ==========================================================
+    #                        TEMPLATE
+    # ==========================================================
+
+    #Template_GUI.GUI(self, Gtk, vboxStack21, Functions)
 
     # # ==========================================================
     # #               TERMINALS - TERMITE CONFIG
@@ -321,7 +350,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                   ZSH
     # ==========================================================
 
-    zsh_theme_GUI.GUI(self, Gtk, vboxStack15, zsh_theme, base_dir, GdkPixbuf)
+    #Zsh_theme_GUI.GUI(self, Gtk, vboxStack15, zsh_theme, base_dir, GdkPixbuf)
 
     # ==========================================================
     #                   ADD TO WINDOW
@@ -331,13 +360,15 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
 
-    stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
+    #stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
 
     stack.add_titled(vboxStack19, "stack19", "Fixes")  # Fixes
 
     stack.add_titled(vboxStack4, "stack1", "Grub")  # Grub config
 
-    stack.add_titled(vboxStack11, "stack3", "Lightdm")  # Lightdm config
+    #stack.add_titled(vboxStack11, "stack3", "Lightdm")  # Lightdm config
+
+    stack.add_titled(vboxStack22, "stack22", "Login")  # Lightdm config
 
     stack.add_titled(vboxStack16, "stack16", "Mirrors")  # mirrors
 
@@ -347,9 +378,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack3, "stack2", "Privacy")  # Hblock
 
-    stack.add_titled(vboxStack17, "stack17", "Sddm")  # Sddm config
+    #stack.add_titled(vboxStack17, "stack17", "Sddm")  # Sddm config
 
     stack.add_titled(vboxStack14, "stack14", "Services")  # services
+
+    stack.add_titled(vboxStack23, "stack23", "Shells")  # shell
+
+    #stack.add_titled(vboxStack21, "stack21", "Template")  # template
 
     stack.add_titled(vboxStack7, "stack8", "Terminals")  # Termite themes
 
@@ -359,7 +394,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack18, "stack18", "User")  # Sddm config
 
-    stack.add_titled(vboxStack15, "stack15", "Zsh")  # Zsh themes
+    #stack.add_titled(vboxStack15, "stack15", "Zsh")  # Zsh themes
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_name("sidebar")
@@ -402,7 +437,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                      PACKS
     # =====================================================
 
-    hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
+    #hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
