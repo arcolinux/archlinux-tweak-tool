@@ -2239,6 +2239,12 @@ class Main(Gtk.Window):
     def on_click_install_arco_thunar_plugin(self,widget):
         Functions.install_arco_thunar_plugin(self,widget)
 
+    def on_click_install_arco_caja_plugin(self,widget):
+        Functions.install_arco_caja_plugin(self,widget)
+
+    def on_click_install_arco_nemo_plugin(self,widget):
+        Functions.install_arco_nemo_plugin(self,widget)
+
     def on_click_apply_samba(self,widget):
         services.choose_smb_conf(self,widget)
         print("Applying selected samba configuration")
