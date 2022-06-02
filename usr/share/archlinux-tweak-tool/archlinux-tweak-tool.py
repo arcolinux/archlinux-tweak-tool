@@ -904,16 +904,11 @@ class Main(Gtk.Window):
 
     def on_install_fish_clicked(self, widget):
         Functions.install_fish(self)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Fish is installed without a configuration")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Only the Fish package is installed without a configuration")
         print("Fish is installed without a configuration")
 
-    def on_remove_fish(self, widget):
-        Functions.remove_fish(self)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Anything fish related is removed")
-        print("Fish is removed - remove the folder in ~/.config/fish manually")
-
-    def on_arcolinux_fish_clicked(self,widget):
-        Functions.install_arcolinux_fish(self)
+    def on_arcolinux_fish_package_clicked(self,widget):
+        Functions.install_arcolinux_fish_package(self)
 
         #backup whatever is there
         if Functions.path_check(Functions.home + "/.config/fish"):
@@ -932,30 +927,44 @@ class Main(Gtk.Window):
         Functions.copy_func("/etc/skel/.config/fish", Functions.home + "/.config/", True)
         Functions.permissions(Functions.home + "/.config/fish")
 
+        #if there is no file .config/fish
         if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish"):
             Functions.shutil.copy("/etc/skel/.config/fish/config.fish", Functions.home + "/.config/fish/config.fish")
             Functions.permissions(Functions.home + "/.config/fish/config.fish")
 
-        command = 'sudo chsh ' + Functions.sudo_username + ' -s /usr/bin/fish'
-        Functions.subprocess.call(command,
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        widget.set_sensitive(True)
-        print("ArcoLinux fish config is installed and your old fish folder (if any) is in ~/.config/fish-att")
+        print("ArcoLinux Fish config is installed and your old fish folder (if any) is in ~/.config/fish-att")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux fish config is installed")
 
-    def on_fish_reset(self, widget):
+
+    def on_arcolinux_only_fish_clicked(self, widget):
+        if os.path.isfile(Functions.fish_arco):
+            Functions.shutil.copy(Functions.fish_arco, Functions.home + "/.config/fish/config.fish")
+            Functions.permissions(Functions.home + "/.config/fish/config.fish")
+
+        if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
+            Functions.shutil.copy(Functions.fish_arco, Functions.home + "/.config/fish/config.fish.bak")
+            Functions.permissions(Functions.home + "/.config/fish/config.fish.bak")
+
+        print("Fish config has been saved - logout")
+        Functions.show_in_app_notification(self, "Fish config has been saved - logout")
+
+    def on_fish_reset_clicked(self, widget):
         if os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
             Functions.shutil.copy(Functions.home + "/.config/fish/config.fish.bak", Functions.home + "/.config/fish/config.fish")
             Functions.permissions(Functions.home + "/.config/fish/config.fish")
 
         if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
-            Functions.shutil.copy(Functions.fish_config_arco, Functions.home + "/.config/fish/config.fish")
+            Functions.shutil.copy(Functions.fish_arco, Functions.home + "/.config/fish/config.fish")
             Functions.permissions(Functions.home + "/.config/fish/config.fish")
 
         print("Fish config reset")
         Functions.show_in_app_notification(self, "Fish config reset")
+
+    def on_remove_fish(self, widget):
+        Functions.remove_fish(self)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Anything fish related is removed")
+        print("Fish is removed - remove the folder in ~/.config/fish manually")
+
 
     #The intent behind this function is to be a centralised image changer for all portions of ATT that need it
     #Currently utilising an if tree - this is not best practice: it should be a match: case tree.
@@ -1472,15 +1481,11 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         print("We installed lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings")
+        print("--------------------------------------------")
+        print("Do not forget to enable lightdm")
+        print("--------------------------------------------")
 
-        command = 'systemctl enable lightdm.service -f'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("We enabled lightdm")
-
-        GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been installed and enabled - reboot")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been installed but not enabled")
         Functions.restart_program()
 
     def on_click_lightdm_enable(self, desktop):
@@ -2178,14 +2183,11 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         print("We installed bibata-cursor-theme-bin")
+        print("--------------------------------------------")
+        print("Do not forget to enable sddm")
+        print("--------------------------------------------")
 
-        command = 'systemctl enable sddm.service -f'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("We enabled sddm.service")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed and enabled - reboot")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed but not enabled")
 
         if not os.path.isdir(Functions.sddm_default_d2_dir):
             try:
@@ -2726,6 +2728,28 @@ class Main(Gtk.Window):
     #====================================================================
     #                      ZSH THEMES
     #====================================================================
+
+    def on_arcolinux_zshrc_clicked(self, widget):
+        try:
+            if os.path.isfile(Functions.zshrc_arco):
+                Functions.shutil.copy(Functions.zshrc_arco, Functions.zsh_config)
+                Functions.permissions(Functions.home + "/.zshrc")
+        except Exception as e:
+            print(e)
+
+        print("ArcoLinux ~/.zshrc is applied - logout")
+        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux ~/.zshrc is applied - logout")
+
+    def on_zshrc_reset_clicked(self, widget):
+        try:
+            if os.path.isfile(Functions.zsh_config + ".bak"):
+                Functions.shutil.copy(Functions.zsh_config + ".bak", Functions.zsh_config)
+                Functions.permissions(Functions.home + "/.zshrc")
+        except Exception as e:
+            print(e)
+
+        print("Your personal ~/.zshrc is applied again - logout")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Your personal ~/.zshrc is applied again - logout")
 
     def on_zsh_apply_theme(self, widget):
 

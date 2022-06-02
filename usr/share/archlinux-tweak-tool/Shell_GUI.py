@@ -151,6 +151,17 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
 
         # ==========================================================
 
+        hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        hbox25_lbl = Gtk.Label()
+        hbox25_lbl.set_markup("Overwrite your ~/.zshrc with the ArcoLinux zshrc")
+        self.arcolinux_zsh = Gtk.Button("Install the ArcoLinux zshrc configuration")
+        self.arcolinux_zsh.connect("clicked", self.on_arcolinux_zshrc_clicked)
+        self.zsh_reset = Gtk.Button("Reset back to the original ~/.zshrc")
+        self.zsh_reset.connect("clicked", self.on_zshrc_reset_clicked)
+        hbox25.pack_start(hbox25_lbl, False, False, 10)
+        hbox25.pack_end(self.zsh_reset, False, False, 10)
+        hbox25.pack_end(self.arcolinux_zsh, False, False, 10)
+
         hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         hbox21_lbl = Gtk.Label()
         hbox21_lbl.set_markup("Zsh themes")
@@ -205,6 +216,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
 
         vboxStack2.pack_start(hbox19, False, False, 0)
         vboxStack2.pack_start(hbox20, False, False, 0)
+        vboxStack2.pack_start(hbox25, False, False, 0)
         vboxStack2.pack_start(hbox21, False, False, 0)
         vboxStack2.pack_start(image, False, False, 0)
         vboxStack2.pack_start(hbox23, False, False, 0)
@@ -231,7 +243,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         ls = Gtk.Label()
         ls.set_markup("<b>Zsh does not seem to be installed</b>")
 
-        install_zsh = Gtk.Button(label="Install Zsh and enable it - autoreboot")
+        install_zsh = Gtk.Button(label="Install Zsh and enable it")
         install_zsh.connect("clicked", Functions.install_zsh)
 
         vboxStack2.pack_start(hbox32, False, False, 0)
@@ -275,10 +287,21 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
             hbox33_lbl.set_markup("ArcoLinux fish incl. oh-my-fish, themes and plugins (already installed)")
         else:
             hbox33_lbl.set_markup("ArcoLinux fish incl. oh-my-fish, themes and plugins (not installed)")
-        self.arcolinux_fish = Gtk.Button("Install the ArcoLinux Fish configuration")
-        self.arcolinux_fish.connect("clicked", self.on_arcolinux_fish_clicked)
+        self.arcolinux_fish = Gtk.Button("Install the ArcoLinux Fish package")
+        self.arcolinux_fish.connect("clicked", self.on_arcolinux_fish_package_clicked)
         hbox33.pack_start(hbox33_lbl, False, False, 10)
         hbox33.pack_end(self.arcolinux_fish, False, False, 10)
+
+        hbox38 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        hbox38_lbl = Gtk.Label()
+        hbox38_lbl.set_markup("Overwrite your config.fish with the ArcoLinux config")
+        self.arcolinux_fish = Gtk.Button("Install just the ArcoLinux config.fish")
+        self.arcolinux_fish.connect("clicked", self.on_arcolinux_only_fish_clicked)
+        self.fish_reset = Gtk.Button("Reset back to the original ~/.config/config.fish")
+        self.fish_reset.connect("clicked", self.on_fish_reset_clicked)
+        hbox38.pack_start(hbox38_lbl, False, False, 10)
+        hbox38.pack_end(self.fish_reset, False, False, 10)
+        hbox38.pack_end(self.arcolinux_fish, False, False, 10)
 
         hbox34 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox34_lbl = Gtk.Label()
@@ -286,7 +309,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
 \nYou will find scripts in your ~/.config/fish \
 folder to install oh-my-fish, theme and plugins\n\
 if you installed the ArcoLinux Fish configuration\n\n<b>If you just switched shell, log-out first</b>\n")
-        hbox34_lbl.set_margin_top(30)
+        hbox34_lbl.set_margin_top(20)
         hbox34.pack_start(hbox34_lbl, False, False, 10)
 
         # ==========================================================
@@ -301,7 +324,7 @@ if you installed the ArcoLinux Fish configuration\n\n<b>If you just switched she
         tozsh = Gtk.Button(label="Apply zsh")
         tozsh.connect("clicked", self.tozsh_apply)
         termreset = Gtk.Button(label="Reset fish")
-        termreset.connect("clicked", self.on_fish_reset)
+        termreset.connect("clicked", self.on_fish_reset_clicked)
         removefish = Gtk.Button(label="Remove all Fish related packages")
         removefish.connect("clicked", self.on_remove_fish)
 
@@ -319,6 +342,7 @@ if you installed the ArcoLinux Fish configuration\n\n<b>If you just switched she
         vboxStack3.pack_start(hbox31, False, False, 0)  # Combobox
         vboxStack3.pack_start(hbox32, False, False, 0)  # fish
         vboxStack3.pack_start(hbox33, False, False, 0)  # oh-my-fish
+        vboxStack3.pack_start(hbox38, False, False, 0)  # oh-my-fish
         vboxStack3.pack_start(hbox34, False, False, 0)  # image
         vboxStack3.pack_end(hbox35, False, False, 0)  # Buttons
 
@@ -335,10 +359,10 @@ if you installed the ArcoLinux Fish configuration\n\n<b>If you just switched she
         hbox37.pack_start(hseparator, True, True, 0)
 
         ls = Gtk.Label()
-        ls.set_markup("<b>Fish does not seem to be installed\
+        ls.set_markup("<b>Fish does not seem to be installed\n\
                     Restart Att to see the information</b>")
 
-        install_fish = Gtk.Button(label="Install Fish and enable it - autoreboot")
+        install_fish = Gtk.Button(label="Install Fish")
         install_fish.connect("clicked", Functions.install_fish)
 
         vboxStack3.pack_start(hbox36, False, False, 0)

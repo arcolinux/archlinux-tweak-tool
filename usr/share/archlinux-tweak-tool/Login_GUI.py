@@ -134,7 +134,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
         apply_sddm_settings.connect("clicked", self.on_click_sddm_apply)
         hbox90.pack_end(apply_sddm_settings, False, False, 0)
         hbox90.pack_end(btnRefreshAtt, False, False, 0)
-        hbox90.pack_end(enable_sddm, False, False, 10)
+        hbox90.pack_start(enable_sddm, False, False, 10)
 
         # ======================================================================
         #                              PACK TO STACK
@@ -243,7 +243,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
         hbox26.pack_end(apply, False, False, 0)
         hbox26.pack_end(reset, False, False, 0)
         hbox26.pack_end(enable_slick, False, False, 10)
-        hbox26.pack_end(enable_lightdm, False, False, 0)
+        hbox26.pack_start(enable_lightdm, False, False, 0)
 
         vboxStack2.pack_start(hbox19, False, False, 0)
         vboxStack2.pack_start(hbox20, False, False, 0)

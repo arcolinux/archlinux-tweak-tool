@@ -95,7 +95,7 @@ if os.path.isfile(home + "/.bashrc"):
 
 bashrc_arco = "/usr/share/archlinux-tweak-tool/data/arco/.bashrc"
 zshrc_arco = "/usr/share/archlinux-tweak-tool/data/arco/.zshrc"
-fish_config_arco = "/usr/share/archlinux-tweak-tool/data/arco/config.fish"
+fish_arco = "/usr/share/archlinux-tweak-tool/data/arco/config.fish"
 account_list = ["Standard","Administrator"]
 i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
@@ -451,6 +451,8 @@ def install_arco_caja_plugin(self, widget):
     print("Other apps that might be interesting for sharing are :")
     print(" - arcolinux-thunar-share-plugin (thunar)")
     print(" - arcolinux-nemo-share (cinnamon)")
+    print(" - arcolinux-nautilus-share (gnome - budgie)")
+    print(" - kdenetwork-filesharing (plasma)")
 
 # =====================================================
 #               CONVERT COLOR
@@ -501,14 +503,25 @@ def change_distro_label(name):      # noqa
 def install_fish(self):
     install = 'pacman -S fish --needed --noconfirm'
 
-    if os.path.exists("/usr/bin/fish") and os.path.exists("/etc/skel/.config/fish/config.fish") :
+    if os.path.exists("/usr/bin/fish"):
         pass
     else:
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
-        restart_program()
+
+def install_arcolinux_fish_package(self):
+    install = 'pacman -S arcolinux-fish-git --needed --noconfirm'
+
+    try:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("ArcoLinux Fish has been installed")
+    except Exception as e:
+        print(e)
 
 def remove_fish(self):
     install = 'pacman -Rs fish arcolinux-fish-git --noconfirm'
@@ -521,18 +534,6 @@ def remove_fish(self):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
     self.tobash_apply(self)
-
-def install_arcolinux_fish(self):
-    install = 'pacman -S fish arcolinux-fish-git --needed --noconfirm'
-
-    if os.path.exists("/usr/bin/fish") and os.path.exists("/etc/skel/.config/fish/config.fish") :
-        pass
-    else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        print("ATT has been restarted to see the tab FISH")
 
 # ====================================================================
 #                      GET DESKTOP
@@ -811,6 +812,8 @@ def install_arco_nemo_plugin(self, widget):
     print("Other apps that might be interesting for sharing are :")
     print(" - arcolinux-thunar-share-plugin (thunar)")
     print(" - arcolinux-caja-share (mate)")
+    print(" - kdenetwork-filesharing (plasma)")
+    print(" - arcolinux-nautilus-share (gnome - budgie)")
 
 # =====================================================
 #               NEOFETCH CONF
@@ -1416,6 +1419,8 @@ def install_arco_thunar_plugin(self, widget):
     print("Other apps that might be interesting for sharing are :")
     print(" - arcolinux-nemo-share (cinnamon)")
     print(" - arcolinux-caja-share (mate)")
+    print(" - arcolinux-nautilus-share (gnome - budgie)")
+    print(" - kdenetwork-filesharing (plasma)")
 
 # =====================================================
 #               UBLOCK ORIGIN
