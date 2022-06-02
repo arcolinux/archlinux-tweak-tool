@@ -61,6 +61,9 @@ blank_pacman_eos = "/usr/share/archlinux-tweak-tool/data/eos/pacman/blank/pacman
 blank_pacman_garuda = "/usr/share/archlinux-tweak-tool/data/garuda/pacman/blank/pacman.conf"
 neofetch_arco = "/usr/share/archlinux-tweak-tool/data/arco/neofetch/config.conf"
 alacritty_arco = "/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.yml"
+lightdm_greeter_arco = "/usr/share/archlinux-tweak-tool/data/any/lightdm-gtk-greeter.conf"
+lightdm_greeter = "/etc/lightdm/lightdm-gtk-greeter.conf"
+lightdm_conf = "/etc/lightdm/lightdm.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
@@ -74,7 +77,6 @@ alacritty_config_dir = home + "/.config/alacritty"
 slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
-lightdm_conf = "/etc/lightdm/lightdm.conf"
 nsswitch_config ="/etc/nsswitch.conf"
 bd = ".att_backups"
 config = home + "/.config/archlinux-tweak-tool/settings.ini"
@@ -650,6 +652,13 @@ def set_default_theme(self):
             if distro.id() == "garuda":
                 try:
                     val = _get_position(grubd, 'GRUB_THEME="/usr/share/grub/themes/garuda/theme.txt"')
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                   pass
+
+            if distro.id() == "manjaro":
+                try:
+                    val = _get_position(grubd, 'GRUB_THEME="/usr/share/grub/themes/manjaro/theme.txt"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                    pass

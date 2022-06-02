@@ -360,7 +360,7 @@ if you installed the ArcoLinux Fish configuration\n\n<b>If you just switched she
 
         ls = Gtk.Label()
         ls.set_markup("<b>Fish does not seem to be installed\n\
-                    Restart Att to see the information</b>")
+Restart Att to see the information</b>")
 
         install_fish = Gtk.Button(label="Install Fish")
         install_fish.connect("clicked", Functions.install_fish)
