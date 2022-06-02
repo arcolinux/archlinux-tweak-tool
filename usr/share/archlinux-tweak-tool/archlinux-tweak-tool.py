@@ -177,6 +177,14 @@ class Main(Gtk.Window):
                 except Exception as e:
                     print(e)
 
+         #ensuring we have a backup of the archlinux mirrorlist
+        if os.path.isfile(Functions.mirrorlist):
+            if not os.path.isfile(Functions.mirrorlist + ".bak"):
+                try:
+                    Functions.shutil.copy(Functions.mirrorlist, Functions.mirrorlist + ".bak")
+                except Exception as e:
+                    print(e)
+
         #ensuring we have a backup of /etc/lightdm/lightdm.conf
         if os.path.isfile("/etc/lightdm/lightdm.conf"):
             try:
@@ -692,9 +700,14 @@ class Main(Gtk.Window):
 
     # remove file from ~/.config/autostart
     def on_auto_remove_clicked(self, widget, data, listbox, lbl):
-        os.unlink(Functions.autostart + lbl + ".desktop")
-        print("Removed item from ~/.config/autostart/")
-        self.vvbox.remove(listbox)
+        try:
+            os.unlink(Functions.autostart + lbl + ".desktop")
+            print("Removed item from ~/.config/autostart/")
+            self.vvbox.remove(listbox)
+        except Exception as e:
+            print(e)
+            print("We were unable to remove it - remove it manually")
+            print("We only remove .desktop files")
 
     def clear_autostart(self):
         for x in self.vvbox.get_children():
@@ -1060,6 +1073,15 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("Mainstream servers have been set")
         GLib.idle_add(Functions.show_in_app_notification, self, "Mainstream servers have been saved")
+
+    def on_click_reset_mirrorlist(self,widget):
+        try:
+            if os.path.isfile(Functions.mirrorlist + ".bak"):
+                Functions.shutil.copy(Functions.mirrorlist + ".bak", Functions.mirrorlist)
+        except Exception as e:
+            print(e)
+        print("Your original mirrorlist is back")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Your original mirrorlist is back")
 
     def on_click_get_arch_mirrors(self,widget):
         Functions.install_reflector(self)

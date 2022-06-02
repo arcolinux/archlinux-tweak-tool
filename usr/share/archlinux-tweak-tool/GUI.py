@@ -358,7 +358,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack13, "stack13", "Autostart")  # Autostart
 
-    stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
+    if not Functions.distr == "manjaro":
+        stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
 
     #stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
 

@@ -47,6 +47,7 @@ if os.path.exists("/etc/sddm.conf.d/kde_settings.conf"):
 else:
     sddm_conf = "/etc/sddm.conf"
 
+mirrorlist = "/etc/pacman.d/mirrorlist"
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
 arcolinux_mirrorlist_original = "/usr/share/archlinux-tweak-tool/data/arco/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
@@ -494,6 +495,8 @@ def change_distro_label(name):      # noqa
         name = "EndeavourOS"
     if name == "arch":
         name = "Arch Linux"
+    if name == "manjaro":
+        name = "Manjaro"
     return name
 
 # =====================================================
