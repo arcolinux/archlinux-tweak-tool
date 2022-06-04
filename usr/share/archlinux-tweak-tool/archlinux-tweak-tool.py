@@ -134,13 +134,15 @@ class Main(Gtk.Window):
 
         if os.path.isdir("/root/.config/gtk-4.0/"):
             Functions.shutil.rmtree("/root/.config/gtk-4.0/")
-            Functions.shutil.copytree(Functions.home + "/.config/gtk-4.0/",
-                    "/root/.config/gtk-4.0/")
+            if os.path.isdir(Functions.home + "/.config/gtk-4.0/"):
+                Functions.shutil.copytree(Functions.home + "/.config/gtk-4.0/",
+                        "/root/.config/gtk-4.0/")
 
         if os.path.isdir("/root/.config/xsettingsd/xsettingsd.conf"):
             Functions.shutil.rmtree("/root/.config/xsettingsd/")
-            Functions.shutil.copytree(Functions.home + "/.config/xsettingsd/",
-                    "/root/.config/xsettingsd/")
+            if os.path.isdir(Functions.home + "/.config/xsettingsd/"):
+                Functions.shutil.copytree(Functions.home + "/.config/xsettingsd/",
+                        "/root/.config/xsettingsd/")
 
         # =====================================================
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
