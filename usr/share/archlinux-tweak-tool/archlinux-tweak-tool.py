@@ -97,6 +97,51 @@ class Main(Gtk.Window):
         t.start()
         t.join()
 
+
+        # =====================================================
+        #     PLASMA THEME
+        # =====================================================
+
+        #ensuring we have a directory
+        if not Functions.os.path.isdir("/root/.config/"):
+            try:
+                Functions.os.makedirs("/root/.config", 0o766)
+            except Exception as e:
+                print(e)
+
+        if not Functions.os.path.isdir("/root/.config/gtk-3.0"):
+            try:
+                Functions.os.makedirs("/root/.config/gtk-3.0", 0o766)
+            except Exception as e:
+                print(e)
+
+        if not Functions.os.path.isdir("/root/.config/gtk-4.0"):
+            try:
+                Functions.os.makedirs("/root/.config/gtk-4.0", 0o766)
+            except Exception as e:
+                print(e)
+
+        if not Functions.os.path.isdir("/root/.config/xsettingsd"):
+            try:
+                Functions.os.makedirs("/root/.config/xsettingsd", 0o766)
+            except Exception as e:
+                print(e)
+
+        if os.path.isdir("/root/.config/gtk-3.0/"):
+            Functions.shutil.rmtree("/root/.config/gtk-3.0")
+            Functions.shutil.copytree(Functions.home + "/.config/gtk-3.0",
+                    "/root/.config/gtk-3.0")
+
+        if os.path.isdir("/root/.config/gtk-4.0/"):
+            Functions.shutil.rmtree("/root/.config/gtk-4.0/")
+            Functions.shutil.copytree(Functions.home + "/.config/gtk-4.0/",
+                    "/root/.config/gtk-4.0/")
+
+        if os.path.isdir("/root/.config/xsettingsd/xsettingsd.conf"):
+            Functions.shutil.rmtree("/root/.config/xsettingsd/")
+            Functions.shutil.copytree(Functions.home + "/.config/xsettingsd/",
+                    "/root/.config/xsettingsd/")
+
         # =====================================================
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
         # =====================================================
@@ -1463,6 +1508,9 @@ class Main(Gtk.Window):
 
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed")
+
+    def on_hide_grub_activated(self,widget,gparam):
+        print("erik")
 
     #====================================================================
     #                       HBLOCK SECURITY PRIVACY

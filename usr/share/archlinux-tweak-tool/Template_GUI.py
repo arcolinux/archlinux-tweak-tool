@@ -63,6 +63,7 @@ def GUI(self, Gtk, vboxStack21, Functions):
     hbox3.pack_start(self.nsswitch_choices, False, False, 10)
     hbox3.pack_start(btn_apply_nsswitch, False, False, 10)
 
+
     # ==================================================================
     #                       SAMBA EASY TAB
     # ==================================================================
