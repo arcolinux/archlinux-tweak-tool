@@ -54,7 +54,7 @@ def GUI(self, Gtk, vboxStack14, Functions):
     hbox3_label = Gtk.Label(xalign=0)
     hbox3_label.set_text("Change the /etc/nsswitch.conf to connect to computers/NAS")
     self.nsswitch_choices = Gtk.ComboBoxText()
-    options = ['ArcoLinux', 'Garuda', 'Arch Linux', 'EndeavourOS']
+    options = ['ArcoLinux', 'Garuda', 'Arch Linux', 'EndeavourOS', 'Manjaro']
     for option in options:
         self.nsswitch_choices.append_text(option)
     self.nsswitch_choices.set_active(0)
