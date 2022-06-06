@@ -2283,6 +2283,26 @@ class Main(Gtk.Window):
 
         sddm.pop_theme_box(self, self.theme_sddm)
 
+    def on_click_install_bibata_cursor(self,widget):
+        command = 'pacman -S bibata-cursor-theme-bin --needed --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We installed the Bibata cursors")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Bibata cursors have been installed")
+        sddm.pop_theme_box(self, self.theme_sddm)
+
+    def on_click_remove_bibata_cursor(self,widget):
+        command = 'pacman -R bibata-cursor-theme-bin --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We removed the Bibata cursors")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Bibata cursoars have been removed")
+        sddm.pop_theme_box(self, self.theme_sddm)
+
     #if no sddm - press 1
     def on_click_att_sddm_clicked(self, desktop):
         command = 'pacman -S sddm --noconfirm --needed'

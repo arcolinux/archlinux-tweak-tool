@@ -89,6 +89,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
         hbox11.pack_start(install_sddm_themes, False, False, 10)
         hbox11.pack_end(remove_sddm_themes, False, False, 10)
 
+        hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        install_bibata_cursor = Gtk.Button(label="Install Bibata cursor")
+        install_bibata_cursor.connect("clicked", self.on_click_install_bibata_cursor)
+        remove_bibata_cursor = Gtk.Button(label="Remove Bibata cursor")
+        remove_bibata_cursor.connect("clicked", self.on_click_remove_bibata_cursor)
+        hbox16.pack_start(install_bibata_cursor, False, False, 10)
+        hbox16.pack_end(remove_bibata_cursor, False, False, 10)
+
         hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox12_lbl = Gtk.Label(xalign=0)
         hbox12_lbl.set_text("Keep the default ArcoLinux theme")
@@ -147,6 +155,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
         vboxStack1.pack_start(hbox18, False, False, 0)
         vboxStack1.pack_start(hbox9, False, False, 0)
         vboxStack1.pack_start(hbox11, False, False, 0)
+        vboxStack1.pack_start(hbox16, False, False, 0)
         vboxStack1.pack_start(hbox12, False, False, 0)
         vboxStack1.pack_start(hbox17, False, False, 0)
         vboxStack1.pack_start(hbox15, False, False, 0)
