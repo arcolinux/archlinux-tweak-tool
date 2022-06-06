@@ -59,6 +59,7 @@ class Main(Gtk.Window):
         print(" - Ariser        - https://ariser.eu/")
         print(" - EndeavourOS   - https://endeavouros.com/")
         print(" - Garuda        - https://garudalinux.org/")
+        print(" - Manjaro       - https://manjaro.org/")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("Sway is not supported")
@@ -757,7 +758,9 @@ class Main(Gtk.Window):
             self.vvbox.remove(listbox)
         except Exception as e:
             print(e)
-            print("We were unable to remove it - remove it manually")
+            print("We were unable to remove it")
+            print("Evaluate if it can/should be removed")
+            print("Then remove it manually")
             print("We only remove .desktop files")
 
     def clear_autostart(self):
@@ -2296,15 +2299,15 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We installed arcolinux-sddm-simplicity-git")
 
-        command = 'pacman -S bibata-cursor-theme-bin --noconfirm --needed'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("We installed bibata-cursor-theme-bin")
-        print("--------------------------------------------")
-        print("Do not forget to enable sddm")
-        print("--------------------------------------------")
+        # command = 'pacman -S bibata-cursor-theme-bin --noconfirm --needed'
+        # Functions.subprocess.call(command.split(" "),
+        #                 shell=False,
+        #                 stdout=Functions.subprocess.PIPE,
+        #                 stderr=Functions.subprocess.STDOUT)
+        # print("We installed bibata-cursor-theme-bin")
+        # print("--------------------------------------------")
+        # print("Do not forget to enable sddm")
+        # print("--------------------------------------------")
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed but not enabled")
 

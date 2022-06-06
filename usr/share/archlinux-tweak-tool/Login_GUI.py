@@ -168,7 +168,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
 
         ls = Gtk.Label()
         ls.set_markup("<b>Sddm does not seem to be installed</b>")
-        install_sddm = Gtk.Button(label="Install Sddm and enable it")
+        install_sddm = Gtk.Button(label="Install Sddm - autoreboot - do not forget to enable it")
         install_sddm.connect("clicked", self.on_click_att_sddm_clicked)
 
         vboxStack1.pack_start(hbox31, False, False, 0)
@@ -293,8 +293,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
     # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
-
-    stack.add_titled(vboxStack1, "stack1", "SDDM")
+    if not Functions.distr == "manjaro":
+        stack.add_titled(vboxStack1, "stack1", "SDDM")
     stack.add_titled(vboxStack2, "stack2", "LIGHTDM")
 
     vbox.pack_start(stack_switcher, False, False, 0)

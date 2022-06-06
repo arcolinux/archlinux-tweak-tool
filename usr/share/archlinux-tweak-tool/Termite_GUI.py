@@ -60,7 +60,7 @@ def GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir):
    hbox26.set_margin_top(50)
    label26 = Gtk.Label()
    label26.set_markup("Choose your <b>Alcritty</b> theme - type <b>'alacritty-themes'</b> in the terminal")
-   btn_set_arcolinux_alacritty_theme = Gtk.Button(label="Set ArcoLinux alacritty-theme")
+   btn_set_arcolinux_alacritty_theme = Gtk.Button(label="Set ATT alacritty-theme")
    btn_set_arcolinux_alacritty_theme.connect("clicked", self.on_clicked_set_arcolinux_alacritty_theme)
    btn_reset_alacritty = Gtk.Button(label="Reset alacritty theme")
    btn_reset_alacritty.connect("clicked", self.on_clicked_reset_alacritty)

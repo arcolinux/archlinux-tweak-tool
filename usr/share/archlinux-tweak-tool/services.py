@@ -21,6 +21,10 @@ def choose_nsswitch(self,widget):
         Functions.copy_nsswitch("arch")
         print("Nsswitch from Arch Linux")
         GLib.idle_add(Functions.show_in_app_notification, self, "Nsswitch from Arch Linux")
+    elif choice == "Manjaro":
+        Functions.copy_nsswitch("manjaro")
+        print("Nsswitch from Manjaro")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Nsswitch from Manjaro")
     else:
         Functions.copy_nsswitch("eos")
         print("Nsswitch from EndeavourOS")
