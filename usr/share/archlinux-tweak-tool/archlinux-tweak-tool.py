@@ -128,15 +128,14 @@ class Main(Gtk.Window):
             except Exception as e:
                 print(e)
 
-        if os.path.isdir("/root/.config/gtk-3.0/"):
+        if os.path.isdir(Functions.home + "/.config/gtk-3.0"):
             Functions.shutil.rmtree("/root/.config/gtk-3.0")
             Functions.shutil.copytree(Functions.home + "/.config/gtk-3.0",
-                    "/root/.config/gtk-3.0")
+                "/root/.config/gtk-3.0")
 
-        if os.path.isdir("/root/.config/gtk-4.0/"):
+        if os.path.isdir(Functions.home + "/.config/gtk-4.0/"):
             Functions.shutil.rmtree("/root/.config/gtk-4.0/")
-            if os.path.isdir(Functions.home + "/.config/gtk-4.0/"):
-                Functions.shutil.copytree(Functions.home + "/.config/gtk-4.0/",
+            Functions.shutil.copytree(Functions.home + "/.config/gtk-4.0/",
                         "/root/.config/gtk-4.0/")
 
         if os.path.isdir("/root/.config/xsettingsd/xsettingsd.conf"):
@@ -190,6 +189,14 @@ class Main(Gtk.Window):
         # =====================================================
         #                   MAKING BACKUPS
         # =====================================================
+
+        # ensuring we have a backup of index.theme
+        if os.path.exists("/usr/share/icons/default/index.theme"):
+            if not os.path.isfile("/usr/share/icons/default/index.theme" + ".bak"):
+                try:
+                    Functions.shutil.copy("/usr/share/icons/default/index.theme", "/usr/share/icons/default/index.theme" + ".bak")
+                except Exception as e:
+                    print(e)
 
         # ensuring we have a backup of samba.conf
         if os.path.exists("/etc/samba/smb.conf"):
@@ -2776,12 +2783,12 @@ class Main(Gtk.Window):
             print("Alacritty config saved")
 
     def on_clicked_install_xfce4_themes(self,widget):
-        command = 'pacman -S xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
+        command = 'pacman -S xfce4-terminal xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        print("Installing xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal")
+        print("Installing xfce4-terminal xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal")
         GLib.idle_add(Functions.show_in_app_notification, self, "Xfce4-terminal Themes Installed")
 
     def on_clicked_install_termite_themes(self,widget):
