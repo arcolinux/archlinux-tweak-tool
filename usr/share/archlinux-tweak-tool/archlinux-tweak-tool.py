@@ -60,6 +60,7 @@ class Main(Gtk.Window):
         print(" - EndeavourOS   - https://endeavouros.com/")
         print(" - Garuda        - https://garudalinux.org/")
         print(" - Manjaro       - https://manjaro.org/")
+        print(" - Xerolinux     - https://xerolinux.xyz/")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("Sway is not supported")
@@ -1881,7 +1882,9 @@ class Main(Gtk.Window):
     def on_arcolinux_clicked(self, widget):
         Functions.install_arcolinux(self)
         print("ArcoLinux keyring and mirrors added")
+        print("Select now all ArcoLinux repos except testing repo")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux keyring and mirrors added")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Select now all ArcoLinux repos except testing repo")
 
     def on_pacman_arepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo]"):

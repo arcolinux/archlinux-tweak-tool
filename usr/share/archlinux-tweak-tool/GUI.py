@@ -381,8 +381,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     stack.add_titled(vboxStack3, "stack2", "Privacy")  # Hblock
 
     #stack.add_titled(vboxStack17, "stack17", "Sddm")  # Sddm config
-
-    stack.add_titled(vboxStack14, "stack14", "Services")  # services
+    if not Functions.distr == "xerolinux":
+        stack.add_titled(vboxStack14, "stack14", "Services")  # services
 
     if not Functions.distr == "xerolinux":
         stack.add_titled(vboxStack23, "stack23", "Shells")  # shell

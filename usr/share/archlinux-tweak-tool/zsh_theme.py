@@ -17,7 +17,7 @@ def get_themes(combo):
         try:
             lists = [x for x in os.listdir("/usr/share/oh-my-zsh/themes")]
             lists_sorted = sorted(lists)
-            with open(Functions.zsh_config, "r", encoding="utf-8") as f:
+            with open(Functions.zsh_config, "r", encoding="utf-8", errors="ignore") as f:
                 theme_list = f.readlines()
                 f.close()
             pos = Functions._get_position(theme_list, "ZSH_THEME=")
@@ -45,7 +45,7 @@ def set_config(self, theme):
                               Functions.zsh_config + ".bak")
 
     try:
-        with open(Functions.zsh_config, "r", encoding="utf-8") as f:
+        with open(Functions.zsh_config, "r", encoding="utf-8", errors="ignore") as f:
             theme_list = f.readlines()
             f.close()
 
