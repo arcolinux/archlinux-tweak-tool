@@ -5,7 +5,7 @@
 import Functions as fn
 
 def get_list(fle):
-    with open(fle, "r") as f:
+    with open(fle, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
     return lines
@@ -77,7 +77,7 @@ def set_i3_themes(lines, theme):
         pos1 = fn._get_position(lines, "##START THEMING WM")
         pos2 = fn._get_position(lines, "##STOP THEMING WM")
         name = theme.lower().replace(" ", "-")
-        with open(fn.home + "/.config/i3/" + name + ".theme", "r") as f:
+        with open(fn.home + "/.config/i3/" + name + ".theme", "r", encoding="utf-8") as f:
             theme_lines = f.readlines()
             f.close()
         pos3 = fn._get_position(theme_lines, "##START THEMING WM")
@@ -95,7 +95,7 @@ def set_i3_themes_bar(lines, theme):
         pos1 = fn._get_position(lines, "##START THEMING BAR")
         pos2 = fn._get_position(lines, "##STOP THEMING BAR")
         name = theme.lower().replace(" ", "-")
-        with open(fn.home + "/.config/i3/" + name + ".theme", "r") as f:
+        with open(fn.home + "/.config/i3/" + name + ".theme", "r", encoding="utf-8") as f:
             theme_lines = f.readlines()
             f.close()
 
@@ -162,7 +162,7 @@ def set_qtile_themes(lines, theme):
         pos1 = fn._get_position(lines, "# COLORS FOR THE BAR")
         pos2 = fn._get_position(lines, "colors = init_colors()")
         name = theme.lower().replace(" ", "-")
-        with open(fn.home + "/.config/qtile/themes/" + name + ".theme", "r") as f:
+        with open(fn.home + "/.config/qtile/themes/" + name + ".theme", "r", encoding="utf-8") as f:
             theme_lines = f.readlines()
             f.close()
         pos3 = fn._get_position(theme_lines, "# COLORS FOR THE BAR")

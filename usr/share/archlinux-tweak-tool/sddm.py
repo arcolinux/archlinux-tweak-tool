@@ -6,7 +6,7 @@ import Functions, os
 from Functions import GLib
 
 def check_sddmk_session(value):
-    with open(Functions.sddm_conf, "r") as myfile:
+    with open(Functions.sddm_conf, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
@@ -16,7 +16,7 @@ def check_sddmk_session(value):
     return False
 
 def insert_session(text):
-    with open(Functions.sddm_conf, "r") as f:
+    with open(Functions.sddm_conf, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
     pos = Functions._get_position(lines, "[Autologin]")
@@ -30,7 +30,7 @@ def insert_session(text):
 
 
 def check_sddmk_user(value):
-    with open(Functions.sddm_conf, "r") as myfile:
+    with open(Functions.sddm_conf, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
@@ -40,7 +40,7 @@ def check_sddmk_user(value):
     return False
 
 def insert_user(text):
-    with open(Functions.sddm_conf, "r") as f:
+    with open(Functions.sddm_conf, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
     pos = Functions._get_position(lines, "[Autologin]")
@@ -109,7 +109,7 @@ def set_sddm_cursor(self, lists, cursor):
 
 def get_sddm_lines(files):
     if Functions.os.path.isfile(files):
-        with open(files, "r") as f:
+        with open(files, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
         return lines

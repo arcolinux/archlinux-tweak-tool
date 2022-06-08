@@ -32,7 +32,7 @@ def pop_bar(self, *args, **kwargs):
     name = ""
     self.pbcombo.get_model().clear()
     if os.path.isfile(launch):
-        with open(launch, "r") as f:
+        with open(launch, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
 
@@ -64,7 +64,7 @@ def set_config(self, config, state):
     lists = ["herbstluftwm)", "openbox)", "xmonad)", "i3)", "bspwm)"]
 
     if os.path.isfile(launch):
-        with open(launch, "r") as f:
+        with open(launch, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
         try:

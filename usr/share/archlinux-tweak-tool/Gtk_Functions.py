@@ -17,7 +17,7 @@ def get_gtk_themes(self, combo):
             active_combo = ""
             combo.get_model().clear()
             coms = []
-            with open(Functions.gtk3_settings, "r") as f:
+            with open(Functions.gtk3_settings, "r", encoding="utf-8") as f:
                 lines = f.readlines()
                 f.close()
             pos = int(Functions.gtk_get_position(lines, "gtk-theme-name"))
@@ -46,7 +46,7 @@ def get_icon_themes(self, combo):
             active_combo_icon = ""
             combo.get_model().clear()
             coms = []
-            with open(Functions.gtk3_settings, "r") as f:
+            with open(Functions.gtk3_settings, "r", encoding="utf-8") as f:
                 lines = f.readlines()
                 f.close()
             pos = int(Functions.gtk_get_position(lines, "gtk-icon-theme-name"))
@@ -75,7 +75,7 @@ def get_cursor_themes(self, combo):
             combo.get_model().clear()
             active_combo_cursor = ""
             coms = []
-            with open(Functions.gtk3_settings, "r") as f:
+            with open(Functions.gtk3_settings, "r", encoding="utf-8") as f:
                 lines = f.readlines()
                 f.close()
             pos = int(Functions.gtk_get_position(lines, "gtk-cursor-theme-name"))
@@ -101,7 +101,7 @@ def get_cursor_themes(self, combo):
 def get_mono_font(name):
     if os.path.isfile(Functions.xfce_config):
         try:
-            with open(Functions.xfce_config, "r") as f:
+            with open(Functions.xfce_config, "r", encoding="utf-8") as f:
                 lines = f.readlines()
                 f.close()
 
@@ -122,7 +122,7 @@ def get_gtk_settings(item):
     if os.path.isfile(Functions.gtk3_settings):
         active_cursor = ""
         try:
-            with open(Functions.gtk3_settings, "r") as f:
+            with open(Functions.gtk3_settings, "r", encoding="utf-8") as f:
                 lines = f.readlines()
                 f.close()
             pos = int(Functions.gtk_get_position(lines, item))
@@ -197,7 +197,7 @@ def set_xfce_settings(theme, icon, cursor, cursize):
         if not os.path.isfile(Functions.xfce_config + ".bak"):
             Functions.shutil.copy(Functions.xfce_config, Functions.xfce_config + ".bak")
         try:
-            with open(Functions.xfce_config, "r") as f:
+            with open(Functions.xfce_config, "r", encoding="utf-8") as f:
                 lines = f.readlines()
                 f.close()
 
@@ -248,7 +248,7 @@ def update_index_theme(theme):
     theme_file = "/usr/share/icons/default/index.theme"
     if os.path.isfile(theme_file):
         try:
-            with open(theme_file, "r") as f:
+            with open(theme_file, "r", encoding="utf-8") as f:
                 lines = f.readlines()
                 f.close()
             for i in range(len(lines)):

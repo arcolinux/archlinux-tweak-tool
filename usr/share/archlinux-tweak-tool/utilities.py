@@ -186,7 +186,7 @@ def write_configs(utility, util_str):
         config = ""
 
     if config != "":
-        with open(config, "r") as f:
+        with open(config, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
             try:
@@ -212,7 +212,7 @@ def get_term_rc(value):
     except:
         config = ""
     if config_file != "":
-        with open(config_file, "r") as myfile:
+        with open(config_file, "r", encoding="utf-8") as myfile:
             lines = myfile.readlines()
             myfile.close()
             pos = _get_position(lines, value)

@@ -10,7 +10,7 @@ from Functions import os
 
 def get_shortcut(value):
     if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, "r") as f:
+        with open(Functions.oblogout_conf, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
         shortcu = Functions.check_value(lines[Functions.get_shortcuts(lines):Functions.get_commands(lines)], value)
@@ -50,7 +50,7 @@ def oblog_populate(combo):
     if os.path.isfile(Functions.oblogout_conf):
         coms = []
         active = ""
-        with open(Functions.oblogout_conf, "r") as f:
+        with open(Functions.oblogout_conf, "r", encoding="utf-8") as f:
             lines = f.readlines()
             for line in lines:
                 if "buttontheme" in line:

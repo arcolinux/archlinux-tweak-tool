@@ -14,7 +14,7 @@ def get_themes(combo):  # noqa
     if os.path.isdir(Functions.home + "/.config/termite/themes/"):
         themes = os.listdir(Functions.home + "/.config/termite/themes/")
         combo.get_model().clear()
-        with open(Functions.termite_config, "r") as f:
+        with open(Functions.termite_config, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
 
@@ -51,7 +51,7 @@ def get_themes(combo):  # noqa
 
 def get_config():
     if os.path.isfile(Functions.termite_config):
-        with open(Functions.termite_config, "r") as f:
+        with open(Functions.termite_config, "r", encoding="utf-8") as f:
             lists = f.readlines()
             f.close()
         target_element = "[colors]\n"
@@ -75,7 +75,7 @@ def set_config(self, theme):
         with open(Functions.home +
                   "/.config/termite/themes/" +
                   theme +
-                  ".config", "r") as f:
+                  ".config", "r", encoding="utf-8") as f:
             theme_list = f.readlines()
             f.close()
 

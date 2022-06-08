@@ -282,7 +282,7 @@ def path_check(path):
 # check if value is true or false in file
 def check_content(value, file):         # noqa
     try:
-        with open(file, "r") as myfile:
+        with open(file, "r", encoding="utf-8") as myfile:
             lines = myfile.readlines()
             myfile.close()
 
@@ -329,7 +329,7 @@ def check_service(service):         # noqa
 def list_users(filename): # noqa
     try:
         data = []
-        with open(filename, "r") as f:
+        with open(filename, "r", encoding="utf-8") as f:
             for line in f.readlines():
                 if "1001" in line:
                     data.append(line.split(":")[0])
@@ -499,6 +499,8 @@ def change_distro_label(name):      # noqa
         name = "Arch Linux"
     if name == "manjaro":
         name = "Manjaro"
+    if name == "xerolinux":
+        name = "Xerolinux"
     return name
 
 # =====================================================
@@ -595,7 +597,7 @@ def set_grub_wallpaper(self, image):
         if not os.path.isfile(grub_theme_conf + ".bak"):
             shutil.copy(grub_theme_conf, grub_theme_conf + ".bak")
         try:
-            with open(grub_theme_conf, "r") as f:
+            with open(grub_theme_conf, "r", encoding="utf-8") as f:
                 lists = f.readlines()
                 f.close()
 
@@ -616,7 +618,7 @@ def set_default_theme(self):
         if not os.path.isfile(grub_default_grub + ".bak"):
             shutil.copy(grub_default_grub, grub_default_grub + ".bak")
         try:
-            with open(grub_default_grub, "r") as f:
+            with open(grub_default_grub, "r", encoding="utf-8") as f:
                 grubd = f.readlines()
                 f.close()
 
@@ -659,6 +661,13 @@ def set_default_theme(self):
             if distro.id() == "manjaro":
                 try:
                     val = _get_position(grubd, 'GRUB_THEME="/usr/share/grub/themes/manjaro/theme.txt"')
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                   pass
+
+            if distro.id() == "xerolinux":
+                try:
+                    val = _get_position(grubd, 'GRUB_THEME="/boot/grub/themes/XeroKDE/theme.txt"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                    pass
@@ -1235,7 +1244,7 @@ def copy_samba(choice):
             os.makedirs("/home/" + sudo_username + "/Shared", 0o755)
         permissions("/home/" + sudo_username + "/Shared")
         try:
-            with open(samba_config, "r") as f:
+            with open(samba_config, "r", encoding="utf-8") as f:
                 lists = f.readlines()
                 f.close()
 
@@ -1315,7 +1324,7 @@ def save_samba_config(self,widget):
         if not os.path.isfile(samba_config + ".bak"):
             shutil.copy(samba_config, samba_config + ".bak")
         try:
-            with open(samba_config, "r") as f:
+            with open(samba_config, "r", encoding="utf-8") as f:
                 lists = f.readlines()
                 f.close()
 

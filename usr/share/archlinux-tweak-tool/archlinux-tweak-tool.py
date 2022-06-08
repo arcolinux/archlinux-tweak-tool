@@ -671,7 +671,7 @@ class Main(Gtk.Window):
         else:
             bools = True
 
-        with open(Functions.home + "/.config/autostart/" + text + ".desktop", "r") as f:
+        with open(Functions.home + "/.config/autostart/" + text + ".desktop", "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
         try:
@@ -734,7 +734,7 @@ class Main(Gtk.Window):
     def on_auto_toggle(self, widget, data, lbl):
         failed = False
         try:
-            with open(Functions.autostart + lbl + ".desktop", "r") as f:
+            with open(Functions.autostart + lbl + ".desktop", "r", encoding="utf-8") as f:
                 lines = f.readlines()
                 f.close()
             try:
@@ -1385,7 +1385,7 @@ class Main(Gtk.Window):
     def pop_themes_grub(self, combo, lists, start):
         if os.path.isfile(Functions.grub_theme_conf):
             combo.get_model().clear()
-            with open(Functions.grub_theme_conf, "r") as f:
+            with open(Functions.grub_theme_conf, "r", encoding="utf-8") as f:
                 listss = f.readlines()
                 f.close()
 
@@ -3118,7 +3118,7 @@ if __name__ == "__main__":
 
         if result in (Gtk.ResponseType.OK, Gtk.ResponseType.YES):
             pid = ""
-            with open("/tmp/att.pid", "r") as f:
+            with open("/tmp/att.pid", "r", encoding="utf-8") as f:
                 line = f.read()
                 pid = line.rstrip().lstrip()
                 f.close()

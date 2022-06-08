@@ -44,7 +44,7 @@ def set_lightdm_value(self, lists, value, session, state):
 
 def get_lines(files):
     if Functions.os.path.isfile(files):
-        with open(files, "r") as f:
+        with open(files, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
         return lines

@@ -23,7 +23,7 @@ def append_mirror(self, text):
 
 
 def insert_repo(self, text):
-    with open(Functions.pacman, "r") as f:
+    with open(Functions.pacman, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
     pos = Functions._get_position(lines, "[custom]")
@@ -37,7 +37,7 @@ def insert_repo(self, text):
 
 
 def check_repo(value):
-    with open(Functions.pacman, "r") as myfile:
+    with open(Functions.pacman, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
@@ -50,7 +50,7 @@ def check_repo(value):
     return False
 
 def check_mirror(value):
-    with open(Functions.arcolinux_mirrorlist, "r") as myfile:
+    with open(Functions.arcolinux_mirrorlist, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
@@ -64,7 +64,7 @@ def check_mirror(value):
 
 
 def repo_exist(value):
-    with open(Functions.pacman, "r") as myfile:
+    with open(Functions.pacman, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
@@ -74,7 +74,7 @@ def repo_exist(value):
     return False
 
 def mirror_exist(value):
-    with open(Functions.arcolinux_mirrorlist, "r") as myfile:
+    with open(Functions.arcolinux_mirrorlist, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 

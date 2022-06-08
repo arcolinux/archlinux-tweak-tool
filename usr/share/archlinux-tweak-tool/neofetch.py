@@ -12,7 +12,7 @@ from Functions import os
 def get_neofetch():
     lines = []
     if os.path.isfile(Functions.neofetch_config):
-        with open(Functions.neofetch_config, "r") as f:
+        with open(Functions.neofetch_config, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
 

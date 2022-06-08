@@ -12,7 +12,7 @@ from Functions import os
 def get_slimlock(combo):
     coms = []
     if os.path.isfile(Functions.slimlock_conf):
-        with open(Functions.slimlock_conf, "r") as f:
+        with open(Functions.slimlock_conf, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
 
@@ -44,7 +44,7 @@ def reload_import(combo, theme):
     combo.get_model().clear()
     coms = []
     if os.path.isfile(Functions.slimlock_conf):
-        # with open(Functions.slimlock_conf, "r") as f:
+        # with open(Functions.slimlock_conf, "r", encoding="utf-8") as f:
         #     lines = f.readlines()
         #     f.close()
         for folder in os.listdir("/usr/share/slim/themes/"):
@@ -60,7 +60,7 @@ def reload_import(combo, theme):
 
 
 def remove_theme(name):
-    with open(Functions.slimlock_conf, "r") as f:
+    with open(Functions.slimlock_conf, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
     try:
