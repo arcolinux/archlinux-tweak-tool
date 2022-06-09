@@ -34,6 +34,9 @@ cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-keyring*pkg.ta
 echo "Keyring and mirror from ArcoLinux"
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/
 
+echo "Mirror from XeroLinux"
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/xerolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/xero/packages/
+
 
 echo "Keyring and mirror from Garuda and EOS"
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/garuda/packages/

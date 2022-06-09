@@ -50,6 +50,9 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
     # ========================================================
     #               ARCO REPOS
@@ -133,17 +136,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     frame2lbl = frame2.get_label_widget()
     frame2lbl.set_markup("<b>Other repos</b>")
 
-    self.chaotics_button = Gtk.Button(label="Install keys and mirrors")
-    self.chaotics_button.connect("clicked", self.on_chaotics_clicked)
-
-    self.chaotics_switch = Gtk.Switch()
-    self.chaotics_switch.connect("notify::active", self.on_chaotics_toggle)
-    label9 = Gtk.Label(xalign=0)
-    label9.set_markup("Enable Chaotics repo - set as last repo")
-
     self.endeavouros_button = Gtk.Button(label="Install keys and mirrors")
     self.endeavouros_button.connect("clicked", self.on_endeavouros_clicked)
-
     self.endeavouros_switch = Gtk.Switch()
     self.endeavouros_switch.connect("notify::active", self.on_endeavouros_toggle)
     label16 = Gtk.Label(xalign=0)
@@ -153,6 +147,31 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.nemesis_switch.connect("notify::active", self.on_nemesis_toggle)
     label11 = Gtk.Label(xalign=0)
     label11.set_markup("Enable Nemesis repo")
+
+    self.xerolinux_button = Gtk.Button(label="Install mirrors")
+    self.xerolinux_button.connect("clicked", self.on_xerolinux_clicked)
+
+    self.xerolinux_switch = Gtk.Switch()
+    self.xerolinux_switch.connect("notify::active", self.on_xero_toggle)
+    label17 = Gtk.Label(xalign=0)
+    label17.set_markup("Enable Xerolinux repo")
+
+    self.xerolinux_xl_switch = Gtk.Switch()
+    self.xerolinux_xl_switch.connect("notify::active", self.on_xero_xl_toggle)
+    label18 = Gtk.Label(xalign=0)
+    label18.set_markup("Enable Xerolinux XL repo")
+
+    self.xerolinux_nv_switch = Gtk.Switch()
+    self.xerolinux_nv_switch.connect("notify::active", self.on_xero_nv_toggle)
+    label19 = Gtk.Label(xalign=0)
+    label19.set_markup("Enable Xerolinux Nvidia repo")
+
+    self.chaotics_button = Gtk.Button(label="Install keys and mirrors")
+    self.chaotics_button.connect("clicked", self.on_chaotics_clicked)
+    self.chaotics_switch = Gtk.Switch()
+    self.chaotics_switch.connect("notify::active", self.on_chaotics_toggle)
+    label9 = Gtk.Label(xalign=0)
+    label9.set_markup("Enable Chaotics repo - set as last repo")
 
     # ========================================================
     #               CUSTOM REPOS
@@ -215,10 +234,6 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #               OTHER REPOS PACKING
     # ========================================================
 
-    hboxStack11.pack_start(label9, False, True, 10)
-    if not Functions.check_package_installed("chaotic-keyring"):
-        hboxStack11.pack_end(self.chaotics_button, False, False, 10)
-    hboxStack11.pack_end(self.chaotics_switch, False, False, 10)
     hboxStack19.pack_start(label16, False, True, 10)
     if not Functions.check_package_installed("endeavouros-keyring"):
         hboxStack19.pack_end(self.endeavouros_button, False, False, 10)
@@ -226,9 +241,29 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack13.pack_start(label11, False, True, 10)
     hboxStack13.pack_end(self.nemesis_switch, False, False, 10)
 
+    if not Functions.check_package_installed("xerolinux-mirrorlist"):
+        hboxStack20.pack_end(self.xerolinux_button, False, True, 10)
+
+    hboxStack20.pack_start(label17, False, True, 10)
+    hboxStack20.pack_end(self.xerolinux_switch, False, False, 10)
+
+    hboxStack21.pack_start(label18, False, True, 10)
+    hboxStack21.pack_end(self.xerolinux_xl_switch, False, False, 10)
+
+    hboxStack22.pack_start(label19, False, True, 10)
+    hboxStack22.pack_end(self.xerolinux_nv_switch, False, False, 10)
+
+    hboxStack11.pack_start(label9, False, True, 10)
+    if not Functions.check_package_installed("chaotic-keyring"):
+        hboxStack11.pack_end(self.chaotics_button, False, False, 10)
+    hboxStack11.pack_end(self.chaotics_switch, False, False, 10)
+
     vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vboxStack4.pack_start(hboxStack19, False, False, 10)
     vboxStack4.pack_start(hboxStack13, False, False, 10)
+    vboxStack4.pack_start(hboxStack20, False, False, 10)
+    vboxStack4.pack_start(hboxStack21, False, False, 10)
+    vboxStack4.pack_start(hboxStack22, False, False, 10)
     vboxStack4.pack_start(hboxStack11, False, False, 10)
 
     # ========================================================
@@ -302,8 +337,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
 
     # =================CUSTOM REPO========================
 
-    vboxStack1.pack_start(hboxStack2, False, False, 0)
-    vboxStack1.pack_start(hboxStack3, True, True, 0)
+    #vboxStack1.pack_start(hboxStack2, False, False, 0)
+    #vboxStack1.pack_start(hboxStack3, True, True, 0)
 
     # =================FOOTER========================
 

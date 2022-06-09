@@ -167,6 +167,12 @@ def toggle_test_repos(self, state, widget):  # noqa
                     spin_on("[endeavouros]", lines, i, line)
                 if widget == "nemesis":
                     spin_on("[nemesis_repo]", lines, i, line)
+                if widget == "xero":
+                    spin_on("[xerolinux_repo]", lines, i, line)
+                if widget == "xero_xl":
+                    spin_on("[xerolinux_repo_xl]", lines, i, line)
+                if widget == "xero_nv":
+                    spin_on("[xerolinux_nvidia_repo]", lines, i, line)
 
                 if widget == "arco_testing":
                     pacman_on("[arcolinux_repo_testing]", lines, i, line)
@@ -213,6 +219,12 @@ def toggle_test_repos(self, state, widget):  # noqa
                     spin_off("[endeavouros]", lines, i, line)
                 if widget == "nemesis":
                     spin_off("[nemesis_repo]", lines, i, line)
+                if widget == "xero":
+                    spin_off("[xerolinux_repo]", lines, i, line)
+                if widget == "xero_xl":
+                    spin_off("[xerolinux_repo_xl]", lines, i, line)
+                if widget == "xero_nv":
+                    spin_off("[xerolinux_nvidia_repo]", lines, i, line)
 
                 if widget == "arco_testing":
                     pacman_off("[arcolinux_repo_testing]", lines, i, line)

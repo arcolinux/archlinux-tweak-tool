@@ -49,6 +49,7 @@ else:
 
 mirrorlist = "/etc/pacman.d/mirrorlist"
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
+xerolinux_mirrorlist = "/etc/pacman.d/xerolinux-mirrorlist"
 arcolinux_mirrorlist_original = "/usr/share/archlinux-tweak-tool/data/arco/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
 pacman_arch = "/usr/share/archlinux-tweak-tool/data/arch/pacman/pacman.conf"
@@ -134,6 +135,18 @@ Include = /etc/pacman.d/endeavouros-mirrorlist"
 nemesis_repo = "[nemesis_repo]\n\
 SigLevel = Optional TrustedOnly\n\
 Server = https://erikdubois.github.io/$repo/$arch"
+
+xero_repo = "[xerolinux_repo]\n\
+SigLevel = Optional TrustAll\n\
+Include = /etc/pacman.d/xero-mirrorlist"
+
+xero_xl_repo = "[xerolinux_repo_xl]\n\
+SigLevel = Optional TrustAll\n\
+Include = /etc/pacman.d/xero-mirrorlist"
+
+xero_nv_repo = "[xerolinux_nvidia_repo]\n\
+SigLevel = Optional TrustAll\n\
+Include = /etc/pacman.d/xero-mirrorlist"
 
 arch_testing_repo = "[testing]\n\
 Include = /etc/pacman.d/mirrorlist"
@@ -1000,6 +1013,19 @@ def install_arcolinux(self):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
         print("ArcoLinux mirrorlist is now installed")
+    except Exception as e:
+        print(e)
+
+def install_xerolinux(self):
+    base_dir = os.path.dirname(os.path.realpath(__file__))
+    name1 = "xerolinux-mirrorlist-0.1.2-1-any.pkg.tar.zst"
+    try:
+        install = 'pacman -U ' + base_dir + '/data/xero/packages/' + name1 + ' --noconfirm'
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Xerolinux mirrorlist is now installed")
     except Exception as e:
         print(e)
 

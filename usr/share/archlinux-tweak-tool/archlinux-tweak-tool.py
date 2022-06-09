@@ -233,6 +233,14 @@ class Main(Gtk.Window):
                 except Exception as e:
                     print(e)
 
+         #ensuring we have a backup or the xerolinux mirrorlist
+        if os.path.isfile(Functions.xerolinux_mirrorlist):
+            if not os.path.isfile(Functions.xerolinux_mirrorlist + ".bak"):
+                try:
+                    Functions.shutil.copy(Functions.xerolinux_mirrorlist, Functions.xerolinux_mirrorlist + ".bak")
+                except Exception as e:
+                    print(e)
+
          #ensuring we have a backup of the archlinux mirrorlist
         if os.path.isfile(Functions.mirrorlist):
             if not os.path.isfile(Functions.mirrorlist + ".bak"):
@@ -460,6 +468,9 @@ class Main(Gtk.Window):
         chaotics_repo = pmf.check_repo("[chaotic-aur]")
         endeavouros_repo = pmf.check_repo("[endeavouros]")
         nemesis_repo = pmf.check_repo("[nemesis_repo]")
+        xero_repo = pmf.check_repo("[xerolinux_repo]")
+        xero_xl_repo = pmf.check_repo("[xerolinux_repo_xl]")
+        xero_nv_repo = pmf.check_repo("[xerolinux_nvidia_repo]")
 
         #========================ARCO MIRROR=============================
 
@@ -509,6 +520,12 @@ class Main(Gtk.Window):
         self.endeavouros_switch.set_active(endeavouros_repo)
         self.opened = False
         self.nemesis_switch.set_active(nemesis_repo)
+        self.opened = False
+        self.xerolinux_switch.set_active(xero_repo)
+        self.opened = False
+        self.xerolinux_xl_switch.set_active(xero_xl_repo)
+        self.opened = False
+        self.xerolinux_nv_switch.set_active(xero_nv_repo)
         self.opened = False
 
         #========================NEOFETCH LOLCAT TOGGLE===================
@@ -1955,6 +1972,44 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "nemesis")
+
+    def on_xerolinux_clicked(self, widget):
+        Functions.install_xerolinux(self)
+        print("XeroLinux mirrors added")
+        print("Select now all XeroLinux repos")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Xerolinux mirrors added")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Select now all Xerolinux repos")
+
+    def on_xero_toggle(self, widget, active):
+        if not pmf.repo_exist("[xerolinux_repo]"):
+            pmf.append_repo(self, Functions.xero_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "xero")
+
+    def on_xero_xl_toggle(self, widget, active):
+        if not pmf.repo_exist("[xerolinux_repo_xl]"):
+            pmf.append_repo(self, Functions.xero_xl_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "xero_xl")
+
+    def on_xero_nv_toggle(self, widget, active):
+        if not pmf.repo_exist("[xerolinux_nvidia_repo]"):
+            pmf.append_repo(self, Functions.xero_nv_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "xero_nv")
+
 
     def on_pacman_toggle1(self, widget, active):
         if not pmf.repo_exist("[testing]"):
