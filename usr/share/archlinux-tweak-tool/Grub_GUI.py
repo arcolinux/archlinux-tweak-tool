@@ -45,8 +45,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     self.tbimage = Gtk.Entry()
     btnsearch = Gtk.Button(label=". . .")
     btnsearch.connect("clicked", self.on_choose_wallpaper)
-    btnimport = Gtk.Button(label="Import selected image")
-    btnimport.connect("clicked", self.on_import_wallpaper)
     hbox11.pack_start(label11, False, False, 10)
     hbox11.pack_start(self.tbimage, True, True, 10)
     hbox11.pack_start(btnsearch, False, False, 10)
@@ -54,8 +52,16 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label12 = Gtk.Label()
     label12.set_text("Select a wallpaper and apply")
+    btnimport = Gtk.Button(label="Import selected image")
+    btnimport.connect("clicked", self.on_import_wallpaper)
     hbox12.pack_end(btnimport, False, False, 10)
     hbox12.pack_start(label12, False, True, 10)
+
+    hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    btnremove = Gtk.Button(label="Remove wallpaper")
+    btnremove.set_size_request(180, 0)
+    btnremove.connect("clicked", self.on_remove_wallpaper)
+    hbox13.pack_end(btnremove, False, False, 10)
 
     scrolled = Gtk.ScrolledWindow()
     scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
@@ -70,20 +76,16 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     self.grub_theme_combo.connect("changed", self.on_grub_theme_change)
 
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    btnremove = Gtk.Button(label="Remove wallpaper")
-    btnremove.set_size_request(180, 0)
-    btnremove.connect("clicked", self.on_remove_wallpaper)
-    grub_apply = Gtk.Button(label="Apply wallpaper")
+    grub_apply = Gtk.Button(label="2. Choose and apply wallpaper")
     grub_apply.connect("clicked", self.on_set_grub_wallpaper)
     grub_reset = Gtk.Button(label="Reset to default Vimix wallpaper")
     grub_reset.connect("clicked", self.on_reset_grub_wallpaper)
-    grub_reset_grub = Gtk.Button(label="Apply the original grub theme")
+    grub_reset_grub = Gtk.Button(label="Reset to the original grub theme")
     grub_reset_grub.connect("clicked", self.on_reset_grub)
-    grub_reset_vimix = Gtk.Button(label="Apply the Vimix theme")
+    grub_reset_vimix = Gtk.Button(label="1. Apply the Vimix theme")
     grub_reset_vimix.connect("clicked", self.on_reset_grub_vimix)
-    hbox9.pack_start(btnremove, False, False, 10)
-    hbox9.pack_end(grub_apply, False, False, 0)
     hbox9.pack_end(grub_reset_grub, False, False, 0)
+    hbox9.pack_end(grub_apply, False, False, 0)
     hbox9.pack_end(grub_reset_vimix, False, False, 0)
 
     vboxStack4.pack_start(hbox3, False, False, 0) #title
@@ -91,5 +93,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     #vboxStack4.pack_start(hbox10, False, False, 0) #scale
     vboxStack4.pack_start(hbox11, False, False, 0) #import
     vboxStack4.pack_start(hbox12, False, False, 0) #select wallpaper
+    vboxStack4.pack_start(hbox13, False, False, 0) #select wallpaper
     vboxStack4.pack_start(scrolled, True, True, 0) #Preview
     vboxStack4.pack_end(hbox9, False, False, 0)# Buttons

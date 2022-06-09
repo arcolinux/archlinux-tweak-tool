@@ -19,12 +19,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     lbl3 = Gtk.Label(xalign=0)
     lbl4 = Gtk.Label(xalign=0)
     lbl5 = Gtk.Label(xalign=0)
+    lbl6 = Gtk.Label(xalign=0)
 
     if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh" or Functions.get_shell() == "fish":
-        lbl2.set_text("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
-        lbl3.set_text("  We recommend using not more than two utilities at the same time, due to screen real estate.")
-        lbl4.set_text("  For some of these packages you will need to add the ArcoLinux repositories.")
-        lbl5.set_text("  Without the ArcoLinux repositories only neofetch and screenfetch are available ")
+        lbl2.set_text("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks")
+        lbl3.set_text("  We recommend using not more than two utilities at the same time, due to screen real estate")
+        lbl4.set_text("  For some of these packages you will need to add the ArcoLinux repositories")
+        lbl5.set_text("  Without the ArcoLinux repositories only neofetch and screenfetch are available")
+        lbl6.set_text("  At the end of .bashrc, .zshrc or fish.config we will add the utility")
 
     else:
         lbl2.set_text("  Arcolinux Tweak Tool was unable to detect your Shell, or was unable to obtain your shells config file.")
@@ -156,6 +158,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     vbox14.pack_start(lbl3, False, False, 0)
     vbox14.pack_start(lbl4, False, False, 0)
     vbox14.pack_start(lbl5, False, False, 0)
+    vbox14.pack_start(lbl6, False, False, 0)
     vbox14.pack_start(grid, False, False, 0)
 
     vboxStack9.pack_start(hbox3, False, False, 0)

@@ -21,6 +21,7 @@ import GUI
 import lightdm
 import neofetch
 import oblogout
+import os
 import pacman_functions
 import polybar
 import sddm
@@ -35,7 +36,6 @@ import themer
 import user
 import utilities
 import zsh_theme
-from Functions import os, pacman
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gdk, GdkPixbuf, GLib, Gtk, Pango  # noqa
@@ -527,6 +527,15 @@ class Main(Gtk.Window):
         self.opened = False
         self.xerolinux_nv_switch.set_active(xero_nv_repo)
         self.opened = False
+
+		#====================DESKTOP INSTALL REINSTALL===================
+
+        if Functions.check_arco_repos_active() == True:
+            self.button_install.set_sensitive(True)
+            self.button_reinstall.set_sensitive(True)
+        else:
+            self.button_install.set_sensitive(False)
+            self.button_reinstall.set_sensitive(False)
 
         #========================NEOFETCH LOLCAT TOGGLE===================
 
@@ -1547,12 +1556,19 @@ class Main(Gtk.Window):
     #====================================================================
 
     def set_hblock(self, widget, state):
-        if self.firstrun is not True:
-            t = Functions.threading.Thread(target=Functions.set_hblock, args=(
-                self, widget, widget.get_active()))
-            t.start()
+        if Functions.check_arco_repos_active() == True:
+            if self.firstrun is not True:
+                t = Functions.threading.Thread(target=Functions.set_hblock, args=(
+                    self, widget, widget.get_active()))
+                t.start()
+                print("Hblock is now active/inactive")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Hblock is active/inactive")
+            else:
+                self.firstrun = False
         else:
-            self.firstrun = False
+            #print("First enable the ArcoLinux repos")
+            self.hbswich.set_active(False)
+            GLib.idle_add(Functions.show_in_app_notification, self, "First enable the ArcoLinux repos")
 
     def set_ublock_firefox(self, widget, state):
         t = Functions.threading.Thread(target=Functions.set_firefox_ublock, args=(
@@ -1887,6 +1903,13 @@ class Main(Gtk.Window):
     #               PACMAN CONF
     # =====================================================
 
+    def on_arcolinux_clicked(self, widget):
+        Functions.install_arcolinux(self)
+        print("ArcoLinux keyring and mirrors added")
+        print("First restart ATT")
+        print("Then select all ArcoLinux repos except testing repo")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Restart ATT and select repos")
+
     def on_pacman_atestrepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_testing]"):
             pmf.append_repo(self, Functions.atestrepo)
@@ -1896,12 +1919,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_testing")
-    def on_arcolinux_clicked(self, widget):
-        Functions.install_arcolinux(self)
-        print("ArcoLinux keyring and mirrors added")
-        print("Select now all ArcoLinux repos except testing repo")
-        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux keyring and mirrors added")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Select now all ArcoLinux repos except testing repo")
 
     def on_pacman_arepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo]"):
@@ -1912,6 +1929,12 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_base")
+                if Functions.check_arco_repos_active() == True:
+                    self.button_install.set_sensitive(True)
+                    self.button_reinstall.set_sensitive(True)
+                else:
+                    self.button_install.set_sensitive(False)
+                    self.button_reinstall.set_sensitive(False)
 
     def on_pacman_a3p_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_3party]"):
@@ -1922,6 +1945,12 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_a3p")
+                if Functions.check_arco_repos_active() == True:
+                    self.button_install.set_sensitive(True)
+                    self.button_reinstall.set_sensitive(True)
+                else:
+                    self.button_install.set_sensitive(False)
+                    self.button_reinstall.set_sensitive(False)
 
     def on_pacman_axl_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_xlarge]"):
@@ -1935,8 +1964,8 @@ class Main(Gtk.Window):
     def on_chaotics_clicked(self, widget):
         Functions.install_chaotics(self)
         print("Chaotics keyring and mirrors added")
+        print("Restart Att and select the repos")
         GLib.idle_add(Functions.show_in_app_notification, self, "Chaotics keyring and mirrors added")
-
 
     def on_chaotics_toggle(self, widget, active):
         if not pmf.repo_exist("[chaotic-aur]"):
@@ -1951,7 +1980,8 @@ class Main(Gtk.Window):
     def on_endeavouros_clicked(self, widget):
         Functions.install_endeavouros(self)
         print("EndeavourOS keyring and mirrors added")
-        GLib.idle_add(Functions.show_in_app_notification, self, "EndeavourOS keyring and mirrors added")
+        print("Restart Att and select the repo")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Restart Att and select the repo")
 
     def on_endeavouros_toggle(self, widget, active):
         if not pmf.repo_exist("[endeavouros]"):
@@ -1972,11 +2002,13 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "nemesis")
+            # print("Nemesis repo is active/inactive")
+            # GLib.idle_add(Functions.show_in_app_notification, self, "Nemesis repo is now active/inactive")
 
     def on_xerolinux_clicked(self, widget):
         Functions.install_xerolinux(self)
         print("XeroLinux mirrors added")
-        print("Select now all XeroLinux repos")
+        print("Restart Att and select the repos")
         GLib.idle_add(Functions.show_in_app_notification, self, "Xerolinux mirrors added")
         GLib.idle_add(Functions.show_in_app_notification, self, "Select now all Xerolinux repos")
 
@@ -2819,12 +2851,12 @@ class Main(Gtk.Window):
     #====================================================================
 
     def on_clicked_install_alacritty_themes(self,widget):
-        command = 'pacman -S alacritty ttf-hack arcolinux-alacritty-git alacritty-themes base16-alacritty-git --needed --noconfirm'
+        command = 'pacman -S alacritty ttf-hack alacritty-themes base16-alacritty-git --needed --noconfirm'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        print("Installing alacritty ttf-hack arcolinux-alacritty-git alacritty-themes base16-alacritty-git ")
+        print("Installing alacritty ttf-hack alacritty-themes base16-alacritty-git ")
         GLib.idle_add(Functions.show_in_app_notification, self, "Alacritty Themes Installed")
 
         #if there is no file copy/paste from /etc/skel else alacritty-themes crash
@@ -2832,6 +2864,7 @@ class Main(Gtk.Window):
             if not os.path.isdir(Functions.alacritty_config_dir):
                 try:
                     os.mkdir(Functions.alacritty_config_dir)
+                    Functions.permissions(Functions.alacritty_config_dir)
                 except Exception as e:
                     print(e)
 
@@ -2857,6 +2890,7 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         Functions.copy_func("/etc/skel/.config/termite", Functions.home + "/.config/", True)
         Functions.permissions(Functions.home + "/.config/termite")
+        termite.get_themes(self.term_themes)
         print("Installing termite arcolinux-termite-themes-git")
         GLib.idle_add(Functions.show_in_app_notification, self, "Termite Themes Installed")
 
@@ -2870,7 +2904,8 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.xfce4_terminal_config + ".bak",
                                   Functions.xfce4_terminal_config)
             Functions.permissions(Functions.home + "/.config/xfce4/terminal")
-            print("xfce4_terminal reset")
+            print("xfce4-terminal reset")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Xfce4-terminal reset")
 
     def on_clicked_reset_alacritty(self,widget):
         if os.path.isfile(Functions.alacritty_config + ".bak"):
@@ -2878,13 +2913,15 @@ class Main(Gtk.Window):
                                   Functions.alacritty_config)
             Functions.permissions(Functions.home + "/.config/alacritty")
             print("Alacritty reset")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Alacritty reset")
 
-    def on_clicked_set_arcolinux_alacritty_theme(self,widget):
+    def on_clicked_set_arcolinux_alacritty_theme_config(self,widget):
         if os.path.isfile(Functions.alacritty_config):
             Functions.shutil.copy(Functions.alacritty_arco,
                                   Functions.alacritty_config)
             Functions.permissions(Functions.home + "/.config/alacritty")
-            print("Applied ArcoLinux Alacritty theme")
+            print("Applied ArcoLinux Alacritty theme/config")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Applied ArcoLinux Alacritty theme/config")
 
     #====================================================================
     #                      TERMITE
@@ -2935,6 +2972,37 @@ class Main(Gtk.Window):
     #====================================================================
     #                      ZSH THEMES
     #====================================================================
+
+    def on_install_zsh_completions_clicked(self, widget):
+        if Functions.check_package_installed("zsh-completions"):
+            print("Zsh-completions already installed")
+        else:
+            install = 'pacman -S zsh zsh-completions --noconfirm'
+            try:
+                subprocess.call(install.split(" "),
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+                print("Installing zsh-completions")
+            except Exception as e:
+                print(e)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Zsh completions is installed")
+
+
+    def on_install_zsh_syntax_highlighting_clicked(self, widget):
+        if Functions.check_package_installed("zsh-syntax-highlighting"):
+            print("Zsh-syntax-highlighting is already installed")
+        else:
+            install = 'pacman -S zsh zsh-syntax-highlighting --noconfirm'
+            try:
+                subprocess.call(install.split(" "),
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+                print("Zsh-syntax-highlighting is installed")
+            except Exception as e:
+                print(e)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Zsh-syntax-highlighting is installed")
 
     def on_arcolinux_zshrc_clicked(self, widget):
         try:

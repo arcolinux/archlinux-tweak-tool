@@ -382,6 +382,36 @@ def check_group(group):
 # =====================================================
 # =====================================================
 
+def check_arco_repos_active():
+    with open(pacman, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+        f.close()
+
+        arco_base = "[arcolinux_repo]"
+        arco_3p = "[arcolinux_repo_3party]"
+        #arco_xl = "[arcolinux_repo_xlarge]"
+
+    for line in lines:
+        if arco_base in line:
+            if "#" + arco_base in line:
+                result1 = False
+            else:
+                result1 = True
+
+    for line in lines:
+        if arco_3p in line:
+            if "#" + arco_3p in line:
+                result2 = False
+            else:
+                result2 = True
+
+    if result1 == True and result2 == True:
+        result = True
+    else:
+        result =False
+ 
+    return result
+
 # =====================================================
 #               ALACRITTY
 # =====================================================
