@@ -394,23 +394,16 @@ def check_arco_repos_active():
     for line in lines:
         if arco_base in line:
             if "#" + arco_base in line:
-                result1 = False
+                return False
             else:
-                result1 = True
+                return True
 
     for line in lines:
         if arco_3p in line:
             if "#" + arco_3p in line:
-                result2 = False
+                return False
             else:
-                result2 = True
-
-    if result1 == True and result2 == True:
-        result = True
-    else:
-        result =False
- 
-    return result
+                return True
 
 # =====================================================
 #               ALACRITTY

@@ -178,7 +178,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         if Functions.check_package_installed("oh-my-zsh-git"):
             hbox28_lbl.set_markup("Oh-my-zsh-git is already <b>installed</b>")
         else:
-            hbox28_lbl.set_markup("Oh-my-zsh-git-highlighting is not installed")
+            hbox28_lbl.set_markup("Oh-my-zsh-git is not installed")
         self.install_zsh_omz = Gtk.Button("Install Oh-my-zsh-git")
         self.install_zsh_omz.connect("clicked", self.install_oh_my_zsh)
         hbox28.pack_start(hbox28_lbl, False, False, 10)
@@ -211,15 +211,15 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         hbox29.pack_end(termset, False, False, 10)
 
         #image dimensions - this will (in time) allow the image changing function to be re-usable by other parts of the app
-        image_width = 600
-        image_height = 480
+        image_width = 500
+        image_height = 380
         pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh-sample.jpg", image_width, image_height)
         if self.zsh_themes.get_active_text() is None:
             pass
         elif Functions.os.path.isfile(base_dir+"/images/zsh_previews/"+self.zsh_themes.get_active_text()+".jpg"):
             pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh_previews/"+self.zsh_themes.get_active_text()+".jpg", image_width, image_height)
         image = Gtk.Image().new_from_pixbuf(pixbuf)
-        image.set_margin_top(30)
+        image.set_margin_top(0)
 
         self.zsh_themes.connect("changed", self.update_image, image, "zsh", base_dir, image_width, image_height)
 
@@ -317,7 +317,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
             hbox32_lbl.set_markup("Install Fish (already installed)")
         else:
             hbox32_lbl.set_markup("Install Fish (not installed)")
-        self.fish = Gtk.Button("Install Fish")
+        self.fish = Gtk.Button("Install Fish - autoreboot")
         self.fish.connect("clicked", self.on_install_fish_clicked)
         hbox32.pack_start(hbox32_lbl, False, False, 10)
         hbox32.pack_end(self.fish, False, False, 10)

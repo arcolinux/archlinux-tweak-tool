@@ -8,7 +8,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
-    lbl1.set_text("Utilities Enabler")
+    lbl1.set_markup("Utilities Enabler")
     lbl1.set_name("title")
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox4.pack_start(hseparator, True, True, 0)
@@ -22,15 +22,15 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     lbl6 = Gtk.Label(xalign=0)
 
     if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh" or Functions.get_shell() == "fish":
-        lbl2.set_text("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks")
-        lbl3.set_text("  We recommend using not more than two utilities at the same time, due to screen real estate")
-        lbl4.set_text("  For some of these packages you will need to add the ArcoLinux repositories")
-        lbl5.set_text("  Without the ArcoLinux repositories only neofetch and screenfetch are available")
-        lbl6.set_text("  At the end of .bashrc, .zshrc or fish.config we will add the utility")
+        lbl2.set_markup("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks")
+        lbl3.set_markup("  We recommend using not more than two utilities at the same time, due to screen real estate")
+        lbl4.set_markup("  For some of these packages you will need to add the <b>ArcoLinux repositories</b>")
+        lbl5.set_markup("  Without the ArcoLinux repositories only neofetch and screenfetch are available")
+        lbl6.set_markup("  At the end of .bashrc, .zshrc or fish.config we will add the utility")
 
     else:
-        lbl2.set_text("  Arcolinux Tweak Tool was unable to detect your Shell, or was unable to obtain your shells config file.")
-        lbl3.set_text("  Arcolinux Tweak Tool only supports BASH, ZSH and FISH currently. If you are using something else, you are unable to use these tools from ATT.")
+        lbl2.set_markup("  Arcolinux Tweak Tool was unable to detect your Shell, or was unable to obtain your shells config file.")
+        lbl3.set_markup("  Arcolinux Tweak Tool only supports BASH, ZSH and FISH currently. If you are using something else, you are unable to use these tools from ATT.")
 
     #Every util needs to have a util switch, and a lolcat switch.
     utils = [ "neofetch", "screenfetch", "alsi", "paleofetch", "fetch", "hfetch", "sfetch", "ufetch", "ufetch-arco", "pfetch", "sysinfo", "sysinfo-retro", "cpufetch"]
@@ -115,19 +115,19 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
         grid.insert_row(i)
         #These are the seperators using the spacing set above - need to be individually created or GTK errors.
         sep0 = Gtk.Label(xalign=0)
-        sep0.set_text(sep_text)
+        sep0.set_markup(sep_text)
         sep1 = Gtk.Label(xalign=0)
-        sep1.set_text(sep_text)
+        sep1.set_markup(sep_text)
         sep2 = Gtk.Label(xalign=0)
-        sep2.set_text(sep_text)
+        sep2.set_markup(sep_text)
         sep3 = Gtk.Label(xalign=0)
-        sep3.set_text(sep_text)
+        sep3.set_markup(sep_text)
         sep4 = Gtk.Label(xalign=0)
-        sep4.set_text(sep_text)
+        sep4.set_markup(sep_text)
         lolcat_label = Gtk.Label(xalign=0)
         lolcat_label.set_markup("Use lolcat")
         util_label = Gtk.Label(xalign=0)
-        util_label.set_text(utils[i].capitalize())
+        util_label.set_markup(utils[i].capitalize())
         util_switches[i].connect("notify::active", self.util_toggle, utils[i])
         lolcat_switches[i].connect("notify::active", self.lolcat_toggle, utils[i])
         #If we can't find the current shell config or if we don't know what the current shell is; disable all buttons.

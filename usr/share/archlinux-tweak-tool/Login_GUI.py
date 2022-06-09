@@ -82,7 +82,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
         hbox9.pack_end(self.theme_sddm, False, False, 10)
 
         hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        install_sddm_themes = Gtk.Button(label="Install Missing ArcoLinux Sddm Themes")
+        install_sddm_themes = Gtk.Button(label="Install missing ArcoLinux Sddm Themes")
         install_sddm_themes.connect("clicked", self.on_click_install_sddm_themes)
         remove_sddm_themes = Gtk.Button(label="Remove the ArcoLinux Sddm Themes")
         remove_sddm_themes.connect("clicked", self.on_click_remove_sddm_themes)

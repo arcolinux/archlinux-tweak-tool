@@ -43,9 +43,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     applyneofetch = Gtk.Button(label="Apply")
     resetneofetch = Gtk.Button(label="Reset")
+    installneofetch = Gtk.Button(label="Install Neofetch")
 
     applyneofetch.connect("clicked", self.on_apply_neo)
     resetneofetch.connect("clicked", self.on_reset_neo)
+    installneofetch.connect("clicked", self.on_install_neo)
 
     self.image4 = Gtk.Image()
 
@@ -181,6 +183,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     hbox27.pack_start(lolcat_label, False, False, 0)
     hbox27.pack_start(self.neo_lolcat, False, False, 30)
 
+    hbox24.pack_end(installneofetch, False, False, 0)
     hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(resetneofetch, False, False, 0)
 
