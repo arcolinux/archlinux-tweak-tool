@@ -367,9 +367,9 @@ class Main(Gtk.Window):
             Functions.create_sddm_k_dir()
 
             #if there is an sddm.conf but is empty = 0
-            if Functions.os.path.isfile(Functions.sddm_conf):
+            if Functions.os.path.isfile(Functions.sddm_default_d1):
                 try:
-                    if  os.path.getsize(Functions.sddm_conf) == 0:
+                    if  os.path.getsize(Functions.sddm_default_d1) == 0:
                         Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                             Functions.sddm_default_d1)
                         Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
@@ -627,7 +627,7 @@ class Main(Gtk.Window):
         if os.path.exists("/usr/bin/sddm"):
             try:
                 if not "plasma" in self.desktop.lower():
-                    if sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d1),"CursorTheme=") and sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2),"User="):
+                    if sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2),"CursorTheme=") and sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2),"User="):
                         if Functions.os.path.isfile(Functions.sddm_default_d2):
                             if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2),"User="):
                                 self.autologin_sddm.set_active(False)
@@ -635,8 +635,8 @@ class Main(Gtk.Window):
                             else:
                                 self.autologin_sddm.set_active(True)
                                 self.sessions_sddm.set_sensitive(True)
-                        if Functions.os.path.isfile(Functions.sddm_default_d1):
-                            read_cursor_name=sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d1),"CursorTheme=").split("=")[1]
+                        if Functions.os.path.isfile(Functions.sddm_default_d2):
+                            read_cursor_name=sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2),"CursorTheme=").split("=")[1]
                             self.entry_cursor_name.set_text(read_cursor_name)
             except Exception as e:
                 print(e)
@@ -2317,25 +2317,7 @@ class Main(Gtk.Window):
 
                 t1 = Functions.threading.Thread(target=sddm.set_sddm_cursor,
                                                 args=(self,
-                                                sddm.get_sddm_lines(Functions.sddm_default),  # noqa
-                                                self.entry_cursor_name.get_text()))
-                t1.daemon = True
-                t1.start()
-
-            if not os.path.isfile(Functions.sddm_default_d2) and os.path.isfile(Functions.sddm_default_d1):
-                t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
-                                                args=(self,
-                                                    sddm.get_sddm_lines(Functions.sddm_default_d1),  # noqa
-                                                    Functions.sudo_username,
-                                                    self.sessions_sddm.get_active_text(),
-                                                    self.autologin_sddm.get_active(),
-                                                    self.theme_sddm.get_active_text()))
-                t1.daemon = True
-                t1.start()
-
-                t1 = Functions.threading.Thread(target=sddm.set_sddm_cursor,
-                                                args=(self,
-                                                sddm.get_sddm_lines(Functions.sddm_default),  # noqa
+                                                sddm.get_sddm_lines(Functions.sddm_default_d2),  # noqa
                                                 self.entry_cursor_name.get_text()))
                 t1.daemon = True
                 t1.start()

@@ -123,7 +123,7 @@ We will backup your files")
 
         hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox17_lbl = Gtk.Label(xalign=0)
-        hbox17_lbl.set_text("Type your cursor theme for the login screen")
+        hbox17_lbl.set_text("Type your cursor theme for the login screen e.g. Bibata-Modern-Ice")
         hbox17.pack_start(hbox17_lbl, False, False, 10)
 
         hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)

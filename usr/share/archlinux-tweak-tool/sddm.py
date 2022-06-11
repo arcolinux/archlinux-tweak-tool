@@ -6,7 +6,7 @@ import Functions, os
 from Functions import GLib
 
 def check_sddmk_session(value):
-    with open(Functions.sddm_conf, "r", encoding="utf-8") as myfile:
+    with open(Functions.sddm_default_d2, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
@@ -16,7 +16,7 @@ def check_sddmk_session(value):
     return False
 
 def insert_session(text):
-    with open(Functions.sddm_conf, "r", encoding="utf-8") as f:
+    with open(Functions.sddm_default_d2, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
     pos = Functions._get_position(lines, "[Autologin]")
@@ -24,13 +24,13 @@ def insert_session(text):
 
     lines.insert(num, text + "\n")
 
-    with open(Functions.sddm_conf, "w") as f:
+    with open(Functions.sddm_default_d2, "w") as f:
         f.writelines(lines)
         f.close()
 
 
 def check_sddmk_user(value):
-    with open(Functions.sddm_conf, "r", encoding="utf-8") as myfile:
+    with open(Functions.sddm_default_d2, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
@@ -40,7 +40,7 @@ def check_sddmk_user(value):
     return False
 
 def insert_user(text):
-    with open(Functions.sddm_conf, "r", encoding="utf-8") as f:
+    with open(Functions.sddm_default_d2, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
     pos = Functions._get_position(lines, "[Autologin]")
@@ -48,7 +48,7 @@ def insert_user(text):
 
     lines.insert(num, text + "\n")
 
-    with open(Functions.sddm_conf, "w") as f:
+    with open(Functions.sddm_default_d2, "w") as f:
         f.writelines(lines)
         f.close()
 
@@ -80,7 +80,7 @@ def set_sddm_value(self, lists, value, session, state, theme):
         pos_theme = Functions._get_position(lists, "Current=")
         lists[pos_theme] = "Current=" + theme + "\n"
 
-        with open(Functions.sddm_conf, "w") as f:
+        with open(Functions.sddm_default_d2, "w") as f:
             f.writelines(lists)
             f.close()
 
@@ -96,7 +96,7 @@ def set_sddm_cursor(self, lists, cursor):
         pos_theme = Functions._get_position(lists, "CursorTheme=")
         lists[pos_theme] = "CursorTheme=" + cursor + "\n"
 
-        with open(Functions.sddm_default, "w") as f:
+        with open(Functions.sddm_default_d2, "w") as f:
             f.writelines(lists)
             f.close()
 
@@ -121,7 +121,7 @@ def pop_box(self, combos):
 
     for items in Functions.os.listdir("/usr/share/xsessions/"):
         comss.append(items.split(".")[0].lower())
-    lines = get_sddm_lines(Functions.sddm_conf)
+    lines = get_sddm_lines(Functions.sddm_default_d2)
 
     name = check_sddm(lines, "Session=").split("=")[1]
 
@@ -147,7 +147,7 @@ def pop_theme_box(self, combo):
     if os.path.exists("/usr/share/sddm") and os.path.exists(Functions.sddm_default_d2) and os.path.exists(Functions.sddm_default_d1):
         for items in Functions.os.listdir("/usr/share/sddm/themes/"):
             coms.append(items.split(".")[0].lower())
-        lines = get_sddm_lines(Functions.sddm_conf)
+        lines = get_sddm_lines(Functions.sddm_default_d2)
 
         name = check_sddm(lines, "Current=").split("=")[1]
 

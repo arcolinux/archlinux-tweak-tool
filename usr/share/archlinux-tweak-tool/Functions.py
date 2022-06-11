@@ -42,10 +42,10 @@ sddm_default_d2_dir = "/etc/sddm.conf.d/"
 sddm_default_d_sddm_original_1 = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
 sddm_default_d_sddm_original_2 = "/usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf"
 
-if os.path.exists("/etc/sddm.conf.d/kde_settings.conf"):
-    sddm_conf = "/etc/sddm.conf.d/kde_settings.conf"
-else:
-    sddm_conf = "/etc/sddm.conf"
+# if os.path.exists("/etc/sddm.conf.d/kde_settings.conf"):
+#     sddm_conf = "/etc/sddm.conf.d/kde_settings.conf"
+# else:
+#     sddm_conf = "/etc/sddm.conf"
 
 mirrorlist = "/etc/pacman.d/mirrorlist"
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
