@@ -2341,13 +2341,31 @@ class Main(Gtk.Window):
             print("We did not find a backup file for sddm.conf")
             Functions.show_in_app_notification(self, "We did not find a backup file for sddm.conf")
 
-    def on_click_sddm_reset_original(self, widget):
+    def on_click_sddm_reset_original_att(self, widget):
         Functions.create_sddm_k_dir()
         try:
             Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                   Functions.sddm_default_d1)
             Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
                                   Functions.sddm_default_d2)
+        except Exception as e:
+            print(e)
+
+        print("The ATT sddm configuration is now applied")
+        print("Both files have been changed /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
+        print("Now change the configuration like you want it to be and save")
+        Functions.show_in_app_notification(self, "The ATT sddm.conf and sddm.d.conf is now applied")
+        Functions.restart_program()
+
+    def on_click_sddm_reset_original(self, widget):
+        Functions.create_sddm_k_dir()
+        try:
+            if os.path.isfile(Functions.sddm_default_d1 + ".bak"):
+                Functions.shutil.copy(Functions.sddm_default_d1 + ".bak",
+                                    Functions.sddm_default_d1)
+            if os.path.isfile(Functions.sddm_default_d2 + ".bak"):
+                Functions.shutil.copy(Functions.sddm_default_d2 + ".bak",
+                                    Functions.sddm_default_d2)
         except Exception as e:
             print(e)
 
