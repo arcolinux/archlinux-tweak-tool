@@ -52,6 +52,23 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
 
         # ==================================================================
 
+        hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        label_sddm_config = Gtk.Label(xalign=0)
+        label_sddm_config.set_text("We recommend to use the default sddm configuration setup\nSddm configuration\
+split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
+We will backup your files")
+        hbox14.pack_start(label_sddm_config, False, False, 10)
+
+        hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        reset_sddm_original = Gtk.Button(label="Apply the sddm configuration from ATT - autoreboot")
+        reset_sddm_original.set_size_request(100,60)
+        reset_sddm_original.connect("clicked", self.on_click_sddm_reset_original)
+        hbox13.pack_start(reset_sddm_original, False, False, 10)
+
+        hbox05 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox05.pack_start(hseparator, True, True, 0)
+
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox_lbl = Gtk.Label(xalign=0)
         hbox_lbl.set_markup("Autologin")
@@ -116,16 +133,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
         hbox15.pack_start(hbox15_lbl, False, False, 10)
         hbox15.pack_start(self.entry_cursor_name, True, True, 10)
 
-        hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        label_sddm_config = Gtk.Label(xalign=0)
-        label_sddm_config.set_text("Set our sddm configuration back\n(/etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
-        hbox14.pack_start(label_sddm_config, False, False, 10)
-
-        hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        reset_sddm_original = Gtk.Button(label="Apply the sddm configuration from ArcoLinux")
-        reset_sddm_original.connect("clicked", self.on_click_sddm_reset_original)
-        hbox13.pack_start(reset_sddm_original, False, False, 10)
-
         #reset_sddm = Gtk.Button(label="Apply your backup of sddm.conf")
         #reset_sddm.connect("clicked", self.on_click_sddm_reset)
 
@@ -150,18 +157,21 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
 
         vboxStack1.pack_start(hbox4, False, False, 0)
         vboxStack1.pack_start(hbox5, False, False, 0)
-        vboxStack1.pack_start(hbox, False, False, 0)
-        vboxStack1.pack_start(hbox3, False, False, 0)
-        vboxStack1.pack_start(hbox18, False, False, 0)
-        vboxStack1.pack_start(hbox9, False, False, 0)
-        vboxStack1.pack_start(hbox11, False, False, 0)
-        vboxStack1.pack_start(hbox16, False, False, 0)
-        vboxStack1.pack_start(hbox12, False, False, 0)
-        vboxStack1.pack_start(hbox17, False, False, 0)
-        vboxStack1.pack_start(hbox15, False, False, 0)
         vboxStack1.pack_start(hbox14, False, False, 0)
         vboxStack1.pack_start(hbox13, False, False, 0)
-        vboxStack1.pack_end(hbox90, False, False, 0)
+        vboxStack1.pack_start(hbox05, False, False, 0)
+
+        if Functions.os.path.isfile(Functions.sddm_default_d2):
+            vboxStack1.pack_start(hbox, False, False, 0)
+            vboxStack1.pack_start(hbox3, False, False, 0)
+            vboxStack1.pack_start(hbox18, False, False, 0)
+            vboxStack1.pack_start(hbox9, False, False, 0)
+            vboxStack1.pack_start(hbox11, False, False, 0)
+            vboxStack1.pack_start(hbox12, False, False, 0)
+            vboxStack1.pack_start(hbox16, False, False, 0)
+            vboxStack1.pack_start(hbox17, False, False, 0)
+            vboxStack1.pack_start(hbox15, False, False, 0)
+            vboxStack1.pack_end(hbox90, False, False, 0)
 
     else:
         #no sddm installed

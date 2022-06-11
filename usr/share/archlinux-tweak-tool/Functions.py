@@ -1131,9 +1131,11 @@ def install_reflector(self):
 # =====================================================
 
 def restart_program():
-    os.unlink("/tmp/att.lock")
-    python = sys.executable
-    os.execl(python, python, *sys.argv)
+    if os.path.exists("/tmp/att.lock"):
+        os.unlink("/tmp/att.lock")
+        python = sys.executable
+        os.execl(python, python, *sys.argv)
+
 
 # =====================================================
 #               SERVICES - AVAHI
@@ -1428,6 +1430,17 @@ def save_samba_config(self,widget):
     else:
         print("Choose or create your own smb.conf in /etc/samba/smb.conf then change settings")
         show_in_app_notification(self, "Choose or create your own smb.conf")
+
+# =====================================================
+#                       SDDM
+# =====================================================
+
+def create_sddm_k_dir():
+    if not os.path.isdir(sddm_default_d2_dir):
+        try:
+            os.mkdir(sddm_default_d2_dir)
+        except Exception as e:
+            print(e)
 
 # =====================================================
 #                       SHELL

@@ -144,7 +144,7 @@ def pop_theme_box(self, combo):
     coms = []
     combo.get_model().clear()
 
-    if os.path.exists("/usr/share/sddm"):
+    if os.path.exists("/usr/share/sddm") and os.path.exists(Functions.sddm_default_d2) and os.path.exists(Functions.sddm_default_d1):
         for items in Functions.os.listdir("/usr/share/sddm/themes/"):
             coms.append(items.split(".")[0].lower())
         lines = get_sddm_lines(Functions.sddm_conf)

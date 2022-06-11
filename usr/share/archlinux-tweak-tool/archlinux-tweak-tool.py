@@ -47,8 +47,6 @@ class Main(Gtk.Window):
     def __init__(self):
         print("---------------------------------------------------------------------------")
         print("If you have errors, report it on the discord channel of ArcoLinux")
-        print("If you have errors, because of SDDM and its cursor, user, theme, ...")
-        print("Try running 'fix-sddm-conf' in a terminal")
         print("Then launch the Arch Linux Tweak Tool again")
         print("---------------------------------------------------------------------------")
         print("Created for :")
@@ -68,6 +66,8 @@ class Main(Gtk.Window):
         print("We make backups of files related to the ATT.")
         print("You can recognize them by the extension .bak")
         print("If we have a reset button, the .bak file will be used")
+        print("If you have errors, because of SDDM and its cursor, user, theme, ...")
+        print("Restart ATT again or run fix-sddm-conf")
         print("---------------------------------------------------------------------------")
 
         super(Main, self).__init__(title="Arch Linux Tweak Tool")
@@ -190,6 +190,22 @@ class Main(Gtk.Window):
         # =====================================================
         #                   MAKING BACKUPS
         # =====================================================
+
+         #ensuring we have a backup of /etc/sddm.conf
+        if os.path.isfile(Functions.sddm_default_d1):
+            if not os.path.isfile(Functions.sddm_default_d1 + ".bak"):
+                try:
+                    Functions.shutil.copy(Functions.sddm_default_d1, Functions.sddm_default_d1 + ".bak")
+                except Exception as e:
+                    print(e)
+
+         #ensuring we have a backup of /etc/sddm.conf.d/kde_settings.conf
+        if os.path.isfile(Functions.sddm_default_d2):
+            if not os.path.isfile(Functions.sddm_default_d2 + ".bak"):
+                try:
+                    Functions.shutil.copy(Functions.sddm_default_d2, Functions.sddm_default_d2 + ".bak")
+                except Exception as e:
+                    print(e)
 
         # ensuring we have a backup of index.theme
         if os.path.exists("/usr/share/icons/default/index.theme"):
@@ -348,11 +364,7 @@ class Main(Gtk.Window):
 
         #make directory if it doesn't exist'
         if os.path.exists("/usr/bin/sddm"):
-            if not os.path.isdir(Functions.sddm_default_d2_dir):
-                try:
-                    os.mkdir(Functions.sddm_default_d2_dir)
-                except Exception as e:
-                    print(e)
+            Functions.create_sddm_k_dir()
 
             #if there is an sddm.conf but is empty = 0
             if Functions.os.path.isfile(Functions.sddm_conf):
@@ -365,13 +377,15 @@ class Main(Gtk.Window):
                 except Exception as e:
                     print(e)
 
-            #if there is NO sddm.conf
-            if not Functions.os.path.exists(Functions.sddm_conf):
+            #if there is NO sddm.conf at all - both are not there
+            if not Functions.os.path.exists(Functions.sddm_default_d1) and not Functions.os.path.exists(Functions.sddm_default_d2):
                 try:
                     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                           Functions.sddm_default_d1)
                     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
                                           Functions.sddm_default_d2)
+                    print("The SDDM files in your installation either did not exist, or were corrupted.")
+                    print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
                     Functions.restart_program()
                 except OSError as e:
                     #This will ONLY execute if the sddm files and the underlying sddm files do not exist
@@ -382,20 +396,20 @@ class Main(Gtk.Window):
                                         stdout=Functions.subprocess.PIPE,
                                         stderr=Functions.subprocess.STDOUT)
                         print("The SDDM files in your installation either did not exist, or were corrupted.")
-                        print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
+                        print("These files have now been RESTORED. Please re-run the Tweak Tool if it did not load for you.")
                         Functions.restart_program()
 
-        #adding lines to sddm
-        if Functions.os.path.isfile(Functions.sddm_default_d2):
-            session_exists = sddm.check_sddmk_session("Session=")
-            if session_exists is False:
-                sddm.insert_session("#Session=")
+            #adding lines to sddm
+            if Functions.os.path.isfile(Functions.sddm_default_d2):
+                session_exists = sddm.check_sddmk_session("Session=")
+                if session_exists is False:
+                    sddm.insert_session("#Session=")
 
-        #adding lines to sddm
-        if Functions.os.path.isfile(Functions.sddm_default_d2):
-            user_exists = sddm.check_sddmk_user("User=")
-            if user_exists is False:
-                sddm.insert_user("#User=")
+            #adding lines to sddm
+            if Functions.os.path.isfile(Functions.sddm_default_d2):
+                user_exists = sddm.check_sddmk_user("User=")
+                if user_exists is False:
+                    sddm.insert_user("#User=")
 
         #ensuring we have a neofetch config to start with
         if not os.path.isfile(Functions.neofetch_config):
@@ -2288,36 +2302,44 @@ class Main(Gtk.Window):
     # ====================================================================
 
     def on_click_sddm_apply(self, widget):
-        command = 'systemctl enable sddm.service -f'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("We enabled sddm.service")
-
-        if not os.path.isdir(Functions.sddm_default_d2_dir):
-            try:
-                os.mkdir(Functions.sddm_default_d2_dir)
-            except Exception as e:
-                print(e)
-
+        Functions.create_sddm_k_dir()
         if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or (self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None) :
-            t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
-                                            args=(self,
-                                                sddm.get_sddm_lines(Functions.sddm_default_d2),  # noqa
-                                                Functions.sudo_username,
-                                                self.sessions_sddm.get_active_text(),
-                                                self.autologin_sddm.get_active(),
-                                                self.theme_sddm.get_active_text()))
-            t1.daemon = True
-            t1.start()
+            if os.path.isfile(Functions.sddm_default_d2):
+                t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
+                                                args=(self,
+                                                    sddm.get_sddm_lines(Functions.sddm_default_d2),  # noqa
+                                                    Functions.sudo_username,
+                                                    self.sessions_sddm.get_active_text(),
+                                                    self.autologin_sddm.get_active(),
+                                                    self.theme_sddm.get_active_text()))
+                t1.daemon = True
+                t1.start()
 
-            t1 = Functions.threading.Thread(target=sddm.set_sddm_cursor,
-                                            args=(self,
-                                            sddm.get_sddm_lines(Functions.sddm_default),  # noqa
-                                            self.entry_cursor_name.get_text()))
-            t1.daemon = True
-            t1.start()
+                t1 = Functions.threading.Thread(target=sddm.set_sddm_cursor,
+                                                args=(self,
+                                                sddm.get_sddm_lines(Functions.sddm_default),  # noqa
+                                                self.entry_cursor_name.get_text()))
+                t1.daemon = True
+                t1.start()
+
+            if not os.path.isfile(Functions.sddm_default_d2) and os.path.isfile(Functions.sddm_default_d1):
+                t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
+                                                args=(self,
+                                                    sddm.get_sddm_lines(Functions.sddm_default_d1),  # noqa
+                                                    Functions.sudo_username,
+                                                    self.sessions_sddm.get_active_text(),
+                                                    self.autologin_sddm.get_active(),
+                                                    self.theme_sddm.get_active_text()))
+                t1.daemon = True
+                t1.start()
+
+                t1 = Functions.threading.Thread(target=sddm.set_sddm_cursor,
+                                                args=(self,
+                                                sddm.get_sddm_lines(Functions.sddm_default),  # noqa
+                                                self.entry_cursor_name.get_text()))
+                t1.daemon = True
+                t1.start()
+
             print("Sddm settings Saved Successfully")
             GLib.idle_add(Functions.show_in_app_notification, self, "Sddm settings saved successfully")
 
@@ -2338,35 +2360,23 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self, "We did not find a backup file for sddm.conf")
 
     def on_click_sddm_reset_original(self, widget):
-        if not os.path.isdir(Functions.sddm_default_d2_dir):
-            try:
-                os.mkdir(Functions.sddm_default_d2_dir)
-            except Exception as e:
-                print(e)
-        if Functions.sddm_conf == "/etc/sddm.conf.d/kde_settings.conf":
+        Functions.create_sddm_k_dir()
+        try:
             Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                   Functions.sddm_default_d1)
             Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
                                   Functions.sddm_default_d2)
-        else:
-            Functions.shutil.copy(Functions.sddm_default_original,
-                                  Functions.sddm_default)
+        except Exception as e:
+            print(e)
 
-        if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2), "User="):  # noqa
-            self.autologin_sddm.set_active(False)
-        else:
-            self.autologin_sddm.set_active(True)
-
-        print("The ArcoLinux sddm configuration is now applied")
+        print("The ATT sddm configuration is now applied")
         print("Both files have been changed /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
-        Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
+        print("Now change the configuration like you want it to be and save")
+        Functions.show_in_app_notification(self, "The ATT sddm.conf and sddm.d.conf is now applied")
+        Functions.restart_program()
 
     def on_click_no_sddm_reset_original(self, widget):
-        if not os.path.isdir(Functions.sddm_default_d2_dir):
-            try:
-                os.mkdir(Functions.sddm_default_d2_dir)
-            except Exception as e:
-                print(e)
+        Functions.create_sddm_k_dir()
         if Functions.os.path.isfile(Functions.sddm_default_d_sddm_original_1):
             Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_1,
                                   Functions.sddm_default_d1)
@@ -2488,11 +2498,7 @@ class Main(Gtk.Window):
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed but not enabled")
 
-        if not os.path.isdir(Functions.sddm_default_d2_dir):
-            try:
-                os.mkdir(Functions.sddm_default_d2_dir)
-            except Exception as e:
-                print(e)
+        Functions.create_sddm_k_dir()
 
         if Functions.os.path.isfile(Functions.sddm_default_d_sddm_original_1):
             Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_1,
