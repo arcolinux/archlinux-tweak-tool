@@ -93,23 +93,6 @@ def set_sddm_value(self, lists, value, session, state, theme,cursor):
         print(e)
         Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
 
-def set_sddm_cursor(self, lists, cursor):
-    try:
-
-        pos_theme = Functions._get_position(lists, "CursorTheme=")
-        lists[pos_theme] = "CursorTheme=" + cursor + "\n"
-
-        with open(Functions.sddm_default_d2, "w") as f:
-            f.writelines(lists)
-            f.close()
-
-        GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
-
-    except Exception as e:
-            print(e)
-            Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
-
-
 def get_sddm_lines(files):
     if Functions.os.path.isfile(files):
         with open(files, "r", encoding="utf-8") as f:
@@ -161,3 +144,38 @@ def pop_theme_box(self, combo):
             combo.append_text(coms[i])
             if name.lower() == coms[i].lower():
                 combo.set_active(i)
+
+def pop_cursor_box(self, combo):
+    coms = []
+    com1 = []
+    com2 = []
+    combo.get_model().clear()
+
+    if Functions.check_package_installed("bibata-cursor-theme-bin"):
+        com1 = ["Bibata-Modern-Amber",
+                "Bibata-Modern-Classic",
+                "Bibata-Modern-Ice",
+                "Bibata-Original-Amber",
+                "Bibata-Original-Classic",
+                "Bibata-Original-Ice"]
+        coms = com1
+
+    if Functions.check_package_installed("breeze-icons"):
+        com2 = ["Breeze-Snow","breeze_cursors"]
+        coms = coms + com2
+
+    if Functions.check_package_installed("sweet-cursor-theme-git"):
+        com3 = ["Sweet-cursors"]
+        coms = coms + com3
+
+    lines = get_sddm_lines(Functions.sddm_default_d2)
+
+    name = check_sddm(lines, "CursorTheme=").split("=")[1]
+
+    coms.sort()
+    for i in range(len(coms)):
+        #excludes = ['maya', 'maldives', 'elarun', '']
+        #if not coms[i] in excludes:
+        combo.append_text(coms[i])
+        if name.lower() == coms[i].lower():
+            combo.set_active(i)

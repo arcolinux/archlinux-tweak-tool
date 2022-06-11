@@ -635,9 +635,6 @@ class Main(Gtk.Window):
                             else:
                                 self.autologin_sddm.set_active(True)
                                 self.sessions_sddm.set_sensitive(True)
-                        if Functions.os.path.isfile(Functions.sddm_default_d2):
-                            read_cursor_name=sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2),"CursorTheme=").split("=")[1]
-                            self.entry_cursor_name.set_text(read_cursor_name)
             except Exception as e:
                 print(e)
                 print("Run 'fix-sddm-conf' in a terminal")
@@ -2312,7 +2309,7 @@ class Main(Gtk.Window):
                                                     self.sessions_sddm.get_active_text(),
                                                     self.autologin_sddm.get_active(),
                                                     self.theme_sddm.get_active_text(),
-                                                    self.entry_cursor_name.get_text()))
+                                                    self.cbt_cursor_themes.get_active_text()))
                 t1.daemon = True
                 t1.start()
 
@@ -2446,6 +2443,7 @@ class Main(Gtk.Window):
                 print("We installed the Bibata cursors")
                 GLib.idle_add(Functions.show_in_app_notification, self, "Bibata cursors have been installed")
                 sddm.pop_theme_box(self, self.theme_sddm)
+                sddm.pop_cursor_box(self, self.cbt_cursor_themes)
             else:
                 print("Activate the ArcoLinux repos")
                 GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
@@ -2462,6 +2460,7 @@ class Main(Gtk.Window):
         print("We removed the Bibata cursors")
         GLib.idle_add(Functions.show_in_app_notification, self, "Bibata cursoars have been removed")
         sddm.pop_theme_box(self, self.theme_sddm)
+        sddm.pop_cursor_box(self, self.cbt_cursor_themes)
 
     #if no sddm - press 1
     def on_click_att_sddm_clicked(self, desktop):
