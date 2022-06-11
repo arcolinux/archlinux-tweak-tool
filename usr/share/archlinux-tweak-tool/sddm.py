@@ -58,7 +58,7 @@ def check_sddm(lists, value):
     val = lists[pos].strip()
     return val
 
-def set_sddm_value(self, lists, value, session, state, theme):
+def set_sddm_value(self, lists, value, session, state, theme,cursor):
     try:
         com = Functions.subprocess.run(["sh", "-c", "su - " + Functions.sudo_username + " -c groups"], shell=False, stdout=Functions.subprocess.PIPE)
         groups = com.stdout.decode().strip().split(" ")
@@ -79,6 +79,9 @@ def set_sddm_value(self, lists, value, session, state, theme):
 
         pos_theme = Functions._get_position(lists, "Current=")
         lists[pos_theme] = "Current=" + theme + "\n"
+
+        pos_theme = Functions._get_position(lists, "CursorTheme=")
+        lists[pos_theme] = "CursorTheme=" + cursor + "\n"
 
         with open(Functions.sddm_default_d2, "w") as f:
             f.writelines(lists)

@@ -2311,14 +2311,8 @@ class Main(Gtk.Window):
                                                     Functions.sudo_username,
                                                     self.sessions_sddm.get_active_text(),
                                                     self.autologin_sddm.get_active(),
-                                                    self.theme_sddm.get_active_text()))
-                t1.daemon = True
-                t1.start()
-
-                t1 = Functions.threading.Thread(target=sddm.set_sddm_cursor,
-                                                args=(self,
-                                                sddm.get_sddm_lines(Functions.sddm_default_d2),  # noqa
-                                                self.entry_cursor_name.get_text()))
+                                                    self.theme_sddm.get_active_text(),
+                                                    self.entry_cursor_name.get_text()))
                 t1.daemon = True
                 t1.start()
 
@@ -2369,10 +2363,9 @@ class Main(Gtk.Window):
         except Exception as e:
             print(e)
 
-        print("The ATT sddm configuration is now applied")
+        print("Your orignal sddm configuration is now applied")
         print("Both files have been changed /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
-        print("Now change the configuration like you want it to be and save")
-        Functions.show_in_app_notification(self, "The ATT sddm.conf and sddm.d.conf is now applied")
+        Functions.show_in_app_notification(self, "The original sddm.conf and sddm.d.conf is now applied")
         Functions.restart_program()
 
     def on_click_no_sddm_reset_original(self, widget):
