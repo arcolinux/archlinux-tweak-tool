@@ -54,7 +54,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
 
         hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         label_sddm_config = Gtk.Label(xalign=0)
-        label_sddm_config.set_text("We recommend to use the default sddm configuration setup\nSddm configuration\
+        label_sddm_config.set_text("We recommend to use the default sddm configuration setup\nSddm configuration \
 split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
 We will backup your files")
         hbox14.pack_start(label_sddm_config, False, False, 10)
