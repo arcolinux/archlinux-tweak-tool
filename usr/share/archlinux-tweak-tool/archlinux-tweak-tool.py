@@ -99,7 +99,6 @@ class Main(Gtk.Window):
         t.start()
         t.join()
 
-
         # =====================================================
         #     PLASMA THEME
         # =====================================================
@@ -130,20 +129,29 @@ class Main(Gtk.Window):
                 print(e)
 
         if os.path.isdir(Functions.home + "/.config/gtk-3.0"):
-            Functions.shutil.rmtree("/root/.config/gtk-3.0")
-            Functions.shutil.copytree(Functions.home + "/.config/gtk-3.0",
-                "/root/.config/gtk-3.0")
+            try:
+                Functions.shutil.rmtree("/root/.config/gtk-3.0")
+                Functions.shutil.copytree(Functions.home + "/.config/gtk-3.0",
+                    "/root/.config/gtk-3.0")
+            except Exception as e:
+                print(e)
 
         if os.path.isdir(Functions.home + "/.config/gtk-4.0/"):
-            Functions.shutil.rmtree("/root/.config/gtk-4.0/")
-            Functions.shutil.copytree(Functions.home + "/.config/gtk-4.0/",
-                        "/root/.config/gtk-4.0/")
+            try:
+                Functions.shutil.rmtree("/root/.config/gtk-4.0/")
+                Functions.shutil.copytree(Functions.home + "/.config/gtk-4.0/",
+                            "/root/.config/gtk-4.0/")
+            except Exception as e:
+                print(e)
 
         if os.path.isdir("/root/.config/xsettingsd/xsettingsd.conf"):
-            Functions.shutil.rmtree("/root/.config/xsettingsd/")
-            if os.path.isdir(Functions.home + "/.config/xsettingsd/"):
-                Functions.shutil.copytree(Functions.home + "/.config/xsettingsd/",
-                        "/root/.config/xsettingsd/")
+            try:
+                Functions.shutil.rmtree("/root/.config/xsettingsd/")
+                if os.path.isdir(Functions.home + "/.config/xsettingsd/"):
+                    Functions.shutil.copytree(Functions.home + "/.config/xsettingsd/",
+                            "/root/.config/xsettingsd/")
+            except Exception as e:
+                print(e)
 
         # =====================================================
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
@@ -454,6 +462,10 @@ class Main(Gtk.Window):
             Settings.make_file("TERMITE", key)
             Functions.permissions(Functions.config)
 
+        # =====================================================
+        #      LAUNCHING GUI AND SETTING ALL THE OBJECTS
+        # =====================================================
+
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango)
 
         # =====================================================
@@ -636,7 +648,6 @@ class Main(Gtk.Window):
                                 self.autologin_sddm.set_active(True)
                                 self.sessions_sddm.set_sensitive(True)
             except Exception as e:
-                print(e)
                 print("Run 'fix-sddm-conf' in a terminal")
                 print("We will make backups of the current /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf if they exist")
 
@@ -731,49 +742,7 @@ class Main(Gtk.Window):
                 f.writelines(lines)
                 f.close()
 
-
-
-
-
-
-    # ================================================================================
-    # ================================================================================
-    # ================================================================================
-    # ================================================================================
-    # ================================================================================
-    # ================================================================================
-    #                MAIN FUNCTIONS
-    # ================================================================================
-    # ================================================================================
-    # ================================================================================
-    # ================================================================================
-    # ================================================================================
-    # ================================================================================
-
-
-
-
-
-
-
-    #====================================================================
-    #                       ARCOLINUX MIRRORLIST
-    #===================================================================
-
-    def on_click_launch_pace(self, widget):
-        if os.path.isfile(Functions.arcolinux_mirrorlist):
-            if Functions.check_arco_repos_active():
-                Functions.install_pace(self)
-                #subprocess.Popen("/usr/bin/pace",shell=False)
-                call("pace",shell=True)
-            else:
-                print("Activate the ArcoLinux repos")
-                GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
-        else:
-            print("Install ArcoLinux mirrors and keys")
-            GLib.idle_add(Functions.show_in_app_notification, self, "Install ArcoLinux mirrors and keys")
-
-    #====================================================================
+   #====================================================================
     #                       AUTOSTART
     #====================================================================
 
@@ -925,9 +894,45 @@ class Main(Gtk.Window):
             dialog.destroy()
 
 
+
+
+
+    # ================================================================================
+    # ================================================================================
+    # ================================================================================
+    # ================================================================================
+    # ================================================================================
+    # ================================================================================
+    #                MAIN FUNCTIONS
+    # ================================================================================
+    # ================================================================================
+    # ================================================================================
+    # ================================================================================
+    # ================================================================================
+    # ================================================================================
+
+
+
+
+
+
+
     #====================================================================
     #                       ARCOLINUX MIRRORLIST
     #===================================================================
+
+    def on_click_launch_pace(self, widget):
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active():
+                Functions.install_pace(self)
+                #subprocess.Popen("/usr/bin/pace",shell=False)
+                call("pace",shell=True)
+            else:
+                print("Activate the ArcoLinux repos")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
+        else:
+            print("Install ArcoLinux mirrors and keys")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Install ArcoLinux mirrors and keys")
 
     def on_click_reset_arcolinux_mirrorlist(self, widget):
         if Functions.os.path.isfile(Functions.arcolinux_mirrorlist_original):
@@ -1297,94 +1302,6 @@ class Main(Gtk.Window):
         print("We only add servers to the config")
         GLib.idle_add(Functions.show_in_app_notification, self, "The new ~/.gnupg/gpg.conf has been saved")
 
-    # =====================================================
-    #               Gtk FUNCTIONS
-    # =====================================================
-
-    # def save_gtk3_settings(self,
-    #                        widget,
-    #                        themeCombo,
-    #                        iconCombo,
-    #                        cursorCombo,
-    #                        cursor_size):
-    #     widget.set_sensitive(False)
-
-    #     t = Functions.threading.Thread(target=Gtk_Functions.gtk_settings_saved,
-    #                                    args=(self,
-    #                                          themeCombo.get_active_text(),
-    #                                          iconCombo.get_active_text(),
-    #                                          cursorCombo.get_active_text(),
-    #                                          int(str(cursor_size.get_value()
-    #                                                  ).split(".")[0])))
-    #     t.daemon = True
-    #     t.start()
-
-    #     Functions.show_in_app_notification(self, "Settings Saved Successfully")
-    #     widget.set_sensitive(True)
-
-        # elif filez == Functions.gtk3_settings:
-
-        #     if os.path.isfile(Functions.gtk2_settings + ".bak"):
-        #         Functions.shutil.copy(Functions.gtk2_settings + ".bak",
-        #                               Functions.gtk2_settings)
-
-        #     if os.path.isfile(Functions.xfce_config + ".bak"):
-        #         Functions.shutil.copy(Functions.xfce_config + ".bak",
-        #                               Functions.xfce_config)
-
-        #     Gtk_Functions.get_gtk_themes(self, self.themeCombo)
-        #     Gtk_Functions.get_icon_themes(self, self.iconCombo)
-        #     Gtk_Functions.get_cursor_themes(self, self.cursorCombo)
-
-        #     self.cursor_size.set_value(
-        #         float(Gtk_Functions.get_gtk_settings("gtk-cursor-theme-size")))
-            # self.fonts.set_font(
-            #     Gtk_Functions.get_gtk_settings("gtk-font-name"))
-            # Functions.subprocess.call(["xsetroot -xcf /usr/share/icons/" +
-            #                            self.cursorCombo.get_active_text() +
-            #                            "/cursors/left_ptr " +
-            #                            str(self.cursor_size.get_value())],
-            #                           shell=True)
-            # Functions.show_in_app_notification(self,
-            #                                    "Default Settings Applied")
-        # elif filez == Functions.oblogout_conf:
-        #     self.oblog.get_model().clear()
-        #     vals = oblogout.get_opacity()
-        #     self.hscale.set_value(vals)
-        #     try:
-        #         self.tbcancel.set_text(oblogout.get_shortcut("cancel"))
-        #         self.tbshutdown.set_text(oblogout.get_shortcut("shutdown"))
-        #         self.tbsuspend.set_text(oblogout.get_shortcut("suspend"))
-        #         self.tbrestart.set_text(oblogout.get_shortcut("restart"))
-        #         self.tblogout.set_text(oblogout.get_shortcut("logout"))
-        #         self.tbhibernate.set_text(oblogout.get_shortcut("hibernate"))
-        #         self.tblock.set_text(oblogout.get_shortcut("lock"))
-        #     except Exception as e:
-        #         print(e)
-            # self.lockBox.set_text(oblogout.get_command("lock"))
-            # color = Gdk.RGBA()
-            # color.parse(oblogout.get_color())
-            # self.colorchooser.set_rgba(color)
-            # btnString = oblogout.get_buttons()
-            # oblogout.oblog_populate(self.oblog)
-
-            # if "shutdown" in btnString:
-            #     self.check_shut.set_active(True)
-            # if "lock" in btnString:
-            #     self.check_lock.set_active(True)
-            # if "logout" in btnString:
-            #     self.check_logout.set_active(True)
-            # if "restart" in btnString:
-            #     self.check_restart.set_active(True)
-            # if "cancel" in btnString:
-            #     self.check_cancel.set_active(True)
-            # if "suspend" in btnString:
-            #     self.check_susp.set_active(True)
-            # if "hibernate" in btnString:
-            #     self.check_hiber.set_active(True)
-            # Functions.show_in_app_notification(self,
-            #                                    "Default Settings Applied")
-
     #====================================================================
     #                       GRUB
     #====================================================================
@@ -1581,11 +1498,8 @@ class Main(Gtk.Window):
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed")
 
-    def on_hide_grub_activated(self,widget,gparam):
-        print("erik")
-
     #====================================================================
-    #                       HBLOCK SECURITY PRIVACY
+    #                            PRIVACY
     #====================================================================
 
     def set_hblock(self, widget, state):
@@ -1699,7 +1613,6 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been enabled - reboot")
 
     def on_click_lightdm_slick(self, desktop):
-        #self.on_click_att_lightdm_clicked(desktop)
         self.on_click_lightdm_enable(desktop)
         command = '/usr/share/archlinux-tweak-tool/data/any/archlinux-lightdm-slickgreeter'
         Functions.subprocess.call(command.split(" "),
@@ -1709,9 +1622,9 @@ class Main(Gtk.Window):
         print("Lightdm slickgreeter has been installed and enabled (or removed and disabled) - reboot")
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm-slickgreeter installed or removed - Reboot now")
 
-#    #====================================================================
-#    #                       NEOFETCH CONFIG
-#    #====================================================================
+    #====================================================================
+    #                        NEOFETCH CONFIG
+    #====================================================================
 
     def on_apply_neo(self, widget):
 
