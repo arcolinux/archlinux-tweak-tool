@@ -168,6 +168,10 @@ def pop_cursor_box(self, combo):
         com3 = ["Sweet-cursors"]
         coms = coms + com3
 
+    if Functions.check_package_installed("adwaita-icon-theme"):
+        com4 = ["Adwaita"]
+        coms = coms + com4
+
     lines = get_sddm_lines(Functions.sddm_default_d2)
 
     name = check_sddm(lines, "CursorTheme=").split("=")[1]

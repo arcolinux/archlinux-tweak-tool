@@ -2189,7 +2189,15 @@ class Main(Gtk.Window):
 
     def on_click_sddm_apply(self, widget):
         Functions.create_sddm_k_dir()
-        if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or (self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None) :
+        if (self.sessions_sddm.get_active_text() is not None \
+            and self.theme_sddm.get_active_text() is not None \
+            and self.autologin_sddm.get_active() is True \
+            and self.cbt_cursor_themes.get_active_text() is not None) \
+            or \
+            (self.autologin_sddm.get_active() is False \
+            and self.theme_sddm.get_active_text() is not None \
+            and self.cbt_cursor_themes.get_active_text() is not None) :
+
             if os.path.isfile(Functions.sddm_default_d2):
                 t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
                                                 args=(self,
@@ -2206,7 +2214,7 @@ class Main(Gtk.Window):
             GLib.idle_add(Functions.show_in_app_notification, self, "Sddm settings saved successfully")
 
         else:
-            print("You need to select desktop and/or theme first")
+            print("You need to select desktop, theme and cursor first")
             Functions.show_in_app_notification(self, "You need to select desktop and/or theme first")
 
     def on_click_sddm_reset(self, widget):
