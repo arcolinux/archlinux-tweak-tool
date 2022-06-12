@@ -284,13 +284,13 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         ls = Gtk.Label()
         ls.set_markup("<b>Zsh does not seem to be installed</b>")
 
-        install_zsh = Gtk.Button(label="Install Zsh and enable it")
-        install_zsh.connect("clicked", Functions.install_zsh)
+        install_only_zsh = Gtk.Button(label="Install only Zsh and restart ATT to configure")
+        install_only_zsh.connect("clicked", Functions.install_only_zsh)
 
         vboxStack2.pack_start(hbox32, False, False, 0)
         vboxStack2.pack_start(hbox41, False, False, 0)
         vboxStack2.pack_start(ls, False, False, 0)
-        vboxStack2.pack_start(install_zsh, False, False, 0)
+        vboxStack2.pack_start(install_only_zsh, False, False, 0)
 
     # ==================================================================
     #                       FISH
@@ -314,9 +314,9 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         hbox32 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         hbox32_lbl = Gtk.Label()
         if Functions.check_package_installed("fish"):
-            hbox32_lbl.set_markup("Install Fish (already installed)")
+            hbox32_lbl.set_markup("Fish is already <b>installed</b>")
         else:
-            hbox32_lbl.set_markup("Install Fish (not installed)")
+            hbox32_lbl.set_markup("Install Fish is not installed)")
         self.fish = Gtk.Button("Install Fish")
         self.fish.connect("clicked", self.on_install_fish_clicked)
         hbox32.pack_start(hbox32_lbl, False, False, 10)
@@ -325,9 +325,9 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         hbox33 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         hbox33_lbl = Gtk.Label()
         if Functions.check_package_installed("arcolinux-fish-git"):
-            hbox33_lbl.set_markup("ATT fish incl. oh-my-fish, themes and plugins (already installed)")
+            hbox33_lbl.set_markup("ATT fish incl. oh-my-fish, themes and plugins is already <b>installed</b>)")
         else:
-            hbox33_lbl.set_markup("ATT fish incl. oh-my-fish, themes and plugins (not installed)")
+            hbox33_lbl.set_markup("ATT fish incl. oh-my-fish, themes and plugins is not installed)")
         self.arcolinux_fish = Gtk.Button("Install the ATT Fish package")
         self.arcolinux_fish.connect("clicked", self.on_arcolinux_fish_package_clicked)
         hbox33.pack_start(hbox33_lbl, False, False, 10)
@@ -403,13 +403,13 @@ if you installed the ATT Fish configuration\n\n<b>If you just switched shell, lo
         ls.set_markup("<b>Fish does not seem to be installed\n\
 Restart Att to see the information</b>")
 
-        install_fish = Gtk.Button(label="Install Fish")
-        install_fish.connect("clicked", Functions.install_fish)
+        install_only_fish = Gtk.Button(label="Install only Fish and restart ATT to configure")
+        install_only_fish.connect("clicked", Functions.install_only_fish)
 
         vboxStack3.pack_start(hbox36, False, False, 0)
         vboxStack3.pack_start(hbox37, False, False, 0)
         vboxStack3.pack_start(ls, False, False, 0)
-        vboxStack3.pack_start(install_fish, False, False, 0)
+        vboxStack3.pack_start(install_only_fish, False, False, 0)
 
     # ==================================================================
     #                       PACK TO STACK

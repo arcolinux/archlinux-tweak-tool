@@ -543,7 +543,7 @@ def change_distro_label(name):      # noqa
 #               FISH + PACKAGES (ARCOLINUXD)
 # =====================================================
 
-def install_fish(self):
+def install_only_fish(self):
     install = 'pacman -S fish --needed --noconfirm'
 
     if os.path.exists("/usr/bin/fish"):
@@ -1569,6 +1569,7 @@ def install_zsh(self):
     except Exception as e:
         print(e)
 
+def install_only_zsh(self):
     install = 'pacman -S zsh --needed --noconfirm'
     try:
         subprocess.call(install.split(" "),
