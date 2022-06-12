@@ -21,6 +21,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -412,12 +413,64 @@ Restart Att to see the information</b>")
         vboxStack3.pack_start(install_only_fish, False, False, 0)
 
     # ==================================================================
+    #                       EXTRA
+    # ==================================================================
+
+    hbox51 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox51_lbl = Gtk.Label()
+    hbox51_lbl.set_markup("The shell configurations of the ATT contain aliases that require certain applications\n\
+\nHere you can select the missing applications and install them\n")
+    self.select_all = Gtk.CheckButton(label="Select them all")
+    self.select_all.connect("notify::active", self.on_select_all_toggle)
+    hbox51_lbl.set_margin_top(20)
+    hbox51.pack_start(hbox51_lbl, False, False, 10)
+    hbox51.pack_start(self.select_all, False, False, 10)
+
+    # hbox52 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # self.select_all = Gtk.CheckButton(label="Select them all")
+    # #hbox52.set_margin_top(20)
+    # hbox52.pack_start(self.select_all, False, False, 10)
+
+    self.expac = Gtk.CheckButton(label="expac")
+    self.ripgrep = Gtk.CheckButton(label="ripgrep")
+    self.yay = Gtk.CheckButton(label="yay")
+    self.paru = Gtk.CheckButton(label="paru")
+    self.bat = Gtk.CheckButton(label="bat")
+    self.downgrade = Gtk.CheckButton(label="downgrade")
+    self.hw_probe = Gtk.CheckButton(label="hw-probe")
+    self.rate_mirrors = Gtk.CheckButton(label="rate-mirrors")
+
+    flowbox = Gtk.FlowBox()
+    flowbox.set_valign(Gtk.Align.START)
+    flowbox.set_max_children_per_line(10)
+    flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
+
+    flowbox.add(self.expac)
+    flowbox.add(self.ripgrep)
+    flowbox.add(self.yay)
+    flowbox.add(self.paru)
+    flowbox.add(self.bat)
+    flowbox.add(self.downgrade)
+    flowbox.add(self.hw_probe)
+    flowbox.add(self.rate_mirrors)
+
+    extra_shell_applications = Gtk.Button(label="Install these applications")
+    extra_shell_applications.connect("clicked", self.on_extra_shell_applications_clicked)
+
+    vboxStack4.pack_start(hbox51, False, False, 0)
+    #vboxStack4.pack_start(hbox52, False, False, 0)
+    vboxStack4.pack_start(flowbox, False, False, 0)
+    vboxStack4.pack_end(extra_shell_applications, False, False, 0)
+    #vboxStack4.pack_start(install_only_fish, False, False, 0)
+
+    # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
 
     stack.add_titled(vboxStack1, "stack1", "BASH")
     stack.add_titled(vboxStack2, "stack2", "ZSH")
     stack.add_titled(vboxStack3, "stack3", "FISH")
+    stack.add_titled(vboxStack4, "stack4", "EXTRA")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)

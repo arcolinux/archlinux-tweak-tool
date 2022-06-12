@@ -1451,7 +1451,6 @@ def source_shell(self):
                              stdout=subprocess.PIPE)
 
     output = process.stdout.decode().strip()
-    print(output)
     if output == "/bin/bash":
         subprocess.run(["bash", "-c", "su - " + sudo_username +
                         " -c \"source " + home + "/.bashrc\""],
@@ -1481,6 +1480,17 @@ def get_shell():
 
 def run_as_user(script):
     subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)
+
+def install_extra_shell(package):
+    install = 'pacman -S ' + package + ' --needed --noconfirm'
+    print(install)
+    try:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+    except Exception as e:
+        print(e)
 
 # =====================================================
 #               THUNAR SHARE PLUGIN
