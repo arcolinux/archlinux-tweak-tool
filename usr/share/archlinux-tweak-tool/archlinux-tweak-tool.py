@@ -1627,26 +1627,20 @@ class Main(Gtk.Window):
     #====================================================================
 
     def on_apply_neo(self, widget):
-
         small_ascii = "auto"
+        backend = "off"
 
-        if self.w3m.get_active():
-            backend = "w3m"
-            emblem = self.emblem.get_active_text()
-        else:
+        if self.asci.get_active():
             backend = "ascii"
-            emblem = ""
-
             if not self.big_ascii.get_active() and not self.off.get_active():
                 small_ascii = "arcolinux_small"
                 backend = "ascii"
             elif not self.small_ascii.get_active() and not self.off.get_active():  # noqa
                 backend = "ascii"
-
             else:
                 backend = "off"
 
-        neofetch.apply_config(self, backend, emblem, small_ascii)
+        neofetch.apply_config(self, backend, small_ascii)
 
     def on_reset_neo(self, widget):
         if os.path.isfile(Functions.neofetch_config + ".bak"):
@@ -1681,30 +1675,12 @@ class Main(Gtk.Window):
             GLib.idle_add(Functions.show_in_app_notification, self, "Neofetch is NOT installed")
 
     def radio_toggled(self, widget):
-        if self.w3m.get_active():
-            self.emblem.set_sensitive(True)
-            self.big_ascii.set_sensitive(False)
-            self.small_ascii.set_sensitive(False)
-            path = (Functions.home + "/.config/neofetch/" +
-                    self.emblem.get_active_text())
-
-            pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
-            self.image4.set_from_pixbuf(pixbuf6)
-            self.frame3.show()
-            self.image4.show()
-
-        elif self.asci.get_active():
-            self.emblem.set_sensitive(False)
+        if self.asci.get_active():
             self.big_ascii.set_sensitive(True)
             self.small_ascii.set_sensitive(True)
-            self.image4.set_from_pixbuf(None)
-            self.frame3.hide()
         else:
             self.big_ascii.set_sensitive(False)
             self.small_ascii.set_sensitive(False)
-            self.image4.set_from_pixbuf(None)
-            self.frame3.hide()
-            self.emblem.set_sensitive(False)
 
     #When using this function to toggle a lolcat: utility = name of tool, e.g. neofetch
     def lolcat_toggle(self, widget, active, utility):

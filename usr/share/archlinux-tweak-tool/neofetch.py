@@ -8,7 +8,6 @@ from Functions import os
 #                       NEOFETCH
 # ====================================================================
 
-
 def get_neofetch():
     lines = []
     if os.path.isfile(Functions.neofetch_config):
@@ -17,7 +16,6 @@ def get_neofetch():
             f.close()
 
     return lines
-
 
 def pop_neofetch_box(combo):
     if os.path.isfile(Functions.neofetch_config):
@@ -41,7 +39,6 @@ def pop_neofetch_box(combo):
             #if sorted_com[i] == active:
         combo.set_active(i)
 
-
 def check_backend():
     if os.path.isfile(Functions.neofetch_config):
         lines = get_neofetch()
@@ -52,7 +49,6 @@ def check_backend():
                     return line
     return "ascii"
 
-
 def check_ascii():
     line = "auto"
     if os.path.isfile(Functions.neofetch_config):
@@ -62,8 +58,7 @@ def check_ascii():
                 line = lines[i].split("=")[1].replace("\"", "").strip()
     return line
 
-
-def apply_config(self, backend, emblem, ascii_size):
+def apply_config(self, backend, ascii_size):
     if os.path.isfile(Functions.neofetch_config):
         lines = get_neofetch()
         # try:
@@ -183,7 +178,7 @@ def apply_config(self, backend, emblem, ascii_size):
                 Functions.neofetch_set_backend_value(lines, i, "image_backend=\"", "w3m")
                 # Functions.neofetch_set_backend_value(lines, i, "image_backend=\"ascii\"")
                 Functions.neofetch_set_value(lines, i, "image_source=", False)
-                Functions.neofetch_set_value(lines, i, emblem, True)
+                #Functions.neofetch_set_value(lines, i, emblem, True)
 
             elif not backend == "w3m" and not backend == "off":
                 Functions.neofetch_set_backend_value(lines, i, "image_backend=\"", "ascii")
@@ -202,11 +197,8 @@ def apply_config(self, backend, emblem, ascii_size):
         with open(Functions.neofetch_config, "w") as f:
             f.writelines(lines)
             f.close()
-        Functions.show_in_app_notification(self, "Settings Saved Successfully")
-        # Functions.MessageBox(self, "Success!!", "Settings Saved Successfully")
-        # except:
-        #     pass
-
+        print("Neofetch settings saved successfully")
+        Functions.show_in_app_notification(self, "Neofetch settings saved successfully")
 
 def get_state(value):
     lines = get_neofetch()
@@ -217,9 +209,7 @@ def get_state(value):
                 return False
     return True
 
-
 def get_checkboxes(self):
-
     self.os.set_active(get_state("info \"OS\""))
     self.host.set_active(get_state("info \"Host\""))
     self.kernel.set_active(get_state("info \"Kernel\""))
