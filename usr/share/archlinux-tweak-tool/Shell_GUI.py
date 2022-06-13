@@ -158,6 +158,10 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
             hbox26_lbl.set_markup("Zsh is already <b>installed</b>")
         else:
             hbox26_lbl.set_markup("Zsh is not installed")
+        if Functions.check_package_installed("zsh") and Functions.check_package_installed("zsh-completions"):
+            hbox26_lbl.set_markup("Zsh and Zsh-completion are already <b>installed</b>")
+        else:
+            hbox26_lbl.set_markup("Zsh is not installed")
         self.install_zsh_completions = Gtk.Button("Install zsh-completion")
         self.install_zsh_completions.connect("clicked", self.on_install_zsh_completions_clicked)
         hbox26.pack_start(hbox26_lbl, False, False, 10)
@@ -317,7 +321,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         if Functions.check_package_installed("fish"):
             hbox32_lbl.set_markup("Fish is already <b>installed</b>")
         else:
-            hbox32_lbl.set_markup("Install Fish is not installed)")
+            hbox32_lbl.set_markup("Fish is not installed")
         self.fish = Gtk.Button("Install Fish")
         self.fish.connect("clicked", self.on_install_fish_clicked)
         hbox32.pack_start(hbox32_lbl, False, False, 10)
@@ -326,9 +330,9 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         hbox33 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         hbox33_lbl = Gtk.Label()
         if Functions.check_package_installed("arcolinux-fish-git"):
-            hbox33_lbl.set_markup("ATT fish incl. oh-my-fish, themes and plugins is already <b>installed</b>)")
+            hbox33_lbl.set_markup("ATT fish incl. oh-my-fish, themes and plugins is already <b>installed</b>")
         else:
-            hbox33_lbl.set_markup("ATT fish incl. oh-my-fish, themes and plugins is not installed)")
+            hbox33_lbl.set_markup("ATT fish incl. oh-my-fish, themes and plugins is not installed")
         self.arcolinux_fish = Gtk.Button("Install the ATT Fish package")
         self.arcolinux_fish.connect("clicked", self.on_arcolinux_fish_package_clicked)
         hbox33.pack_start(hbox33_lbl, False, False, 10)

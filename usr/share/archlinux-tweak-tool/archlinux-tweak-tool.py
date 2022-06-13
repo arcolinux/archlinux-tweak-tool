@@ -1034,7 +1034,7 @@ class Main(Gtk.Window):
     #    #====================================================================
 
     def on_install_fish_clicked(self, widget):
-        Functions.install_fish(self)
+        Functions.install_only_fish(self)
         GLib.idle_add(Functions.show_in_app_notification, self, "Only the Fish package is installed without a configuration")
         print("Fish is installed without a configuration")
         #Functions.restart_program()
@@ -1064,7 +1064,7 @@ class Main(Gtk.Window):
             Functions.shutil.copy("/etc/skel/.config/fish/config.fish", Functions.home + "/.config/fish/config.fish")
             Functions.permissions(Functions.home + "/.config/fish/config.fish")
 
-        Functions.source_shell()
+        Functions.source_shell(self)
         print("ATT Fish config is installed and your old fish folder (if any) is in ~/.config/fish-att")
         GLib.idle_add(Functions.show_in_app_notification, self, "ATT fish config is installed")
 

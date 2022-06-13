@@ -553,6 +553,8 @@ def install_only_fish(self):
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
+    print("Only Fish has been installed")
+    GLib.idle_add(self.label7.set_text, "Only Fish has been installed")
 
 def install_arcolinux_fish_package(self):
     install = 'pacman -S arcolinux-fish-git --needed --noconfirm'
@@ -1576,6 +1578,8 @@ def install_zsh(self):
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
+        print("All Zsh packages have been installed - completions and syntax highlighting")
+        GLib.idle_add(self.label7.set_text, "All Zsh packages have been installed")
     except Exception as e:
         print(e)
 
@@ -1586,5 +1590,7 @@ def install_only_zsh(self):
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
+        print("Only Zsh has been installed")
+        GLib.idle_add(self.label7.set_text, "Only Zsh has been installed")
     except Exception as e:
         print(e)
