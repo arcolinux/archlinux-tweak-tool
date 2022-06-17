@@ -59,6 +59,10 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
             hbox7_lbl.set_markup("Bash is already <b>installed</b>")
         else:
             hbox7_lbl.set_markup("Bash is not installed")
+        if Functions.check_package_installed("bash-completion"):
+            hbox7_lbl.set_markup("Bash and bash-completion are already <b>installed</b>")
+        else:
+            hbox7_lbl.set_markup("Bash is already installed and  bash-completion is not installed")
         self.bash = Gtk.Button("Install bash-completion")
         self.bash.connect("clicked", self.on_install_bash_clicked)
         hbox7.pack_start(hbox7_lbl, False, False, 10)
