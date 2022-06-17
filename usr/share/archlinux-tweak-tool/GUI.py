@@ -299,8 +299,7 @@ Then you will be able to set the mirrors of ArcoLinux")
     if not Functions.distr == "xerolinux":
         stack.add_titled(vboxStack14, "stack14", "Services")  # services
 
-    if not Functions.distr == "xerolinux":
-        stack.add_titled(vboxStack23, "stack23", "Shells")  # shell
+    stack.add_titled(vboxStack23, "stack23", "Shells")  # shell
 
     #stack.add_titled(vboxStack21, "stack21", "Template")  # template
 

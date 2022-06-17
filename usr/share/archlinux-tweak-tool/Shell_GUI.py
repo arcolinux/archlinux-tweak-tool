@@ -472,7 +472,8 @@ Restart Att to see the information</b>")
     # ==================================================================
 
     stack.add_titled(vboxStack1, "stack1", "BASH")
-    stack.add_titled(vboxStack2, "stack2", "ZSH")
+    if not Functions.distr == "xerolinux":
+        stack.add_titled(vboxStack2, "stack2", "ZSH")
     stack.add_titled(vboxStack3, "stack3", "FISH")
     stack.add_titled(vboxStack4, "stack4", "EXTRA")
 

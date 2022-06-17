@@ -554,7 +554,6 @@ def install_only_fish(self):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
     print("Only Fish has been installed")
-    GLib.idle_add(self.label7.set_text, "Only Fish has been installed")
 
 def install_arcolinux_fish_package(self):
     install = 'pacman -S arcolinux-fish-git --needed --noconfirm'
