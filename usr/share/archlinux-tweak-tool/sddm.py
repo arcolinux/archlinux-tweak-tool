@@ -172,6 +172,14 @@ def pop_cursor_box(self, combo):
         com4 = ["Adwaita"]
         coms = coms + com4
 
+    if Functions.check_package_installed("eos-qogir-theme"):
+        com5 = ["Qogir-dark", "Qogir"]
+        coms = coms + com5
+
+    if Functions.check_package_installed("qogir-icon-theme"):
+        com6 = ["Qogir-manjaro", "Qogir-manjaro-dark", "Qogir-ubuntu", "Qogir-ubuntu-dark", "Qogir-dark", "Qogir"]
+        coms = coms + com6
+
     lines = get_sddm_lines(Functions.sddm_default_d2)
 
     name = check_sddm(lines, "CursorTheme=").split("=")[1]
