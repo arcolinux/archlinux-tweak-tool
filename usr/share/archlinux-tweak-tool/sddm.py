@@ -181,8 +181,10 @@ def pop_cursor_box(self, combo):
         coms = coms + com6
 
     lines = get_sddm_lines(Functions.sddm_default_d2)
-
-    name = check_sddm(lines, "CursorTheme=").split("=")[1]
+    if (len(check_sddm(lines, "CursorTheme=").split("=")) != 1):
+        name = check_sddm(lines, "CursorTheme=").split("=")[1]
+    else:
+        name = ""
 
     coms.sort()
     for i in range(len(coms)):
