@@ -183,8 +183,10 @@ Include = /etc/pacman.d/mirrorlist"
 # get position in list
 def _get_position(lists, value):
     data = [string for string in lists if value in string]
-    position = lists.index(data[0])
-    return position
+    if len(data) != 0:
+        position = lists.index(data[0])
+        return position
+    return 0
 
 # get positions in list
 def _get_positions(lists, value):
