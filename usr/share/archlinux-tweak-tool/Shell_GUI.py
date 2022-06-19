@@ -162,10 +162,9 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
             hbox26_lbl.set_markup("Zsh is already <b>installed</b>")
         else:
             hbox26_lbl.set_markup("Zsh is not installed")
-        if Functions.check_package_installed("zsh") and Functions.check_package_installed("zsh-completions"):
+        if Functions.check_package_installed("zsh-completions"):
             hbox26_lbl.set_markup("Zsh and Zsh-completion are already <b>installed</b>")
-        else:
-            hbox26_lbl.set_markup("Zsh is not installed")
+
         self.install_zsh_completions = Gtk.Button("Install zsh-completion")
         self.install_zsh_completions.connect("clicked", self.on_install_zsh_completions_clicked)
         hbox26.pack_start(hbox26_lbl, False, False, 10)
@@ -447,6 +446,7 @@ Restart Att to see the information</b>")
     self.downgrade = Gtk.CheckButton(label="downgrade")
     self.hw_probe = Gtk.CheckButton(label="hw-probe")
     self.rate_mirrors = Gtk.CheckButton(label="rate-mirrors")
+    self.most = Gtk.CheckButton(label="most")
 
     flowbox = Gtk.FlowBox()
     flowbox.set_valign(Gtk.Align.START)
@@ -461,6 +461,7 @@ Restart Att to see the information</b>")
     flowbox.add(self.downgrade)
     flowbox.add(self.hw_probe)
     flowbox.add(self.rate_mirrors)
+    flowbox.add(self.most)
 
     extra_shell_applications = Gtk.Button(label="Install these applications")
     extra_shell_applications.connect("clicked", self.on_extra_shell_applications_clicked)

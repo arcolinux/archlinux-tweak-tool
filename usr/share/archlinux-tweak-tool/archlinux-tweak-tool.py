@@ -62,6 +62,7 @@ class Main(Gtk.Window):
         print(" - ArchLinuxGUI  - https://archlinuxgui.in/")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
+        print("Adding repositories should be done with great care - they can conflict")
         print("Sway is not supported")
         print("---------------------------------------------------------------------------")
         print("We make backups of files related to the ATT.")
@@ -69,6 +70,7 @@ class Main(Gtk.Window):
         print("If we have a reset button, the .bak file will be used")
         print("If you have errors, because of SDDM and its cursor, user, theme, ...")
         print("Restart ATT again or run fix-sddm-conf")
+        print("You can receive ATT support on https://discord.gg/R2amEEz")
         print("---------------------------------------------------------------------------")
 
         super(Main, self).__init__(title="Arch Linux Tweak Tool")
@@ -2564,6 +2566,8 @@ class Main(Gtk.Window):
             Functions.install_extra_shell("hw-probe")
         if self.rate_mirrors.get_active():
             Functions.install_extra_shell("rate-mirrors")
+        if self.most.get_active():
+            Functions.install_extra_shell("most")
         print("Software has been installed")
         Functions.show_in_app_notification(self, "Software has been installed")
 
@@ -2578,6 +2582,7 @@ class Main(Gtk.Window):
             self.downgrade.set_active(True)
             self.hw_probe.set_active(True)
             self.rate_mirrors.set_active(True)
+            self.most.set_active(True)
 
     #====================================================================
     #                       SKEL
