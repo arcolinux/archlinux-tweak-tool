@@ -28,61 +28,83 @@ class Support(Gtk.Dialog):
         label = Gtk.Label()
         label.set_line_wrap(True)
         label.set_justify(Gtk.Justification.CENTER)
-        label.set_markup("Big thank you to our developers for their work on this project.\n\
-<b>Brad Heffernan</b> is the driving force aka developer behind the ArcoLinux Tweak Tool. \n\
-With the help of <b>Krisztian Veress</b> and <b>Erik Dubois</b> we were able to give our users an easy and efficient tool. \n\
-If you want to thank and support <b>Brad</b> personally for his initiative and efforts then you can do so by following the links.")
+        label.set_markup("Big thanks to <b>Brad Heffernan</b> who was the driving force behind the ArchLinux Tweak Tool.\n\
+After his departure <b>Cameron Percival</b> and <b>Erik Dubois</b> kept developing this easy and efficient tool.\n\n\
+You can receive support via <b>Discord channel</b>.\n\
+You can support the project with providing code, fixes, ideas, ... via github.\n\
+You can give support via donations.\n\
+Nowadays the goal of the app is to bridge all Arch Linux based systems.\n\n\
+IT is all Arch Linux\n\
+the right setting - the right config - the right application - at the right place")
 
         label2 = Gtk.Label()
-        label2.set_markup("Support <b>Brad</b> on patreon")
-        # =====================================================
-        #               PATREON LINK
-        # =====================================================
-        pE = Gtk.EventBox()
-        ppE = Gtk.EventBox()
+        label2.set_justify(Gtk.Justification.CENTER)
+        label2.set_markup("Support <b>ArcoLinux</b> - support this app")
 
+        logo = GdkPixbuf.Pixbuf().new_from_file_at_size(
+            os.path.join(base_dir, 'images/archlinux-tweak-tool.png'), 100, 100)
+        logo_image = Gtk.Image().new_from_pixbuf(logo)
+
+
+
+        ghE = Gtk.EventBox() #github
+        discE = Gtk.EventBox() #discord
+
+        donatE = Gtk.EventBox() #paypal
+        pbdisc = GdkPixbuf.Pixbuf().new_from_file_at_size(
+            os.path.join(base_dir, 'images/donate.png'), 54, 54)
+        ppimage = Gtk.Image().new_from_pixbuf(pbdisc)
+        donatE.add(ppimage)
+        donatE.connect("button_press_event", self.on_support_click, "https://www.arcolinux.info/donation/")
+        donatE.set_property("has-tooltip", True)
+        donatE.connect("query-tooltip", self.tooltip_callback, "Different ways to support")
+
+        patreonE = Gtk.EventBox() #patreon
         pbp = GdkPixbuf.Pixbuf().new_from_file_at_size(
             os.path.join(base_dir, 'images/patreon.png'), 48, 48)
         pimage = Gtk.Image().new_from_pixbuf(pbp)
+        patreonE.add(pimage)
+        patreonE.connect("button_press_event", self.on_support_click, "https://www.patreon.com/arcolinux")
+        patreonE.set_property("has-tooltip", True)
+        patreonE.connect("query-tooltip", self.tooltip_callback, "Support ArcoLinux on Patreon")
 
-        logo = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            os.path.join(base_dir, 'images/arcolinux-froly.png'), 100, 100)
-        logo_image = Gtk.Image().new_from_pixbuf(logo)
-
-        pE.add(pimage)
-
-        pE.connect("button_press_event", self.on_support_click, "https://www.patreon.com/hefftor")
-        pE.set_property("has-tooltip", True)
-
-        pE.connect("query-tooltip", self.tooltip_callback, "Support BradHeff on Patreon")
-
-
-
+        paypalE = Gtk.EventBox() #paypal
         pbpp = GdkPixbuf.Pixbuf().new_from_file_at_size(
             os.path.join(base_dir, 'images/paypal.png'), 54, 54)
         ppimage = Gtk.Image().new_from_pixbuf(pbpp)
+        paypalE.add(ppimage)
+        paypalE.connect("button_press_event", self.on_support_click, "https://www.paypal.com/paypalme/arcolinuxpaypal")
+        paypalE.set_property("has-tooltip", True)
+        paypalE.connect("query-tooltip", self.tooltip_callback, "Donate to this project via paypal")
 
-        ppE.add(ppimage)
 
-        ppE.connect("button_press_event", self.on_support_click, "https://PayPal.Me/heffserver")
-        ppE.set_property("has-tooltip", True)
+        discordE = Gtk.EventBox() #paypal
+        pbdisc = GdkPixbuf.Pixbuf().new_from_file_at_size(
+            os.path.join(base_dir, 'images/discord.png'), 54, 54)
+        ppimage = Gtk.Image().new_from_pixbuf(pbdisc)
+        discordE.add(ppimage)
+        discordE.connect("button_press_event", self.on_support_click, "https://discord.gg/R2amEEz")
+        discordE.set_property("has-tooltip", True)
+        discordE.connect("query-tooltip", self.tooltip_callback, "Get ATT support on Discord")
 
-        ppE.connect("query-tooltip", self.tooltip_callback, "Buy BradHeff a coffee")
+        githubE = Gtk.EventBox() #paypal
+        pbghub = GdkPixbuf.Pixbuf().new_from_file_at_size(
+            os.path.join(base_dir, 'images/github.png'), 54, 54)
+        ppimage = Gtk.Image().new_from_pixbuf(pbghub)
+        githubE.add(ppimage)
+        githubE.connect("button_press_event", self.on_support_click, "https://github.com/arcolinux/archlinux-tweak-tool-dev")
+        githubE.set_property("has-tooltip", True)
+        githubE.connect("query-tooltip", self.tooltip_callback, "Donate time and code to this project")
 
-        pE_label = Gtk.Label("Patreon")
 
         vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
         hbox.pack_start(label, True, True, 10)
-
-        hbox1.pack_start(label2, False, False, 10)
-
-        vbox1.pack_start(pE, False, False, 0)
-        vbox1.pack_start(pE_label, False, False, 0)
-
-        hbox2.pack_start(vbox1, False, False, 10)
-        hbox2.pack_start(ppE, False, False, 10)
-
+        hbox2.pack_start(donatE, False, False, 10)
+        hbox2.pack_start(githubE, False, False, 10)
+        hbox2.pack_start(patreonE, False, False, 0)
+        hbox2.pack_start(paypalE, False, False, 10)
+        hbox2.pack_start(discordE, False, False, 10)
         hbox3.pack_start(hbox2, True, False, 0)
 
         vbox.pack_start(logo_image, False, False, 10)
@@ -90,6 +112,7 @@ If you want to thank and support <b>Brad</b> personally for his initiative and e
 
         vbox.pack_end(hbox3, False, False, 10)
         vbox.pack_end(hbox1, False, False, 0)
+        vbox.pack_end(label2, False, False, 10)
 
         self.show_all()
 
@@ -101,8 +124,13 @@ If you want to thank and support <b>Brad</b> personally for his initiative and e
         # self.weblink(link)
 
     def weblink(self, link):
-        Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "exo-open --launch webbrowser " + link], shell=False)
-        # webbrowser.open_new_tab(link)
+        if Functions.check_package_installed("firefox"):
+            Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "firefox --new-tab " + link], shell=False)
+        else:
+            if Functions.check_package_installed("chromium"):
+                Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "chromium " + link], shell=False)
+            else:
+                Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "exo-open --launch webbrowser " + link], shell=False)
 
     def tooltip_callback(self, widget, x, y, keyboard_mode, tooltip, text):
         tooltip.set_text(text)

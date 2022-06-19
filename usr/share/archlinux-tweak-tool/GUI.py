@@ -345,14 +345,32 @@ Then you will be able to set the mirrors of ArcoLinux")
     btnQuitAtt.connect('clicked', on_quit)
 
     # =====================================================
+    #               SUPPORT LINK
+    # =====================================================
+    pE = Gtk.EventBox()
+
+    pbp = GdkPixbuf.Pixbuf().new_from_file_at_size(
+        os.path.join(base_dir, 'images/support.png'), 58, 58)
+    pimage = Gtk.Image().new_from_pixbuf(pbp)
+
+    pE.add(pimage)
+
+    pE.connect("button_press_event", self.on_social_clicked)
+    pE.set_property("has-tooltip", True)
+
+    pE.connect("query-tooltip", self.tooltip_callback,
+               "Support or get support")
+
+    # =====================================================
     #                      PACKS
     # =====================================================
 
-    #hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
+    hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
 
+    hbox1.pack_start(pE, False, False, 0)
     hbox2.pack_start(lbl_distro, False, False, 0)
     hbox3.pack_start(btnReStartAtt, False, False, 0)
     hbox4.pack_start(btnQuitAtt, False, False, 0)
@@ -360,6 +378,7 @@ Then you will be able to set the mirrors of ArcoLinux")
     #ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
 
+    ivbox.pack_start(hbox1, False, False, 0)
     ivbox.pack_start(hbox2, False, False, 0)
     ivbox.pack_start(hbox3, False, False, 0)
     ivbox.pack_start(hbox4, False, False, 0)

@@ -99,6 +99,17 @@ class Main(Gtk.Window):
         t.start()
         t.join()
 
+# =====================================================
+#               PATREON LINK
+# =====================================================
+
+        def on_social_clicked(self, widget, event):
+            sup = Support.Support(self)
+            response = sup.run()
+
+            if response == Gtk.ResponseType.DELETE_EVENT:
+                sup.destroy()
+
         # =====================================================
         #     PLASMA THEME
         # =====================================================
@@ -2213,7 +2224,17 @@ class Main(Gtk.Window):
                 t1.daemon = True
                 t1.start()
 
-            print("Sddm settings Saved Successfully")
+            if Functions.check_content("[Autologin]",Functions.sddm_default_d1):
+                t2 = Functions.threading.Thread(target=sddm.set_user_autologin_value,
+                            args=(self,
+                                sddm.get_sddm_lines(Functions.sddm_default_d1),  # noqa
+                                Functions.sudo_username,
+                                self.sessions_sddm.get_active_text(),
+                                self.autologin_sddm.get_active()))
+                t2.daemon = True
+                t2.start()
+
+            print("Sddm settings saved successfully")
             GLib.idle_add(Functions.show_in_app_notification, self, "Sddm settings saved successfully")
 
         else:
