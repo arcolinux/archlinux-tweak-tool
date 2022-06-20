@@ -210,6 +210,10 @@ def pop_cursor_box(self, combo):
         com6 = ["Qogir-manjaro", "Qogir-manjaro-dark", "Qogir-ubuntu", "Qogir-ubuntu-dark", "Qogir-dark", "Qogir"]
         coms = coms + com6
 
+    if Functions.check_package_installed("phinger-cursors"):
+        com7 = ["phinger-cursors", "phinger-cursors-light"]
+        coms = coms + com7
+
     lines = get_sddm_lines(Functions.sddm_default_d2)
 
     if (len(check_sddm(lines, "CursorTheme=").split("=")) != 1):

@@ -539,6 +539,8 @@ def change_distro_label(name):      # noqa
         name = "Manjaro"
     if name == "xerolinux":
         name = "Xerolinux"
+    if name == "axyl":
+        name = "Axyl"
     return name
 
 # =====================================================
@@ -707,6 +709,13 @@ def set_default_theme(self):
             if distro.id() == "xerolinux":
                 try:
                     val = _get_position(grubd, 'GRUB_THEME="/boot/grub/themes/XeroKDE/theme.txt"')
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                   pass
+
+            if distro.id() == "axyl":
+                try:
+                    val = _get_position(grubd, 'GRUB_THEME="/boot/grub/themes/axyl/theme.txt"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                    pass

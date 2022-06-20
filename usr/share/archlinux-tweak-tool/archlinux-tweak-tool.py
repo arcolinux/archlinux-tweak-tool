@@ -60,6 +60,7 @@ class Main(Gtk.Window):
         print(" - Manjaro       - https://manjaro.org/")
         print(" - Xerolinux     - https://xerolinux.xyz/")
         print(" - ArchLinuxGUI  - https://archlinuxgui.in/")
+        print(" - Axyl          - https://axyl-os.github.io/")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("Adding repositories should be done with great care - they can conflict")
