@@ -316,7 +316,7 @@ We will backup your files")
         vboxStack2.pack_start(install_lightdm, False, False, 0)
 
     # ==================================================================
-    #                       LXDM
+    #                       LXDM 
     # ==================================================================
 
     if Functions.check_package_installed("lxdm") or Functions.check_package_installed("lxdm-gtk3"):
