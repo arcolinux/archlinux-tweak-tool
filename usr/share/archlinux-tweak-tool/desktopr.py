@@ -991,6 +991,7 @@ if not distro.id() == "arcolinux":
         "arcolinux-i3wm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "autotiling",
         "dmenu",
         "feh",
         "i3blocks",
