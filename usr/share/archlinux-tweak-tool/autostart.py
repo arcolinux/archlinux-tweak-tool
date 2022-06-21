@@ -14,17 +14,19 @@ def get_startups(self, n):
     except Exception as e:
         return True
 
-    try:
-        pos = fn._get_position(lines, "Hidden=")
-        state = lines[pos].split("=")[1].strip()
+    if fn.check_content("Hidden=",fn.autostart + n + ".desktop"):
+        try:
+            pos = fn._get_position(lines, "Hidden=")
+            state = lines[pos].split("=")[1].strip()
 
-        state = state.capitalize()
-        state = not eval(state)
+            state = state.capitalize()
+            state = not eval(state)
+            return state
+        except Exception as e:
+            print(e)
+            return True
+    else:
         return state
-    except Exception as e:
-        print(e)
-        return True
-
 
 def add_autostart(self, name, com, comnt):
     lists = [x for x in fn.os.listdir(fn.home + "/.config/autostart/")]

@@ -11,6 +11,7 @@ import distro
 import fixes
 import lightdm
 import login
+import lxdm
 import neofetch
 import os
 import sddm
@@ -51,6 +52,9 @@ import User_GUI
 #import SkelApp_GUI
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
+
+    #debug = True
+    debug = False
 
     # =======================================================
     #                       App Notifications
@@ -120,12 +124,18 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                AUTOSTART
     # ==========================================================
 
+    if debug:
+        print("Autostart_GUI")
+
     Autostart_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart,
                       Functions, base_dir)
 
     # ==========================================================
     #                DESKTOP
     # ==========================================================
+
+    if debug:
+        print("Desktopr_GUI")
 
     Desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr,
                      Functions, base_dir, Pango)
@@ -134,11 +144,17 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # #               FIXES
     # # ==========================================================
 
+    if debug:
+        print("Fixes_GUI")
+
     Fixes_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack19, user, Functions)
 
     # ==========================================================
     #                 GRUB
     # ==========================================================
+
+    if debug:
+        print("Grub_GUI")
 
     if Functions.file_check("/boot/grub/themes/Vimix/theme.txt"):
         Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions)
@@ -166,11 +182,17 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                         LOGIN
     # ==========================================================
 
+    if debug:
+        print("Login_GUI")
+
     Login_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions)
 
     # ==========================================================
     #                 MIRRORLIST ARCOLINUX
     # ==========================================================
+
+    if debug:
+        print("Arcolinuxmirrors_GUI")
 
     if Functions.file_check("/etc/pacman.d/arcolinux-mirrorlist"):
         Arcolinuxmirrors_GUI.GUI(self, Gtk, vboxStack16, Functions)
@@ -198,6 +220,9 @@ Then you will be able to set the mirrors of ArcoLinux")
     # #               NEOFETCH
     # # ==========================================================
 
+    if debug:
+        print("Neofetch_GUI")
+
     if Functions.file_check(Functions.neofetch_config):
         Neofetch_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions)
     else:
@@ -218,6 +243,10 @@ Then you will be able to set the mirrors of ArcoLinux")
     # ==========================================================
     #                 PACMAN
     # ==========================================================
+
+    if debug:
+        print("Pacman_GUI")
+
     if Functions.file_check(Functions.pacman):
         Pacman_GUI.GUI(self, Gtk, vboxStack1, Functions)
 
@@ -225,11 +254,17 @@ Then you will be able to set the mirrors of ArcoLinux")
     #                 PRIVACY - HBLOCK
     # ==========================================================
 
+    if debug:
+        print("Privacy_GUI")
+
     Privacy_GUI.GUI(self, Gtk, vboxStack3, Functions)
 
     # ==========================================================
     #                      SERVICES
     # ==========================================================
+
+    if debug:
+        print("Services_GUI")
 
     Services_GUI.GUI(self, Gtk, vboxStack14, Functions)
 
@@ -237,6 +272,9 @@ Then you will be able to set the mirrors of ArcoLinux")
     # ==========================================================
     #                        SHELLS
     # ==========================================================
+
+    if debug:
+        print("Shell_GUI")
 
     Shell_GUI.GUI(self, Gtk, vboxStack23, zsh_theme, fish, base_dir,GdkPixbuf, Functions)
 
@@ -250,11 +288,17 @@ Then you will be able to set the mirrors of ArcoLinux")
     # #               TERMINALS - TERMITE CONFIG
     # # ==========================================================
 
+    if debug:
+        print("Termite_GUI")
+
     Termite_GUI.GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir)
 
     # # ==========================================================
     # #               TERMINAL FUN
     # # ==========================================================
+
+    if debug:
+        print("Utilities_GUI")
 
     Utilities_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack20, Functions)
 
@@ -262,11 +306,17 @@ Then you will be able to set the mirrors of ArcoLinux")
     #                 THEMES
     # ==========================================================
 
+    if debug:
+        print("Themer_GUI")
+
     Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
 
     # # ==========================================================
     # #                USER
     # # ==========================================================
+
+    if debug:
+        print("User_GUI")
 
     User_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack18, user, Functions)
     ls = Gtk.Label()

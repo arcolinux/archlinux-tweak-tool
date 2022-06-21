@@ -18,6 +18,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
 
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     #vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
@@ -308,11 +309,124 @@ We will backup your files")
         ls = Gtk.Label()
         ls.set_markup("<b>Lightdm does not seem to be installed</b>")
 
-        install_lightdm = Gtk.Button(label="Install Lightdm and enable it - autoreboot")
+        install_lightdm = Gtk.Button(label="Install Lightdm - autoreboot - do not forget to enable it")
         install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked)
 
         vboxStack2.pack_start(ls, False, False, 0)
         vboxStack2.pack_start(install_lightdm, False, False, 0)
+
+    # ==================================================================
+    #                       LXDM
+    # ==================================================================
+
+    if Functions.check_package_installed("lxdm") or Functions.check_package_installed("lxdm-gtk3"):
+
+        hbox50 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox50_lbl = Gtk.Label(xalign=0)
+        hbox50_lbl.set_text("Lxdm (inactive)")
+        if Functions.check_content("lxdm", "/etc/systemd/system/display-manager.service"):
+            hbox50_lbl.set_text("Lxdm (active)")
+        hbox50_lbl.set_name("title")
+        hbox50.pack_start(hbox50_lbl, False, False, 0)
+
+        hbox51 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox51.pack_start(hseparator, True, True, 0)
+
+        # hbox52 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        # hbox52_lbl = Gtk.Label(xalign=0)
+        # hbox52_lbl.set_text("Autologin")
+        # self.autologin = Gtk.Switch()
+        # self.autologin.connect("notify::active", self.on_autologin_activated)
+        # hbox52.pack_start(hbox52_lbl, False, False, 10)
+        # hbox52.pack_end(self.autologin, False, False, 10)
+
+        # hbox53 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        # hbox53_lbl = Gtk.Label(xalign=0)
+        # hbox53_lbl.set_text("Choose the desktop you want to autologin to")
+        # hbox53.pack_start(hbox53_lbl, False, False, 10)
+
+        # hbox54 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        # hbox54_lbl = Gtk.Label(xalign=0)
+        # hbox54_lbl.set_text("Use the ATT lightdm-gtk-greeter config")
+        # btn_install_arco_lightdm_greeter = Gtk.Button(label="Set ATT config")
+        # btn_install_arco_lightdm_greeter.connect ("clicked", self.on_click_install_arco_lightdmgreeter)
+        # btn_reset_lightdm_greeter = Gtk.Button(label="Reset back to original config")
+        # btn_reset_lightdm_greeter.connect ("clicked", self.on_click_reset_lightdm_greeter)
+        # hbox54.pack_start(hbox54_lbl, False, False, 10)
+        # hbox54.pack_end(btn_reset_lightdm_greeter, False, False, 10)
+        # hbox54.pack_end(btn_install_arco_lightdm_greeter, False, False, 10)
+
+        # hbox55 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        # hbox55_lbl = Gtk.Label(xalign=0)
+        # hbox55_lbl.set_text("Desktop session")
+        # self.sessions = Gtk.ComboBoxText()
+        # lightdm.pop_box(self, self.sessions)
+        # hbox55.pack_start(hbox55_lbl, False, False, 10)
+        # hbox55.pack_end(self.sessions, True, True, 10)
+
+        # hbox56 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        # hbox56_lbl = Gtk.Label(xalign=0)
+        # hbox56_lbl.set_text("You can change more settings with the lightdm-gtk-greeter-settings app")
+        # hbox56.pack_start(hbox56_lbl, False, False, 10)
+
+        # hbox57 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        # hbox57_label = Gtk.Label(xalign=0)
+        # if Functions.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
+        #     hbox57_label.set_text("Slickgreeter is active")
+        # else:
+        #     hbox57_label.set_text("Slickgreeter is inactive")
+        # hbox57.pack_start(hbox57_label, False, False, 10)
+
+        hbox58 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        enable_lxdm = Gtk.Button(label="Enable Lxdm")
+        enable_lxdm.connect("clicked", self.on_click_lxdm_enable)
+        # enable_slick = Gtk.Button(label="Install and Enable or Disable Lightdm Slickgreeter")
+        # enable_slick.connect("clicked", self.on_click_lightdm_slick)
+        # apply = Gtk.Button(label="Apply settings")
+        # apply.connect("clicked", self.on_click_lightdm_apply)
+        # reset = Gtk.Button(label="Reset lxdm.conf")
+        # reset.connect("clicked", self.on_click_lightdm_reset)
+        #hbox58.pack_end(apply, False, False, 0)
+        #hbox58.pack_end(reset, False, False, 0)
+        #hbox58.pack_end(enable_slick, False, False, 10)
+        hbox58.pack_start(enable_lxdm, False, False, 0)
+
+        vboxStack3.pack_start(hbox50, False, False, 0)
+        vboxStack3.pack_start(hbox51, False, False, 0)
+        # vboxStack3.pack_start(hbox52, False, False, 0)
+        # vboxStack3.pack_start(hbox53, False, False, 0)
+        # vboxStack3.pack_start(hbox55, False, False, 0)
+        # vboxStack3.pack_start(hbox54, False, False, 0)
+        # vboxStack3.pack_start(hbox56, False, False, 0)
+        # vboxStack3.pack_start(hbox57, False, False, 0)
+        vboxStack3.pack_end(hbox58, False, False, 0)
+
+    else:
+       #no lxdm installed
+        hbox60 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox60_lbl = Gtk.Label(xalign=0)
+        hbox60_lbl.set_text("Lxdm is not installed")
+        hbox60_lbl.set_name("title")
+        hbox60.pack_start(hbox60_lbl, False, False, 0)
+
+        hbox61 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox61.pack_start(hseparator, True, True, 0)
+
+        vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        vboxStack3.pack_start(hbox60, False, False, 0)
+        vboxStack3.pack_start(hbox61, False, False, 0)
+        ls = Gtk.Label()
+        ls.set_markup("<b>Lxdm does not seem to be installed</b>")
+
+        install_lxdm = Gtk.Button(label="Install Lxdm - autoreboot - do not forget to enable it")
+        install_lxdm.connect("clicked", self.on_click_install_lxdm)
+
+        vboxStack3.pack_start(ls, False, False, 0)
+        vboxStack3.pack_start(install_lxdm, False, False, 0)
+
+
 
     # ==================================================================
     #                       PACK TO STACK
@@ -320,6 +434,7 @@ We will backup your files")
     if not Functions.distr == "manjaro":
         stack.add_titled(vboxStack1, "stack1", "SDDM")
     stack.add_titled(vboxStack2, "stack2", "LIGHTDM")
+    stack.add_titled(vboxStack3, "stack3", "LXDM")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)

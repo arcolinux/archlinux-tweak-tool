@@ -104,6 +104,7 @@ account_list = ["Standard","Administrator"]
 i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
 qtile_config = home + "/.config/qtile/config.py"
+qtile_config_theme = home + "/.config/qtile/themes/arcolinux-default.theme"
 
 seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
 aarnetmirror = "Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"
@@ -546,18 +547,6 @@ def change_distro_label(name):      # noqa
 # =====================================================
 #               FISH + PACKAGES (ARCOLINUXD)
 # =====================================================
-
-def install_only_fish(self):
-    install = 'pacman -S fish --needed --noconfirm'
-
-    if os.path.exists("/usr/bin/fish"):
-        pass
-    else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-    print("Only Fish has been installed")
 
 def install_arcolinux_fish_package(self):
     install = 'pacman -S arcolinux-fish-git --needed --noconfirm'

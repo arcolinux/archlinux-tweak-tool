@@ -19,6 +19,7 @@ import Functions
 import Gtk_Functions
 import GUI
 import lightdm
+import lxdm
 import neofetch
 import oblogout
 import os
@@ -42,6 +43,9 @@ from gi.repository import Gdk, GdkPixbuf, GLib, Gtk, Pango  # noqa
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 pmf = pacman_functions
+
+#debug = True
+debug = False
 
 class Main(Gtk.Window):
     def __init__(self):
@@ -103,9 +107,9 @@ class Main(Gtk.Window):
         t.start()
         t.join()
 
-# =====================================================
-#               PATREON LINK
-# =====================================================
+        # =====================================================
+        #               PATREON LINK
+        # =====================================================
 
         def on_social_clicked(self, widget, event):
             sup = Support.Support(self)
@@ -115,8 +119,11 @@ class Main(Gtk.Window):
                 sup.destroy()
 
         # =====================================================
-        #     PLASMA THEME
-        # =====================================================
+        #     ATT THEME DARK OR LIGHT - FOLLOW USER SELECTION
+        # ====================================================
+
+        if debug:
+            print("ATT THEME DARK OR LIGHT - FOLLOW USER SELECTION")
 
         #ensuring we have a directory
         if not Functions.os.path.isdir("/root/.config/"):
@@ -172,6 +179,9 @@ class Main(Gtk.Window):
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
         # =====================================================
 
+        if debug:
+            print("ENSURING WE HAVE THE DIRECTORIES WE NEED")
+
         #make directory if it doesn't exist
         if not os.path.isdir(Functions.log_dir):
             try:
@@ -214,6 +224,9 @@ class Main(Gtk.Window):
         #                   MAKING BACKUPS
         # =====================================================
 
+        if debug:
+            print("MAKING BACUPS")
+
          #ensuring we have a backup of /etc/sddm.conf
         if os.path.isfile(Functions.sddm_default_d1):
             if not os.path.isfile(Functions.sddm_default_d1 + ".bak"):
@@ -224,9 +237,10 @@ class Main(Gtk.Window):
 
          #ensuring we have a backup of /etc/sddm.conf.d/kde_settings.conf
         if os.path.isfile(Functions.sddm_default_d2):
-            if not os.path.isfile(Functions.sddm_default_d2 + ".bak"):
+            if not os.path.isfile("/etc/sddm.conf.d/bak.kde_settings.conf"):
                 try:
-                    Functions.shutil.copy(Functions.sddm_default_d2, Functions.sddm_default_d2 + ".bak")
+                    Functions.shutil.copy(Functions.sddm_default_d2,
+								"/etc/sddm.conf.d/bak.kde_settings.conf")
                 except Exception as e:
                     print(e)
 
@@ -385,6 +399,9 @@ class Main(Gtk.Window):
         #               CATCHING ERRORS
         # =====================================================
 
+        if debug:
+            print("CATCHING ERRORS")
+
         #make directory if it doesn't exist'
         if os.path.exists("/usr/bin/sddm"):
             Functions.create_sddm_k_dir()
@@ -486,6 +503,9 @@ class Main(Gtk.Window):
         # =====================================================
         #               READING AND SETTING
         # =====================================================
+
+        if debug:
+            print("READING AND SETTING")
 
         #========================ARCO REPO=============================
 
@@ -639,6 +659,9 @@ class Main(Gtk.Window):
         #                     LIGHTDM
         # =====================================================
 
+        if debug:
+            print("LIGHTDM")
+
         if Functions.os.path.isfile(Functions.lightdm_conf):
             if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):
                 self.autologin.set_active(False)
@@ -650,6 +673,9 @@ class Main(Gtk.Window):
         # =====================================================
         #                        SDDM
         # =====================================================
+
+        if debug:
+            print("SDDM")
 
         if os.path.exists("/usr/bin/sddm"):
             try:
@@ -697,6 +723,9 @@ class Main(Gtk.Window):
     # =====================================================
     #     CREATE AUTOSTART_GUI
     # =====================================================
+
+    if debug:
+        print("CREATE AUTOSTART_GUI")
 
     def create_autostart_columns(self, treeView):
         rendererText = Gtk.CellRendererText()
@@ -760,6 +789,9 @@ class Main(Gtk.Window):
    #====================================================================
     #                       AUTOSTART
     #====================================================================
+
+    if debug:
+        print("AUTOSTART")
 
     def on_comment_changed(self, widget):
         if len(self.txtbox1.get_text()) >= 3 and len(self.txtbox2.get_text()) >= 3:
@@ -934,7 +966,10 @@ class Main(Gtk.Window):
 
     #====================================================================
     #                       ARCOLINUX MIRRORLIST
-    #===================================================================
+    #====================================================================
+
+    if debug:
+        print("ARCOLINUX MIRRORLIST")
 
     def on_click_launch_pace(self, widget):
         if os.path.isfile(Functions.arcolinux_mirrorlist):
@@ -958,7 +993,10 @@ class Main(Gtk.Window):
 
     #====================================================================
     #                       BASH
-    #===================================================================
+    #====================================================================
+
+    if debug:
+        print("BASH")
 
     def tobash_apply(self,widget):
         command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/bash'
@@ -1000,6 +1038,9 @@ class Main(Gtk.Window):
 #    #====================================================================
 #    #                       DESKTOPR
 #    #====================================================================
+
+    if debug:
+        print("DESKTOPR")
 
     def on_d_combo_changed(self, widget):
         try:
@@ -1048,11 +1089,23 @@ class Main(Gtk.Window):
     #    #                       FISH
     #    #====================================================================
 
-    def on_install_fish_clicked(self, widget):
-        Functions.install_only_fish(self)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Only the Fish package is installed without a configuration")
+    if debug:
+        print("FISH")
+
+    def on_install_only_fish_clicked(self, widget):
+        install = 'pacman -S fish --needed --noconfirm'
+
+        if os.path.exists("/usr/bin/fish"):
+            pass
+        else:
+            subprocess.call(install.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+        print("Only Fish has been installed")
         print("Fish is installed without a configuration")
-        #Functions.restart_program()
+        GLib.idle_add(Functions.show_in_app_notification, self, "Only the Fish package is installed without a configuration")
+        Functions.restart_program()
 
     def on_arcolinux_fish_package_clicked(self,widget):
         Functions.install_arcolinux_fish_package(self)
@@ -1199,6 +1252,9 @@ class Main(Gtk.Window):
     #                       FIXES
     # ====================================================================
 
+    if debug:
+        print("FIXES")
+
     def on_click_fix_pacman_keys(self,widget):
         Functions.install_alacritty(self)
         try:
@@ -1323,6 +1379,9 @@ class Main(Gtk.Window):
     #====================================================================
     #                       GRUB
     #====================================================================
+
+    if debug:
+        print("GRUB")
 
     def on_grub_item_clicked(self, widget, data):
         for x in data:
@@ -1520,6 +1579,9 @@ class Main(Gtk.Window):
     #                            PRIVACY
     #====================================================================
 
+    if debug:
+        print("PRIVACY")
+
     def set_hblock(self, widget, state):
         if os.path.isfile(Functions.arcolinux_mirrorlist):
             if Functions.check_arco_repos_active() == True:
@@ -1548,6 +1610,9 @@ class Main(Gtk.Window):
     # ====================================================================
     #                       LIGHTDM
     # ====================================================================
+
+    if debug:
+        print("LIGHTDM")
 
     def on_click_lightdm_apply(self, widget):
 
@@ -1615,7 +1680,7 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We installed lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings")
         print("--------------------------------------------")
-        print("Do not forget to enable lightdm")
+        print("Do not forget to enable Lightdm")
         print("--------------------------------------------")
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been installed but not enabled")
@@ -1641,8 +1706,38 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm-slickgreeter installed or removed - Reboot now")
 
     #====================================================================
+    #                        LXDM
+    #====================================================================
+
+    def on_click_install_lxdm(self, desktop):
+        command = 'pacman -S lxdm --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We installed Lxdm")
+        print("--------------------------------------------")
+        print("Do not forget to enable Lxdm")
+        print("--------------------------------------------")
+
+        GLib.idle_add(Functions.show_in_app_notification, self, "Lxdm has been installed but not enabled")
+        Functions.restart_program()
+
+    def on_click_lxdm_enable(self, desktop):
+        command = 'systemctl enable lxdm.service -f'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("Lxdm has been enabled - reboot")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Lxdm has been enabled - reboot")
+
+    #====================================================================
     #                        NEOFETCH CONFIG
     #====================================================================
+
+    if debug:
+        print("NEOFETCH")
 
     def on_apply_neo(self, widget):
         small_ascii = "auto"
@@ -1735,6 +1830,9 @@ class Main(Gtk.Window):
     #               OBLOGOUT FUNCTIONS ALPHABETICAL
     # =====================================================
 
+    if debug:
+        print("OBLOGOUT")
+
     def save_oblogout(self, widget):  # noqa
         # widget.set_sensitive(False)
         if not os.path.isfile(Functions.oblogout_conf + ".bak"):
@@ -1794,6 +1892,9 @@ class Main(Gtk.Window):
     # =====================================================
     #               PACMAN FUNCTIONS MIRROR
     # =====================================================
+
+    if debug:
+        print("PACMAN FUNCTIONS MIRROR")
 
     def on_mirror_seed_repo_toggle(self, widget, active):
         if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
@@ -1861,6 +1962,9 @@ class Main(Gtk.Window):
     # =====================================================
     #               PACMAN CONF
     # =====================================================
+
+    if debug:
+        print("PACMAN CONF")
 
     def on_arcolinux_clicked(self, widget):
         Functions.install_arcolinux(self)
@@ -2121,6 +2225,9 @@ class Main(Gtk.Window):
     #               PATREON LINK
     # =====================================================
 
+    if debug:
+        print("PATREON LINK")
+
     def on_social_clicked(self, widget, event):
         sup = Support.Support(self)
         response = sup.run()
@@ -2135,6 +2242,9 @@ class Main(Gtk.Window):
     #====================================================================
     #                       POLYBAR
     #====================================================================
+
+    if debug:
+        print("POLYBAR")
 
     def on_polybar_apply_clicked(self, widget):
         if self.pbrbutton.get_active():
@@ -2204,6 +2314,9 @@ class Main(Gtk.Window):
     # ====================================================================
     #                       SDDM
     # ====================================================================
+
+    if debug:
+        print("SDDM")
 
     def on_click_sddm_apply(self, widget):
         Functions.create_sddm_k_dir()
@@ -2279,8 +2392,8 @@ class Main(Gtk.Window):
             if os.path.isfile(Functions.sddm_default_d1 + ".bak"):
                 Functions.shutil.copy(Functions.sddm_default_d1 + ".bak",
                                     Functions.sddm_default_d1)
-            if os.path.isfile(Functions.sddm_default_d2 + ".bak"):
-                Functions.shutil.copy(Functions.sddm_default_d2 + ".bak",
+            if os.path.isfile("/etc/sddm.conf.d/bak.kde_settings.conf"):
+                Functions.shutil.copy("/etc/sddm.conf.d/bak.kde_settings.conf",
                                     Functions.sddm_default_d2)
         except Exception as e:
             print(e)
@@ -2448,6 +2561,9 @@ class Main(Gtk.Window):
     #                       SERVICES - NSSWITCH
     #====================================================================
 
+    if debug:
+        print("SERVICES - NSSWITCH")
+
     def on_install_discovery_clicked(self, widget):
         Functions.install_discovery(self)
         GLib.idle_add(Functions.show_in_app_notification, self, "Network discovery is installed - a good nsswitch_config is needed")
@@ -2472,6 +2588,9 @@ class Main(Gtk.Window):
     #====================================================================
     #                       SERVICES - SAMBA
     #====================================================================
+
+    if debug:
+        print("SERVICES - SAMBA")
 
     def on_click_create_samba_user(self,widget):
         services.create_samba_user(self,widget)
@@ -2550,6 +2669,9 @@ class Main(Gtk.Window):
     #                       SHELLS EXTRA
     #====================================================================
 
+    if debug:
+        print("SHELLS EXTRA")
+
     def on_extra_shell_applications_clicked(self,widget):
         if self.expac.get_active():
             Functions.install_extra_shell("expac")
@@ -2588,6 +2710,9 @@ class Main(Gtk.Window):
     #====================================================================
     #                       SKEL
     #====================================================================
+
+    if debug:
+        print("SKEL")
 
     def on_bashrc_upgrade(self, widget):
         skelapp.button_toggles(self, False)
@@ -2718,6 +2843,9 @@ class Main(Gtk.Window):
     #                       SLIMLOCK
     #====================================================================
 
+    if debug:
+        print("SLIMLOCK")
+
     def on_slim_apply(self, widget):
         if not os.path.isfile(Functions.slimlock_conf + ".bak"):
             Functions.shutil.copy(Functions.slimlock_conf,
@@ -2809,6 +2937,9 @@ class Main(Gtk.Window):
     #               THEMER FUNCTIONS
     # =====================================================
 
+    if debug:
+        print("THEMER FUNCTIONS")
+
     def on_polybar_toggle(self, widget, active):
         if widget.get_active():
             themer.toggle_polybar(self, themer.get_list(Functions.i3wm_config), True)
@@ -2828,6 +2959,7 @@ class Main(Gtk.Window):
         nid = str(row_id+1)
         themer.set_awesome_theme(themer.get_list(Functions.awesome_config),
                                  nid)
+        print("Theme applied successfully")
         Functions.show_in_app_notification(self, "Theme set successfully")
 
     def awesome_reset_clicked(self, widget):
@@ -2857,6 +2989,7 @@ class Main(Gtk.Window):
         if not themer.check_polybar(themer.get_list(Functions.i3wm_config)):
             themer.set_i3_themes_bar(themer.get_list(Functions.i3wm_config),
                                      self.i3_combo.get_active_text())
+        print("Theme applied successfully")
         Functions.show_in_app_notification(self,
                                            "Theme applied successfully")
 
@@ -2878,6 +3011,7 @@ class Main(Gtk.Window):
 
         themer.set_qtile_themes(themer.get_list(Functions.qtile_config),
                              self.qtile_combo.get_active_text())
+        print("Theme applied successfully")
         Functions.show_in_app_notification(self,
                                            "Theme applied successfully")
 
@@ -2895,6 +3029,9 @@ class Main(Gtk.Window):
     #====================================================================
     #                       TERMINALS
     #====================================================================
+
+    if debug:
+        print("TERMINALS")
 
     def on_clicked_install_alacritty_themes(self,widget):
         command = 'pacman -S alacritty ttf-hack alacritty-themes base16-alacritty-git --needed --noconfirm'
@@ -2984,6 +3121,9 @@ class Main(Gtk.Window):
     #                      TERMITE
     #====================================================================
 
+    if debug:
+        print("TERMITE")
+
     def on_install_termite_themes(self, widget):
         self.btn_term.set_sensitive(False)
         ll = self.btn_term.get_child()
@@ -3023,12 +3163,18 @@ class Main(Gtk.Window):
     #                       USER
     # ====================================================================
 
+    if debug:
+        print("USER")
+
     def on_click_user_apply(self, widget):
         user.create_user(self)
 
     #====================================================================
     #                      ZSH THEMES
     #====================================================================
+
+    if debug:
+        print("ZSH THEMES")
 
     def on_install_zsh_completions_clicked(self, widget):
         if Functions.check_package_installed("zsh-completions"):
@@ -3110,7 +3256,6 @@ class Main(Gtk.Window):
             Functions.permissions(Functions.home + "/.zshrc")
             Functions.show_in_app_notification(self, "Valid ~/.zshrc applied")
             print("Valid ~/.zshrc applied")
-
 
     def tozsh_apply(self,widget):
         # install missing applications

@@ -326,7 +326,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         else:
             hbox32_lbl.set_markup("Fish is not installed")
         self.fish = Gtk.Button("Install Fish")
-        self.fish.connect("clicked", self.on_install_fish_clicked)
+        self.fish.connect("clicked", self.on_install_only_fish_clicked)
         hbox32.pack_start(hbox32_lbl, False, False, 10)
         hbox32.pack_end(self.fish, False, False, 10)
 
@@ -411,8 +411,8 @@ if you installed the ATT Fish configuration\n\n<b>If you just switched shell, lo
         ls.set_markup("<b>Fish does not seem to be installed\n\
 Restart Att to see the information</b>")
 
-        install_only_fish = Gtk.Button(label="Install only Fish and restart ATT to configure")
-        install_only_fish.connect("clicked", Functions.install_only_fish)
+        install_only_fish = Gtk.Button(label="Install Fish - autoreboot")
+        install_only_fish.connect("clicked", self.on_install_only_fish_clicked)
 
         vboxStack3.pack_start(hbox36, False, False, 0)
         vboxStack3.pack_start(hbox37, False, False, 0)
