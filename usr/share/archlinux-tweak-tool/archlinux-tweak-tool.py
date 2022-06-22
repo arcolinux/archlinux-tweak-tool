@@ -1617,6 +1617,7 @@ class Main(Gtk.Window):
         print("We will update your grub files")
         print("Be patient...")
         self.on_reset_grub(self)
+        Functions.restart_program()
 
     #====================================================================
     #                            PRIVACY

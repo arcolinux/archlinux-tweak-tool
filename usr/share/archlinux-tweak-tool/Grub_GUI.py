@@ -76,7 +76,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     self.grub_theme_combo.connect("changed", self.on_grub_theme_change)
 
     hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    install_rebornos_grub = Gtk.Button(label="Install original grub theme of RebornOS")
+    install_rebornos_grub = Gtk.Button(label="Install original grub theme of RebornOS - autoreboot")
     install_rebornos_grub.connect("clicked", self.on_click_install_orignal_grub_rebornos)
     hbox16.pack_end(install_rebornos_grub, False, False, 10)
 
