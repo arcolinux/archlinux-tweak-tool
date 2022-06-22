@@ -75,6 +75,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     scrolled.add(self.fb)
     self.grub_theme_combo.connect("changed", self.on_grub_theme_change)
 
+    hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    install_rebornos_grub = Gtk.Button(label="Install original grub theme of RebornOS")
+    install_rebornos_grub.connect("clicked", self.on_click_install_orignal_grub_rebornos)
+    hbox16.pack_end(install_rebornos_grub, False, False, 10)
+
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     grub_apply = Gtk.Button(label="2. Choose and apply wallpaper")
     grub_apply.connect("clicked", self.on_set_grub_wallpaper)
@@ -96,3 +101,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     vboxStack4.pack_start(hbox13, False, False, 0) #select wallpaper
     vboxStack4.pack_start(scrolled, True, True, 0) #Preview
     vboxStack4.pack_end(hbox9, False, False, 0)# Buttons
+    if Functions.distr == "rebornos":
+        vboxStack4.pack_end(hbox16, False, False, 0)# Buttons
+

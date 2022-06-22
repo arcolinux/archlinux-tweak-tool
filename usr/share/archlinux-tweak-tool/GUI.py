@@ -170,7 +170,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack4.pack_start(hbox31, False, False, 0)
         vboxStack4.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
-        ls.set_markup("We did not find a <b>/boot/grub/themes/Vimix/themes.txt</b> file\n<b>First activate the ArcoLinux repos in the Pacman tab</b>\nThen you can install the grub Vimix theme\nWe will reload ATT automatically")
+        ls.set_markup("We did not find the application <b>arcolinux-grub-theme-vimix-git</b>\n\
+<b>First activate the ArcoLinux repos in the Pacman tab</b>\n\
+Then you can choose all kinds of wallpapers\n\
+We will reload the ATT automatically")
 
         install_arco_vimix = Gtk.Button(label="Install the grub Vimix theme and ATT will reboot automatically")
         install_arco_vimix.connect("clicked", self.on_click_install_arco_vimix_clicked)

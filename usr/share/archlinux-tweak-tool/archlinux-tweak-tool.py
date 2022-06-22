@@ -1422,12 +1422,15 @@ class Main(Gtk.Window):
         Functions.show_in_app_notification(self, "Default Grub applied")
 
         command = 'grub-mkconfig -o /boot/grub/grub.cfg'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Your original grub file has been applied")
+        try:
+            Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Your original grub file has been applied")
+        except Exception as e:
+            print(e)
 
     def pop_themes_grub(self, combo, lists, start):
         if os.path.isfile(Functions.grub_theme_conf):
@@ -1539,6 +1542,7 @@ class Main(Gtk.Window):
                                 stdout=Functions.subprocess.PIPE,
                                 stderr=Functions.subprocess.STDOUT)
                 print("We removed grub2-theme-vimix-git first")
+                print("Install it again with sudo pacman -S grub2-theme-vimix-git")
             except Exception as e:
                 print(e)
 
@@ -1587,6 +1591,32 @@ class Main(Gtk.Window):
 
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed")
+
+    def on_click_install_orignal_grub_rebornos(self,widget):
+        if Functions.check_package_installed("arcolinux-grub-theme-vimix-git"):
+            try:
+                command = 'pacman -R arcolinux-grub-theme-vimix-git --noconfirm'
+                Functions.subprocess.call(command.split(" "),
+                                shell=False,
+                                stdout=Functions.subprocess.PIPE,
+                                stderr=Functions.subprocess.STDOUT)
+                print("We removed arcolinux-grub-theme-vimix-git")
+            except Exception as e:
+                print(e)
+        try:
+            command = 'pacman -S grub2-theme-vimix-git --noconfirm'
+            Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("We installed the original grub2-theme-vimix-git")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Original grub theme from RebornOS installed")
+        except Exception as e:
+            print(e)
+
+        print("We will update your grub files")
+        print("Be patient...")
+        self.on_reset_grub(self)
 
     #====================================================================
     #                            PRIVACY
