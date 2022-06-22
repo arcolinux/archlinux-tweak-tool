@@ -156,7 +156,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     if debug:
         print("Grub_GUI")
 
-    if Functions.file_check("/boot/grub/themes/Vimix/theme.txt"):
+    if Functions.check_package_installed("arcolinux-grub-theme-vimix-git"):
         Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions)
     else:
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)

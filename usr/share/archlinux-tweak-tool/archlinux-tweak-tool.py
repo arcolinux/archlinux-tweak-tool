@@ -65,6 +65,7 @@ class Main(Gtk.Window):
         print(" - Xerolinux     - https://xerolinux.xyz/")
         print(" - ArchLinuxGUI  - https://archlinuxgui.in/")
         print(" - Axyl          - https://axyl-os.github.io/")
+        print(" - RebornOS      - https://rebornos.org/")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("Adding repositories should be done with great care - they can conflict")
@@ -1529,6 +1530,18 @@ class Main(Gtk.Window):
 
     # coming from GUI
     def on_click_install_arco_vimix_clicked(self, desktop):
+
+        if Functions.check_package_installed("grub2-theme-vimix-git"):
+            try:
+                command = 'pacman -R grub2-theme-vimix-git --noconfirm'
+                Functions.subprocess.call(command.split(" "),
+                                shell=False,
+                                stdout=Functions.subprocess.PIPE,
+                                stderr=Functions.subprocess.STDOUT)
+                print("We removed grub2-theme-vimix-git first")
+            except Exception as e:
+                print(e)
+
         if os.path.isfile(Functions.arcolinux_mirrorlist):
             if Functions.check_arco_repos_active():
                 command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'

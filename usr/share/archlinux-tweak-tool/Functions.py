@@ -542,6 +542,8 @@ def change_distro_label(name):      # noqa
         name = "Xerolinux"
     if name == "axyl":
         name = "Axyl"
+    if name == "rebornos":
+        name = "RebornOS"
     return name
 
 # =====================================================
