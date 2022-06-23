@@ -66,6 +66,7 @@ class Main(Gtk.Window):
         print(" - ArchLinuxGUI  - https://archlinuxgui.in/")
         print(" - Axyl          - https://axyl-os.github.io/")
         print(" - RebornOS      - https://rebornos.org/")
+        print(" - AmOS          - https://github.com/amanre")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("Adding repositories should be done with great care - they can conflict")
@@ -2540,7 +2541,37 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         print("We removed the Bibata cursors")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Bibata cursoars have been removed")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Bibata cursors have been removed")
+        sddm.pop_theme_box(self, self.theme_sddm)
+        sddm.pop_cursor_box(self, self.cbt_cursor_themes)
+
+    def on_click_install_bibatar_cursor(self,widget):
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active():
+                command = 'pacman -S bibata-extra-cursor-theme --needed --noconfirm'
+                Functions.subprocess.call(command.split(" "),
+                                shell=False,
+                                stdout=Functions.subprocess.PIPE,
+                                stderr=Functions.subprocess.STDOUT)
+                print("We installed the Bibata extra cursors")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Bibata extra cursors have been installed")
+                sddm.pop_theme_box(self, self.theme_sddm)
+                sddm.pop_cursor_box(self, self.cbt_cursor_themes)
+            else:
+                print("Activate the ArcoLinux repos")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
+        else:
+            print("Install the ArcoLinux keys and mirrors")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Install the ArcoLinux keys and mirrors")
+
+    def on_click_remove_bibatar_cursor(self,widget):
+        command = 'pacman -R bibata-extra-cursor-theme --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We removed the Bibata extra cursors")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Bibata extra cursors have been removed")
         sddm.pop_theme_box(self, self.theme_sddm)
         sddm.pop_cursor_box(self, self.cbt_cursor_themes)
 

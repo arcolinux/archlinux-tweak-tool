@@ -214,6 +214,65 @@ def pop_cursor_box(self, combo):
         com7 = ["phinger-cursors", "phinger-cursors-light"]
         coms = coms + com7
 
+    if Functions.check_package_installed("bibata-rainbow-cursor-theme"):
+        com8 = ["Bibata-Rainbow-Modern",
+                "Bibata-Rainbow-Original"]
+        coms = coms + com8
+
+    if Functions.check_package_installed("catppuccin-cursors-git"):
+        com9 = ["Catppuccin-Blue-Cursors",
+                "Catppuccin-Dark-Cursors",
+                "Catppuccin-Flamingo-Cursors",
+                "Catppuccin-Green-Cursors",
+                "Catppuccin-Lavender-Cursors",
+                "Catppuccin-Maroon-Cursors",
+                "Catppuccin-Mauve-Cursors",
+                "Catppuccin-Peach-Cursors",
+                "Catppuccin-Pink-Cursors",
+                "Catppuccin-Red-Cursors",
+                "Catppuccin-Sky-Cursors",
+                "Catppuccin-Teal-Cursors",
+                "Catppuccin-Yellow-Cursors"]
+        coms = coms + com9
+
+    if Functions.check_package_installed("paper-icon-theme"):
+        com10 = ["paper"]
+        coms = coms + com10
+
+    if Functions.check_package_installed("vimix-icon-theme-git"):
+        com11 = ["Vimix",
+                "Vimix-Amethyst",
+                "Vimix-Amethyst-dark",
+                "Vimix-Beryl",
+                "Vimix-Beryl-dark",
+                "Vimix-Black",
+                "Vimix-Black-dark",
+                "Vimix-dark",
+                "Vimix-Doder",
+                "Vimix-Doder-dark",
+                "Vimix-Ruby",
+                "Vimix-Ruby-dark",
+                "Vimix-White",
+                "Vimix-White-dark"]
+        coms = coms + com11
+
+    if Functions.check_package_installed("bibata-cursor-translucent"):
+        com12 = ["Bibata_Ghost",
+                "Bibata_Spirit",
+                "Bibata_Tinted"]
+        coms = coms + com12
+
+    if Functions.check_package_installed("bibata-extra-cursor-theme"):
+        com13 = ["Bibata-Modern-DarkRed",
+                "Bibata-Modern-DodgerBlue",
+                "Bibata-Modern-Pink",
+                "Bibata-Modern-Turquoise",
+                "Bibata-Original-DarkRed",
+                "Bibata-Original-DodgerBlue",
+                "Bibata-Original-Pink",
+                "Bibata-Original-Turquoise"]
+        coms = coms + com13
+
     lines = get_sddm_lines(Functions.sddm_default_d2)
 
     if (len(check_sddm(lines, "CursorTheme=").split("=")) != 1):
@@ -221,7 +280,7 @@ def pop_cursor_box(self, combo):
     else:
         name = ""
 
-    coms.sort()
+    coms.sort(key = lambda x: x.lower())
     for i in range(len(coms)):
         #excludes = ['maya', 'maldives', 'elarun', '']
         #if not coms[i] in excludes:
