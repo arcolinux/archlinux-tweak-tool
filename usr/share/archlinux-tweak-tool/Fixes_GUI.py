@@ -35,21 +35,35 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     if not Functions.distr == "manjaro":
         hbox3.pack_end(button_Apply_Osbeck, False, False, 10)
 
+    #if all installed
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4_label = Gtk.Label(xalign=0)
     hbox4_label.set_text("Get the best Arch Linux servers (takes a while)")
-    button_Apply_Mirrors = Gtk.Button(label="Get Arch mirrors (reflector)")
+    button_Apply_Mirrors = Gtk.Button(label="Run reflector")
     button_Apply_Mirrors.connect ("clicked", self.on_click_get_arch_mirrors)
-    button_Apply_Mirrors2 = Gtk.Button(label="Get Arch mirrors (rate-mirrors)")
-    button_Apply_Mirrors2.connect ("clicked", self.on_click_get_arch_mirrors2)
+    self.button_Apply_Mirrors2 = Gtk.Button(label="Run rate-mirrors")
+    self.button_Apply_Mirrors2.connect ("clicked", self.on_click_get_arch_mirrors2)
     hbox4.pack_start(hbox4_label, False, False, 10)
     hbox4.pack_end(button_Apply_Mirrors, False, False, 10)
-    hbox4.pack_end(button_Apply_Mirrors2, False, False, 10)
+    hbox4.pack_end(self.button_Apply_Mirrors2, False, False, 10)
+
+    #if not installed
+    hbox40 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox40_label = Gtk.Label(xalign=0)
+    hbox40_label.set_text("Install apps to find the best Arch Linux servers")
+    button_Install_Mirrors = Gtk.Button(label="Install reflector")
+    button_Install_Mirrors.connect ("clicked", self.on_click_install_arch_mirrors)
+    button_Install_Mirrors2 = Gtk.Button(label="Install rate mirrors")
+    button_Install_Mirrors2.connect ("clicked", self.on_click_install_arch_mirrors2)
+    hbox40.pack_start(hbox40_label, False, False, 10)
+    if not Functions.distr == "manjaro":
+        hbox40.pack_end(button_Install_Mirrors, False, False, 10)
+    hbox40.pack_end(button_Install_Mirrors2, False, False, 10)
 
     if not os.path.exists("/usr/bin/reflector"):
         button_Apply_Mirrors.set_sensitive(False)
     if not os.path.exists("/usr/bin/rate-mirrors"):
-        button_Apply_Mirrors2.set_sensitive(False)
+        self.button_Apply_Mirrors2.set_sensitive(False)
 
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox5_label = Gtk.Label(xalign=0)
@@ -93,6 +107,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     hbox10_label.set_markup("<b>For any Arch Linux based system</b>")
     hbox10.pack_start(hbox10_label, False, False, 10)
 
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox11_label = Gtk.Label(xalign=0)
+    hbox11_label.set_markup("We install Alacritty to show you what changes - close the terminal and ATT continues")
+    hbox11.pack_start(hbox11_label, False, False, 10)
+
+
     # ======================================================================
     #                       VBOX STACK
     # ======================================================================
@@ -100,13 +120,17 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     vboxStack19.pack_start(hbox1, False, False, 0)
     vboxStack19.pack_start(hbox0, False, False, 0)
     vboxStack19.pack_start(hbox10, False, False, 20)
+    vboxStack19.pack_start(hbox11, False, False, 0)
     vboxStack19.pack_start(hbox2, False, False, 0)
     vboxStack19.pack_start(hbox3, False, False, 0)
     if not Functions.distr == "manjaro":
         vboxStack19.pack_start(hbox4, False, False, 0)
+    if not os.path.exists("/usr/bin/rate-mirrors"):
+        vboxStack19.pack_start(hbox40, False, False, 0)
     vboxStack19.pack_start(hbox7, False, False, 0)
     vboxStack19.pack_start(hbox8, False, False, 0)
-    vboxStack19.pack_start(hbox9, False, False, 20)
+
     if Functions.distr == "arcolinux":
+        vboxStack19.pack_start(hbox9, False, False, 20)
         vboxStack19.pack_start(hbox5, False, False, 0)
         #vboxStack19.pack_start(hbox6, False, False, 0)

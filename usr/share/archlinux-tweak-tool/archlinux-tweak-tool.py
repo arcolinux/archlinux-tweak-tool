@@ -66,7 +66,7 @@ class Main(Gtk.Window):
         print(" - ArchLinuxGUI  - https://archlinuxgui.in/")
         print(" - Axyl          - https://axyl-os.github.io/")
         print(" - RebornOS      - https://rebornos.org/")
-        print(" - AmOS          - https://github.com/amanre")
+        print(" - AmOs          - https://github.com/amanre")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("Adding repositories should be done with great care - they can conflict")
@@ -1377,6 +1377,39 @@ class Main(Gtk.Window):
         print("The new ~/.gnupg/gpg.conf has been saved")
         print("We only add servers to the config")
         GLib.idle_add(Functions.show_in_app_notification, self, "The new ~/.gnupg/gpg.conf has been saved")
+
+    def on_click_install_arch_mirrors(self,widget):
+        try:
+            command = 'pacman -S reflector --noconfirm'
+            Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("Reflector has been installed")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Reflector has been installed")
+        except Exception as e:
+            print(e)
+
+    def on_click_install_arch_mirrors2(self,widget):
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active():
+                try:
+                    command = 'pacman -S rate-mirrors-bin --noconfirm'
+                    Functions.subprocess.call(command.split(" "),
+                                    shell=False,
+                                    stdout=Functions.subprocess.PIPE,
+                                    stderr=Functions.subprocess.STDOUT)
+                    print("Rate-mirrors-bin has been installed")
+                    GLib.idle_add(Functions.show_in_app_notification, self, "Rate-mirrors-bin has been installed")
+                    self.button_Apply_Mirrors2.set_sensitive(True)
+                except Exception as e:
+                    print(e)
+            else:
+                print("Activate the ArcoLinux repos")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
+        else:
+            print("Install ArcoLinux mirrors and keys")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Install ArcoLinux mirrors and keys")
 
     #====================================================================
     #                       GRUB

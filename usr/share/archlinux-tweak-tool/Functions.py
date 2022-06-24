@@ -544,6 +544,8 @@ def change_distro_label(name):      # noqa
         name = "Axyl"
     if name == "rebornos":
         name = "RebornOS"
+    if name == "amos":
+        name = "AmOs"
     return name
 
 # =====================================================

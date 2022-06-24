@@ -135,11 +135,20 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     neofetch.get_checkboxes(self)
 
+    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox9_label = Gtk.Label(xalign=0)
+    hbox9_label.set_markup("<b>Distro specific:  </b>" + Functions.change_distro_label(Functions.distro.id()))
+    hbox9.pack_start(hbox9_label, False, False, 10)
+
+    hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    label28 = Gtk.Label()
+    label28.set_text("AmOS is using a personalized neofetch application\n\
+Switch to the default neofetch to use this tab")
+    hbox28.pack_start(label28, False, False, 10)
+
     #hbox22.pack_start(self.w3m, True, False, 10)
     hbox22.pack_end(self.off, True, False, 10)
     hbox22.pack_end(self.asci, True, False, 10)
-
-
 
     self.hbox26.pack_start(self.big_ascii, True, False, 10)
     self.hbox26.pack_start(self.small_ascii, True, False, 10)
@@ -162,6 +171,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     vboxStack8.pack_start(self.hbox26, False, False, 0)
     vboxStack8.pack_start(hbox23, False, False, 0)
     vboxStack8.pack_start(hbox25, False, False, 0)
+
+    if Functions.distr == "amos":
+        vboxStack8.pack_start(hbox9, False, False, 0)
+        vboxStack8.pack_start(hbox28, False, False, 0)
+
     vboxStack8.pack_end(hbox24, False, False, 0)
 
     if backend == "ascii":
