@@ -30,6 +30,9 @@ echo "##########################################################################
 echo "Copying both files : etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf"
 echo "This script names them backup-*"
 echo "###############################################################################"
+echo "If wrong backup files exists, remove wrong backup files"
+[ -f /etc/sddm.conf.d/kde_settings.conf.backup ] && sudo rm /etc/sddm.conf.d/kde_settings.conf.backup
+[ -f /etc/sddm.conf.backup ] && sudo rm /etc/sddm.conf.backup
 echo "If file exists, make a backup"
 [ -f /etc/sddm.conf ] && sudo cp -p /etc/sddm.conf /etc/backup-sddm.conf
 echo
