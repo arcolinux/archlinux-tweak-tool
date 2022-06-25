@@ -28,9 +28,10 @@
 
 echo "###############################################################################"
 echo "Copying both files : etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf"
+echo "This script names them backup-*"
 echo "###############################################################################"
 echo "If file exists, make a backup"
-[ -f /etc/sddm.conf ] && sudo cp -p /etc/sddm.conf /etc/sddm.conf.backup
+[ -f /etc/sddm.conf ] && sudo cp -p /etc/sddm.conf /etc/backup-sddm.conf
 echo
 echo "Overwriting /etc/sddm.conf"
 echo
@@ -40,7 +41,7 @@ echo "If directory /etc/sddm.conf.d does not exist, make it"
 [ -d /etc/sddm.conf.d/ ] || sudo mkdir -p /etc/sddm.conf.d/
 echo "If file exists, make a backup"
 echo
-[ -f /etc/sddm.conf.d/kde_settings.conf ] && sudo cp -p /etc/sddm.conf.d/kde_settings.conf /etc/sddm.conf.d/kde_settings.conf.backup
+[ -f /etc/sddm.conf.d/kde_settings.conf ] && sudo cp -p /etc/sddm.conf.d/kde_settings.conf /etc/sddm.conf.d/backup-kde_settings.conf
 echo "Overwriting /etc/sddm.conf.d/kde_settings.conf"
 echo
 sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf /etc/sddm.conf.d/kde_settings.conf
