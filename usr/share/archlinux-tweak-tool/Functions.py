@@ -85,6 +85,7 @@ config_dir = home + "/.config/archlinux-tweak-tool/"
 polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
+login_backgrounds = "/usr/share/backgrounds/archlinux-login-backgrounds/"
 
 bash_config = ""
 zsh_config = ""
@@ -647,6 +648,51 @@ def set_grub_wallpaper(self, image):
         except:  # noqa
             pass
 
+
+def set_login_wallpaper(self, image):
+    if os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf"):
+        # if not os.path.isfile(grub_theme_conf + ".bak"):
+        #     shutil.copy(grub_theme_conf, grub_theme_conf + ".bak")
+        try:
+            with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "r", encoding="utf-8") as f:
+                lists = f.readlines()
+                f.close()
+
+            val = _get_position(lists, "background=")
+            lists[val] = "background=" + image + "\n"
+            print(lists[val])
+
+            with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "w") as f:
+                f.writelines(lists)
+                f.close()
+            print("Login wallpaper saved")
+            show_in_app_notification(self, "Login wallpaper saved")
+            # MessageBox(self, "Success!!", "Settings Saved Successfully")
+        except:  # noqa
+            pass
+
+def reset_login_wallpaper(self, image):
+    if os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf"):
+        # if not os.path.isfile(grub_theme_conf + ".bak"):
+        #     shutil.copy(grub_theme_conf, grub_theme_conf + ".bak")
+        try:
+            with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "r", encoding="utf-8") as f:
+                lists = f.readlines()
+                f.close()
+
+            val = _get_position(lists, "background=")
+            lists[val] = "background=images/background.jpg\n"
+            print(lists[val])
+
+            with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "w") as f:
+                f.writelines(lists)
+                f.close()
+            print("Login wallpaper saved")
+            show_in_app_notification(self, "Login wallpaper saved")
+            # MessageBox(self, "Success!!", "Settings Saved Successfully")
+        except:  # noqa
+            pass
+
 def set_default_theme(self):
     if os.path.isfile(grub_default_grub):
         if not os.path.isfile(grub_default_grub + ".bak"):
@@ -840,6 +886,28 @@ def create_log(self):
     #GLib.idle_add(show_in_app_notification, self, "Log file created")
 
 # =====================================================
+#               LOGIN WALL
+# =====================================================
+
+def get_login_wallpapers():
+    if os.path.isdir(login_backgrounds):
+        lists = os.listdir(login_backgrounds)
+
+        rems = ['select_e.png', 'terminal_box_se.png', 'select_c.png',
+                'terminal_box_c.png', 'terminal_box_s.png',
+                'select_w.png', 'terminal_box_nw.png',
+                'terminal_box_w.png', 'terminal_box_ne.png',
+                'terminal_box_sw.png', 'terminal_box_n.png',
+                'terminal_box_e.png']
+
+        ext = ['.png', '.jpeg', '.jpg']
+
+        new_list = [x for x in lists if x not in rems for y in ext if y in x]
+
+        new_list.sort()
+        return new_list
+
+# =====================================================
 #               MESSAGEBOX
 # =====================================================
 
@@ -959,11 +1027,14 @@ def install_pace(self):
         #print("Pace is already installed")
         pass
     else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        print("Pace is now installed")
+        try:
+            subprocess.call(install.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+            print("Pace is now installed")
+        except Exception as e:
+            print(e)
 
 # =====================================================
 #               PACMAN EXTRA KEYS AND MIRRORS
@@ -1126,10 +1197,13 @@ def install_reflector(self):
     if os.path.exists("/usr/bin/reflector"):
         pass
     else:
-        subprocess.call(install.split(" "),
+        try:
+            subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
+        except Exception as e:
+            print(e)
 
 # =====================================================
 #               RESTART PROGRAM
@@ -1504,21 +1578,25 @@ def install_extra_shell(package):
 def install_arco_thunar_plugin(self, widget):
     install = 'pacman -S thunar arcolinux-thunar-shares-plugin --noconfirm'
 
-    if check_package_installed(" arcolinux-thunar-shares-plugin"):
+    if check_package_installed("arcolinux-thunar-shares-plugin"):
         print("Arcolinux-thunar-shares-plugin is already installed")
         pass
     else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        print("Arcolinux-thunar-shares-plugin is now installed - reboot")
-        GLib.idle_add(self.label7.set_text, "Arcolinux-thunar-shares-plugin is now installed - reboot")
-    print("Other apps that might be interesting for sharing are :")
-    print(" - arcolinux-nemo-share (cinnamon)")
-    print(" - arcolinux-caja-share (mate)")
-    print(" - arcolinux-nautilus-share (gnome - budgie)")
-    print(" - kdenetwork-filesharing (plasma)")
+        try:
+            subprocess.call(install.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+            print("Arcolinux-thunar-shares-plugin is now installed - reboot")
+            GLib.idle_add(self.label7.set_text, "Arcolinux-thunar-shares-plugin is now installed - reboot")
+            print("Other apps that might be interesting for sharing are :")
+            print(" - arcolinux-nemo-share (cinnamon)")
+            print(" - arcolinux-caja-share (mate)")
+            print(" - arcolinux-nautilus-share (gnome - budgie)")
+            print(" - kdenetwork-filesharing (plasma)")
+
+        except Exception as e:
+            print(e)
 
 # =====================================================
 #               UBLOCK ORIGIN
@@ -1569,6 +1647,48 @@ def set_firefox_ublock(self, toggle, state):
     except Exception as e:
         MessageBox(self, "ERROR!!", str(e))
         print(e)
+
+# =====================================================
+#               WALL
+# =====================================================
+
+def install_archlinux_login_backgrounds(self, widget):
+    install = 'pacman -S archlinux-login-backgrounds-git --noconfirm'
+
+    if check_package_installed("archlinux-login-backgrounds-git"):
+        print("Archlinux-login-backgrounds-git is already installed")
+        GLib.idle_add(show_in_app_notification,self,"Archlinux-login-backgrounds-git is already installed")
+        pass
+    else:
+        try:
+            subprocess.call(install.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+            print("Archlinux-login-backgrounds-git is now installed")
+            GLib.idle_add(show_in_app_notification,self,"Archlinux-login-backgrounds-git is now installed")
+
+        except Exception as e:
+            print(e)
+
+def remove_archlinux_login_backgrounds(self, widget):
+    install = 'pacman -R archlinux-login-backgrounds-git --noconfirm'
+
+    if check_package_installed("archlinux-login-backgrounds-git"):
+        try:
+            subprocess.call(install.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+            print("Archlinux-login-backgrounds-git is now removed")
+            GLib.idle_add(show_in_app_notification,self,"Archlinux-login-backgrounds-git is now installed")
+
+        except Exception as e:
+            print(e)
+    else:
+        print("Archlinux-login-backgrounds-git is already removed")
+        GLib.idle_add(show_in_app_notification,self,"Archlinux-login-backgrounds-git is removed")
+        pass
 
 # =====================================================
 #               ZSH + PACKAGES (ARCOLINUXD)

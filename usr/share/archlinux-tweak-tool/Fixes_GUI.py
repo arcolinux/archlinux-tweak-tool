@@ -68,7 +68,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox5_label = Gtk.Label(xalign=0)
     hbox5_label.set_text("Get the original ArcoLinux /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
-    button_Apply_Mirrors = Gtk.Button(label="Reset sddm.conf")
+    button_Apply_Mirrors = Gtk.Button(label="Reset sddm.conf (online source)")
     button_Apply_Mirrors.connect ("clicked", self.on_click_fix_sddm_conf)
     hbox5.pack_start(hbox5_label, False, False, 10)
     hbox5.pack_end(button_Apply_Mirrors, False, False, 10)
