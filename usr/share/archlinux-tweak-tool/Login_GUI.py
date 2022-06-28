@@ -527,7 +527,7 @@ We will backup your files")
         login_reset = Gtk.Button(label="Reset to the original background")
         login_reset.connect("clicked", self.on_reset_login_wallpaper)
 
-        hbox119.pack_end(login_reset, False, False, 0)
+        hbox119.pack_start(login_reset, False, False, 0)
         hbox119.pack_end(login_apply, False, False, 0)
 
         vboxStack4.pack_start(hbox70, False, False, 0)
