@@ -1424,10 +1424,6 @@ class Main(Gtk.Window):
         for x in data:
             self.grub_image_path = x.get_name()
 
-    def on_login_wallpaper_clicked(self, widget, data):
-        for x in data:
-            self.login_wallpaper_path = x.get_name()
-
     def on_set_grub_wallpaper(self, widget):
         if not os.path.isfile(Functions.grub_theme_conf):
             self.on_click_install_arco_vimix_clicked(self)
@@ -1437,23 +1433,6 @@ class Main(Gtk.Window):
         else:
             Functions.set_grub_wallpaper(self,
                                      self.grub_image_path)
-
-    def on_set_login_wallpaper(self, widget):
-        # if not os.path.isfile(Functions.grub_theme_conf):
-        #     self.on_click_install_arco_vimix_clicked(self)
-
-        if self.login_wallpaper_path == "":
-            print("First choose a wallpaper image")
-            Functions.show_in_app_notification(self, "First choose a wallpaper image")
-        else:
-            Functions.set_login_wallpaper(self,
-                                     self.login_wallpaper_path)
-            print("Setting wallpaper")
-            Functions.show_in_app_notification(self, "Setting wallpaper")
-
-    def on_reset_login_wallpaper(self, widget):
-        Functions.reset_login_wallpaper(self,
-                                        self.login_wallpaper_path)
 
     def on_reset_grub_wallpaper(self, widget):
         if os.path.isfile(Functions.grub_theme_conf + ".bak"):
@@ -1510,39 +1489,9 @@ class Main(Gtk.Window):
                 self.fb.add(pimage)
                 pimage.show_all()
 
-    def pop_login_wallpapers(self, combo, lists, start):
-            combo.get_model().clear()
-            # with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "r", encoding="utf-8") as f:
-            #     listss = f.readlines()
-            #     f.close()
-
-            #val = Functions._get_position(listss, "background=")
-            #bg_image = listss[val].split(" ")[1].replace("\"", "").strip()
-
-            for x in self.flowbox_wall.get_children():
-                self.flowbox_wall.remove(x)
-
-            for x in lists:
-                pb = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.login_backgrounds + x, 128, 128) # noqa
-                pimage = Gtk.Image()
-                pimage.set_name(Functions.login_backgrounds + x)
-                pimage.set_from_pixbuf(pb)
-                self.flowbox_wall.add(pimage)
-                pimage.show_all()
-
     def on_grub_theme_change(self, widget):
         try:
             pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size('/boot/grub/themes/Vimix/' +  # noqa
-                                                               widget.get_active_text(),  # noqa
-                                                               645, 645)
-            print(widget.get_active_text())
-            self.image_grub.set_from_pixbuf(pixbuf3)
-        except Exception as e:
-            print(e)
-
-    def on_login_wallpaper_change(self, widget):
-        try:
-            pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.login_backgrounds +  # noqa
                                                                widget.get_active_text(),  # noqa
                                                                645, 645)
             print(widget.get_active_text())
@@ -1558,20 +1507,6 @@ class Main(Gtk.Window):
                                   os.path.basename(text))
             self.pop_themes_grub(self.grub_theme_combo,
                                  Functions.get_grub_wallpapers(), False)
-    def on_import_login_wallpaper(self, widget):
-        text = self.login_image.get_text()
-        if len(text) > 1:
-            Functions.shutil.copy(text, Functions.login_backgrounds +
-                                  os.path.basename(text))
-            self.pop_login_wallpapers(self.login_managers_combo,
-                                 Functions.get_login_wallpapers(), False)
-            print("Image imported")
-            Functions.show_in_app_notification(self,
-                                            "Wallpaper imported successfully")
-        else:
-            print("First import an image")
-            Functions.show_in_app_notification(self,
-                                            "First import an image")
 
     def on_remove_wallpaper(self, widget):
         widget.set_sensitive(False)
@@ -1608,99 +1543,6 @@ class Main(Gtk.Window):
                                                    "You can not remove that wallpaper")
         widget.set_sensitive(True)
 
-    def on_import_remove_login_wallpaper(self, widget):
-        if self.login_wallpaper_path == "":
-            print("First choose a wallpaper to remove")
-            Functions.show_in_app_notification(self, "First choose a wallpaper image")
-        else:
-            excludes = ["att-01.jpg",
-                        "att-02.jpg",
-                        "att-03.jpg",
-                        "att-04.jpg",
-                        "att-05.jpg",
-                        "att-06.jpg",
-                        "att-07.jpg",
-                        "background01.jpg",
-                        "background02.jpg",
-                        "background03.jpg",
-                        "background04.jpg",
-                        "background05.jpg",
-                        "background06.jpg",
-                        "background07.jpg",
-                        "background08.jpg",
-                        "background09.jpg",
-                        "background10.jpg",
-                        "background11.jpg",
-                        "background12.jpg",
-                        "background13.jpg",
-                        "background14.jpg",
-                        "background15.jpg",
-                        "background16.jpg",
-                        "background17.jpg",
-                        "background18.jpg",
-                        "background19.jpg",
-                        "background20.jpg",
-                        "background21.jpg",
-                        "background22.jpg",
-                        "background23.jpg",
-                        "background24.jpg",
-                        "background25.jpg",
-                        "background26.jpg",
-                        "background27.jpg",
-                        "background28.jpg",
-                        "background29.jpg",
-                        "background30.jpg",
-                        "background31.jpg",
-                        "background32.jpg",
-                        "background33.jpg",
-                        "background34.jpg",
-                        "background35.jpg",
-                        "background36.jpg",
-                        "background37.jpg",
-                        "background38.jpg",
-                        "background39.jpg",
-                        "background40.jpg",
-                        "background41.jpg",
-                        "background42.jpg",
-                        "background43.jpg",
-                        "background44.jpg",
-                        "background45.jpg",
-                        "background46.jpg",
-                        "background47.jpg",
-                        "background48.jpg",
-                        "background49.jpg",
-                        "background50.jpg",
-                        "background51.jpg",
-                        "background52.jpg",
-                        "background53.jpg",
-                        "background54.jpg",
-                        "background55.jpg",
-                        "background56.jpg",
-                        "background57.jpg",
-                        "background58.jpg",
-                        "background59.jpg",
-                        "background60.jpg",
-                        "background61.jpg",
-                        "background62.jpg",
-                        "background63.jpg"]
-
-            if not Functions.os.path.basename(self.login_wallpaper_path) in excludes:
-                # os.unlink('/boot/grub/themes/Vimix/' +
-                #           self.grub_theme_combo.get_active_text())
-                os.unlink(self.login_wallpaper_path)
-                self.pop_login_wallpapers(self.login_managers_combo,
-                                 Functions.get_login_wallpapers(), False)
-                print("Wallpaper has been removed")
-                print(self.login_wallpaper_path)
-                Functions.show_in_app_notification(self,
-                                                   "Wallpaper removed successfully")
-                Functions.reset_login_wallpaper(self, widget)
-                self.login_wallpaper_path = ""
-            else:
-                print("You can not remove that wallpaper")
-                Functions.show_in_app_notification(self,
-                                                   "You can not remove that wallpaper")
-
     def on_choose_wallpaper(self, widget):
         dialog = Gtk.FileChooserDialog(
                                        title="Please choose a file",
@@ -1718,23 +1560,6 @@ class Main(Gtk.Window):
 
         dialog.show()
 
-    def on_choose_login_wallpaper(self, widget):
-        dialog = Gtk.FileChooserDialog(
-                                       title="Please choose a file",
-                                       action=Gtk.FileChooserAction.OPEN,)
-        filter = Gtk.FileFilter()
-        filter.set_name("IMAGE Files")
-        filter.add_mime_type("image/png")
-        filter.add_mime_type("image/jpg")
-        filter.add_mime_type("image/jpeg")
-        dialog.set_filter(filter)
-        dialog.set_current_folder(Functions.home)
-        dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open",
-                           Gtk.ResponseType.OK)
-        dialog.connect("response", self.open_response_lw)
-
-        dialog.show()
-
     def open_response_cb(self, dialog, response):
         if response == Gtk.ResponseType.OK:
             self.tbimage.set_text(dialog.get_filename())
@@ -1742,13 +1567,6 @@ class Main(Gtk.Window):
         elif response == Gtk.ResponseType.CANCEL:
             dialog.destroy()
 
-    def open_response_lw(self, dialog, response):
-        if response == Gtk.ResponseType.OK:
-            self.login_image.set_text(dialog.get_filename())
-            dialog.destroy()
-        elif response == Gtk.ResponseType.CANCEL:
-            dialog.destroy()
-    # coming from GUI
     def on_click_install_arco_vimix_clicked(self, desktop):
 
         if Functions.check_package_installed("grub2-theme-vimix-git"):
@@ -3464,14 +3282,201 @@ class Main(Gtk.Window):
     #                      WALL - WALLPAPER
     #====================================================================
 
+    if debug:
+        print("WALL")
+
+    def on_login_wallpaper_clicked(self, widget, data):
+        for x in data:
+            self.login_wallpaper_path = x.get_name()
+
+    def on_reset_login_wallpaper(self, widget):
+        Functions.reset_login_wallpaper(self,
+                                        self.login_wallpaper_path)
+
+    def pop_login_wallpapers(self, combo, lists, start):
+            combo.get_model().clear()
+            # with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "r", encoding="utf-8") as f:
+            #     listss = f.readlines()
+            #     f.close()
+
+            #val = Functions._get_position(listss, "background=")
+            #bg_image = listss[val].split(" ")[1].replace("\"", "").strip()
+
+            for x in self.flowbox_wall.get_children():
+                self.flowbox_wall.remove(x)
+
+            for x in lists:
+                pb = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.login_backgrounds + x, 128, 128) # noqa
+                pimage = Gtk.Image()
+                pimage.set_name(Functions.login_backgrounds + x)
+                pimage.set_from_pixbuf(pb)
+                self.flowbox_wall.add(pimage)
+                pimage.show_all()
+
+    def on_login_wallpaper_change(self, widget):
+        try:
+            pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.login_backgrounds +  # noqa
+                                                               widget.get_active_text(),  # noqa
+                                                               645, 645)
+            print(widget.get_active_text())
+            self.image_grub.set_from_pixbuf(pixbuf3)
+        except Exception as e:
+            print(e)
+
+    def on_import_login_wallpaper(self, widget):
+        text = self.login_image.get_text()
+        if len(text) > 1:
+            Functions.shutil.copy(text, Functions.login_backgrounds +
+                                  os.path.basename(text))
+            self.pop_login_wallpapers(self.login_managers_combo,
+                                 Functions.get_login_wallpapers(), False)
+            print("Image imported")
+            Functions.show_in_app_notification(self,
+                                            "Wallpaper imported successfully")
+        else:
+            print("First import an image")
+            Functions.show_in_app_notification(self,
+                                            "First import an image")
+
+    def on_set_login_wallpaper(self, widget):
+        # if not os.path.isfile(Functions.grub_theme_conf):
+        #     self.on_click_install_arco_vimix_clicked(self)
+
+        if self.login_wallpaper_path == "":
+            print("First choose a wallpaper image")
+            Functions.show_in_app_notification(self, "First choose a wallpaper image")
+        else:
+            Functions.set_login_wallpaper(self,
+                                     self.login_wallpaper_path)
+            print("Setting wallpaper")
+            Functions.show_in_app_notification(self, "Setting wallpaper")
+
     def on_install_att_backgrounds(self,widget):
         Functions.install_archlinux_login_backgrounds(self,widget)
         self.pop_login_wallpapers(self.login_managers_combo,
                         Functions.get_login_wallpapers(), False)
+
     def on_remove_att_backgrounds(self,widget):
         Functions.remove_archlinux_login_backgrounds(self,widget)
         self.pop_login_wallpapers(self.login_managers_combo,
                         Functions.get_login_wallpapers(), False)
+
+    def on_import_remove_login_wallpaper(self, widget):
+        if self.login_wallpaper_path == "":
+            print("First choose a wallpaper to remove")
+            Functions.show_in_app_notification(self, "First choose a wallpaper image")
+        else:
+            excludes = ["att-01.jpg",
+                        "att-02.jpg",
+                        "att-03.jpg",
+                        "att-04.jpg",
+                        "att-05.jpg",
+                        "att-06.jpg",
+                        "att-07.jpg",
+                        "background01.jpg",
+                        "background02.jpg",
+                        "background03.jpg",
+                        "background04.jpg",
+                        "background05.jpg",
+                        "background06.jpg",
+                        "background07.jpg",
+                        "background08.jpg",
+                        "background09.jpg",
+                        "background10.jpg",
+                        "background11.jpg",
+                        "background12.jpg",
+                        "background13.jpg",
+                        "background14.jpg",
+                        "background15.jpg",
+                        "background16.jpg",
+                        "background17.jpg",
+                        "background18.jpg",
+                        "background19.jpg",
+                        "background20.jpg",
+                        "background21.jpg",
+                        "background22.jpg",
+                        "background23.jpg",
+                        "background24.jpg",
+                        "background25.jpg",
+                        "background26.jpg",
+                        "background27.jpg",
+                        "background28.jpg",
+                        "background29.jpg",
+                        "background30.jpg",
+                        "background31.jpg",
+                        "background32.jpg",
+                        "background33.jpg",
+                        "background34.jpg",
+                        "background35.jpg",
+                        "background36.jpg",
+                        "background37.jpg",
+                        "background38.jpg",
+                        "background39.jpg",
+                        "background40.jpg",
+                        "background41.jpg",
+                        "background42.jpg",
+                        "background43.jpg",
+                        "background44.jpg",
+                        "background45.jpg",
+                        "background46.jpg",
+                        "background47.jpg",
+                        "background48.jpg",
+                        "background49.jpg",
+                        "background50.jpg",
+                        "background51.jpg",
+                        "background52.jpg",
+                        "background53.jpg",
+                        "background54.jpg",
+                        "background55.jpg",
+                        "background56.jpg",
+                        "background57.jpg",
+                        "background58.jpg",
+                        "background59.jpg",
+                        "background60.jpg",
+                        "background61.jpg",
+                        "background62.jpg",
+                        "background63.jpg"]
+
+            if not Functions.os.path.basename(self.login_wallpaper_path) in excludes:
+                # os.unlink('/boot/grub/themes/Vimix/' +
+                #           self.grub_theme_combo.get_active_text())
+                os.unlink(self.login_wallpaper_path)
+                self.pop_login_wallpapers(self.login_managers_combo,
+                                 Functions.get_login_wallpapers(), False)
+                print("Wallpaper has been removed")
+                print(self.login_wallpaper_path)
+                Functions.show_in_app_notification(self,
+                                                   "Wallpaper removed successfully")
+                Functions.reset_login_wallpaper(self, widget)
+                self.login_wallpaper_path = ""
+            else:
+                print("You can not remove that wallpaper")
+                Functions.show_in_app_notification(self,
+                                                   "You can not remove that wallpaper")
+
+    def on_choose_login_wallpaper(self, widget):
+        dialog = Gtk.FileChooserDialog(
+                                       title="Please choose a file",
+                                       action=Gtk.FileChooserAction.OPEN,)
+        filter = Gtk.FileFilter()
+        filter.set_name("IMAGE Files")
+        filter.add_mime_type("image/png")
+        filter.add_mime_type("image/jpg")
+        filter.add_mime_type("image/jpeg")
+        dialog.set_filter(filter)
+        dialog.set_current_folder(Functions.home)
+        dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open",
+                           Gtk.ResponseType.OK)
+        dialog.connect("response", self.open_response_lw)
+
+        dialog.show()
+
+    def open_response_lw(self, dialog, response):
+        if response == Gtk.ResponseType.OK:
+            self.login_image.set_text(dialog.get_filename())
+            dialog.destroy()
+        elif response == Gtk.ResponseType.CANCEL:
+            dialog.destroy()
 
     #====================================================================
     #                      ZSH THEMES

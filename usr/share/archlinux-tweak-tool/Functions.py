@@ -648,12 +648,20 @@ def set_grub_wallpaper(self, image):
         except:  # noqa
             pass
 
-
 def set_login_wallpaper(self, image):
-    if os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf"):
-        if not os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user"):
+    if os.path.isfile(sddm_default_d2):
+        try:
+            with open(sddm_default_d2, "r", encoding="utf-8") as f:
+                lists = f.readlines()
+                f.close()
+            val = _get_position(lists, "Current=")
+            theme = lists[val].strip('\n').split("=")[1]
+        except:
+            pass
+
+        if not os.path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
             try:
-                with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user", "w") as f:
+                with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w") as f:
                     f.write("[General]\n")
                     f.write("background=\n")
                     f.write("type=image\n")
@@ -662,11 +670,9 @@ def set_login_wallpaper(self, image):
             except:
                 pass
 
-        if os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user"):
-            # if not os.path.isfile(grub_theme_conf + ".bak"):
-            #     shutil.copy(grub_theme_conf, grub_theme_conf + ".bak")
+        if os.path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
             try:
-                with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user", "r", encoding="utf-8") as f:
+                with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "r", encoding="utf-8") as f:
                     lists = f.readlines()
                     f.close()
 
@@ -674,14 +680,16 @@ def set_login_wallpaper(self, image):
                 lists[val] = "background=" + image + "\n"
                 print(lists[val])
 
-                with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user", "w") as f:
+                with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w") as f:
                     f.writelines(lists)
                     f.close()
                 print("Login wallpaper saved")
                 show_in_app_notification(self, "Login wallpaper saved")
-                # MessageBox(self, "Success!!", "Settings Saved Successfully")
-            except:  # noqa
+            except:
                 pass
+    else:
+        print("There is no /etc/sddm.conf.d/kde_settings.conf")
+        show_in_app_notification(self, "Use the ATT sddm configuration")
 
 def reset_login_wallpaper(self, image):
     if not os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user"):
