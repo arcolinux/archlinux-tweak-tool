@@ -19,7 +19,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    #vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -435,6 +435,124 @@ We will backup your files")
         vboxStack3.pack_start(ls, False, False, 0)
         vboxStack3.pack_start(install_lxdm, False, False, 0)
 
+    # ==================================================================
+    #                       WALL
+    # ==================================================================
+
+    if Functions.check_package_installed("sddm"):
+
+        hbox70 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox70_lbl = Gtk.Label(xalign=0)
+        hbox70_lbl.set_text("Choose the background of your login manager")
+        hbox70_lbl.set_name("title")
+        hbox70.pack_start(hbox70_lbl, False, False, 0)
+
+        hbox71 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox71.pack_start(hseparator, True, True, 0)
+
+        hbox72 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox72_lbl = Gtk.Label(xalign=0)
+        hbox72_lbl.set_text("Choose the login manager you want to change")
+        hbox72.pack_start(hbox72_lbl, False, False, 10)
+
+        hbox73 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox73_lbl = Gtk.Label(xalign=0)
+        hbox73_lbl.set_text("Desktop session")
+        self.login_managers_combo = Gtk.ComboBoxText()
+        options = ['sddm', 'lightdm', 'lxdm']
+        for option in options:
+            self.login_managers_combo.append_text(option)
+        self.login_managers_combo.set_active(0)
+        hbox73.pack_start(hbox73_lbl, False, False, 10)
+        hbox73.pack_end(self.login_managers_combo, True, True, 10)
+
+        hbox111 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        label111 = Gtk.Label("Import image")
+        self.login_image = Gtk.Entry()
+        btnsearch = Gtk.Button(label=". . .")
+        btnsearch.connect("clicked", self.on_choose_login_wallpaper)
+        hbox111.pack_start(label111, False, False, 10)
+        hbox111.pack_start(self.login_image, True, True, 10)
+        hbox111.pack_start(btnsearch, False, False, 10)
+
+        hbox113 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        label113 = Gtk.Label()
+        if Functions.check_package_installed("archlinux-login-backgrounds-git"):
+            label113.set_text("Install our selection of wallpapers (installed)")
+        else:
+            label113.set_text("Install our selection of wallpapers")
+        btn_att_install = Gtk.Button(label="Install ATT backgrounds")
+        btn_att_install.connect("clicked", self.on_install_att_backgrounds)
+        btn_att_remove = Gtk.Button(label="Remove ATT backgrounds")
+        btn_att_remove.connect("clicked", self.on_remove_att_backgrounds)
+        hbox113.pack_end(btn_att_remove, False, False, 10)
+        hbox113.pack_end(btn_att_install, False, False, 10)
+        hbox113.pack_start(label113, False, True, 10)
+
+        hbox112 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+
+        btn_login_import = Gtk.Button(label="Import selected image")
+        btn_login_import.connect("clicked", self.on_import_login_wallpaper)
+        btn_remove_import = Gtk.Button(label="Remove selected image")
+        btn_remove_import.connect("clicked", self.on_import_remove_login_wallpaper)
+        hbox112.pack_end(btn_remove_import, False, False, 10)
+        hbox112.pack_end(btn_login_import, False, False, 10)
+
+        hbox115 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox115.pack_start(hseparator, True, True, 0)
+
+        hbox114 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        label114 = Gtk.Label()
+        label114.set_text("Select a wallpaper and apply")
+        hbox114.pack_start(label114, False, True, 10)
+
+        scrolled = Gtk.ScrolledWindow()
+        scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        wallpaper_list = Functions.get_login_wallpapers()
+        self.login_wallpapers_combo = Gtk.ComboBoxText()
+        self.pop_login_wallpapers(self.login_wallpapers_combo, wallpaper_list, True)
+        self.flowbox_wall.set_valign(Gtk.Align.START)
+        self.flowbox_wall.set_max_children_per_line(6)
+        self.flowbox_wall.set_selection_mode(Gtk.SelectionMode.SINGLE)
+        self.flowbox_wall.connect("child-activated", self.on_login_wallpaper_clicked)
+        scrolled.add(self.flowbox_wall)
+        self.login_wallpapers_combo.connect("changed", self.on_login_wallpaper_change)
+
+
+        hbox119 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        login_apply = Gtk.Button(label="Select and apply background")
+        login_apply.connect("clicked", self.on_set_login_wallpaper)
+        login_reset = Gtk.Button(label="Reset to the original background")
+        login_reset.connect("clicked", self.on_reset_login_wallpaper)
+
+        hbox119.pack_end(login_reset, False, False, 0)
+        hbox119.pack_end(login_apply, False, False, 0)
+
+        vboxStack4.pack_start(hbox70, False, False, 0)
+        vboxStack4.pack_start(hbox71, False, False, 0)
+        vboxStack4.pack_start(hbox113, False, False, 0)
+        vboxStack4.pack_start(hbox72, False, False, 0)
+        vboxStack4.pack_start(hbox73, False, False, 0)
+        vboxStack4.pack_start(hbox111, False, False, 0)
+        vboxStack4.pack_start(hbox112, False, False, 0)
+        vboxStack4.pack_start(hbox114, False, False, 0)
+        vboxStack4.pack_start(hbox115, False, False, 0)
+        vboxStack4.pack_start(scrolled, True, True, 0)
+        vboxStack4.pack_end(hbox119, False, False, 0)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     # ==================================================================
@@ -444,6 +562,7 @@ We will backup your files")
         stack.add_titled(vboxStack1, "stack1", "SDDM")
     stack.add_titled(vboxStack2, "stack2", "LIGHTDM")
     stack.add_titled(vboxStack3, "stack3", "LXDM")
+    stack.add_titled(vboxStack4, "stack4", "WALL")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)

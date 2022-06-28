@@ -651,45 +651,48 @@ def set_grub_wallpaper(self, image):
 
 def set_login_wallpaper(self, image):
     if os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf"):
-        # if not os.path.isfile(grub_theme_conf + ".bak"):
-        #     shutil.copy(grub_theme_conf, grub_theme_conf + ".bak")
-        try:
-            with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "r", encoding="utf-8") as f:
-                lists = f.readlines()
-                f.close()
+        if not os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user"):
+            try:
+                with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user", "w") as f:
+                    f.write("[General]\n")
+                    f.write("background=\n")
+                    f.write("type=image\n")
+                    f.close()
+                print("Created theme.conf.user")
+            except:
+                pass
 
-            val = _get_position(lists, "background=")
-            lists[val] = "background=" + image + "\n"
-            print(lists[val])
+        if os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user"):
+            # if not os.path.isfile(grub_theme_conf + ".bak"):
+            #     shutil.copy(grub_theme_conf, grub_theme_conf + ".bak")
+            try:
+                with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user", "r", encoding="utf-8") as f:
+                    lists = f.readlines()
+                    f.close()
 
-            with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "w") as f:
-                f.writelines(lists)
-                f.close()
-            print("Login wallpaper saved")
-            show_in_app_notification(self, "Login wallpaper saved")
-            # MessageBox(self, "Success!!", "Settings Saved Successfully")
-        except:  # noqa
-            pass
+                val = _get_position(lists, "background=")
+                lists[val] = "background=" + image + "\n"
+                print(lists[val])
+
+                with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user", "w") as f:
+                    f.writelines(lists)
+                    f.close()
+                print("Login wallpaper saved")
+                show_in_app_notification(self, "Login wallpaper saved")
+                # MessageBox(self, "Success!!", "Settings Saved Successfully")
+            except:  # noqa
+                pass
 
 def reset_login_wallpaper(self, image):
-    if os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf"):
-        # if not os.path.isfile(grub_theme_conf + ".bak"):
-        #     shutil.copy(grub_theme_conf, grub_theme_conf + ".bak")
+    if not os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user"):
+        print("Background is already reset")
+        show_in_app_notification(self, "Background is already reset")
+
+    if os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user"):
         try:
-            with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "r", encoding="utf-8") as f:
-                lists = f.readlines()
-                f.close()
-
-            val = _get_position(lists, "background=")
-            lists[val] = "background=images/background.jpg\n"
-            print(lists[val])
-
-            with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "w") as f:
-                f.writelines(lists)
-                f.close()
-            print("Login wallpaper saved")
-            show_in_app_notification(self, "Login wallpaper saved")
-            # MessageBox(self, "Success!!", "Settings Saved Successfully")
+            os.unlink("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user")
+            print("Standard background has been reset")
+            show_in_app_notification(self, "Background reset successfully")
         except:  # noqa
             pass
 
