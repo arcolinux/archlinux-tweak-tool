@@ -692,16 +692,22 @@ def set_login_wallpaper(self, image):
         show_in_app_notification(self, "Use the ATT sddm configuration")
 
 def reset_login_wallpaper(self, image):
-    if not os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user"):
-        print("Background is already reset")
-        show_in_app_notification(self, "Background is already reset")
-
-    if os.path.isfile("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user"):
+    if os.path.isfile(sddm_default_d2):
         try:
-            os.unlink("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf.user")
+            with open(sddm_default_d2, "r", encoding="utf-8") as f:
+                lists = f.readlines()
+                f.close()
+            val = _get_position(lists, "Current=")
+            theme = lists[val].strip('\n').split("=")[1]
+        except:
+            pass
+
+    if os.path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
+        try:
+            os.unlink("/usr/share/sddm/themes/" + theme + "/theme.conf.user")
             print("Standard background has been reset")
             show_in_app_notification(self, "Background reset successfully")
-        except:  # noqa
+        except:
             pass
 
 def set_default_theme(self):
