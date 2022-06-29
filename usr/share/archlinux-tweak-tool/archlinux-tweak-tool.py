@@ -231,22 +231,63 @@ class Main(Gtk.Window):
         if debug:
             print("MAKING BACUPS")
 
-         #ensuring we have a backup of /etc/sddm.conf
+        #ensuring we have a backup of /etc/sddm.conf.d/kde_settings.conf
+        #no backups in this folder - it confuses sddm.conf.d
+        #remove if exists backups
         if os.path.isfile(Functions.sddm_default_d1):
-            if not os.path.isfile(Functions.sddm_default_d1 + ".bak"):
+            if not os.path.isfile("/etc/bak.sddm.conf"):
                 try:
-                    Functions.shutil.copy(Functions.sddm_default_d1, Functions.sddm_default_d1 + ".bak")
+                    Functions.shutil.copy(Functions.sddm_default_d1, "/etc/bak.sddm.conf")
                 except Exception as e:
                     print(e)
 
-         #ensuring we have a backup of /etc/sddm.conf.d/kde_settings.conf
-        if os.path.isfile(Functions.sddm_default_d2):
-            if not os.path.isfile("/etc/sddm.conf.d/bak.kde_settings.conf"):
-                try:
-                    Functions.shutil.copy(Functions.sddm_default_d2,
-								"/etc/sddm.conf.d/bak.kde_settings.conf")
-                except Exception as e:
-                    print(e)
+        if not os.path.isfile("/etc/bak.kde_settings.conf"):
+            try:
+                Functions.shutil.copy(Functions.sddm_default_d2, "/etc/bak.kde_settings.conf")
+            except Exception as e:
+                pass
+
+        #cleanup
+        if os.path.isfile("/etc/sddm.conf.d/bak.kde_settings.conf"):
+            try:
+                os.unlink("/etc/sddm.conf.d/bak.kde_settings.conf")
+                print("There can be only one file in /etc/sddm.conf.d")
+                print("kde_settings.conf")
+                print("Other files will be deleted")
+            except Exception as e:
+                pass
+        if os.path.isfile("/etc/sddm.conf.d/kde_settings.conf.bak"):
+            try:
+                os.unlink("/etc/sddm.conf.d/kde_settings.conf.bak")
+                print("There can be only one file in /etc/sddm.conf.d")
+                print("kde_settings.conf")
+                print("Other files will be deleted")
+            except Exception as e:
+                pass
+        if os.path.isfile("/etc/sddm.conf.d/kde_settings.conf.backup"):
+            try:
+                os.unlink("/etc/sddm.conf.d/kde_settings.conf.backup")
+                print("There can be only one file in /etc/sddm.conf.d")
+                print("kde_settings.conf")
+                print("Other files will be deleted")
+            except Exception as e:
+                pass
+        if os.path.isfile("/etc/sddm.conf.d/kde_settings.conf-backup"):
+            try:
+                os.unlink("/etc/sddm.conf.d/kde_settings.conf-backup")
+                print("There can be only one file in /etc/sddm.conf.d")
+                print("kde_settings.conf")
+                print("Other files will be deleted")
+            except Exception as e:
+                pass
+        if os.path.isfile("/etc/sddm.conf.d/backup-kde_settings.conf"):
+            try:
+                os.unlink("/etc/sddm.conf.d/backup-kde_settings.conf")
+                print("There can be only one file in /etc/sddm.conf.d")
+                print("kde_settings.conf")
+                print("Other files will be deleted")
+            except Exception as e:
+                pass
 
         # ensuring we have a backup of index.theme
         if os.path.exists("/usr/share/icons/default/index.theme"):

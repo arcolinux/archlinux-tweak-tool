@@ -520,7 +520,6 @@ We will backup your files")
         scrolled.add(self.flowbox_wall)
         self.login_wallpapers_combo.connect("changed", self.on_login_wallpaper_change)
 
-
         hbox119 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         login_apply = Gtk.Button(label="Select and apply background")
         login_apply.connect("clicked", self.on_set_login_wallpaper)
@@ -541,19 +540,6 @@ We will backup your files")
         vboxStack4.pack_start(hbox115, False, False, 0)
         vboxStack4.pack_start(scrolled, True, True, 0)
         vboxStack4.pack_end(hbox119, False, False, 0)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     # ==================================================================
     #                       PACK TO STACK
