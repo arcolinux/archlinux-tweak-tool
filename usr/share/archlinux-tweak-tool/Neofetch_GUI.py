@@ -18,7 +18,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     warning_label = Gtk.Label(xalign=0)
-    warning_label.set_markup("Some distros have their own configuration and/or application, investigate")
+    warning_label.set_markup("<b>Some distros have their own configuration and/or application, investigate</b>")
     hbox23.pack_start(warning_label, False, False, 10)
 
     self.asci = Gtk.RadioButton(label="Enable ascii backend")

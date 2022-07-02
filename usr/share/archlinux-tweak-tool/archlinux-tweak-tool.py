@@ -67,6 +67,7 @@ class Main(Gtk.Window):
         print(" - Axyl          - https://axyl-os.github.io/")
         print(" - RebornOS      - https://rebornos.org/")
         print(" - AmOs          - https://github.com/amanre")
+        print(" - Archcraft     - https://archcraft.io/")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("Adding repositories should be done with great care - they can conflict")
@@ -1866,7 +1867,13 @@ class Main(Gtk.Window):
         if self.asci.get_active():
             backend = "ascii"
             if not self.big_ascii.get_active() and not self.off.get_active():
-                small_ascii = "arcolinux_small"
+                small_ascii = "arch_small"
+                if Functions.distr =="arcolinux":
+                    small_ascii = "arcolinux_small"
+                if Functions.distr =="archlinux":
+                    small_ascii = "arch_small"
+                if Functions.distr =="manjaro":
+                    small_ascii = "manjaro_small"
                 backend = "ascii"
             elif not self.small_ascii.get_active() and not self.off.get_active():  # noqa
                 backend = "ascii"
