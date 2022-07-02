@@ -67,13 +67,15 @@ def GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir):
    hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
    label27 = Gtk.Label()
    label27.set_markup("Choose your <b>Xfce4-terminal</b> theme in the preferences, colors, presets of Xfce4-terminal")
+   hbox27.pack_start(label27, False, False, 10)
+
+   hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
    btn_xfce4_terminal_themes = Gtk.Button(label="Install Xfce4-terminal and more themes")
    btn_xfce4_terminal_themes.connect("clicked", self.on_clicked_install_xfce4_themes)
    btn_choose_xfce4_theme = Gtk.Button(label="Reset xfce4-terminal theme")
    btn_choose_xfce4_theme.connect("clicked", self.on_clicked_reset_xfce4_terminal)
-   hbox27.pack_start(label27, False, False, 10)
-   hbox27.pack_end(btn_choose_xfce4_theme, False, False, 10)
-   hbox27.pack_end(btn_xfce4_terminal_themes, False, False, 10)
+   hbox28.pack_end(btn_choose_xfce4_theme, False, False, 10)
+   hbox28.pack_end(btn_xfce4_terminal_themes, False, False, 10)
 
    hbox05 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
    hbox05.set_margin_top(30)
@@ -121,6 +123,7 @@ def GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir):
    vboxStack7.pack_start(hbox26, False, False, 0)
    vboxStack7.pack_start(hbox04, False, False, 0)
    vboxStack7.pack_start(hbox27, False, False, 0)
+   vboxStack7.pack_start(hbox28, False, False, 0)
    vboxStack7.pack_start(hbox05, False, False, 0)
 
    vboxStack7.pack_start(hbox24, False, False, 0)

@@ -53,6 +53,9 @@ def GUI(self, Gtk, vboxStack14, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3_label = Gtk.Label(xalign=0)
     hbox3_label.set_text("Change the /etc/nsswitch.conf to connect to computers/NAS")
+    hbox3.pack_start(hbox3_label, False, False, 10)
+
+    hbox30 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     self.nsswitch_choices = Gtk.ComboBoxText()
     options = ['ArcoLinux', 'Garuda', 'Arch Linux', 'EndeavourOS', 'Manjaro']
     for option in options:
@@ -62,10 +65,9 @@ def GUI(self, Gtk, vboxStack14, Functions):
     button_apply_nsswitch.connect ("clicked", self.on_click_apply_nsswitch)
     button_reset_nsswitch = Gtk.Button(label="Reset to default nsswitch")
     button_reset_nsswitch.connect ("clicked", self.on_click_reset_nsswitch)
-    hbox3.pack_start(hbox3_label, False, False, 10)
-    hbox3.pack_end(button_reset_nsswitch, False, False, 10)
-    hbox3.pack_start(self.nsswitch_choices, False, False, 10)
-    hbox3.pack_start(button_apply_nsswitch, False, False, 10)
+    hbox30.pack_start(self.nsswitch_choices, False, False, 10)
+    hbox30.pack_start(button_apply_nsswitch, False, False, 10)
+    hbox30.pack_start(button_reset_nsswitch, False, False, 10)
 
     # ==================================================================
     #                       SAMBA EASY TAB
@@ -284,6 +286,7 @@ All computers in your network must have a unique name /etc/hostname")
     ##network
     vboxStack1.pack_start(hbox2, False, False, 10)
     vboxStack1.pack_start(hbox3, False, False, 0)
+    vboxStack1.pack_start(hbox30, False, False, 0)
     if Functions.check_service("firewalld"):
         vboxStack1.pack_end(hbox92, False, False, 10)
     vboxStack1.pack_end(hbox91, False, False, 10)
