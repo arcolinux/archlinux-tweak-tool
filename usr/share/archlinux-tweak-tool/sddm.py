@@ -162,7 +162,8 @@ def pop_theme_box(self, combo):
 
     if os.path.exists("/usr/share/sddm") and os.path.exists(Functions.sddm_default_d2) and os.path.exists(Functions.sddm_default_d1):
         for items in Functions.os.listdir("/usr/share/sddm/themes/"):
-            coms.append(items.split(".")[0].lower())
+            #coms.append(items.split(".")[0].lower())
+            coms.append(items.split(".")[0])
         lines = get_sddm_lines(Functions.sddm_default_d2)
 
         name = check_sddm(lines, "Current=").split("=")[1]
@@ -273,6 +274,43 @@ def pop_cursor_box(self, combo):
                 "Bibata-Original-Turquoise"]
         coms = coms + com13
 
+    if Functions.distr == "archcraft":
+        if Functions.check_package_installed("archcraft-cursor-fluent"):
+            com14 = ["Fluent","Fluent-dark"]
+            coms = coms + com14
+
+        if Functions.check_package_installed("archcraft-cursor-future"):
+            com15 = ["Future","Future-dark"]
+            coms = coms + com15
+
+        if Functions.check_package_installed("archcraft-cursor-layan"):
+            com16 = ["Layan"]
+            coms = coms + com16
+
+        if Functions.check_package_installed("archcraft-cursor-lyra"):
+            com17 = ["LyraB","LyraF","LyraP","LyraQ","LyraS","LyraY"]
+            coms = coms + com17
+
+        if Functions.check_package_installed("archcraft-cursor-material"):
+            com18 = ["Material","Material-dark"]
+            coms = coms + com18
+
+        if Functions.check_package_installed("archcraft-cursor-pear"):
+            com19 = ["Pear"]
+            coms = coms + com19
+
+        if Functions.check_package_installed("archcraft-cursor-qogirr"):
+            com20 = ["Qogirr","Qogirr-dark"]
+            coms = coms + com20
+
+        if Functions.check_package_installed("archcraft-cursor-sweet"):
+            com21 = ["Sweet"]
+            coms = coms + com21
+
+        if Functions.check_package_installed("archcraft-cursor-vimix"):
+            com22 = ["Vimix","Vimix-dark"]
+            coms = coms + com22
+
     lines = get_sddm_lines(Functions.sddm_default_d2)
 
     if (len(check_sddm(lines, "CursorTheme=").split("=")) != 1):
@@ -280,7 +318,8 @@ def pop_cursor_box(self, combo):
     else:
         name = ""
 
-    coms.sort(key = lambda x: x.lower())
+    #coms.sort(key = lambda x: x.lower())
+    coms.sort()
     for i in range(len(coms)):
         #excludes = ['maya', 'maldives', 'elarun', '']
         #if not coms[i] in excludes:
