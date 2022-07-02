@@ -1696,6 +1696,16 @@ class Main(Gtk.Window):
         self.on_reset_grub(self)
         Functions.restart_program()
 
+    def on_clicked_grub_timeout(self,widget):
+        seconds = int(self.scale.get_value())
+        Functions.set_grub_timeout(self,seconds)
+        print("We will update your grub files")
+        print("sudo grub-mkconfig -o /boot/grub/grub.cfg is running")
+        print("Be patient...")
+        Functions.make_grub(self)
+
+        print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
+
     #====================================================================
     #                            PRIVACY
     #====================================================================

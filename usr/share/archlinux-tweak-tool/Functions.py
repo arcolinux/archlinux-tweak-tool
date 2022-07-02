@@ -628,7 +628,6 @@ def get_grub_wallpapers():
         new_list.sort()
         return new_list
 
-
 def set_grub_wallpaper(self, image):
     if os.path.isfile(grub_theme_conf):
         if not os.path.isfile(grub_theme_conf + ".bak"):
@@ -798,6 +797,24 @@ def set_default_theme(self):
             show_in_app_notification(self, "Grub settings saved in /etc/default/grub")
         except Exception as e:
             print(e)
+
+def set_grub_timeout(self,number):
+    try:
+        with open(grub_default_grub, "r", encoding="utf-8") as f:
+            lists = f.readlines()
+            f.close()
+
+        val = _get_position(lists, "GRUB_TIMEOUT=")
+        lists[val] = "GRUB_TIMEOUT=" + str(number) + "\n"
+        print(lists[val])
+
+        with open(grub_default_grub, "w") as f:
+            f.writelines(lists)
+            f.close()
+        print("Grub timeout in seconds saved - /etc/default/grub")
+        show_in_app_notification(self, "Grub timeout in seconds saved")
+    except Exception as e:
+        print(e)
 
 # =====================================================
 #               GTK3 CONF
