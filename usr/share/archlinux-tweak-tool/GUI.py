@@ -322,9 +322,6 @@ Then you will be able to set the mirrors of ArcoLinux")
         print("User_GUI")
 
     User_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack18, user, Functions)
-    ls = Gtk.Label()
-    ls.set_markup("Fill in the fields and create your account")
-    vboxStack18.pack_start(ls, True, False, 0)
 
     # ==========================================================
     #                   ADD TO WINDOW

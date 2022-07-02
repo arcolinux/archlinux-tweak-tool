@@ -40,4 +40,25 @@ def create_user(self):
         GLib.idle_add(Functions.show_in_app_notification, self, "Passwords are not the same")
         Functions.MessageBox(self, "Message", "Passwords are not the same")
 
+def on_click_delete_user(self,widget):
+    username = self.cbt_users.get_active_text()
+    userdel = "userdel " + username
 
+    os.system(userdel)
+    print("User has been deleted - home folder has not been deleted")
+    GLib.idle_add(Functions.show_in_app_notification, self, "User has been deleted")
+
+def on_click_delete_all_user(self,widget):
+    username = self.cbt_users.get_active_text()
+    userdel = "userdel -r -f " + username
+
+    os.system(userdel)
+    print("User has been deleted - home folder has been deleted")
+    GLib.idle_add(Functions.show_in_app_notification, self, "User and home folder has been deleted")
+
+def pop_cbt_users(self,combo):
+    combo.get_model().clear()
+    users = Functions.list_users("/etc/passwd")
+    for user in users:
+        self.cbt_users.append_text(user)
+        self.cbt_users.set_active(0)

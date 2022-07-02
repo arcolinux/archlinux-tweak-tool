@@ -227,6 +227,9 @@ alias df="df -h"
 alias give-me-azerty-be="sudo localectl set-x11-keymap be"
 alias give-me-qwerty-us="sudo localectl set-x11-keymap us"
 
+#setlocale
+alias setlocale="sudo localectl set-locale LANG=en_US.UTF-8"
+
 #pacman unlock
 alias unlock="sudo rm /var/lib/pacman/db.lck"
 alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
@@ -244,13 +247,14 @@ alias free="free -mt"
 alias wget="wget -c"
 
 #userlist
-alias userlist="cut -d: -f1 /etc/passwd"
+alias userlist="cut -d: -f1 /etc/passwd | sort"
 
 #merge new settings
 alias merge="xrdb -merge ~/.Xresources"
 
 # Aliases for software managment
 # pacman
+alias pacman="sudo pacman --color auto"
 alias update="sudo pacman -Syyu"
 
 # paru as aur helper - updates everything
@@ -376,6 +380,7 @@ alias nhostname="sudo $EDITOR /etc/hostname"
 alias nb="$EDITOR ~/.bashrc"
 alias nz="$EDITOR ~/.zshrc"
 alias nf="$EDITOR ~/.config/fish/config.fish"
+alias nneofetch="$EDITOR ~/.config/neofetch/config.conf"
 
 #reading logs with bat
 alias lcalamares="bat /var/log/Calamares.log"
@@ -481,7 +486,7 @@ neofetch
 #hfetch
 #sfetch
 #ufetch
-#ufetch-arco | lolcat
+#ufetch-arco
 #pfetch
 #sysinfo
 #sysinfo-retro

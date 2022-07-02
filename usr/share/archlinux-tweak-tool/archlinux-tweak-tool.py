@@ -2600,7 +2600,7 @@ class Main(Gtk.Window):
                                 stderr=Functions.subprocess.STDOUT)
                 print("We installed the Bibata cursors")
                 GLib.idle_add(Functions.show_in_app_notification, self, "Bibata cursors have been installed")
-                sddm.pop_theme_box(self, self.theme_sddm)
+                #sddm.pop_theme_box(self, self.theme_sddm)
                 sddm.pop_cursor_box(self, self.cbt_cursor_themes)
             else:
                 print("Activate the ArcoLinux repos")
@@ -3318,6 +3318,15 @@ class Main(Gtk.Window):
 
     def on_click_user_apply(self, widget):
         user.create_user(self)
+        user.pop_cbt_users(self, self.cbt_users)
+
+    def on_click_delete_user(self,widget):
+        user.on_click_delete_user(self,widget)
+        user.pop_cbt_users(self, self.cbt_users)
+
+    def on_click_delete_all_user(self,widget):
+        user.on_click_delete_all_user(self,widget)
+        user.pop_cbt_users(self, self.cbt_users)
 
     #====================================================================
     #                      WALL - WALLPAPER
