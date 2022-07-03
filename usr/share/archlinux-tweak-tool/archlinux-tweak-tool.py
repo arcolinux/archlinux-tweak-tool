@@ -649,6 +649,26 @@ class Main(Gtk.Window):
                 self.button_install.set_sensitive(False)
                 self.button_reinstall.set_sensitive(False)
 
+        # =====================================================
+        #                        GRUB
+        # =====================================================
+
+        if debug:
+            print("GRUB")
+
+        if os.path.exists(Functions.grub_default_grub):
+            try:
+                if Functions.check_content("GRUB_TIMEOUT=",Functions.grub_default_grub):
+                    with open(Functions.grub_default_grub, "r", encoding="utf-8") as f:
+                        lists = f.readlines()
+                        f.close()
+
+                    val = Functions._get_position(lists, "GRUB_TIMEOUT=")
+                    number = int(lists[val].split("=")[1])
+                    self.scale.set_value(number)
+            except Exception as e:
+                print(e)
+
         #========================NEOFETCH LOLCAT TOGGLE===================
 
         shell = Functions.get_shell()

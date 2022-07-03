@@ -100,7 +100,8 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         #bashreset.connect("clicked", self.on_bash_reset_clicked)
 
         hbox10.pack_start(tobash, False, False, 0)
-        hbox10.pack_start(tofish, False, False, 0)
+        if not Functions.distr == "archcraft":
+            hbox10.pack_start(tofish, False, False, 0)
         hbox10.pack_start(tozsh, False, False, 0)
         #hbox10.pack_end(bashreset, False, False, 0)
 
@@ -254,7 +255,8 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
 
         hbox24.pack_start(tozsh, False, False, 0)
         hbox24.pack_start(tobash, False, False, 0)
-        hbox24.pack_start(tofish, False, False, 0)
+        if not Functions.distr == "archcraft":
+            hbox24.pack_start(tofish, False, False, 0)
         #hbox24.pack_end(termset, False, False, 0)
         hbox24.pack_end(termreset, False, False, 0)
         #hbox24.pack_end(install_oh_my_zsh, False, False, 0)
@@ -377,7 +379,8 @@ if you installed the ATT Fish configuration\n\n<b>If you just switched shell, lo
         removefish = Gtk.Button(label="Remove all Fish related packages")
         removefish.connect("clicked", self.on_remove_fish)
 
-        hbox35.pack_start(tofish, False, False, 0)
+        if not Functions.distr == "archcraft":
+            hbox35.pack_start(tofish, False, False, 0)
         hbox35.pack_start(tobash, False, False, 0)
         hbox35.pack_start(tozsh, False, False, 0)
         hbox35.pack_end(removefish, False, False, 0)
