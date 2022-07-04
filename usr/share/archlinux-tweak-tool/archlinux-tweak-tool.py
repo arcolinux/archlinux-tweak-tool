@@ -656,7 +656,7 @@ class Main(Gtk.Window):
         if debug:
             print("GRUB")
 
-        if os.path.exists(Functions.grub_default_grub):
+        if Functions.check_package_installed("arcolinux-grub-theme-vimix-git"):
             try:
                 if Functions.check_content("GRUB_TIMEOUT=",Functions.grub_default_grub):
                     with open(Functions.grub_default_grub, "r", encoding="utf-8") as f:
@@ -3213,6 +3213,40 @@ class Main(Gtk.Window):
 
             themer.get_qtile_themes(self.qtile_combo, qtile_list)
 
+    def leftwm_apply_clicked(self, widget):
+        themer.set_leftwm_themes(self.leftwm_combo.get_active_text())
+        print("Theme " + self.leftwm_combo.get_active_text() + " applied successfully")
+        Functions.show_in_app_notification(self,
+                                           "Theme " + self.leftwm_combo.get_active_text() + " applied successfully")
+        self.status_leftwm.set_markup("<b>Theme is installed and applied</b>")
+
+    def leftwm_reset_clicked(self, widget):
+        themer.reset_leftwm_themes(self.leftwm_combo.get_active_text())
+        print("Reverting back to candy as fall-back")
+        print("Theme " + self.leftwm_combo.get_active_text() + " reset successfully")
+        Functions.show_in_app_notification(self,
+                                           "Theme " + self.leftwm_combo.get_active_text() + " reset successfully")
+        self.status_leftwm.set_markup("<b>Theme is installed and applied</b>")
+
+    def leftwm_remove_clicked(self, widget):
+        themer.remove_leftwm_themes(self.leftwm_combo.get_active_text())
+        print("Reverting back to candy as fall-back")
+        print("Theme " + self.leftwm_combo.get_active_text() + " removed successfully")
+        Functions.show_in_app_notification(self,
+                                           "Theme " + self.leftwm_combo.get_active_text() + " removed successfully")
+
+    def on_leftwm_combo_changed(self, widget):
+        link_theme = (os.path.basename(os.readlink(Functions.leftwm_config_theme_current)))
+        #print(link_theme)
+        theme = self.leftwm_combo.get_active_text()
+        if Functions.path_check(Functions.leftwm_config_theme + theme):
+            self.status_leftwm.set_markup("<b>Theme is installed</b>")
+        else:
+            self.status_leftwm.set_markup("<b>Theme is NOT installed</b>")
+
+        if Functions.path_check(Functions.leftwm_config_theme + theme) and link_theme == theme:
+            self.status_leftwm.set_markup("<b>Theme is installed and applied</b>")
+
     #====================================================================
     #                       TERMINALS
     #====================================================================
@@ -3743,6 +3777,9 @@ class Main(Gtk.Window):
         elif theme_type == "qtile":
             sample_path = att_base+"/images/qtile-sample.jpg"
             preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "leftwm":
+            sample_path = att_base+"/images/leftwm-sample.jpg"
+            preview_path = att_base+"/themer_data/leftwm/"+widget.get_active_text() + ".jpg"
         elif theme_type == "i3":
             sample_path = att_base+"/images/i3-sample.jpg"
             preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"

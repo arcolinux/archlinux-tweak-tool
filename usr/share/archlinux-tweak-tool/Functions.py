@@ -106,6 +106,9 @@ i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
 qtile_config = home + "/.config/qtile/config.py"
 qtile_config_theme = home + "/.config/qtile/themes/arcolinux-default.theme"
+leftwm_config = home + "/.config/leftwm/config.toml"
+leftwm_config_theme = home + "/.config/leftwm/themes/"
+leftwm_config_theme_current = home + "/.config/leftwm/themes/current"
 
 seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
 aarnetmirror = "Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"
@@ -171,6 +174,33 @@ Include = /etc/pacman.d/mirrorlist"
 arch_multilib_repo = "[multilib]\n\
 Include = /etc/pacman.d/mirrorlist"
 
+leftwm_themes_list= ["arise",
+"candy",
+"db",
+"db-color-dev",
+"db-comic",
+"db-labels",
+"db-nemesis",
+"db-scifi",
+"docky",
+"doublebar",
+"eden",
+"forest",
+"grayblocks",
+"greyblocks",
+"halo",
+"kittycafe-dm",
+"kittycafe-sm",
+"material",
+"matrix",
+"mesh",
+"parker",
+"pi",
+"sb-horror",
+"shades",
+"smooth",
+"space",
+"starwars"]
 
 # =====================================================
 #              END DECLARATION OF VARIABLES

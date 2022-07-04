@@ -3,6 +3,9 @@
 # =================================================================
 
 
+from os import link
+
+
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     #Image Dimensions. Change once here - apply to ALL the items in this GUI.
@@ -32,6 +35,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -266,12 +270,82 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     vboxStack3.pack_end(hbox9, False, False, 0)
 
     # ==================================================================
+    #                       LEFTWM TAB
+    # ==================================================================
+
+    self.status_leftwm = Gtk.Label()
+    #self.status_leftwm.set_markup("<b>Theme is installed and applied</b>")
+
+    label6 = Gtk.Label()
+    label6.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.\n\
+Sometimes you even need to logout to let the theme apply fully\n\
+Be patient if it is the first time you install the theme or use the scripts to install them in one go")
+
+    labellft = Gtk.Label("Select theme - candy is the default theme")
+    self.leftwm_combo = Gtk.ComboBoxText()
+    self.leftwm_combo.set_size_request(280, 0)
+    for theme in Functions.leftwm_themes_list:
+        self.leftwm_combo.append_text(theme)
+    self.leftwm_combo.connect("changed", self.on_leftwm_combo_changed)
+    if Functions.path_check(Functions.leftwm_config_theme_current):
+        link_theme = Functions.os.path.basename(Functions.os.readlink(Functions.leftwm_config_theme_current))
+        for i in range(len(Functions.leftwm_themes_list)):
+            if link_theme == Functions.leftwm_themes_list[i]:
+                self.leftwm_combo.set_active(i)
+    else:
+        self.leftwm_combo.set_sensitive(False)
+
+    vbox5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
+    vbox5.pack_start(self.leftwm_combo, False, False, 0)
+
+    applyleftwm = Gtk.Button(label="Install and apply selected theme")
+    applyleftwm.connect("clicked", self.leftwm_apply_clicked)
+    removeleftwm = Gtk.Button(label="Remove selected theme and apply Candy")
+    removeleftwm.connect("clicked", self.leftwm_remove_clicked)
+    resetleftwm = Gtk.Button(label="Reset selected theme")
+    resetleftwm.connect("clicked", self.leftwm_reset_clicked)
+
+    if not Functions.os.path.isfile(Functions.leftwm_config) \
+        or not Functions.check_package_installed("arcolinux-leftwm-git"):
+            applyleftwm.set_sensitive(False)
+            resetleftwm.set_sensitive(False)
+            removeleftwm.set_sensitive(False)
+
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox11.pack_start(labellft, False, False, 10)
+    hbox11.pack_end(vbox5, False, False, 10)
+
+    leftwm_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/leftwm-sample.jpg", image_width, image_height)
+    if self.leftwm_combo.get_active_text() is None:
+        pass
+    elif Functions.os.path.isfile(base_dir+"/themer_data/leftwm/"+self.leftwm_combo.get_active_text()+".jpg"):
+        leftwm_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/leftwm/"+self.leftwm_combo.get_active_text()+".jpg", image_width, image_height)
+    leftwm_image = Gtk.Image().new_from_pixbuf(leftwm_pixbuf)
+
+    self.leftwm_combo.connect("changed", self.update_image, leftwm_image, "leftwm", base_dir, image_width, image_height)
+
+    hbox12.pack_end(applyleftwm, False, False, 0)
+    hbox12.pack_end(resetleftwm, False, False, 0)
+    hbox12.pack_end(removeleftwm, False, False, 0)
+
+    vboxStack4.pack_start(hbox11, False, False, 0)
+    vboxStack4.pack_start(hbox13, False, False, 0)
+    vboxStack4.pack_start(leftwm_image, False, False, 0)
+    vboxStack4.pack_start(self.status_leftwm, True, False, 0)
+    vboxStack4.pack_start(label6, True, False, 0)
+    vboxStack4.pack_end(hbox12, False, False, 0)
+
+    # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
 
     stack.add_titled(vboxStack1, "stack1", "I3WM")
     stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
     stack.add_titled(vboxStack3, "stack3", "Qtile")
+    stack.add_titled(vboxStack4, "stack4", "Leftwm")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)

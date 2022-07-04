@@ -177,3 +177,66 @@ def set_qtile_themes(lines, theme):
                 f.close()
         except Exception as e:
             print(e)
+
+# =================================================================
+# =                  LEFTWM
+# =================================================================
+
+def get_leftwm_themes(combo, lines):
+    combo.get_model().clear()
+    if fn.check_package_installed("arcolinux-qtile-git"):
+        try:
+            menu = [x for x in fn.os.listdir(fn.home + "/.config/qtile/themes/") if ".theme" in x]
+
+            current_theme = fn._get_position(lines, "Theme name :")
+            theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
+            active = 0
+            sorted_menu = sorted(menu)
+            for i in range(len(sorted_menu)):
+                if theme_name in sorted_menu[i]:
+                    active = i
+                combo.append_text(sorted_menu[i].replace(".theme", ""))
+            combo.set_active(active)
+        except Exception as e:
+            print(e)
+
+def set_leftwm_themes(theme):
+    #update
+    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username + " -c \"leftwm-theme update" + "\""],
+                stdout=fn.subprocess.PIPE)
+    #install
+    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username + " -c \"leftwm-theme install " + theme + "\""],
+                stdout=fn.subprocess.PIPE)
+    #apply
+    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username + " -c \"leftwm-theme apply " + theme + "\""],
+                stdout=fn.subprocess.PIPE)
+
+def remove_leftwm_themes(theme):
+    #apply candy
+    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username + " -c \"leftwm-theme apply candy\""],
+                stdout=fn.subprocess.PIPE)
+    #remove
+    if not theme == "candy":
+        fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username + " -c \"leftwm-theme uninstall " + theme + " --noconfirm\""],
+                stdout=fn.subprocess.PIPE)
+
+def reset_leftwm_themes(theme):
+    #apply candy
+    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username + " -c \"leftwm-theme apply candy\""],
+                stdout=fn.subprocess.PIPE)
+
+    #remove
+    if not theme == "candy":
+        fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username + " -c \"leftwm-theme uninstall " + theme + " --noconfirm\""],
+                stdout=fn.subprocess.PIPE)
+
+    #update
+    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username + " -c \"leftwm-theme update" + "\""],
+                stdout=fn.subprocess.PIPE)
+
+    #install
+    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username + " -c \"leftwm-theme install " + theme + "\""],
+                stdout=fn.subprocess.PIPE)
+    #apply
+    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username + " -c \"leftwm-theme apply " + theme + "\""],
+                stdout=fn.subprocess.PIPE)
