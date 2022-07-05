@@ -41,11 +41,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     neofetch.pop_neofetch_box(self.emblem)
 
     applyneofetch = Gtk.Button(label="Apply your Neofetch configuration")
-    resetneofetch = Gtk.Button(label="Reset")
+    resetnormalneofetch = Gtk.Button(label="Reset normal")
+    resetsmallneofetch = Gtk.Button(label="Reset small")
     installneofetch = Gtk.Button(label="Install Neofetch")
 
     applyneofetch.connect("clicked", self.on_apply_neo)
-    resetneofetch.connect("clicked", self.on_reset_neo)
+    resetnormalneofetch.connect("clicked", self.on_reset_neo)
+    resetsmallneofetch.connect("clicked", self.on_reset_small_neo)
     installneofetch.connect("clicked", self.on_install_neo)
 
     hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -170,7 +172,8 @@ Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/c
     hbox27.pack_start(lolcat_label, False, False, 0)
     hbox27.pack_start(self.neo_lolcat, False, False, 30)
 
-    hbox24.pack_end(resetneofetch, False, False, 0)
+    hbox24.pack_end(resetsmallneofetch, False, False, 0)
+    hbox24.pack_end(resetnormalneofetch, False, False, 0)
     hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(installneofetch, False, False, 0)
 

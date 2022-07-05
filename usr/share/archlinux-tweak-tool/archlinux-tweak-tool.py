@@ -1928,7 +1928,25 @@ class Main(Gtk.Window):
             neofetch.get_checkboxes(self)
             print("Neofetch default settings applied")
             Functions.show_in_app_notification(self,
-                                               "Default Settings Applied")
+                                               "Default settings applied")
+
+    def on_reset_small_neo(self, widget):
+        if os.path.isfile(Functions.neofetch_small_config):
+            Functions.shutil.copy(Functions.neofetch_small_config,
+                                  Functions.neofetch_config)
+
+            neofetch.pop_neofetch_box(self.emblem)
+            backend = neofetch.check_backend()
+            if backend == "ascii":
+                self.asci.set_active(True)
+                self.emblem.set_sensitive(False)
+            else:
+                self.w3m.set_active(True)
+
+            neofetch.get_checkboxes(self)
+            print("Neofetch small default settings applied")
+            Functions.show_in_app_notification(self,
+                                               "Default settings applied")
 
     def on_install_neo(self,widget):
         try:
