@@ -242,3 +242,14 @@ def pop_gtk_cursor_names(self, combo):
             combo.append_text(coms[i])
             if cursor_theme.lower() == coms[i].lower():
                 combo.set_active(i)
+
+def pop_login_managers_combo (self,combo):
+    options = ['sddm', 'lightdm', 'lxdm']
+    for option in options:
+        self.login_managers_combo.append_text(option)
+        if fn.check_content("sddm", "/etc/systemd/system/display-manager.service"):
+            self.login_managers_combo.set_active(0)
+        if fn.check_content("lightdm", "/etc/systemd/system/display-manager.service"):
+            self.login_managers_combo.set_active(1)
+        if fn.check_content("lxdm", "/etc/systemd/system/display-manager.service"):
+            self.login_managers_combo.set_active(2)

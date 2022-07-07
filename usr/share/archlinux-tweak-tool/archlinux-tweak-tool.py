@@ -1784,8 +1784,7 @@ class Main(Gtk.Window):
         print("PRIVACY")
 
     def set_hblock(self, widget, state):
-        if os.path.isfile(Functions.arcolinux_mirrorlist):
-            if Functions.check_arco_repos_active() == True:
+        if Functions.check_arco_repos_active() == True:
                 if self.firstrun is not True:
                     t = Functions.threading.Thread(target=Functions.set_hblock, args=(
                         self, widget, widget.get_active()))
@@ -1794,10 +1793,6 @@ class Main(Gtk.Window):
                     GLib.idle_add(Functions.show_in_app_notification, self, "Hblock is active/inactive")
                 else:
                     self.firstrun = False
-            else:
-                #print("First enable the ArcoLinux repos")
-                self.hbswich.set_active(False)
-                GLib.idle_add(Functions.show_in_app_notification, self, "First enable the ArcoLinux repos")
         else:
             print("First activate the ArcoLinux repos")
             self.hbswich.set_active(False)
@@ -3625,14 +3620,16 @@ class Main(Gtk.Window):
                                      self.login_wallpaper_path)
 
     def on_install_att_backgrounds(self,widget):
-        Functions.install_archlinux_login_backgrounds(self,widget)
+        Functions.install_arco_package(self,"archlinux-login-backgrounds-git")
         self.pop_login_wallpapers(self.login_managers_combo,
                         Functions.get_login_wallpapers(), False)
+        sddm.pop_login_managers_combo(self, self.login_managers_combo)
 
     def on_remove_att_backgrounds(self,widget):
-        Functions.remove_archlinux_login_backgrounds(self,widget)
+        Functions.remove_package(self,"archlinux-login-backgrounds-git")
         self.pop_login_wallpapers(self.login_managers_combo,
                         Functions.get_login_wallpapers(), False)
+        sddm.pop_login_managers_combo(self, self.login_managers_combo)
 
     def on_import_remove_login_wallpaper(self, widget):
         if self.login_wallpaper_path == "":

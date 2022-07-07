@@ -509,15 +509,7 @@ We will backup your files")
         hbox73_lbl = Gtk.Label(xalign=0)
         hbox73_lbl.set_text("Login Manager")
         self.login_managers_combo = Gtk.ComboBoxText()
-        options = ['sddm', 'lightdm', 'lxdm']
-        for option in options:
-            self.login_managers_combo.append_text(option)
-        if Functions.check_content("sddm", "/etc/systemd/system/display-manager.service"):
-            self.login_managers_combo.set_active(0)
-        if Functions.check_content("lightdm", "/etc/systemd/system/display-manager.service"):
-            self.login_managers_combo.set_active(1)
-        if Functions.check_content("lxdm", "/etc/systemd/system/display-manager.service"):
-            self.login_managers_combo.set_active(2)
+        sddm.pop_login_managers_combo(self, self.login_managers_combo)
         hbox73.pack_start(hbox73_lbl, False, False, 10)
         hbox73.pack_end(self.login_managers_combo, True, True, 10)
 

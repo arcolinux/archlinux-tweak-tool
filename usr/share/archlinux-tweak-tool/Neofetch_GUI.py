@@ -172,9 +172,9 @@ Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/c
     hbox27.pack_start(lolcat_label, False, False, 0)
     hbox27.pack_start(self.neo_lolcat, False, False, 30)
 
+    hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(resetsmallneofetch, False, False, 0)
     hbox24.pack_end(resetnormalneofetch, False, False, 0)
-    hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(installneofetch, False, False, 0)
 
     vboxStack8.pack_start(hbox3, False, False, 0)

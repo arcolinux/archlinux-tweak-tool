@@ -69,7 +69,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     vbox2.pack_start(self.i3_combo, False, False, 0)
 
-    applyi3 = Gtk.Button(label="Apply")
+    applyi3 = Gtk.Button(label="Apply theme")
     applyi3.connect("clicked", self.i3wm_apply_clicked)
     reseti3 = Gtk.Button(label="Reset")
     reseti3.connect("clicked", self.i3wm_reset_clicked)
@@ -191,7 +191,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     hbox5.pack_start(frame, True, False, 10)
 
-    apply = Gtk.Button(label="Apply")
+    apply = Gtk.Button(label="Apply theme")
     apply.connect("clicked", self.awesome_apply_clicked)
     reset = Gtk.Button(label="Reset")
     reset.connect("clicked", self.awesome_reset_clicked)
@@ -230,7 +230,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     vbox4.pack_start(self.qtile_combo, False, False, 0)
 
-    applyqtile = Gtk.Button(label="Apply")
+    applyqtile = Gtk.Button(label="Apply theme")
     applyqtile.connect("clicked", self.qtile_apply_clicked)
     resetqtile = Gtk.Button(label="Reset")
     resetqtile.connect("clicked", self.qtile_reset_clicked)
