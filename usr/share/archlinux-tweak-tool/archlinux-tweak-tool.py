@@ -68,6 +68,7 @@ class Main(Gtk.Window):
         print(" - RebornOS      - https://rebornos.org/")
         print(" - AmOs          - https://github.com/amanre")
         print(" - Archcraft     - https://archcraft.io/")
+        print(" - CachyOS       - https://cachyos.org/")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("Adding repositories should be done with great care - they can conflict")
@@ -290,6 +291,30 @@ class Main(Gtk.Window):
             except Exception as e:
                 pass
 
+        #ensuring we have a backup of /etc/lightdm/lightdm.conf
+        if os.path.isfile("/etc/lightdm/lightdm.conf"):
+            try:
+                if not os.path.isfile("/etc/lightdm/lightdm.conf" + ".bak"):
+                    Functions.shutil.copy("/etc/lightdm/lightdm.conf", "/etc/lightdm/lightdm.conf" + ".bak")
+            except Exception as e:
+                print(e)
+
+        #ensuring we have a backup of /etc/lightdm/lightdm-gtk-greeter.conf
+        if os.path.isfile("/etc/lightdm/lightdm-gtk-greeter.conf"):
+            try:
+                if not os.path.isfile("/etc/lightdm/lightdm-gtk-greeter.conf" + ".bak"):
+                    Functions.shutil.copy("/etc/lightdm/lightdm-gtk-greeter.conf", "/etc/lightdm/lightdm-gtk-greeter.conf" + ".bak")
+            except Exception as e:
+                print(e)
+
+        #ensuring we have a backup of /etc/lxdm/lxdm.conf
+        if os.path.isfile("/etc/lxdm/lxdm.conf"):
+            try:
+                if not os.path.isfile("/etc/lxdm/lxdm.conf" + ".bak"):
+                    Functions.shutil.copy("/etc/lxdm/lxdm.conf", "/etc/lxdm/lxdm.conf" + ".bak")
+            except Exception as e:
+                print(e)
+
         # ensuring we have a backup of index.theme
         if os.path.exists("/usr/share/icons/default/index.theme"):
             if not os.path.isfile("/usr/share/icons/default/index.theme" + ".bak"):
@@ -347,22 +372,6 @@ class Main(Gtk.Window):
                     Functions.shutil.copy(Functions.mirrorlist, Functions.mirrorlist + ".bak")
                 except Exception as e:
                     print(e)
-
-        #ensuring we have a backup of /etc/lightdm/lightdm.conf
-        if os.path.isfile("/etc/lightdm/lightdm.conf"):
-            try:
-                if not os.path.isfile("/etc/lightdm/lightdm.conf" + ".bak"):
-                    Functions.shutil.copy("/etc/lightdm/lightdm.conf", "/etc/lightdm/lightdm.conf" + ".bak")
-            except Exception as e:
-                print(e)
-
-        #ensuring we have a backup of /etc/lightdm/lightdm-gtk-greeter.conf
-        if os.path.isfile("/etc/lightdm/lightdm-gtk-greeter.conf"):
-            try:
-                if not os.path.isfile("/etc/lightdm/lightdm-gtk-greeter.conf" + ".bak"):
-                    Functions.shutil.copy("/etc/lightdm/lightdm-gtk-greeter.conf", "/etc/lightdm/lightdm-gtk-greeter.conf" + ".bak")
-            except Exception as e:
-                print(e)
 
         #ensuring we have a backup of current /etc/hosts
         if os.path.isfile("/etc/hosts"):
@@ -729,12 +738,12 @@ class Main(Gtk.Window):
             print("LIGHTDM")
 
         if Functions.os.path.isfile(Functions.lightdm_conf):
-            if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):
-                self.autologin.set_active(False)
-                self.sessions.set_sensitive(False)
+            if "#" in lightdm.check_lightdm(Functions.get_lines(Functions.lightdm_conf),"autologin-user="):
+                self.autologin_lightdm.set_active(False)
+                self.sessions_lightdm.set_sensitive(False)
             else:
-                self.autologin.set_active(True)
-                self.sessions.set_sensitive(True)
+                self.autologin_lightdm.set_active(True)
+                self.sessions_lightdm.set_sensitive(True)
 
         # =====================================================
         #                        SDDM
@@ -755,8 +764,35 @@ class Main(Gtk.Window):
                                 self.autologin_sddm.set_active(True)
                                 self.sessions_sddm.set_sensitive(True)
             except Exception as e:
-                print("Run 'fix-sddm-conf' in a terminal")
-                print("We will make backups of the current /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf if they exist")
+                pass
+                # print("Run 'fix-sddm-conf' in a terminal")
+                # print("We will make backups of the current /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf if they exist")
+
+        if not os.path.isfile("/tmp/att.lock"):
+            with open("/tmp/att.lock", "w") as f:
+                f.write("")
+
+        # =====================================================
+        #                        LXDM
+        # =====================================================
+
+        if debug:
+            print("LXDM")
+
+        if os.path.exists("/usr/bin/lxdm"):
+            try:
+                pos = Functions._get_position(Functions.get_lines(Functions.lxdm_conf),"bottom_pane=" )
+                lines = Functions.get_lines(Functions.lxdm_conf)
+                state = lines[pos].split("=")[1].strip()
+                if Functions.os.path.isfile(Functions.lxdm_conf):
+                    if state == "1":
+                        self.panel_lxdm.set_active(True)
+                    else:
+                        self.panel_lxdm.set_active(False)
+            except Exception as e:
+                pass
+                # print("Run 'fix-sddm-conf' in a terminal")
+                # print("We will make backups of the current /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf if they exist")
 
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
@@ -1767,18 +1803,32 @@ class Main(Gtk.Window):
 
     def on_click_lightdm_apply(self, widget):
 
-        if (self.sessions.get_active_text() is not None and self.autologin.get_active() is True) or self.autologin.get_active() is False:
+        if (self.sessions_lightdm.get_active_text() is not None and self.autologin_lightdm.get_active() is True) or self.autologin_lightdm.get_active() is False:
             t1 = Functions.threading.Thread(target=lightdm.set_lightdm_value,
                                             args=(self,
-                                                lightdm.get_lines(Functions.lightdm_conf),  # noqa
+                                                Functions.get_lines(Functions.lightdm_conf),  # noqa
                                                 Functions.sudo_username,
-                                                self.sessions.get_active_text(),
-                                                self.autologin.get_active()))
+                                                self.sessions_lightdm.get_active_text(),
+                                                self.autologin_lightdm.get_active()))
             t1.daemon = True
             t1.start()
-            print("Lightdm settings saved successfully")
+            print("Lightdm autologin and session settings saved successfully")
         else:
+            print("Select the desktop to autologin")
             Functions.show_in_app_notification(self, "Need to select desktop first")
+
+        if (self.gtk_theme_names.get_active_text() is not None) and self.gtk_icon_names.get_active_text() is not None:
+            t1 = Functions.threading.Thread(target=lightdm.set_lightdm_icon_theme,
+                                            args=(self,
+                                                Functions.get_lines(Functions.lightdm_greeter),
+                                                self.gtk_theme_names.get_active_text(),
+                                                self.gtk_icon_names.get_active_text()))
+            t1.daemon = True
+            t1.start()
+            print("Lightdm icon and theme settings saved successfully")
+        else:
+            print("Lightdm icon and theme is still empty")
+            Functions.show_in_app_notification(self, "You need to select the cursor and the theme first")
 
     def on_click_install_arco_lightdmgreeter(self, widget):
         if Functions.os.path.isfile(Functions.lightdm_greeter_arco):
@@ -1799,7 +1849,7 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.lightdm_conf + ".bak",
                                   Functions.lightdm_conf)
 
-        if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf), "autologin-user="):  # noqa
+        if "#" in lightdm.check_lightdm(Functions.get_lines(Functions.lightdm_conf), "autologin-user="):  # noqa
             self.autologin.set_active(False)
         else:
             self.autologin.set_active(True)
@@ -1807,7 +1857,7 @@ class Main(Gtk.Window):
         print("Lightdm default settings reset")
         Functions.show_in_app_notification(self, "Default Settings Applied")
 
-    def on_autologin_activated(self, widget, gparam):
+    def on_autologin_lightdm_activated(self, widget, gparam):
         if widget.get_active():
             command = 'groupadd autologin'
             try:
@@ -1819,16 +1869,17 @@ class Main(Gtk.Window):
                     print(e)
 
             #print("We added the group autologin or checked that it exists")
-            self.sessions.set_sensitive(True)
+            self.sessions_lightdm.set_sensitive(True)
         else:
-            self.sessions.set_sensitive(False)
+            self.sessions_lightdm.set_sensitive(False)
 
     def on_click_att_lightdm_clicked(self, desktop):
-        command = 'pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
+        Functions.install_package(self,"lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings" )
+        # command = 'pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm'
+        # Functions.subprocess.call(command.split(" "),
+        #                 shell=False,
+        #                 stdout=Functions.subprocess.PIPE,
+        #                 stderr=Functions.subprocess.STDOUT)
         print("We installed lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings")
         print("--------------------------------------------")
         print("Do not forget to enable Lightdm")
@@ -1838,50 +1889,117 @@ class Main(Gtk.Window):
         Functions.restart_program()
 
     def on_click_lightdm_enable(self, desktop):
-        command = 'systemctl enable lightdm.service -f'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("Lightdm has been enabled - reboot")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been enabled - reboot")
+        Functions.enable_login_manager(self, "lightdm")
 
-    def on_click_lightdm_slick(self, desktop):
-        self.on_click_lightdm_enable(desktop)
-        command = '/usr/share/archlinux-tweak-tool/data/any/archlinux-lightdm-slickgreeter'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("Lightdm slickgreeter has been installed and enabled (or removed and disabled) - reboot")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm-slickgreeter installed or removed - Reboot now")
+    def on_click_install_slick_greeter(self, desktop):
+        Functions.install_package(self,"lightdm-slick-greeter")
+        Functions.enable_slick_greeter(self)
+
+    def on_click_remove_slick_greeter(self, desktop):
+        Functions.remove_package(self,"lightdm-slick-greeter")
+        Functions.disable_slick_greeter(self)
 
     #====================================================================
     #                        LXDM
     #====================================================================
 
     def on_click_install_lxdm(self, desktop):
-        command = 'pacman -S lxdm --noconfirm'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("We installed Lxdm")
+        Functions.install_package(self,"lxdm")
+        #command = 'pacman -S lxdm --noconfirm'
+        # Functions.subprocess.call(command.split(" "),
+        #                 shell=False,
+        #                 stdout=Functions.subprocess.PIPE,
+        #                 stderr=Functions.subprocess.STDOUT)
+        # print("We installed Lxdm")
         print("--------------------------------------------")
         print("Do not forget to enable Lxdm")
         print("--------------------------------------------")
-
-        GLib.idle_add(Functions.show_in_app_notification, self, "Lxdm has been installed but not enabled")
         Functions.restart_program()
 
     def on_click_lxdm_enable(self, desktop):
-        command = 'systemctl enable lxdm.service -f'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("Lxdm has been enabled - reboot")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Lxdm has been enabled - reboot")
+        Functions.enable_login_manager(self, "lxdm")
+        # command = 'systemctl enable lxdm.service -f'
+        # Functions.subprocess.call(command.split(" "),
+        #                 shell=False,
+        #                 stdout=Functions.subprocess.PIPE,
+        #                 stderr=Functions.subprocess.STDOUT)
+        # print("Lxdm has been enabled - reboot")
+        # GLib.idle_add(Functions.show_in_app_notification, self, "Lxdm has been enabled - reboot")
+
+    def on_autologin_lxdm_activated(self, widget, gparam):
+        if widget.get_active():
+            command = 'groupadd autologin'
+            try:
+                Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            except Exception as e:
+                    print(e)
+
+    def on_click_install_att_lxdm_minimalo(self,widget):
+        Functions.install_arco_package(self,"arcolinux-lxdm-theme-minimalo-git")
+        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+
+    def on_click_remove_att_lxdm_minimalo(self,widget):
+        Functions.remove_package(self,"arcolinux-lxdm-theme-minimalo-git")
+        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+
+    def on_click_install_lxdm_themes(self,widget):
+        Functions.install_arco_package(self,"lxdm-themes")
+        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+
+    def on_click_remove_lxdm_themes(self,widget):
+        Functions.remove_package(self,"lxdm-themes")
+        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+
+    def on_click_lxdm_reset(self, widget):
+        if Functions.os.path.isfile(Functions.lxdm_conf + ".bak"):
+            Functions.shutil.copy(Functions.lxdm_conf + ".bak",
+                                  Functions.lxdm_conf)
+
+        if "#" in lxdm.check_lxdm(Functions.get_lines(Functions.lxdm_conf), "autologin="):  # noqa
+            self.autologin_lxdm.set_active(False)
+        else:
+            self.autologin_lxdm.set_active(True)
+
+        print("Lxdm default settings applied")
+        Functions.show_in_app_notification(self, "Lxdm default settings applied")
+        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+        lxdm.pop_gtk_theme_names_lxdm(self, self.lxdm_gtk_theme)
+
+    def on_click_lxdm_apply(self, widget):
+        if (self.lxdm_gtk_theme.get_active_text() is not None and self.lxdm_theme_greeter.get_active_text() is not None):
+            t1 = Functions.threading.Thread(target=lxdm.set_lxdm_value,
+                                            args=(self,
+                                                Functions.get_lines(Functions.lxdm_conf),  # noqa
+                                                Functions.sudo_username,
+                                                self.lxdm_gtk_theme.get_active_text(),
+                                                self.lxdm_theme_greeter.get_active_text(),
+                                                self.autologin_lxdm.get_active(),
+                                                self.panel_lxdm.get_active()))
+            t1.daemon = True
+            t1.start()
+            print("Lxdm autologin and other session settings saved successfully")
+        else:
+            print("Select all elements - none can be empty")
+            Functions.show_in_app_notification(self, "You need to select all elements first")
+        # else:
+        #     print("Select the desktop to autologin")
+        #     Functions.show_in_app_notification(self, "Need to select desktop first")
+
+        # if (self.gtk_theme_names.get_active_text() is not None) and self.gtk_icon_names.get_active_text() is not None:
+        #     t1 = Functions.threading.Thread(target=lightdm.set_lightdm_icon_theme,
+        #                                     args=(self,
+        #                                         Functions.get_lines(Functions.lightdm_greeter),
+        #                                         self.gtk_theme_names.get_active_text(),
+        #                                         self.gtk_icon_names.get_active_text()))
+        #     t1.daemon = True
+        #     t1.start()
+        #     print("Lightdm icon and theme settings saved successfully")
+        # else:
+        #     print("Lightdm icon and theme is still empty")
+        #     Functions.show_in_app_notification(self, "You need to select the cursor and the theme first")
 
     #====================================================================
     #                        NEOFETCH CONFIG
@@ -2498,11 +2616,11 @@ class Main(Gtk.Window):
         if (self.sessions_sddm.get_active_text() is not None \
             and self.theme_sddm.get_active_text() is not None \
             and self.autologin_sddm.get_active() is True \
-            and self.cbt_cursor_themes.get_active_text() is not None) \
+            and self.sddm_cursor_themes.get_active_text() is not None) \
             or \
             (self.autologin_sddm.get_active() is False \
             and self.theme_sddm.get_active_text() is not None \
-            and self.cbt_cursor_themes.get_active_text() is not None) :
+            and self.sddm_cursor_themes.get_active_text() is not None) :
 
             if os.path.isfile(Functions.sddm_default_d2):
                 t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
@@ -2512,7 +2630,7 @@ class Main(Gtk.Window):
                                                     self.sessions_sddm.get_active_text(),
                                                     self.autologin_sddm.get_active(),
                                                     self.theme_sddm.get_active_text(),
-                                                    self.cbt_cursor_themes.get_active_text()))
+                                                    self.sddm_cursor_themes.get_active_text()))
                 t1.daemon = True
                 t1.start()
 
@@ -2656,7 +2774,7 @@ class Main(Gtk.Window):
                 print("We installed the Bibata cursors")
                 GLib.idle_add(Functions.show_in_app_notification, self, "Bibata cursors have been installed")
                 #sddm.pop_theme_box(self, self.theme_sddm)
-                sddm.pop_cursor_box(self, self.cbt_cursor_themes)
+                sddm.pop_cursor_box(self, self.sddm_cursor_themes)
             else:
                 print("Activate the ArcoLinux repos")
                 GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
@@ -2673,7 +2791,7 @@ class Main(Gtk.Window):
         print("We removed the Bibata cursors")
         GLib.idle_add(Functions.show_in_app_notification, self, "Bibata cursors have been removed")
         sddm.pop_theme_box(self, self.theme_sddm)
-        sddm.pop_cursor_box(self, self.cbt_cursor_themes)
+        sddm.pop_cursor_box(self, self.sddm_cursor_themes)
 
     def on_click_install_bibatar_cursor(self,widget):
         if os.path.isfile(Functions.arcolinux_mirrorlist):
@@ -2686,7 +2804,7 @@ class Main(Gtk.Window):
                 print("We installed the Bibata extra cursors")
                 GLib.idle_add(Functions.show_in_app_notification, self, "Bibata extra cursors have been installed")
                 sddm.pop_theme_box(self, self.theme_sddm)
-                sddm.pop_cursor_box(self, self.cbt_cursor_themes)
+                sddm.pop_cursor_box(self, self.sddm_cursor_themes)
             else:
                 print("Activate the ArcoLinux repos")
                 GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
@@ -2703,7 +2821,7 @@ class Main(Gtk.Window):
         print("We removed the Bibata extra cursors")
         GLib.idle_add(Functions.show_in_app_notification, self, "Bibata extra cursors have been removed")
         sddm.pop_theme_box(self, self.theme_sddm)
-        sddm.pop_cursor_box(self, self.cbt_cursor_themes)
+        sddm.pop_cursor_box(self, self.sddm_cursor_themes)
 
     #if no sddm - press 1
     def on_click_att_sddm_clicked(self, desktop):
@@ -2745,13 +2863,14 @@ class Main(Gtk.Window):
         Functions.restart_program()
 
     def on_click_sddm_enable(self, desktop):
-        command = 'systemctl enable sddm.service -f'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("We enabled sddm.service")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been enabled - reboot")
+        Functions.enable_login_manager(self, "sddm")
+        # command = 'systemctl enable sddm.service -f'
+        # Functions.subprocess.call(command.split(" "),
+        #                 shell=False,
+        #                 stdout=Functions.subprocess.PIPE,
+        #                 stderr=Functions.subprocess.STDOUT)
+        # print("We enabled sddm.service")
+        # GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been enabled - reboot")
 
     def on_launch_adt_clicked(self, desktop):
         Functions.install_adt(self)
@@ -3487,8 +3606,6 @@ class Main(Gtk.Window):
         else:
             Functions.set_login_wallpaper(self,
                                      self.login_wallpaper_path)
-            print("Setting wallpaper")
-            Functions.show_in_app_notification(self, "Setting wallpaper")
 
     def on_install_att_backgrounds(self,widget):
         Functions.install_archlinux_login_backgrounds(self,widget)

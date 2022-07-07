@@ -342,10 +342,10 @@ Be patient if it is the first time you install the theme or use the scripts to i
     #                       PACK TO STACK
     # ==================================================================
 
-    stack.add_titled(vboxStack1, "stack1", "I3WM")
-    stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
-    stack.add_titled(vboxStack3, "stack3", "Qtile")
+    stack.add_titled(vboxStack2, "stack2", "Awesome")
+    stack.add_titled(vboxStack1, "stack1", "I3")
     stack.add_titled(vboxStack4, "stack4", "Leftwm")
+    stack.add_titled(vboxStack3, "stack3", "Qtile")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)

@@ -2,80 +2,107 @@
 # =             Author: Brad Heffernan Erik Dubois                =
 # =================================================================
 
-import Functions
+import Functions as fn
 from Functions import GLib
+import os
 
-# def check_lightdm(lists, value):
-#     if Functions.os.path.isfile(Functions.lightdm_conf):
-#         try:
-#             pos = Functions._get_position(lists, value)
-#             val = lists[pos].strip()
-#             return val
-#         except Exception as e:
-#             print(e)
+def check_lxdm(lists, value):
+    if fn.os.path.isfile(fn.lxdm_conf):
+        try:
+            pos = fn._get_position(lists, value)
+            val = lists[pos].strip()
+            return val
+        except Exception as e:
+            print(e)
 
-# def set_lightdm_value(self, lists, value, session, state):
-#     if Functions.os.path.isfile(Functions.lightdm_conf):
-#         try:
-#             com = Functions.subprocess.run(["sh", "-c", "su - " + Functions.sudo_username + " -c groups"], shell=False, stdout=Functions.subprocess.PIPE)
-#             groups = com.stdout.decode().strip().split(" ")
-#             # print(groups)
-#             if "autologin" not in groups:
-#                 Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "autologin"], shell=False)
+def check_lxdm_last(lists, value):
+    if fn.os.path.isfile(fn.lxdm_conf):
+        try:
+            pos = fn._get_positions(lists, value)
+            pos = pos[-1]
+            val = lists[pos].strip()
+            return val
+        except Exception as e:
+            print(e)
 
-#             pos = Functions._get_position(lists, "autologin-user=")
-#             pos_session = Functions._get_position(lists, "autologin-session=")
+def set_lxdm_value(self, lists, username, gtk_theme, lxdm_theme, state, pane):
+    if fn.os.path.isfile(fn.lxdm_conf):
+        try:
+            fn.add_autologin_group(self)
+            pos = fn._get_position(lists, "autologin=")
+            pos_gtk_theme = fn._get_position(lists, "gtk_theme=")
+            lxdm_list = fn._get_positions(lists, "theme=")
+            #get last instance
+            lxdm =lxdm_list[-1]
+            bot = fn._get_position(lists, "bottom_pane=")
 
-#             if state:
-#                 lists[pos] = "autologin-user=" + value + "\n"
-#                 lists[pos_session] = "autologin-session=" + session + "\n"
-#             else:
-#                 if "#" not in lists[pos]:
-#                     lists[pos] = "#" + lists[pos]
-#                     lists[pos_session] = "#" + lists[pos_session]
+            if state:
+                lists[pos] = "autologin=" + username + "\n"
+            else:
+                if "#" not in lists[pos]:
+                    lists[pos] = "#" + lists[pos]
 
-#             with open(Functions.lightdm_conf, "w") as f:
-#                 f.writelines(lists)
-#                 f.close()
+            lists[pos_gtk_theme] = "gtk_theme=" + gtk_theme + "\n"
 
-#             GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
+            lists[lxdm] = "theme=" + lxdm_theme + "\n"
 
-#             # GLib.idle_add(Functions.MessageBox,self, "Success!!", "Settings applied successfully")
-#         except Exception as e:
-#             print(e)
-#             Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_lightdm_value\"")
+            if pane:
+                #at bottom
+                lists[bot] = "bottom_pane=1" + "\n"
+            else:
+                #at top
+                lists[bot] = "bottom_pane=0" + "\n"
 
+            with open(fn.lxdm_conf, "w") as f:
+                f.writelines(lists)
+                f.close()
 
-# def get_lines(files):
-#     try:
-#         if Functions.os.path.isfile(files):
-#             with open(files, "r", encoding="utf-8") as f:
-#                 lines = f.readlines()
-#                 f.close()
-#             return lines
-#     except Exception as e:
-#         print(e)
+            GLib.idle_add(fn.show_in_app_notification, self, "Settings Saved Successfully")
 
-# def pop_box(self, combo):
-#     coms = []
-#     combo.get_model().clear()
+            # GLib.idle_add(fn.MessageBox,self, "Success!!", "Settings applied successfully")
+        except Exception as e:
+            print(e)
+            fn.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_lxdm_value\"")
 
-#     if Functions.os.path.isfile(Functions.lightdm_conf):
-#         for items in Functions.os.listdir("/usr/share/xsessions/"):
-#             coms.append(items.split(".")[0].lower())
-#         lines = get_lines(Functions.lightdm_conf)
+def pop_gtk_theme_names_lxdm(self, combo):
+    coms = []
+    combo.get_model().clear()
 
-#         # pos = Functions._get_position(lines, "user-session=")
-#         name = check_lightdm(lines, "autologin-session=").split("=")[1]
+    if fn.os.path.isfile(fn.lxdm_conf):
+        for item in fn.os.listdir("/usr/share/themes/"):
+            if fn.file_check("/usr/share/themes/" + item + "/index.theme"):
+                coms.append(item)
+                coms.sort()
+        #print(coms)
+        lines = fn.get_lines(fn.lxdm_conf)
 
-#         # if name == "":
-#         #     name = check_lightdm(lines, "user-session=").split("=")[1]
+        #pos = fn._get_position(lines, "gtk_theme=")
+        theme_name = check_lxdm(lines, "gtk_theme=").split("=")[1]
 
-#         coms.sort()
-#         for i in range(len(coms)):
-#             excludes = ['gnome-classic', 'gnome-xorg', 'i3-with-shmlog', 'openbox-kde', 'cinnamon2d', '']
-#             if not coms[i] in excludes:
-#                 combo.append_text(coms[i])
-#                 if name.lower() == coms[i].lower():
-#                     # print("Name = " + name)
-#                     combo.set_active(i)
+        for i in range(len(coms)):
+            combo.append_text(coms[i])
+            #TODO
+            if theme_name.lower() == coms[i].lower():
+                # print("Name = " + name)
+                combo.set_active(i)
+
+def pop_lxdm_theme_greeter(self, combo):
+    coms = []
+    combo.get_model().clear()
+
+    if os.path.exists("/usr/share/lxdm/themes") and os.path.exists(fn.lxdm_conf):
+        for items in fn.os.listdir("/usr/share/lxdm/themes/"):
+            #coms.append(items.split(".")[0].lower())
+            coms.append(items)
+
+        lines = fn.get_lines(fn.lxdm_conf)
+        name = check_lxdm_last(lines, "theme=").split("=")[1]
+
+        coms.sort()
+        for i in range(len(coms)):
+            #excludes = ['maya', 'maldives', 'elarun', '']
+            #if not coms[i] in excludes:
+            combo.append_text(coms[i])
+            #TODO:select second find
+            if name.lower() == coms[i].lower():
+                combo.set_active(i)

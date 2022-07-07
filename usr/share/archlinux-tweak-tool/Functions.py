@@ -66,6 +66,7 @@ lightdm_greeter_arco = "/usr/share/archlinux-tweak-tool/data/any/lightdm-gtk-gre
 lightdm_greeter = "/etc/lightdm/lightdm-gtk-greeter.conf"
 lightdm_slick_greeter = "/etc/lightdm/slick-greeter.conf"
 lightdm_conf = "/etc/lightdm/lightdm.conf"
+lxdm_conf = "/etc/lxdm/lxdm.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
@@ -213,6 +214,16 @@ leftwm_themes_list= ["arise",
 # =====================================================
 #               BEGIN GLOBAL FUNCTIONS
 # =====================================================
+
+def get_lines(files):
+    try:
+        if os.path.isfile(files):
+            with open(files, "r", encoding="utf-8") as f:
+                lines = f.readlines()
+                f.close()
+            return lines
+    except Exception as e:
+        print(e)
 
 # get position in list
 def _get_position(lists, value):
@@ -441,6 +452,89 @@ def check_arco_repos_active():
             else:
                 return True
 
+def install_package(self, package):
+    command = 'pacman -S ' + package + ' --noconfirm --needed'
+    if check_package_installed(package):
+        print(package + " is already installed - nothing to do")
+        GLib.idle_add(show_in_app_notification,self,package + " is already installed - nothing to do")
+        pass
+    else :
+        try:
+            print(command)
+            subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+            print(package + " is now installed")
+            GLib.idle_add(show_in_app_notification,self,package + " is now installed")
+        except Exception as e:
+            print(e)
+
+def install_arco_package(self, package):
+    if check_arco_repos_active():
+        command = 'pacman -S ' + package + ' --noconfirm --needed'
+        if check_package_installed(package):
+            print(package + " is already installed - nothing to do")
+            GLib.idle_add(show_in_app_notification,self,package + " is already installed - nothing to do")
+            pass
+        else :
+            try:
+                print(command)
+                subprocess.call(command.split(" "),
+                                shell=False,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+                print(package + " is now installed")
+                GLib.idle_add(show_in_app_notification,self,package + " is now installed")
+            except Exception as e:
+                print(e)
+    else:
+        print("You need to activate the ArcoLinux repos")
+        print("Check the pacman tab of the ArchLinux Tweak Tool")
+        print("and/or the content of /etc/pacman.conf")
+        GLib.idle_add(show_in_app_notification,self,"You need to activate the ArcoLinux repos")
+
+def remove_package(self, package):
+    command = 'pacman -R ' + package + ' --noconfirm'
+    if check_package_installed(package):
+        print(command)
+        try:
+            subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+            print(package + " is now removed")
+            GLib.idle_add(show_in_app_notification,self,package + " is now removed")
+        except Exception as e:
+            print(e)
+    else :
+        print(package + " is already removed")
+        GLib.idle_add(show_in_app_notification,self,package + " is already removed")
+        pass
+
+def enable_login_manager(self, loginmanager):
+    if check_package_installed(loginmanager):
+        try:
+            command = 'systemctl enable ' + loginmanager + '.service -f'
+            print(command)
+            subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+            print(loginmanager + " has been enabled - reboot")
+            GLib.idle_add(show_in_app_notification, self, loginmanager + " has been enabled - reboot")
+        except Exception as e:
+            print(e)
+    else:
+        print(loginmanager + " is not installed")
+        GLib.idle_add(show_in_app_notification, self, loginmanager + " is not installed")
+
+def add_autologin_group(self):
+    com = subprocess.run(["sh", "-c", "su - " + sudo_username + " -c groups"], shell=False, stdout=subprocess.PIPE)
+    groups = com.stdout.decode().strip().split(" ")
+    # print(groups)
+    if "autologin" not in groups:
+        subprocess.run(["gpasswd", "-a", sudo_username, "autologin"], shell=False)
 # =====================================================
 #               ALACRITTY
 # =====================================================
@@ -581,6 +675,8 @@ def change_distro_label(name):      # noqa
         name = "AmOs"
     if name == "archcraft":
         name = "Archcraft"
+    if name == "cachyos":
+        name = "CachyOS"
     return name
 
 # =====================================================
@@ -682,31 +778,57 @@ def set_grub_wallpaper(self, image):
             pass
 
 def set_login_wallpaper(self, image):
-    if os.path.isfile(sddm_default_d2):
-        try:
-            with open(sddm_default_d2, "r", encoding="utf-8") as f:
-                lists = f.readlines()
-                f.close()
-            val = _get_position(lists, "Current=")
-            theme = lists[val].strip('\n').split("=")[1]
-        except:
-            pass
-
-        if not os.path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
+    #if sddm
+    print("Login manager : " + self.login_managers_combo.get_active_text())
+    if self.login_managers_combo.get_active_text() == "sddm":
+        if os.path.isfile(sddm_default_d2):
             try:
-                with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w") as f:
-                    f.write("[General]\n")
-                    f.write("background=\n")
-                    f.write("type=image\n")
+                with open(sddm_default_d2, "r", encoding="utf-8") as f:
+                    lists = f.readlines()
                     f.close()
-                print("Created theme.conf.user")
+                val = _get_position(lists, "Current=")
+                theme = lists[val].strip('\n').split("=")[1]
             except:
                 pass
 
-        if os.path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
+            if not os.path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
+                try:
+                    with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w") as f:
+                        f.write("[General]\n")
+                        f.write("background=\n")
+                        f.write("type=image\n")
+                        f.close()
+                    print("Created theme.conf.user for " + theme)
+                except:
+                    pass
+
+            if os.path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
+                try:
+                    print("This is your current theme: " + theme)
+                    with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "r", encoding="utf-8") as f:
+                        lists = f.readlines()
+                        f.close()
+
+                    val = _get_position(lists, "background=")
+                    lists[val] = "background=" + image + "\n"
+                    print(lists[val])
+
+                    with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w") as f:
+                        f.writelines(lists)
+                        f.close()
+                    print("Login wallpaper saved")
+                    show_in_app_notification(self, "Login wallpaper saved")
+                except:
+                    pass
+        else:
+            print("There is no /etc/sddm.conf.d/kde_settings.conf")
+            show_in_app_notification(self, "Use the ATT sddm configuration")
+
+    #if lightdm
+    if self.login_managers_combo.get_active_text() == "lightdm":
+        if os.path.isfile(lightdm_greeter):
             try:
-                print("This is your current theme: " + theme)
-                with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "r", encoding="utf-8") as f:
+                with open(lightdm_greeter, "r", encoding="utf-8") as f:
                     lists = f.readlines()
                     f.close()
 
@@ -714,16 +836,60 @@ def set_login_wallpaper(self, image):
                 lists[val] = "background=" + image + "\n"
                 print(lists[val])
 
-                with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w") as f:
+                with open(lightdm_greeter, "w", encoding="utf-8") as f:
                     f.writelines(lists)
                     f.close()
-                print("Login wallpaper saved")
+                print("Login wallpaper saved to /etc/lightdm/lightdm-gtk-greeter.conf")
                 show_in_app_notification(self, "Login wallpaper saved")
             except:
                 pass
-    else:
-        print("There is no /etc/sddm.conf.d/kde_settings.conf")
-        show_in_app_notification(self, "Use the ATT sddm configuration")
+        else:
+            print("There is no /etc/lightdm/lightdm-gtk-greeter.conf")
+            show_in_app_notification(self, "There is no /etc/lightdm/lightdm-gtk-greeter.conf")
+
+        if os.path.isfile(lightdm_slick_greeter):
+            try:
+                with open(lightdm_slick_greeter, "r", encoding="utf-8") as f:
+                    lists = f.readlines()
+                    f.close()
+
+                val = _get_position(lists, "background=")
+                lists[val] = "background=" + image + "\n"
+                print(lists[val])
+
+                with open(lightdm_slick_greeter, "w", encoding="utf-8") as f:
+                    f.writelines(lists)
+                    f.close()
+                print("Login wallpaper saved to /etc/lightdm/slick-greeter.conf")
+                show_in_app_notification(self, "Login wallpaper saved")
+            except:
+                pass
+        else:
+            print("There is no /etc/lightdm/lightdm-gtk-greeter.conf")
+            show_in_app_notification(self, "There is no /etc/lightdm/lightdm-gtk-greeter.conf")
+
+    #if lxdm
+    if self.login_managers_combo.get_active_text() == "lxdm":
+        if os.path.isfile(lxdm_conf):
+            try:
+                with open(lxdm_conf, "r", encoding="utf-8") as f:
+                    lists = f.readlines()
+                    f.close()
+
+                val = _get_position(lists, "bg=")
+                lists[val] = "bg=" + image + "\n"
+                print(lists[val])
+
+                with open(lxdm_conf, "w", encoding="utf-8") as f:
+                    f.writelines(lists)
+                    f.close()
+                print("Login wallpaper saved to /etc/lxdm/lxdm.conf")
+                show_in_app_notification(self, "Login wallpaper saved")
+            except:
+                pass
+        else:
+            print("There is no /etc/lxdm/lxdm.conf")
+            show_in_app_notification(self, "There is no /etc/lxdm/lxdm.conf")
 
 def reset_login_wallpaper(self, image):
     if os.path.isfile(sddm_default_d2):
@@ -813,6 +979,13 @@ def set_default_theme(self):
             if distro.id() == "archcraft":
                 try:
                     val = _get_position(grubd, 'GRUB_THEME="/boot/grub/themes/archcraft/theme.txt"')
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                   pass
+
+            if distro.id() == "cachyos":
+                try:
+                    val = _get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                    pass
@@ -943,6 +1116,42 @@ def set_hblock(self, toggle, state):
         print(e)
 
 # =====================================================
+#               LIGHTDM SLICK GREETER
+# =====================================================
+
+def enable_slick_greeter(self):
+    if os.path.isfile(lightdm_conf):
+        try:
+            with open(lightdm_conf, "r", encoding="utf-8") as f:
+                lists = f.readlines()
+                f.close()
+
+            val = _get_position(lists, "#greeter-session=example-gtk-gnome")
+            lists[val] = "greeter-session=lightdm-slick-greeter" + "\n"
+
+            with open(lightdm_conf, "w") as f:
+                f.writelines(lists)
+                f.close()
+        except Exception as e:
+            print(e)
+
+def disable_slick_greeter(self):
+    if os.path.isfile(lightdm_conf):
+        try:
+            with open(lightdm_conf, "r", encoding="utf-8") as f:
+                lists = f.readlines()
+                f.close()
+
+            val = _get_position(lists, "greeter-session=lightdm-slick-greeter")
+            lists[val] = "#greeter-session=example-gtk-gnome" + "\n"
+
+            with open(lightdm_conf, "w") as f:
+                f.writelines(lists)
+                f.close()
+        except Exception as e:
+            print(e)
+
+# =====================================================
 #               LOG FILE CREATION
 # =====================================================
 
@@ -982,6 +1191,35 @@ def get_login_wallpapers():
 
         new_list.sort()
         return new_list
+
+# =====================================================
+#               LXDM
+# =====================================================
+
+
+
+def install_att_lxdm_theme_minimalo(self):
+    install = 'pacman -S arcolinux-lxdm-theme-minimalo-git --noconfirm --needed'
+    try:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Arcolinux-lxdm-theme-minimalo-git is now installed")
+    except Exception as e:
+        print(e)
+
+def remove_att_lxdm_theme_minimalo(self):
+    install = 'pacman -R arcolinux-lxdm-theme-minimalo-git --noconfirm'
+
+    try:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Arcolinux-lxdm-theme-minimalo-git is now removed")
+    except Exception as e:
+        print(e)
 
 # =====================================================
 #               MESSAGEBOX
