@@ -181,6 +181,20 @@ class Main(Gtk.Window):
             except Exception as e:
                 print(e)
 
+        if os.path.exists("/usr/bin/sddm"):
+            #if any of the variables are missing we copy/paste
+            if sddm.check_sddmk_complete(self):
+                pass
+            else:
+                Functions.create_sddm_k_dir()
+                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
+                                        Functions.sddm_default_d1)
+                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
+                                        Functions.sddm_default_d2)
+                print("We changed your sddm configuration files so that ATT could start")
+                print("Backups are at /etc/backup-kde_settings.conf and /etc/backup-sddm.conf")
+                GLib.idle_add(Functions.show_in_app_notification, self, "We had to change your sddm configuration files")
+
         # =====================================================
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
         # =====================================================
@@ -2873,10 +2887,13 @@ class Main(Gtk.Window):
         # GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been enabled - reboot")
 
     def on_launch_adt_clicked(self, desktop):
-        Functions.install_adt(self)
-        subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
-        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched")
-        print("We started ADT")
+        Functions.install_arco_package(self,"arcolinux-desktop-trasher-git")
+        try:
+            subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
+            GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched")
+            print("We started ADT")
+        except Exception as e:
+                pass
 
     def on_refresh_att_clicked(self, desktop):
         Functions.restart_program()

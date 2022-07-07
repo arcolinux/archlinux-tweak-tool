@@ -76,14 +76,15 @@ def pop_gtk_theme_names_lxdm(self, combo):
         #print(coms)
         lines = fn.get_lines(fn.lxdm_conf)
 
-        #pos = fn._get_position(lines, "gtk_theme=")
-        theme_name = check_lxdm(lines, "gtk_theme=").split("=")[1]
+        try:
+            theme_name = check_lxdm(lines, "gtk_theme=").split("=")[1]
+        except IndexError:
+            theme_name = ""
+            pass
 
         for i in range(len(coms)):
             combo.append_text(coms[i])
-            #TODO
             if theme_name.lower() == coms[i].lower():
-                # print("Name = " + name)
                 combo.set_active(i)
 
 def pop_lxdm_theme_greeter(self, combo):
@@ -96,7 +97,11 @@ def pop_lxdm_theme_greeter(self, combo):
             coms.append(items)
 
         lines = fn.get_lines(fn.lxdm_conf)
-        name = check_lxdm_last(lines, "theme=").split("=")[1]
+        try:
+            name = check_lxdm_last(lines, "theme=").split("=")[1]
+        except IndexError:
+            name = ""
+            pass
 
         coms.sort()
         for i in range(len(coms)):

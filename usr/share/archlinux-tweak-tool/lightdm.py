@@ -107,10 +107,19 @@ def pop_box_sessions_lightdm(self, combo):
         try:
             name = check_lightdm(lines, "autologin-session=").split("=")[1]
         except IndexError:
-            name = None
+            name = ""
             pass
 
+        if 'i3-with-shmlog' in coms:
+            coms.remove('i3-with-shmlog')
+        if 'openbox-kde' in coms:
+            coms.remove('openbox-kde')
+        if 'cinnamon2d' in coms:
+            coms.remove('cinnamon2d')
+        if 'icewm-session' in coms:
+            coms.remove('icewm-session')
         coms.sort()
+
         for i in range(len(coms)):
             #TODO
             #excludes = ['gnome-classic', 'gnome-xorg', 'i3-with-shmlog', 'openbox-kde', 'cinnamon2d', '']
@@ -135,7 +144,7 @@ def pop_gtk_theme_names_lightdm(self, combo):
         try:
             theme_name = check_lightdm_greeter(lines, "theme-name=").split("=")[1]
         except IndexError:
-            theme_name = None
+            theme_name = ""
             pass
 
         coms.sort()
@@ -160,7 +169,7 @@ def pop_gtk_icon_names_lightdm(self, combo):
         try:
             icon_theme_name = check_lightdm(lines, "icon-theme-name=").split("=")[1]
         except IndexError:
-            icon_theme_name = None
+            icon_theme_name = ""
             pass
 
         coms.sort()

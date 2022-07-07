@@ -570,21 +570,6 @@ def install_alacritty_themes(self):
         print("Alacritty-themes is now installed")
 
 # =====================================================
-#               ARCOLINUX-DESKTOP-TRASHER
-# =====================================================
-
-def install_adt(self):
-    install = 'pacman -S arcolinux-desktop-trasher-git --noconfirm'
-
-    if os.path.exists("/usr/local/bin/arcolinux-desktop-trasher"):
-        pass
-    else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-
-# =====================================================
 #                    BASH
 # =====================================================
 

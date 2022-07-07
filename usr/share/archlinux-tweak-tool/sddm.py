@@ -6,6 +6,39 @@ import Functions as fn
 from Functions import GLib
 import os
 
+def check_sddmk_complete(self):
+    with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+        f.close()
+    flag_a = False
+    flag_s = False
+    flag_u = False
+    flag_t = False
+    flag_c = False
+    flag_ct = False
+    flag_f = False
+
+    for line in lines:
+        if "[Autologin]" in line:
+            flag_a = True
+        if "Session=" in line:
+            flag_s = True
+        if "User=" in line:
+            flag_u = True
+        if "[Theme]" in line:
+            flag_t = True
+        if "Current=" in line:
+            flag_c = True
+        if "CursorTheme=" in line:
+            flag_ct = True
+        if "Font=" in line:
+            flag_f = True
+
+    if flag_a and flag_s and flag_u and flag_t and flag_c and flag_ct and flag_f:
+        return True
+    else:
+        return False
+
 def check_sddmk_session(value):
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
@@ -140,7 +173,11 @@ def pop_box(self, combos):
         comss.append(items.split(".")[0].lower())
     lines = get_sddm_lines(fn.sddm_default_d2)
 
-    name = check_sddm(lines, "Session=").split("=")[1]
+    try:
+        name = check_sddm(lines, "Session=").split("=")[1]
+    except IndexError:
+        name = ""
+        pass
 
     comss.sort()
     if 'i3-with-shmlog' in comss:
@@ -167,7 +204,11 @@ def pop_theme_box(self, combo):
             coms.append(items.split(".")[0])
         lines = get_sddm_lines(fn.sddm_default_d2)
 
-        name = check_sddm(lines, "Current=").split("=")[1]
+        try:
+            name = check_sddm(lines, "Current=").split("=")[1]
+        except IndexError:
+            name = ""
+            pass
 
         coms.sort()
         for i in range(len(coms)):
@@ -176,157 +217,6 @@ def pop_theme_box(self, combo):
             combo.append_text(coms[i])
             if name.lower() == coms[i].lower():
                 combo.set_active(i)
-
-# def pop_cursor_box(self, combo):
-#     coms = []
-#     com1 = []
-#     com2 = []
-#     combo.get_model().clear()
-
-#     if fn.check_package_installed("bibata-cursor-theme-bin"):
-#         com1 = ["Bibata-Modern-Amber",
-#                 "Bibata-Modern-Classic",
-#                 "Bibata-Modern-Ice",
-#                 "Bibata-Original-Amber",
-#                 "Bibata-Original-Classic",
-#                 "Bibata-Original-Ice"]
-#         coms = com1
-
-#     if fn.check_package_installed("breeze-icons"):
-#         com2 = ["Breeze-Snow","breeze_cursors"]
-#         coms = coms + com2
-
-#     if fn.check_package_installed("sweet-cursor-theme-git"):
-#         com3 = ["Sweet-cursors"]
-#         coms = coms + com3
-
-#     if fn.check_package_installed("adwaita-icon-theme"):
-#         com4 = ["Adwaita"]
-#         coms = coms + com4
-
-#     if fn.check_package_installed("eos-qogir-theme"):
-#         com5 = ["Qogir-dark", "Qogir"]
-#         coms = coms + com5
-
-#     if fn.check_package_installed("qogir-icon-theme"):
-#         com6 = ["Qogir-manjaro", "Qogir-manjaro-dark", "Qogir-ubuntu", "Qogir-ubuntu-dark", "Qogir-dark", "Qogir"]
-#         coms = coms + com6
-
-#     if fn.check_package_installed("phinger-cursors"):
-#         com7 = ["phinger-cursors", "phinger-cursors-light"]
-#         coms = coms + com7
-
-#     if fn.check_package_installed("bibata-rainbow-cursor-theme"):
-#         com8 = ["Bibata-Rainbow-Modern",
-#                 "Bibata-Rainbow-Original"]
-#         coms = coms + com8
-
-#     if fn.check_package_installed("catppuccin-cursors-git"):
-#         com9 = ["Catppuccin-Blue-Cursors",
-#                 "Catppuccin-Dark-Cursors",
-#                 "Catppuccin-Flamingo-Cursors",
-#                 "Catppuccin-Green-Cursors",
-#                 "Catppuccin-Lavender-Cursors",
-#                 "Catppuccin-Maroon-Cursors",
-#                 "Catppuccin-Mauve-Cursors",
-#                 "Catppuccin-Peach-Cursors",
-#                 "Catppuccin-Pink-Cursors",
-#                 "Catppuccin-Red-Cursors",
-#                 "Catppuccin-Sky-Cursors",
-#                 "Catppuccin-Teal-Cursors",
-#                 "Catppuccin-Yellow-Cursors"]
-#         coms = coms + com9
-
-#     if fn.check_package_installed("paper-icon-theme"):
-#         com10 = ["paper"]
-#         coms = coms + com10
-
-#     if fn.check_package_installed("vimix-icon-theme-git"):
-#         com11 = ["Vimix",
-#                 "Vimix-Amethyst",
-#                 "Vimix-Amethyst-dark",
-#                 "Vimix-Beryl",
-#                 "Vimix-Beryl-dark",
-#                 "Vimix-Black",
-#                 "Vimix-Black-dark",
-#                 "Vimix-dark",
-#                 "Vimix-Doder",
-#                 "Vimix-Doder-dark",
-#                 "Vimix-Ruby",
-#                 "Vimix-Ruby-dark",
-#                 "Vimix-White",
-#                 "Vimix-White-dark"]
-#         coms = coms + com11
-
-#     if fn.check_package_installed("bibata-cursor-translucent"):
-#         com12 = ["Bibata_Ghost",
-#                 "Bibata_Spirit",
-#                 "Bibata_Tinted"]
-#         coms = coms + com12
-
-#     if fn.check_package_installed("bibata-extra-cursor-theme"):
-#         com13 = ["Bibata-Modern-DarkRed",
-#                 "Bibata-Modern-DodgerBlue",
-#                 "Bibata-Modern-Pink",
-#                 "Bibata-Modern-Turquoise",
-#                 "Bibata-Original-DarkRed",
-#                 "Bibata-Original-DodgerBlue",
-#                 "Bibata-Original-Pink",
-#                 "Bibata-Original-Turquoise"]
-#         coms = coms + com13
-
-#     if fn.distr == "archcraft":
-#         if fn.check_package_installed("archcraft-cursor-fluent"):
-#             com14 = ["Fluent","Fluent-dark"]
-#             coms = coms + com14
-
-#         if fn.check_package_installed("archcraft-cursor-future"):
-#             com15 = ["Future","Future-dark"]
-#             coms = coms + com15
-
-#         if fn.check_package_installed("archcraft-cursor-layan"):
-#             com16 = ["Layan"]
-#             coms = coms + com16
-
-#         if fn.check_package_installed("archcraft-cursor-lyra"):
-#             com17 = ["LyraB","LyraF","LyraP","LyraQ","LyraS","LyraY"]
-#             coms = coms + com17
-
-#         if fn.check_package_installed("archcraft-cursor-material"):
-#             com18 = ["Material","Material-dark"]
-#             coms = coms + com18
-
-#         if fn.check_package_installed("archcraft-cursor-pear"):
-#             com19 = ["Pear"]
-#             coms = coms + com19
-
-#         if fn.check_package_installed("archcraft-cursor-qogirr"):
-#             com20 = ["Qogirr","Qogirr-dark"]
-#             coms = coms + com20
-
-#         if fn.check_package_installed("archcraft-cursor-sweet"):
-#             com21 = ["Sweet"]
-#             coms = coms + com21
-
-#         if fn.check_package_installed("archcraft-cursor-vimix"):
-#             com22 = ["Vimix","Vimix-dark"]
-#             coms = coms + com22
-
-#     lines = get_sddm_lines(fn.sddm_default_d2)
-
-#     if (len(check_sddm(lines, "CursorTheme=").split("=")) != 1):
-#         name = check_sddm(lines, "CursorTheme=").split("=")[1]
-#     else:
-#         name = ""
-
-#     #coms.sort(key = lambda x: x.lower())
-#     coms.sort()
-#     for i in range(len(coms)):
-#         #excludes = ['maya', 'maldives', 'elarun', '']
-#         #if not coms[i] in excludes:
-#         combo.append_text(coms[i])
-#         if name.lower() == coms[i].lower():
-#             combo.set_active(i)
 
 def pop_gtk_cursor_names(self, combo):
     coms = []
@@ -341,7 +231,11 @@ def pop_gtk_cursor_names(self, combo):
         lines = fn.get_lines(fn.sddm_default_d2)
 
         pos = fn._get_position(lines, "CursorTheme=")
-        cursor_theme = check_sddm(lines, "CursorTheme=").split("=")[1]
+        try:
+            cursor_theme = check_sddm(lines, "CursorTheme=").split("=")[1]
+        except IndexError:
+            cursor_theme = ""
+            pass
 
         coms.sort()
         for i in range(len(coms)):
