@@ -455,8 +455,8 @@ def check_arco_repos_active():
 def install_package(self, package):
     command = 'pacman -S ' + package + ' --noconfirm --needed'
     if check_package_installed(package):
-        print(package + " is already installed - nothing to do")
-        GLib.idle_add(show_in_app_notification,self,package + " is already installed - nothing to do")
+        print(package + " is/are already installed - nothing to do")
+        GLib.idle_add(show_in_app_notification,self,package + " is/are already installed - nothing to do")
         pass
     else :
         try:
@@ -465,8 +465,8 @@ def install_package(self, package):
                             shell=False,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT)
-            print(package + " is now installed")
-            GLib.idle_add(show_in_app_notification,self,package + " is now installed")
+            print(package + " is/are now installed")
+            GLib.idle_add(show_in_app_notification,self,package + " is/are now installed")
         except Exception as e:
             print(e)
 
@@ -474,7 +474,7 @@ def install_arco_package(self, package):
     if check_arco_repos_active():
         command = 'pacman -S ' + package + ' --noconfirm --needed'
         if check_package_installed(package):
-            print(package + " is already installed - nothing to do")
+            print(package + " is/are already installed - nothing to do")
             GLib.idle_add(show_in_app_notification,self,package + " is already installed - nothing to do")
             pass
         else :
@@ -484,8 +484,8 @@ def install_arco_package(self, package):
                                 shell=False,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
-                print(package + " is now installed")
-                GLib.idle_add(show_in_app_notification,self,package + " is now installed")
+                print(package + " is/are now installed")
+                GLib.idle_add(show_in_app_notification,self,package + " is/are now installed")
             except Exception as e:
                 print(e)
     else:

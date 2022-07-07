@@ -104,22 +104,21 @@ def pop_box_sessions_lightdm(self, combo):
             coms.append(items.split(".")[0].lower())
         lines = fn.get_lines(fn.lightdm_conf)
 
-        # pos = fn._get_position(lines, "user-session=")
-        name = check_lightdm(lines, "autologin-session=").split("=")[1]
-
-        # if name == "":
-        #     name = check_lightdm(lines, "user-session=").split("=")[1]
+        try:
+            name = check_lightdm(lines, "autologin-session=").split("=")[1]
+        except IndexError:
+            name = None
+            pass
 
         coms.sort()
         for i in range(len(coms)):
+            #TODO
             #excludes = ['gnome-classic', 'gnome-xorg', 'i3-with-shmlog', 'openbox-kde', 'cinnamon2d', '']
             excludes = []
             if not coms[i] in excludes:
                 combo.append_text(coms[i])
                 if name.lower() == coms[i].lower():
-                    # print("Name = " + name)
                     combo.set_active(i)
-
 
 def pop_gtk_theme_names_lightdm(self, combo):
     coms = []
@@ -130,14 +129,14 @@ def pop_gtk_theme_names_lightdm(self, combo):
             if fn.file_check("/usr/share/themes/" + item + "/index.theme"):
                 coms.append(item)
                 coms.sort()
-        #print(coms)
         lines = fn.get_lines(fn.lightdm_greeter)
 
         pos = fn._get_position(lines, "theme-name=")
-        theme_name = check_lightdm_greeter(lines, "theme-name=").split("=")[1]
-
-        # # if name == "":
-        # #     name = check_lightdm(lines, "user-session=").split("=")[1]
+        try:
+            theme_name = check_lightdm_greeter(lines, "theme-name=").split("=")[1]
+        except IndexError:
+            theme_name = None
+            pass
 
         coms.sort()
         for i in range(len(coms)):
@@ -158,16 +157,16 @@ def pop_gtk_icon_names_lightdm(self, combo):
         lines = fn.get_lines(fn.lightdm_greeter)
 
         pos = fn._get_position(lines, "icon-theme-name=")
-        icon_theme_name = check_lightdm(lines, "icon-theme-name=").split("=")[1]
-
-        # # if name == "":
-        # #     name = check_lightdm(lines, "user-session=").split("=")[1]
+        try:
+            icon_theme_name = check_lightdm(lines, "icon-theme-name=").split("=")[1]
+        except IndexError:
+            icon_theme_name = None
+            pass
 
         coms.sort()
         for i in range(len(coms)):
             combo.append_text(coms[i])
             if icon_theme_name.lower() == coms[i].lower():
-                # print("Name = " + name)
                 combo.set_active(i)
 
 def pop_gtk_cursor_names(self, combo):
