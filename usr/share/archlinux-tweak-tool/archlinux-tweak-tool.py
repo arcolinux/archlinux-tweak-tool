@@ -181,20 +181,6 @@ class Main(Gtk.Window):
             except Exception as e:
                 print(e)
 
-        if os.path.exists("/usr/bin/sddm"):
-            #if any of the variables are missing we copy/paste
-            if sddm.check_sddmk_complete(self):
-                pass
-            else:
-                Functions.create_sddm_k_dir()
-                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
-                                        Functions.sddm_default_d1)
-                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
-                                        Functions.sddm_default_d2)
-                print("We changed your sddm configuration files so that ATT could start")
-                print("Backups are at /etc/backup-kde_settings.conf and /etc/backup-sddm.conf")
-                GLib.idle_add(Functions.show_in_app_notification, self, "We had to change your sddm configuration files")
-
         # =====================================================
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
         # =====================================================
@@ -519,6 +505,20 @@ class Main(Gtk.Window):
                 user_exists = sddm.check_sddmk_user("User=")
                 if user_exists is False:
                     sddm.insert_user("#User=")
+
+        if os.path.exists("/usr/bin/sddm"):
+            #if any of the variables are missing we copy/paste
+            if sddm.check_sddmk_complete(self):
+                pass
+            else:
+                Functions.create_sddm_k_dir()
+                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
+                                        Functions.sddm_default_d1)
+                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
+                                        Functions.sddm_default_d2)
+                print("We changed your sddm configuration files so that ATT could start")
+                print("Backups are at /etc/backup-kde_settings.conf and /etc/backup-sddm.conf")
+                GLib.idle_add(Functions.show_in_app_notification, self, "We had to change your sddm configuration files")
 
         #ensuring we have a neofetch config to start with
         if not os.path.isfile(Functions.neofetch_config):
