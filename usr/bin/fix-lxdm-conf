@@ -27,30 +27,15 @@
 ##################################################################################################################
 
 echo "###############################################################################"
-echo "Copying both files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf"
-echo "This script names them /etc/backup-sddm.conf and /etc/backup-kde_settings.conf"
+echo "Making backups and copying file : "
+echo "This script names it /etc/backup-lxdm.conf"
 echo "###############################################################################"
-echo "If directory /etc/sddm.conf.d does not exist, make it"
-[ -d /etc/sddm.conf.d/ ] || sudo mkdir -p /etc/sddm.conf.d/
-echo "If file /etc/sddm.conf.d/kde_settings.conf exists, make a backup"
-echo "to /etc/backup-kde_settings.conf"
-echo
-[ -f /etc/sddm.conf.d/kde_settings.conf ] && sudo cp -p /etc/sddm.conf.d/kde_settings.conf /etc/backup-kde_settings.conf
-echo "Start with clean slate - there can be only one file in the folder"
-sudo rm -rf /etc/sddm.conf.d/*
 echo "If file exists, make a backup"
-[ -f /etc/sddm.conf ] && sudo cp -p /etc/sddm.conf /etc/backup-sddm.conf
+[ -f /etc/lxdm/lxdm.conf ] && sudo cp -p /etc/lxdm/lxdm.conf /etc/backup-lxdm.conf
 echo
-echo "Overwriting /etc/sddm.conf"
+echo "Overwriting lxdm configuration files"
 echo
-sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf /etc/sddm.conf
-echo
-echo "Overwriting /etc/sddm.conf.d/kde_settings.conf"
-echo
-sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf /etc/sddm.conf.d/kde_settings.conf
-echo
-echo "/etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf changed with configs of ATT"
-echo "Always make sure there is one file present in /etc/sddm.conf.d folder"
+[ -f /etc/lxdm/lxdm.conf ] && sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/lxdm/lxdm.conf /etc/lxdm/lxdm.conf
 echo "###############################################################################"
 echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
 echo "###############################################################################"
