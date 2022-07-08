@@ -513,6 +513,24 @@ def remove_package(self, package):
         GLib.idle_add(show_in_app_notification,self,package + " is already removed")
         pass
 
+def remove_package_dep(self, package):
+    command = 'pacman -Rss ' + package + ' --noconfirm'
+    if check_package_installed(package):
+        print(command)
+        try:
+            subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+            print(package + " is now removed")
+            GLib.idle_add(show_in_app_notification,self,package + " is now removed")
+        except Exception as e:
+            print(e)
+    else :
+        print(package + " is already removed")
+        GLib.idle_add(show_in_app_notification,self,package + " is already removed")
+        pass
+
 def enable_login_manager(self, loginmanager):
     if check_package_installed(loginmanager):
         try:
@@ -608,6 +626,19 @@ def install_arco_caja_plugin(self, widget):
     print(" - arcolinux-nemo-share (cinnamon)")
     print(" - arcolinux-nautilus-share (gnome - budgie)")
     print(" - kdenetwork-filesharing (plasma)")
+
+# =====================================================
+#              CHANGE SHELL
+# =====================================================
+
+def change_shell(self,shell):
+    command = 'sudo chsh ' + sudo_username + ' -s /bin/' + shell
+    subprocess.call(command,
+                    shell=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT)
+    print("Shell changed to " + shell + " for the user - logout")
+    GLib.idle_add(show_in_app_notification, self, "Shell changed to "+ shell + " for user - logout")
 
 # =====================================================
 #               CONVERT COLOR
@@ -717,6 +748,10 @@ def make_grub(self):
                     shell=False,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT)
+        print("We will update your grub files")
+        print("We update your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
+        print("Be patient...")
+        show_in_app_notification(self, "We have updated your grub")
     except Exception as e:
         print(e)
 
@@ -896,7 +931,7 @@ def reset_login_wallpaper(self, image):
         except:
             pass
 
-def set_default_theme(self):
+def set_default_grub_theme(self):
     if os.path.isfile(grub_default_grub):
         if not os.path.isfile(grub_default_grub + ".bak"):
             shutil.copy(grub_default_grub, grub_default_grub + ".bak")
@@ -1473,39 +1508,6 @@ def permissions(dst):
         print(e)
 
 # =====================================================
-#               RATE-MIRRORS
-# =====================================================
-
-def install_rate_mirrors(self):
-    install = 'pacman -S rate-mirrors --needed --noconfirm'
-
-    if os.path.exists("/usr/bin/rate-mirrors"):
-        pass
-    else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-
-# =====================================================
-#               REFLECTOR
-# =====================================================
-
-def install_reflector(self):
-    install = 'pacman -S reflector --needed --noconfirm'
-
-    if os.path.exists("/usr/bin/reflector"):
-        pass
-    else:
-        try:
-            subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        except Exception as e:
-            print(e)
-
-# =====================================================
 #               RESTART PROGRAM
 # =====================================================
 
@@ -1989,29 +1991,3 @@ def remove_archlinux_login_backgrounds(self, widget):
         print("Archlinux-login-backgrounds-git is already removed")
         GLib.idle_add(show_in_app_notification,self,"Archlinux-login-backgrounds-git is removed")
         pass
-
-# =====================================================
-#               ZSH + PACKAGES (ARCOLINUXD)
-# =====================================================
-
-def install_zsh(self):
-    install = 'pacman -S zsh zsh-completions zsh-syntax-highlighting --needed --noconfirm'
-    try:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        print("All Zsh packages have been installed - completions and syntax highlighting")
-    except Exception as e:
-        print(e)
-
-def install_only_zsh(self):
-    install = 'pacman -S zsh --needed --noconfirm'
-    try:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        print("Only Zsh has been installed")
-    except Exception as e:
-        print(e)

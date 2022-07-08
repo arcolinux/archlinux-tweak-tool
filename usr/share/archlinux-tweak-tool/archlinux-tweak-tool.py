@@ -1118,13 +1118,7 @@ class Main(Gtk.Window):
         print("BASH")
 
     def tobash_apply(self,widget):
-        command = 'sudo chsh ' + fn.sudo_username + ' -s /bin/bash'
-        fn.subprocess.call(command,
-                        shell=True,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
-        print("Shell changed to bash for the user - logout")
-        GLib.idle_add(fn.show_in_app_notification, self, "Shell changed to bash for user - logout")
+        fn.change_shell(self, "bash")
 
     def on_install_bash_clicked(self, widget):
         fn.install_bash(self)
@@ -1357,14 +1351,7 @@ class Main(Gtk.Window):
         image.set_from_pixbuf(pixbuf)
 
     def tofish_apply(self,widget):
-        #fn.install_fish(self)
-        command = 'sudo chsh ' + fn.sudo_username + ' -s /bin/fish'
-        fn.subprocess.call(command,
-                        shell=True,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
-        print("Shell changed to fish for the user - logout")
-        GLib.idle_add(fn.show_in_app_notification, self, "Shell changed to fish for user - logout")
+        fn.change_shell(self,"fish")
 
     # ====================================================================
     #                       FIXES
@@ -1410,7 +1397,7 @@ class Main(Gtk.Window):
     def on_click_get_arch_mirrors(self,widget):
         fn.install_alacritty(self)
         try:
-            fn.install_reflector(self)
+            fn.install_package(self,"reflector")
             fn.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-reflector",
                             shell=True,
                             stdout=fn.subprocess.PIPE,
@@ -1495,37 +1482,11 @@ class Main(Gtk.Window):
         GLib.idle_add(fn.show_in_app_notification, self, "The new ~/.gnupg/gpg.conf has been saved")
 
     def on_click_install_arch_mirrors(self,widget):
-        try:
-            command = 'pacman -S reflector --noconfirm'
-            fn.subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=fn.subprocess.PIPE,
-                            stderr=fn.subprocess.STDOUT)
-            print("Reflector has been installed")
-            GLib.idle_add(fn.show_in_app_notification, self, "Reflector has been installed")
-        except Exception as e:
-            print(e)
+        fn.install_package(self,"reflector")
 
     def on_click_install_arch_mirrors2(self,widget):
-        if os.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active():
-                try:
-                    command = 'pacman -S rate-mirrors-bin --noconfirm'
-                    fn.subprocess.call(command.split(" "),
-                                    shell=False,
-                                    stdout=fn.subprocess.PIPE,
-                                    stderr=fn.subprocess.STDOUT)
-                    print("Rate-mirrors-bin has been installed")
-                    GLib.idle_add(fn.show_in_app_notification, self, "Rate-mirrors-bin has been installed")
-                    self.button_Apply_Mirrors2.set_sensitive(True)
-                except Exception as e:
-                    print(e)
-            else:
-                print("Activate the ArcoLinux repos")
-                GLib.idle_add(fn.show_in_app_notification, self, "Activate the ArcoLinux repos")
-        else:
-            print("Install ArcoLinux mirrors and keys")
-            GLib.idle_add(fn.show_in_app_notification, self, "Install ArcoLinux mirrors and keys")
+        fn.install_arco_package(self,"rate-mirrors-bin")
+        self.button_Apply_Mirrors2.set_sensitive(True)
 
     #====================================================================
     #                       GRUB
@@ -1563,24 +1524,9 @@ class Main(Gtk.Window):
 
     def on_reset_grub(self, widget):
         if os.path.isfile(fn.grub_default_grub + ".bak"):
-            fn.shutil.copy(fn.grub_default_grub + ".bak",
-                                  fn.grub_default_grub)
-        self.pop_themes_grub(self.grub_theme_combo,
-                             fn.get_grub_wallpapers(), True)
-
-        print("/etc/default/grub.bak is used to reset your grub")
-        fn.show_in_app_notification(self, "Default Grub applied")
-
-        command = 'grub-mkconfig -o /boot/grub/grub.cfg'
-        try:
-            fn.subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=fn.subprocess.PIPE,
-                            stderr=fn.subprocess.STDOUT)
-            print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
-            GLib.idle_add(fn.show_in_app_notification, self, "Your original grub file has been applied")
-        except Exception as e:
-            print(e)
+            fn.shutil.copy(fn.grub_default_grub + ".bak", fn.grub_default_grub)
+        self.pop_themes_grub(self.grub_theme_combo, fn.get_grub_wallpapers(), True)
+        fn.make_grub(self)
 
     def pop_themes_grub(self, combo, lists, start):
         if os.path.isfile(fn.grub_theme_conf):
@@ -1682,101 +1628,32 @@ class Main(Gtk.Window):
             dialog.destroy()
 
     def on_click_install_arco_vimix_clicked(self, desktop):
-
         if fn.check_package_installed("grub2-theme-vimix-git"):
-            try:
-                command = 'pacman -R grub2-theme-vimix-git --noconfirm'
-                fn.subprocess.call(command.split(" "),
-                                shell=False,
-                                stdout=fn.subprocess.PIPE,
-                                stderr=fn.subprocess.STDOUT)
-                print("We removed grub2-theme-vimix-git first")
-                print("Install it again with sudo pacman -S grub2-theme-vimix-git")
-            except Exception as e:
-                print(e)
-
-        if os.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active():
-                command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
-                fn.subprocess.call(command.split(" "),
-                                shell=False,
-                                stdout=fn.subprocess.PIPE,
-                                stderr=fn.subprocess.STDOUT)
-                print("arcolinux-grub-theme-vimix-git has been installed")
-
-                #changing /etc/default/grub to vimix theme
-                fn.set_default_theme(self)
-                print("We will update your grub files")
-                print("sudo grub-mkconfig -o /boot/grub/grub.cfg is running")
-                print("Be patient...")
-                fn.make_grub(self)
-
-                print("We have installed arcolinux-grub-theme-vimix-git")
-                print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
-                print("ATT will reboot automatically")
-                GLib.idle_add(fn.show_in_app_notification, self, "Setting saved successfully")
-                fn.restart_program()
-            else:
-                print("Activate the ArcoLinux repos")
-                GLib.idle_add(fn.show_in_app_notification, self, "Activate the ArcoLinux repos")
-        else:
-            print("Install ArcoLinux mirrors and keys")
-            GLib.idle_add(fn.show_in_app_notification, self, "Install ArcoLinux mirrors and keys")
+            fn.remove_package(self,"grub2-theme-vimix-git")
+        fn.install_arco_package(self,"arcolinux-grub-theme-vimix-git")
+        if fn.check_package_installed("arcolinux-grub-theme-vimix-git"):
+            fn.set_default_grub_theme(self)
+            fn.make_grub(self)
+            GLib.idle_add(fn.show_in_app_notification, self, "Setting saved successfully")
+            fn.restart_program()
 
     def on_reset_grub_vimix(self, desktop):
-        command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
-        fn.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
-        print("arcolinux-grub-theme-vimix-git has been installed")
-
-        #changing /etc/default/grub to vimix theme
-        fn.set_default_theme(self)
-        print("We will update your grub files")
-        print("sudo grub-mkconfig -o /boot/grub/grub.cfg is running")
-        print("Be patient...")
+        fn.install_arco_package(self,"arcolinux-grub-theme-vimix-git")
+        fn.set_default_grub_theme(self)
         fn.make_grub(self)
-
-        print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         GLib.idle_add(fn.show_in_app_notification, self, "Vimix has been installed")
 
     def on_click_install_orignal_grub_rebornos(self,widget):
         if fn.check_package_installed("arcolinux-grub-theme-vimix-git"):
-            try:
-                command = 'pacman -R arcolinux-grub-theme-vimix-git --noconfirm'
-                fn.subprocess.call(command.split(" "),
-                                shell=False,
-                                stdout=fn.subprocess.PIPE,
-                                stderr=fn.subprocess.STDOUT)
-                print("We removed arcolinux-grub-theme-vimix-git")
-            except Exception as e:
-                print(e)
-        try:
-            command = 'pacman -S grub2-theme-vimix-git --noconfirm'
-            fn.subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=fn.subprocess.PIPE,
-                            stderr=fn.subprocess.STDOUT)
-            print("We installed the original grub2-theme-vimix-git")
-            GLib.idle_add(fn.show_in_app_notification, self, "Original grub theme from RebornOS installed")
-        except Exception as e:
-            print(e)
-
-        print("We will update your grub files")
-        print("Be patient...")
+            fn.remove_package(self,"arcolinux-grub-theme-vimix-git")
+        fn.install_package(self,"grub2-theme-vimix-git")
         self.on_reset_grub(self)
         fn.restart_program()
 
     def on_clicked_grub_timeout(self,widget):
         seconds = int(self.scale.get_value())
         fn.set_grub_timeout(self,seconds)
-        print("We will update your grub files")
-        print("sudo grub-mkconfig -o /boot/grub/grub.cfg is running")
-        print("Be patient...")
         fn.make_grub(self)
-
-        print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
 
     #====================================================================
     #                            PRIVACY
@@ -1909,12 +1786,6 @@ class Main(Gtk.Window):
 
     def on_click_install_lxdm(self, desktop):
         fn.install_package(self,"lxdm")
-        #command = 'pacman -S lxdm --noconfirm'
-        # fn.subprocess.call(command.split(" "),
-        #                 shell=False,
-        #                 stdout=fn.subprocess.PIPE,
-        #                 stderr=fn.subprocess.STDOUT)
-        # print("We installed Lxdm")
         print("--------------------------------------------")
         print("Do not forget to enable Lxdm")
         print("--------------------------------------------")
@@ -1922,13 +1793,6 @@ class Main(Gtk.Window):
 
     def on_click_lxdm_enable(self, desktop):
         fn.enable_login_manager(self, "lxdm")
-        # command = 'systemctl enable lxdm.service -f'
-        # fn.subprocess.call(command.split(" "),
-        #                 shell=False,
-        #                 stdout=fn.subprocess.PIPE,
-        #                 stderr=fn.subprocess.STDOUT)
-        # print("Lxdm has been enabled - reboot")
-        # GLib.idle_add(fn.show_in_app_notification, self, "Lxdm has been enabled - reboot")
 
     def on_autologin_lxdm_activated(self, widget, gparam):
         if widget.get_active():
@@ -2071,18 +1935,7 @@ class Main(Gtk.Window):
                                                "Default settings applied")
 
     def on_install_neo(self,widget):
-        try:
-            command = 'pacman -S neofetch --needed --noconfirm'
-            fn.subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=fn.subprocess.PIPE,
-                            stderr=fn.subprocess.STDOUT)
-            print("Neofetch is installed ")
-            GLib.idle_add(fn.show_in_app_notification, self, "Neofetch is installed")
-        except Exception as e:
-            print(e)
-            print("Neofetch is NOT installed ")
-            GLib.idle_add(fn.show_in_app_notification, self, "Neofetch is NOT installed")
+        fn.install_package(self,"neofetch")
 
     def radio_toggled(self, widget):
         if self.asci.get_active():
@@ -2727,44 +2580,13 @@ class Main(Gtk.Window):
             self.sessions_sddm.set_sensitive(False)
 
     def on_click_install_sddm_themes(self,widget):
-        if os.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active():
-                try:
-                    command = 'pacman -S arcolinux-meta-sddm-themes --needed --noconfirm'
-                    fn.subprocess.call(command.split(" "),
-                                    shell=False,
-                                    stdout=fn.subprocess.PIPE,
-                                    stderr=fn.subprocess.STDOUT)
-                    print("We installed all ArcoLinux sddm themes")
-                    GLib.idle_add(fn.show_in_app_notification, self, "ArcoLinux Sddm Themes Installed")
-                    sddm.pop_theme_box(self, self.theme_sddm)
-                except Exception as e:
-                    print(e)
-            else:
-                print("Activate the ArcoLinux repos")
-                GLib.idle_add(fn.show_in_app_notification, self, "Activate the ArcoLinux repos")
-        else:
-            print("Install the ArcoLinux keys and mirrors")
-            GLib.idle_add(fn.show_in_app_notification, self, "Install the ArcoLinux keys and mirrors")
+        fn.install_arco_package(self,"arcolinux-meta-sddm-themes")
 
     def on_click_remove_sddm_themes(self,widget):
-        command = 'pacman -Rss arcolinux-meta-sddm-themes --noconfirm'
-        fn.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
-        print("We removed all ArcoLinux sddm themes")
-        GLib.idle_add(fn.show_in_app_notification, self, "ArcoLinux Sddm themes were removed")
-
+        #TODO : if theme.conf.user present folder stays
+        fn.remove_package_dep(self,"arcolinux-meta-sddm-themes")
         if self.keep_default_theme.get_active() is True:
-            command = 'pacman -S arcolinux-sddm-simplicity-git --needed --noconfirm'
-            fn.subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=fn.subprocess.PIPE,
-                            stderr=fn.subprocess.STDOUT)
-            print("We installed the default ArcoLinux sddm theme again")
-            GLib.idle_add(fn.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
-
+            fn.install_arco_package(self,"arcolinux-sddm-simplicity-git")
         sddm.pop_theme_box(self, self.theme_sddm)
 
     def on_click_install_bibata_cursor(self,widget):
@@ -3732,31 +3554,24 @@ class Main(Gtk.Window):
             print("Valid ~/.zshrc applied")
 
     def tozsh_apply(self,widget):
+        fn.change_shell(self,"zsh")
         # install missing applications
-        fn.install_zsh(self)
-        # first make backup if there is a file
-        #keep this check in
-        if not fn.os.path.isfile(fn.zsh_config + ".bak") and fn.os.path.isfile(fn.zsh_config):
-            fn.shutil.copy(fn.zsh_config,
-                              fn.zsh_config + ".bak")
-            fn.permissions(fn.home + "/.zshrc")
-            fn.permissions(fn.home + "/.zshrc.bak")
-            print("We created a backup")
-        if not fn.os.path.isfile(fn.zsh_config):
-            try:
-                fn.shutil.copy("/usr/share/archlinux-tweak-tool/data/arco/.zshrc", fn.home + "/.zshrc")
-                fn.permissions(fn.home + "/.zshrc")
-                print("Providing a valid zshrc")
-            except Exception as e:
-                print(e)
-
-        command = 'sudo chsh ' + fn.sudo_username + ' -s /bin/zsh'
-        fn.subprocess.call(command,
-                        shell=True,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
-        print("Shell changed to zsh for the user - logout")
-        GLib.idle_add(fn.show_in_app_notification, self, "Shell changed to zsh for user - logout")
+        # fn.install_zsh(self)
+        # # first make backup if there is a file
+        # #keep this check in
+        # if not fn.os.path.isfile(fn.zsh_config + ".bak") and fn.os.path.isfile(fn.zsh_config):
+        #     fn.shutil.copy(fn.zsh_config,
+        #                       fn.zsh_config + ".bak")
+        #     fn.permissions(fn.home + "/.zshrc")
+        #     fn.permissions(fn.home + "/.zshrc.bak")
+        #     print("We created a backup")
+        # if not fn.os.path.isfile(fn.zsh_config):
+        #     try:
+        #         fn.shutil.copy("/usr/share/archlinux-tweak-tool/data/arco/.zshrc", fn.home + "/.zshrc")
+        #         fn.permissions(fn.home + "/.zshrc")
+        #         print("Providing a valid zshrc")
+        #     except Exception as e:
+        #         print(e)
 
     def install_oh_my_zsh(self,widget):
         if os.path.isfile(fn.arcolinux_mirrorlist):

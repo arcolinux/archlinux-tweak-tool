@@ -296,7 +296,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         ls.set_markup("<b>Zsh does not seem to be installed</b>")
 
         install_only_zsh = Gtk.Button(label="Install only Zsh and restart ATT to configure")
-        install_only_zsh.connect("clicked", fn.install_only_zsh)
+        install_only_zsh.connect("clicked", fn.install_package(self,"zsh"))
 
         vboxStack2.pack_start(hbox32, False, False, 0)
         vboxStack2.pack_start(hbox41, False, False, 0)
