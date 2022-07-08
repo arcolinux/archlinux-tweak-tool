@@ -3497,6 +3497,9 @@ class Main(Gtk.Window):
     if debug:
         print("ZSH THEMES")
 
+    def on_clicked_install_only_zsh(self,widget):
+        fn.install_package(self,"zsh")
+
     def on_install_zsh_completions_clicked(self, widget):
         fn.install_package(self,"zsh-completions")
 
