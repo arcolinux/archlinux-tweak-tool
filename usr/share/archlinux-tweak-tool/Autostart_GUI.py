@@ -1,6 +1,6 @@
-# =================================================================
-# =             Author: Brad Heffernan and Erik Dubois            =
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
 

@@ -1,6 +1,8 @@
-# =================================================================
-# =              Author: Brad Heffernan - Erik Dubois             =
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
+import Functions as fn
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango):
 
@@ -60,7 +62,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     self.button_install = Gtk.Button(label="Install")
     self.button_reinstall = Gtk.Button(label="Re-Install")
 
-    if Functions.distr == "arcolinux":
+    if fn.distr == "arcolinux":
         button_adt = Gtk.Button(label="Launch the ArcoLinux Desktop Trasher")
         button_adt.set_margin_top(70)
         button_adt.set_size_request(100,20)
@@ -102,8 +104,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     noice.set_line_wrap(True)
     self.desktopr_error = Gtk.Label(xalign=0)
 
-    if Functions.distr == "archcraft":
-        if Functions.check_package_installed("picom-ibhagwan-git"):
+    if fn.distr == "archcraft":
+        if fn.check_package_installed("picom-ibhagwan-git"):
             vboxprog.pack_start(warning_archcraft, False, False, 0)
     vboxprog.pack_start(noice, False, False, 0)
     vboxprog.pack_start(self.desktopr_error, False, False, 0)
@@ -142,7 +144,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
 
     vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vbox1.pack_start(hbox, False, False, 10)
-    if Functions.distr == "arcolinux":
+    if fn.distr == "arcolinux":
         vbox1.pack_start(button_adt, False, True, 10)
     vbox1.pack_end(vboxprog, False, False, 0)
     # =======================================

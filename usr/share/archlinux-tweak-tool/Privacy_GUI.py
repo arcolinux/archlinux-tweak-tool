@@ -1,8 +1,6 @@
-# =================================================================
-# =                  Author: Erik Dubois                          =
-# =================================================================
-
-import os
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
 def GUI(self, Gtk, vboxStack3, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)

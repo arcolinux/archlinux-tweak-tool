@@ -1,6 +1,8 @@
-#=================================================================
-#=                  Author: Erik Dubois                          =
-#=================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
+import Functions as fn
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, Functions):
 
@@ -32,7 +34,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, Functions):
     stack_switcher.set_stack(stack)
     stack_switcher.set_homogeneous(True)
 
-    if Functions.check_package_installed("sddm"):
+    if fn.check_package_installed("sddm"):
 
         # ==================================================================
         #                       SDDM
@@ -41,7 +43,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, Functions):
         hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox4_lbl = Gtk.Label(xalign=0)
         hbox4_lbl.set_text("Sddm (inactive)")
-        if Functions.check_content("sddm", "/etc/systemd/system/display-manager.service"):
+        if fn.check_content("sddm", "/etc/systemd/system/display-manager.service"):
             hbox4_lbl.set_text("Sddm (active)")
         hbox4_lbl.set_name("title")
         hbox4_lbl.set_name("title")
@@ -158,12 +160,12 @@ We will backup your files")
         hbox90 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         enable_sddm = Gtk.Button(label="Enable Sddm")
         enable_sddm.connect("clicked", self.on_click_sddm_enable)
-        btnRefreshAtt = Gtk.Button(label="Refresh the list of Sddm themes")
-        btnRefreshAtt.connect('clicked', self.on_refresh_att_clicked)
+        #btnRefreshAtt = Gtk.Button(label="Refresh the list of Sddm themes")
+        #btnRefreshAtt.connect('clicked', self.on_refresh_att_clicked)
         apply_sddm_settings = Gtk.Button(label="Apply settings")
         apply_sddm_settings.connect("clicked", self.on_click_sddm_apply)
         hbox90.pack_end(apply_sddm_settings, False, False, 0)
-        hbox90.pack_end(btnRefreshAtt, False, False, 0)
+        #hbox90.pack_end(btnRefreshAtt, False, False, 0)
         hbox90.pack_start(enable_sddm, False, False, 10)
 
         # ======================================================================
@@ -176,7 +178,7 @@ We will backup your files")
         vboxStack1.pack_start(hbox13, False, False, 0)
         vboxStack1.pack_start(hbox05, False, False, 0)
 
-        if Functions.os.path.isfile(Functions.sddm_default_d2):
+        if fn.os.path.isfile(fn.sddm_default_d2):
             vboxStack1.pack_start(hbox, False, False, 0)
             vboxStack1.pack_start(hbox3, False, False, 0)
             vboxStack1.pack_start(hbox18, False, False, 0)
@@ -215,15 +217,15 @@ We will backup your files")
     #                       LIGHTDM
     # ==================================================================
 
-    if Functions.check_package_installed("lightdm"):
+    if fn.check_package_installed("lightdm"):
 
         hbox19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox19_lbl = Gtk.Label(xalign=0)
         hbox19_lbl.set_text("Lightdm (inactive)")
-        if Functions.check_content("lightdm", "/etc/systemd/system/display-manager.service"):
+        if fn.check_content("lightdm", "/etc/systemd/system/display-manager.service"):
             hbox19_lbl.set_text("Lightdm (active)")
-        if Functions.check_content("lightdm", "/etc/systemd/system/display-manager.service") and \
-            Functions.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
+        if fn.check_content("lightdm", "/etc/systemd/system/display-manager.service") and \
+            fn.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
             hbox19_lbl.set_text("Lightdm + slick-greeter (active)")
         hbox19_lbl.set_name("title")
         hbox19.pack_start(hbox19_lbl, False, False, 0)
@@ -258,9 +260,9 @@ We will backup your files")
 
         hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox29_lbl = Gtk.Label(xalign=0)
-        if Functions.check_package_installed("lightdm-slick-greeter"):
+        if fn.check_package_installed("lightdm-slick-greeter"):
             hbox29_lbl.set_text("Install lightdm slick greeter (installed)")
-            if Functions.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
+            if fn.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
                 hbox29_lbl.set_text("Install lightdm slick greeter (installed and active)")
         else:
             hbox29_lbl.set_text("Install lightdm slick greeter")
@@ -304,7 +306,7 @@ We will backup your files")
 
         # hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         # hbox25_label = Gtk.Label(xalign=0)
-        # if Functions.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
+        # if fn.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
         #     hbox25_label.set_text("Slickgreeter is active")
         # else:
         #     hbox25_label.set_text("Slickgreeter is inactive")
@@ -363,12 +365,12 @@ We will backup your files")
     #                       LXDM
     # ==================================================================
 
-    if Functions.check_package_installed("lxdm") or Functions.check_package_installed("lxdm-gtk3"):
+    if fn.check_package_installed("lxdm") or fn.check_package_installed("lxdm-gtk3"):
 
         hbox50 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox50_lbl = Gtk.Label(xalign=0)
         hbox50_lbl.set_text("Lxdm (inactive)")
-        if Functions.check_content("lxdm", "/etc/systemd/system/display-manager.service"):
+        if fn.check_content("lxdm", "/etc/systemd/system/display-manager.service"):
             hbox50_lbl.set_text("Lxdm (active)")
         hbox50_lbl.set_name("title")
         hbox50.pack_start(hbox50_lbl, False, False, 0)
@@ -488,7 +490,7 @@ We will backup your files")
     #                       WALL
     # ==================================================================
 
-    if Functions.check_package_installed("sddm"):
+    if fn.check_package_installed("sddm"):
 
         hbox70 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox70_lbl = Gtk.Label(xalign=0)
@@ -524,7 +526,7 @@ We will backup your files")
 
         hbox113 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         label113 = Gtk.Label()
-        if Functions.check_package_installed("archlinux-login-backgrounds-git"):
+        if fn.check_package_installed("archlinux-login-backgrounds-git"):
             label113.set_text("Install our selection of wallpapers (installed)")
         else:
             label113.set_text("Install our selection of wallpapers")
@@ -556,7 +558,7 @@ We will backup your files")
 
         scrolled = Gtk.ScrolledWindow()
         scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        wallpaper_list = Functions.get_login_wallpapers()
+        wallpaper_list = fn.get_login_wallpapers()
         self.login_wallpapers_combo = Gtk.ComboBoxText()
         self.pop_login_wallpapers(self.login_wallpapers_combo, wallpaper_list, True)
         self.flowbox_wall.set_valign(Gtk.Align.START)
@@ -590,7 +592,7 @@ We will backup your files")
     # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
-    if not Functions.distr == "manjaro":
+    if not fn.distr == "manjaro":
         stack.add_titled(vboxStack1, "stack1", "SDDM")
     stack.add_titled(vboxStack2, "stack2", "LIGHTDM")
     stack.add_titled(vboxStack3, "stack3", "LXDM")

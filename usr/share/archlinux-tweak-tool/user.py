@@ -1,9 +1,9 @@
-# =================================================================
-# =                  Author: Erik Dubois                          =
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
 from types import FunctionType
-import Functions
+import Functions as fn
 import crypt
 import os
 from Functions import GLib
@@ -18,10 +18,10 @@ def create_user(self):
 
     try:
         command ="groupadd -r sambashare"
-        Functions.subprocess.call(command.split(" "),
+        fn.subprocess.call(command.split(" "),
                         shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
+                        stdout=fn.subprocess.PIPE,
+                        stderr=fn.subprocess.STDOUT)
     except Exception as e:
         print(e)
 
@@ -35,10 +35,10 @@ def create_user(self):
             os.system(useradd)
             os.system(user_password + " | " + "chpasswd -c SHA512")
         print("User has been created")
-        GLib.idle_add(Functions.show_in_app_notification, self, "User has been created")
+        GLib.idle_add(fn.show_in_app_notification, self, "User has been created")
     else:
-        GLib.idle_add(Functions.show_in_app_notification, self, "Passwords are not the same")
-        Functions.MessageBox(self, "Message", "Passwords are not the same")
+        GLib.idle_add(fn.show_in_app_notification, self, "Passwords are not the same")
+        fn.MessageBox(self, "Message", "Passwords are not the same")
 
 def on_click_delete_user(self,widget):
     username = self.cbt_users.get_active_text()
@@ -46,7 +46,7 @@ def on_click_delete_user(self,widget):
 
     os.system(userdel)
     print("User has been deleted - home folder has not been deleted")
-    GLib.idle_add(Functions.show_in_app_notification, self, "User has been deleted")
+    GLib.idle_add(fn.show_in_app_notification, self, "User has been deleted")
 
 def on_click_delete_all_user(self,widget):
     username = self.cbt_users.get_active_text()
@@ -54,11 +54,11 @@ def on_click_delete_all_user(self,widget):
 
     os.system(userdel)
     print("User has been deleted - home folder has been deleted")
-    GLib.idle_add(Functions.show_in_app_notification, self, "User and home folder has been deleted")
+    GLib.idle_add(fn.show_in_app_notification, self, "User and home folder has been deleted")
 
 def pop_cbt_users(self,combo):
     combo.get_model().clear()
-    users = Functions.list_users("/etc/passwd")
+    users = fn.list_users("/etc/passwd")
     for user in users:
         self.cbt_users.append_text(user)
         self.cbt_users.set_active(0)

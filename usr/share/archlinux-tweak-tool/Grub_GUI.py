@@ -1,6 +1,8 @@
-# =================================================================
-# =              Author: Brad Heffernan - Erik Dubois
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
+import Functions as fn
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -57,7 +59,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
 
     scrolled = Gtk.ScrolledWindow()
     scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-    wallpaper_list = Functions.get_grub_wallpapers()
+    wallpaper_list = fn.get_grub_wallpapers()
     self.grub_theme_combo = Gtk.ComboBoxText()
     self.pop_themes_grub(self.grub_theme_combo, wallpaper_list, True)
     self.fb.set_valign(Gtk.Align.START)
@@ -93,6 +95,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     vboxStack4.pack_start(hbox13, False, False, 0) #select wallpaper
     vboxStack4.pack_start(scrolled, True, True, 0) #Preview
     vboxStack4.pack_end(hbox9, False, False, 0)# Buttons
-    if Functions.distr == "rebornos":
+    if fn.distr == "rebornos":
         vboxStack4.pack_end(hbox16, False, False, 0)# Buttons
 

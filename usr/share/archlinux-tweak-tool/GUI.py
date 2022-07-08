@@ -1,9 +1,9 @@
-# =================================================================
-# =               Author: Brad Heffernan & Erik Dubois            =
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
 # ============Functions============
-import Functions
+import Functions as fn
 import autostart
 import desktopr
 import fish
@@ -128,7 +128,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         print("Autostart_GUI")
 
     Autostart_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart,
-                      Functions, base_dir)
+                      fn, base_dir)
 
     # ==========================================================
     #                DESKTOP
@@ -138,7 +138,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         print("Desktopr_GUI")
 
     Desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr,
-                     Functions, base_dir, Pango)
+                     fn, base_dir, Pango)
 
     # # ==========================================================
     # #               FIXES
@@ -147,7 +147,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     if debug:
         print("Fixes_GUI")
 
-    Fixes_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack19, user, Functions)
+    Fixes_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack19, user, fn)
 
     # ==========================================================
     #                 GRUB
@@ -156,8 +156,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     if debug:
         print("Grub_GUI")
 
-    if Functions.check_package_installed("arcolinux-grub-theme-vimix-git"):
-        Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions)
+    if fn.check_package_installed("arcolinux-grub-theme-vimix-git"):
+        Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, fn)
     else:
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -188,7 +188,7 @@ We will reload the ATT automatically")
     if debug:
         print("Login_GUI")
 
-    Login_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, Functions)
+    Login_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, fn)
 
     # ==========================================================
     #                 MIRRORLIST ARCOLINUX
@@ -197,8 +197,8 @@ We will reload the ATT automatically")
     if debug:
         print("Arcolinuxmirrors_GUI")
 
-    if Functions.file_check("/etc/pacman.d/arcolinux-mirrorlist"):
-        Arcolinuxmirrors_GUI.GUI(self, Gtk, vboxStack16, Functions)
+    if fn.file_check("/etc/pacman.d/arcolinux-mirrorlist"):
+        Arcolinuxmirrors_GUI.GUI(self, Gtk, vboxStack16, fn)
     else:
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         lbl1 = Gtk.Label(xalign=0)
@@ -226,8 +226,8 @@ Then you will be able to set the mirrors of ArcoLinux")
     if debug:
         print("Neofetch_GUI")
 
-    if Functions.file_check(Functions.neofetch_config):
-        Neofetch_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions)
+    if fn.file_check(fn.neofetch_config):
+        Neofetch_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, fn)
     else:
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -250,8 +250,8 @@ Then you will be able to set the mirrors of ArcoLinux")
     if debug:
         print("Pacman_GUI")
 
-    if Functions.file_check(Functions.pacman):
-        Pacman_GUI.GUI(self, Gtk, vboxStack1, Functions)
+    if fn.file_check(fn.pacman):
+        Pacman_GUI.GUI(self, Gtk, vboxStack1, fn)
 
     # ==========================================================
     #                 PRIVACY - HBLOCK
@@ -260,7 +260,7 @@ Then you will be able to set the mirrors of ArcoLinux")
     if debug:
         print("Privacy_GUI")
 
-    Privacy_GUI.GUI(self, Gtk, vboxStack3, Functions)
+    Privacy_GUI.GUI(self, Gtk, vboxStack3, fn)
 
     # ==========================================================
     #                      SERVICES
@@ -269,7 +269,7 @@ Then you will be able to set the mirrors of ArcoLinux")
     if debug:
         print("Services_GUI")
 
-    Services_GUI.GUI(self, Gtk, vboxStack14, Functions)
+    Services_GUI.GUI(self, Gtk, vboxStack14, fn)
 
 
     # ==========================================================
@@ -279,13 +279,13 @@ Then you will be able to set the mirrors of ArcoLinux")
     if debug:
         print("Shell_GUI")
 
-    Shell_GUI.GUI(self, Gtk, vboxStack23, zsh_theme, fish, base_dir,GdkPixbuf, Functions)
+    Shell_GUI.GUI(self, Gtk, vboxStack23, zsh_theme, fish, base_dir,GdkPixbuf, fn)
 
     # ==========================================================
     #                        TEMPLATE
     # ==========================================================
 
-    #Template_GUI.GUI(self, Gtk, vboxStack21, Functions)
+    #Template_GUI.GUI(self, Gtk, vboxStack21, fn)
 
     # # ==========================================================
     # #               TERMINALS - TERMITE CONFIG
@@ -303,7 +303,7 @@ Then you will be able to set the mirrors of ArcoLinux")
     if debug:
         print("Utilities_GUI")
 
-    Utilities_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack20, Functions)
+    Utilities_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack20, fn)
 
     # ==========================================================
     #                 THEMES
@@ -312,7 +312,7 @@ Then you will be able to set the mirrors of ArcoLinux")
     if debug:
         print("Themer_GUI")
 
-    Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
+    Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir)
 
     # # ==========================================================
     # #                USER
@@ -321,7 +321,7 @@ Then you will be able to set the mirrors of ArcoLinux")
     if debug:
         print("User_GUI")
 
-    User_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack18, user, Functions)
+    User_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack18, user, fn)
 
     # ==========================================================
     #                   ADD TO WINDOW
@@ -339,14 +339,14 @@ Then you will be able to set the mirrors of ArcoLinux")
 
     stack.add_titled(vboxStack16, "stack16", "Mirrors")  # mirrors
 
-    if not Functions.distr == "xerolinux":
+    if not fn.distr == "xerolinux":
         stack.add_titled(vboxStack8, "stack4", "Neofetch")  # Neofetch config
 
     stack.add_titled(vboxStack1, "stack6", "Pacman")  # Pacman config
 
     stack.add_titled(vboxStack3, "stack2", "Privacy")  # Privacy
 
-    if not Functions.distr == "xerolinux":
+    if not fn.distr == "xerolinux":
         stack.add_titled(vboxStack14, "stack14", "Services")  # services
 
     stack.add_titled(vboxStack23, "stack23", "Shells")  # shell
@@ -386,7 +386,7 @@ Then you will be able to set the mirrors of ArcoLinux")
         print("---------------------------------------------------------------------------")
 
     lbl_distro = Gtk.Label(xalign=0)
-    lbl_distro.set_markup("Working on\n" + Functions.change_distro_label(distro.id()))
+    lbl_distro.set_markup("Working on\n" + fn.change_distro_label(distro.id()))
     btnReStartAtt = Gtk.Button(label="Restart ATT")
     btnReStartAtt.set_size_request(100,30)
     btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)

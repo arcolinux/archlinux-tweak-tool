@@ -1,6 +1,7 @@
-# =================================================================
-# =           Author: Erik Dubois  and Brad Heffernan             =
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
 import numpy as np
 import Functions as fn
 import Settings

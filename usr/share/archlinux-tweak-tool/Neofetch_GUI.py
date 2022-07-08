@@ -1,7 +1,8 @@
-# =================================================================
-# =                  Author: Brad Heffernan                       =
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
+import Functions as fn
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -143,7 +144,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9_label = Gtk.Label(xalign=0)
-    hbox9_label.set_markup("<b>Distro specific:  </b>" + Functions.change_distro_label(Functions.distro.id()))
+    hbox9_label.set_markup("<b>Distro specific:  </b>" + fn.change_distro_label(fn.distro.id()))
     hbox9.pack_start(hbox9_label, False, False, 10)
 
     hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -185,11 +186,11 @@ Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/c
     vboxStack8.pack_start(self.hbox26, False, False, 0)
     vboxStack8.pack_start(hbox25, False, False, 0)
 
-    if Functions.distr == "amos":
+    if fn.distr == "amos":
         vboxStack8.pack_start(hbox9, False, False, 0)
         vboxStack8.pack_start(hbox28, False, False, 0)
 
-    if Functions.distr == "archcraft":
+    if fn.distr == "archcraft":
         vboxStack8.pack_start(hbox9, False, False, 0)
         vboxStack8.pack_start(hbox29, False, False, 0)
 

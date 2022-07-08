@@ -1,6 +1,8 @@
-#=================================================================
-#=         Author: Erik Dubois and Cameron Percival              =
-#=================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
+import Functions as fn
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -58,8 +60,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
 
     self.combo_account_type = Gtk.ComboBoxText()
 
-    for i in range(len(Functions.account_list)):
-            self.combo_account_type.append_text(Functions.account_list[i])
+    for i in range(len(fn.account_list)):
+            self.combo_account_type.append_text(fn.account_list[i])
     self.combo_account_type.set_active(1)
 
     grid = Gtk.Grid()

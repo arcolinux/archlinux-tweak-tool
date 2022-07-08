@@ -1,6 +1,6 @@
-# =================================================================
-# =                  Author: Brad Heffernan                       =
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
 import os
 import distro
@@ -31,21 +31,26 @@ gpg_conf_local = home + "/.gnupg/gpg.conf"
 gpg_conf_original = "/usr/share/archlinux-tweak-tool/data/any/gpg.conf"
 gpg_conf_local_original = "/usr/share/archlinux-tweak-tool/data/any/gpg.conf"
 
-sddm_default = "/etc/sddm.conf"
-sddm_default_original = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
+#login managers
 
-samba_config = "/etc/samba/smb.conf"
-
+#sddm
 sddm_default_d1 = "/etc/sddm.conf"
 sddm_default_d2 = "/etc/sddm.conf.d/kde_settings.conf"
 sddm_default_d2_dir = "/etc/sddm.conf.d/"
-sddm_default_d_sddm_original_1 = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
-sddm_default_d_sddm_original_2 = "/usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf"
+sddm_default_d1_arco = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
+sddm_default_d2_arco = "/usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf"
+#lightdm
+lightdm_conf = "/etc/lightdm/lightdm.conf"
+lightdm_greeter = "/etc/lightdm/lightdm-gtk-greeter.conf"
+lightdm_slick_greeter = "/etc/lightdm/slick-greeter.conf"
+lightdm_conf_arco ="/usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm.conf"
+lightdm_greeter_arco = "/usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm-gtk-greeter.conf"
+ligthdm_slick_greeter_arco = "/usr/share/archlinux-tweak-tool/data/arco/lightdm/slick-greeter.conf"
+#lxdm
+lxdm_conf = "/etc/lxdm/lxdm.conf"
+lxdm_conf_arco = "/usr/share/archlinux-tweak-tool/data/arco/lxdm/lxdm.conf"
 
-# if os.path.exists("/etc/sddm.conf.d/kde_settings.conf"):
-#     sddm_conf = "/etc/sddm.conf.d/kde_settings.conf"
-# else:
-#     sddm_conf = "/etc/sddm.conf"
+samba_config = "/etc/samba/smb.conf"
 
 mirrorlist = "/etc/pacman.d/mirrorlist"
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
@@ -62,13 +67,8 @@ blank_pacman_eos = "/usr/share/archlinux-tweak-tool/data/eos/pacman/blank/pacman
 blank_pacman_garuda = "/usr/share/archlinux-tweak-tool/data/garuda/pacman/blank/pacman.conf"
 neofetch_arco = "/usr/share/archlinux-tweak-tool/data/arco/neofetch/config.conf"
 alacritty_arco = "/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.yml"
-lightdm_greeter_arco = "/usr/share/archlinux-tweak-tool/data/any/lightdm-gtk-greeter.conf"
-lightdm_greeter = "/etc/lightdm/lightdm-gtk-greeter.conf"
-lightdm_slick_greeter = "/etc/lightdm/slick-greeter.conf"
-lightdm_conf = "/etc/lightdm/lightdm.conf"
-lxdm_conf = "/etc/lxdm/lxdm.conf"
+
 oblogout_conf = "/etc/oblogout.conf"
-# oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
 gtk2_settings = home + "/.gtkrc-2.0"
 grub_theme_conf = "/boot/grub/themes/Vimix/theme.txt"
@@ -454,6 +454,7 @@ def check_arco_repos_active():
 
 def install_package(self, package):
     command = 'pacman -S ' + package + ' --noconfirm --needed'
+    #if more than one package - checf fails and will install
     if check_package_installed(package):
         print(package + " is/are already installed - nothing to do")
         GLib.idle_add(show_in_app_notification,self,package + " is/are already installed - nothing to do")

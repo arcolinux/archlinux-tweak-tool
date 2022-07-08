@@ -1,6 +1,8 @@
-# =================================================================
-# =            Author: Brad Heffernan - Erik Dubois
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
+import Functions as fn
 
 def GUI(self, Gtk, vboxStack1, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -196,11 +198,11 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               ARCO REPOS PACKING
     # ========================================================
-    if not Functions.check_package_installed("arcolinux-keyring"):
+    if not fn.check_package_installed("arcolinux-keyring"):
         hboxStack7.pack_start(label5, False, True, 10)
         hboxStack7.pack_end(self.arcolinux_button, False, True, 10)
 
-    if Functions.check_package_installed("arcolinux-keyring"):
+    if fn.check_package_installed("arcolinux-keyring"):
         hboxStack18.pack_start(label1, False, True, 10)
         hboxStack18.pack_end(self.atestrepo_button, False, False, 10)
         hboxStack7.pack_start(label5, False, True, 10)
@@ -236,22 +238,22 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #               OTHER REPOS PACKING
     # ========================================================
 
-    if not Functions.check_package_installed("endeavouros-keyring"):
+    if not fn.check_package_installed("endeavouros-keyring"):
         hboxStack19.pack_start(label16, False, True, 10)
         hboxStack19.pack_end(self.endeavouros_button, False, False, 10)
 
-    if Functions.check_package_installed("endeavouros-keyring"):
+    if fn.check_package_installed("endeavouros-keyring"):
         hboxStack19.pack_start(label16, False, True, 10)
         hboxStack19.pack_end(self.endeavouros_switch, False, False, 10)
 
     hboxStack13.pack_start(label11, False, True, 10)
     hboxStack13.pack_end(self.nemesis_switch, False, False, 10)
 
-    if not Functions.check_package_installed("xerolinux-mirrorlist"):
+    if not fn.check_package_installed("xerolinux-mirrorlist"):
         hboxStack20.pack_start(label17, False, True, 10)
         hboxStack20.pack_end(self.xerolinux_button, False, True, 10)
 
-    if Functions.check_package_installed("xerolinux-mirrorlist"):
+    if fn.check_package_installed("xerolinux-mirrorlist"):
         hboxStack20.pack_start(label17, False, True, 10)
         hboxStack20.pack_end(self.xerolinux_switch, False, False, 10)
 
@@ -261,11 +263,11 @@ def GUI(self, Gtk, vboxStack1, Functions):
         hboxStack22.pack_start(label19, False, True, 10)
         hboxStack22.pack_end(self.xerolinux_nv_switch, False, False, 10)
 
-    if not Functions.check_package_installed("chaotic-keyring"):
+    if not fn.check_package_installed("chaotic-keyring"):
         hboxStack11.pack_start(label9, False, True, 10)
         hboxStack11.pack_end(self.chaotics_button, False, False, 10)
 
-    if Functions.check_package_installed("chaotic-keyring"):
+    if fn.check_package_installed("chaotic-keyring"):
         hboxStack11.pack_start(label9, False, True, 10)
         hboxStack11.pack_end(self.chaotics_switch, False, False, 10)
 
@@ -273,7 +275,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     vboxStack4.pack_start(hboxStack13, False, False, 10)
     vboxStack4.pack_start(hboxStack19, False, False, 10)
     vboxStack4.pack_start(hboxStack20, False, False, 10)
-    if Functions.check_package_installed("xerolinux-mirrorlist"):
+    if fn.check_package_installed("xerolinux-mirrorlist"):
         vboxStack4.pack_start(hboxStack21, False, False, 10)
         vboxStack4.pack_start(hboxStack22, False, False, 10)
     vboxStack4.pack_start(hboxStack11, False, False, 10)

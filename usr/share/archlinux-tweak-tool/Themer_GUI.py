@@ -1,10 +1,9 @@
-# =================================================================
-# =          Author: Brad Heffernan - Erik Dubois - Cameron Percival
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
-
+import Functions as fn
 from os import link
-
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
@@ -20,15 +19,15 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     hbox7.pack_start(hseparator, True, True, 0)
     hbox6.pack_start(lbl1, False, False, 0)
 
-    if Functions.os.path.isfile(Functions.i3wm_config) \
-        and Functions.check_package_installed("arcolinux-i3wm-git"):
-        i3_list = themer.get_list(Functions.i3wm_config)
-    if Functions.os.path.isfile(Functions.awesome_config) \
-        and Functions.check_package_installed("arcolinux-awesome-git"):
-        awesome_list = themer.get_list(Functions.awesome_config)
-    if Functions.os.path.isfile(Functions.qtile_config_theme) \
-        and Functions.check_package_installed("arcolinux-qtile-git"):
-        qtile_list = themer.get_list(Functions.qtile_config)
+    if fn.os.path.isfile(fn.i3wm_config) \
+        and fn.check_package_installed("arcolinux-i3wm-git"):
+        i3_list = themer.get_list(fn.i3wm_config)
+    if fn.os.path.isfile(fn.awesome_config) \
+        and fn.check_package_installed("arcolinux-awesome-git"):
+        awesome_list = themer.get_list(fn.awesome_config)
+    if fn.os.path.isfile(fn.qtile_config_theme) \
+        and fn.check_package_installed("arcolinux-qtile-git"):
+        qtile_list = themer.get_list(fn.qtile_config)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
@@ -58,8 +57,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
     self.i3_combo.set_size_request(280, 0)
-    if Functions.os.path.isfile(Functions.i3wm_config) \
-        and Functions.check_package_installed("arcolinux-i3wm-git"):
+    if fn.os.path.isfile(fn.i3wm_config) \
+        and fn.check_package_installed("arcolinux-i3wm-git"):
         themer.get_i3_themes(self.i3_combo, i3_list)
 
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -76,14 +75,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     lbls = Gtk.Label(label="Toggle polybar")
     self.poly = Gtk.Switch()
-    if Functions.os.path.isfile(Functions.i3wm_config) \
-        and Functions.check_package_installed("arcolinux-i3wm-git"):
-        if themer.check_polybar(themer.get_list(Functions.i3wm_config)):
+    if fn.os.path.isfile(fn.i3wm_config) \
+        and fn.check_package_installed("arcolinux-i3wm-git"):
+        if themer.check_polybar(themer.get_list(fn.i3wm_config)):
             self.poly.set_active(True)
     self.poly.connect("notify::active", self.on_polybar_toggle)
 
-    if not Functions.os.path.isfile(Functions.i3wm_config) \
-        or not Functions.check_package_installed("arcolinux-i3wm-git"):
+    if not fn.os.path.isfile(fn.i3wm_config) \
+        or not fn.check_package_installed("arcolinux-i3wm-git"):
         applyi3.set_sensitive(False)
         reseti3.set_sensitive(False)
         self.poly.set_sensitive(False)
@@ -94,7 +93,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/i3-sample.jpg", image_width, image_height)
     if self.i3_combo.get_active_text() is None:
         pass
-    elif Functions.os.path.isfile(base_dir+"/themer_data/i3"+self.i3_combo.get_active_text()+".jpg"):
+    elif fn.os.path.isfile(base_dir+"/themer_data/i3"+self.i3_combo.get_active_text()+".jpg"):
         pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/i3/"+self.i3_combo.get_active_text()+".jpg", image_width, image_height)
     i3_image = Gtk.Image().new_from_pixbuf(pixbuf)
 
@@ -121,8 +120,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     label2 = Gtk.Label("Select theme")
     self.store = Gtk.ListStore(int, str)
-    if Functions.os.path.isfile(Functions.awesome_config) \
-        and Functions.check_package_installed("arcolinux-awesome-git"):
+    if fn.os.path.isfile(fn.awesome_config) \
+        and fn.check_package_installed("arcolinux-awesome-git"):
         try:
             awesome_lines = themer.get_awesome_themes(awesome_list)
             for x in range(len(awesome_lines)):
@@ -134,8 +133,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     self.awesome_combo.set_size_request(180, 0)
     renderer_text = Gtk.CellRendererText()
 
-    if Functions.os.path.isfile(Functions.awesome_config) \
-        and Functions.check_package_installed("arcolinux-awesome-git"):
+    if fn.os.path.isfile(fn.awesome_config) \
+        and fn.check_package_installed("arcolinux-awesome-git"):
         try:
             val = int(themer.get_value(awesome_list, "local chosen_theme =")
                     .replace("themes[", "").replace("]", ""))
@@ -173,8 +172,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     image_width = 598
     image_height = 598
 
-    if Functions.os.path.isfile(Functions.awesome_config) \
-        and Functions.check_package_installed("arcolinux-awesome-git"):
+    if fn.os.path.isfile(fn.awesome_config) \
+        and fn.check_package_installed("arcolinux-awesome-git"):
         try:
             pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/" + name + ".jpg", image_width, image_height)  # noqa
             self.image.set_from_pixbuf(pimage)
@@ -196,8 +195,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     reset = Gtk.Button(label="Reset")
     reset.connect("clicked", self.awesome_reset_clicked)
 
-    if not Functions.os.path.isfile(Functions.awesome_config) \
-        or not Functions.check_package_installed("arcolinux-awesome-git"):
+    if not fn.os.path.isfile(fn.awesome_config) \
+        or not fn.check_package_installed("arcolinux-awesome-git"):
             apply.set_sensitive(False)
             reset.set_sensitive(False)
 
@@ -219,8 +218,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     labelqt = Gtk.Label("Select theme")
     self.qtile_combo = Gtk.ComboBoxText()
     self.qtile_combo.set_size_request(280, 0)
-    if Functions.os.path.isfile(Functions.qtile_config_theme) \
-        and Functions.check_package_installed("arcolinux-qtile-git"):
+    if fn.os.path.isfile(fn.qtile_config_theme) \
+        and fn.check_package_installed("arcolinux-qtile-git"):
         themer.get_qtile_themes(self.qtile_combo, qtile_list)
 
     vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -235,16 +234,16 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     resetqtile = Gtk.Button(label="Reset")
     resetqtile.connect("clicked", self.qtile_reset_clicked)
 
-    if not Functions.os.path.isfile(Functions.qtile_config_theme) \
-        or not Functions.check_package_installed("arcolinux-qtile-git"):
+    if not fn.os.path.isfile(fn.qtile_config_theme) \
+        or not fn.check_package_installed("arcolinux-qtile-git"):
             applyqtile.set_sensitive(False)
             resetqtile.set_sensitive(False)
 
 #   Commented out for now. TODO: implement theming for polybar under Qtile
 #   lbls = Gtk.Label(label="Toggle polybar")
 #   self.poly = Gtk.Switch()
-#   if Functions.os.path.isfile(Functions.i3wm_config):
-#       if themer.check_polybar(themer.get_list(Functions.i3wm_config)):
+#   if fn.os.path.isfile(fn.i3wm_config):
+#       if themer.check_polybar(themer.get_list(fn.i3wm_config)):
 #           self.poly.set_active(True)
 #   self.poly.connect("notify::active", self.on_polybar_toggle)
 
@@ -254,7 +253,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/qtile-sample.jpg", image_width, image_height)
     if self.qtile_combo.get_active_text() is None:
         pass
-    elif Functions.os.path.isfile(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg"):
+    elif fn.os.path.isfile(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg"):
         qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg", image_width, image_height)
     qtile_image = Gtk.Image().new_from_pixbuf(qtile_pixbuf)
 
@@ -284,13 +283,13 @@ Be patient if it is the first time you install the theme or use the scripts to i
     labellft = Gtk.Label("Select theme - candy is the default theme")
     self.leftwm_combo = Gtk.ComboBoxText()
     self.leftwm_combo.set_size_request(280, 0)
-    for theme in Functions.leftwm_themes_list:
+    for theme in fn.leftwm_themes_list:
         self.leftwm_combo.append_text(theme)
     self.leftwm_combo.connect("changed", self.on_leftwm_combo_changed)
-    if Functions.path_check(Functions.leftwm_config_theme_current):
-        link_theme = Functions.os.path.basename(Functions.os.readlink(Functions.leftwm_config_theme_current))
-        for i in range(len(Functions.leftwm_themes_list)):
-            if link_theme == Functions.leftwm_themes_list[i]:
+    if fn.path_check(fn.leftwm_config_theme_current):
+        link_theme = fn.os.path.basename(fn.os.readlink(fn.leftwm_config_theme_current))
+        for i in range(len(fn.leftwm_themes_list)):
+            if link_theme == fn.leftwm_themes_list[i]:
                 self.leftwm_combo.set_active(i)
     else:
         self.leftwm_combo.set_sensitive(False)
@@ -308,8 +307,8 @@ Be patient if it is the first time you install the theme or use the scripts to i
     resetleftwm = Gtk.Button(label="Reset selected theme")
     resetleftwm.connect("clicked", self.leftwm_reset_clicked)
 
-    if not Functions.os.path.isfile(Functions.leftwm_config) \
-        or not Functions.check_package_installed("arcolinux-leftwm-git"):
+    if not fn.os.path.isfile(fn.leftwm_config) \
+        or not fn.check_package_installed("arcolinux-leftwm-git"):
             applyleftwm.set_sensitive(False)
             resetleftwm.set_sensitive(False)
             removeleftwm.set_sensitive(False)
@@ -321,7 +320,7 @@ Be patient if it is the first time you install the theme or use the scripts to i
     leftwm_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/leftwm-sample.jpg", image_width, image_height)
     if self.leftwm_combo.get_active_text() is None:
         pass
-    elif Functions.os.path.isfile(base_dir+"/themer_data/leftwm/"+self.leftwm_combo.get_active_text()+".jpg"):
+    elif fn.os.path.isfile(base_dir+"/themer_data/leftwm/"+self.leftwm_combo.get_active_text()+".jpg"):
         leftwm_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/leftwm/"+self.leftwm_combo.get_active_text()+".jpg", image_width, image_height)
     leftwm_image = Gtk.Image().new_from_pixbuf(leftwm_pixbuf)
 

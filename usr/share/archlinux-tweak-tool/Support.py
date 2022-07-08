@@ -1,6 +1,10 @@
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
 import gi
-import Functions
-from Functions import os
+import os
+import Functions as fn
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf
 
@@ -117,20 +121,20 @@ the right setting - the right config - the right application - at the right plac
         self.show_all()
 
     def on_support_click(self, widget, event, link):
-        t = Functions.threading.Thread(target=self.weblink, args=(link,))
+        t = fn.threading.Thread(target=self.weblink, args=(link,))
         t.daemon = True
         t.start()
         # print("CLICKED")
         # self.weblink(link)
 
     def weblink(self, link):
-        if Functions.check_package_installed("firefox"):
-            Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "firefox --new-tab " + link], shell=False)
+        if fn.check_package_installed("firefox"):
+            fn.subprocess.call(["sudo", "-H", "-u", fn.sudo_username, "bash", "-c", "firefox --new-tab " + link], shell=False)
         else:
-            if Functions.check_package_installed("chromium"):
-                Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "chromium " + link], shell=False)
+            if fn.check_package_installed("chromium"):
+                fn.subprocess.call(["sudo", "-H", "-u", fn.sudo_username, "bash", "-c", "chromium " + link], shell=False)
             else:
-                Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "exo-open --launch webbrowser " + link], shell=False)
+                fn.subprocess.call(["sudo", "-H", "-u", fn.sudo_username, "bash", "-c", "exo-open --launch webbrowser " + link], shell=False)
 
     def tooltip_callback(self, widget, x, y, keyboard_mode, tooltip, text):
         tooltip.set_text(text)

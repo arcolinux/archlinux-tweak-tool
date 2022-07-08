@@ -1,9 +1,9 @@
-# =================================================================
-# =          Authors: Erik Dubois - Cameron Percival
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
 import os
-import Functions
+import Functions as fn
 
 
 def check_oh_my():
@@ -17,10 +17,10 @@ def get_themes(combo):
         try:
             lists = [x for x in os.listdir("/usr/share/oh-my-zsh/themes")]
             lists_sorted = sorted(lists)
-            with open(Functions.zsh_config, "r", encoding="utf-8", errors="ignore") as f:
+            with open(fn.zsh_config, "r", encoding="utf-8", errors="ignore") as f:
                 theme_list = f.readlines()
                 f.close()
-            pos = Functions._get_position(theme_list, "ZSH_THEME=")
+            pos = fn._get_position(theme_list, "ZSH_THEME=")
             #stripping whitespace, and quotation marks
             name = theme_list[pos].split("=")[1].strip().strip('"')
             active = 0
@@ -40,28 +40,28 @@ def get_themes(combo):
         combo.set_active(0)
 
 def set_config(self, theme):
-    if not os.path.isfile(Functions.zsh_config + ".bak"):
-        Functions.shutil.copy(Functions.zsh_config,
-                              Functions.zsh_config + ".bak")
+    if not os.path.isfile(fn.zsh_config + ".bak"):
+        fn.shutil.copy(fn.zsh_config,
+                              fn.zsh_config + ".bak")
 
     try:
-        with open(Functions.zsh_config, "r", encoding="utf-8", errors="ignore") as f:
+        with open(fn.zsh_config, "r", encoding="utf-8", errors="ignore") as f:
             theme_list = f.readlines()
             f.close()
 
-        pos = Functions._get_position(theme_list, "ZSH_THEME=")
+        pos = fn._get_position(theme_list, "ZSH_THEME=")
 
         theme_list[pos] = "ZSH_THEME=\"" + theme + "\"\n"
 
-        with open(Functions.zsh_config, "w") as f:
+        with open(fn.zsh_config, "w") as f:
             f.writelines(theme_list)
             f.close()
 
-        Functions.show_in_app_notification(self,
+        fn.show_in_app_notification(self,
                                            "Settings Saved Successfully")
 
     except Exception as e:
         print(e)
-        Functions.MessageBox(self,
+        fn.MessageBox(self,
                              "Error!!",
                              "Something went wrong setting this theme.")

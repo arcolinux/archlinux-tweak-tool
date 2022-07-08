@@ -1,6 +1,7 @@
-# =================================================================
-# =                  Author: Brad Heffernan                       =
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
 from Functions import home, polybar, config_dir, os, show_in_app_notification, shutil
 
 launch = home + "/.config/polybar/launch.sh"
