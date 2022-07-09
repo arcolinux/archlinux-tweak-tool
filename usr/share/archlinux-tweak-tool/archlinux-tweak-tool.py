@@ -1176,14 +1176,6 @@ class Main(Gtk.Window):
         print("installing {}".format(self.d_combo.get_active_text()))
         desktopr.check_lock(self,self.d_combo.get_active_text(),state)
 
-    # TO DO
-    # can I invoke the activation of the ArcoLinux repositories
-    # def on_arco_repo_clicked(self, active):
-
-    #     self.on_pacman_arepo_toggle(self)
-    #     self.on_pacman_a3p_toggle(self)
-    #     self.on_pacman_axl_toggle(self)
-
     def on_default_clicked(self, widget):
         fn.create_log(self)
         if desktopr.check_desktop(self.d_combo.get_active_text()) is True:
@@ -3499,6 +3491,7 @@ class Main(Gtk.Window):
 
     def on_clicked_install_only_zsh(self,widget):
         fn.install_package(self,"zsh")
+        fn.restart_program()
 
     def on_install_zsh_completions_clicked(self, widget):
         fn.install_package(self,"zsh-completions")

@@ -1293,7 +1293,6 @@ def check_package(self, path, package):
             for line in p.stdout:
                 GLib.idle_add(self.desktopr_stat.set_text, line.strip())
 
-
 def install_desktop(self, desktop, state):
 
     src = []

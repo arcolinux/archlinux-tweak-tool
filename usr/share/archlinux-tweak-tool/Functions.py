@@ -422,6 +422,12 @@ def check_group(group):
     except Exception as e:
         print(e)
 
+def check_systemd_boot():
+    if path_check("/boot/loader") == True and file_check ("/boot/loader/loader.conf") == True:
+        return True
+    else:
+        return False
+
 # =====================================================
 #               END GLOBAL FUNCTIONS
 # =====================================================
