@@ -1121,7 +1121,8 @@ class Main(Gtk.Window):
         fn.change_shell(self, "bash")
 
     def on_install_bash_clicked(self, widget):
-        fn.install_bash(self)
+        fn.install_package(self,"bash")
+        fn.install_package(self,"bash-completion")
         GLib.idle_add(fn.show_in_app_notification, self, "Bash-completion has been installed")
         print("Bash completion has been installed")
 
@@ -1353,7 +1354,7 @@ class Main(Gtk.Window):
         print("FIXES")
 
     def on_click_fix_pacman_keys(self,widget):
-        fn.install_alacritty(self)
+        fn.install_package(self,"alacritty")
         try:
             fn.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/fix-pacman-databases-and-keys",
                             shell=True,
@@ -1365,7 +1366,7 @@ class Main(Gtk.Window):
             print("Install Alacritty")
 
     def on_click_fix_mainstream(self,widget):
-        fn.install_alacritty(self)
+        fn.install_package(self,"alacritty")
         try:
             command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers'
             fn.subprocess.call(command.split(" "),
@@ -1387,7 +1388,7 @@ class Main(Gtk.Window):
         GLib.idle_add(fn.show_in_app_notification, self, "Your original mirrorlist is back")
 
     def on_click_get_arch_mirrors(self,widget):
-        fn.install_alacritty(self)
+        fn.install_package(self,"alacritty")
         try:
             fn.install_package(self,"reflector")
             fn.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-reflector",
@@ -1400,7 +1401,7 @@ class Main(Gtk.Window):
             print("Install alacritty")
 
     def on_click_get_arch_mirrors2(self,widget):
-        fn.install_alacritty(self)
+        fn.install_package(self,"alacritty")
         try:
             fn.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-rate-mirrors",
                             shell=True,
@@ -1413,7 +1414,7 @@ class Main(Gtk.Window):
 
 
     def on_click_fix_sddm_conf(self,widget):
-        fn.install_alacritty(self)
+        fn.install_package(self,"alacritty")
         try:
             command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-fix-sddm-config'
             fn.subprocess.call(command,
@@ -3137,14 +3138,16 @@ class Main(Gtk.Window):
     if debug:
         print("TERMINALS")
 
+    def on_clicked_install_alacritty(self, widget):
+        fn.install_package(self,"alacritty")
+
     def on_clicked_install_alacritty_themes(self,widget):
-        command = 'pacman -S alacritty ttf-hack alacritty-themes base16-alacritty-git --needed --noconfirm'
-        fn.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
-        print("Installing alacritty ttf-hack alacritty-themes base16-alacritty-git ")
-        GLib.idle_add(fn.show_in_app_notification, self, "Alacritty Themes Installed")
+        fn.install_package(self,"alacritty")
+        fn.install_package(self,"ttf-hack")
+        fn.install_arco_package(self,"alacritty-themes")
+        fn.install_arco_package(self,"base16-alacritty-git")
+        print("Alacritty themes installed")
+        GLib.idle_add(fn.show_in_app_notification, self, "Alacritty themes installed")
 
         #if there is no file copy/paste from /etc/skel else alacritty-themes crash
         if not os.path.isfile(fn.alacritty_config):
@@ -3160,42 +3163,33 @@ class Main(Gtk.Window):
             fn.permissions(fn.home + "/.config/alacritty")
             print("Alacritty config saved")
 
+    def on_clicked_remove_alacritty_themes(self,widget):
+        fn.remove_package(self,"alacritty")
+        fn.remove_package(self,"ttf-hack")
+        fn.remove_package(self,"alacritty-themes")
+        fn.remove_package(self,"base16-alacritty-git")
+        print("Alacritty themes removed")
+        GLib.idle_add(fn.show_in_app_notification, self, "Alacritty themes removed")
+
+    def on_clicked_install_xfce4_terminal(self,widget):
+        fn.install_package(self,"xfce4-terminal")
+
+    def on_clicked_remove_xfce4_terminal(self,widget):
+        fn.remove_package(self,"xfce4-terminal")
+
     def on_clicked_install_xfce4_themes(self,widget):
-        command = 'pacman -S xfce4-terminal xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
-        fn.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
-        print("Installing xfce4-terminal xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal")
-        GLib.idle_add(fn.show_in_app_notification, self, "Xfce4-terminal Themes Installed")
+        fn.install_arco_package(self,"xfce4-terminal-base16-colors-git")
+        fn.install_arco_package(self,"tempus-themes-xfce4-terminal-git")
+        fn.install_arco_package(self,"prot16-xfce4-terminal")
+        print("Xfce4 themes installed")
+        GLib.idle_add(fn.show_in_app_notification, self, "Xfce4 themes installed")
 
-    def on_clicked_install_termite_themes(self,widget):
-        if os.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active() == True:
-                try:
-                    command = 'pacman -S termite arcolinux-termite-themes-git --needed --noconfirm'
-                    fn.subprocess.call(command.split(" "),
-                                    shell=False,
-                                    stdout=fn.subprocess.PIPE,
-                                    stderr=fn.subprocess.STDOUT)
-                    fn.copy_func("/etc/skel/.config/termite", fn.home + "/.config/", True)
-                    fn.permissions(fn.home + "/.config/termite")
-                    termite.get_themes(self.term_themes)
-                    print("Installing termite arcolinux-termite-themes-git")
-                    GLib.idle_add(fn.show_in_app_notification, self, "Termite Themes Installed")
-                except Exception as e:
-                    print(e)
-            else:
-                print("Activate the ArcoLinux repos")
-                GLib.idle_add(fn.show_in_app_notification, self, "Activate the ArcoLinux repos")
-        else:
-            print("Install the ArcoLinux keys and mirrors")
-            GLib.idle_add(fn.show_in_app_notification, self, "Install the ArcoLinux keys and mirrors")
-
-    # def on_clicked_launch_alacritty_themes(self,widget):
-    #     fn.install_alacritty_themes(self)
-    #     subprocess.call(["su - " + fn.sudo_username + " -c " +  "/usr/bin/alacritty-themes"], shell=True)
-    #     GLib.idle_add(fn.show_in_app_notification, self, "Done")
+    def on_clicked_remove_xfce4_themes(self,widget):
+        fn.remove_package(self,"xfce4-terminal-base16-colors-git")
+        fn.remove_package(self,"tempus-themes-xfce4-terminal-git")
+        fn.remove_package(self,"prot16-xfce4-terminal")
+        print("Xfce4 themes removed")
+        GLib.idle_add(fn.show_in_app_notification, self, "Xfce4 themes removed")
 
     def on_clicked_reset_xfce4_terminal(self,widget):
         if os.path.isfile(fn.xfce4_terminal_config + ".bak"):
@@ -3218,8 +3212,8 @@ class Main(Gtk.Window):
             fn.shutil.copy(fn.alacritty_arco,
                                   fn.alacritty_config)
             fn.permissions(fn.home + "/.config/alacritty")
-            print("Applied ArcoLinux Alacritty theme/config")
-            GLib.idle_add(fn.show_in_app_notification, self, "Applied ArcoLinux Alacritty theme/config")
+            print("Applied the ATT Alacritty theme/config")
+            GLib.idle_add(fn.show_in_app_notification, self, "Applied the ATT Alacritty theme/config")
 
     #====================================================================
     #                      TERMITE
@@ -3228,24 +3222,28 @@ class Main(Gtk.Window):
     if debug:
         print("TERMITE")
 
-    def on_install_termite_themes(self, widget):
-        self.btn_term.set_sensitive(False)
-        ll = self.btn_term.get_child()
-        ll.set_text("Installing ....")
-        t1 = fn.threading.Thread(target=self.install_term_themes, args=())
-        t1.daemon = True
-        t1.start()
+    def on_clicked_install_termite(self,widget):
+        fn.install_arco_package(self,"termite")
+        termite.get_themes(self.term_themes)
 
-    def install_term_themes(self):
-        fn.subprocess.run(['pkexec', 'pacman', '-S', 'arcolinux-termite-themes-git', '--noconfirm', '--needed'])
+    def on_clicked_remove_termite(self,widget):
+        fn.remove_package(self,"termite")
+        termite.get_themes(self.term_themes)
+
+    def on_clicked_install_termite_themes(self,widget):
+        fn.install_arco_package(self,"termite")
+        fn.install_arco_package(self,"arcolinux-termite-themes-git")
         fn.copy_func("/etc/skel/.config/termite", fn.home + "/.config/", True)
         fn.permissions(fn.home + "/.config/termite")
-        GLib.idle_add(fn.show_in_app_notification, self, "Themes Installed")
+        termite.get_themes(self.term_themes)
+        print("Termite  themes installed")
+        GLib.idle_add(fn.show_in_app_notification, self, "Termite themes installed")
 
-        GLib.idle_add(self.btn_term.set_sensitive, True)
-        ll = self.btn_term.get_child()
-        GLib.idle_add(ll.set_text, "Install Termite themes")
-        GLib.idle_add(self.ls2.set_markup, "Please restart the <b>ArchLinux Tweak Tool</b>")
+    def on_clicked_remove_termite_themes(self,widget):
+        fn.remove_package(self,"arcolinux-termite-themes-git")
+        termite.get_themes(self.term_themes)
+        print("Termite  themes removed")
+        GLib.idle_add(fn.show_in_app_notification, self, "Termite themes removed")
 
     def on_term_apply(self, widget):
         if self.term_themes.get_active_text() is not None:

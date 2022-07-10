@@ -560,55 +560,6 @@ def add_autologin_group(self):
     # print(groups)
     if "autologin" not in groups:
         subprocess.run(["gpasswd", "-a", sudo_username, "autologin"], shell=False)
-# =====================================================
-#               ALACRITTY
-# =====================================================
-
-def install_alacritty(self):
-    install = 'pacman -S alacritty --needed --noconfirm'
-
-    if os.path.exists("/usr/bin/alacritty"):
-        #print("Alacritty is already installed")
-        pass
-    else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        print("Alacritty is now installed")
-
-# =====================================================
-#               ALACRITTY-THEMES
-# =====================================================
-
-def install_alacritty_themes(self):
-    install = 'pacman -S alacritty-themes --noconfirm'
-
-    if os.path.exists("/usr/bin/alacritty-themes"):
-        #print("Alacritty-themes is already installed")
-        pass
-    else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        print("Alacritty-themes is now installed")
-
-# =====================================================
-#                    BASH
-# =====================================================
-
-def install_bash(self):
-    install = 'pacman -S bash bash-completion --needed --noconfirm'
-
-    if os.path.exists("/usr/bin/bash"):
-        pass
-    else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
-        restart_program()
 
 # =====================================================
 #              CAJA SHARE PLUGIN
