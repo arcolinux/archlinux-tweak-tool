@@ -3365,6 +3365,18 @@ class Main(Gtk.Window):
                         fn.get_login_wallpapers(), False)
         sddm.pop_login_managers_combo(self, self.login_managers_combo)
 
+    def on_install_att_plain_backgrounds(self,widget):
+        fn.install_arco_package(self,"archlinux-login-backgrounds-plain-git")
+        self.pop_login_wallpapers(self.login_managers_combo,
+                        fn.get_login_wallpapers(), False)
+        sddm.pop_login_managers_combo(self, self.login_managers_combo)
+
+    def on_remove_att_plain_backgrounds(self,widget):
+        fn.remove_package(self,"archlinux-login-backgrounds-plain-git")
+        self.pop_login_wallpapers(self.login_managers_combo,
+                        fn.get_login_wallpapers(), False)
+        sddm.pop_login_managers_combo(self, self.login_managers_combo)
+
     def on_import_remove_login_wallpaper(self, widget):
         if self.login_wallpaper_path == "":
             print("First choose a wallpaper to remove")
