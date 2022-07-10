@@ -54,8 +54,11 @@ GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"
 # Do not forget to 'update-grub' in a terminal to apply the new settings
 #GRUB_SAVEDEFAULT="true"
 
-# Uncomment to make grub stop using submenus
+# Uncomment to disable submenus in boot menu
 #GRUB_DISABLE_SUBMENU=y
 
-# Check for other operating systems
+# Probing for other operating systems is disabled for security reasons. Read
+# documentation on GRUB_DISABLE_OS_PROBER, if still want to enable this
+# functionality install os-prober and uncomment to detect and include other
+# operating systems.
 GRUB_DISABLE_OS_PROBER=false
