@@ -30,10 +30,6 @@ def get_themes(combo):
             print(e)
 
 def set_config(self, theme):
-    if not os.path.isfile(fn.zsh_config + ".bak"):
-        fn.shutil.copy(fn.zsh_config,
-                              fn.zsh_config + ".bak")
-
     try:
         with open(fn.zsh_config, "r", encoding="utf-8", errors="ignore") as f:
             theme_list = f.readlines()

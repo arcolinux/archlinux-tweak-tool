@@ -3528,7 +3528,6 @@ class Main(Gtk.Window):
         GLib.idle_add(fn.show_in_app_notification, self, "Your personal ~/.zshrc is applied again - logout")
 
     def on_zsh_apply_theme(self, widget):
-
         #create a .zshrc if it doesn't exist'
         if not os.path.isfile(fn.zsh_config):
             fn.shutil.copy(fn.zshrc_arco,
@@ -3536,7 +3535,7 @@ class Main(Gtk.Window):
             fn.permissions(fn.home + "/.zshrc")
 
         if self.zsh_themes.get_active_text() is not None:
-            widget.set_sensitive(False)
+            #widget.set_sensitive(False)
             zsh_theme.set_config(self, self.zsh_themes.get_active_text())
             widget.set_sensitive(True)
             print("Applying zsh theme")
@@ -3576,15 +3575,17 @@ class Main(Gtk.Window):
 
     def install_oh_my_zsh(self,widget):
         fn.install_arco_package(self,"oh-my-zsh-git")
+        self.termset.set_sensitive(True)
+        self.zsh_themes.set_sensitive(True)
+        zsh_theme.get_themes(self.zsh_themes)
 
     #The intent behind this function is to be a centralised image changer for all portions of ATT that need it
     #Currently utilising an if tree - this is not best practice: it should be a match: case tree.
     #But I have not yet got that working.
     def update_image(self, widget, image, theme_type, att_base, image_width, image_height):
-        if fn.check_package_installed("oh-my-zsh-git"):
-            sample_path = ""
-            preview_path = ""
-            random_option = False
+        sample_path = ""
+        preview_path = ""
+        random_option = False
         # THIS CODE IS KEPT ON PURPOSE. DO NOT DELETE.
         # Once Python 3.10 is released and used widely, delete the if statements below the match blocks
         # and use the match instead. It is faster, and easier to maintain.
@@ -3607,44 +3608,42 @@ class Main(Gtk.Window):
         #        case unknown_command:
         #            print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
         #            print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
-            if theme_type == "zsh":
-                sample_path = att_base+"/images/zsh-sample.jpg"
-                preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
-                if widget.get_active_text() == "random":
-                    random_option = True
-            elif theme_type == "qtile":
-                sample_path = att_base+"/images/qtile-sample.jpg"
-                preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
-            elif theme_type == "leftwm":
-                sample_path = att_base+"/images/leftwm-sample.jpg"
-                preview_path = att_base+"/themer_data/leftwm/"+widget.get_active_text() + ".jpg"
-            elif theme_type == "i3":
-                sample_path = att_base+"/images/i3-sample.jpg"
-                preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
-            elif theme_type == "awesome":
-            #Awesome section doesn't use a ComboBoxText, but a ComboBox - which has different properties.
-                tree_iter = self.awesome_combo.get_active_iter()
-                if tree_iter is not None:
-                    model = self.awesome_combo.get_model()
-                    row_id, name = model[tree_iter][:2]
+        if theme_type == "zsh":
+            sample_path = att_base+"/images/zsh-sample.jpg"
+            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+            if widget.get_active_text() == "random":
+                random_option = True
+        elif theme_type == "qtile":
+            sample_path = att_base+"/images/qtile-sample.jpg"
+            preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "leftwm":
+            sample_path = att_base+"/images/leftwm-sample.jpg"
+            preview_path = att_base+"/themer_data/leftwm/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "i3":
+            sample_path = att_base+"/images/i3-sample.jpg"
+            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "awesome":
+        #Awesome section doesn't use a ComboBoxText, but a ComboBox - which has different properties.
+            tree_iter = self.awesome_combo.get_active_iter()
+            if tree_iter is not None:
+                model = self.awesome_combo.get_model()
+                row_id, name = model[tree_iter][:2]
 
-                sample_path = att_base+"/images/i3-sample.jpg"
-                preview_path = att_base+"/themer_data/awesomewm/"+name+".jpg"
-            elif theme_type == "neofetch":
-                sample_path = att_base + widget.get_active_text()
-                preview_path = att_base + widget.get_active_text()
-            else:
-            #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
-                    print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
-                    print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
-            source_pixbuf = image.get_pixbuf()
-            if os.path.isfile(preview_path) and not random_option:
-                pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(preview_path, image_width, image_height)
-            else:
-                pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
-            image.set_from_pixbuf(pixbuf)
-            zsh_theme.get_themes(self.zsh_themes)
-            self.termset.set_sensitive(True)
+            sample_path = att_base+"/images/i3-sample.jpg"
+            preview_path = att_base+"/themer_data/awesomewm/"+name+".jpg"
+        elif theme_type == "neofetch":
+            sample_path = att_base + widget.get_active_text()
+            preview_path = att_base + widget.get_active_text()
+        else:
+        #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
+                print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
+                print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
+        source_pixbuf = image.get_pixbuf()
+        if os.path.isfile(preview_path) and not random_option:
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(preview_path, image_width, image_height)
+        else:
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
+        image.set_from_pixbuf(pixbuf)
 
     def remove_oh_my_zsh(self,widget):
         fn.remove_package(self, "oh-my-zsh-git")
@@ -3666,8 +3665,6 @@ class Main(Gtk.Window):
     def on_reload_att_clicked(self,widget):
         sddm.pop_box(self, self.sessions_sddm)
         lightdm.pop_box_sessions_lightdm(self, self.sessions_lightdm)
-        zsh_theme.get_themes(self.zsh_themes)
-        neofetch.get_checkboxes(self)
 
     # ================================================================================
     # ================================================================================
