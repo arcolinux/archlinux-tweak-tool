@@ -189,9 +189,12 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
             hbox28_lbl.set_markup("Oh-my-zsh-git is already <b>installed</b>")
         else:
             hbox28_lbl.set_markup("Oh-my-zsh-git is not installed")
-        self.install_zsh_omz = Gtk.Button("Install Oh-my-zsh-git")
+        self.install_zsh_omz = Gtk.Button("Install Oh-my-zsh")
         self.install_zsh_omz.connect("clicked", self.install_oh_my_zsh)
+        self.remove_zsh_omz = Gtk.Button("Remove Oh-my-zsh")
+        self.remove_zsh_omz.connect("clicked", self.remove_oh_my_zsh)
         hbox28.pack_start(hbox28_lbl, False, False, 10)
+        hbox28.pack_end(self.remove_zsh_omz, False, False, 10)
         hbox28.pack_end(self.install_zsh_omz, False, False, 10)
 
         hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -209,16 +212,17 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         hbox21_lbl = Gtk.Label()
         hbox21_lbl.set_markup("Zsh themes")
         self.zsh_themes = Gtk.ComboBoxText()
+        self.zsh_themes.set_size_request(300,20)
         zsh_themes.get_themes(self.zsh_themes)
         hbox21.pack_start(hbox21_lbl, False, False, 10)
-        hbox21.pack_start(self.zsh_themes, True, True, 10)
+        hbox21.pack_end(self.zsh_themes, False, False, 10)
 
         hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-        termset = Gtk.Button(label="Apply Zsh theme")
-        termset.connect("clicked", self.on_zsh_apply_theme)
-        if not zsh_themes.check_oh_my():
-            termset.set_sensitive(False)
-        hbox29.pack_end(termset, False, False, 10)
+        self.termset = Gtk.Button(label="Apply Zsh theme")
+        self.termset.connect("clicked", self.on_zsh_apply_theme)
+        if not fn.check_package_installed("zsh"):
+            self.termset.set_sensitive(False)
+        hbox29.pack_end(self.termset, False, False, 10)
 
         #image dimensions - this will (in time) allow the image changing function to be re-usable by other parts of the app
         image_width = 500
@@ -274,8 +278,8 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         vboxStack2.pack_start(hbox23, False, False, 0)
         vboxStack2.pack_end(hbox24, False, False, 0)
 
-        if not zsh_themes.check_oh_my() or not os.path.isfile(fn.zsh_config):
-            termset.set_sensitive(False)
+        if not fn.check_package_installed("oh-my-zsh-git") or not os.path.isfile(fn.zsh_config):
+            self.termset.set_sensitive(False)
             termreset.set_sensitive(False)
         if not os.path.isfile(fn.zsh_config):
             termreset.set_sensitive(True)

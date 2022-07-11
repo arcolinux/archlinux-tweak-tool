@@ -5,15 +5,8 @@
 import os
 import Functions as fn
 
-
-def check_oh_my():
-    if not os.path.isdir("/usr/share/oh-my-zsh/themes"):
-        return False
-    return True
-
-
 def get_themes(combo):
-    if check_oh_my():
+    if fn.check_package_installed("oh-my-zsh-git"):
         try:
             lists = [x for x in os.listdir("/usr/share/oh-my-zsh/themes")]
             lists_sorted = sorted(lists)
@@ -35,9 +28,6 @@ def get_themes(combo):
             print("You may need to reload ATT to set the options in the zsh tab")
         except Exception as e:
             print(e)
-    else:
-        combo.append_text("oh-my-zsh-git is not installed...install it first")
-        combo.set_active(0)
 
 def set_config(self, theme):
     if not os.path.isfile(fn.zsh_config + ".bak"):

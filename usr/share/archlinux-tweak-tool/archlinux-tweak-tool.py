@@ -832,14 +832,6 @@ class Main(Gtk.Window):
     # =====================================================
 
     # =====================================================
-    #     REMOVE THE LOCK FILE IF YOU CLOSE NICELY
-    # =====================================================
-
-    def on_close(self, widget, data):
-        os.unlink("/tmp/att.lock")
-        Gtk.main_quit()
-
-    # =====================================================
     #     CREATE AUTOSTART_GUI
     # =====================================================
 
@@ -1869,6 +1861,9 @@ class Main(Gtk.Window):
     if debug:
         print("NEOFETCH")
 
+    def on_install_neo(self,widget):
+        fn.install_package(self,"neofetch")
+
     def on_apply_neo(self, widget):
         small_ascii = "auto"
         backend = "off"
@@ -1891,6 +1886,14 @@ class Main(Gtk.Window):
 
         neofetch.apply_config(self, backend, small_ascii)
 
+    def on_reset_neo_att(self,widget):
+        if os.path.isfile(fn.neofetch_arco):
+            fn.shutil.copy(fn.neofetch_arco, fn.neofetch_config)
+            fn.permissions(fn.neofetch_config)
+            print("Neofetch default ATT settings applied")
+            fn.show_in_app_notification(self, "Default settings applied")
+            neofetch.get_checkboxes(self)
+
     def on_reset_neo(self, widget):
         if os.path.isfile(fn.neofetch_config + ".bak"):
             fn.shutil.copy(fn.neofetch_config + ".bak",
@@ -1908,27 +1911,6 @@ class Main(Gtk.Window):
             print("Neofetch default settings applied")
             fn.show_in_app_notification(self,
                                                "Default settings applied")
-
-    def on_reset_small_neo(self, widget):
-        if os.path.isfile(fn.neofetch_small_config):
-            fn.shutil.copy(fn.neofetch_small_config,
-                                  fn.neofetch_config)
-
-            neofetch.pop_neofetch_box(self.emblem)
-            backend = neofetch.check_backend()
-            if backend == "ascii":
-                self.asci.set_active(True)
-                self.emblem.set_sensitive(False)
-            else:
-                self.w3m.set_active(True)
-
-            neofetch.get_checkboxes(self)
-            print("Neofetch small default settings applied")
-            fn.show_in_app_notification(self,
-                                               "Default settings applied")
-
-    def on_install_neo(self,widget):
-        fn.install_package(self,"neofetch")
 
     def radio_toggled(self, widget):
         if self.asci.get_active():
@@ -1968,6 +1950,22 @@ class Main(Gtk.Window):
             if utility == "neofetch":
                 utilities.set_util_state(self, utility, False, False)
         utilities.write_configs(utility, util_str)
+
+    def on_click_neofetch_all_selection(self,widget):
+        print("You have selected all Neofetch switches")
+        neofetch.set_checkboxes_all(self)
+
+    def on_click_neofetch_normal_selection(self,widget):
+        print("You have selected the normal selection")
+        neofetch.set_checkboxes_normal(self)
+
+    def on_click_neofetch_small_selection(self,widget):
+        print("You have selected the small selection")
+        neofetch.set_checkboxes_small(self)
+
+    def on_click_neofetch_none_selection(self,widget):
+        print("You have not selected any Neofetch switch")
+        neofetch.set_checkboxes_none(self)
 
     # =====================================================
     #               OBLOGOUT FUNCTIONS ALPHABETICAL
@@ -2624,9 +2622,6 @@ class Main(Gtk.Window):
             print("We started ADT")
         except Exception as e:
                 pass
-
-    def on_refresh_att_clicked(self, desktop):
-        fn.restart_program()
 
     #====================================================================
     #                       SERVICES - NSSWITCH
@@ -3580,103 +3575,99 @@ class Main(Gtk.Window):
         #         print(e)
 
     def install_oh_my_zsh(self,widget):
-        if os.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active() == True:
-                if os.path.exists("/usr/share/licenses/oh-my-zsh-git/LICENSE"):
-                    print("Oh-my-zsh-git already installed")
-                    GLib.idle_add(fn.show_in_app_notification, self, "oh-my-zsh-git is installed")
-                    pass
-                else:
-                    install = 'pacman -S oh-my-zsh-git --noconfirm'
-                    try:
-                        subprocess.call(install.split(" "),
-                                        shell=False,
-                                        stdout=subprocess.PIPE,
-                                        stderr=subprocess.STDOUT)
-                        print("Installing oh-my-zsh-git")
-                        GLib.idle_add(fn.show_in_app_notification, self, "oh-my-zsh-git is installed")
-                    except Exception as e:
-                        print(e)
-                        print("Oh-my-zsh-git is NOT installed")
-                        GLib.idle_add(fn.show_in_app_notification, self, "Oh-my-zsh-git is NOT installed")
-            else:
-                print("Activate the ArcoLinux repos")
-                GLib.idle_add(fn.show_in_app_notification, self, "Activate the ArcoLinux repos")
-        else:
-            print("Install the ArcoLinux keys and mirrors")
-            GLib.idle_add(fn.show_in_app_notification, self, "Install the ArcoLinux keys and mirrors")
+        fn.install_arco_package(self,"oh-my-zsh-git")
 
     #The intent behind this function is to be a centralised image changer for all portions of ATT that need it
     #Currently utilising an if tree - this is not best practice: it should be a match: case tree.
     #But I have not yet got that working.
     def update_image(self, widget, image, theme_type, att_base, image_width, image_height):
-        sample_path = ""
-        preview_path = ""
-        random_option = False
-    # THIS CODE IS KEPT ON PURPOSE. DO NOT DELETE.
-    # Once Python 3.10 is released and used widely, delete the if statements below the match blocks
-    # and use the match instead. It is faster, and easier to maintain.
-    #    match "zsh":
-    #        case 'zsh':
-    #            sample_path = att_base+"/images/zsh-sample.jpg"
-    #            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
-    #        case 'qtile':
-    #            sample_path = att_base+"/images/zsh-sample.jpg"
-    #            previe_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
-    #        case 'i3':
-    #            sample_path = att_base+"/images/i3-sample.jpg"
-    #            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
-    #        case 'awesome':
-    #            sample_path = att_base+"/images/i3-sample.jpg"
-    #            preview_path = att_base+"/themer_data/awesomewm/"+widget.get_active_text() + ".jpg"
-    #        case 'neofetch':
-    #            sample_path = att_base + widget.get_active_text()
-    #            preview_path = att_base + widget.get_active_text()
-    #        case unknown_command:
-    #            print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
-    #            print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
-        if theme_type == "zsh":
-            sample_path = att_base+"/images/zsh-sample.jpg"
-            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
-            if widget.get_active_text() == "random":
-                random_option = True
-        elif theme_type == "qtile":
-            sample_path = att_base+"/images/qtile-sample.jpg"
-            preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
-        elif theme_type == "leftwm":
-            sample_path = att_base+"/images/leftwm-sample.jpg"
-            preview_path = att_base+"/themer_data/leftwm/"+widget.get_active_text() + ".jpg"
-        elif theme_type == "i3":
-            sample_path = att_base+"/images/i3-sample.jpg"
-            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
-        elif theme_type == "awesome":
-        #Awesome section doesn't use a ComboBoxText, but a ComboBox - which has different properties.
-            tree_iter = self.awesome_combo.get_active_iter()
-            if tree_iter is not None:
-                model = self.awesome_combo.get_model()
-                row_id, name = model[tree_iter][:2]
+        if fn.check_package_installed("oh-my-zsh-git"):
+            sample_path = ""
+            preview_path = ""
+            random_option = False
+        # THIS CODE IS KEPT ON PURPOSE. DO NOT DELETE.
+        # Once Python 3.10 is released and used widely, delete the if statements below the match blocks
+        # and use the match instead. It is faster, and easier to maintain.
+        #    match "zsh":
+        #        case 'zsh':
+        #            sample_path = att_base+"/images/zsh-sample.jpg"
+        #            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+        #        case 'qtile':
+        #            sample_path = att_base+"/images/zsh-sample.jpg"
+        #            previe_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+        #        case 'i3':
+        #            sample_path = att_base+"/images/i3-sample.jpg"
+        #            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+        #        case 'awesome':
+        #            sample_path = att_base+"/images/i3-sample.jpg"
+        #            preview_path = att_base+"/themer_data/awesomewm/"+widget.get_active_text() + ".jpg"
+        #        case 'neofetch':
+        #            sample_path = att_base + widget.get_active_text()
+        #            preview_path = att_base + widget.get_active_text()
+        #        case unknown_command:
+        #            print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
+        #            print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
+            if theme_type == "zsh":
+                sample_path = att_base+"/images/zsh-sample.jpg"
+                preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+                if widget.get_active_text() == "random":
+                    random_option = True
+            elif theme_type == "qtile":
+                sample_path = att_base+"/images/qtile-sample.jpg"
+                preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
+            elif theme_type == "leftwm":
+                sample_path = att_base+"/images/leftwm-sample.jpg"
+                preview_path = att_base+"/themer_data/leftwm/"+widget.get_active_text() + ".jpg"
+            elif theme_type == "i3":
+                sample_path = att_base+"/images/i3-sample.jpg"
+                preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+            elif theme_type == "awesome":
+            #Awesome section doesn't use a ComboBoxText, but a ComboBox - which has different properties.
+                tree_iter = self.awesome_combo.get_active_iter()
+                if tree_iter is not None:
+                    model = self.awesome_combo.get_model()
+                    row_id, name = model[tree_iter][:2]
 
-            sample_path = att_base+"/images/i3-sample.jpg"
-            preview_path = att_base+"/themer_data/awesomewm/"+name+".jpg"
-        elif theme_type == "neofetch":
-            sample_path = att_base + widget.get_active_text()
-            preview_path = att_base + widget.get_active_text()
-        else:
-        #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
-                print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
-                print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
-        source_pixbuf = image.get_pixbuf()
-        if os.path.isfile(preview_path) and not random_option:
-            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(preview_path, image_width, image_height)
-        else:
-            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
-        image.set_from_pixbuf(pixbuf)
+                sample_path = att_base+"/images/i3-sample.jpg"
+                preview_path = att_base+"/themer_data/awesomewm/"+name+".jpg"
+            elif theme_type == "neofetch":
+                sample_path = att_base + widget.get_active_text()
+                preview_path = att_base + widget.get_active_text()
+            else:
+            #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
+                    print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
+                    print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
+            source_pixbuf = image.get_pixbuf()
+            if os.path.isfile(preview_path) and not random_option:
+                pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(preview_path, image_width, image_height)
+            else:
+                pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
+            image.set_from_pixbuf(pixbuf)
+            zsh_theme.get_themes(self.zsh_themes)
+            self.termset.set_sensitive(True)
 
+    def remove_oh_my_zsh(self,widget):
+        fn.remove_package(self, "oh-my-zsh-git")
+        zsh_theme.get_themes(self.zsh_themes)
+        self.termset.set_sensitive(False)
+        self.zsh_themes.set_sensitive(False)
 
+    #====================================================================
+    #                            BOTTOM BUTTONS
+    #====================================================================
 
+    def on_refresh_att_clicked(self, desktop):
+        fn.restart_program()
 
+    def on_close(self, widget, data):
+        os.unlink("/tmp/att.lock")
+        Gtk.main_quit()
 
-
+    def on_reload_att_clicked(self,widget):
+        sddm.pop_box(self, self.sessions_sddm)
+        lightdm.pop_box_sessions_lightdm(self, self.sessions_lightdm)
+        zsh_theme.get_themes(self.zsh_themes)
+        neofetch.get_checkboxes(self)
 
     # ================================================================================
     # ================================================================================

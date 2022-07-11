@@ -42,13 +42,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     neofetch.pop_neofetch_box(self.emblem)
 
     applyneofetch = Gtk.Button(label="Apply your Neofetch configuration")
-    resetnormalneofetch = Gtk.Button(label="Reset normal")
-    resetsmallneofetch = Gtk.Button(label="Reset small")
+    resetnormalneofetch = Gtk.Button(label="Reset neofetch")
+    useattneofetch = Gtk.Button(label="Use ATT config")
     installneofetch = Gtk.Button(label="Install Neofetch")
 
     applyneofetch.connect("clicked", self.on_apply_neo)
     resetnormalneofetch.connect("clicked", self.on_reset_neo)
-    resetsmallneofetch.connect("clicked", self.on_reset_small_neo)
+    useattneofetch.connect("clicked", self.on_reset_neo_att)
     installneofetch.connect("clicked", self.on_install_neo)
 
     hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -142,6 +142,23 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     neofetch.get_checkboxes(self)
 
+    hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    label21 = Gtk.Label()
+    label21.set_text("Choose what to select with a button")
+    btn_All_Selection = Gtk.Button(label="All")
+    btn_All_Selection.connect ("clicked", self.on_click_neofetch_all_selection)
+    btn_Normal_Selection = Gtk.Button(label="Normal")
+    btn_Normal_Selection.connect ("clicked", self.on_click_neofetch_normal_selection)
+    btn_Small_Selection = Gtk.Button(label="Small")
+    btn_Small_Selection.connect ("clicked", self.on_click_neofetch_small_selection)
+    btn_None_Selection = Gtk.Button(label="None")
+    btn_None_Selection.connect ("clicked", self.on_click_neofetch_none_selection)
+    hbox21.pack_start(label21, False, False, 10)
+    hbox21.pack_end(btn_None_Selection, False, False, 10)
+    hbox21.pack_end(btn_Small_Selection, False, False, 10)
+    hbox21.pack_end(btn_Normal_Selection, False, False, 10)
+    hbox21.pack_end(btn_All_Selection, False, False, 10)
+
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9_label = Gtk.Label(xalign=0)
     hbox9_label.set_markup("<b>Distro specific:  </b>" + fn.change_distro_label(fn.distro.id()))
@@ -173,10 +190,10 @@ Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/c
     hbox27.pack_start(lolcat_label, False, False, 0)
     hbox27.pack_start(self.neo_lolcat, False, False, 30)
 
+    hbox24.pack_start(installneofetch, False, False, 0)
+    hbox24.pack_start(useattneofetch, False, False, 0)
     hbox24.pack_end(applyneofetch, False, False, 0)
-    hbox24.pack_end(resetsmallneofetch, False, False, 0)
     hbox24.pack_end(resetnormalneofetch, False, False, 0)
-    hbox24.pack_end(installneofetch, False, False, 0)
 
     vboxStack8.pack_start(hbox3, False, False, 0)
     vboxStack8.pack_start(hbox4, False, False, 0)
@@ -185,6 +202,7 @@ Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/c
     vboxStack8.pack_start(hbox22, False, False, 0)
     vboxStack8.pack_start(self.hbox26, False, False, 0)
     vboxStack8.pack_start(hbox25, False, False, 0)
+    vboxStack8.pack_start(hbox21, False, False, 0)
 
     if fn.distr == "amos":
         vboxStack8.pack_start(hbox9, False, False, 0)

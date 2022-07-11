@@ -80,7 +80,6 @@ alacritty_config_dir = home + "/.config/alacritty"
 slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
-neofetch_small_config = home + "/.config/neofetch/config-small.conf"
 nsswitch_config ="/etc/nsswitch.conf"
 bd = ".att_backups"
 config = home + "/.config/archlinux-tweak-tool/settings.ini"
@@ -750,6 +749,7 @@ def set_grub_wallpaper(self, image):
                 f.writelines(lists)
                 f.close()
             print("Grub wallpaper saved")
+            print(image)
             show_in_app_notification(self, "Grub wallpaper saved")
             # MessageBox(self, "Success!!", "Settings Saved Successfully")
         except:  # noqa

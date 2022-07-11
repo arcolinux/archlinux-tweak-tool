@@ -67,13 +67,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     if not os.path.exists("/usr/bin/rate-mirrors"):
         self.button_Apply_Mirrors2.set_sensitive(False)
 
-    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox5_label = Gtk.Label(xalign=0)
-    hbox5_label.set_text("Get the original ArcoLinux /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
-    button_Apply_Mirrors = Gtk.Button(label="Reset sddm.conf (online source)")
-    button_Apply_Mirrors.connect ("clicked", self.on_click_fix_sddm_conf)
-    hbox5.pack_start(hbox5_label, False, False, 10)
-    hbox5.pack_end(button_Apply_Mirrors, False, False, 10)
+    # hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox5_label = Gtk.Label(xalign=0)
+    # hbox5_label.set_text("Get the original ArcoLinux /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
+    # button_Apply_Mirrors = Gtk.Button(label="Reset sddm.conf (online source)")
+    # button_Apply_Mirrors.connect ("clicked", self.on_click_fix_sddm_conf)
+    # hbox5.pack_start(hbox5_label, False, False, 10)
+    # hbox5.pack_end(button_Apply_Mirrors, False, False, 10)
 
     hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox6_label = Gtk.Label(xalign=0)
@@ -134,5 +134,5 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
 
     if fn.distr == "arcolinux":
         vboxStack19.pack_start(hbox9, False, False, 20)
-        vboxStack19.pack_start(hbox5, False, False, 0)
+        #vboxStack19.pack_start(hbox5, False, False, 0)
         #vboxStack19.pack_start(hbox6, False, False, 0)
