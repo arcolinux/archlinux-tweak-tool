@@ -23,6 +23,7 @@ def check_lightdm_greeter(lists, value):
         except Exception as e:
             print(e)
 
+# for autologin and session in lightdm.conf
 def set_lightdm_value(self, lists, value, session, state):
     if fn.os.path.isfile(fn.lightdm_conf):
         try:
@@ -54,14 +55,16 @@ def set_lightdm_value(self, lists, value, session, state):
             print(e)
             fn.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_lightdm_value\"")
 
-def set_lightdm_icon_theme(self, lists, theme, icon_theme):
+def set_lightdm_icon_theme_cursor(self, lists, theme, icon, cursor):
     if fn.os.path.isfile(fn.lightdm_greeter):
         try:
             pos_theme = fn._get_position(lists, "theme-name=")
             pos_icon_theme = fn._get_position(lists, "icon-theme-name=")
+            pos_cursor_theme = fn._get_position(lists, "cursor-theme-name=")
 
             lists[pos_theme] = "theme-name=" + theme + "\n"
-            lists[pos_icon_theme] = "icon-theme-name=" + icon_theme + "\n"
+            lists[pos_icon_theme] = "icon-theme-name=" + icon + "\n"
+            lists[pos_cursor_theme] = "cursor-theme-name=" + cursor + "\n"
 
 
             with open(fn.lightdm_greeter, "w") as f:
@@ -75,14 +78,16 @@ def set_lightdm_icon_theme(self, lists, theme, icon_theme):
             print(e)
             fn.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_lightdm_value\"")
 
+def set_lightdm_icon_theme_cursor_slick(self, lists, theme, icon, cursor):
     if fn.os.path.isfile(fn.lightdm_slick_greeter):
         try:
             pos_theme = fn._get_position(lists, "theme-name=")
             pos_icon_theme = fn._get_position(lists, "icon-theme-name=")
+            pos_cursor_theme = fn._get_position(lists, "cursor-theme-name=")
 
             lists[pos_theme] = "theme-name=" + theme + "\n"
-            lists[pos_icon_theme] = "icon-theme-name=" + icon_theme + "\n"
-
+            lists[pos_icon_theme] = "icon-theme-name=" + icon + "\n"
+            lists[pos_cursor_theme] = "cursor-theme-name=" + cursor + "\n"
 
             with open(fn.lightdm_slick_greeter, "w") as f:
                 f.writelines(lists)
@@ -182,18 +187,23 @@ def pop_gtk_cursor_names(self, combo):
     coms = []
     combo.get_model().clear()
 
-    if fn.os.path.isfile(fn.lightdm_conf):
+    if fn.os.path.isfile(fn.lightdm_greeter):
         for item in fn.os.listdir("/usr/share/icons/"):
             if fn.path_check("/usr/share/icons/" + item + "/cursors/"):
                 coms.append(item)
                 coms.sort()
-        lines = fn.get_lines(fn.lightdm_conf)
 
-        #pos = fn._get_position(lines, "icon-theme-name=")
-        #theme_name = check_lightdm(lines, "icon-theme-name=").split("=")[1]
+        lines = fn.get_lines(fn.lightdm_greeter)
+        pos = fn._get_position(lines, "cursor-theme-name=")
+
+        try:
+            cursor_theme = check_lightdm(lines, "cursor-theme-name=").split("=")[1]
+        except IndexError:
+            cursor_theme = ""
+            pass
 
         coms.sort()
         for i in range(len(coms)):
             combo.append_text(coms[i])
-            #if theme_name.lower() == coms[i].lower():
-            #    combo.set_active(i)
+            if cursor_theme.lower() == coms[i].lower():
+                combo.set_active(i)

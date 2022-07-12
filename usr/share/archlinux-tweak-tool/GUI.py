@@ -147,7 +147,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     if debug:
         print("Fixes_GUI")
 
-    Fixes_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack19, user, fn)
+    Fixes_GUI.GUI(self, Gtk, vboxStack19, fn, fixes)
 
     # ==========================================================
     #                 GRUB

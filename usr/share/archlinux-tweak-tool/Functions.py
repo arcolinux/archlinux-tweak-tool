@@ -56,6 +56,8 @@ lxdm_conf = "/etc/lxdm/lxdm.conf"
 lxdm_conf_bak = "/etc/bak.lxdm.conf"
 lxdm_conf_arco = "/usr/share/archlinux-tweak-tool/data/arco/lxdm/lxdm.conf"
 
+icons_default = "/usr/share/icons/default/index.theme"
+
 samba_config = "/etc/samba/smb.conf"
 
 mirrorlist = "/etc/pacman.d/mirrorlist"

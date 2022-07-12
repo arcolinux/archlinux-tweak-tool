@@ -5,7 +5,7 @@
 import Functions as fn
 import distro,os
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
+def GUI(self, Gtk, vboxStack19, fn, fixes):
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_label = Gtk.Label(xalign=0)
@@ -99,6 +99,17 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     hbox8.pack_start(hbox8_label, False, False, 10)
     hbox8.pack_end(button_Apply_Pacman_Gpg_Conf_Local, False, False, 10)
 
+    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox12_label = Gtk.Label(xalign=0)
+    hbox12_label.set_text("Choose your cursor globally - /usr/share/icons/default")
+    self.cursor_themes = Gtk.ComboBoxText()
+    fixes.pop_gtk_cursor_names(self, self.cursor_themes)
+    btn_apply_cursor = Gtk.Button(label="Apply")
+    btn_apply_cursor.connect ("clicked", self.on_click_apply_global_cursor)
+    hbox12.pack_start(hbox12_label, False, False, 10)
+    hbox12.pack_end(btn_apply_cursor, False, False, 10)
+    hbox12.pack_end(self.cursor_themes, False, False, 10)
+
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9_label = Gtk.Label(xalign=0)
     hbox9_label.set_markup("<b>Distro specific:  </b>" + fn.change_distro_label(distro.id()))
@@ -131,6 +142,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
         vboxStack19.pack_start(hbox40, False, False, 0)
     vboxStack19.pack_start(hbox7, False, False, 0)
     vboxStack19.pack_start(hbox8, False, False, 0)
+    vboxStack19.pack_start(hbox12, False, False, 0)
 
     if fn.distr == "arcolinux":
         vboxStack19.pack_start(hbox9, False, False, 20)

@@ -18,6 +18,7 @@ import autostart
 import desktopr
 import Gtk_Functions
 import GUI
+import fixes
 import lightdm
 import lxdm
 import neofetch
@@ -1484,6 +1485,12 @@ class Main(Gtk.Window):
         fn.install_arco_package(self,"rate-mirrors-bin")
         self.button_Apply_Mirrors2.set_sensitive(True)
 
+    def on_click_apply_global_cursor(self,widget):
+        cursor = self.cursor_themes.get_active_text()
+        fixes.set_global_cursor(self,cursor)
+        print("Cursor is saved in /usr/share/icons/default")
+        GLib.idle_add(fn.show_in_app_notification, self, "Cursor saved in /usr/share/icons/default")
+
     #====================================================================
     #                       GRUB
     #====================================================================
@@ -1687,7 +1694,13 @@ class Main(Gtk.Window):
 
     def on_click_lightdm_apply(self, widget):
 
-        if (self.sessions_lightdm.get_active_text() is not None and self.autologin_lightdm.get_active() is True) or self.autologin_lightdm.get_active() is False:
+        #for autologin, user and session
+        if (self.sessions_lightdm.get_active_text() is not None\
+            and self.autologin_lightdm.get_active() is True)\
+            or self.autologin_lightdm.get_active() is False\
+            and self.gtk_theme_names_lightdm.get_active_text() is not None\
+            and self.gtk_icon_names_lightdm.get_active_text() is not None\
+            and self.cursor_themes_lightdm.get_active_text() is not None:
             t1 = fn.threading.Thread(target=lightdm.set_lightdm_value,
                                             args=(self,
                                                 fn.get_lines(fn.lightdm_conf),  # noqa
@@ -1698,21 +1711,42 @@ class Main(Gtk.Window):
             t1.start()
             print("Lightdm autologin and session settings saved successfully")
         else:
-            print("Select the desktop to autologin")
-            fn.show_in_app_notification(self, "Need to select desktop first")
+            print("Make sure all variables are filled in")
+            fn.show_in_app_notification(self, "Fill in all fields")
 
-        if (self.gtk_theme_names.get_active_text() is not None) and self.gtk_icon_names.get_active_text() is not None:
-            t1 = fn.threading.Thread(target=lightdm.set_lightdm_icon_theme,
+        #for theme,icon and cursor - lightdm greeter
+        if (self.gtk_theme_names_lightdm.get_active_text() is not None)\
+            and self.gtk_icon_names_lightdm.get_active_text() is not None\
+            and self.cursor_themes_lightdm.get_active_text() is not None:
+            t1 = fn.threading.Thread(target=lightdm.set_lightdm_icon_theme_cursor,
                                             args=(self,
                                                 fn.get_lines(fn.lightdm_greeter),
-                                                self.gtk_theme_names.get_active_text(),
-                                                self.gtk_icon_names.get_active_text()))
+                                                self.gtk_theme_names_lightdm.get_active_text(),
+                                                self.gtk_icon_names_lightdm.get_active_text(),
+                                                self.cursor_themes_lightdm.get_active_text()))
             t1.daemon = True
             t1.start()
             print("Lightdm icon and theme settings saved successfully")
         else:
-            print("Lightdm icon and theme is still empty")
-            fn.show_in_app_notification(self, "You need to select the cursor and the theme first")
+            print("Make sure all variables are filled in")
+            fn.show_in_app_notification(self, "Fill in all fields")
+
+        #for theme,icon and cursor - slick greeter
+        if (self.gtk_theme_names_lightdm.get_active_text() is not None)\
+            and self.gtk_icon_names_lightdm.get_active_text() is not None\
+            and self.cursor_themes_lightdm.get_active_text() is not None:
+            t1 = fn.threading.Thread(target=lightdm.set_lightdm_icon_theme_cursor_slick,
+                                            args=(self,
+                                                fn.get_lines(fn.lightdm_slick_greeter),
+                                                self.gtk_theme_names_lightdm.get_active_text(),
+                                                self.gtk_icon_names_lightdm.get_active_text(),
+                                                self.cursor_themes_lightdm.get_active_text()))
+            t1.daemon = True
+            t1.start()
+            print("Lightdm icon and theme settings saved successfully")
+        else:
+            print("Make sure all variables are filled in")
+            fn.show_in_app_notification(self, "Fill in all fields")
 
     def on_click_install_arco_lightdmgreeter(self, widget):
         if fn.os.path.isfile(fn.lightdm_greeter_arco):
