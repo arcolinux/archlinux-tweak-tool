@@ -315,7 +315,7 @@ class Main(Gtk.Window):
 
         #ensuring we have a backup of /etc/lightdm/slick-greeter.conf
         if os.path.isfile(fn.lightdm_slick_greeter):
-            if not os.path.isfile(fn.slick_greeter_bak):
+            if not os.path.isfile(fn.lightdm_slick_greeter_bak):
                 try:
                     fn.shutil.copy(fn.lightdm_slick_greeter, fn.lightdm_slick_greeter_bak)
                 except Exception as e:
