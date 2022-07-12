@@ -35,19 +35,25 @@ gpg_conf_local_original = "/usr/share/archlinux-tweak-tool/data/any/gpg.conf"
 
 #sddm
 sddm_default_d1 = "/etc/sddm.conf"
+sddm_default_d1_bak = "/etc/bak.sddm.conf"
 sddm_default_d2 = "/etc/sddm.conf.d/kde_settings.conf"
+sddm_default_d2_bak = "/etc/bak.kde_settings.conf"
 sddm_default_d2_dir = "/etc/sddm.conf.d/"
 sddm_default_d1_arco = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
 sddm_default_d2_arco = "/usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf"
 #lightdm
 lightdm_conf = "/etc/lightdm/lightdm.conf"
+lightdm_conf_bak = "/etc/bak.lightdm.conf"
 lightdm_greeter = "/etc/lightdm/lightdm-gtk-greeter.conf"
+lightdm_greeter_bak = "/etc/bak.lightdm-gtk-greeter.conf"
 lightdm_slick_greeter = "/etc/lightdm/slick-greeter.conf"
+lightdm_slick_greeter_bak = "/etc/bak.slick-greeter.conf"
 lightdm_conf_arco ="/usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm.conf"
 lightdm_greeter_arco = "/usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm-gtk-greeter.conf"
 ligthdm_slick_greeter_arco = "/usr/share/archlinux-tweak-tool/data/arco/lightdm/slick-greeter.conf"
 #lxdm
 lxdm_conf = "/etc/lxdm/lxdm.conf"
+lxdm_conf_bak = "/etc/bak.lxdm.conf"
 lxdm_conf_arco = "/usr/share/archlinux-tweak-tool/data/arco/lxdm/lxdm.conf"
 
 samba_config = "/etc/samba/smb.conf"
