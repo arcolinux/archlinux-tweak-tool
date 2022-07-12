@@ -20,6 +20,7 @@ import Gtk_Functions
 import GUI
 import fixes
 import lightdm
+import login
 import lxdm
 import neofetch
 import oblogout
@@ -1803,10 +1804,12 @@ class Main(Gtk.Window):
     def on_click_install_slick_greeter(self, desktop):
         fn.install_package(self,"lightdm-slick-greeter")
         fn.enable_slick_greeter(self)
+        login.find_label(self,self.lbl_slickgreeter)
 
     def on_click_remove_slick_greeter(self, desktop):
         fn.remove_package(self,"lightdm-slick-greeter")
         fn.disable_slick_greeter(self)
+        login.find_label(self,self.lbl_slickgreeter)
 
     def on_click_lightdm_reset_original_att(self, widget):
         try:

@@ -4,7 +4,7 @@
 
 import Functions as fn
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, Functions):
+def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, Functions, login):
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_lbl = Gtk.Label(xalign=0)
@@ -278,18 +278,13 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox23.pack_end(btn_install_arco_lightdm_greeter, False, False, 10)
 
         hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        hbox29_lbl = Gtk.Label(xalign=0)
-        if fn.check_package_installed("lightdm-slick-greeter"):
-            hbox29_lbl.set_text("Install lightdm slick greeter (installed)")
-            if fn.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
-                hbox29_lbl.set_text("Install lightdm slick greeter (installed and active)")
-        else:
-            hbox29_lbl.set_text("Install lightdm slick greeter")
+        self.lbl_slickgreeter = Gtk.Label(xalign=0)
+        login.find_label(self,self.lbl_slickgreeter)
         btn_install_slick_greeter = Gtk.Button(label="Install slickgreeter")
         btn_install_slick_greeter.connect ("clicked", self.on_click_install_slick_greeter)
         btn_remove_slick_greeter = Gtk.Button(label="Remove slickgreeter")
         btn_remove_slick_greeter.connect ("clicked", self.on_click_remove_slick_greeter)
-        hbox29.pack_start(hbox29_lbl, False, False, 10)
+        hbox29.pack_start(self.lbl_slickgreeter, False, False, 10)
         hbox29.pack_end(btn_remove_slick_greeter, False, False, 10)
         hbox29.pack_end(btn_install_slick_greeter, False, False, 10)
 

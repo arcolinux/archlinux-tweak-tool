@@ -81,13 +81,12 @@ def set_lightdm_icon_theme_cursor(self, lists, theme, icon, cursor):
 def set_lightdm_icon_theme_cursor_slick(self, lists, theme, icon, cursor):
     if fn.os.path.isfile(fn.lightdm_slick_greeter):
         try:
+            # no cursor in slick greeter
             pos_theme = fn._get_position(lists, "theme-name=")
             pos_icon_theme = fn._get_position(lists, "icon-theme-name=")
-            pos_cursor_theme = fn._get_position(lists, "cursor-theme-name=")
 
             lists[pos_theme] = "theme-name=" + theme + "\n"
             lists[pos_icon_theme] = "icon-theme-name=" + icon + "\n"
-            lists[pos_cursor_theme] = "cursor-theme-name=" + cursor + "\n"
 
             with open(fn.lightdm_slick_greeter, "w") as f:
                 f.writelines(lists)

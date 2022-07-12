@@ -194,7 +194,7 @@ We will reload the ATT automatically")
     if debug:
         print("Login_GUI")
 
-    Login_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, fn)
+    Login_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, fn, login)
 
     # ==========================================================
     #                 MIRRORLIST ARCOLINUX
