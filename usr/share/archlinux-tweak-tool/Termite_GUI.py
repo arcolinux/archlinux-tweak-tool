@@ -48,7 +48,7 @@ def GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir):
 
    hbox03 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
    label03 = Gtk.Label()
-   label03.set_markup("Install Alacritty themes")
+   label03.set_markup("Install Alacritty themes (activate ArcoLinux repos to install all of them)")
    btn_install_alacritty_themes = Gtk.Button(label="Install Alacritty themes")
    btn_install_alacritty_themes.connect("clicked", self.on_clicked_install_alacritty_themes)
    btn_remove_alacritty_themes = Gtk.Button(label="Remove Alacritty themes")
@@ -85,10 +85,13 @@ def GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir):
    hbox2.pack_end(btn_install_xfce4_terminal, False, False, 10)
 
    hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+   label08 = Gtk.Label()
+   label08.set_markup("Activate ArcoLinux repos to install all of them")
    btn_install_xfce4_terminal_themes = Gtk.Button(label="Install Xfce4-terminal themes")
    btn_install_xfce4_terminal_themes.connect("clicked", self.on_clicked_install_xfce4_themes)
    btn_remove_xfce4_terminal_themes = Gtk.Button(label="Remove Xfce4-terminal themes")
    btn_remove_xfce4_terminal_themes.connect("clicked", self.on_clicked_remove_xfce4_themes)
+   hbox28.pack_start(label08, False, False, 10)
    hbox28.pack_end(btn_remove_xfce4_terminal_themes, False, False, 10)
    hbox28.pack_end(btn_install_xfce4_terminal_themes, False, False, 10)
 

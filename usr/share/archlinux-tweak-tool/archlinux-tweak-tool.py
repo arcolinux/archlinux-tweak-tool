@@ -768,12 +768,15 @@ class Main(Gtk.Window):
             print("LIGHTDM")
 
         if fn.os.path.isfile(fn.lightdm_conf):
-            if "#" in lightdm.check_lightdm(fn.get_lines(fn.lightdm_conf),"autologin-user="):
-                self.autologin_lightdm.set_active(False)
-                self.sessions_lightdm.set_sensitive(False)
-            else:
-                self.autologin_lightdm.set_active(True)
-                self.sessions_lightdm.set_sensitive(True)
+            try:
+                if "#" in lightdm.check_lightdm(fn.get_lines(fn.lightdm_conf),"autologin-user="):
+                    self.autologin_lightdm.set_active(False)
+                    self.sessions_lightdm.set_sensitive(False)
+                else:
+                    self.autologin_lightdm.set_active(True)
+                    self.sessions_lightdm.set_sensitive(True)
+            except Exception as e:
+                print(e)
 
         # =====================================================
         #                        SDDM
@@ -2221,9 +2224,13 @@ class Main(Gtk.Window):
     def on_arcolinux_clicked(self, widget):
         fn.install_arcolinux(self)
         print("ArcoLinux keyring and mirrors added")
-        print("First restart ATT")
-        print("Then select all ArcoLinux repos except testing repo")
-        GLib.idle_add(fn.show_in_app_notification, self, "Restart ATT and select repos")
+        #print("First restart ATT")
+        #print("Then select all ArcoLinux repos except testing repo")
+        GLib.idle_add(fn.show_in_app_notification, self, "ArcoLinux keyring and mirrors added + activated")
+        self.on_pacman_arepo_toggle(self.arepo_button, True)
+        self.on_pacman_a3p_toggle(self.a3prepo_button, True)
+        self.on_pacman_axl_toggle(self.axlrepo_button, True)
+        fn.restart_program()
 
     def on_pacman_atestrepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_testing]"):
