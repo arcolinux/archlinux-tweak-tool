@@ -484,6 +484,20 @@ def install_package(self, package):
         except Exception as e:
             print(e)
 
+def install_local_package(self, package):
+    command = 'pacman -U ' + package + ' --noconfirm'
+    #if more than one package - checf fails and will install
+    try:
+        print(command)
+        subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print(package + " is/are now installed")
+        GLib.idle_add(show_in_app_notification,self,package + " is/are now installed")
+    except Exception as e:
+        print(e)
+
 def install_arco_package(self, package):
     if check_arco_repos_active():
         command = 'pacman -S ' + package + ' --noconfirm --needed'

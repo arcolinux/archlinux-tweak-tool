@@ -19,6 +19,11 @@ git pull
 
 workdir=$(pwd)
 
+#remove content
+rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/*
+#get latest archlinux-keyring
+wget https://archlinux.org/packages/core/any/archlinux-keyring/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/
+
 echo "Get the original samba file from samba github"
 wget https://gitlab.com/samba-team/samba/-/raw/master/examples/smb.conf.default -O $workdir/usr/share/archlinux-tweak-tool/data/any/samba/original/smb.conf
 

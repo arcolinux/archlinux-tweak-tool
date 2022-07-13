@@ -1358,6 +1358,32 @@ class Main(Gtk.Window):
     if debug:
         print("FIXES")
 
+    def on_click_install_arch_keyring(self,widget):
+        pathway = base_dir + "/data/arch/packages/"
+        file = os.listdir(pathway)
+        fn.install_local_package(self,pathway + str(file).strip("[]'"))
+
+    def on_click_install_arch_keyring_online(self,widget):
+        pathway = "/tmp/att-installation/"
+        os.mkdir(pathway)
+        command = "wget https://archlinux.org/packages/core/any/archlinux-keyring/download --content-disposition -P" + pathway
+        try:
+            fn.subprocess.call(command,
+                            shell=True,
+                            stdout=fn.subprocess.PIPE,
+                            stderr=fn.subprocess.STDOUT)
+            print("Downloading the package")
+            GLib.idle_add(fn.show_in_app_notification, self, "Downloading the package")
+        except Exception as e:
+            print(e)
+
+        file = os.listdir(pathway)
+        fn.install_local_package(self,pathway + str(file).strip("[]'"))
+        try:
+            fn.shutil.rmtree(pathway)
+        except Exception as e:
+            print(e)
+
     def on_click_fix_pacman_keys(self,widget):
         fn.install_package(self,"alacritty")
         try:

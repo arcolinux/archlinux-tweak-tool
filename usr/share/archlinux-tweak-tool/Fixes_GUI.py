@@ -17,6 +17,17 @@ def GUI(self, Gtk, vboxStack19, fn, fixes):
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox0.pack_start(hseparator, True, True, 0)
 
+    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox5_label = Gtk.Label(xalign=0)
+    hbox5_label.set_text("Re-install archlinux-keyring")
+    btn_Install_Arch_Keyring = Gtk.Button(label="Install keyring (local)")
+    btn_Install_Arch_Keyring.connect ("clicked", self.on_click_install_arch_keyring)
+    btn_Install_Arch_Keyring_Online = Gtk.Button(label="Install keyring (online)")
+    btn_Install_Arch_Keyring_Online.connect ("clicked", self.on_click_install_arch_keyring_online)
+    hbox5.pack_start(hbox5_label, False, False, 10)
+    hbox5.pack_end(btn_Install_Arch_Keyring_Online, False, False, 10)
+    hbox5.pack_end(btn_Install_Arch_Keyring, False, False, 10)
+
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2_label = Gtk.Label(xalign=0)
     hbox2_label.set_text("Reset and reload pacman keys")
@@ -134,6 +145,7 @@ def GUI(self, Gtk, vboxStack19, fn, fixes):
     vboxStack19.pack_start(hbox0, False, False, 0)
     vboxStack19.pack_start(hbox10, False, False, 20)
     vboxStack19.pack_start(hbox11, False, False, 0)
+    vboxStack19.pack_start(hbox5, False, False, 0)
     vboxStack19.pack_start(hbox2, False, False, 0)
     vboxStack19.pack_start(hbox3, False, False, 0)
     if not fn.distr == "manjaro":
