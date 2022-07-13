@@ -39,9 +39,9 @@ echo "If file exists, make a backup"
 echo
 echo "Overwriting lightdm configuration files"
 echo
-[ -f /etc/lightdm/lightdm.conf ] && sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
-[ -f /etc/lightdm/lightdm-gtk-greeter.conf ] && sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/lightdm-gtk-greeter.conf
-[ -f /etc/lightdm/slick-greeter.conf ] && sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/lightdm/slick-greeter.conf /etc/lightdm/slick-greeter.conf
+sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm.conf /etc/lightdm/lightdm.conf
+sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/lightdm-gtk-greeter.conf
+sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/lightdm/slick-greeter.conf /etc/lightdm/slick-greeter.conf
 
 echo "###############################################################################"
 echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"

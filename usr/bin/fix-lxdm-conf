@@ -35,7 +35,7 @@ echo "If file exists, make a backup"
 echo
 echo "Overwriting lxdm configuration files"
 echo
-[ -f /etc/lxdm/lxdm.conf ] && sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/lxdm/lxdm.conf /etc/lxdm/lxdm.conf
+sudo cp -v /usr/share/archlinux-tweak-tool/data/arco/lxdm/lxdm.conf /etc/lxdm/lxdm.conf
 echo "###############################################################################"
 echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
 echo "###############################################################################"
