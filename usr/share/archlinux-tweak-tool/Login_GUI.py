@@ -321,18 +321,21 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox35.pack_start(hbox35_lbl, False, False, 10)
         hbox35.pack_end(self.cursor_themes_lightdm, False, False, 10)
 
+        hbox34 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox34_label = Gtk.Label(xalign=0)
+        hbox34_label.set_text("Only the Slickgreeter background color can be set")
+        self.slick_greeter_color_checkbutton = Gtk.CheckButton(label="Select it to use it")
+        hbox34.pack_start(hbox34_label, False, False, 10)
+        hbox34.pack_start(self.slick_greeter_color_checkbutton, False, False, 10)
+
+        hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        self.slick_greeter_color = Gtk.ColorSelection()
+        hbox25.pack_start(self.slick_greeter_color, False, False, 10)
+
         hbox24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox24_lbl = Gtk.Label(xalign=0)
         hbox24_lbl.set_text("You can change more settings with the lightdm-gtk-greeter-settings app")
         hbox24.pack_start(hbox24_lbl, False, False, 10)
-
-        # hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        # hbox25_label = Gtk.Label(xalign=0)
-        # if fn.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
-        #     hbox25_label.set_text("Slickgreeter is active")
-        # else:
-        #     hbox25_label.set_text("Slickgreeter is inactive")
-        # hbox25.pack_start(hbox25_label, False, False, 10)
 
         #lightdm
         hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -359,9 +362,10 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         vboxStack2.pack_start(hbox23, False, False, 0)
         vboxStack2.pack_start(hbox29, False, False, 0)
         vboxStack2.pack_start(hbox35, False, False, 0)
-        vboxStack2.pack_start(hbox24, False, False, 0)
-        #vboxStack2.pack_start(hbox25, False, False, 0)
+        vboxStack2.pack_start(hbox34, False, False, 0)
+        vboxStack2.pack_start(hbox25, False, False, 0)
         vboxStack2.pack_end(hbox26, False, False, 0)
+        vboxStack2.pack_start(hbox24, False, False, 0)
 
     else:
        #no lightdm installed

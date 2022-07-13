@@ -84,9 +84,17 @@ def set_lightdm_icon_theme_cursor_slick(self, lists, theme, icon, cursor):
             # no cursor in slick greeter
             pos_theme = fn._get_position(lists, "theme-name=")
             pos_icon_theme = fn._get_position(lists, "icon-theme-name=")
+            pos_background = fn._get_position(lists, "background=")
+
 
             lists[pos_theme] = "theme-name=" + theme + "\n"
             lists[pos_icon_theme] = "icon-theme-name=" + icon + "\n"
+
+            hex = fn.rgb_to_hex(self.slick_greeter_color.get_current_rgba().to_string()).upper()
+            if self.slick_greeter_color_checkbutton.get_active():
+                lists[pos_background] = "background=" + hex + "\n"
+            else:
+                lists[pos_background] = "# background=Background file to use, either an image path or a color (e.g. #772953)" + hex + "\n"
 
             with open(fn.lightdm_slick_greeter, "w") as f:
                 f.writelines(lists)

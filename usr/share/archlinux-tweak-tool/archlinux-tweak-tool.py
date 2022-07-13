@@ -2668,18 +2668,22 @@ class Main(Gtk.Window):
     def on_click_install_bibata_cursor(self,widget):
         fn.install_arco_package(self,"bibata-cursor-theme-bin")
         sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
 
     def on_click_remove_bibata_cursor(self,widget):
         fn.remove_package(self,"bibata-cursor-theme-bin")
         sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
 
     def on_click_install_bibatar_cursor(self,widget):
         fn.install_arco_package(self,"bibata-extra-cursor-theme")
         sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
 
     def on_click_remove_bibatar_cursor(self,widget):
         fn.remove_package(self,"bibata-extra-cursor-theme")
         sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
 
     #if no sddm - press 1
     def on_click_att_sddm_clicked(self, desktop):
