@@ -229,6 +229,7 @@ alias give-me-qwerty-us="sudo localectl set-x11-keymap us"
 
 #setlocale
 alias setlocale="sudo localectl set-locale LANG=en_US.UTF-8"
+alias setlocales="sudo localectl set-x11-keymap be && sudo localectl set-locale LANG=en_US.UTF-8"
 
 #pacman unlock
 alias unlock="sudo rm /var/lib/pacman/db.lck"

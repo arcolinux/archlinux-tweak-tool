@@ -165,6 +165,7 @@ alias give-me-qwerty-us="sudo localectl set-x11-keymap us"
 
 #setlocale
 alias setlocale="sudo localectl set-locale LANG=en_US.UTF-8"
+alias setlocales="sudo localectl set-x11-keymap be && sudo localectl set-locale LANG=en_US.UTF-8"
 
 #pacman unlock
 alias unlock="sudo rm /var/lib/pacman/db.lck"
@@ -189,9 +190,9 @@ alias userlist="cut -d: -f1 /etc/passwd | sort"
 alias merge="xrdb -merge ~/.Xresources"
 
 # Aliases for software managment
-# pacman or pm
-alias pacman='sudo pacman --color auto'
-alias update='sudo pacman -Syyu'
+# pacman
+alias pacman="sudo pacman --color auto"
+alias update="sudo pacman -Syyu"
 
 # paru as aur helper - updates everything
 alias pksyua="paru -Syu --noconfirm"
