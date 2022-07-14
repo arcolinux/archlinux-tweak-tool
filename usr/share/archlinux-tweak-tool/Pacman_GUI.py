@@ -18,8 +18,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #               FOOTER
     # ========================================================
 
-    self.button1 = Gtk.Button(label="Apply custom repo")
-    self.button1.connect('clicked', self.button1_clicked)
+    self.custom_repo = Gtk.Button(label="Apply custom repo")
+    self.custom_repo.connect('clicked', self.custom_repo_clicked)
     reset_pacman_local = Gtk.Button(label="Reset pacman local")
     reset_pacman_local.connect("clicked", self.reset_pacman_local)
     reset_pacman_online = Gtk.Button(label="Reset pacman online")
@@ -42,7 +42,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    #hboxStack10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
@@ -291,7 +291,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #               BUTTONS PACKING
     # ========================================================
 
-    #hboxStack4.pack_end(self.button1, False, False, 0)
+    hboxStack4.pack_end(self.custom_repo, False, False, 0)
     hboxStack4.pack_end(reset_pacman_local, False, False, 0)
     hboxStack4.pack_end(reset_pacman_online, False, False, 0)
     hboxStack4.pack_end(blank_pacman, False, False, 0)
@@ -316,7 +316,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
 
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    #vbox2.pack_start(hboxStack10, False, False, 0)
+    vbox2.pack_start(hboxStack10, False, False, 0)
     vbox2.pack_start(vboxStack4, False, False, 0)
     frame2.add(vbox2)
 
@@ -351,8 +351,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
 
     # =================CUSTOM REPO========================
 
-    #vboxStack1.pack_start(hboxStack2, False, False, 0)
-    #vboxStack1.pack_start(hboxStack3, True, True, 0)
+    vboxStack1.pack_start(hboxStack2, False, False, 0)
+    vboxStack1.pack_start(hboxStack3, True, True, 0)
 
     # =================FOOTER========================
 

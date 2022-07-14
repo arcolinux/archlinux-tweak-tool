@@ -2435,7 +2435,7 @@ class Main(Gtk.Window):
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "multilib")
 
-    def button1_clicked(self, widget):
+    def custom_repo_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
         startiter, enditer = self.text.get_bounds()
 
