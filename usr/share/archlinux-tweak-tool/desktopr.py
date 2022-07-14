@@ -1,6 +1,7 @@
-# =================================================================
-# =           Author: Erik Dubois  and Brad Heffernan             =
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
 import numpy as np
 import Functions as fn
 import Settings
@@ -839,6 +840,7 @@ if not distro.id() == "arcolinux":
         "alacritty",
         "arcolinux-awesome-git",
         "archlinux-logout-git",
+        "archlinux-wallpapers-git",
         "awesome",
         "dmenu",
         "feh",
@@ -857,6 +859,7 @@ if not distro.id() == "arcolinux":
         "arcolinux-bspwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "archlinux-wallpapers-git",
         "awesome-terminal-fonts",
         "bspwm",
         "dmenu",
@@ -915,6 +918,7 @@ if not distro.id() == "arcolinux":
         "arcolinux-dwm-st-git",
         "arcolinux-dusk-git",
         "archlinux-logout-git",
+        "archlinux-wallpapers-git",
         "dmenu",
         "feh",
         "picom",
@@ -930,6 +934,7 @@ if not distro.id() == "arcolinux":
         "arcolinux-dwm-git",
         "arcolinux-dwm-slstatus-git",
         "archlinux-logout-git",
+        "archlinux-wallpapers-git",
         "dmenu",
         "feh",
         "gsimplecal",
@@ -972,6 +977,7 @@ if not distro.id() == "arcolinux":
         "arcolinux-herbstluftwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "archlinux-wallpapers-git",
         "awesome-terminal-fonts",
         "dmenu",
         "feh",
@@ -991,6 +997,8 @@ if not distro.id() == "arcolinux":
         "arcolinux-i3wm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "archlinux-wallpapers-git",
+        "autotiling",
         "dmenu",
         "feh",
         "i3blocks",
@@ -1039,6 +1047,7 @@ if not distro.id() == "arcolinux":
         "alacritty",
         "archlinux-logout-git",
         "arcolinux-leftwm-git",
+        "archlinux-wallpapers-git",
         "dmenu",
         "feh",
         "leftwm-dev-git",
@@ -1089,6 +1098,7 @@ if not distro.id() == "arcolinux":
         "arcolinux-pipemenus-git",
         "arcolinux-tint2-git",
         "arcolinux-tint2-themes-git",
+        "archlinux-wallpapers-git",
         "dmenu",
         "feh",
         "geany",
@@ -1127,6 +1137,7 @@ if not distro.id() == "arcolinux":
         "alacritty",
         "archlinux-logout-git",
         "arcolinux-qtile-git",
+        "archlinux-wallpapers-git",
         "awesome-terminal-fonts",
         "dmenu",
         "feh",
@@ -1145,6 +1156,7 @@ if not distro.id() == "arcolinux":
         "archlinux-logout-git",
         "arcolinux-polybar-git",
         "arcolinux-spectrwm-git",
+        "archlinux-wallpapers-git",
         "awesome-terminal-fonts",
         "dmenu",
         "feh",
@@ -1167,6 +1179,7 @@ if not distro.id() == "arcolinux":
         "arcolinux-wmderland-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "archlinux-wallpapers-git",
         "dmenu",
         "feh",
         "wmderland-git",
@@ -1198,6 +1211,7 @@ if not distro.id() == "arcolinux":
         "arcolinux-polybar-git",
         "arcolinux-xmonad-polybar-git",
         "awesome-terminal-fonts",
+        "archlinux-wallpapers-git",
         "dmenu",
         "feh",
         "haskell-dbus",
@@ -1278,7 +1292,6 @@ def check_package(self, path, package):
         with fn.subprocess.Popen(["sh", "-c", "yes | pkexec pacman -R " + package], bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
             for line in p.stdout:
                 GLib.idle_add(self.desktopr_stat.set_text, line.strip())
-
 
 def install_desktop(self, desktop, state):
 

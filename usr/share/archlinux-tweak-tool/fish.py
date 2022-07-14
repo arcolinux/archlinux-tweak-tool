@@ -1,9 +1,9 @@
-# =================================================================
-# =          Author: Cameron Percival & Erik Dubois
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
 import os
-import Functions
+import Functions as fn
 
 #This function has one job, and one job only; ensure that check boxes match what is passed to it, based on the logic from the calling function
 def set_util_state(self, util, util_state):
@@ -34,10 +34,10 @@ def install_util(util):
 
     #This is just protection to avoid unneeded errors.
     if len(command)>0:
-        Functions.subprocess.call(command.split(" "),
+        fn.subprocess.call(command.split(" "),
                         shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
+                        stdout=fn.subprocess.PIPE,
+                        stderr=fn.subprocess.STDOUT)
 
 def _get_position(lists, value):
     data = []
@@ -103,8 +103,8 @@ def get_term_rc(value):
         return False
 
 def get_config_file():
-    #At the moment, this will only work for bash and zsh. Can be updated easily for fish/other shells. Update the Functions.get_shell() function, and add a config file in Functions.py
-    if Functions.get_shell() == "bash":
-        return Functions.bash_config
-    elif Functions.get_shell() == "zsh":
-        return Functions.zsh_config
+    #At the moment, this will only work for bash and zsh. Can be updated easily for fish/other shells. Update the fn.get_shell() function, and add a config file in fn.py
+    if fn.get_shell() == "bash":
+        return fn.bash_config
+    elif fn.get_shell() == "zsh":
+        return fn.zsh_config

@@ -1,7 +1,6 @@
-# =================================================================
-# =                  Author: Brad Heffernan                       =
-# =================================================================
-
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack5, slim, os):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)

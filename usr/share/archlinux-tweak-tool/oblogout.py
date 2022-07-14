@@ -1,19 +1,21 @@
-# =================================================================
-# =                  Author: Brad Heffernan                       =
-# =================================================================
-import Functions
-from Functions import os
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
+import Functions as fn
+import os
+
 # ====================================================================
 #                       OBLOGOUT FUNCTIONS
 # ====================================================================
 
 
 def get_shortcut(value):
-    if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, "r", encoding="utf-8") as f:
+    if os.path.isfile(fn.oblogout_conf):
+        with open(fn.oblogout_conf, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
-        shortcu = Functions.check_value(lines[Functions.get_shortcuts(lines):Functions.get_commands(lines)], value)
+        shortcu = fn.check_value(lines[fn.get_shortcuts(lines):fn.get_commands(lines)], value)
         if not shortcu:
             shortcut = [value, '']
         else:
@@ -22,35 +24,35 @@ def get_shortcut(value):
 
 
 def set_shorcut(self, value, value_sk):
-    if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, 'r') as f:
+    if os.path.isfile(fn.oblogout_conf):
+        with open(fn.oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
         try:
-            shortcuts_pos = Functions._get_position(lines, "[shortcuts]")
-            commandss_pos = Functions._get_position(lines, "[commands]")
-            data1_shortcut = Functions.check_value(lines[shortcuts_pos:commandss_pos], value)
+            shortcuts_pos = fn._get_position(lines, "[shortcuts]")
+            commandss_pos = fn._get_position(lines, "[commands]")
+            data1_shortcut = fn.check_value(lines[shortcuts_pos:commandss_pos], value)
 
             if not data1_shortcut:
 
                 pos = shortcuts_pos + 5
                 lines.insert(pos, value + ' = ' + str(value_sk) + '\n')
             else:
-                pos = int(Functions._get_position(lines[shortcuts_pos:commandss_pos], value))
+                pos = int(fn._get_position(lines[shortcuts_pos:commandss_pos], value))
                 lines[shortcuts_pos + pos] = value + ' = ' + str(value_sk) + '\n'
 
-            with open(Functions.oblogout_conf, 'w') as f:
+            with open(fn.oblogout_conf, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_shorcut\'")
+            fn.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_shorcut\'")
 
 
 def oblog_populate(combo):
-    if os.path.isfile(Functions.oblogout_conf):
+    if os.path.isfile(fn.oblogout_conf):
         coms = []
         active = ""
-        with open(Functions.oblogout_conf, "r", encoding="utf-8") as f:
+        with open(fn.oblogout_conf, "r", encoding="utf-8") as f:
             lines = f.readlines()
             for line in lines:
                 if "buttontheme" in line:
@@ -71,8 +73,8 @@ def oblog_populate(combo):
 
 
 def oblogout_change_theme(self, theme):
-    if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, 'r') as f:
+    if os.path.isfile(fn.oblogout_conf):
+        with open(fn.oblogout_conf, 'r') as f:
                 lines = f.readlines()
                 f.close()
 
@@ -89,51 +91,51 @@ def oblogout_change_theme(self, theme):
                     if theme == lines[i].split("=")[1].lstrip().rstrip():
                         lines[i] = line.replace("#","")
 
-            with open(Functions.oblogout_conf, 'w') as f:
+            with open(fn.oblogout_conf, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'oblogout_change_theme\'")
+            fn.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'oblogout_change_theme\'")
 
 
 def get_opacity():
-    if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, 'r') as f:
+    if os.path.isfile(fn.oblogout_conf):
+        with open(fn.oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
 
-        data = Functions.check_value(lines, "opacity")
+        data = fn.check_value(lines, "opacity")
         if not data:
             opacity = 80
         else:
-            opacity = Functions._get_variable(lines, "opacity")
+            opacity = fn._get_variable(lines, "opacity")
         return int(opacity[1].split(".")[0])
 
 
 def set_opacity(self, value):
-    if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, 'r') as f:
+    if os.path.isfile(fn.oblogout_conf):
+        with open(fn.oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
         try:
-            data = Functions.check_value(lines, 'opacity')
+            data = fn.check_value(lines, 'opacity')
             if not data:
-                pos = int(Functions._get_position(lines, "[looks]")) + 1
+                pos = int(fn._get_position(lines, "[looks]")) + 1
                 lines.insert(pos, 'opacity = ' + str(int(value.split(".")[0])) + '\n')
             else:
-                pos = int(Functions._get_position(lines, 'opacity'))
+                pos = int(fn._get_position(lines, 'opacity'))
                 lines[pos] = 'opacity = ' + str(value).split(".")[0] + '\n'
 
-            with open(Functions.oblogout_conf, 'w') as f:
+            with open(fn.oblogout_conf, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_opacity\'")
+            fn.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_opacity\'")
 
 
 def set_buttons(self, value):
-    if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, 'r') as f:
+    if os.path.isfile(fn.oblogout_conf):
+        with open(fn.oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
         try:
@@ -144,17 +146,17 @@ def set_buttons(self, value):
                     val = nline[1].lstrip().rstrip()
                     lines[i] = line.replace(val, value)
 
-            with open(Functions.oblogout_conf, 'w') as f:
+            with open(fn.oblogout_conf, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_buttons\'")
+            fn.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_buttons\'")
 
 
 def get_buttons():
     buttons = "You do not have oblogout.conf"
-    if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, 'r') as f:
+    if os.path.isfile(fn.oblogout_conf):
+        with open(fn.oblogout_conf, 'r') as f:
             lines = f.readlines()
 
             for i in range(0, len(lines)):
@@ -170,11 +172,11 @@ def get_buttons():
 
 
 def get_command(value):
-    if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, 'r') as f:
+    if os.path.isfile(fn.oblogout_conf):
+        with open(fn.oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
-        comman = Functions.check_value(lines[Functions.get_commands(lines):], value)
+        comman = fn.check_value(lines[fn.get_commands(lines):], value)
         if not comman:
             command = ['', '']
             command[0] = value
@@ -187,31 +189,31 @@ def get_command(value):
 
 
 def set_command(self, value, value_sk):
-    if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, 'r') as f:
+    if os.path.isfile(fn.oblogout_conf):
+        with open(fn.oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
         try:
-            commandss_pos = Functions._get_position(lines, "[commands]")
-            data_command = Functions.check_value(lines[commandss_pos:], value)
+            commandss_pos = fn._get_position(lines, "[commands]")
+            data_command = fn.check_value(lines[commandss_pos:], value)
             if not data_command:
                 pos = data_command + 4
                 lines.insert(pos, value + ' = ' + str(value_sk) + '\n')
             else:
-                pos = int(Functions._get_position(lines[commandss_pos:], value))
+                pos = int(fn._get_position(lines[commandss_pos:], value))
                 lines[commandss_pos + pos] = value + ' = ' + str(value_sk) + '\n'
 
-            with open(Functions.oblogout_conf, 'w') as f:
+            with open(fn.oblogout_conf, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_command\'")
+            fn.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_command\'")
 
 
 def get_color():
     color = ""
-    if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, 'r') as f:
+    if os.path.isfile(fn.oblogout_conf):
+        with open(fn.oblogout_conf, 'r') as f:
             lines = f.readlines()
             for line in lines:
                 if "bgcolor =" in line:
@@ -221,8 +223,8 @@ def get_color():
 
 
 def set_color(self, color):
-    if os.path.isfile(Functions.oblogout_conf):
-        with open(Functions.oblogout_conf, 'r') as f:
+    if os.path.isfile(fn.oblogout_conf):
+        with open(fn.oblogout_conf, 'r') as f:
             lines = f.readlines()
             f.close()
         try:
@@ -233,8 +235,8 @@ def set_color(self, color):
                     val = nline[1].lstrip().rstrip()
                     lines[i] = line.replace(val, color)
 
-            with open(Functions.oblogout_conf, 'w') as f:
+            with open(fn.oblogout_conf, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:
-            Functions.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_color\'")
+            fn.MessageBox(self, "ERROR!!", "An error has occured setting this setting \'set_color\'")

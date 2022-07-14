@@ -1,6 +1,8 @@
-# =================================================================
-# =              Author: Brad Heffernan - Erik Dubois
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
+import Functions as fn
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -16,29 +18,21 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     #                       GRUB
     # ==========================================================
 
-    # hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    # label10 = Gtk.Label("Hide/unhide grub")
-    # self.hide_grub = Gtk.Switch()
-    # self.hide_grub.connect("notify::active", self.on_hide_grub_activated)
-    # hbox10.pack_start(label10, False, False, 10)
-    # hbox10.pack_end(self.hide_grub, False, False, 0)
-    # #hbox10.pack_end(grub_reset_grub, False, False, 0)
-    # #hbox10.pack_end(grub_reset_vimix, False, False, 0)
-
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     label10 = Gtk.Label("Grub timeout in seconds")
-    scale = Gtk.Scale().new(Gtk.Orientation.HORIZONTAL)
-    scale.set_draw_value(True)
-    scale.set_value_pos(Gtk.PositionType.BOTTOM)
-    scale.set_range(0, 30)
-    scale.set_digits(0)
-    scale.set_inverted(False)
-    scale.set_size_request(200, 10)
-    scale.set_tooltip_text("Seconds")
+    self.scale = Gtk.Scale().new(Gtk.Orientation.HORIZONTAL)
+    self.scale.set_draw_value(True)
+    self.scale.set_value_pos(Gtk.PositionType.BOTTOM)
+    self.scale.set_range(0, 30)
+    self.scale.set_digits(0)
+    self.scale.set_inverted(False)
+    self.scale.set_size_request(200, 10)
+    self.scale.set_tooltip_text("Seconds")
     btnsave = Gtk.Button(label="Save")
+    btnsave.connect("clicked", self.on_clicked_grub_timeout)
     hbox10.pack_start(label10, False, False, 10)
     hbox10.pack_end(btnsave, False, False, 10)
-    hbox10.pack_end(scale, False, False, 10)
+    hbox10.pack_end(self.scale, False, False, 10)
 
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label11 = Gtk.Label("Import image")
@@ -65,7 +59,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
 
     scrolled = Gtk.ScrolledWindow()
     scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-    wallpaper_list = Functions.get_grub_wallpapers()
+    wallpaper_list = fn.get_grub_wallpapers()
     self.grub_theme_combo = Gtk.ComboBoxText()
     self.pop_themes_grub(self.grub_theme_combo, wallpaper_list, True)
     self.fb.set_valign(Gtk.Align.START)
@@ -74,6 +68,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     self.fb.connect("child-activated", self.on_grub_item_clicked)
     scrolled.add(self.fb)
     self.grub_theme_combo.connect("changed", self.on_grub_theme_change)
+
+    hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    install_rebornos_grub = Gtk.Button(label="Install original grub theme of RebornOS - autoreboot")
+    install_rebornos_grub.connect("clicked", self.on_click_install_orignal_grub_rebornos)
+    hbox16.pack_end(install_rebornos_grub, False, False, 10)
 
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     grub_apply = Gtk.Button(label="2. Choose and apply wallpaper")
@@ -90,9 +89,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
 
     vboxStack4.pack_start(hbox3, False, False, 0) #title
     vboxStack4.pack_start(hbox4, False, False, 0) #seperator
-    #vboxStack4.pack_start(hbox10, False, False, 0) #scale
+    vboxStack4.pack_start(hbox10, False, False, 0) #scale
     vboxStack4.pack_start(hbox11, False, False, 0) #import
     vboxStack4.pack_start(hbox12, False, False, 0) #select wallpaper
     vboxStack4.pack_start(hbox13, False, False, 0) #select wallpaper
     vboxStack4.pack_start(scrolled, True, True, 0) #Preview
     vboxStack4.pack_end(hbox9, False, False, 0)# Buttons
+    if fn.distr == "rebornos":
+        vboxStack4.pack_end(hbox16, False, False, 0)# Buttons
+

@@ -1,10 +1,9 @@
-#=================================================================
-#=                  Author: Brad Heffernan                       =
-#=================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
 import configparser
-import os
-from Functions import home, config
+from Functions import config
 
 settings = config
 

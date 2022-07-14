@@ -1,8 +1,10 @@
-# =================================================================
-# =                  Author: Brad Heffernan                       =
-# =================================================================
-import Functions
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
+import Functions as fn
 from Functions import os
+
 # ====================================================================
 #                       SLIMLOCK
 # ====================================================================
@@ -11,8 +13,8 @@ from Functions import os
 
 def get_slimlock(combo):
     coms = []
-    if os.path.isfile(Functions.slimlock_conf):
-        with open(Functions.slimlock_conf, "r", encoding="utf-8") as f:
+    if os.path.isfile(fn.slimlock_conf):
+        with open(fn.slimlock_conf, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
 
@@ -43,8 +45,8 @@ def get_slimlock(combo):
 def reload_import(combo, theme):
     combo.get_model().clear()
     coms = []
-    if os.path.isfile(Functions.slimlock_conf):
-        # with open(Functions.slimlock_conf, "r", encoding="utf-8") as f:
+    if os.path.isfile(fn.slimlock_conf):
+        # with open(fn.slimlock_conf, "r", encoding="utf-8") as f:
         #     lines = f.readlines()
         #     f.close()
         for folder in os.listdir("/usr/share/slim/themes/"):
@@ -60,19 +62,19 @@ def reload_import(combo, theme):
 
 
 def remove_theme(name):
-    with open(Functions.slimlock_conf, "r", encoding="utf-8") as f:
+    with open(fn.slimlock_conf, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
     try:
-        pos = Functions._get_position(lines, name)
-        pos2 = Functions._get_position(lines, "  arcolinux_eyes")
+        pos = fn._get_position(lines, name)
+        pos2 = fn._get_position(lines, "  arcolinux_eyes")
 
         lines[pos2] = lines[pos2].replace("#", "")
 
         if pos:
             del lines[pos]
 
-        with open(Functions.slimlock_conf, "w") as f:
+        with open(fn.slimlock_conf, "w") as f:
             f.writelines(lines)
             f.close()
 
@@ -81,11 +83,11 @@ def remove_theme(name):
 
 
 def set_slimlock(self, theme):
-    if not os.path.isfile(Functions.slimlock_conf + ".bak"):
-        Functions.shutil.copy(Functions.slimlock_conf,
-                              Functions.slimlock_conf + ".bak")
+    if not os.path.isfile(fn.slimlock_conf + ".bak"):
+        fn.shutil.copy(fn.slimlock_conf,
+                              fn.slimlock_conf + ".bak")
 
-    with open(Functions.slimlock_conf, 'r') as f:
+    with open(fn.slimlock_conf, 'r') as f:
         lines = f.readlines()
         f.close()
 
@@ -96,9 +98,9 @@ def set_slimlock(self, theme):
             if "#" not in lines[i]:
                 lines[i] = line.replace(lines[i], "#" + lines[i])
     # current_theme       arcolinux
-    data = Functions.gtk_check_value(lines, theme)
+    data = fn.gtk_check_value(lines, theme)
     if not data:
-        themes = Functions._get_position(lines, "current_theme       ")
+        themes = fn._get_position(lines, "current_theme       ")
         lines.insert(int(themes) + 1, "current_theme       " + theme + "\n")
     else:
         for i in range(0, len(lines)):
@@ -108,10 +110,10 @@ def set_slimlock(self, theme):
                 if theme == lines[i].split(" ")[len(value)-1].strip():
                     lines[i] = line.replace("#", "")
 
-    with open(Functions.slimlock_conf, 'w') as f:
+    with open(fn.slimlock_conf, 'w') as f:
         f.writelines(lines)
         f.close()
-    Functions.show_in_app_notification(self, "Settings Saved Successfully")
+    fn.show_in_app_notification(self, "Settings Saved Successfully")
     # except:
     #     MessageBox(self, "ERROR!!",
     #                "An error has occured setting this setting \'oblogout_change_theme\'")  # noqa

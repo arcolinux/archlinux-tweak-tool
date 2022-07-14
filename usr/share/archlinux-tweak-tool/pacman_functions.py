@@ -1,43 +1,42 @@
-import Functions
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
-# =================================================================
-# =             Author: Cameron Percival    Erik Dubois           =
-# =================================================================
-
+import Functions as fn
 
 def append_repo(self, text):
-    with open(Functions.pacman, "a") as myfile:
+    with open(fn.pacman, "a") as myfile:
         myfile.write("\n\n")
         myfile.write(text)
 
-    Functions.show_in_app_notification(self, "Settings Saved Successfully")
+    fn.show_in_app_notification(self, "Settings Saved Successfully")
 
     # MessageBox(self, "Success!!", "Settings applied successfully")
 
 def append_mirror(self, text):
-    with open(Functions.arcolinux_mirrorlist, "a") as myfile:
+    with open(fn.arcolinux_mirrorlist, "a") as myfile:
         myfile.write("\n\n")
         myfile.write(text)
 
-    Functions.show_in_app_notification(self, "Settings Saved Successfully")
+    fn.show_in_app_notification(self, "Settings Saved Successfully")
 
 
 def insert_repo(self, text):
-    with open(Functions.pacman, "r", encoding="utf-8") as f:
+    with open(fn.pacman, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
-    pos = Functions._get_position(lines, "[custom]")
+    pos = fn._get_position(lines, "[custom]")
     num = pos+3
 
     lines.insert(num, "\n" + text + "\n")
 
-    with open(Functions.pacman, "w") as f:
+    with open(fn.pacman, "w") as f:
         f.writelines(lines)
         f.close()
 
 
 def check_repo(value):
-    with open(Functions.pacman, "r", encoding="utf-8") as myfile:
+    with open(fn.pacman, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
@@ -50,7 +49,7 @@ def check_repo(value):
     return False
 
 def check_mirror(value):
-    with open(Functions.arcolinux_mirrorlist, "r", encoding="utf-8") as myfile:
+    with open(fn.arcolinux_mirrorlist, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
@@ -64,7 +63,7 @@ def check_mirror(value):
 
 
 def repo_exist(value):
-    with open(Functions.pacman, "r", encoding="utf-8") as myfile:
+    with open(fn.pacman, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
@@ -74,7 +73,7 @@ def repo_exist(value):
     return False
 
 def mirror_exist(value):
-    with open(Functions.arcolinux_mirrorlist, "r", encoding="utf-8") as myfile:
+    with open(fn.arcolinux_mirrorlist, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
@@ -151,11 +150,11 @@ def spin_off(repo, lines, i, line):
 
 
 def toggle_test_repos(self, state, widget):  # noqa
-    if not Functions.os.path.isfile(Functions.pacman + ".bak"):
-        Functions.shutil.copy(Functions.pacman, Functions.pacman + ".bak")
+    if not fn.os.path.isfile(fn.pacman + ".bak"):
+        fn.shutil.copy(fn.pacman, fn.pacman + ".bak")
     lines = ""
     if state is True:
-        with open(Functions.pacman, 'r') as f:
+        with open(fn.pacman, 'r') as f:
             lines = f.readlines()
             f.close()
         try:
@@ -198,16 +197,16 @@ def toggle_test_repos(self, state, widget):  # noqa
                 if widget == "multilib":
                     pacman_on("[multilib]", lines, i, line)
 
-            with open(Functions.pacman, 'w') as f:
+            with open(fn.pacman, 'w') as f:
                 # lines = f.readlines()
                 f.writelines(lines)
                 f.close()
         except Exception as e:
             print(e)
-            Functions.MessageBox(self, "ERROR!!",
+            fn.MessageBox(self, "ERROR!!",
                                  "An error has occurred setting this setting \'toggle_test_repos On\'")  # noqa
     else:
-        with open(Functions.pacman, 'r') as f:
+        with open(fn.pacman, 'r') as f:
             lines = f.readlines()
             f.close()
         try:
@@ -250,19 +249,19 @@ def toggle_test_repos(self, state, widget):  # noqa
                 if widget == "multilib":
                     pacman_off("[multilib]", lines, i, line)
 
-            with open(Functions.pacman, 'w') as f:
+            with open(fn.pacman, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:  # noqa
-            Functions.MessageBox(self, "ERROR!!", "An error has occurred setting this setting \'toggle_test_repos Off\'")  # noqa
+            fn.MessageBox(self, "ERROR!!", "An error has occurred setting this setting \'toggle_test_repos Off\'")  # noqa
 
 
 def toggle_mirrorlist(self, state, widget):  # noqa
-    if not Functions.os.path.isfile(Functions.arcolinux_mirrorlist + ".bak"):
-        Functions.shutil.copy(Functions.arcolinux_mirrorlist, Functions.arcolinux_mirrorlist + ".bak")
+    if not fn.os.path.isfile(fn.arcolinux_mirrorlist + ".bak"):
+        fn.shutil.copy(fn.arcolinux_mirrorlist, fn.arcolinux_mirrorlist + ".bak")
     lines = ""
     if state is True:
-        with open(Functions.arcolinux_mirrorlist, 'r') as f:
+        with open(fn.arcolinux_mirrorlist, 'r') as f:
             lines = f.readlines()
             f.close()
         try:
@@ -292,16 +291,16 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                 # if widget == "community":
                 #     pacman_on("[community-testing]", lines, i, line)
 
-            with open(Functions.arcolinux_mirrorlist, 'w') as f:
+            with open(fn.arcolinux_mirrorlist, 'w') as f:
                 # lines = f.readlines()
                 f.writelines(lines)
                 f.close()
         except Exception as e:
             print(e)
-            Functions.MessageBox(self, "ERROR!!",
+            fn.MessageBox(self, "ERROR!!",
                                  "An error has occurred setting this setting \'toggle_test_repos On\'")  # noqa
     else:
-        with open(Functions.arcolinux_mirrorlist, 'r') as f:
+        with open(fn.arcolinux_mirrorlist, 'r') as f:
             lines = f.readlines()
             f.close()
         try:
@@ -332,8 +331,8 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                 # if widget == "community":
                 #     pacman_off("[community-testing]", lines, i, line)
 
-            with open(Functions.arcolinux_mirrorlist, 'w') as f:
+            with open(fn.arcolinux_mirrorlist, 'w') as f:
                 f.writelines(lines)
                 f.close()
         except:  # noqa
-            Functions.MessageBox(self, "ERROR!!", "An error has occurred setting this setting \'toggle_test_repos Off\'")  # noqa
+            fn.MessageBox(self, "ERROR!!", "An error has occurred setting this setting \'toggle_test_repos Off\'")  # noqa

@@ -1,65 +1,26 @@
-# =================================================================
-# =                  Author: Brad Heffernan                       =
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
-    hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-
-    vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
-
-    vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
-    vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
-    vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
-
-    vbox5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
-    vbox6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
-
-
-    toplabelbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    labelbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-
-    # ==========================================
-    #              TREEVIEW
-    # ==========================================
-    # sw = Gtk.ScrolledWindow()
-    # sw.set_shadow_type(Gtk.ShadowType.ETCHED_IN)
-    # sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-
-    # self.startups = Gtk.ListStore(bool, str, str)
-
-    # self.treeView4 = Gtk.TreeView(self.startups)
-    # self.create_autostart_columns(self.treeView4)
-    # self.treeView4.connect("row-activated", self.on_activated)
-    # self.treeView4.set_rules_hint(True)
-    # self.treeView4.set_activate_on_single_click(True)
-    # sw.set_size_request(270, 320)
-    # sw.add(self.treeView4)
-
-    # autostart.get_startups(self)
-
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Autostart")
     lbl1.set_name("title")
-    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-    hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
 
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox4.pack_start(hseparator, True, True, 0)
+
+    toplabelbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    labelbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     lbls = Gtk.Label(xalign=0)
     lbls.set_text("Current content of ~/.config/autostart/")
     toplabelbox.pack_start(lbls, False, False, 0)
-    # # ==========================================
-    # #              Remove Button
-    # # ==========================================
-    # rbutton = Gtk.Button(label="Remove")
-    # rbutton.set_size_request(140, 0)
-
-    # rbutton.connect("clicked", self.on_remove_auto)
 
     files = [x.replace(".desktop", "") for x in Functions.os.listdir(Functions.autostart)]
-
     mainbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     sw = Gtk.ScrolledWindow()
@@ -99,6 +60,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
 
     self.abutton.connect("clicked", self.on_add_autostart)
 
+    vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+    vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+    vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+    vbox5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+    vbox6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=3)
+
     vbox2.pack_start(lbl1, False, False, 0)
     vbox2.pack_start(self.txtbox1, False, False, 0)
 
@@ -111,15 +78,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     vbox5.pack_end(bbutton, False, False, 0)
     vbox6.pack_end(self.abutton, False, False, 0)
 
+    hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox2.pack_start(vbox2, False, False, 5)
     hbox2.pack_start(vbox3, False, False, 0)
     hbox2.pack_start(vbox5, False, False, 0)
     hbox2.pack_start(vbox4, False, False, 5)
     hbox2.pack_start(vbox6, False, False, 5)
 
-    # hbox.pack_start(mainbox, True, True, 0)
-    # vbox1.pack_end(rbutton, False, False, 0)
-    # hbox.pack_start(vbox1, False, False, 0)
     vboxStack13.pack_start(hbox3, False, False, 0)
     vboxStack13.pack_start(hbox4, False, False, 0)
     vboxStack13.pack_start(toplabelbox, False, False, 0)

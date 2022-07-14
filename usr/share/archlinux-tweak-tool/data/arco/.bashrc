@@ -59,6 +59,10 @@ alias df='df -h'
 alias give-me-azerty-be="sudo localectl set-x11-keymap be"
 alias give-me-qwerty-us="sudo localectl set-x11-keymap us"
 
+#setlocale
+alias setlocale="sudo localectl set-locale LANG=en_US.UTF-8"
+alias setlocales="sudo localectl set-x11-keymap be && sudo localectl set-locale LANG=en_US.UTF-8"
+
 #pacman unlock
 alias unlock="sudo rm /var/lib/pacman/db.lck"
 alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
@@ -76,7 +80,7 @@ alias free="free -mt"
 alias wget="wget -c"
 
 #userlist
-alias userlist="cut -d: -f1 /etc/passwd"
+alias userlist="cut -d: -f1 /etc/passwd | sort"
 
 #merge new settings
 alias merge="xrdb -merge ~/.Xresources"
@@ -153,7 +157,6 @@ alias mirrorxx="sudo reflector --age 6 --latest 20  --fastest 20 --threads 20 --
 alias ram='rate-mirrors --allow-root --disable-comments arch | sudo tee /etc/pacman.d/mirrorlist'
 alias rams='rate-mirrors --allow-root --disable-comments --protocol https arch  | sudo tee /etc/pacman.d/mirrorlist'
 
-
 #mounting the folder Public for exchange between host and guest on virtualbox
 alias vbm="sudo /usr/local/bin/arcolinux-vbox-share"
 
@@ -205,7 +208,7 @@ alias ngrub="sudo $EDITOR /etc/default/grub"
 alias nconfgrub="sudo $EDITOR /boot/grub/grub.cfg"
 alias nmkinitcpio="sudo $EDITOR /etc/mkinitcpio.conf"
 alias nmirrorlist="sudo $EDITOR /etc/pacman.d/mirrorlist"
-alias narcomirrorlist='sudo $EDITOR /etc/pacman.d/arcolinux-mirrorlist'
+alias narcomirrorlist="sudo $EDITOR /etc/pacman.d/arcolinux-mirrorlist"
 alias nsddm="sudo $EDITOR /etc/sddm.conf"
 alias nsddmk="sudo $EDITOR /etc/sddm.conf.d/kde_settings.conf"
 alias nfstab="sudo $EDITOR /etc/fstab"
@@ -217,6 +220,7 @@ alias nhostname="sudo $EDITOR /etc/hostname"
 alias nb="$EDITOR ~/.bashrc"
 alias nz="$EDITOR ~/.zshrc"
 alias nf="$EDITOR ~/.config/fish/config.fish"
+alias nneofetch="$EDITOR ~/.config/neofetch/config.conf"
 
 #reading logs with bat
 alias lcalamares="bat /var/log/Calamares.log"
@@ -242,7 +246,8 @@ alias fixkey="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
 alias fixkeys="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
 alias fix-key="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
 alias fix-keys="/usr/local/bin/arcolinux-fix-pacman-databases-and-keys"
-alias fix-sddm-config="/usr/local/bin/arcolinux-fix-sddm-config"
+#fix-sddm-config is no longer an alias but an application - part of ATT
+#alias fix-sddm-config="/usr/local/bin/arcolinux-fix-sddm-config"
 alias fix-pacman-conf="/usr/local/bin/arcolinux-fix-pacman-conf"
 alias fix-pacman-keyserver="/usr/local/bin/arcolinux-fix-pacman-gpg-conf"
 

@@ -1,6 +1,8 @@
-#=================================================================
-#=         Author: Erik Dubois and Cameron Percival              =
-#=================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
+import Functions as fn
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -12,11 +14,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox5.pack_start(hseparator, True, True, 0)
-
-    hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     sep_text = "                       "
 
@@ -63,12 +60,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
 
     self.combo_account_type = Gtk.ComboBoxText()
 
-    for i in range(len(Functions.account_list)):
-            self.combo_account_type.append_text(Functions.account_list[i])
+    for i in range(len(fn.account_list)):
+            self.combo_account_type.append_text(fn.account_list[i])
     self.combo_account_type.set_active(1)
-
-    apply_sddm = Gtk.Button(label="Apply settings")
-    apply_sddm.connect("clicked", self.on_click_user_apply)
 
     grid = Gtk.Grid()
     grid.attach(label_username, 0, 0, 2, 1)
@@ -87,12 +81,58 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     grid.attach_next_to(conf_pwd_sep, label_confirm_password, Gtk.PositionType.RIGHT, 1, 1)
     grid.attach_next_to(self.hbox_confirm_password, conf_pwd_sep, Gtk.PositionType.RIGHT, 1, 1)
 
-    hbox2.pack_end(apply_sddm, False, False, 0)
+    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    lbl_information = Gtk.Label(xalign=0)
+    lbl_information.set_markup("The following groups are used for an administrator\n\
+audio,video,network,storage,rfkill,wheel,autologin,sambashare")
+    hbox9.pack_start(lbl_information, False, False, 0)
+
+    hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    apply_settings = Gtk.Button(label="Apply settings")
+    apply_settings.connect("clicked", self.on_click_user_apply)
+    hbox2.pack_start(apply_settings, False, False, 0)
+
+    hbox40 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    lbl_delete_user = Gtk.Label(xalign=0)
+    lbl_delete_user.set_text("Delete User")
+    lbl_delete_user.set_name("title")
+    hbox40.pack_start(lbl_delete_user, False, False, 0)
+
+    hbox50 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox50.pack_start(hseparator, True, True, 0)
+
+    hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox7_label = Gtk.Label(xalign=0)
+    hbox7_label.set_markup("<b>Beware - you could delete your own user account</b>")
+    hbox7.pack_start(hbox7_label, False, False, 10)
+
+    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox8_label = Gtk.Label(xalign=0)
+    hbox8_label.set_text("Remove the selected user")
+    button_delete_user = Gtk.Button(label="Remove the selected user")
+    button_delete_user.connect ("clicked", self.on_click_delete_user)
+    button_delete_all_user = Gtk.Button(label="Remove the selected user and the homefolder")
+    button_delete_all_user.connect ("clicked", self.on_click_delete_all_user)
+    self.cbt_users = Gtk.ComboBoxText()
+    user.pop_cbt_users(self,self.cbt_users)
+    hbox8.pack_start(hbox8_label, False, False, 10)
+    hbox8.pack_start(self.cbt_users, False, False, 10)
+
+    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox10.pack_start(button_delete_all_user, False, False, 10)
+
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox11.pack_start(button_delete_user, False, False, 10)
 
     vboxStack10.pack_start(hbox4, False, False, 0)
     vboxStack10.pack_start(hbox5, False, False, 0)
     vboxStack10.pack_start(grid, False, False, 0)
     vboxStack10.pack_start(hbox9, False, False, 0)
+    vboxStack10.pack_start(hbox2, False, False, 0)
+    vboxStack10.pack_start(hbox40, False, False, 0)
+    vboxStack10.pack_start(hbox50, False, False, 0)
+    vboxStack10.pack_start(hbox7, False, False, 0)
+    vboxStack10.pack_start(hbox8, False, False, 0)
     vboxStack10.pack_start(hbox10, False, False, 0)
     vboxStack10.pack_start(hbox11, False, False, 0)
-    vboxStack10.pack_end(hbox2, False, False, 0)

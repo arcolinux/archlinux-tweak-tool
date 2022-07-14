@@ -1,7 +1,9 @@
-# =================================================================
-# =          Author: Brad Heffernan - Erik Dubois - Cameron Percival
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
+import Functions as fn
+from os import link
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
@@ -17,18 +19,22 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     hbox7.pack_start(hseparator, True, True, 0)
     hbox6.pack_start(lbl1, False, False, 0)
 
-    if Functions.os.path.isfile(Functions.i3wm_config):
-        i3_list = themer.get_list(Functions.i3wm_config)
-    if Functions.os.path.isfile(Functions.awesome_config):
-        awesome_list = themer.get_list(Functions.awesome_config)
-    if Functions.os.path.isfile(Functions.qtile_config):
-        qtile_list = themer.get_list(Functions.qtile_config)
+    if fn.os.path.isfile(fn.i3wm_config) \
+        and fn.check_package_installed("arcolinux-i3wm-git"):
+        i3_list = themer.get_list(fn.i3wm_config)
+    if fn.os.path.isfile(fn.awesome_config) \
+        and fn.check_package_installed("arcolinux-awesome-git"):
+        awesome_list = themer.get_list(fn.awesome_config)
+    if fn.os.path.isfile(fn.qtile_config_theme) \
+        and fn.check_package_installed("arcolinux-qtile-git"):
+        qtile_list = themer.get_list(fn.qtile_config)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -51,7 +57,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
     self.i3_combo.set_size_request(280, 0)
-    if Functions.os.path.isfile(Functions.i3wm_config):
+    if fn.os.path.isfile(fn.i3wm_config) \
+        and fn.check_package_installed("arcolinux-i3wm-git"):
         themer.get_i3_themes(self.i3_combo, i3_list)
 
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -61,19 +68,21 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     vbox2.pack_start(self.i3_combo, False, False, 0)
 
-    applyi3 = Gtk.Button(label="Apply")
+    applyi3 = Gtk.Button(label="Apply theme")
     applyi3.connect("clicked", self.i3wm_apply_clicked)
     reseti3 = Gtk.Button(label="Reset")
     reseti3.connect("clicked", self.i3wm_reset_clicked)
 
     lbls = Gtk.Label(label="Toggle polybar")
     self.poly = Gtk.Switch()
-    if Functions.os.path.isfile(Functions.i3wm_config):
-        if themer.check_polybar(themer.get_list(Functions.i3wm_config)):
+    if fn.os.path.isfile(fn.i3wm_config) \
+        and fn.check_package_installed("arcolinux-i3wm-git"):
+        if themer.check_polybar(themer.get_list(fn.i3wm_config)):
             self.poly.set_active(True)
     self.poly.connect("notify::active", self.on_polybar_toggle)
 
-    if not Functions.os.path.isfile(Functions.i3wm_config):
+    if not fn.os.path.isfile(fn.i3wm_config) \
+        or not fn.check_package_installed("arcolinux-i3wm-git"):
         applyi3.set_sensitive(False)
         reseti3.set_sensitive(False)
         self.poly.set_sensitive(False)
@@ -84,7 +93,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/i3-sample.jpg", image_width, image_height)
     if self.i3_combo.get_active_text() is None:
         pass
-    elif Functions.os.path.isfile(base_dir+"/themer_data/i3"+self.i3_combo.get_active_text()+".jpg"):
+    elif fn.os.path.isfile(base_dir+"/themer_data/i3"+self.i3_combo.get_active_text()+".jpg"):
         pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/i3/"+self.i3_combo.get_active_text()+".jpg", image_width, image_height)
     i3_image = Gtk.Image().new_from_pixbuf(pixbuf)
 
@@ -111,7 +120,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     label2 = Gtk.Label("Select theme")
     self.store = Gtk.ListStore(int, str)
-    if Functions.os.path.isfile(Functions.awesome_config):
+    if fn.os.path.isfile(fn.awesome_config) \
+        and fn.check_package_installed("arcolinux-awesome-git"):
         try:
             awesome_lines = themer.get_awesome_themes(awesome_list)
             for x in range(len(awesome_lines)):
@@ -123,7 +133,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     self.awesome_combo.set_size_request(180, 0)
     renderer_text = Gtk.CellRendererText()
 
-    if Functions.os.path.isfile(Functions.awesome_config):
+    if fn.os.path.isfile(fn.awesome_config) \
+        and fn.check_package_installed("arcolinux-awesome-git"):
         try:
             val = int(themer.get_value(awesome_list, "local chosen_theme =")
                     .replace("themes[", "").replace("]", ""))
@@ -161,7 +172,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     image_width = 598
     image_height = 598
 
-    if Functions.os.path.isfile(Functions.awesome_config):
+    if fn.os.path.isfile(fn.awesome_config) \
+        and fn.check_package_installed("arcolinux-awesome-git"):
         try:
             pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/" + name + ".jpg", image_width, image_height)  # noqa
             self.image.set_from_pixbuf(pimage)
@@ -178,12 +190,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     hbox5.pack_start(frame, True, False, 10)
 
-    apply = Gtk.Button(label="Apply")
+    apply = Gtk.Button(label="Apply theme")
     apply.connect("clicked", self.awesome_apply_clicked)
     reset = Gtk.Button(label="Reset")
     reset.connect("clicked", self.awesome_reset_clicked)
 
-    if not Functions.os.path.isfile(Functions.awesome_config):
+    if not fn.os.path.isfile(fn.awesome_config) \
+        or not fn.check_package_installed("arcolinux-awesome-git"):
             apply.set_sensitive(False)
             reset.set_sensitive(False)
 
@@ -205,7 +218,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     labelqt = Gtk.Label("Select theme")
     self.qtile_combo = Gtk.ComboBoxText()
     self.qtile_combo.set_size_request(280, 0)
-    if Functions.os.path.isfile(Functions.qtile_config):
+    if fn.os.path.isfile(fn.qtile_config_theme) \
+        and fn.check_package_installed("arcolinux-qtile-git"):
         themer.get_qtile_themes(self.qtile_combo, qtile_list)
 
     vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -215,20 +229,21 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     vbox4.pack_start(self.qtile_combo, False, False, 0)
 
-    applyqtile = Gtk.Button(label="Apply")
+    applyqtile = Gtk.Button(label="Apply theme")
     applyqtile.connect("clicked", self.qtile_apply_clicked)
     resetqtile = Gtk.Button(label="Reset")
     resetqtile.connect("clicked", self.qtile_reset_clicked)
 
-    if not Functions.os.path.isfile(Functions.qtile_config):
+    if not fn.os.path.isfile(fn.qtile_config_theme) \
+        or not fn.check_package_installed("arcolinux-qtile-git"):
             applyqtile.set_sensitive(False)
             resetqtile.set_sensitive(False)
 
 #   Commented out for now. TODO: implement theming for polybar under Qtile
 #   lbls = Gtk.Label(label="Toggle polybar")
 #   self.poly = Gtk.Switch()
-#   if Functions.os.path.isfile(Functions.i3wm_config):
-#       if themer.check_polybar(themer.get_list(Functions.i3wm_config)):
+#   if fn.os.path.isfile(fn.i3wm_config):
+#       if themer.check_polybar(themer.get_list(fn.i3wm_config)):
 #           self.poly.set_active(True)
 #   self.poly.connect("notify::active", self.on_polybar_toggle)
 
@@ -238,7 +253,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/qtile-sample.jpg", image_width, image_height)
     if self.qtile_combo.get_active_text() is None:
         pass
-    elif Functions.os.path.isfile(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg"):
+    elif fn.os.path.isfile(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg"):
         qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg", image_width, image_height)
     qtile_image = Gtk.Image().new_from_pixbuf(qtile_pixbuf)
 
@@ -254,11 +269,81 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     vboxStack3.pack_end(hbox9, False, False, 0)
 
     # ==================================================================
+    #                       LEFTWM TAB
+    # ==================================================================
+
+    self.status_leftwm = Gtk.Label()
+    #self.status_leftwm.set_markup("<b>Theme is installed and applied</b>")
+
+    label6 = Gtk.Label()
+    label6.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.\n\
+Sometimes you even need to logout to let the theme apply fully\n\
+Be patient if it is the first time you install the theme or use the scripts to install them in one go")
+
+    labellft = Gtk.Label("Select theme - candy is the default theme")
+    self.leftwm_combo = Gtk.ComboBoxText()
+    self.leftwm_combo.set_size_request(280, 0)
+    for theme in fn.leftwm_themes_list:
+        self.leftwm_combo.append_text(theme)
+    self.leftwm_combo.connect("changed", self.on_leftwm_combo_changed)
+    if fn.path_check(fn.leftwm_config_theme_current):
+        link_theme = fn.os.path.basename(fn.os.readlink(fn.leftwm_config_theme_current))
+        for i in range(len(fn.leftwm_themes_list)):
+            if link_theme == fn.leftwm_themes_list[i]:
+                self.leftwm_combo.set_active(i)
+    else:
+        self.leftwm_combo.set_sensitive(False)
+
+    vbox5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
+    vbox5.pack_start(self.leftwm_combo, False, False, 0)
+
+    applyleftwm = Gtk.Button(label="Install and apply selected theme")
+    applyleftwm.connect("clicked", self.leftwm_apply_clicked)
+    removeleftwm = Gtk.Button(label="Remove selected theme and apply Candy")
+    removeleftwm.connect("clicked", self.leftwm_remove_clicked)
+    resetleftwm = Gtk.Button(label="Reset selected theme")
+    resetleftwm.connect("clicked", self.leftwm_reset_clicked)
+
+    if not fn.os.path.isfile(fn.leftwm_config) \
+        or not fn.check_package_installed("arcolinux-leftwm-git"):
+            applyleftwm.set_sensitive(False)
+            resetleftwm.set_sensitive(False)
+            removeleftwm.set_sensitive(False)
+
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox11.pack_start(labellft, False, False, 10)
+    hbox11.pack_end(vbox5, False, False, 10)
+
+    leftwm_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/leftwm-sample.jpg", image_width, image_height)
+    if self.leftwm_combo.get_active_text() is None:
+        pass
+    elif fn.os.path.isfile(base_dir+"/themer_data/leftwm/"+self.leftwm_combo.get_active_text()+".jpg"):
+        leftwm_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/leftwm/"+self.leftwm_combo.get_active_text()+".jpg", image_width, image_height)
+    leftwm_image = Gtk.Image().new_from_pixbuf(leftwm_pixbuf)
+
+    self.leftwm_combo.connect("changed", self.update_image, leftwm_image, "leftwm", base_dir, image_width, image_height)
+
+    hbox12.pack_end(applyleftwm, False, False, 0)
+    hbox12.pack_end(resetleftwm, False, False, 0)
+    hbox12.pack_end(removeleftwm, False, False, 0)
+
+    vboxStack4.pack_start(hbox11, False, False, 0)
+    vboxStack4.pack_start(hbox13, False, False, 0)
+    vboxStack4.pack_start(leftwm_image, False, False, 0)
+    vboxStack4.pack_start(self.status_leftwm, True, False, 0)
+    vboxStack4.pack_start(label6, True, False, 0)
+    vboxStack4.pack_end(hbox12, False, False, 0)
+
+    # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
 
-    stack.add_titled(vboxStack1, "stack1", "I3WM")
-    stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
+    stack.add_titled(vboxStack2, "stack2", "Awesome")
+    stack.add_titled(vboxStack1, "stack1", "I3")
+    stack.add_titled(vboxStack4, "stack4", "Leftwm")
     stack.add_titled(vboxStack3, "stack3", "Qtile")
 
     vbox.pack_start(stack_switcher, False, False, 0)

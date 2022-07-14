@@ -19,6 +19,11 @@ git pull
 
 workdir=$(pwd)
 
+#remove content
+rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/*
+#get latest archlinux-keyring
+wget https://archlinux.org/packages/core/any/archlinux-keyring/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/
+
 echo "Get the original samba file from samba github"
 wget https://gitlab.com/samba-team/samba/-/raw/master/examples/smb.conf.default -O $workdir/usr/share/archlinux-tweak-tool/data/any/samba/original/smb.conf
 
@@ -29,15 +34,15 @@ echo "Get the original windows samba file from ArcoLinux github"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/etc/samba/smb.conf.example  -O $workdir/usr/share/archlinux-tweak-tool/data/any/samba/example/smb.conf
 
 echo "Keyring and mirror from ArcoLinux"
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/arcolinux-keyring
 
 echo "Keyring and mirror from ArcoLinux"
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/arcolinux-mirrorlist
 
 echo "Mirror from XeroLinux"
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/xerolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/xero/packages/
 
-
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/garuda/packages/*
 echo "Keyring and mirror from Garuda and EOS"
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/garuda/packages/
 

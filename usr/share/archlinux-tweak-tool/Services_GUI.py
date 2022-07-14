@@ -1,7 +1,8 @@
-#=================================================================
-#=                  Author: Erik Dubois                          =
-#=================================================================
-import distro,os
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
+
+import Functions as fn
 
 def GUI(self, Gtk, vboxStack14, Functions):
 
@@ -53,6 +54,9 @@ def GUI(self, Gtk, vboxStack14, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3_label = Gtk.Label(xalign=0)
     hbox3_label.set_text("Change the /etc/nsswitch.conf to connect to computers/NAS")
+    hbox3.pack_start(hbox3_label, False, False, 10)
+
+    hbox30 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     self.nsswitch_choices = Gtk.ComboBoxText()
     options = ['ArcoLinux', 'Garuda', 'Arch Linux', 'EndeavourOS', 'Manjaro']
     for option in options:
@@ -62,10 +66,9 @@ def GUI(self, Gtk, vboxStack14, Functions):
     button_apply_nsswitch.connect ("clicked", self.on_click_apply_nsswitch)
     button_reset_nsswitch = Gtk.Button(label="Reset to default nsswitch")
     button_reset_nsswitch.connect ("clicked", self.on_click_reset_nsswitch)
-    hbox3.pack_start(hbox3_label, False, False, 10)
-    hbox3.pack_end(button_reset_nsswitch, False, False, 10)
-    hbox3.pack_start(self.nsswitch_choices, False, False, 10)
-    hbox3.pack_start(button_apply_nsswitch, False, False, 10)
+    hbox30.pack_start(self.nsswitch_choices, False, False, 10)
+    hbox30.pack_start(button_apply_nsswitch, False, False, 10)
+    hbox30.pack_start(button_reset_nsswitch, False, False, 10)
 
     # ==================================================================
     #                       SAMBA EASY TAB
@@ -150,7 +153,7 @@ right-click to share any folder in your home directory\nThere are other filemana
     button_delete_user.connect ("clicked", self.on_click_delete_user)
     self.samba_users = Gtk.ComboBoxText()
     samba_users= []
-    samba_users = Functions.list_users("/etc/passwd")
+    samba_users = fn.list_users("/etc/passwd")
     for user in samba_users:
         self.samba_users.append_text(user)
     self.samba_users.set_active(0)
@@ -248,19 +251,19 @@ right-click to share any folder in your home directory\nThere are other filemana
     hbox94 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox94_label = Gtk.Label(xalign=0)
 
-    status1 = Functions.check_service("smb")
+    status1 = fn.check_service("smb")
     if status1 == True:
         status1 = "active"
     else:
         status1 = "inactive"
 
-    status2 = Functions.check_service("nmb")
+    status2 = fn.check_service("nmb")
     if status2 == True:
         status2 = "active"
     else:
         status2 = "inactive"
 
-    status3 = Functions.check_service("avahi-daemon")
+    status3 = fn.check_service("avahi-daemon")
     if status3 == True:
         status3 = "active"
     else:
@@ -284,7 +287,8 @@ All computers in your network must have a unique name /etc/hostname")
     ##network
     vboxStack1.pack_start(hbox2, False, False, 10)
     vboxStack1.pack_start(hbox3, False, False, 0)
-    if Functions.check_service("firewalld"):
+    vboxStack1.pack_start(hbox30, False, False, 0)
+    if fn.check_service("firewalld"):
         vboxStack1.pack_end(hbox92, False, False, 10)
     vboxStack1.pack_end(hbox91, False, False, 10)
     vboxStack1.pack_end(hbox93, False, False, 10)

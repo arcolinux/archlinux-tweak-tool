@@ -1,7 +1,8 @@
-# =================================================================
-# =                  Author: Brad Heffernan                       =
-# =================================================================
+#============================================================
+# Authors: Brad Heffernan - Erik Dubois - Cameron Percival
+#============================================================
 
+import Functions as fn
 
 def GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions):
     # ==========================================================
@@ -50,14 +51,14 @@ def GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions):
     self.cursorCombo.set_size_request(200, 0)
 
     # Set functions
-    Gtk_Functions.get_gtk_themes(self, self.themeCombo)
-    Gtk_Functions.get_icon_themes(self, self.iconCombo)
-    Gtk_Functions.get_cursor_themes(self, self.cursorCombo)
+    Gtk_fn.get_gtk_themes(self, self.themeCombo)
+    Gtk_fn.get_icon_themes(self, self.iconCombo)
+    Gtk_fn.get_cursor_themes(self, self.cursorCombo)
 
     self.cursor_size.set_value(
-        int(Gtk_Functions.get_gtk_settings("gtk-cursor-theme-size").split(".")[0]))
-    # self.fonts.set_font(Gtk_Functions.get_gtk_settings("gtk-font-name"))
-    # self.monofonts.set_font(Gtk_Functions.get_mono_font("MonospaceFontName"))
+        int(Gtk_fn.get_gtk_settings("gtk-cursor-theme-size").split(".")[0]))
+    # self.fonts.set_font(Gtk_fn.get_gtk_settings("gtk-font-name"))
+    # self.monofonts.set_font(Gtk_fn.get_mono_font("MonospaceFontName"))
 
     save_gtk3_themes = Gtk.Button(label="Save Settings")
     # save_gtk3_themes.connect("clicked", self.save_gtk3_settings, self.themeCombo,self.iconCombo, self.cursorCombo, self.cursor_size, self.fonts, self.monofonts)
@@ -65,7 +66,7 @@ def GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions):
 
     reset_gtk3_themes = Gtk.Button(label="Reset/Reload Defaults")
     reset_gtk3_themes.connect(
-        "clicked", self.reset_settings, Functions.gtk3_settings)
+        "clicked", self.reset_settings, fn.gtk3_settings)
 
     hbox1.pack_start(label, False, False, 10)
     hbox1.pack_start(self.themeCombo, True, True, 10)
