@@ -70,7 +70,7 @@ def create_samba_user(self,widget):
         # fn.os.system(useradd)
         # fn.os.system(user_password + " | " + "chpasswd -c SHA512")
 
-        fn.install_alacritty(self)
+        fn.install_package(self,"alacritty")
         print("Type in your password for the Sambashare")
         print("Although the user name is shared with Linux system, Samba uses a password")
         print("separate from that of the Linux user accounts.")
@@ -92,7 +92,7 @@ def delete_samba_user(self,widget):
     username = self.samba_users.get_active_text()
 
     if username:
-        fn.install_alacritty(self)
+        fn.install_package(self,"alacritty")
         fn.subprocess.call("alacritty -e /usr/bin/smbpasswd -x " + username,
                         shell=True,
                         stdout=fn.subprocess.PIPE,
