@@ -779,7 +779,6 @@ def set_grub_wallpaper(self, image):
 
 def set_login_wallpaper(self, image):
     #if sddm
-    print("Login manager : " + self.login_managers_combo.get_active_text())
     if self.login_managers_combo.get_active_text() == "sddm":
         if os.path.isfile(sddm_default_d2):
             try:

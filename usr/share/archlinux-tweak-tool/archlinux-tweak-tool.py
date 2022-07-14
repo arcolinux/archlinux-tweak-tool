@@ -3447,6 +3447,15 @@ class Main(Gtk.Window):
         if len(text) > 1:
             fn.shutil.copy(text, fn.login_backgrounds +
                                   os.path.basename(text))
+            try:
+                command ="chmod 644 " + fn.login_backgrounds + os.path.basename(text)
+                subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+            except Exception as e:
+                print(e)
+
             self.pop_login_wallpapers(self.login_managers_combo,
                                  fn.get_login_wallpapers(), False)
             print("Image imported")
