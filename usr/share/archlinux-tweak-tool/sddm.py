@@ -4,9 +4,13 @@
 
 import Functions as fn
 from Functions import GLib
+from os.path import exists
 import os
 
 def check_sddmk_complete(self):
+    if not exists(fn.sddm_default_d2):
+        return false
+
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
