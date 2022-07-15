@@ -39,7 +39,7 @@ def check_sddmk_complete(self):
             return True
         else:
             return False
-    except Exception as FileNotFoundError:
+    except FileNotFoundError:
         print("---------------------------------------------------------------------------")
         print("Type 'fix-sddm-conf' in a terminal and restart ATT")
         print("---------------------------------------------------------------------------")
