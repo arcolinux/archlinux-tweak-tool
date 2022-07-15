@@ -7,37 +7,42 @@ from Functions import GLib
 import os
 
 def check_sddmk_complete(self):
-    with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
-        lines = f.readlines()
-        f.close()
-    flag_a = False
-    flag_s = False
-    flag_u = False
-    flag_t = False
-    flag_c = False
-    flag_ct = False
-    flag_f = False
+    try:
+        with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+            f.close()
+        flag_a = False
+        flag_s = False
+        flag_u = False
+        flag_t = False
+        flag_c = False
+        flag_ct = False
+        flag_f = False
 
-    for line in lines:
-        if "[Autologin]" in line:
-            flag_a = True
-        if "Session=" in line:
-            flag_s = True
-        if "User=" in line:
-            flag_u = True
-        if "[Theme]" in line:
-            flag_t = True
-        if "Current=" in line:
-            flag_c = True
-        if "CursorTheme=" in line:
-            flag_ct = True
-        if "Font=" in line:
-            flag_f = True
+        for line in lines:
+            if "[Autologin]" in line:
+                flag_a = True
+            if "Session=" in line:
+                flag_s = True
+            if "User=" in line:
+                flag_u = True
+            if "[Theme]" in line:
+                flag_t = True
+            if "Current=" in line:
+                flag_c = True
+            if "CursorTheme=" in line:
+                flag_ct = True
+            if "Font=" in line:
+                flag_f = True
 
-    if flag_a and flag_s and flag_u and flag_t and flag_c and flag_ct and flag_f:
-        return True
-    else:
-        return False
+        if flag_a and flag_s and flag_u and flag_t and flag_c and flag_ct and flag_f:
+            return True
+        else:
+            return False
+    except Exception as FileNotFoundError:
+        print("---------------------------------------------------------------------------")
+        print("Type 'fix-sddm-conf' in a terminal and restart ATT")
+        print("---------------------------------------------------------------------------")
 
 def check_sddmk_session(value):
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as myfile:

@@ -102,6 +102,18 @@ function detect_i3wm()
     return 1
 }
 
+function detect_leftwm()
+{
+    ps -e | grep -E '^.* leftwm$' > /dev/null
+    if [ $? -ne 0 ];
+    then
+    return 0
+    fi
+    VERSION=`leftwm --version | awk '{print $2}'`
+    DESKTOP="LEFTWM"
+    return 1
+}
+
 function detect_lxde()
 {
     ps -e | grep -E '^.* lxsession$' > /dev/null
@@ -240,6 +252,7 @@ detect_jwm;
 detect_mate;
 detect_openbox;
 #needs to be here because of lxqt and openbox
+detect_leftwm;
 detect_lxde;
 detect_lxqt;
 detect_plasma;
