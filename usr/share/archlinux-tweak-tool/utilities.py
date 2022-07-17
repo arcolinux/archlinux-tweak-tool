@@ -1,11 +1,13 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
-import os
 import Functions as fn
 
-#This function has one job, and one job only; ensure that check boxes match what is passed to it, based on the logic from the calling function
+# This function has one job, and one job only; ensure that check
+# boxes match what is passed to it, based on the logic from the calling function
+
+
 def set_util_state(self, util, util_state, lolcat_state):
     if util == "neofetch":
         self.neofetch_lolcat.set_state(lolcat_state)
@@ -53,6 +55,7 @@ def set_util_state(self, util, util_state, lolcat_state):
     else:
         print("You should not be here. Something has been input incorrectly.")
 
+
 def get_util_state(self, util):
     if util == "neofetch":
         return self.neofetch_util.get_active()
@@ -86,6 +89,7 @@ def get_util_state(self, util):
         print("Get Util State error. Something has been input incorrectly.")
         return False
 
+
 def get_lolcat_state(self, util):
     if util == "neofetch":
         return self.neofetch_lolcat.get_active()
@@ -113,70 +117,81 @@ def get_lolcat_state(self, util):
         return self.sysinfo_retro_lolcat.get_active()
     elif util == "cpufetch":
         return self.cpufetch_lolcat.get_active()
-    elif util == "colorscript random": #no lolcat for colorscripts
+    elif util == "colorscript random":  # no lolcat for colorscripts
         return False
     else:
         print("Get lolcat state error. Something has been input incorrectly.")
         return False
 
+
 def install_util(util):
     command = ""
     if util == "neofetch":
-        command = 'pacman -S neofetch arcolinux-neofetch-git --noconfirm --needed'
+        command = "pacman -S neofetch arcolinux-neofetch-git --noconfirm --needed"
     elif util == "screenfetch":
-        command = 'pacman -S screenfetch --noconfirm --needed'
+        command = "pacman -S screenfetch --noconfirm --needed"
     elif util == "ufetch":
-        command = 'pacman -S ufetch-git --noconfirm --needed'
+        command = "pacman -S ufetch-git --noconfirm --needed"
     elif util == "ufetch-arco":
-        command = 'pacman -S ufetch-arco-git --noconfirm --needed'
+        command = "pacman -S ufetch-arco-git --noconfirm --needed"
     elif util == "pfetch":
-        command = 'pacman -S pfetch --noconfirm --needed'
+        command = "pacman -S pfetch --noconfirm --needed"
     elif util == "paleofetch":
-        command = 'pacman -S arcolinux-paleofetch-git --noconfirm --needed'
+        command = "pacman -S arcolinux-paleofetch-git --noconfirm --needed"
     elif util == "alsi":
-        command = 'pacman -S alsi --noconfirm --needed'
+        command = "pacman -S alsi --noconfirm --needed"
     elif util == "hfetch":
-        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+        command = "pacman -S arcolinux-bin-git --noconfirm --needed"
     elif util == "sfetch":
-        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+        command = "pacman -S arcolinux-bin-git --noconfirm --needed"
     elif util == "fetch":
-        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+        command = "pacman -S arcolinux-bin-git --noconfirm --needed"
     elif util == "sysinfo":
-        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+        command = "pacman -S arcolinux-bin-git --noconfirm --needed"
     elif util == "sysinfo-retro":
-        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+        command = "pacman -S arcolinux-bin-git --noconfirm --needed"
     elif util == "lolcat":
-        command = 'pacman -S lolcat --noconfirm --needed'
+        command = "pacman -S lolcat --noconfirm --needed"
     elif util == "cpufetch":
-        command = 'pacman -S cpufetch --noconfirm --needed'
+        command = "pacman -S cpufetch --noconfirm --needed"
     elif util == "colorscript random":
-        command = 'pacman -S shell-color-scripts --noconfirm --needed'
+        command = "pacman -S shell-color-scripts --noconfirm --needed"
     else:
         pass
 
-    #This is just protection to avoid unneeded errors.
-    if len(command)>0:
-        fn.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
+    # This is just protection to avoid unneeded errors.
+    if len(command) > 0:
+        fn.subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=fn.subprocess.PIPE,
+            stderr=fn.subprocess.STDOUT,
+        )
 
-def _get_position(lists, value):
+
+def get_position(lists, value):
     data = []
-    #Because we don't know EXACTLY how the app will process the rc file, we need to account for every variation.
-    suffixes = [" | lolcat", "\n", " | lolcat\n"] #
+    # Because we don't know EXACTLY how the app will process the rc file,
+    # we need to account for every variation.
+    suffixes = [" | lolcat", "\n", " | lolcat\n"]
     prefix = "#"
 
     for string in lists:
         for item in suffixes:
-            if string == value+item or string == prefix+value+item or string == value or string == prefix+value:
+            if (
+                string == value + item
+                or string == prefix + value + item
+                or string == value
+                or string == prefix + value
+            ):
                 data.append(string)
 
-    if len(data)>0:
+    if len(data) > 0:
         position = lists.index(data[0])
         return position
     else:
         return -1
+
 
 def write_configs(utility, util_str):
     config = ""
@@ -190,32 +205,35 @@ def write_configs(utility, util_str):
             lines = f.readlines()
             f.close()
             try:
-                pos = _get_position(lines, utility)
+                pos = get_position(lines, utility)
                 if pos >= 0:
                     lines[pos] = util_str + "\n"
                 else:
                     lines.append(util_str + "\n")
-            #this will cover use cases where the util is not in the rc files
-            except Exception as e:
-                lines.append("\n"+util_str)
-        with open(config, "w") as f:
+            # this will cover use cases where the util is not in the rc files
+            except:
+                lines.append("\n" + util_str)
+        with open(config, "w", encoding="utf-8") as f:
             f.writelines(lines)
             f.close()
 
+
 # We only read the bashrc here,as this is used to turn on/off the lolcat option.
 # Assumption; both .bashrc and .zshrc are set identically.
+
+
 def get_term_rc(value):
     config_file = ""
-    pos = -1 #Essentially, if this doesn't update, we will return False
+    pos = -1  # Essentially, if this doesn't update, we will return False
     try:
         config_file = get_config_file()
     except:
-        config = ""
+        config_file = ""
     if config_file != "":
         with open(config_file, "r", encoding="utf-8") as myfile:
             lines = myfile.readlines()
             myfile.close()
-            pos = _get_position(lines, value)
+            pos = get_position(lines, value)
 
     if pos > 0 and lines[pos].startswith("#"):
         return False
@@ -224,11 +242,11 @@ def get_term_rc(value):
     else:
         return False
 
+
 def get_config_file():
-    #At the moment, this will only work for bash and zsh. Can be updated easily for fish/other shells. Update the fn.get_shell() function, and add a config file in fn.py
     if fn.get_shell() == "bash":
         return fn.bash_config
     elif fn.get_shell() == "zsh":
         return fn.zsh_config
-    elif fn.get_shell() == "fish":
+    else:
         return fn.fish_config

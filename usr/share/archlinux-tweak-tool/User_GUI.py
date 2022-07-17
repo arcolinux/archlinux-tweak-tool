@@ -1,10 +1,9 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
-import Functions as fn
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
+def GUI(self, Gtk, vboxStack10, user, fn):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Create User")
@@ -61,7 +60,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     self.combo_account_type = Gtk.ComboBoxText()
 
     for i in range(len(fn.account_list)):
-            self.combo_account_type.append_text(fn.account_list[i])
+        self.combo_account_type.append_text(fn.account_list[i])
     self.combo_account_type.set_active(1)
 
     grid = Gtk.Grid()
@@ -71,20 +70,28 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     grid.attach(label_name, 0, 2, 2, 1)
     grid.attach_next_to(name_sep, label_name, Gtk.PositionType.RIGHT, 1, 1)
     grid.attach_next_to(self.hbox_name, name_sep, Gtk.PositionType.RIGHT, 1, 1)
-    grid.attach(label_account_type, 0 , 4, 2, 1)
+    grid.attach(label_account_type, 0, 4, 2, 1)
     grid.attach_next_to(account_sep, label_account_type, Gtk.PositionType.RIGHT, 1, 1)
-    grid.attach_next_to(self.combo_account_type, account_sep, Gtk.PositionType.RIGHT, 1, 1)
+    grid.attach_next_to(
+        self.combo_account_type, account_sep, Gtk.PositionType.RIGHT, 1, 1
+    )
     grid.attach(label_password, 0, 6, 2, 1)
     grid.attach_next_to(pwd_sep, label_password, Gtk.PositionType.RIGHT, 1, 1)
     grid.attach_next_to(self.hbox_password, pwd_sep, Gtk.PositionType.RIGHT, 1, 1)
     grid.attach(label_confirm_password, 0, 8, 2, 1)
-    grid.attach_next_to(conf_pwd_sep, label_confirm_password, Gtk.PositionType.RIGHT, 1, 1)
-    grid.attach_next_to(self.hbox_confirm_password, conf_pwd_sep, Gtk.PositionType.RIGHT, 1, 1)
+    grid.attach_next_to(
+        conf_pwd_sep, label_confirm_password, Gtk.PositionType.RIGHT, 1, 1
+    )
+    grid.attach_next_to(
+        self.hbox_confirm_password, conf_pwd_sep, Gtk.PositionType.RIGHT, 1, 1
+    )
 
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl_information = Gtk.Label(xalign=0)
-    lbl_information.set_markup("The following groups are used for an administrator\n\
-audio,video,network,storage,rfkill,wheel,autologin,sambashare")
+    lbl_information.set_markup(
+        "The following groups are used for an administrator:\n\
+audio, video, network, storage, rfkill, wheel, autologin, sambashare"
+    )
     hbox9.pack_start(lbl_information, False, False, 0)
 
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -111,11 +118,13 @@ audio,video,network,storage,rfkill,wheel,autologin,sambashare")
     hbox8_label = Gtk.Label(xalign=0)
     hbox8_label.set_text("Remove the selected user")
     button_delete_user = Gtk.Button(label="Remove the selected user")
-    button_delete_user.connect ("clicked", self.on_click_delete_user)
-    button_delete_all_user = Gtk.Button(label="Remove the selected user and the homefolder")
-    button_delete_all_user.connect ("clicked", self.on_click_delete_all_user)
+    button_delete_user.connect("clicked", self.on_click_delete_user)
+    button_delete_all_user = Gtk.Button(
+        label="Remove the selected user and the home folder"
+    )
+    button_delete_all_user.connect("clicked", self.on_click_delete_all_user)
     self.cbt_users = Gtk.ComboBoxText()
-    user.pop_cbt_users(self,self.cbt_users)
+    user.pop_cbt_users(self, self.cbt_users)
     hbox8.pack_start(hbox8_label, False, False, 10)
     hbox8.pack_start(self.cbt_users, False, False, 10)
 

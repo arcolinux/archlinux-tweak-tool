@@ -1,6 +1,6 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
 import configparser
 from Functions import config
@@ -11,7 +11,7 @@ settings = config
 def make_file(section, key):
     config = configparser.ConfigParser()
     config[section] = key
-    with open(settings, 'w') as configfile:
+    with open(settings, "w", encoding="utf-8") as configfile:
         config.write(configfile)
 
 
@@ -20,7 +20,7 @@ def new_settings(section, key):
     config.read(settings)
     config[section] = key
 
-    with open(settings, 'w') as configfile:
+    with open(settings, "w", encoding="utf-8") as configfile:
         config.write(configfile)
 
 
@@ -29,7 +29,7 @@ def write_settings(section, key, value):
     config.read(settings)
 
     config[section][key] = value
-    with open(settings, 'w') as configfile:
+    with open(settings, "w", encoding="utf-8") as configfile:
         config.write(configfile)
 
 

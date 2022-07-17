@@ -1,10 +1,9 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
-import Functions as fn
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
+def GUI(self, Gtk, vboxStack9, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -22,20 +21,54 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     lbl6 = Gtk.Label(xalign=0)
 
     if fn.get_shell() == "bash" or fn.get_shell() == "zsh" or fn.get_shell() == "fish":
-        lbl2.set_markup("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks")
-        lbl3.set_markup("  We recommend using not more than two utilities at the same time, due to screen real estate")
-        lbl4.set_markup("  For some of these packages you will need to add the <b>ArcoLinux repositories</b>")
-        lbl5.set_markup("  Without the ArcoLinux repositories only neofetch and screenfetch are available")
-        lbl6.set_markup("  At the end of .bashrc, .zshrc or fish.config we will add the utility")
+        lbl2.set_markup(
+            "  Once you have selected and deselected the utilities you want, \
+please open a terminal to see how it looks"
+        )
+        lbl3.set_markup(
+            "  We recommend using not more than two utilities at the same time, \
+due to screen real estate"
+        )
+        lbl4.set_markup(
+            "  For some of these packages you will need to add the <b>ArcoLinux \
+repositories</b>"
+        )
+        lbl5.set_markup(
+            "  Without the ArcoLinux repositories only neofetch and screenfetch \
+are available"
+        )
+        lbl6.set_markup(
+            "  At the end of .bashrc, .zshrc or fish.config we will add the utility"
+        )
 
     else:
-        lbl2.set_markup("  Arcolinux Tweak Tool was unable to detect your Shell, or was unable to obtain your shells config file.")
-        lbl3.set_markup("  Arcolinux Tweak Tool only supports BASH, ZSH and FISH currently. If you are using something else, you are unable to use these tools from ATT.")
+        lbl2.set_markup(
+            "  Arcolinux Tweak Tool was unable to detect your Shell, or was unable to obtain \
+your shells config file."
+        )
+        lbl3.set_markup(
+            "  Arcolinux Tweak Tool only supports BASH, ZSH and FISH currently. If you are \
+using something else, you are unable to use these tools from ATT."
+        )
 
-    #Every util needs to have a util switch, and a lolcat switch.
-    utils = [ "neofetch", "screenfetch", "alsi", "paleofetch", "fetch", "hfetch", "sfetch", "ufetch", "ufetch-arco", "pfetch", "sysinfo", "sysinfo-retro", "cpufetch"]
+    # Every util needs to have a util switch, and a lolcat switch.
+    utils = [
+        "neofetch",
+        "screenfetch",
+        "alsi",
+        "paleofetch",
+        "fetch",
+        "hfetch",
+        "sfetch",
+        "ufetch",
+        "ufetch-arco",
+        "pfetch",
+        "sysinfo",
+        "sysinfo-retro",
+        "cpufetch",
+    ]
 
-    util_switches = [ ]
+    util_switches = []
     self.neofetch_util = Gtk.Switch()
     self.screenfetch_util = Gtk.Switch()
     self.ufetch_util = Gtk.Switch()
@@ -63,7 +96,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     util_switches.append(self.sysinfo_retro_util)
     util_switches.append(self.cpufetch_util)
 
-    lolcat_switches = [ ]
+    lolcat_switches = []
     self.neofetch_lolcat = Gtk.Switch()
     self.screenfetch_lolcat = Gtk.Switch()
     self.ufetch_lolcat = Gtk.Switch()
@@ -91,29 +124,32 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     lolcat_switches.append(self.sysinfo_retro_lolcat)
     lolcat_switches.append(self.cpufetch_lolcat)
 
-    #This is used for the seperators in the grid. It's probably not the best way - but it keeps control with us.
+    # This is used for the seperators in the grid. It's probably not the best way
+    # but it keeps control with us.
     sep_text = "      "
 
-    #Colorscripts is unique in this list, as it does NOT need a lolcat toggle, so handled seperately.
+    # Colorscripts is unique in this list, as it does NOT need a lolcat toggle,
+    # so handled seperately.
     self.colorscript = Gtk.Switch()
     self.colorscript.connect("notify::active", self.util_toggle, "colorscript random")
-    if fn.get_shell() == "bash" or fn.get_shell() == "zsh" or fn.get_shell() == "fish" :
+    if fn.get_shell() == "bash" or fn.get_shell() == "zsh" or fn.get_shell() == "fish":
         self.colorscript.set_sensitive(True)
     else:
         self.colorscript.set_sensitive(False)
-    cs_label = Gtk.Label(xalign = 0)
+    cs_label = Gtk.Label(xalign=0)
     cs_label.set_markup("Colorscripts")
-    #seperators used for colorscript
-    cs_sep0 = Gtk.Label(xalign = 0)
-    cs_sep1 = Gtk.Label(xalign = 0)
+    # seperators used for colorscript
+    cs_sep0 = Gtk.Label(xalign=0)
+    cs_sep1 = Gtk.Label(xalign=0)
 
-    #Utilising a grid to keep things neat
+    # Utilising a grid to keep things neat
     grid = Gtk.Grid()
 
-    #Now we take all the prepared containers and switches, and create a page out of them.
+    # Now we take all the prepared containers and switches, and create a page out of them.
     for i in range(len(utils)):
         grid.insert_row(i)
-        #These are the seperators using the spacing set above - need to be individually created or GTK errors.
+        # These are the seperators using the spacing set above
+        # need to be individually created or GTK errors.
         sep0 = Gtk.Label(xalign=0)
         sep0.set_markup(sep_text)
         sep1 = Gtk.Label(xalign=0)
@@ -130,8 +166,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
         util_label.set_markup(utils[i].capitalize())
         util_switches[i].connect("notify::active", self.util_toggle, utils[i])
         lolcat_switches[i].connect("notify::active", self.lolcat_toggle, utils[i])
-        #If we can't find the current shell config or if we don't know what the current shell is; disable all buttons.
-        if fn.get_shell() == "bash" or fn.get_shell() == "zsh" or fn.get_shell() == "fish":
+        # If we can't find the current shell config or if we don't know what
+        # the current shell is; disable all buttons.
+        if (
+            fn.get_shell() == "bash"
+            or fn.get_shell() == "zsh"
+            or fn.get_shell() == "fish"
+        ):
             util_switches[i].set_sensitive(True)
             lolcat_switches[i].set_sensitive(True)
         else:
@@ -146,10 +187,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
         grid.attach_next_to(sep3, lolcat_label, Gtk.PositionType.RIGHT, 1, 1)
         grid.attach_next_to(lolcat_switches[i], sep3, Gtk.PositionType.RIGHT, 1, 1)
         grid.attach_next_to(sep4, lolcat_switches[i], Gtk.PositionType.RIGHT, 1, 1)
-        #We add colorscripts at the end.
-        if i == len(utils)-1:
-            grid.insert_row(i+1)
-            grid.attach(cs_sep0, 0, i+1, 2, 1)
+        # We add colorscripts at the end.
+        if i == len(utils) - 1:
+            grid.insert_row(i + 1)
+            grid.attach(cs_sep0, 0, i + 1, 2, 1)
             grid.attach_next_to(cs_label, cs_sep0, Gtk.PositionType.RIGHT, 1, 1)
             grid.attach_next_to(cs_sep1, cs_label, Gtk.PositionType.RIGHT, 1, 1)
             grid.attach_next_to(self.colorscript, cs_sep1, Gtk.PositionType.RIGHT, 1, 1)

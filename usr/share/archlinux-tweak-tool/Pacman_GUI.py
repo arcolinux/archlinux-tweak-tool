@@ -1,10 +1,9 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
-import Functions as fn
 
-def GUI(self, Gtk, vboxStack1, Functions):
+def GUI(self, Gtk, vboxStack1, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -19,12 +18,12 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
 
     self.custom_repo = Gtk.Button(label="Apply custom repo")
-    self.custom_repo.connect('clicked', self.custom_repo_clicked)
+    self.custom_repo.connect("clicked", self.custom_repo_clicked)
     reset_pacman_local = Gtk.Button(label="Reset pacman local")
     reset_pacman_local.connect("clicked", self.reset_pacman_local)
     reset_pacman_online = Gtk.Button(label="Reset pacman online")
     reset_pacman_online.connect("clicked", self.reset_pacman_online)
-    blank_pacman = Gtk.Button(label="Blank pacman (autoreboot) and select")
+    blank_pacman = Gtk.Button(label="Blank pacman (auto reboot) and select")
     blank_pacman.connect("clicked", self.blank_pacman)
     label_backup = Gtk.Label(xalign=0)
     label_backup.set_text("You can find the backup at /etc/pacman.conf.bak")
@@ -69,7 +68,9 @@ def GUI(self, Gtk, vboxStack1, Functions):
     label1 = Gtk.Label(xalign=0)
     label1.set_markup("# Enable ArcoLinux testing repo")
 
-    self.arcolinux_button = Gtk.Button(label="Install keys, mirrors and activate - autoreboot")
+    self.arcolinux_button = Gtk.Button(
+        label="Install keys, mirrors and activate - auto reboot"
+    )
     self.arcolinux_button.connect("clicked", self.on_arcolinux_clicked)
 
     self.arepo_button = Gtk.Switch()
@@ -295,7 +296,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack4.pack_end(reset_pacman_local, False, False, 0)
     hboxStack4.pack_end(reset_pacman_online, False, False, 0)
     hboxStack4.pack_end(blank_pacman, False, False, 0)
-    #hboxStack4.pack_start(label_backup, False, False, 0)
+    # hboxStack4.pack_start(label_backup, False, False, 0)
 
     # ========================================================
     #               TESTING REPOS PACKING TO FRAME
@@ -307,8 +308,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     vbox.pack_start(hboxStack16, False, False, 0)
     vbox.pack_start(hboxStack12, False, False, 0)
     vbox.pack_start(hboxStack14, False, False, 0)
-    vbox.pack_start(hboxStack6, False, False,0)
-    vbox.pack_start(hboxStack17, False, False,0)
+    vbox.pack_start(hboxStack6, False, False, 0)
+    vbox.pack_start(hboxStack17, False, False, 0)
     frame.add(vbox)
 
     # ========================================================

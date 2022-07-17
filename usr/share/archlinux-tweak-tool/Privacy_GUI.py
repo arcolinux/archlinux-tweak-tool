@@ -1,8 +1,9 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
-def GUI(self, Gtk, vboxStack3, Functions):
+
+def GUI(self, Gtk, vboxStack3, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Privacy/Security")
@@ -22,21 +23,28 @@ def GUI(self, Gtk, vboxStack3, Functions):
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     label_top = Gtk.Label()
-    label_top.set_markup("Improve your <b>security</b> and <b>privacy</b> by blocking ads, tracking and malware domains")
+    label_top.set_markup(
+        "Improve your <b>security</b> and <b>privacy</b> \
+by blocking ads, tracking and malware domains"
+    )
     hbox8.pack_start(label_top, False, False, 10)
 
     instructions = Gtk.Label()
-    instructions.set_markup("To update your hblock hosts file, please disable and enable hblock")
+    instructions.set_markup(
+        "To update your hblock hosts file, please disable and enable hblock"
+    )
     hbox11.pack_start(instructions, False, False, 10)
 
     label_hblock = Gtk.Label()
-    label_hblock.set_text("Enable/install hblock - Your orignal /etc/hosts file can be found in /etc/hosts.bak")
+    label_hblock.set_text(
+        "Enable/install hblock - Your orignal /etc/hosts file can be found in /etc/hosts.bak"
+    )
 
     self.label7 = Gtk.Label(xalign=0)
     self.progress = Gtk.ProgressBar()
     self.progress.set_pulse_step(0.2)
 
-    state = Functions.hblock_get_state(self)
+    state = fn.hblock_get_state(self)
 
     self.hbswich = Gtk.Switch()
     self.hbswich.connect("notify::active", self.set_hblock)
@@ -60,7 +68,7 @@ def GUI(self, Gtk, vboxStack3, Functions):
     label_firefox_ublock.set_markup("Install/remove uBlock Origin")
     label_firefox_ublock.set_margin_left(30)
 
-    state = Functions.ublock_get_state(self)
+    state = fn.ublock_get_state(self)
 
     self.firefox_ublock_switch = Gtk.Switch()
     self.firefox_ublock_switch.connect("notify::active", self.set_ublock_firefox)
@@ -77,7 +85,6 @@ def GUI(self, Gtk, vboxStack3, Functions):
     # ==========================================================
     #                      VSTACK
     # ==========================================================
-
 
     vboxStack3.pack_start(hbox3, False, False, 0)
     vboxStack3.pack_start(hbox4, False, False, 0)

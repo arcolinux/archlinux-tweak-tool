@@ -1,173 +1,179 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
+# import os
 import Functions as fn
-import os
+
 
 # ====================================================================
 #                       NEOFETCH
 # ====================================================================
 
+
 def get_neofetch():
     lines = []
-    if os.path.isfile(fn.neofetch_config):
+    if fn.path.isfile(fn.neofetch_config):
         with open(fn.neofetch_config, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
 
     return lines
 
-def pop_neofetch_box(combo):
-    if os.path.isfile(fn.neofetch_config):
-        com = []
-        for image in os.listdir(fn.home + "/.config/neofetch/"):
-            if ".png" in image:
-                com.append(image)
 
-        sorted_com = sorted(com)
-        active = 0
-        lines = get_neofetch()
+# def pop_neofetch_box(combo):
+#     if fn.path.isfile(fn.neofetch_config):
+#         com = []
+#         for image in fn.listdir(fn.home + "/.config/neofetch/"):
+#             if ".png" in image:
+#                 com.append(image)
 
-        for i in range(len(lines)):
-            if "image_source" in lines[i]:
-                if not "#" in lines[i]:
-                    line = lines[i].split("=")[1].replace("\"", "")
-                    active = i+1
+#         sorted_com = sorted(com)
+#         active = 0
+#         lines = get_neofetch()
 
-        for i in range(len(sorted_com)):
-            combo.append_text(sorted_com[i])
-            #if sorted_com[i] == active:
-        combo.set_active(i)
+#         for i in range(len(lines)):
+#             if "image_source" in lines[i]:
+#                 if not "#" in lines[i]:
+#                     line = lines[i].split("=")[1].replace("\"", "")
+#                     active = i+1
+
+#         for i in range(len(sorted_com)):
+#             combo.append_text(sorted_com[i])
+#             # if sorted_com[i] == active:
+#         combo.set_active(i)
+
 
 def check_backend():
-    if os.path.isfile(fn.neofetch_config):
+    if fn.path.isfile(fn.neofetch_config):
         lines = get_neofetch()
         for i in range(len(lines)):
             if "image_backend=" in lines[i]:
                 if not "#" in lines[i]:
-                    line = lines[i].split("=")[1].replace("\"", "").strip()
+                    line = lines[i].split("=")[1].replace('"', "").strip()
                     return line
     return "ascii"
 
+
 def check_ascii():
     line = "auto"
-    if os.path.isfile(fn.neofetch_config):
+    if fn.path.isfile(fn.neofetch_config):
         lines = get_neofetch()
         for i in range(len(lines)):
             if "ascii_distro=" in lines[i]:
-                line = lines[i].split("=")[1].replace("\"", "").strip()
+                line = lines[i].split("=")[1].replace('"', "").strip()
     return line
 
+
 def apply_config(self, backend, ascii_size):
-    if os.path.isfile(fn.neofetch_config):
+    if fn.path.isfile(fn.neofetch_config):
         lines = get_neofetch()
         # try:
         for i in range(len(lines)):
             if self.os.get_active():
-                fn.neofetch_set_value(lines, i, "info \"OS\"", True)
+                fn.neofetch_set_value(lines, i, 'info "OS"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"OS\"", False)
+                fn.neofetch_set_value(lines, i, 'info "OS"', False)
             if self.host.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Host\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Host"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Host\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Host"', False)
             if self.kernel.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Kernel\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Kernel"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Kernel\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Kernel"', False)
             if self.uptime.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Uptime\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Uptime"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Uptime\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Uptime"', False)
             if self.packages.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Packages\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Packages"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Packages\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Packages"', False)
             if self.shell.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Shell\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Shell"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Shell\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Shell"', False)
             if self.res.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Resolution\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Resolution"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Resolution\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Resolution"', False)
             if self.de.get_active():
-                fn.neofetch_set_value(lines, i, "info \"DE\"", True)
+                fn.neofetch_set_value(lines, i, 'info "DE"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"DE\"", False)
+                fn.neofetch_set_value(lines, i, 'info "DE"', False)
             if self.wm.get_active():
-                fn.neofetch_set_value(lines, i, "info \"WM\"", True)
+                fn.neofetch_set_value(lines, i, 'info "WM"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"WM\"", False)
+                fn.neofetch_set_value(lines, i, 'info "WM"', False)
             if self.wmtheme.get_active():
-                fn.neofetch_set_value(lines, i, "info \"WM Theme\"", True)
+                fn.neofetch_set_value(lines, i, 'info "WM Theme"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"WM Theme\"", False)
+                fn.neofetch_set_value(lines, i, 'info "WM Theme"', False)
             if self.themes.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Theme\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Theme"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Theme\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Theme"', False)
             if self.icons.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Icons\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Icons"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Icons\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Icons"', False)
             if self.term.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Terminal\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Terminal"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Terminal\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Terminal"', False)
             if self.termfont.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Terminal Font\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Terminal Font"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Terminal Font\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Terminal Font"', False)
             if self.cpu.get_active():
-                fn.neofetch_set_value(lines, i, "info \"CPU\"", True)
+                fn.neofetch_set_value(lines, i, 'info "CPU"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"CPU\"", False)
+                fn.neofetch_set_value(lines, i, 'info "CPU"', False)
             if self.gpu.get_active():
-                fn.neofetch_set_value(lines, i, "info \"GPU\"", True)
+                fn.neofetch_set_value(lines, i, 'info "GPU"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"GPU\"", False)
+                fn.neofetch_set_value(lines, i, 'info "GPU"', False)
             if self.mem.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Memory\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Memory"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Memory\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Memory"', False)
             if self.gpu_driver.get_active():
-                fn.neofetch_set_value(lines, i, "info \"GPU Driver\"", True)
+                fn.neofetch_set_value(lines, i, 'info "GPU Driver"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"GPU Driver\"", False)
+                fn.neofetch_set_value(lines, i, 'info "GPU Driver"', False)
             if self.cpu_usage.get_active():
-                fn.neofetch_set_value(lines, i, "info \"CPU Usage\"", True)
+                fn.neofetch_set_value(lines, i, 'info "CPU Usage"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"CPU Usage\"", False)
+                fn.neofetch_set_value(lines, i, 'info "CPU Usage"', False)
             if self.disks.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Disk\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Disk"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Disk\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Disk"', False)
             if self.font.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Font\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Font"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Font\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Font"', False)
             if self.song.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Song\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Song"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Song\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Song"', False)
             if self.lIP.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Local IP\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Local IP"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Local IP\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Local IP"', False)
             if self.PIP.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Public IP\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Public IP"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Public IP\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Public IP"', False)
             if self.users.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Users\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Users"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Users\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Users"', False)
             if self.local.get_active():
-                fn.neofetch_set_value(lines, i, "info \"Locale\"", True)
+                fn.neofetch_set_value(lines, i, 'info "Locale"', True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Locale\"", False)
+                fn.neofetch_set_value(lines, i, 'info "Locale"', False)
             if self.title.get_active():
                 fn.neofetch_set_value(lines, i, "info title", True)
                 fn.neofetch_set_value(lines, i, "info underline", True)
@@ -176,30 +182,31 @@ def apply_config(self, backend, ascii_size):
                 fn.neofetch_set_value(lines, i, "info underline", False)
 
             if not backend == "ascii" and not backend == "off":
-                fn.neofetch_set_backend_value(lines, i, "image_backend=\"", "w3m")
+                fn.neofetch_set_backend_value(lines, i, 'image_backend="', "w3m")
                 # fn.neofetch_set_backend_value(lines, i, "image_backend=\"ascii\"")
                 fn.neofetch_set_value(lines, i, "image_source=", False)
-                #fn.neofetch_set_value(lines, i, emblem, True)
+                # fn.neofetch_set_value(lines, i, emblem, True)
 
             elif not backend == "w3m" and not backend == "off":
-                fn.neofetch_set_backend_value(lines, i, "image_backend=\"", "ascii")
+                fn.neofetch_set_backend_value(lines, i, 'image_backend="', "ascii")
                 # fn.neofetch_set_value(lines, i, "image_backend=\"ascii\"", True)
                 # fn.neofetch_set_value(lines, i, "image_backend=\"" + backend_val + "\"", False)
                 if "ascii_distro=" in lines[i]:
-                    lines[i] = "ascii_distro=\"" + ascii_size + "\"\n"
+                    lines[i] = 'ascii_distro="' + ascii_size + '"\n'
             else:
-                fn.neofetch_set_backend_value(lines, i, "image_backend=\"", "off")
+                fn.neofetch_set_backend_value(lines, i, 'image_backend="', "off")
 
             if self.cblocks.get_active():
-                fn.neofetch_set_backend_value(lines, i, "color_blocks=\"", "on")
+                fn.neofetch_set_backend_value(lines, i, 'color_blocks="', "on")
             else:
-                fn.neofetch_set_backend_value(lines, i, "color_blocks=\"", "off")
+                fn.neofetch_set_backend_value(lines, i, 'color_blocks="', "off")
 
-        with open(fn.neofetch_config, "w") as f:
+        with open(fn.neofetch_config, "w", encoding="utf-8") as f:
             f.writelines(lines)
             f.close()
         print("Neofetch settings saved successfully")
         fn.show_in_app_notification(self, "Neofetch settings saved successfully")
+
 
 def get_state(value):
     lines = get_neofetch()
@@ -210,35 +217,36 @@ def get_state(value):
                 return False
     return True
 
+
 def get_checkboxes(self):
-    self.os.set_active(get_state("info \"OS\""))
-    self.host.set_active(get_state("info \"Host\""))
-    self.kernel.set_active(get_state("info \"Kernel\""))
-    self.uptime.set_active(get_state("info \"Uptime\""))
-    self.packages.set_active(get_state("info \"Packages\""))
-    self.shell.set_active(get_state("info \"Shell\""))
-    self.res.set_active(get_state("info \"Resolution\""))
-    self.de.set_active(get_state("info \"DE\""))
-    self.wm.set_active(get_state("info \"WM\""))
-    self.wmtheme.set_active(get_state("info \"WM Theme\""))
-    self.themes.set_active(get_state("info \"Theme\""))
-    self.icons.set_active(get_state("info \"Icons\""))
-    self.term.set_active(get_state("info \"Terminal\""))
-    self.termfont.set_active(get_state("info \"Terminal Font\""))
-    self.cpu.set_active(get_state("info \"CPU\""))
-    self.gpu.set_active(get_state("info \"GPU\""))
-    self.mem.set_active(get_state("info \"Memory\""))
+    self.os.set_active(get_state('info "OS"'))
+    self.host.set_active(get_state('info "Host"'))
+    self.kernel.set_active(get_state('info "Kernel"'))
+    self.uptime.set_active(get_state('info "Uptime"'))
+    self.packages.set_active(get_state('info "Packages"'))
+    self.shell.set_active(get_state('info "Shell"'))
+    self.res.set_active(get_state('info "Resolution"'))
+    self.de.set_active(get_state('info "DE"'))
+    self.wm.set_active(get_state('info "WM"'))
+    self.wmtheme.set_active(get_state('info "WM Theme"'))
+    self.themes.set_active(get_state('info "Theme"'))
+    self.icons.set_active(get_state('info "Icons"'))
+    self.term.set_active(get_state('info "Terminal"'))
+    self.termfont.set_active(get_state('info "Terminal Font"'))
+    self.cpu.set_active(get_state('info "CPU"'))
+    self.gpu.set_active(get_state('info "GPU"'))
+    self.mem.set_active(get_state('info "Memory"'))
     self.title.set_active(get_state("info title"))
 
-    self.gpu_driver.set_active(get_state("info \"GPU Driver\""))
-    self.cpu_usage.set_active(get_state("info \"CPU Usage\""))
-    self.disks.set_active(get_state("info \"Disk\""))
-    self.font.set_active(get_state("info \"Font\""))
-    self.song.set_active(get_state("info \"Song\""))
-    self.lIP.set_active(get_state("info \"Local IP\""))
-    self.PIP.set_active(get_state("info \"Public IP\""))
-    self.users.set_active(get_state("info \"Users\""))
-    self.local.set_active(get_state("info \"Locale\""))
+    self.gpu_driver.set_active(get_state('info "GPU Driver"'))
+    self.cpu_usage.set_active(get_state('info "CPU Usage"'))
+    self.disks.set_active(get_state('info "Disk"'))
+    self.font.set_active(get_state('info "Font"'))
+    self.song.set_active(get_state('info "Song"'))
+    self.lIP.set_active(get_state('info "Local IP"'))
+    self.PIP.set_active(get_state('info "Public IP"'))
+    self.users.set_active(get_state('info "Users"'))
+    self.local.set_active(get_state('info "Locale"'))
 
     lines = get_neofetch()
 
@@ -247,6 +255,7 @@ def get_checkboxes(self):
         self.cblocks.set_active(True)
     else:
         self.cblocks.set_active(False)
+
 
 def set_checkboxes_normal(self):
     self.os.set_active(True)
@@ -279,6 +288,7 @@ def set_checkboxes_normal(self):
     self.local.set_active(False)
     self.cblocks.set_active(True)
 
+
 def set_checkboxes_small(self):
     self.os.set_active(False)
     self.host.set_active(False)
@@ -310,6 +320,7 @@ def set_checkboxes_small(self):
     self.local.set_active(False)
     self.cblocks.set_active(False)
 
+
 def set_checkboxes_all(self):
     self.os.set_active(True)
     self.host.set_active(True)
@@ -340,6 +351,7 @@ def set_checkboxes_all(self):
     self.users.set_active(True)
     self.local.set_active(True)
     self.cblocks.set_active(True)
+
 
 def set_checkboxes_none(self):
     self.os.set_active(False)

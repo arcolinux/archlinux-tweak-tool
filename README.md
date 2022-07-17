@@ -9,22 +9,22 @@ is to broaden our scope.
 
 At first we would like the tool to be working on these systems.
 
-Arch Linux
 
-ArcoLinux
-
-Carli
-
-Alci
-
-Ariser
-
-
-EndeavourOS
-
-Garuda
-
-That gives us already 7 challenges. 
+ArcoLinux     - https://arcolinux.info/
+Arch Linux    - https://archlinux.org/
+Alci          - https://alci.online/
+Carli         - https://arcolinuxiso.com/
+Ariser        - https://ariser.eu/
+EndeavourOS   - https://endeavouros.com/
+Garuda        - https://garudalinux.org/
+Manjaro       - https://manjaro.org/
+Xerolinux     - https://xerolinux.xyz/
+ArchLinuxGUI  - https://archlinuxgui.in/
+Axyl          - https://axyl-os.github.io/
+RebornOS      - https://rebornos.org/
+AmOs          - https://github.com/amanre
+Archcraft     - https://archcraft.io/
+CachyOS       - https://cachyos.org/
 
 All tabs in the end need to work.
 
@@ -34,7 +34,7 @@ At a later stage when we get the hang of it we can add one Arch based distro at 
 
 # These distros will never be supported
 
-Manjaro (reflector issue)
+...
 
 
 # These desktops will never be supported

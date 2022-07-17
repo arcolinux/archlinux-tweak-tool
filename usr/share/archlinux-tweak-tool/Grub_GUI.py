@@ -1,10 +1,9 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
-import Functions as fn
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
+def GUI(self, Gtk, vboxStack4, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -70,8 +69,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     self.grub_theme_combo.connect("changed", self.on_grub_theme_change)
 
     hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    install_rebornos_grub = Gtk.Button(label="Install original grub theme of RebornOS - autoreboot")
-    install_rebornos_grub.connect("clicked", self.on_click_install_orignal_grub_rebornos)
+    install_rebornos_grub = Gtk.Button(
+        label="Install original grub theme of RebornOS - auto reboot"
+    )
+    install_rebornos_grub.connect(
+        "clicked", self.on_click_install_orignal_grub_rebornos
+    )
     hbox16.pack_end(install_rebornos_grub, False, False, 10)
 
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -87,14 +90,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     hbox9.pack_end(grub_apply, False, False, 0)
     hbox9.pack_end(grub_reset_vimix, False, False, 0)
 
-    vboxStack4.pack_start(hbox3, False, False, 0) #title
-    vboxStack4.pack_start(hbox4, False, False, 0) #seperator
-    vboxStack4.pack_start(hbox10, False, False, 0) #scale
-    vboxStack4.pack_start(hbox11, False, False, 0) #import
-    vboxStack4.pack_start(hbox12, False, False, 0) #select wallpaper
-    vboxStack4.pack_start(hbox13, False, False, 0) #select wallpaper
-    vboxStack4.pack_start(scrolled, True, True, 0) #Preview
-    vboxStack4.pack_end(hbox9, False, False, 0)# Buttons
+    vboxStack4.pack_start(hbox3, False, False, 0)  # title
+    vboxStack4.pack_start(hbox4, False, False, 0)  # seperator
+    vboxStack4.pack_start(hbox10, False, False, 0)  # scale
+    vboxStack4.pack_start(hbox11, False, False, 0)  # import
+    vboxStack4.pack_start(hbox12, False, False, 0)  # select wallpaper
+    vboxStack4.pack_start(hbox13, False, False, 0)  # select wallpaper
+    vboxStack4.pack_start(scrolled, True, True, 0)  # Preview
+    vboxStack4.pack_end(hbox9, False, False, 0)  # Buttons
     if fn.distr == "rebornos":
-        vboxStack4.pack_end(hbox16, False, False, 0)# Buttons
-
+        vboxStack4.pack_end(hbox16, False, False, 0)  # Buttons
