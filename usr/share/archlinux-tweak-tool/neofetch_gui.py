@@ -14,6 +14,7 @@ def gui(self, Gtk, vboxstack8, neofetch, fn):
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
+
     # ==========================================================
     #                     NEOFETCH
     # ==========================================================
@@ -26,12 +27,16 @@ def gui(self, Gtk, vboxstack8, neofetch, fn):
     hbox23.pack_start(warning_label, False, False, 10)
 
     self.asci = Gtk.RadioButton(label="Enable ascii backend")
-    # self.asci.set_label("Enable ascii backend")
     self.asci.connect("toggled", self.radio_toggled)
 
     self.off = Gtk.RadioButton.new_from_widget(self.asci)
     self.off.set_label("No backend")
     self.off.connect("toggled", self.radio_toggled)
+
+    self.distro_ascii = Gtk.ComboBoxText()
+    neofetch.pop_distro_combobox(self, self.distro_ascii)
+    # self.distro_ascii.connect("changed", self.on_distro_ascii_changed)
+    self.distro_ascii.set_active(0)
 
     self.big_ascii = Gtk.RadioButton(label="Use normal ascii")
 
@@ -40,9 +45,6 @@ def gui(self, Gtk, vboxstack8, neofetch, fn):
 
     backend = neofetch.check_backend()
     asci = neofetch.check_ascii()
-
-    # self.emblem = Gtk.ComboBoxText()
-    # neofetch.pop_neofetch_box(self.emblem)
 
     applyneofetch = Gtk.Button(label="Apply your Neofetch configuration")
     resetnormalneofetch = Gtk.Button(label="Reset neofetch")
@@ -188,6 +190,7 @@ Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/c
     hbox22.pack_end(self.off, True, False, 10)
     hbox22.pack_end(self.asci, True, False, 10)
 
+    self.hbox26.pack_start(self.distro_ascii, True, False, 10)
     self.hbox26.pack_start(self.big_ascii, True, False, 10)
     self.hbox26.pack_start(self.small_ascii, True, False, 10)
 
@@ -237,5 +240,3 @@ Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/c
 
     if asci == "auto":
         self.big_ascii.set_active(True)
-    else:
-        self.small_ascii.set_active(True)

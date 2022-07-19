@@ -193,10 +193,6 @@ def gui(self, Gtk, vboxstack1, fn):
     self.textview_custom_repo.set_border_window_size(Gtk.TextWindowType.TOP, 1)
     self.textview_custom_repo.set_border_window_size(Gtk.TextWindowType.BOTTOM, 1)
 
-    scrolled_window = Gtk.ScrolledWindow()
-    scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-    scrolled_window.add(self.textview_custom_repo)
-
     # ========================================================
     #               ARCO REPOS PACKING
     # ========================================================
@@ -287,7 +283,6 @@ def gui(self, Gtk, vboxstack1, fn):
     # ========================================================
 
     hboxstack2.pack_start(label2, False, True, 10)
-    hboxstack3.pack_start(scrolled_window, True, True, 10)
 
     # ========================================================
     #               BUTTONS PACKING

@@ -3,8 +3,8 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
-# pylint:disable=C0103,C0115,C0116,C0411,C0413,E1101,E0213,I1101,R0902,R0904,R1705,W0621,W0622
-# pylint:disable=C0301 #line too long
+# pylint:disable=C0103,C0115,C0116,C0411,C0413,E1101,E0213,I1101,R0902,R0904,R0912,R0913,R0914,R0915,R0916,R1705,W0613,W0621,W0622,W0702,W0703
+# pylint:disable=C0301,C0302 #line too long
 
 import zsh_theme
 import utilities
@@ -155,6 +155,24 @@ class Main(Gtk.Window):
                 fn.makedirs("/root/.config/xsettingsd", 0o766)
             except Exception as error:
                 print(error)
+        # in a video ATT did not change - lateron it did...?
+        # if not fn.path.isdir("/root/.config/xfce4/"):
+        #     try:
+        #         fn.makedirs("/root/.config/xfce4/", 0o766)
+        #     except Exception as error:
+        #         print(error)
+
+        # if not fn.path.isdir("/root/.config/xfce4/xfconf/"):
+        #     try:
+        #         fn.makedirs("/root/.config/xfce4/xfconf/", 0o766)
+        #     except Exception as error:
+        #         print(error)
+
+        # if not fn.path.isdir("/root/.config/xfce4/xfconf/xfce-perchannel-xml/"):
+        #     try:
+        #         fn.makedirs("/root/.config/xfce4/xfconf/xfce-perchannel-xml/", 0o766)
+        #     except Exception as error:
+        #         print(error)
 
         if fn.path.isdir(fn.home + "/.config/gtk-3.0"):
             try:
@@ -183,6 +201,20 @@ class Main(Gtk.Window):
                     )
             except Exception as error:
                 print(error)
+
+        # in a video ATT did not change - lateron it did...?
+        # if fn.path.isdir("/root/.config/xfce4/xfconf/xfce-perchannel-xml/"):
+        #     try:
+        #         fn.shutil.rmtree("/root/.config/xfce4/xfconf/xfce-perchannel-xml/")
+        #         if fn.path.isdir(
+        #             fn.home + "/.config/xfce4/xfconf/xfce-perchannel-xml/"
+        #         ):
+        #             fn.shutil.copytree(
+        #                 fn.home + "/.config/xfce4/xfconf/xfce-perchannel-xml/",
+        #                 "/root/.config/xfce4/xfconf/xfce-perchannel-xml/",
+        #             )
+        #     except Exception as error:
+        #         print(error)
 
         # =====================================================
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
@@ -2069,6 +2101,9 @@ class Main(Gtk.Window):
     def on_install_neo(self, widget):
         fn.install_package(self, "neofetch")
 
+    # def on_distro_ascii_changed(self, widget):
+    #     self.big_ascii.set_active(True)
+
     def on_apply_neo(self, widget):
         small_ascii = "auto"
         backend = "off"
@@ -2089,6 +2124,16 @@ class Main(Gtk.Window):
             else:
                 backend = "off"
 
+        if self.distro_ascii.get_active_text() != "auto" and not self.off.get_active():
+            small_ascii = self.distro_ascii.get_active_text()
+            if self.small_ascii.get_active():
+                if self.distro_ascii.get_active_text() == "ArcoLinux":
+                    small_ascii = "arcolinux_small"
+                if self.distro_ascii.get_active_text() == "Arch":
+                    small_ascii = "arch_small"
+                if self.distro_ascii.get_active_text() == "Manjaro":
+                    small_ascii = "manjaro_small"
+
         neofetch.apply_config(self, backend, small_ascii)
 
     def on_reset_neo_att(self, widget):
@@ -2103,13 +2148,9 @@ class Main(Gtk.Window):
         if fn.path.isfile(fn.neofetch_config + ".bak"):
             fn.shutil.copy(fn.neofetch_config + ".bak", fn.neofetch_config)
 
-            neofetch.pop_neofetch_box(self.emblem)
             backend = neofetch.check_backend()
             if backend == "ascii":
                 self.asci.set_active(True)
-                self.emblem.set_sensitive(False)
-            else:
-                self.w3m.set_active(True)
 
             neofetch.get_checkboxes(self)
             print("Neofetch default settings applied")

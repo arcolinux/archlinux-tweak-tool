@@ -370,3 +370,109 @@ def set_checkboxes_none(self):
     self.users.set_active(False)
     self.local.set_active(False)
     self.cblocks.set_active(False)
+
+
+def pop_distro_combobox(self, combo):
+    """populate distro box"""
+    coms = []
+    combo.get_model().clear()
+    list_distros = [
+        "auto",
+        "Antergos",
+        "Anarchy",
+        "Android",
+        "Antergos",
+        "antiX",
+        "ArcoLinux",
+        "ArchBox",
+        "ARCHlabs",
+        "ArchStrike",
+        "Arch",
+        "Artix",
+        "Arya",
+        "Bedrock",
+        "BlackArch",
+        "BSD",
+        "BunsenLabs",
+        "CentOS",
+        "Chakra",
+        "ClearOS",
+        "Debian",
+        "Deepin",
+        "Elementary",
+        "EndeavourOS",
+        "Fedora",
+        "Feren",
+        "FreeBSD",
+        "Frugalware",
+        "Funtoo",
+        "Garuda",
+        "Gentoo",
+        "GNOME",
+        "GNU",
+        "Kali",
+        "KaOS",
+        "KDE_neon",
+        "Kubuntu",
+        "LMDE",
+        "Lubuntu",
+        "macos",
+        "Mageia",
+        "MagpieOS",
+        "Mandriva",
+        "Manjaro",
+        "Maui",
+        "LinuxMint",
+        "MX_Linux",
+        "Namib",
+        "NetBSD",
+        "Netrunner",
+        "Nitrux",
+        "NixOS",
+        "OBRevenge",
+        "OpenBSD",
+        "OpenMandriva",
+        "Oracle",
+        "PCLinuxOS",
+        "Peppermint",
+        "popos",
+        "Puppy",
+        "PureOS",
+        "Raspbian",
+        "Reborn_OS",
+        "Redcore",
+        "Redhat,SalentOS",
+        "Slackware",
+        "Solus",
+        "SteamOS",
+        "SunOS",
+        "openSUSE_Leap",
+        "openSUSE_Tumbleweed",
+        "openSUSE",
+        "SwagArch",
+        "Ubuntu-Budgie",
+        "Ubuntu-GNOME",
+        "Ubuntu-MATE",
+        "Ubuntu-Studio",
+        "Ubuntu",
+        "Venom",
+        "Void",
+        "windows10",
+        "Windows7",
+        "Xubuntu",
+        "Zorin",
+    ]
+
+    for items in list_distros:
+        coms.append(items)
+
+    # try:
+    #     name = fn.get_position(fn.neofetch_config, "ascii_distro=").split("=")[1]
+    # except IndexError:
+    #     name = ""
+
+    # coms.sort()
+    for i, item in enumerate(coms):
+        combo.append_text(item)
+        # if name.lower() == item.lower():
+        #     combo.set_active(i)
