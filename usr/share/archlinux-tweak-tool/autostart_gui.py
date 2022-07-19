@@ -3,7 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack13, fn):
+def gui(self, Gtk, vboxstack13, fn):
+    """create a gui"""
 
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     lbl1 = Gtk.Label(xalign=0)
@@ -24,14 +25,14 @@ def GUI(self, Gtk, vboxStack13, fn):
     files = [x.replace(".desktop", "") for x in fn.listdir(fn.autostart)]
     mainbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
-    sw = Gtk.ScrolledWindow()
-    sw.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+    scrolled_window = Gtk.ScrolledWindow()
+    scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
 
     self.vvbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     self.vvbox.set_name("vbox")
 
-    sw.add(self.vvbox)
-    mainbox.pack_start(sw, True, True, 0)
+    scrolled_window.add(self.vvbox)
+    mainbox.pack_start(scrolled_window, True, True, 0)
 
     self.load_autostart(files)
 
@@ -85,9 +86,9 @@ def GUI(self, Gtk, vboxStack13, fn):
     hbox2.pack_start(vbox4, False, False, 5)
     hbox2.pack_start(vbox6, False, False, 5)
 
-    vboxStack13.pack_start(hbox3, False, False, 0)
-    vboxStack13.pack_start(hbox4, False, False, 0)
-    vboxStack13.pack_start(toplabelbox, False, False, 0)
-    vboxStack13.pack_start(mainbox, True, True, 0)
-    vboxStack13.pack_start(labelbox, False, False, 0)
-    vboxStack13.pack_start(hbox2, False, False, 0)
+    vboxstack13.pack_start(hbox3, False, False, 0)
+    vboxstack13.pack_start(hbox4, False, False, 0)
+    vboxstack13.pack_start(toplabelbox, False, False, 0)
+    vboxstack13.pack_start(mainbox, True, True, 0)
+    vboxstack13.pack_start(labelbox, False, False, 0)
+    vboxstack13.pack_start(hbox2, False, False, 0)

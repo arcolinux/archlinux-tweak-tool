@@ -1,9 +1,11 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
+# pylint:disable=C0103,
 
 
-def GUI(self, Gtk, vboxStack8, neofetch, fn):
+def gui(self, Gtk, vboxstack8, neofetch, fn):
+    """create a gui"""
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -145,19 +147,19 @@ def GUI(self, Gtk, vboxStack8, neofetch, fn):
     hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label21 = Gtk.Label()
     label21.set_text("Choose what to select with a button")
-    btn_All_Selection = Gtk.Button(label="All")
-    btn_All_Selection.connect("clicked", self.on_click_neofetch_all_selection)
-    btn_Normal_Selection = Gtk.Button(label="Normal")
-    btn_Normal_Selection.connect("clicked", self.on_click_neofetch_normal_selection)
-    btn_Small_Selection = Gtk.Button(label="Small")
-    btn_Small_Selection.connect("clicked", self.on_click_neofetch_small_selection)
-    btn_None_Selection = Gtk.Button(label="None")
-    btn_None_Selection.connect("clicked", self.on_click_neofetch_none_selection)
+    btn_all_selection = Gtk.Button(label="All")
+    btn_all_selection.connect("clicked", self.on_click_neofetch_all_selection)
+    btn_normal_selection = Gtk.Button(label="Normal")
+    btn_normal_selection.connect("clicked", self.on_click_neofetch_normal_selection)
+    btn_small_selection = Gtk.Button(label="Small")
+    btn_small_selection.connect("clicked", self.on_click_neofetch_small_selection)
+    btn_none_selection = Gtk.Button(label="None")
+    btn_none_selection.connect("clicked", self.on_click_neofetch_none_selection)
     hbox21.pack_start(label21, False, False, 10)
-    hbox21.pack_end(btn_None_Selection, False, False, 10)
-    hbox21.pack_end(btn_Small_Selection, False, False, 10)
-    hbox21.pack_end(btn_Normal_Selection, False, False, 10)
-    hbox21.pack_end(btn_All_Selection, False, False, 10)
+    hbox21.pack_end(btn_none_selection, False, False, 10)
+    hbox21.pack_end(btn_small_selection, False, False, 10)
+    hbox21.pack_end(btn_normal_selection, False, False, 10)
+    hbox21.pack_end(btn_all_selection, False, False, 10)
 
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9_label = Gtk.Label(xalign=0)
@@ -201,24 +203,24 @@ Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/c
     hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(resetnormalneofetch, False, False, 0)
 
-    vboxStack8.pack_start(hbox3, False, False, 0)
-    vboxStack8.pack_start(hbox4, False, False, 0)
-    vboxStack8.pack_start(hbox23, False, False, 0)
-    vboxStack8.pack_start(hbox27, False, False, 0)
-    vboxStack8.pack_start(hbox22, False, False, 0)
-    vboxStack8.pack_start(self.hbox26, False, False, 0)
-    vboxStack8.pack_start(hbox25, False, False, 0)
-    vboxStack8.pack_start(hbox21, False, False, 0)
+    vboxstack8.pack_start(hbox3, False, False, 0)
+    vboxstack8.pack_start(hbox4, False, False, 0)
+    vboxstack8.pack_start(hbox23, False, False, 0)
+    vboxstack8.pack_start(hbox27, False, False, 0)
+    vboxstack8.pack_start(hbox22, False, False, 0)
+    vboxstack8.pack_start(self.hbox26, False, False, 0)
+    vboxstack8.pack_start(hbox25, False, False, 0)
+    vboxstack8.pack_start(hbox21, False, False, 0)
 
     if fn.distr == "amos":
-        vboxStack8.pack_start(hbox9, False, False, 0)
-        vboxStack8.pack_start(hbox28, False, False, 0)
+        vboxstack8.pack_start(hbox9, False, False, 0)
+        vboxstack8.pack_start(hbox28, False, False, 0)
 
     if fn.distr == "archcraft":
-        vboxStack8.pack_start(hbox9, False, False, 0)
-        vboxStack8.pack_start(hbox29, False, False, 0)
+        vboxstack8.pack_start(hbox9, False, False, 0)
+        vboxstack8.pack_start(hbox29, False, False, 0)
 
-    vboxStack8.pack_end(hbox24, False, False, 0)
+    vboxstack8.pack_end(hbox24, False, False, 0)
 
     if backend == "ascii":
         self.asci.set_active(True)

@@ -2,32 +2,35 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
-import Functions as fn
-from Functions import GLib
+import functions as fn
+from functions import GLib
 
 
 def check_lxdm(lists, value):
+    """return first value in lxdm.conf"""
     if fn.path.isfile(fn.lxdm_conf):
         try:
             pos = fn.get_position(lists, value)
             val = lists[pos].strip()
             return val
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 def check_lxdm_last(lists, value):
+    """if two instances - take last one and return"""
     if fn.path.isfile(fn.lxdm_conf):
         try:
             pos = fn.get_positions(lists, value)
             pos = pos[-1]
             val = lists[pos].strip()
             return val
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 def set_lxdm_value(self, lists, username, gtk_theme, lxdm_theme, state, pane):
+    """setting all the values"""
     if fn.path.isfile(fn.lxdm_conf):
         try:
             fn.add_autologin_group(self)
@@ -63,10 +66,10 @@ def set_lxdm_value(self, lists, username, gtk_theme, lxdm_theme, state, pane):
                 fn.show_in_app_notification, self, "Settings Saved Successfully"
             )
 
-            # GLib.idle_add(fn.MessageBox,self, "Success!!", "Settings applied successfully")
-        except Exception as e:
-            print(e)
-            fn.MessageBox(
+            # GLib.idle_add(fn.messagebox,self, "Success!!", "Settings applied successfully")
+        except Exception as error:
+            print(error)
+            fn.messagebox(
                 self,
                 "Failed!!",
                 'There seems to have been a problem in "set_lxdm_value"',
@@ -74,6 +77,7 @@ def set_lxdm_value(self, lists, username, gtk_theme, lxdm_theme, state, pane):
 
 
 def pop_gtk_theme_names_lxdm(combo):
+    """populate gtk theme names"""
     coms = []
     combo.get_model().clear()
 
@@ -89,9 +93,10 @@ def pop_gtk_theme_names_lxdm(combo):
         except IndexError:
             theme_name = ""
 
-        for i in range(len(coms)):
-            combo.append_text(coms[i])
-            if theme_name.lower() == coms[i].lower():
+        coms.sort()
+        for i, item in enumerate(coms):
+            combo.append_text(item)
+            if theme_name.lower() == item.lower():
                 combo.set_active(i)
 
 
@@ -111,8 +116,7 @@ def pop_lxdm_theme_greeter(combo):
             name = ""
 
         coms.sort()
-        for i in range(len(coms)):
-            combo.append_text(coms[i])
-            # TODO:select second find
-            if name.lower() == coms[i].lower():
+        for i, item in enumerate(coms):
+            combo.append_text(item)
+            if name.lower() == item.lower():
                 combo.set_active(i)

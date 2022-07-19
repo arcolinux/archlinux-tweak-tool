@@ -3,7 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack23, zsh_themes, base_dir, GdkPixbuf, fn):
+def gui(self, Gtk, vboxstack23, zsh_theme, base_dir, GdkPixbuf, fn):
+    """create a gui"""
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_lbl = Gtk.Label(xalign=0)
@@ -17,10 +18,10 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, base_dir, GdkPixbuf, fn):
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
-    vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -112,12 +113,12 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, base_dir, GdkPixbuf, fn):
         #                     VBOXSTACK
         # ==========================================================
 
-        vboxStack1.pack_start(hbox5, False, False, 0)  # Combobox
-        vboxStack1.pack_start(hbox6, False, False, 0)  # Combobox
-        vboxStack1.pack_start(hbox7, False, False, 0)  # fish
-        vboxStack1.pack_start(hbox8, False, False, 0)  # oh-my-fish
-        vboxStack1.pack_start(hbox9, False, False, 0)  # image
-        vboxStack1.pack_end(hbox10, False, False, 0)  # Buttons
+        vboxstack1.pack_start(hbox5, False, False, 0)  # Combobox
+        vboxstack1.pack_start(hbox6, False, False, 0)  # Combobox
+        vboxstack1.pack_start(hbox7, False, False, 0)  # fish
+        vboxstack1.pack_start(hbox8, False, False, 0)  # oh-my-fish
+        vboxstack1.pack_start(hbox9, False, False, 0)  # image
+        vboxstack1.pack_end(hbox10, False, False, 0)  # Buttons
 
     else:
         # no bash installed
@@ -131,12 +132,12 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, base_dir, GdkPixbuf, fn):
         hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         hbox37.pack_start(hseparator, True, True, 0)
 
-        ls = Gtk.Label()
-        ls.set_markup("<b>Bash does not seem to be installed</b>")
+        message = Gtk.Label()
+        message.set_markup("<b>Bash does not seem to be installed</b>")
 
-        vboxStack1.pack_start(hbox36, False, False, 0)
-        vboxStack1.pack_start(hbox37, False, False, 0)
-        vboxStack1.pack_start(ls, False, False, 0)
+        vboxstack1.pack_start(hbox36, False, False, 0)
+        vboxstack1.pack_start(hbox37, False, False, 0)
+        vboxstack1.pack_start(message, False, False, 0)
 
     # ==================================================================
     #                       ZSH
@@ -221,7 +222,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, base_dir, GdkPixbuf, fn):
         hbox21_lbl.set_markup("Zsh themes")
         self.zsh_themes = Gtk.ComboBoxText()
         self.zsh_themes.set_size_request(300, 20)
-        zsh_themes.get_themes(self.zsh_themes)
+        zsh_theme.get_themes(self.zsh_themes)
         hbox21.pack_start(hbox21_lbl, False, False, 10)
         hbox21.pack_end(self.zsh_themes, False, False, 10)
 
@@ -281,34 +282,30 @@ If you just switched shell, log-out first</b>\n"
         tozsh = Gtk.Button(label="Apply zsh")
         tobash = Gtk.Button(label="Apply bash")
         tofish = Gtk.Button(label="Apply fish")
-        # install_oh_my_zsh = Gtk.Button(label="Install oh-my-zsh")
         termreset = Gtk.Button(label="Reset or create ~/.zshrc")
 
         tozsh.connect("clicked", self.tozsh_apply)
         tobash.connect("clicked", self.tobash_apply)
         tofish.connect("clicked", self.tofish_apply)
-        # install_oh_my_zsh.connect("clicked", self.install_oh_my_zsh)
         termreset.connect("clicked", self.on_zsh_reset)
 
         hbox24.pack_start(tozsh, False, False, 0)
         hbox24.pack_start(tobash, False, False, 0)
         if not fn.distr == "archcraft":
             hbox24.pack_start(tofish, False, False, 0)
-        # hbox24.pack_end(termset, False, False, 0)
         hbox24.pack_end(termreset, False, False, 0)
-        # hbox24.pack_end(install_oh_my_zsh, False, False, 0)
 
-        vboxStack2.pack_start(hbox19, False, False, 0)
-        vboxStack2.pack_start(hbox20, False, False, 0)
-        vboxStack2.pack_start(hbox26, False, False, 0)
-        vboxStack2.pack_start(hbox27, False, False, 0)
-        vboxStack2.pack_start(hbox28, False, False, 0)
-        vboxStack2.pack_start(hbox25, False, False, 0)
-        vboxStack2.pack_start(hbox21, False, False, 0)
-        vboxStack2.pack_start(hbox29, False, False, 0)
-        vboxStack2.pack_start(image, False, False, 0)
-        vboxStack2.pack_start(hbox23, False, False, 0)
-        vboxStack2.pack_end(hbox24, False, False, 0)
+        vboxstack2.pack_start(hbox19, False, False, 0)
+        vboxstack2.pack_start(hbox20, False, False, 0)
+        vboxstack2.pack_start(hbox26, False, False, 0)
+        vboxstack2.pack_start(hbox27, False, False, 0)
+        vboxstack2.pack_start(hbox28, False, False, 0)
+        vboxstack2.pack_start(hbox25, False, False, 0)
+        vboxstack2.pack_start(hbox21, False, False, 0)
+        vboxstack2.pack_start(hbox29, False, False, 0)
+        vboxstack2.pack_start(image, False, False, 0)
+        vboxstack2.pack_start(hbox23, False, False, 0)
+        vboxstack2.pack_end(hbox24, False, False, 0)
 
         if not fn.check_package_installed("oh-my-zsh-git") or not fn.path.isfile(
             fn.zsh_config
@@ -330,18 +327,18 @@ If you just switched shell, log-out first</b>\n"
         hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         hbox41.pack_start(hseparator, True, True, 0)
 
-        ls = Gtk.Label()
-        ls.set_markup("<b>Zsh does not seem to be installed</b>")
+        message = Gtk.Label()
+        message.set_markup("<b>Zsh does not seem to be installed</b>")
 
         install_only_zsh = Gtk.Button(
             label="Install only Zsh and restart ATT to configure"
         )
         install_only_zsh.connect("clicked", self.on_clicked_install_only_zsh)
 
-        vboxStack2.pack_start(hbox32, False, False, 0)
-        vboxStack2.pack_start(hbox41, False, False, 0)
-        vboxStack2.pack_start(ls, False, False, 0)
-        vboxStack2.pack_start(install_only_zsh, False, False, 0)
+        vboxstack2.pack_start(hbox32, False, False, 0)
+        vboxstack2.pack_start(hbox41, False, False, 0)
+        vboxstack2.pack_start(message, False, False, 0)
+        vboxstack2.pack_start(install_only_zsh, False, False, 0)
 
     # ==================================================================
     #                       FISH
@@ -437,13 +434,13 @@ if you installed the ATT Fish configuration\n\n<b>If you just switched shell, lo
         #                     VBOXSTACK
         # ==========================================================
 
-        vboxStack3.pack_start(hbox30, False, False, 0)  # Combobox
-        vboxStack3.pack_start(hbox31, False, False, 0)  # Combobox
-        vboxStack3.pack_start(hbox32, False, False, 0)  # fish
-        vboxStack3.pack_start(hbox38, False, False, 0)  # oh-my-fish
-        vboxStack3.pack_start(hbox33, False, False, 0)  # oh-my-fish
-        vboxStack3.pack_start(hbox34, False, False, 0)  # image
-        vboxStack3.pack_end(hbox35, False, False, 0)  # Buttons
+        vboxstack3.pack_start(hbox30, False, False, 0)  # Combobox
+        vboxstack3.pack_start(hbox31, False, False, 0)  # Combobox
+        vboxstack3.pack_start(hbox32, False, False, 0)  # fish
+        vboxstack3.pack_start(hbox38, False, False, 0)  # oh-my-fish
+        vboxstack3.pack_start(hbox33, False, False, 0)  # oh-my-fish
+        vboxstack3.pack_start(hbox34, False, False, 0)  # image
+        vboxstack3.pack_end(hbox35, False, False, 0)  # Buttons
 
     else:
         # no fish installed
@@ -457,19 +454,19 @@ if you installed the ATT Fish configuration\n\n<b>If you just switched shell, lo
         hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         hbox37.pack_start(hseparator, True, True, 0)
 
-        ls = Gtk.Label()
-        ls.set_markup(
+        message = Gtk.Label()
+        message.set_markup(
             "<b>Fish does not seem to be installed\n\
 Restart Att to see the information</b>"
         )
 
         install_only_fish = Gtk.Button(label="Install Fish - auto reboot")
-        install_only_fish.connect("clicked", self.on_install_only_fish_clicked)
+        install_only_fish.connect("clicked", self.on_install_only_fish_clicked_reboot)
 
-        vboxStack3.pack_start(hbox36, False, False, 0)
-        vboxStack3.pack_start(hbox37, False, False, 0)
-        vboxStack3.pack_start(ls, False, False, 0)
-        vboxStack3.pack_start(install_only_fish, False, False, 0)
+        vboxstack3.pack_start(hbox36, False, False, 0)
+        vboxstack3.pack_start(hbox37, False, False, 0)
+        vboxstack3.pack_start(message, False, False, 0)
+        vboxstack3.pack_start(install_only_fish, False, False, 0)
 
     # ==================================================================
     #                       EXTRA
@@ -523,26 +520,26 @@ Restart Att to see the information</b>"
         "clicked", self.on_extra_shell_applications_clicked
     )
 
-    vboxStack4.pack_start(hbox51, False, False, 0)
-    # vboxStack4.pack_start(hbox52, False, False, 0)
-    vboxStack4.pack_start(flowbox, False, False, 0)
-    vboxStack4.pack_end(extra_shell_applications, False, False, 0)
-    # vboxStack4.pack_start(install_only_fish, False, False, 0)
+    vboxstack4.pack_start(hbox51, False, False, 0)
+    # vboxstack4.pack_start(hbox52, False, False, 0)
+    vboxstack4.pack_start(flowbox, False, False, 0)
+    vboxstack4.pack_end(extra_shell_applications, False, False, 0)
+    # vboxstack4.pack_start(install_only_fish, False, False, 0)
 
     # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
 
-    stack.add_titled(vboxStack1, "stack1", "BASH")
+    stack.add_titled(vboxstack1, "stack1", "BASH")
     if not fn.distr == "xerolinux":
-        stack.add_titled(vboxStack2, "stack2", "ZSH")
+        stack.add_titled(vboxstack2, "stack2", "ZSH")
     if not fn.distr == "archcraft":
-        stack.add_titled(vboxStack3, "stack3", "FISH")
-    stack.add_titled(vboxStack4, "stack4", "EXTRA")
+        stack.add_titled(vboxstack3, "stack3", "FISH")
+    stack.add_titled(vboxstack4, "stack4", "EXTRA")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)
 
-    vboxStack23.pack_start(hbox1, False, False, 0)
-    vboxStack23.pack_start(hbox0, False, False, 0)
-    vboxStack23.pack_start(vbox, True, True, 0)
+    vboxstack23.pack_start(hbox1, False, False, 0)
+    vboxstack23.pack_start(hbox0, False, False, 0)
+    vboxstack23.pack_start(vbox, True, True, 0)

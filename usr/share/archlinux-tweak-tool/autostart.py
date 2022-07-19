@@ -3,20 +3,20 @@
 # ============================================================
 
 from ast import literal_eval
-import Functions as fn
+import functions as fn
 
 
-def get_startups(self, n):
-
+def get_startups(name):
+    """find out if there are .desktop files - hidden = true / false"""
     try:
-        with open(fn.autostart + n + ".desktop", encoding="utf-8") as f:
+        with open(fn.autostart + name + ".desktop", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
         state = True
     except:
         return True
 
-    if fn.check_content("Hidden=", fn.autostart + n + ".desktop"):
+    if fn.check_content("Hidden=", fn.autostart + name + ".desktop"):
         try:
             pos = fn.get_position(lines, "Hidden=")
             state = lines[pos].split("=")[1].strip()
@@ -24,17 +24,18 @@ def get_startups(self, n):
             state = state.capitalize()
             state = not literal_eval(state)
             return state
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
             return True
     else:
         return state
 
 
 def add_autostart(self, name, com, comnt):
+    """Add a new autostart"""
     # lists = [x for x in fn.os.listdir(fn.home + "/.config/autostart/")]
     lists = list(fn.listdir(fn.home + "/.config/autostart"))
-    if not (name + ".desktop") in lists:
+    if not name + ".desktop" in lists:
         content = (
             "[Desktop Entry]\n\
 Encoding=UTF-8\n\

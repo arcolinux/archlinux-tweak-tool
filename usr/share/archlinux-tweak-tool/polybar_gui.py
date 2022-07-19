@@ -2,7 +2,8 @@
 # # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # #============================================================
 
-# def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, fn, base_dir):
+# def gui(self, Gtk, GdkPixbuf, vboxStack14, polybar, fn, base_dir):
+#    """create a gui"""
 #     # =======================================================
 #     #                       GLOBALS
 #     # =======================================================

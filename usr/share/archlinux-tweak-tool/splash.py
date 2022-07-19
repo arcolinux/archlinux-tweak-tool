@@ -1,18 +1,19 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
-
+# pylint:disable=C0115,I1101
 
 from gi.repository import Gtk, GdkPixbuf
-import Functions as fn
 import gi
+import functions as fn
+
 
 gi.require_version("Gtk", "3.0")
 
 base_dir = fn.path.dirname(fn.path.realpath(__file__))
 
 
-class splashScreen(Gtk.Window):
+class SplashScreen(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self, Gtk.WindowType.POPUP, title="")
         self.set_decorated(False)

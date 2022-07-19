@@ -3,7 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, fn, base_dir, Pango):
+def gui(self, Gtk, GdkPixbuf, vboxstack12, desktopr, fn, base_dir, Pango):
+    """create a gui"""
 
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -97,13 +98,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, fn, base_dir, Pango):
     self.desktopr_stat = Gtk.Label(xalign=0)
     self.desktopr_stat.set_ellipsize(Pango.EllipsizeMode.MIDDLE)
 
-    warning_archcraft = Gtk.Label(xalign=0)
-    message = "On Archcraft first remove picom-ibhagwan-git \
+    warning_picom = Gtk.Label(xalign=0)
+    message = "On Amos first remove picom-ibhagwan-git \
 and re-install the default picom"
-    warning_archcraft.set_markup(
+    warning_picom.set_markup(
         '<span foreground="red" size="x-large">' + message + "</span>"
     )
-    warning_archcraft.set_line_wrap(True)
+    warning_picom.set_line_wrap(True)
 
     noice = Gtk.Label(xalign=0)
     noice.set_markup(
@@ -113,9 +114,10 @@ Backup is in ~/.config-att folder\nLog files are located in /var/log/archlinux"
     noice.set_line_wrap(True)
     self.desktopr_error = Gtk.Label(xalign=0)
 
-    if fn.distr == "archcraft":
-        if fn.check_package_installed("picom-ibhagwan-git"):
-            vboxprog.pack_start(warning_archcraft, False, False, 0)
+    if fn.check_package_installed("picom-ibhagwan-git") or fn.check_package_installed(
+        "picom-jonaburg-git"
+    ):
+        vboxprog.pack_start(warning_picom, False, False, 0)
     vboxprog.pack_start(noice, False, False, 0)
     vboxprog.pack_start(self.desktopr_error, False, False, 0)
     vboxprog.pack_start(self.desktopr_stat, False, False, 0)
@@ -159,6 +161,6 @@ Backup is in ~/.config-att folder\nLog files are located in /var/log/archlinux"
     # =======================================
     #               PACK TO WINDOW
     # =======================================
-    vboxStack12.pack_start(hbox3, False, False, 0)
-    vboxStack12.pack_start(hbox4, False, False, 0)
-    vboxStack12.pack_start(vbox1, True, True, 0)
+    vboxstack12.pack_start(hbox3, False, False, 0)
+    vboxstack12.pack_start(hbox4, False, False, 0)
+    vboxstack12.pack_start(vbox1, True, True, 0)

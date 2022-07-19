@@ -1,10 +1,11 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
+# pylint:disable=C0103,W0612
 
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
-
+def gui(self, Gtk, GdkPixbuf, vboxstack10, themer, fn, base_dir):
+    """create a gui"""
     # Image Dimensions. Change once here - apply to ALL the items in this GUI.
     image_width = 645
     image_height = 645
@@ -32,10 +33,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
-    vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -128,11 +129,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     hbox3.pack_end(self.poly, False, False, 0)
     hbox3.pack_end(lbls, False, False, 0)
 
-    vboxStack1.pack_start(hbox1, False, False, 10)
-    vboxStack1.pack_start(hbox3, False, False, 0)
-    vboxStack1.pack_start(i3_image, False, False, 0)
-    vboxStack1.pack_start(label3, True, False, 0)
-    vboxStack1.pack_end(hbox2, False, False, 0)
+    vboxstack1.pack_start(hbox1, False, False, 10)
+    vboxstack1.pack_start(hbox3, False, False, 0)
+    vboxstack1.pack_start(i3_image, False, False, 0)
+    vboxstack1.pack_start(label3, True, False, 0)
+    vboxstack1.pack_end(hbox2, False, False, 0)
 
     # ==================================================================
     #                       AWESOMEWM TAB
@@ -151,6 +152,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     ):
         try:
             awesome_lines = themer.get_awesome_themes(awesome_list)
+            # TODO: enumerate
             for x in range(len(awesome_lines)):
                 self.store.append([x, awesome_lines[x]])
         except:
@@ -196,6 +198,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     tree_iter = self.awesome_combo.get_active_iter()
     if tree_iter is not None:
         model = self.awesome_combo.get_model()
+        # row_id is used for image
         row_id, name = model[tree_iter][:2]
 
     self.image = Gtk.Image()
@@ -211,16 +214,16 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
                 base_dir + "/themer_data/awesomewm/" + name + ".jpg",
                 image_width,
                 image_height,
-            )  # noqa
+            )
             self.image.set_from_pixbuf(pimage)
-        except:  # noqa
+        except:
             pass
     else:
         pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(
             base_dir + "/themer_data/awesomewm/multicolor.jpg",
             image_width,
             image_height,
-        )  # noqa
+        )
         self.image.set_from_pixbuf(pimage)
 
     self.awesome_combo.connect(
@@ -252,10 +255,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     hbox4.pack_end(apply, False, False, 0)
     hbox4.pack_end(reset, False, False, 0)
 
-    vboxStack2.pack_start(hbox2, False, False, 10)
-    vboxStack2.pack_start(hbox5, False, False, 10)
-    vboxStack2.pack_start(label4, True, False, 10)
-    vboxStack2.pack_end(hbox4, False, False, 0)
+    vboxstack2.pack_start(hbox2, False, False, 10)
+    vboxstack2.pack_start(hbox5, False, False, 10)
+    vboxstack2.pack_start(label4, True, False, 10)
+    vboxstack2.pack_end(hbox4, False, False, 0)
 
     # ==================================================================
     #                       Qtile TAB
@@ -335,11 +338,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     hbox9.pack_end(applyqtile, False, False, 0)
     hbox9.pack_end(resetqtile, False, False, 0)
 
-    vboxStack3.pack_start(hbox8, False, False, 0)
-    vboxStack3.pack_start(hbox10, False, False, 0)
-    vboxStack3.pack_start(qtile_image, False, False, 0)
-    vboxStack3.pack_start(label5, True, False, 0)
-    vboxStack3.pack_end(hbox9, False, False, 0)
+    vboxstack3.pack_start(hbox8, False, False, 0)
+    vboxstack3.pack_start(hbox10, False, False, 0)
+    vboxstack3.pack_start(qtile_image, False, False, 0)
+    vboxstack3.pack_start(label5, True, False, 0)
+    vboxstack3.pack_end(hbox9, False, False, 0)
 
     # ==================================================================
     #                       LEFTWM TAB
@@ -365,6 +368,7 @@ install them in one go"
     self.leftwm_combo.connect("changed", self.on_leftwm_combo_changed)
     if fn.path_check(fn.leftwm_config_theme_current):
         link_theme = fn.os.path.basename(fn.readlink(fn.leftwm_config_theme_current))
+        # TODO: enumerate
         for i in range(len(fn.leftwm_themes_list)):
             if link_theme == fn.leftwm_themes_list[i]:
                 self.leftwm_combo.set_active(i)
@@ -427,25 +431,25 @@ install them in one go"
     hbox12.pack_end(resetleftwm, False, False, 0)
     hbox12.pack_end(removeleftwm, False, False, 0)
 
-    vboxStack4.pack_start(hbox11, False, False, 0)
-    vboxStack4.pack_start(hbox13, False, False, 0)
-    vboxStack4.pack_start(leftwm_image, False, False, 0)
-    vboxStack4.pack_start(self.status_leftwm, True, False, 0)
-    vboxStack4.pack_start(label6, True, False, 0)
-    vboxStack4.pack_end(hbox12, False, False, 0)
+    vboxstack4.pack_start(hbox11, False, False, 0)
+    vboxstack4.pack_start(hbox13, False, False, 0)
+    vboxstack4.pack_start(leftwm_image, False, False, 0)
+    vboxstack4.pack_start(self.status_leftwm, True, False, 0)
+    vboxstack4.pack_start(label6, True, False, 0)
+    vboxstack4.pack_end(hbox12, False, False, 0)
 
     # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
 
-    stack.add_titled(vboxStack2, "stack2", "Awesome")
-    stack.add_titled(vboxStack1, "stack1", "I3")
-    stack.add_titled(vboxStack4, "stack4", "Leftwm")
-    stack.add_titled(vboxStack3, "stack3", "Qtile")
+    stack.add_titled(vboxstack2, "stack2", "Awesome")
+    stack.add_titled(vboxstack1, "stack1", "I3")
+    stack.add_titled(vboxstack4, "stack4", "Leftwm")
+    stack.add_titled(vboxstack3, "stack3", "Qtile")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)
 
-    vboxStack10.pack_start(hbox6, False, False, 0)
-    vboxStack10.pack_start(hbox7, False, False, 0)
-    vboxStack10.pack_start(vbox, True, True, 0)
+    vboxstack10.pack_start(hbox6, False, False, 0)
+    vboxstack10.pack_start(hbox7, False, False, 0)
+    vboxstack10.pack_start(vbox, True, True, 0)

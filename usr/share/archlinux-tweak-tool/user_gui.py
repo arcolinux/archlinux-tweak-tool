@@ -3,7 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack10, user, fn):
+def gui(self, Gtk, vboxStack10, user, fn):
+    """create a gui"""
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Create User")
@@ -58,7 +59,7 @@ def GUI(self, Gtk, vboxStack10, user, fn):
     self.hbox_confirm_password.set_visibility(False)
 
     self.combo_account_type = Gtk.ComboBoxText()
-
+    # TODO: enumerate
     for i in range(len(fn.account_list)):
         self.combo_account_type.append_text(fn.account_list[i])
     self.combo_account_type.set_active(1)

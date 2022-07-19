@@ -3,7 +3,7 @@
 # ============================================================
 
 # import os
-import Functions as fn
+import functions as fn
 
 
 # ====================================================================
@@ -12,6 +12,7 @@ import Functions as fn
 
 
 def get_neofetch():
+    """get lines from neofetch_config"""
     lines = []
     if fn.path.isfile(fn.neofetch_config):
         with open(fn.neofetch_config, "r", encoding="utf-8") as f:
@@ -21,54 +22,34 @@ def get_neofetch():
     return lines
 
 
-# def pop_neofetch_box(combo):
-#     if fn.path.isfile(fn.neofetch_config):
-#         com = []
-#         for image in fn.listdir(fn.home + "/.config/neofetch/"):
-#             if ".png" in image:
-#                 com.append(image)
-
-#         sorted_com = sorted(com)
-#         active = 0
-#         lines = get_neofetch()
-
-#         for i in range(len(lines)):
-#             if "image_source" in lines[i]:
-#                 if not "#" in lines[i]:
-#                     line = lines[i].split("=")[1].replace("\"", "")
-#                     active = i+1
-
-#         for i in range(len(sorted_com)):
-#             combo.append_text(sorted_com[i])
-#             # if sorted_com[i] == active:
-#         combo.set_active(i)
-
-
 def check_backend():
+    """see if image is active"""
     if fn.path.isfile(fn.neofetch_config):
         lines = get_neofetch()
-        for i in range(len(lines)):
-            if "image_backend=" in lines[i]:
-                if not "#" in lines[i]:
-                    line = lines[i].split("=")[1].replace('"', "").strip()
+        for item in enumerate(lines):
+            if "image_backend=" in item:
+                if not "#" in item:
+                    line = item.split("=")[1].replace('"', "").strip()
                     return line
     return "ascii"
 
 
 def check_ascii():
+    """see if ascii is active"""
     line = "auto"
     if fn.path.isfile(fn.neofetch_config):
         lines = get_neofetch()
-        for i in range(len(lines)):
-            if "ascii_distro=" in lines[i]:
-                line = lines[i].split("=")[1].replace('"', "").strip()
-    return line
+        for item in enumerate(lines):
+            if "ascii_distro=" in item:
+                line = item.split("=")[1].replace('"', "").strip()
+                return line
 
 
 def apply_config(self, backend, ascii_size):
+    """apply neofetch configuration"""
     if fn.path.isfile(fn.neofetch_config):
         lines = get_neofetch()
-        # try:
+        # TODO:enumerate lines
         for i in range(len(lines)):
             if self.os.get_active():
                 fn.neofetch_set_value(lines, i, 'info "OS"', True)
@@ -209,8 +190,9 @@ def apply_config(self, backend, ascii_size):
 
 
 def get_state(value):
+    """found out what is active and what is not active"""
     lines = get_neofetch()
-
+    # TODO:enumerate lines
     for i in range(len(lines)):
         if value in lines[i]:
             if "#" in lines[i]:
@@ -219,6 +201,7 @@ def get_state(value):
 
 
 def get_checkboxes(self):
+    """read the state of the checkbouxes"""
     self.os.set_active(get_state('info "OS"'))
     self.host.set_active(get_state('info "Host"'))
     self.kernel.set_active(get_state('info "Kernel"'))
@@ -258,6 +241,7 @@ def get_checkboxes(self):
 
 
 def set_checkboxes_normal(self):
+    """set the state of the checkboxes"""
     self.os.set_active(True)
     self.host.set_active(True)
     self.kernel.set_active(True)
@@ -290,6 +274,7 @@ def set_checkboxes_normal(self):
 
 
 def set_checkboxes_small(self):
+    """set the state of the checkboxes"""
     self.os.set_active(False)
     self.host.set_active(False)
     self.kernel.set_active(True)
@@ -322,6 +307,7 @@ def set_checkboxes_small(self):
 
 
 def set_checkboxes_all(self):
+    """set the state of the checkboxes"""
     self.os.set_active(True)
     self.host.set_active(True)
     self.kernel.set_active(True)
@@ -354,6 +340,7 @@ def set_checkboxes_all(self):
 
 
 def set_checkboxes_none(self):
+    """set the state of the checkboxes"""
     self.os.set_active(False)
     self.host.set_active(False)
     self.kernel.set_active(False)

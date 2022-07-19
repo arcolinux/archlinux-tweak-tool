@@ -3,7 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack1, fn):
+def gui(self, Gtk, vboxstack1, fn):
+    """create a gui"""
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -32,28 +33,28 @@ def GUI(self, Gtk, vboxStack1, fn):
     #                   GLOBALS
     # ==========================================================
 
-    hboxStack1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
     # ========================================================
     #               ARCO REPOS
@@ -183,133 +184,133 @@ def GUI(self, Gtk, vboxStack1, fn):
     label2 = Gtk.Label(xalign=0)
     label2.set_markup("<b>Add custom repo to pacman.conf</b>")
 
-    self.textbox1 = Gtk.TextView()
-    self.textbox1.set_wrap_mode(Gtk.WrapMode.WORD)
-    self.textbox1.set_editable(True)
-    self.textbox1.set_cursor_visible(True)
-    self.textbox1.set_border_window_size(Gtk.TextWindowType.LEFT, 1)
-    self.textbox1.set_border_window_size(Gtk.TextWindowType.RIGHT, 1)
-    self.textbox1.set_border_window_size(Gtk.TextWindowType.TOP, 1)
-    self.textbox1.set_border_window_size(Gtk.TextWindowType.BOTTOM, 1)
+    self.textview_custom_repo = Gtk.TextView()
+    self.textview_custom_repo.set_wrap_mode(Gtk.WrapMode.WORD)
+    self.textview_custom_repo.set_editable(True)
+    self.textview_custom_repo.set_cursor_visible(True)
+    self.textview_custom_repo.set_border_window_size(Gtk.TextWindowType.LEFT, 1)
+    self.textview_custom_repo.set_border_window_size(Gtk.TextWindowType.RIGHT, 1)
+    self.textview_custom_repo.set_border_window_size(Gtk.TextWindowType.TOP, 1)
+    self.textview_custom_repo.set_border_window_size(Gtk.TextWindowType.BOTTOM, 1)
 
-    sw = Gtk.ScrolledWindow()
-    sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-    sw.add(self.textbox1)
+    scrolled_window = Gtk.ScrolledWindow()
+    scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+    scrolled_window.add(self.textview_custom_repo)
 
     # ========================================================
     #               ARCO REPOS PACKING
     # ========================================================
     if not fn.check_package_installed("arcolinux-keyring"):
-        hboxStack7.pack_start(label5, False, True, 10)
-        hboxStack7.pack_end(self.arcolinux_button, False, True, 10)
+        hboxstack7.pack_start(label5, False, True, 10)
+        hboxstack7.pack_end(self.arcolinux_button, False, True, 10)
 
     if fn.check_package_installed("arcolinux-keyring"):
-        hboxStack18.pack_start(label1, False, True, 10)
-        hboxStack18.pack_end(self.atestrepo_button, False, False, 10)
-        hboxStack7.pack_start(label5, False, True, 10)
-        hboxStack7.pack_end(self.arepo_button, False, False, 10)
-        hboxStack8.pack_start(label6, False, True, 10)
-        hboxStack8.pack_end(self.a3prepo_button, False, False, 10)
-        hboxStack9.pack_start(label7, False, True, 10)
-        hboxStack9.pack_end(self.axlrepo_button, False, False, 10)
+        hboxstack18.pack_start(label1, False, True, 10)
+        hboxstack18.pack_end(self.atestrepo_button, False, False, 10)
+        hboxstack7.pack_start(label5, False, True, 10)
+        hboxstack7.pack_end(self.arepo_button, False, False, 10)
+        hboxstack8.pack_start(label6, False, True, 10)
+        hboxstack8.pack_end(self.a3prepo_button, False, False, 10)
+        hboxstack9.pack_start(label7, False, True, 10)
+        hboxstack9.pack_end(self.axlrepo_button, False, False, 10)
 
-    vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
-    vboxStack2.pack_start(hboxStack1, False, False, 10)
+    vboxstack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    vboxstack2.pack_start(hboxstack1, False, False, 10)
 
     # ========================================================
     #               TESTING REPOS PACKING
     # ========================================================
 
-    hboxStack5.pack_start(label3, False, True, 10)
-    hboxStack5.pack_end(self.checkbutton2, False, False, 10)
-    hboxStack15.pack_start(label13, False, True, 10)
-    hboxStack15.pack_end(self.checkbutton6, False, False, 10)
-    hboxStack16.pack_start(label14, False, True, 10)
-    hboxStack16.pack_end(self.checkbutton7, False, False, 10)
-    hboxStack12.pack_start(label10, False, True, 10)
-    hboxStack12.pack_end(self.checkbutton4, False, False, 10)
-    hboxStack14.pack_start(label12, False, True, 10)
-    hboxStack14.pack_end(self.checkbutton5, False, False, 10)
-    hboxStack6.pack_start(label4, False, True, 10)
-    hboxStack6.pack_end(self.checkbutton3, False, False, 10)
-    hboxStack17.pack_start(label15, False, True, 10)
-    hboxStack17.pack_end(self.checkbutton8, False, False, 10)
+    hboxstack5.pack_start(label3, False, True, 10)
+    hboxstack5.pack_end(self.checkbutton2, False, False, 10)
+    hboxstack15.pack_start(label13, False, True, 10)
+    hboxstack15.pack_end(self.checkbutton6, False, False, 10)
+    hboxstack16.pack_start(label14, False, True, 10)
+    hboxstack16.pack_end(self.checkbutton7, False, False, 10)
+    hboxstack12.pack_start(label10, False, True, 10)
+    hboxstack12.pack_end(self.checkbutton4, False, False, 10)
+    hboxstack14.pack_start(label12, False, True, 10)
+    hboxstack14.pack_end(self.checkbutton5, False, False, 10)
+    hboxstack6.pack_start(label4, False, True, 10)
+    hboxstack6.pack_end(self.checkbutton3, False, False, 10)
+    hboxstack17.pack_start(label15, False, True, 10)
+    hboxstack17.pack_end(self.checkbutton8, False, False, 10)
 
     # ========================================================
     #               OTHER REPOS PACKING
     # ========================================================
 
     if not fn.check_package_installed("endeavouros-keyring"):
-        hboxStack19.pack_start(label16, False, True, 10)
-        hboxStack19.pack_end(self.endeavouros_button, False, False, 10)
+        hboxstack19.pack_start(label16, False, True, 10)
+        hboxstack19.pack_end(self.endeavouros_button, False, False, 10)
 
     if fn.check_package_installed("endeavouros-keyring"):
-        hboxStack19.pack_start(label16, False, True, 10)
-        hboxStack19.pack_end(self.endeavouros_switch, False, False, 10)
+        hboxstack19.pack_start(label16, False, True, 10)
+        hboxstack19.pack_end(self.endeavouros_switch, False, False, 10)
 
-    hboxStack13.pack_start(label11, False, True, 10)
-    hboxStack13.pack_end(self.nemesis_switch, False, False, 10)
+    hboxstack13.pack_start(label11, False, True, 10)
+    hboxstack13.pack_end(self.nemesis_switch, False, False, 10)
 
     if not fn.check_package_installed("xerolinux-mirrorlist"):
-        hboxStack20.pack_start(label17, False, True, 10)
-        hboxStack20.pack_end(self.xerolinux_button, False, True, 10)
+        hboxstack20.pack_start(label17, False, True, 10)
+        hboxstack20.pack_end(self.xerolinux_button, False, True, 10)
 
     if fn.check_package_installed("xerolinux-mirrorlist"):
-        hboxStack20.pack_start(label17, False, True, 10)
-        hboxStack20.pack_end(self.xerolinux_switch, False, False, 10)
+        hboxstack20.pack_start(label17, False, True, 10)
+        hboxstack20.pack_end(self.xerolinux_switch, False, False, 10)
 
-        hboxStack21.pack_start(label18, False, True, 10)
-        hboxStack21.pack_end(self.xerolinux_xl_switch, False, False, 10)
+        hboxstack21.pack_start(label18, False, True, 10)
+        hboxstack21.pack_end(self.xerolinux_xl_switch, False, False, 10)
 
-        hboxStack22.pack_start(label19, False, True, 10)
-        hboxStack22.pack_end(self.xerolinux_nv_switch, False, False, 10)
+        hboxstack22.pack_start(label19, False, True, 10)
+        hboxstack22.pack_end(self.xerolinux_nv_switch, False, False, 10)
 
     if not fn.check_package_installed("chaotic-keyring"):
-        hboxStack11.pack_start(label9, False, True, 10)
-        hboxStack11.pack_end(self.chaotics_button, False, False, 10)
+        hboxstack11.pack_start(label9, False, True, 10)
+        hboxstack11.pack_end(self.chaotics_button, False, False, 10)
 
     if fn.check_package_installed("chaotic-keyring"):
-        hboxStack11.pack_start(label9, False, True, 10)
-        hboxStack11.pack_end(self.chaotics_switch, False, False, 10)
+        hboxstack11.pack_start(label9, False, True, 10)
+        hboxstack11.pack_end(self.chaotics_switch, False, False, 10)
 
-    vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
-    vboxStack4.pack_start(hboxStack13, False, False, 10)
-    vboxStack4.pack_start(hboxStack19, False, False, 10)
-    vboxStack4.pack_start(hboxStack20, False, False, 10)
+    vboxstack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+    vboxstack4.pack_start(hboxstack13, False, False, 10)
+    vboxstack4.pack_start(hboxstack19, False, False, 10)
+    vboxstack4.pack_start(hboxstack20, False, False, 10)
     if fn.check_package_installed("xerolinux-mirrorlist"):
-        vboxStack4.pack_start(hboxStack21, False, False, 10)
-        vboxStack4.pack_start(hboxStack22, False, False, 10)
-    vboxStack4.pack_start(hboxStack11, False, False, 10)
+        vboxstack4.pack_start(hboxstack21, False, False, 10)
+        vboxstack4.pack_start(hboxstack22, False, False, 10)
+    vboxstack4.pack_start(hboxstack11, False, False, 10)
 
     # ========================================================
     #               CUSTOM REPOS PACKING
     # ========================================================
 
-    hboxStack2.pack_start(label2, False, True, 10)
-    hboxStack3.pack_start(sw, True, True, 10)
+    hboxstack2.pack_start(label2, False, True, 10)
+    hboxstack3.pack_start(scrolled_window, True, True, 10)
 
     # ========================================================
     #               BUTTONS PACKING
     # ========================================================
 
-    hboxStack4.pack_end(self.custom_repo, False, False, 0)
-    hboxStack4.pack_end(reset_pacman_local, False, False, 0)
-    hboxStack4.pack_end(reset_pacman_online, False, False, 0)
-    hboxStack4.pack_end(blank_pacman, False, False, 0)
-    # hboxStack4.pack_start(label_backup, False, False, 0)
+    hboxstack4.pack_end(self.custom_repo, False, False, 0)
+    hboxstack4.pack_end(reset_pacman_local, False, False, 0)
+    hboxstack4.pack_end(reset_pacman_online, False, False, 0)
+    hboxstack4.pack_end(blank_pacman, False, False, 0)
+    # hboxstack4.pack_start(label_backup, False, False, 0)
 
     # ========================================================
     #               TESTING REPOS PACKING TO FRAME
     # ========================================================
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vbox.pack_start(hboxStack5, False, False, 0)
-    vbox.pack_start(hboxStack15, False, False, 0)
-    vbox.pack_start(hboxStack16, False, False, 0)
-    vbox.pack_start(hboxStack12, False, False, 0)
-    vbox.pack_start(hboxStack14, False, False, 0)
-    vbox.pack_start(hboxStack6, False, False, 0)
-    vbox.pack_start(hboxStack17, False, False, 0)
+    vbox.pack_start(hboxstack5, False, False, 0)
+    vbox.pack_start(hboxstack15, False, False, 0)
+    vbox.pack_start(hboxstack16, False, False, 0)
+    vbox.pack_start(hboxstack12, False, False, 0)
+    vbox.pack_start(hboxstack14, False, False, 0)
+    vbox.pack_start(hboxstack6, False, False, 0)
+    vbox.pack_start(hboxstack17, False, False, 0)
     frame.add(vbox)
 
     # ========================================================
@@ -317,8 +318,8 @@ def GUI(self, Gtk, vboxStack1, fn):
     # ========================================================
 
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vbox2.pack_start(hboxStack10, False, False, 0)
-    vbox2.pack_start(vboxStack4, False, False, 0)
+    vbox2.pack_start(hboxstack10, False, False, 0)
+    vbox2.pack_start(vboxstack4, False, False, 0)
     frame2.add(vbox2)
 
     # ========================================================
@@ -326,10 +327,10 @@ def GUI(self, Gtk, vboxStack1, fn):
     # ========================================================
 
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vbox3.pack_start(hboxStack18, False, False, 0)
-    vbox3.pack_start(hboxStack7, False, False, 0)
-    vbox3.pack_start(hboxStack8, False, False, 0)
-    vbox3.pack_start(hboxStack9, False, False, 0)
+    vbox3.pack_start(hboxstack18, False, False, 0)
+    vbox3.pack_start(hboxstack7, False, False, 0)
+    vbox3.pack_start(hboxstack8, False, False, 0)
+    vbox3.pack_start(hboxstack9, False, False, 0)
 
     frame3.add(vbox3)
     # ========================================================
@@ -338,23 +339,23 @@ def GUI(self, Gtk, vboxStack1, fn):
 
     # =================ARCO REPO========================
 
-    vboxStack1.pack_start(hbox3, False, False, 0)
-    vboxStack1.pack_start(hbox4, False, False, 0)
-    vboxStack1.pack_start(frame3, False, False, 5)
+    vboxstack1.pack_start(hbox3, False, False, 0)
+    vboxstack1.pack_start(hbox4, False, False, 0)
+    vboxstack1.pack_start(frame3, False, False, 5)
 
     # =================TESTING REPO========================
 
-    vboxStack1.pack_start(frame, False, False, 0)
+    vboxstack1.pack_start(frame, False, False, 0)
 
     # =================OTHER REPO========================
 
-    vboxStack1.pack_start(frame2, False, False, 0)
+    vboxstack1.pack_start(frame2, False, False, 0)
 
     # =================CUSTOM REPO========================
 
-    vboxStack1.pack_start(hboxStack2, False, False, 0)
-    vboxStack1.pack_start(hboxStack3, True, True, 0)
+    vboxstack1.pack_start(hboxstack2, False, False, 0)
+    vboxstack1.pack_start(hboxstack3, True, True, 0)
 
     # =================FOOTER========================
 
-    vboxStack1.pack_end(hboxStack4, False, False, 0)
+    vboxstack1.pack_end(hboxstack4, False, False, 0)

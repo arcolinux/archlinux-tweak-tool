@@ -1,14 +1,16 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
+# pylint:disable=R0911,R1705,
 
-import Functions as fn
+import functions as fn
 
 # This function has one job, and one job only; ensure that check
 # boxes match what is passed to it, based on the logic from the calling function
 
 
 def set_util_state(self, util, util_state, lolcat_state):
+    """set utility state"""
     if util == "neofetch":
         self.neofetch_lolcat.set_state(lolcat_state)
         self.neofetch_util.set_state(util_state)
@@ -57,6 +59,7 @@ def set_util_state(self, util, util_state, lolcat_state):
 
 
 def get_util_state(self, util):
+    """get utility state"""
     if util == "neofetch":
         return self.neofetch_util.get_active()
     elif util == "screenfetch":
@@ -91,6 +94,7 @@ def get_util_state(self, util):
 
 
 def get_lolcat_state(self, util):
+    """get lolcat state"""
     if util == "neofetch":
         return self.neofetch_lolcat.get_active()
     elif util == "screenfetch":
@@ -125,6 +129,7 @@ def get_lolcat_state(self, util):
 
 
 def install_util(util):
+    """install utility"""
     command = ""
     if util == "neofetch":
         command = "pacman -S neofetch arcolinux-neofetch-git --noconfirm --needed"
@@ -170,6 +175,7 @@ def install_util(util):
 
 
 def get_position(lists, value):
+    """get position"""
     data = []
     # Because we don't know EXACTLY how the app will process the rc file,
     # we need to account for every variation.
@@ -178,12 +184,7 @@ def get_position(lists, value):
 
     for string in lists:
         for item in suffixes:
-            if (
-                string == value + item
-                or string == prefix + value + item
-                or string == value
-                or string == prefix + value
-            ):
+            if string in (value + item, prefix + value + item, value, prefix + value):
                 data.append(string)
 
     if len(data) > 0:
@@ -194,6 +195,7 @@ def get_position(lists, value):
 
 
 def write_configs(utility, util_str):
+    """write config"""
     config = ""
     try:
         config = get_config_file()
@@ -223,6 +225,7 @@ def write_configs(utility, util_str):
 
 
 def get_term_rc(value):
+    """get term value"""
     config_file = ""
     pos = -1  # Essentially, if this doesn't update, we will return False
     try:
@@ -244,6 +247,7 @@ def get_term_rc(value):
 
 
 def get_config_file():
+    """get config file"""
     if fn.get_shell() == "bash":
         return fn.bash_config
     elif fn.get_shell() == "zsh":

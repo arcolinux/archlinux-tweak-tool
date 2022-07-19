@@ -1,10 +1,12 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
+# pylint:disable=C0115,C0116,I1101
 
-import Functions as fn
-from gi.repository import Gtk, GdkPixbuf
 import gi
+from gi.repository import Gtk, GdkPixbuf
+import functions as fn
+
 
 gi.require_version("Gtk", "3.0")
 
@@ -54,81 +56,81 @@ the right setting - the right config - the right application - at the right plac
         # ghE = Gtk.EventBox()  # github
         # discE = Gtk.EventBox()  # discord
 
-        donatE = Gtk.EventBox()  # paypal
+        donate_eventbox = Gtk.EventBox()  # paypal
         pbdisc = GdkPixbuf.Pixbuf().new_from_file_at_size(
             fn.path.join(base_dir, "images/donate.png"), 54, 54
         )
         ppimage = Gtk.Image().new_from_pixbuf(pbdisc)
-        donatE.add(ppimage)
-        donatE.connect(
+        donate_eventbox.add(ppimage)
+        donate_eventbox.connect(
             "button_press_event",
             self.on_support_click,
             "https://www.arcolinux.info/donation/",
         )
-        donatE.set_property("has-tooltip", True)
-        donatE.connect(
+        donate_eventbox.set_property("has-tooltip", True)
+        donate_eventbox.connect(
             "query-tooltip", self.tooltip_callback, "Different ways to support"
         )
 
-        patreonE = Gtk.EventBox()  # patreon
+        patreon_eventbox = Gtk.EventBox()  # patreon
         pbp = GdkPixbuf.Pixbuf().new_from_file_at_size(
             fn.path.join(base_dir, "images/patreon.png"), 48, 48
         )
         pimage = Gtk.Image().new_from_pixbuf(pbp)
-        patreonE.add(pimage)
-        patreonE.connect(
+        patreon_eventbox.add(pimage)
+        patreon_eventbox.connect(
             "button_press_event",
             self.on_support_click,
             "https://www.patreon.com/arcolinux",
         )
-        patreonE.set_property("has-tooltip", True)
-        patreonE.connect(
+        patreon_eventbox.set_property("has-tooltip", True)
+        patreon_eventbox.connect(
             "query-tooltip", self.tooltip_callback, "Support ArcoLinux on Patreon"
         )
 
-        paypalE = Gtk.EventBox()  # paypal
+        paypal_eventbox = Gtk.EventBox()  # paypal
         pbpp = GdkPixbuf.Pixbuf().new_from_file_at_size(
             fn.path.join(base_dir, "images/paypal.png"), 54, 54
         )
         ppimage = Gtk.Image().new_from_pixbuf(pbpp)
-        paypalE.add(ppimage)
-        paypalE.connect(
+        paypal_eventbox.add(ppimage)
+        paypal_eventbox.connect(
             "button_press_event",
             self.on_support_click,
             "https://www.paypal.com/paypalme/arcolinuxpaypal",
         )
-        paypalE.set_property("has-tooltip", True)
-        paypalE.connect(
+        paypal_eventbox.set_property("has-tooltip", True)
+        paypal_eventbox.connect(
             "query-tooltip", self.tooltip_callback, "Donate to this project via paypal"
         )
 
-        discordE = Gtk.EventBox()  # paypal
+        discord_eventbox = Gtk.EventBox()  # paypal
         pbdisc = GdkPixbuf.Pixbuf().new_from_file_at_size(
             fn.path.join(base_dir, "images/discord.png"), 54, 54
         )
         ppimage = Gtk.Image().new_from_pixbuf(pbdisc)
-        discordE.add(ppimage)
-        discordE.connect(
+        discord_eventbox.add(ppimage)
+        discord_eventbox.connect(
             "button_press_event", self.on_support_click, "https://discord.gg/R2amEEz"
         )
-        discordE.set_property("has-tooltip", True)
-        discordE.connect(
+        discord_eventbox.set_property("has-tooltip", True)
+        discord_eventbox.connect(
             "query-tooltip", self.tooltip_callback, "Get ATT support on Discord"
         )
 
-        githubE = Gtk.EventBox()  # paypal
+        github_eventbox = Gtk.EventBox()  # paypal
         pbghub = GdkPixbuf.Pixbuf().new_from_file_at_size(
             fn.path.join(base_dir, "images/github.png"), 54, 54
         )
         ppimage = Gtk.Image().new_from_pixbuf(pbghub)
-        githubE.add(ppimage)
-        githubE.connect(
+        github_eventbox.add(ppimage)
+        github_eventbox.connect(
             "button_press_event",
             self.on_support_click,
             "https://github.com/arcolinux/archlinux-tweak-tool-dev",
         )
-        githubE.set_property("has-tooltip", True)
-        githubE.connect(
+        github_eventbox.set_property("has-tooltip", True)
+        github_eventbox.connect(
             "query-tooltip",
             self.tooltip_callback,
             "Donate time and code to this project",
@@ -137,11 +139,11 @@ the right setting - the right config - the right application - at the right plac
         # vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
         hbox.pack_start(label, True, True, 10)
-        hbox2.pack_start(donatE, False, False, 10)
-        hbox2.pack_start(githubE, False, False, 10)
-        hbox2.pack_start(patreonE, False, False, 0)
-        hbox2.pack_start(paypalE, False, False, 10)
-        hbox2.pack_start(discordE, False, False, 10)
+        hbox2.pack_start(donate_eventbox, False, False, 10)
+        hbox2.pack_start(github_eventbox, False, False, 10)
+        hbox2.pack_start(patreon_eventbox, False, False, 0)
+        hbox2.pack_start(paypal_eventbox, False, False, 10)
+        hbox2.pack_start(discord_eventbox, False, False, 10)
         hbox3.pack_start(hbox2, True, False, 0)
 
         vbox.pack_start(logo_image, False, False, 10)
@@ -154,9 +156,9 @@ the right setting - the right config - the right application - at the right plac
         self.show_all()
 
     def on_support_click(self, widget, event, link):
-        t = fn.threading.Thread(target=self.weblink, args=(link,))
-        t.daemon = True
-        t.start()
+        thread = fn.threading.Thread(target=self.weblink, args=(link,))
+        thread.daemon = True
+        thread.start()
 
     def weblink(self, link):
         if fn.check_package_installed("firefox"):

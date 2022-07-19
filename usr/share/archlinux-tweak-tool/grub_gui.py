@@ -3,7 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack4, fn):
+def gui(self, Gtk, vboxstack4, fn):
+    """create a gui"""
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -90,13 +91,13 @@ def GUI(self, Gtk, vboxStack4, fn):
     hbox9.pack_end(grub_apply, False, False, 0)
     hbox9.pack_end(grub_reset_vimix, False, False, 0)
 
-    vboxStack4.pack_start(hbox3, False, False, 0)  # title
-    vboxStack4.pack_start(hbox4, False, False, 0)  # seperator
-    vboxStack4.pack_start(hbox10, False, False, 0)  # scale
-    vboxStack4.pack_start(hbox11, False, False, 0)  # import
-    vboxStack4.pack_start(hbox12, False, False, 0)  # select wallpaper
-    vboxStack4.pack_start(hbox13, False, False, 0)  # select wallpaper
-    vboxStack4.pack_start(scrolled, True, True, 0)  # Preview
-    vboxStack4.pack_end(hbox9, False, False, 0)  # Buttons
+    vboxstack4.pack_start(hbox3, False, False, 0)  # title
+    vboxstack4.pack_start(hbox4, False, False, 0)  # seperator
+    vboxstack4.pack_start(hbox10, False, False, 0)  # scale
+    vboxstack4.pack_start(hbox11, False, False, 0)  # import
+    vboxstack4.pack_start(hbox12, False, False, 0)  # select wallpaper
+    vboxstack4.pack_start(hbox13, False, False, 0)  # select wallpaper
+    vboxstack4.pack_start(scrolled, True, True, 0)  # Preview
+    vboxstack4.pack_end(hbox9, False, False, 0)  # Buttons
     if fn.distr == "rebornos":
-        vboxStack4.pack_end(hbox16, False, False, 0)  # Buttons
+        vboxstack4.pack_end(hbox16, False, False, 0)  # Buttons

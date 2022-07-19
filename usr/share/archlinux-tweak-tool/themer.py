@@ -1,13 +1,13 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
-# pylint:disable=C0301
+# pylint:disable=C0301,R1705
 
-
-import Functions as fn
+import functions as fn
 
 
 def get_list(fle):
+    """get list"""
     with open(fle, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
@@ -15,16 +15,18 @@ def get_list(fle):
 
 
 def get_value(lists, types):
+    """get value"""
     try:
         pos = fn.get_position(lists, types)
         color = lists[pos].split("=")[-1].strip()
 
         return color
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 def move_file(self, state):
+    """move file"""
     if state:
         if fn.os.path.isfile(fn.home + "/.config/i3/config-polybar"):
             fn.subprocess.run(
@@ -44,7 +46,7 @@ def move_file(self, state):
                 check=True,
             )
         else:
-            fn.MessageBox(
+            fn.messagebox(
                 self,
                 "OOPS!",
                 "you dont seem to have <b>config-polybar</b>\
@@ -67,6 +69,7 @@ def move_file(self, state):
 
 
 def toggle_polybar(self, lines, state):
+    """Toggle polybar"""
     if state:
         if not check_polybar(lines):
             move_file(self, True)
@@ -76,14 +79,15 @@ def toggle_polybar(self, lines, state):
 
 
 def check_polybar(lines):
+    """check polybar"""
     try:
         pos = fn.get_position(lines, "~/.config/polybar/launch.sh")
         if "#" in lines[pos]:
             return False
         else:
             return True
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
         return False
 
 
@@ -93,6 +97,7 @@ def check_polybar(lines):
 
 
 def get_i3_themes(combo, lines):
+    """get i3 themes"""
     combo.get_model().clear()
     try:
         menu = [x for x in fn.os.listdir(fn.home + "/.config/i3") if ".theme" in x]
@@ -104,16 +109,18 @@ def get_i3_themes(combo, lines):
         # print(theme_name)
         active = 0
         sorted_menu = sorted(menu)
+        # TODO: enumerate
         for i in range(len(sorted_menu)):
             if theme_name in sorted_menu[i]:
                 active = i
             combo.append_text(sorted_menu[i].replace(".theme", ""))
         combo.set_active(active)
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 def set_i3_themes(lines, theme):
+    """set i3 themes"""
     try:
         pos1 = fn.get_position(lines, "##START THEMING WM")
         pos2 = fn.get_position(lines, "##STOP THEMING WM")
@@ -129,11 +136,12 @@ def set_i3_themes(lines, theme):
         with open(fn.i3wm_config, "w", encoding="utf-8") as f:
             f.writelines(lines)
             f.close()
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 def set_i3_themes_bar(lines, theme):
+    """set i3 themes bar"""
     try:
         pos1 = fn.get_position(lines, "##START THEMING BAR")
         pos2 = fn.get_position(lines, "##STOP THEMING BAR")
@@ -152,8 +160,8 @@ def set_i3_themes_bar(lines, theme):
         with open(fn.i3wm_config, "w", encoding="utf-8") as f:
             f.writelines(lines)
             f.close()
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 # =================================================================
@@ -162,6 +170,7 @@ def set_i3_themes_bar(lines, theme):
 
 
 def get_awesome_themes(lines):
+    """get awesome themes"""
     theme_pos = fn.get_position(lines, "local themes = {")
     end_theme_pos = fn.get_position(lines, "local chosen_theme")
 
@@ -174,6 +183,7 @@ def get_awesome_themes(lines):
 
 
 def set_awesome_theme(lines, val):
+    """set awesome themes"""
     theme_pos = fn.get_position(lines, "local chosen_theme")
     lst = lines[theme_pos].split("=")[1].replace("themes[", "").replace("]", "").strip()
     lines[theme_pos] = lines[theme_pos].replace(
@@ -190,6 +200,7 @@ def set_awesome_theme(lines, val):
 
 
 def get_qtile_themes(combo, lines):
+    """get qtile themes"""
     combo.get_model().clear()
     if fn.check_package_installed("arcolinux-qtile-git"):
         try:
@@ -205,16 +216,18 @@ def get_qtile_themes(combo, lines):
             )  # noqa
             active = 0
             sorted_menu = sorted(menu)
+            # TODO: enumerate
             for i in range(len(sorted_menu)):
                 if theme_name in sorted_menu[i]:
                     active = i
                 combo.append_text(sorted_menu[i].replace(".theme", ""))
             combo.set_active(active)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 def set_qtile_themes(lines, theme):
+    """set qtile themes"""
     if fn.check_package_installed("arcolinux-qtile-git"):
         try:
             pos1 = fn.get_position(lines, "# COLORS FOR THE BAR")
@@ -235,8 +248,8 @@ def set_qtile_themes(lines, theme):
             with open(fn.qtile_config, "w", encoding="utf-8") as f:
                 f.writelines(lines)
                 f.close()
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 # =================================================================
@@ -245,6 +258,7 @@ def set_qtile_themes(lines, theme):
 
 
 def get_leftwm_themes(combo, lines):
+    """get leftwm themes"""
     combo.get_model().clear()
     if fn.check_package_installed("arcolinux-qtile-git"):
         try:
@@ -260,17 +274,18 @@ def get_leftwm_themes(combo, lines):
             )  # noqa
             active = 0
             sorted_menu = sorted(menu)
+            # TODO: enumerate
             for i in range(len(sorted_menu)):
                 if theme_name in sorted_menu[i]:
                     active = i
                 combo.append_text(sorted_menu[i].replace(".theme", ""))
             combo.set_active(active)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 def set_leftwm_themes(theme):
-    # update
+    """set leftwm themes"""
     fn.subprocess.run(
         ["bash", "-c", "su - " + fn.sudo_username + ' -c "leftwm-theme update' + '"'],
         check=True,
@@ -299,7 +314,7 @@ def set_leftwm_themes(theme):
 
 
 def remove_leftwm_themes(theme):
-    # apply candy
+    """remove leftwm themes"""
     fn.subprocess.run(
         ["bash", "-c", "su - " + fn.sudo_username + ' -c "leftwm-theme apply candy"'],
         check=True,
@@ -323,7 +338,7 @@ def remove_leftwm_themes(theme):
 
 
 def reset_leftwm_themes(theme):
-    # apply candy
+    """reset leftwm theme to candy"""
     fn.subprocess.run(
         ["bash", "-c", "su - " + fn.sudo_username + ' -c "leftwm-theme apply candy"'],
         check=True,

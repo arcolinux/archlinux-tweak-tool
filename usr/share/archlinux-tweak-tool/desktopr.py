@@ -5,7 +5,7 @@
 import datetime
 import numpy as np
 from gi.repository import GLib, Gtk  # noqa
-import Functions as fn
+import functions as fn
 
 # import Settings
 # import gi
@@ -50,7 +50,7 @@ desktops = [
     "xmonad",
 ]
 pkexec = ["pkexec", "pacman", "-S", "--needed", "--noconfirm", "--ask=4"]
-pkexec_reinstall = ["pkexec", "pacman", "-S", "--noconfirm"]
+pkexec_reinstall = ["pkexec", "pacman", "-S", "--noconfirm", "--ask=4"]
 copy = ["cp", "-Rv"]
 
 # =================================================================
@@ -1229,30 +1229,31 @@ if fn.distr != "arcolinux":
 
 
 def check_desktop(desktop):
+    """check if desktop is installed"""
     # /usr/share/xsessions/xfce.desktop
     lst = fn.listdir("/usr/share/xsessions/")
-    for x in lst:
-        if desktop + ".desktop" == x:
+    for xsession in lst:
+        if desktop + ".desktop" == xsession:
             return True
-
     return False
 
 
-def check_lock(self, state):
+def check_lock(self, desktop, state):
+    """check pacman lock"""
     if fn.path.isfile("/var/lib/pacman/db.lck"):
-        md = Gtk.MessageDialog(
+        mess_dialog = Gtk.MessageDialog(
             parent=self,
             flags=0,
             message_type=Gtk.MessageType.INFO,
             buttons=Gtk.ButtonsType.YES_NO,
             text="Lock File Found",
         )
-        md.format_secondary_markup(
+        mess_dialog.format_secondary_markup(
             "pacman lock file found, do you want to remove it and continue?"
         )  # noqa
 
-        result = md.run()
-        md.destroy()
+        result = mess_dialog.run()
+        mess_dialog.destroy()
 
         if result in (Gtk.ResponseType.OK, Gtk.ResponseType.YES):
             fn.unlink("/var/lib/pacman/db.lck")
@@ -1274,7 +1275,8 @@ def check_lock(self, state):
     return False
 
 
-def check_package(self, path, package):
+def check_package_and_remove(self, path, package):
+    """remove a package if exists"""
     if fn.path.isfile(path + "/" + package):
         with fn.subprocess.Popen(
             ["sh", "-c", "yes | pkexec pacman -R " + package],
@@ -1317,7 +1319,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "budgie-desktop":
-        check_package(self, "/usr/bin", "catfish")
+        check_package_and_remove(self, "/usr/bin", "catfish")
         command = budgie
     elif desktop == "cutefish-xsession":
         command = cutefish
@@ -1333,7 +1335,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "deepin":
-        check_package(self, "/usr/bin", "qt5ct")
+        check_package_and_remove(self, "/usr/bin", "qt5ct")
         command = deepin
     elif desktop == "dusk":
         command = list(np.append(dusk, default_app))
@@ -1395,7 +1397,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/picom.conf")
         twm = True
     elif desktop == "plasma":
-        check_package(self, "/usr/bin", "qt5ct")
+        check_package_and_remove(self, "/usr/bin", "qt5ct")
         command = plasma
         src.append("/etc/skel/.config")
         src.append("/etc/skel/.local/share")
@@ -1426,7 +1428,6 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.xmonad")
         src.append("/etc/skel/.config/polybar")
         twm = True
-    # fn.subprocess.call(list(np.append(pkexec, command)))
 
     GLib.idle_add(self.desktopr_prog.set_fraction, 0.2)
 

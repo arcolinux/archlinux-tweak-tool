@@ -2,11 +2,12 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
-import Functions as fn
-from Functions import GLib
+import functions as fn
+from functions import GLib
 
 
 def choose_nsswitch(self):
+    """choose a nsswitch"""
     choice = self.nsswitch_choices.get_active_text()
 
     # options = ['ArcoLinux', 'Garuda', 'Arch Linux', 'EndeavourOS']
@@ -33,6 +34,7 @@ def choose_nsswitch(self):
 
 
 def choose_smb_conf(self):
+    """choose_smb_conf"""
     choice = self.samba_choices.get_active_text()
 
     # options_samba = ['ArcoLinux', 'Example', 'Original']
@@ -66,6 +68,7 @@ def choose_smb_conf(self):
 
 
 def create_samba_user(self):
+    """create a new user for samba"""
 
     username = fn.sudo_username
     # password = self.entry_password.get_text()
@@ -90,14 +93,15 @@ def create_samba_user(self):
                 self,
                 "Created a password for the current user",
             )
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
     else:
         print("First fill in your username")
         GLib.idle_add(fn.show_in_app_notification, self, "First fill in your username")
 
 
 def delete_samba_user(self):
+    """delete a samba user"""
 
     username = self.samba_users.get_active_text()
 
@@ -121,7 +125,8 @@ def delete_samba_user(self):
 
 
 def delete_user(self):
-
+    """delete user"""
+    # TODO: double - to functions?
     username = self.samba_users.get_active_text()
 
     if username:
@@ -134,6 +139,7 @@ def delete_user(self):
 
 
 def restart_smb(self):
+    """restart samba"""
 
     if fn.check_service("smb"):
         restart = "systemctl restart smb"

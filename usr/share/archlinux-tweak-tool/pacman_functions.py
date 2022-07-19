@@ -2,20 +2,20 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
-import Functions as fn
+import functions as fn
 
 
 def append_repo(self, text):
+    """Append a new repo"""
     with open(fn.pacman, "a", encoding="utf-8") as myfile:
         myfile.write("\n\n")
         myfile.write(text)
 
     fn.show_in_app_notification(self, "Settings Saved Successfully")
 
-    # MessageBox(self, "Success!!", "Settings applied successfully")
-
 
 def append_mirror(self, text):
+    """Append a new mirror"""
     with open(fn.arcolinux_mirrorlist, "a", encoding="utf-8") as myfile:
         myfile.write("\n\n")
         myfile.write(text)
@@ -24,6 +24,7 @@ def append_mirror(self, text):
 
 
 def insert_repo(self, text):
+    """insert a repo"""
     with open(fn.pacman, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
@@ -38,6 +39,7 @@ def insert_repo(self, text):
 
 
 def check_repo(value):
+    """check if repo is there and active"""
     with open(fn.pacman, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
@@ -52,6 +54,7 @@ def check_repo(value):
 
 
 def check_mirror(value):
+    """check if mirror is there and active"""
     with open(fn.arcolinux_mirrorlist, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
@@ -66,6 +69,7 @@ def check_mirror(value):
 
 
 def repo_exist(value):
+    """check repo_exists"""
     with open(fn.pacman, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
@@ -77,6 +81,7 @@ def repo_exist(value):
 
 
 def mirror_exist(value):
+    """check mirror exists"""
     with open(fn.arcolinux_mirrorlist, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
@@ -88,6 +93,7 @@ def mirror_exist(value):
 
 
 def pacman_on(repo, lines, i, line):
+    """set pacman on a given repo"""
     if repo in line:
         lines[i] = line.replace("#", "")
         if (i + 1) < len(lines):
@@ -97,6 +103,7 @@ def pacman_on(repo, lines, i, line):
 
 
 def mirror_on(mirror, lines, i, line):
+    """set mirror on"""
     if mirror in line:
         lines[i] = line.replace("#", "")
         if (i + 1) < len(lines):
@@ -106,6 +113,7 @@ def mirror_on(mirror, lines, i, line):
 
 
 def pacman_off(repo, lines, i, line):
+    """set pacman off"""
     if repo in line:
         if "#" not in lines[i]:
             lines[i] = line.replace(lines[i], "#" + lines[i])
@@ -118,20 +126,14 @@ def pacman_off(repo, lines, i, line):
 
 
 def mirror_off(mirror, lines, i, line):
+    """set mirror off"""
     if mirror in line:
         if "#" not in lines[i]:
             lines[i] = line.replace(lines[i], "#" + lines[i])
-        # if (i+1) < len(lines):
-        #     if "#" not in lines[i + 1]:
-        #         lines[i + 1] = lines[i + 1].replace(lines[i + 1],
-        #                                             "#" + lines[i + 1])
-        # if (i+2) < len(lines) and "Include" in lines[i+2]:
-        #     if "#" not in lines[i + 2]:
-        #         lines[i + 2] = lines[i + 2].replace(lines[i + 2],
-        #                                             "#" + lines[i + 2])
 
 
 def spin_on(repo, lines, i, line):
+    """set spin on repo"""
     if repo in line:
         lines[i] = line.replace("#", "")
         if (i + 1) < len(lines):
@@ -141,6 +143,7 @@ def spin_on(repo, lines, i, line):
 
 
 def spin_off(repo, lines, i, line):
+    """set spin off"""
     if repo in line:
         if "#" not in lines[i]:
             lines[i] = line.replace(lines[i], "#" + lines[i])
@@ -152,7 +155,8 @@ def spin_off(repo, lines, i, line):
                 lines[i + 2] = lines[i + 2].replace(lines[i + 2], "#" + lines[i + 2])
 
 
-def toggle_test_repos(self, state, widget):  # noqa
+def toggle_test_repos(self, state, widget):
+    """toggle test repo"""
     if not fn.os.path.isfile(fn.pacman + ".bak"):
         fn.shutil.copy(fn.pacman, fn.pacman + ".bak")
     lines = ""
@@ -161,6 +165,7 @@ def toggle_test_repos(self, state, widget):  # noqa
             lines = f.readlines()
             f.close()
         try:
+            # TODO enumerate
             for i in range(0, len(lines)):
                 line = lines[i]
                 if widget == "chaotics":
@@ -204,18 +209,19 @@ def toggle_test_repos(self, state, widget):  # noqa
                 # lines = f.readlines()
                 f.writelines(lines)
                 f.close()
-        except Exception as e:
-            print(e)
-            fn.MessageBox(
+        except Exception as error:
+            print(error)
+            fn.messagebox(
                 self,
                 "ERROR!!",
                 "An error has occurred setting this setting 'toggle_test_repos On'",
-            )  # noqa
+            )
     else:
         with open(fn.pacman, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
         try:
+            # TODO enumerate
             for i in range(0, len(lines)):
                 line = lines[i]
                 if widget == "chaotics":
@@ -258,15 +264,16 @@ def toggle_test_repos(self, state, widget):  # noqa
             with open(fn.pacman, "w", encoding="utf-8") as f:
                 f.writelines(lines)
                 f.close()
-        except:  # noqa
-            fn.MessageBox(
+        except:
+            fn.messagebox(
                 self,
                 "ERROR!!",
                 "An error has occurred setting this setting 'toggle_test_repos Off'",
-            )  # noqa
+            )
 
 
-def toggle_mirrorlist(self, state, widget):  # noqa
+def toggle_mirrorlist(self, state, widget):
+    """toggle mirrorlist"""
     if not fn.os.path.isfile(fn.arcolinux_mirrorlist + ".bak"):
         fn.shutil.copy(fn.arcolinux_mirrorlist, fn.arcolinux_mirrorlist + ".bak")
     lines = ""
@@ -275,6 +282,7 @@ def toggle_mirrorlist(self, state, widget):  # noqa
             lines = f.readlines()
             f.close()
         try:
+            # TODO enumerate
             for i in range(0, len(lines)):
                 line = lines[i]
                 if widget == "arco_mirror_seed":
@@ -345,18 +353,19 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                 # lines = f.readlines()
                 f.writelines(lines)
                 f.close()
-        except Exception as e:
-            print(e)
-            fn.MessageBox(
+        except Exception as error:
+            print(error)
+            fn.messagebox(
                 self,
                 "ERROR!!",
                 "An error has occurred setting this setting 'toggle_test_repos On'",
-            )  # noqa
+            )
     else:
         with open(fn.arcolinux_mirrorlist, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
         try:
+            # TODO enumerate
             for i in range(0, len(lines)):
                 line = lines[i]
 
@@ -427,9 +436,9 @@ def toggle_mirrorlist(self, state, widget):  # noqa
             with open(fn.arcolinux_mirrorlist, "w", encoding="utf-8") as f:
                 f.writelines(lines)
                 f.close()
-        except:  # noqa
-            fn.MessageBox(
+        except:
+            fn.messagebox(
                 self,
                 "ERROR!!",
                 "An error has occurred setting this setting 'toggle_test_repos Off'",
-            )  # noqa
+            )

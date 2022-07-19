@@ -3,7 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack7, termite):
+def gui(self, Gtk, vboxStack7, termite):
+    """create a gui"""
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -86,7 +87,7 @@ def GUI(self, Gtk, vboxStack7, termite):
     label27 = Gtk.Label()
     label27.set_markup(
         "Choose your <b>Xfce4-terminal</b> theme in the preferences,\
-        colors, presets of Xfce4-terminal"
+colors, presets of Xfce4-terminal"
     )
     hbox27.pack_start(label27, False, False, 10)
 

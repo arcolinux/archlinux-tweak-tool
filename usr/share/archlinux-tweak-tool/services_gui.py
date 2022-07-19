@@ -3,8 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack14, fn):
-
+def gui(self, Gtk, vboxstack14, fn):
+    """create a gui"""
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_label = Gtk.Label(xalign=0)
     hbox1_label.set_text("Services")
@@ -17,12 +17,12 @@ def GUI(self, Gtk, vboxStack14, fn):
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
-    vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    # vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    # vboxStack5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    # vboxStack6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    # vboxstack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    # vboxstack5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    # vboxstack6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -325,39 +325,39 @@ All computers in your network must have a unique name /etc/hostname"
     hbox95.pack_end(restart_smb, False, False, 10)
 
     # network
-    vboxStack1.pack_start(hbox2, False, False, 10)
-    vboxStack1.pack_start(hbox3, False, False, 0)
-    vboxStack1.pack_start(hbox30, False, False, 0)
+    vboxstack1.pack_start(hbox2, False, False, 10)
+    vboxstack1.pack_start(hbox3, False, False, 0)
+    vboxstack1.pack_start(hbox30, False, False, 0)
     if fn.check_service("firewalld"):
-        vboxStack1.pack_end(hbox92, False, False, 10)
-    vboxStack1.pack_end(hbox91, False, False, 10)
-    vboxStack1.pack_end(hbox93, False, False, 10)
+        vboxstack1.pack_end(hbox92, False, False, 10)
+    vboxstack1.pack_end(hbox91, False, False, 10)
+    vboxstack1.pack_end(hbox93, False, False, 10)
 
     # samba easy
-    vboxStack2.pack_start(hbox_header_samba, False, False, 10)
-    vboxStack2.pack_start(hbox4, False, False, 0)
-    vboxStack2.pack_start(hbox4bis, False, False, 0)
-    vboxStack2.pack_start(hbox5, False, False, 0)
-    vboxStack2.pack_start(hbox16, False, False, 10)
-    vboxStack2.pack_start(hbox18, False, False, 10)
-    vboxStack2.pack_end(hbox19, False, False, 10)
+    vboxstack2.pack_start(hbox_header_samba, False, False, 10)
+    vboxstack2.pack_start(hbox4, False, False, 0)
+    vboxstack2.pack_start(hbox4bis, False, False, 0)
+    vboxstack2.pack_start(hbox5, False, False, 0)
+    vboxstack2.pack_start(hbox16, False, False, 10)
+    vboxstack2.pack_start(hbox18, False, False, 10)
+    vboxstack2.pack_end(hbox19, False, False, 10)
 
     # samba advanced
-    vboxStack3.pack_start(hbox15, False, False, 10)
-    vboxStack3.pack_start(hbox14, False, False, 10)
-    vboxStack3.pack_start(hbox17, False, False, 10)
-    vboxStack3.pack_start(hbox6, False, False, 0)
-    vboxStack3.pack_start(hbox7, False, False, 0)
-    vboxStack3.pack_start(hbox8, False, False, 0)
-    vboxStack3.pack_start(hbox9, False, False, 0)
-    vboxStack3.pack_start(hbox10, False, False, 0)
-    vboxStack3.pack_start(hbox11, False, False, 0)
-    vboxStack3.pack_start(hbox12, False, False, 0)
-    vboxStack3.pack_start(hbox13, False, False, 0)
+    vboxstack3.pack_start(hbox15, False, False, 10)
+    vboxstack3.pack_start(hbox14, False, False, 10)
+    vboxstack3.pack_start(hbox17, False, False, 10)
+    vboxstack3.pack_start(hbox6, False, False, 0)
+    vboxstack3.pack_start(hbox7, False, False, 0)
+    vboxstack3.pack_start(hbox8, False, False, 0)
+    vboxstack3.pack_start(hbox9, False, False, 0)
+    vboxstack3.pack_start(hbox10, False, False, 0)
+    vboxstack3.pack_start(hbox11, False, False, 0)
+    vboxstack3.pack_start(hbox12, False, False, 0)
+    vboxstack3.pack_start(hbox13, False, False, 0)
 
     # bottom
-    vboxStack2.pack_end(hbox95, False, False, 10)
-    vboxStack2.pack_end(hbox94, False, False, 10)
+    vboxstack2.pack_end(hbox95, False, False, 10)
+    vboxstack2.pack_end(hbox94, False, False, 10)
 
     # ==================================================================
     #                       PRINTING TAB
@@ -374,16 +374,16 @@ All computers in your network must have a unique name /etc/hostname"
     # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
-    stack.add_titled(vboxStack1, "stack1", "Network")
-    stack.add_titled(vboxStack2, "stack2", "Samba")
-    # stack.add_titled(vboxStack3, "stack3", "Samba Advanced")
-    # stack.add_titled(vboxStack4, "stack4", "Printing")
-    # stack.add_titled(vboxStack5, "stack5", "Bluetooth")
-    # stack.add_titled(vboxStack6, "stack6", "Audio")
+    stack.add_titled(vboxstack1, "stack1", "Network")
+    stack.add_titled(vboxstack2, "stack2", "Samba")
+    # stack.add_titled(vboxstack3, "stack3", "Samba Advanced")
+    # stack.add_titled(vboxstack4, "stack4", "Printing")
+    # stack.add_titled(vboxstack5, "stack5", "Bluetooth")
+    # stack.add_titled(vboxstack6, "stack6", "Audio")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)
 
-    vboxStack14.pack_start(hbox1, False, False, 0)
-    vboxStack14.pack_start(hbox0, False, False, 0)
-    vboxStack14.pack_start(vbox, True, True, 0)
+    vboxstack14.pack_start(hbox1, False, False, 0)
+    vboxstack14.pack_start(hbox0, False, False, 0)
+    vboxstack14.pack_start(vbox, True, True, 0)

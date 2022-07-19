@@ -3,7 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack3, fn):
+def gui(self, Gtk, vboxstack3, fn):
+    """create a gui"""
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Privacy/Security")
@@ -86,13 +87,13 @@ by blocking ads, tracking and malware domains"
     #                      VSTACK
     # ==========================================================
 
-    vboxStack3.pack_start(hbox3, False, False, 0)
-    vboxStack3.pack_start(hbox4, False, False, 0)
-    vboxStack3.pack_start(hbox8, False, False, 0)
-    vboxStack3.pack_start(hbox11, False, False, 0)
-    vboxStack3.pack_start(hbox7, False, False, 0)
-    vboxStack3.pack_start(hbox9, False, False, 0)
-    vboxStack3.pack_start(hbox10, False, False, 0)
+    vboxstack3.pack_start(hbox3, False, False, 0)
+    vboxstack3.pack_start(hbox4, False, False, 0)
+    vboxstack3.pack_start(hbox8, False, False, 0)
+    vboxstack3.pack_start(hbox11, False, False, 0)
+    vboxstack3.pack_start(hbox7, False, False, 0)
+    vboxstack3.pack_start(hbox9, False, False, 0)
+    vboxstack3.pack_start(hbox10, False, False, 0)
 
-    vboxStack3.pack_end(self.progress, False, False, 0)
-    vboxStack3.pack_end(self.label7, False, False, 0)
+    vboxstack3.pack_end(self.progress, False, False, 0)
+    vboxstack3.pack_end(self.label7, False, False, 0)

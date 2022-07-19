@@ -2,15 +2,16 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 import numpy as np
-import Functions as fn
-import Settings
+import functions as fn
+import settings
 
 # ====================================================================
-#                       TERMITE
+#                       TERMINALS
 # ====================================================================
 
 
-def get_themes(combo):  # noqa
+def get_themes(combo):
+    """get themes"""
     if fn.path.isdir(fn.home + "/.config/termite/themes/"):
         combo.get_model().clear()
         themes = fn.listdir(fn.home + "/.config/termite/themes/")
@@ -35,22 +36,20 @@ def get_themes(combo):  # noqa
             coms.sort()
 
             if fn.path.isfile(fn.config):
-                themes = Settings.read_settings("TERMITE", "theme")
+                themes = settings.read_settings("TERMITE", "theme")
                 if len(themes) > 1:
                     active = themes
-
+            # TODO:enumerate
             for i in range(len(coms)):
                 combo.append_text(coms[i])
                 if active == coms[i]:
                     combo.set_active(i)
-        except:  # noqa
-
+        except:
             pass
-
-    # print(lines[fn.get_position(lines, "[colors]") + 1])
 
 
 def get_config():
+    """get configuration"""
     if fn.path.isfile(fn.termite_config):
         with open(fn.termite_config, "r", encoding="utf-8") as f:
             lists = f.readlines()
@@ -66,6 +65,7 @@ def get_config():
 
 
 def set_config(self, theme):
+    """set configuration"""
     if not fn.path.isfile(fn.termite_config + ".bak"):
         fn.shutil.copy(fn.termite_config, fn.termite_config + ".bak")
 
@@ -89,8 +89,8 @@ def set_config(self, theme):
 
             fn.show_in_app_notification(self, "Settings Saved Successfully")
         if fn.path.isfile(fn.config):
-            Settings.write_settings("TERMITE", "theme", theme)
+            settings.write_settings("TERMITE", "theme", theme)
 
-    except Exception as e:
-        print(e)
-        fn.MessageBox(self, "Error!!", "Something went wrong setting this theme.")
+    except Exception as error:
+        print(error)
+        fn.messagebox(self, "Error!!", "Something went wrong setting this theme.")

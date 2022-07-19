@@ -3,8 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack22, sddm, lightdm, lxdm, fn, login):
-
+def gui(self, Gtk, vboxstack22, sddm, lightdm, lxdm, fn, login):
+    """create a gui"""
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_lbl = Gtk.Label(xalign=0)
     hbox1_lbl.set_markup("Login Managers")
@@ -17,10 +17,10 @@ def GUI(self, Gtk, vboxStack22, sddm, lightdm, lxdm, fn, login):
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
-    vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -183,24 +183,24 @@ backup your files"
         #                              PACK TO STACK
         # ======================================================================
 
-        vboxStack1.pack_start(hbox4, False, False, 0)
-        vboxStack1.pack_start(hbox5, False, False, 0)
-        vboxStack1.pack_start(hbox14, False, False, 0)
-        vboxStack1.pack_start(hbox13, False, False, 0)
-        vboxStack1.pack_start(hbox05, False, False, 0)
+        vboxstack1.pack_start(hbox4, False, False, 0)
+        vboxstack1.pack_start(hbox5, False, False, 0)
+        vboxstack1.pack_start(hbox14, False, False, 0)
+        vboxstack1.pack_start(hbox13, False, False, 0)
+        vboxstack1.pack_start(hbox05, False, False, 0)
 
         if fn.path.isfile(fn.sddm_default_d2):
-            vboxStack1.pack_start(hbox, False, False, 0)
-            vboxStack1.pack_start(hbox3, False, False, 0)
-            vboxStack1.pack_start(hbox18, False, False, 0)
-            vboxStack1.pack_start(hbox9, False, False, 0)
-            vboxStack1.pack_start(hbox11, False, False, 0)
-            vboxStack1.pack_start(hbox12, False, False, 0)
-            vboxStack1.pack_start(hbox16, False, False, 0)
-            vboxStack1.pack_start(hbox28, False, False, 0)
-            vboxStack1.pack_start(hbox17, False, False, 0)
-            vboxStack1.pack_start(hbox15, False, False, 0)
-            vboxStack1.pack_end(hbox90, False, False, 0)
+            vboxstack1.pack_start(hbox, False, False, 0)
+            vboxstack1.pack_start(hbox3, False, False, 0)
+            vboxstack1.pack_start(hbox18, False, False, 0)
+            vboxstack1.pack_start(hbox9, False, False, 0)
+            vboxstack1.pack_start(hbox11, False, False, 0)
+            vboxstack1.pack_start(hbox12, False, False, 0)
+            vboxstack1.pack_start(hbox16, False, False, 0)
+            vboxstack1.pack_start(hbox28, False, False, 0)
+            vboxstack1.pack_start(hbox17, False, False, 0)
+            vboxstack1.pack_start(hbox15, False, False, 0)
+            vboxstack1.pack_end(hbox90, False, False, 0)
 
     else:
         # no sddm installed
@@ -214,17 +214,17 @@ backup your files"
         hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         hbox41.pack_start(hseparator, True, True, 0)
 
-        ls = Gtk.Label()
-        ls.set_markup("<b>Sddm does not seem to be installed</b>")
+        message = Gtk.Label()
+        message.set_markup("<b>Sddm does not seem to be installed</b>")
         install_sddm = Gtk.Button(
             label="Install Sddm - auto reboot - do not forget to enable it"
         )
         install_sddm.connect("clicked", self.on_click_att_sddm_clicked)
 
-        vboxStack1.pack_start(hbox31, False, False, 0)
-        vboxStack1.pack_start(hbox41, False, False, 0)
-        vboxStack1.pack_start(ls, False, False, 0)
-        vboxStack1.pack_start(install_sddm, False, False, 0)
+        vboxstack1.pack_start(hbox31, False, False, 0)
+        vboxstack1.pack_start(hbox41, False, False, 0)
+        vboxstack1.pack_start(message, False, False, 0)
+        vboxstack1.pack_start(install_sddm, False, False, 0)
 
     # ==================================================================
     #                       LIGHTDM
@@ -310,7 +310,7 @@ backup your files"
         hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         self.lbl_slickgreeter = Gtk.Label(xalign=0)
         login.find_slick_greeter_label(self.lbl_slickgreeter)
-        btn_install_slick_greeter = Gtk.Button(label="Install slickgreeter")
+        btn_install_slick_greeter = Gtk.Button(label="Install/enable slickgreeter")
         btn_install_slick_greeter.connect(
             "clicked", self.on_click_install_slick_greeter
         )
@@ -355,7 +355,7 @@ backup your files"
 
         hbox34 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox34_label = Gtk.Label(xalign=0)
-        hbox34_label.set_text("Only the Slickgreeter background color can be set")
+        hbox34_label.set_text("Background color can be set for both")
         self.slick_greeter_color_checkbutton = Gtk.CheckButton(
             label="Select it to use it"
         )
@@ -385,23 +385,23 @@ backup your files"
         # hbox26.pack_end(reset, False, False, 0)
         hbox26.pack_start(enable_lightdm, False, False, 0)
 
-        vboxStack2.pack_start(hbox19, False, False, 0)
-        vboxStack2.pack_start(hbox20, False, False, 0)
-        vboxStack2.pack_start(hbox140, False, False, 0)
-        vboxStack2.pack_start(hbox130, False, False, 0)
-        vboxStack2.pack_start(hbox050, False, False, 0)
-        vboxStack2.pack_start(hbox21, False, False, 0)
-        vboxStack2.pack_start(hbox22, False, False, 0)
-        vboxStack2.pack_start(hbox27, False, False, 0)
-        vboxStack2.pack_start(hbox30, False, False, 0)
-        vboxStack2.pack_start(hbox33, False, False, 0)
-        vboxStack2.pack_start(hbox23, False, False, 0)
-        vboxStack2.pack_start(hbox29, False, False, 0)
-        vboxStack2.pack_start(hbox35, False, False, 0)
-        vboxStack2.pack_start(hbox34, False, False, 0)
-        vboxStack2.pack_start(hbox25, False, False, 0)
-        vboxStack2.pack_end(hbox26, False, False, 0)
-        vboxStack2.pack_start(hbox24, False, False, 0)
+        vboxstack2.pack_start(hbox19, False, False, 0)
+        vboxstack2.pack_start(hbox20, False, False, 0)
+        vboxstack2.pack_start(hbox140, False, False, 0)
+        vboxstack2.pack_start(hbox130, False, False, 0)
+        vboxstack2.pack_start(hbox050, False, False, 0)
+        vboxstack2.pack_start(hbox21, False, False, 0)
+        vboxstack2.pack_start(hbox22, False, False, 0)
+        vboxstack2.pack_start(hbox27, False, False, 0)
+        vboxstack2.pack_start(hbox30, False, False, 0)
+        vboxstack2.pack_start(hbox33, False, False, 0)
+        vboxstack2.pack_start(hbox23, False, False, 0)
+        vboxstack2.pack_start(hbox29, False, False, 0)
+        vboxstack2.pack_start(hbox35, False, False, 0)
+        vboxstack2.pack_start(hbox34, False, False, 0)
+        vboxstack2.pack_start(hbox25, False, False, 0)
+        vboxstack2.pack_end(hbox26, False, False, 0)
+        vboxstack2.pack_start(hbox24, False, False, 0)
 
     else:
         # no lightdm installed
@@ -415,19 +415,19 @@ backup your files"
         hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         hbox41.pack_start(hseparator, True, True, 0)
 
-        vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        vboxStack2.pack_start(hbox32, False, False, 0)
-        vboxStack2.pack_start(hbox41, False, False, 0)
-        ls = Gtk.Label()
-        ls.set_markup("<b>Lightdm does not seem to be installed</b>")
+        vboxstack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        vboxstack2.pack_start(hbox32, False, False, 0)
+        vboxstack2.pack_start(hbox41, False, False, 0)
+        message = Gtk.Label()
+        message.set_markup("<b>Lightdm does not seem to be installed</b>")
 
         install_lightdm = Gtk.Button(
             label="Install Lightdm - auto reboot - do not forget to enable it"
         )
         install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked)
 
-        vboxStack2.pack_start(ls, False, False, 0)
-        vboxStack2.pack_start(install_lightdm, False, False, 0)
+        vboxstack2.pack_start(message, False, False, 0)
+        vboxstack2.pack_start(install_lightdm, False, False, 0)
 
     # ==================================================================
     #                       LXDM
@@ -551,20 +551,20 @@ backup your files"
         # hbox58.pack_end(reset, False, False, 0)
         hbox58.pack_start(enable_lxdm, False, False, 0)
 
-        vboxStack3.pack_start(hbox50, False, False, 0)
-        vboxStack3.pack_start(hbox51, False, False, 0)
-        vboxStack3.pack_start(hbox160, False, False, 0)
-        vboxStack3.pack_start(hbox170, False, False, 0)
-        vboxStack3.pack_start(hbox180, False, False, 0)
-        vboxStack3.pack_start(hbox52, False, False, 0)
-        # vboxStack3.pack_start(hbox53, False, False, 0)
-        vboxStack3.pack_start(hbox54, False, False, 0)
-        vboxStack3.pack_start(hbox55, False, False, 0)
-        vboxStack3.pack_start(hbox57, False, False, 0)
-        vboxStack3.pack_start(hbox59, False, False, 0)
-        vboxStack3.pack_start(hbox62, False, False, 0)
-        vboxStack3.pack_start(hbox56, False, False, 0)
-        vboxStack3.pack_end(hbox58, False, False, 0)
+        vboxstack3.pack_start(hbox50, False, False, 0)
+        vboxstack3.pack_start(hbox51, False, False, 0)
+        vboxstack3.pack_start(hbox160, False, False, 0)
+        vboxstack3.pack_start(hbox170, False, False, 0)
+        vboxstack3.pack_start(hbox180, False, False, 0)
+        vboxstack3.pack_start(hbox52, False, False, 0)
+        # vboxstack3.pack_start(hbox53, False, False, 0)
+        vboxstack3.pack_start(hbox54, False, False, 0)
+        vboxstack3.pack_start(hbox55, False, False, 0)
+        vboxstack3.pack_start(hbox57, False, False, 0)
+        vboxstack3.pack_start(hbox59, False, False, 0)
+        vboxstack3.pack_start(hbox62, False, False, 0)
+        vboxstack3.pack_start(hbox56, False, False, 0)
+        vboxstack3.pack_end(hbox58, False, False, 0)
 
     else:
         # no lxdm installed
@@ -578,19 +578,19 @@ backup your files"
         hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         hbox61.pack_start(hseparator, True, True, 0)
 
-        vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        vboxStack3.pack_start(hbox60, False, False, 0)
-        vboxStack3.pack_start(hbox61, False, False, 0)
-        ls = Gtk.Label()
-        ls.set_markup("<b>Lxdm does not seem to be installed</b>")
+        vboxstack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        vboxstack3.pack_start(hbox60, False, False, 0)
+        vboxstack3.pack_start(hbox61, False, False, 0)
+        message = Gtk.Label()
+        message.set_markup("<b>Lxdm does not seem to be installed</b>")
 
         install_lxdm = Gtk.Button(
             label="Install Lxdm - auto reboot - do not forget to enable it"
         )
         install_lxdm.connect("clicked", self.on_click_att_lxdm_clicked)
 
-        vboxStack3.pack_start(ls, False, False, 0)
-        vboxStack3.pack_start(install_lxdm, False, False, 0)
+        vboxstack3.pack_start(message, False, False, 0)
+        vboxstack3.pack_start(install_lxdm, False, False, 0)
 
     # ==================================================================
     #                       WALL
@@ -694,31 +694,31 @@ backup your files"
     hbox119.pack_start(login_reset, False, False, 0)
     hbox119.pack_end(login_apply, False, False, 0)
 
-    vboxStack4.pack_start(hbox70, False, False, 0)
-    vboxStack4.pack_start(hbox71, False, False, 0)
-    vboxStack4.pack_start(hbox113, False, False, 0)
-    vboxStack4.pack_start(hbox116, False, False, 0)
-    vboxStack4.pack_start(hbox72, False, False, 0)
-    vboxStack4.pack_start(hbox73, False, False, 0)
-    vboxStack4.pack_start(hbox111, False, False, 0)
-    vboxStack4.pack_start(hbox112, False, False, 0)
-    vboxStack4.pack_start(hbox114, False, False, 0)
-    vboxStack4.pack_start(hbox115, False, False, 0)
-    vboxStack4.pack_start(scrolled, True, True, 0)
-    vboxStack4.pack_end(hbox119, False, False, 0)
+    vboxstack4.pack_start(hbox70, False, False, 0)
+    vboxstack4.pack_start(hbox71, False, False, 0)
+    vboxstack4.pack_start(hbox113, False, False, 0)
+    vboxstack4.pack_start(hbox116, False, False, 0)
+    vboxstack4.pack_start(hbox72, False, False, 0)
+    vboxstack4.pack_start(hbox73, False, False, 0)
+    vboxstack4.pack_start(hbox111, False, False, 0)
+    vboxstack4.pack_start(hbox112, False, False, 0)
+    vboxstack4.pack_start(hbox114, False, False, 0)
+    vboxstack4.pack_start(hbox115, False, False, 0)
+    vboxstack4.pack_start(scrolled, True, True, 0)
+    vboxstack4.pack_end(hbox119, False, False, 0)
 
     # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
     if not fn.distr == "manjaro":
-        stack.add_titled(vboxStack1, "stack1", "SDDM")
-    stack.add_titled(vboxStack2, "stack2", "LIGHTDM")
-    stack.add_titled(vboxStack3, "stack3", "LXDM")
-    stack.add_titled(vboxStack4, "stack4", "WALL")
+        stack.add_titled(vboxstack1, "stack1", "SDDM")
+    stack.add_titled(vboxstack2, "stack2", "LIGHTDM")
+    stack.add_titled(vboxstack3, "stack3", "LXDM")
+    stack.add_titled(vboxstack4, "stack4", "WALL")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)
 
-    vboxStack22.pack_start(hbox1, False, False, 0)
-    vboxStack22.pack_start(hbox0, False, False, 0)
-    vboxStack22.pack_start(vbox, True, True, 0)
+    vboxstack22.pack_start(hbox1, False, False, 0)
+    vboxstack22.pack_start(hbox0, False, False, 0)
+    vboxstack22.pack_start(vbox, True, True, 0)

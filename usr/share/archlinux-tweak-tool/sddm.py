@@ -2,10 +2,12 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
-import Functions as fn
+import functions as fn
 
 
 def check_sddmk_complete():
+    """see all variabeles are there"""
+    # TODO:make nicer function
     try:
         with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
             lines = f.readlines()
@@ -49,6 +51,7 @@ def check_sddmk_complete():
 
 
 def check_sddmk_session(value):
+    """what session in sddm"""
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
@@ -60,6 +63,7 @@ def check_sddmk_session(value):
 
 
 def insert_session(text):
+    """insert session"""
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
@@ -74,6 +78,7 @@ def insert_session(text):
 
 
 def check_sddmk_user(value):
+    """check user"""
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as myfile:
         lines = myfile.readlines()
         myfile.close()
@@ -85,6 +90,7 @@ def check_sddmk_user(value):
 
 
 def insert_user(text):
+    """insert user"""
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
@@ -99,12 +105,14 @@ def insert_user(text):
 
 
 def check_sddm(lists, value):
+    """check value in list"""
     pos = fn.get_position(lists, value)
     val = lists[pos].strip()
     return val
 
 
 def set_sddm_value(self, lists, value, session, state, theme, cursor):
+    """set values in sddm_default_d2"""
     try:
         com = fn.subprocess.run(
             ["sh", "-c", "su - " + fn.sudo_username + " -c groups"],
@@ -142,14 +150,15 @@ def set_sddm_value(self, lists, value, session, state, theme, cursor):
             f.writelines(lists)
             f.close()
 
-    except Exception as e:
-        print(e)
-        fn.MessageBox(
+    except Exception as error:
+        print(error)
+        fn.messagebox(
             self, "Failed!!", 'There seems to have been a problem in "set_sddm_value"'
         )
 
 
 def set_user_autologin_value(self, lists, value, session, state):
+    """set_user_autologin_value in sddm_default_d2"""
     try:
         com = fn.subprocess.run(
             ["sh", "-c", "su - " + fn.sudo_username + " -c groups"],
@@ -184,14 +193,15 @@ def set_user_autologin_value(self, lists, value, session, state):
             f.writelines(lists)
             f.close()
 
-    except Exception as e:
-        print(e)
-        fn.MessageBox(
+    except Exception as error:
+        print(error)
+        fn.messagebox(
             self, "Failed!!", 'There seems to have been a problem in "set_sddm_value"'
         )
 
 
 def get_sddm_lines(files):
+    """get all lines"""
     if fn.path.isfile(files):
         with open(files, "r", encoding="utf-8") as f:
             lines = f.readlines()
@@ -199,12 +209,13 @@ def get_sddm_lines(files):
         return lines
 
 
-def pop_box(self, combos):
-    comss = []
-    combos.get_model().clear()
+def pop_box(self, combo):
+    """populate sddm box"""
+    coms = []
+    combo.get_model().clear()
 
     for items in fn.listdir("/usr/share/xsessions/"):
-        comss.append(items.split(".")[0].lower())
+        coms.append(items.split(".")[0].lower())
     lines = get_sddm_lines(fn.sddm_default_d2)
 
     try:
@@ -212,23 +223,25 @@ def pop_box(self, combos):
     except IndexError:
         name = ""
 
-    comss.sort()
-    if "i3-with-shmlog" in comss:
-        comss.remove("i3-with-shmlog")
-    if "openbox-kde" in comss:
-        comss.remove("openbox-kde")
-    if "cinnamon2d" in comss:
-        comss.remove("cinnamon2d")
-    if "icewm-session" in comss:
-        comss.remove("icewm-session")
+    coms.sort()
+    if "i3-with-shmlog" in coms:
+        coms.remove("i3-with-shmlog")
+    if "openbox-kde" in coms:
+        coms.remove("openbox-kde")
+    if "cinnamon2d" in coms:
+        coms.remove("cinnamon2d")
+    if "icewm-session" in coms:
+        coms.remove("icewm-session")
 
-    for i in range(len(comss)):
-        combos.append_text(comss[i])
-        if name.lower() == comss[i].lower():
-            combos.set_active(i)
+    coms.sort()
+    for i, item in enumerate(coms):
+        combo.append_text(item)
+        if name.lower() == item.lower():
+            combo.set_active(i)
 
 
 def pop_theme_box(self, combo):
+    """populate theme box"""
     coms = []
     combo.get_model().clear()
 
@@ -238,7 +251,6 @@ def pop_theme_box(self, combo):
         and fn.path.exists(fn.sddm_default_d1)
     ):
         for items in fn.listdir("/usr/share/sddm/themes/"):
-            # coms.append(items.split(".")[0].lower())
             coms.append(items.split(".")[0])
         lines = get_sddm_lines(fn.sddm_default_d2)
 
@@ -248,15 +260,14 @@ def pop_theme_box(self, combo):
             name = ""
 
         coms.sort()
-        for i in range(len(coms)):
-            # excludes = ['maya', 'maldives', 'elarun', '']
-            # if not coms[i] in excludes:
-            combo.append_text(coms[i])
-            if name.lower() == coms[i].lower():
+        for i, item in enumerate(coms):
+            combo.append_text(item)
+            if name.lower() == item.lower():
                 combo.set_active(i)
 
 
 def pop_gtk_cursor_names(self, combo):
+    """populate cursor names"""
     coms = []
     combo.get_model().clear()
 
@@ -267,21 +278,20 @@ def pop_gtk_cursor_names(self, combo):
                 coms.sort()
 
         lines = fn.get_lines(fn.sddm_default_d2)
-
-        pos = fn.get_position(lines, "CursorTheme=")
         try:
             cursor_theme = check_sddm(lines, "CursorTheme=").split("=")[1]
         except IndexError:
             cursor_theme = ""
 
         coms.sort()
-        for i in range(len(coms)):
-            combo.append_text(coms[i])
-            if cursor_theme.lower() == coms[i].lower():
+        for i, item in enumerate(coms):
+            combo.append_text(item)
+            if cursor_theme.lower() == item.lower():
                 combo.set_active(i)
 
 
 def pop_login_managers_combo(self, combo):
+    """find with the active loginmanager"""
     options = ["sddm", "lightdm", "lxdm"]
     for option in options:
         self.login_managers_combo.append_text(option)

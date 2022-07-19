@@ -2,10 +2,11 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
-import Functions as fn
+import functions as fn
 
 
 def get_themes(combo):
+    """get themes"""
     if fn.check_package_installed("oh-my-zsh-git"):
         try:
             # lists = [x for x in fn.listdir("/usr/share/oh-my-zsh/themes")]
@@ -19,6 +20,7 @@ def get_themes(combo):
             name = theme_list[pos].split("=")[1].strip().strip('"')
             active = 0
             combo.append_text("random")
+            # TODO:enumerate
             for x in range(len(lists_sorted)):
                 if name in lists_sorted[x].replace(".zsh-theme", ""):
                     active = x + 1  # remember; arrays start at ZERO
@@ -30,11 +32,12 @@ def get_themes(combo):
                 ~/.zshrc in your base home directory (~/.zshrc)"
             )
             print("You may need to reload ATT to set the options in the zsh tab")
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 def set_config(self, theme):
+    """set configuration"""
     try:
         with open(fn.zsh_config, "r", encoding="utf-8") as f:
             theme_list = f.readlines()
@@ -50,6 +53,6 @@ def set_config(self, theme):
 
         fn.show_in_app_notification(self, "Settings Saved Successfully")
 
-    except Exception as e:
-        print(e)
-        fn.MessageBox(self, "Error!!", "Something went wrong setting this theme.")
+    except Exception as error:
+        print(error)
+        fn.messagebox(self, "Error!!", "Something went wrong setting this theme.")

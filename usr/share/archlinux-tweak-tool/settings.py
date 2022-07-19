@@ -1,14 +1,16 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
+# pylint:disable=W0621
 
 import configparser
-from Functions import config
+from functions import config
 
 settings = config
 
 
 def make_file(section, key):
+    """make file"""
     config = configparser.ConfigParser()
     config[section] = key
     with open(settings, "w", encoding="utf-8") as configfile:
@@ -16,6 +18,7 @@ def make_file(section, key):
 
 
 def new_settings(section, key):
+    """new settings"""
     config = configparser.ConfigParser()
     config.read(settings)
     config[section] = key
@@ -25,6 +28,7 @@ def new_settings(section, key):
 
 
 def write_settings(section, key, value):
+    """write settings"""
     config = configparser.ConfigParser()
     config.read(settings)
 
@@ -34,6 +38,7 @@ def write_settings(section, key, value):
 
 
 def read_section():
+    """read section"""
     config = configparser.ConfigParser()
     config.read(settings)
 
@@ -41,6 +46,7 @@ def read_section():
 
 
 def read_settings(section, key):
+    """read settings"""
     config = configparser.ConfigParser()
     config.read(settings)
 
