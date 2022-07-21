@@ -453,7 +453,8 @@ alias ltupd="leftwm-theme update"
 alias ltupg="leftwm-theme upgrade"
 
 #arcolinux applications
-alias att="archlinux-tweak-tool"
+#att is a symbolic link now
+#alias att="archlinux-tweak-tool"
 alias adt="arcolinux-desktop-trasher"
 alias abl="arcolinux-betterlockscreen"
 alias agm="arcolinux-get-mirrors"
