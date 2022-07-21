@@ -3013,24 +3013,9 @@ class Main(Gtk.Window):
 
     def on_click_switch_to_pulseaudio(self, widget):
         print("Installing pulseaudio")
-        # blueberry_installed = False
 
-        # # check what is installed and remember
-        # if fn.check_package_installed("blueberry"):
-        #     blueberry_installed = True
-        #     fn.remove_package_s(self, "blueberry")
-
-        # if fn.check_package_installed("wireplumber"):
-        #     fn.remove_package_s(self, "wireplumber")
-
-        # if fn.check_package_installed("pipewire-pulse"):
-        #     fn.remove_package_dd(self, "pipewire-pulse")
-
-        # if fn.check_package_installed("pipewire-alsa"):
-        #     fn.remove_package_s(self, "pipewire-alsa")
-
-        # if fn.check_package_installed("pipewire-zeroconf"):
-        #     fn.remove_package_s(self, "pipewire-zeroconf")
+        # if fn.distr == "manjaro":
+        #     fn.remove_package_dd(self, "manjaro-pulse")
 
         if fn.check_package_installed("pipewire-pulse"):
             fn.remove_package_dd(self, "pipewire-pulse")
@@ -3069,20 +3054,7 @@ class Main(Gtk.Window):
         blueberry_installed = False
 
         try:
-            # check what is installed and remember
-            # if fn.check_package_installed("blueberry"):
-            #     blueberry_installed = True
-            #     fn.remove_package_ss(self, "blueberry")
 
-            # if fn.check_package_installed("pulseaudio-bluetooth"):
-            #     blueberry_installed = True
-            #     fn.remove_package_dd(self, "blueberry")
-
-            # if fn.check_package_installed("pulseaudio-alsa"):
-            #     fn.remove_package(self, "pulseaudio-alsa")
-
-            # if fn.check_package_installed("pulseaudio"):
-            #     fn.remove_package_s(self, "pulseaudio")
 
             if fn.check_package_installed("pulseaudio"):
                 fn.remove_package_dd(self, "pulseaudio")
