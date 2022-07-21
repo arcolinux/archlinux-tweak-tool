@@ -2837,7 +2837,7 @@ class Main(Gtk.Window):
         sddm.pop_theme_box(self, self.theme_sddm)
 
     def on_click_remove_sddm_themes(self, widget):
-        fn.remove_package_dep(self, "arcolinux-meta-sddm-themes")
+        fn.remove_package_s(self, "arcolinux-meta-sddm-themes")
         if self.keep_default_theme.get_active() is True:
             fn.install_arco_package(self, "arcolinux-sddm-simplicity-git")
         fn.remove_package_remnants("arcolinux-meta-sddm-themes")
@@ -3006,6 +3006,272 @@ class Main(Gtk.Window):
         fn.uninstall_samba(self)
         print("Samba has been successfully uninstalled")
         fn.show_in_app_notification(self, "Samba has been successfully uninstalled")
+
+    # ====================================================================
+    #                       SERVICES - AUDIO
+    # ====================================================================
+
+    def on_click_switch_to_pulseaudio(self, widget):
+        print("Installing pulseaudio")
+        # blueberry_installed = False
+
+        # # check what is installed and remember
+        # if fn.check_package_installed("blueberry"):
+        #     blueberry_installed = True
+        #     fn.remove_package_s(self, "blueberry")
+
+        # if fn.check_package_installed("wireplumber"):
+        #     fn.remove_package_s(self, "wireplumber")
+
+        # if fn.check_package_installed("pipewire-pulse"):
+        #     fn.remove_package_dd(self, "pipewire-pulse")
+
+        # if fn.check_package_installed("pipewire-alsa"):
+        #     fn.remove_package_s(self, "pipewire-alsa")
+
+        # if fn.check_package_installed("pipewire-zeroconf"):
+        #     fn.remove_package_s(self, "pipewire-zeroconf")
+
+        if fn.check_package_installed("pipewire-pulse"):
+            fn.remove_package_dd(self, "pipewire-pulse")
+            fn.remove_package_dd(self, "wireplumber")
+
+        try:
+            fn.install_package(self, "pulseaudio")  # conflicts with pipewire-pulse
+            fn.install_package(
+                self, "pulseaudio-bluetooth"
+            )  # conflicts with pipewire-pulse
+            fn.install_package(self, "pulseaudio-alsa")
+
+            fn.install_package(self, "pavucontrol")
+
+            fn.install_package(self, "alsa-utils")
+            fn.install_package(self, "alsa-plugins")
+            fn.install_package(self, "alsa-lib")
+            fn.install_package(self, "alsa-firmware")
+            fn.install_package(self, "gstreamer")
+            fn.install_package(self, "gst-plugins-good")
+            fn.install_package(self, "gst-plugins-bad")
+            fn.install_package(self, "gst-plugins-base")
+            fn.install_package(self, "gst-plugins-ugly")
+
+            # if blueberry_installed:
+            #     fn.install_package(self, "blueberry")
+
+            # add line for autoconnect
+            services.add_autoconnect_pulseaudio(self)
+
+        except Exception as error:
+            print(error)
+
+    def on_click_switch_to_pipewire(self, widget):
+        print("Installing pipewire")
+        blueberry_installed = False
+
+        try:
+            # check what is installed and remember
+            # if fn.check_package_installed("blueberry"):
+            #     blueberry_installed = True
+            #     fn.remove_package_ss(self, "blueberry")
+
+            # if fn.check_package_installed("pulseaudio-bluetooth"):
+            #     blueberry_installed = True
+            #     fn.remove_package_dd(self, "blueberry")
+
+            # if fn.check_package_installed("pulseaudio-alsa"):
+            #     fn.remove_package(self, "pulseaudio-alsa")
+
+            # if fn.check_package_installed("pulseaudio"):
+            #     fn.remove_package_s(self, "pulseaudio")
+
+            if fn.check_package_installed("pulseaudio"):
+                fn.remove_package_dd(self, "pulseaudio")
+                fn.remove_package_dd(self, "pulseaudio-bluetooth")
+
+            fn.install_package(self, "pipewire")
+            fn.install_package(
+                self, "pipewire-pulse"
+            )  # contains wireplumber - conflicts with pulseaudio and pulseaudio-bluetooth
+            fn.install_package(self, "pipewire-alsa")
+            # fn.install_package(self, "pipewire-jack")
+            # fn.install_package(self, "pipewire-zeroconf")
+
+            fn.install_package(self, "pavucontrol")
+
+            fn.install_package(self, "alsa-utils")
+            fn.install_package(self, "alsa-plugins")
+            fn.install_package(self, "alsa-lib")
+            fn.install_package(self, "alsa-firmware")
+            fn.install_package(self, "gstreamer")
+            fn.install_package(self, "gst-plugins-good")
+            fn.install_package(self, "gst-plugins-bad")
+            fn.install_package(self, "gst-plugins-base")
+            fn.install_package(self, "gst-plugins-ugly")
+
+            if blueberry_installed:
+                fn.install_package(self, "blueberry")
+
+        except Exception as error:
+            print(error)
+
+    # ====================================================================
+    #                       SERVICES - BLUETOOTH
+    # ====================================================================
+    # applications
+    def on_click_install_bluetooth(self, widget):
+        print("Installing bluetooth")
+        fn.install_package(self, "bluez")
+        fn.install_package(self, "bluez-utils")
+        if fn.check_package_installed("bluez"):
+            self.enable_bt.set_sensitive(True)
+            self.disable_bt.set_sensitive(True)
+            self.restart_bt.set_sensitive(True)
+
+    def on_click_remove_bluetooth(self, widget):
+        print("Removing bluez")
+        fn.remove_package_dd(self, "bluez")
+        fn.remove_package_dd(self, "bluez-utils")
+        if not fn.check_package_installed("bluez"):
+            self.enable_bt.set_sensitive(False)
+            self.disable_bt.set_sensitive(False)
+            self.restart_bt.set_sensitive(False)
+
+    # def on_click_install_gnome_bt(self, widget):
+    #     print("Installing gnome-bluetooth")
+    #     fn.install_package(self, "gnome-bluetooth")
+
+    # def on_click_remove_gnome_bt(self, widget):
+    #     print("Removing gnome-bluetooth")
+    #     fn.remove_package_dd(self, "gnome-bluetooth")
+
+    def on_click_install_blueberry(self, widget):
+        print("Installing blueberry")
+        fn.install_package(self, "blueberry")
+
+    def on_click_remove_blueberry(self, widget):
+        print("Removing blueberry")
+        fn.remove_package(self, "blueberry")
+
+    def on_click_install_blueman(self, widget):
+        print("Installing blueman")
+        fn.install_package(self, "blueman")
+
+    def on_click_remove_blueman(self, widget):
+        print("Removing blueman")
+        fn.remove_package(self, "blueman")
+
+    def on_click_install_bluedevil(self, widget):
+        print("Installing bluedevil")
+        fn.install_package(self, "bluedevil")
+
+    def on_click_remove_bluedevil(self, widget):
+        print("Removing bluedevil")
+        fn.remove_package_s(self, "bluedevil")
+
+    # service
+    def on_click_enable_bluetooth(self, widget):
+        print("Enabling bluetooth service/socket")
+        fn.enable_service("bluetooth")
+        fn.show_in_app_notification(self, "Bluetooth has been enabled")
+
+    def on_click_disable_bluetooth(self, widget):
+        print("Enabling bluetooth service/socket")
+        fn.disable_service("bluetooth")
+        fn.show_in_app_notification(self, "Bluetooth has been disabled")
+
+    def on_click_restart_bluetooth(self, widget):
+        print("Restart bluetooth")
+        fn.restart_service("bluetooth")
+        fn.show_in_app_notification(self, "Bluetooth has been restarted")
+
+    # ====================================================================
+    #                       SERVICES - CUPS
+    # ====================================================================
+
+    def on_click_install_cups(self, widget):
+        print("Installing cups")
+        fn.install_package(self, "cups")
+
+    def on_click_remove_cups(self, widget):
+        print("Removing cups")
+        fn.remove_package(self, "cups")
+
+    def on_click_install_cups_pdf(self, widget):
+        print("Installing cups-pdf")
+        fn.install_package(self, "cups-pdf")
+
+    def on_click_remove_cups_pdf(self, widget):
+        print("Removing cups-pdf")
+        fn.remove_package(self, "cups-pdf")
+
+    def on_click_enable_cups(self, widget):
+        print("Enabling cups service/socket")
+        fn.enable_service("cups")
+
+    def on_click_disable_cups(self, widget):
+        print("Enabling cups service/socket")
+        fn.disable_service("cups")
+
+    def on_click_restart_cups(self, widget):
+        print("Restart cups")
+        fn.restart_service("cups")
+
+    def on_click_install_printer_drivers(self, widget):
+        print("Following printer drivers have been installed")
+        fn.install_package(self, "foomatic-db-engine")
+        fn.install_package(self, "foomatic-db")
+        fn.install_package(self, "foomatic-db-ppds")
+        fn.install_package(self, "foomatic-db-nonfree")
+        fn.install_package(self, "foomatic-db-nonfree-ppds")
+        fn.install_package(self, "gutenprint")
+        fn.install_package(self, "foomatic-db-gutenprint-ppds")
+        fn.install_package(self, "ghostscript")
+        fn.install_package(self, "gsfonts")
+
+    def on_click_remove_printer_drivers(self, widget):
+        print("Following printer drivers have been removed")
+        fn.remove_package(self, "foomatic-db-engine")
+        fn.remove_package(self, "foomatic-db")
+        fn.remove_package(self, "foomatic-db-ppds")
+        fn.remove_package(self, "foomatic-db-nonfree")
+        fn.remove_package(self, "foomatic-db-nonfree-ppds")
+        fn.remove_package(self, "gutenprint")
+        fn.remove_package(self, "foomatic-db-gutenprint-ppds")
+        fn.remove_package(self, "ghostscript")
+        fn.remove_package(self, "gsfonts")
+
+    def on_click_install_hplip(self, widget):
+        print("Installing Hplip")
+        fn.install_package(self, "hplip")
+
+    def on_click_remove_hplip(self, widget):
+        print("Removing Hplip")
+        fn.remove_package(self, "hplip")
+
+    def on_click_install_system_config_printer(self, widget):
+        print("Installing system_config_printer")
+        fn.install_package(self, "system-config-printer")
+
+    def on_click_remove_system_config_printer(self, widget):
+        print("Removing system_config_printer")
+        fn.remove_package(self, "system_config_printer")
+
+    # TODO : how to launch an app as the user
+    # def on_click_launch_system_config_printer(self, desktop):
+    #     if fn.check_package_installed("system-config-printer"):
+    #         try:
+    #             subprocess.Popen("/usr/bin/system-config-printer")
+    #             GLib.idle_add(
+    #                 fn.show_in_app_notification,
+    #                 self,
+    #                 "System config printer launched",
+    #             )
+    #             print("We started system-config-printer")
+    #         except:
+    #             pass
+    #     else:
+    #         print("First install system-config-printer package")
+    #         fn.show_in_app_notification(self, "First install system-config-printer")
 
     # ====================================================================
     #                       SHELLS EXTRA

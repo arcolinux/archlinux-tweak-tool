@@ -306,6 +306,9 @@ alias kpi="killall picom"
 #hardware info --short
 alias hw="hwinfo --short"
 
+#audio check pulseaudio or pipewire
+alias audio="pactl info | grep 'Server Name'"
+
 #skip integrity check
 alias paruskip="paru -S --mflags --skipinteg"
 alias yayskip="yay -S --mflags --skipinteg"
