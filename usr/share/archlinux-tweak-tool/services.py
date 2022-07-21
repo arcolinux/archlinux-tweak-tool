@@ -100,42 +100,28 @@ def create_samba_user(self):
         GLib.idle_add(fn.show_in_app_notification, self, "First fill in your username")
 
 
-def delete_samba_user(self):
-    """delete a samba user"""
+def add_autoconnect_pulseaudio(self):
+    if fn.file_check(fn.pulse_default):
+        if fn.check_content("load-module module-switch-on-connect\n", fn.pulse_default):
+            print("We have already enabled your headset to autoconnect")
+        else:
+            try:
+                with open(fn.pulse_default, "r", encoding="utf-8") as f:
+                    lists = f.readlines()
+                    f.close()
 
-    username = self.samba_users.get_active_text()
+                lists.append("\nload-module module-switch-on-connect\n")
 
-    if username:
-        fn.install_package(self, "alacritty")
-        fn.subprocess.call(
-            "alacritty -e /usr/bin/smbpasswd -x " + username,
-            shell=True,
-            stdout=fn.subprocess.PIPE,
-            stderr=fn.subprocess.STDOUT,
-        )
-        print("Deleting the selected user from Samba...")
-        GLib.idle_add(
-            fn.show_in_app_notification,
-            self,
-            "Deleting the selected user from Samba...",
-        )
-    else:
-        print("Make a selection")
-        GLib.idle_add(fn.show_in_app_notification, self, "Make a selection")
-
-
-def delete_user(self):
-    """delete user"""
-    # TODO: double - to functions?
-    username = self.samba_users.get_active_text()
-
-    if username:
-        userdel = "userdel " + username
-        fn.system(userdel)
-        print("The user " + username + " has been completely deleted from your system")
-        GLib.idle_add(fn.show_in_app_notification, self, "User deleted from system")
-    else:
-        print("Something went wrong")
+                with open(fn.pulse_default, "w", encoding="utf-8") as f:
+                    f.writelines(lists)
+                    f.close()
+                print("We have added this line to /etc/pulse/default.pa")
+                print("load-module module-switch-on-connect")
+                fn.show_in_app_notification(
+                    self, "Pulseaudio bluetooth autoconnection enabled"
+                )
+            except Exception as error:
+                print(error)
 
 
 def restart_smb(self):

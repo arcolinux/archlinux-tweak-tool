@@ -2940,9 +2940,6 @@ class Main(Gtk.Window):
     def on_click_create_samba_user(self, widget):
         services.create_samba_user(self)
 
-    def on_click_delete_samba_user(self, widget):
-        services.delete_samba_user(self)
-
     # def on_click_delete_user(self, widget):
     #     services.delete_user(self)
 

@@ -111,7 +111,7 @@ polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
 login_backgrounds = "/usr/share/backgrounds/archlinux-login-backgrounds/"
-
+pulse_default = "/etc/pulse/default.pa"
 bash_config = ""
 zsh_config = ""
 fish_config = ""
@@ -291,7 +291,7 @@ def _get_variable(lists, value):
     return data_clean
 
 
-# Check  value exists
+# Check  value exists remove data
 
 
 def check_value(list, value):
@@ -320,7 +320,7 @@ def check_if_process_is_running(processName):
     for proc in psutil.process_iter():
         try:
             pinfo = proc.as_dict(attrs=["pid", "name", "create_time"])
-            if processName == pinfo["pid"]:
+            if processName == pinfo["name"]:
                 return True
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
@@ -410,7 +410,7 @@ def is_empty_directory(path):
 # check if value is true or false in file
 
 
-def check_content(value, file):  # noqa
+def check_content(value, file):
     try:
         with open(file, "r", encoding="utf-8") as myfile:
             lines = myfile.readlines()
@@ -445,7 +445,28 @@ def check_package_installed(package):  # noqa
 
 def check_service(service):  # noqa
     try:
-        command = "systemctl is-active " + service
+        command = "systemctl is-active " + service + ".service"
+        output = subprocess.run(
+            command.split(" "),
+            check=True,
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        status = output.stdout.decode().strip()
+        if status == "active":
+            # print("Service is active")
+            return True
+        else:
+            # print("Service is inactive")
+            return False
+    except Exception:
+        return False
+
+
+def check_socket(socket):  # noqa
+    try:
+        command = "systemctl is-active " + socket + ".socket"
         output = subprocess.run(
             command.split(" "),
             check=True,
@@ -649,6 +670,26 @@ def remove_package(self, package):
 
 def remove_package_dep(self, package):
     command = "pacman -Rss " + package + " --noconfirm"
+    if check_package_installed(package):
+        print(command)
+        try:
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            print(package + " is now removed")
+            GLib.idle_add(show_in_app_notification, self, package + " is now removed")
+        except Exception as error:
+            print(error)
+    else:
+        print(package + " is already removed")
+        GLib.idle_add(show_in_app_notification, self, package + " is already removed")
+
+
+def remove_package_dd(self, package):
+    command = "pacman -Rdd " + package + " --noconfirm"
     if check_package_installed(package):
         print(command)
         try:
