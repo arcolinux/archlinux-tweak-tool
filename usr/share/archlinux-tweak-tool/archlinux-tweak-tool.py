@@ -3541,7 +3541,6 @@ class Main(Gtk.Window):
     # ====================================================================
 
     def on_click_user_apply(self, widget):
-        fn.add_autologin_group(self)
         user.create_user(self)
         user.pop_cbt_users(self, self.cbt_users)
 

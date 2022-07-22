@@ -135,6 +135,14 @@ audio, video, network, storage, rfkill, wheel, autologin, sambashare"
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox11.pack_start(button_delete_user, False, False, 10)
 
+    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    visudo_message = Gtk.Label(xalign=0)
+    visudo_message.set_markup(
+        "On <b>Arch Linux</b> remember to 'EDITOR=nano visudo' and uncomment the line '%wheel ALL=(ALL:ALL) ALL'\n\
+if you want your users to have administrator rights"
+    )
+    hbox12.pack_start(visudo_message, False, False, 0)
+
     vboxStack10.pack_start(hbox4, False, False, 0)
     vboxStack10.pack_start(hbox5, False, False, 0)
     vboxStack10.pack_start(grid, False, False, 0)
@@ -146,3 +154,5 @@ audio, video, network, storage, rfkill, wheel, autologin, sambashare"
     vboxStack10.pack_start(hbox8, False, False, 0)
     vboxStack10.pack_start(hbox10, False, False, 0)
     vboxStack10.pack_start(hbox11, False, False, 0)
+    if fn.distr == "arch":
+        vboxStack10.pack_start(hbox12, False, False, 0)

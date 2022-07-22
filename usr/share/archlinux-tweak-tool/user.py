@@ -33,7 +33,7 @@ def create_user(self):
     if password == confirm_password:
         if atype == "Administrator":
             useradd = (
-                'useradd -m -G audio,video,network,storage,rfkill,wheel,autologin,sambashare -c "'
+                'useradd -m -G audio,video,network,storage,rfkill,wheel,sambashare -c "'
                 + name
                 + '" -s /bin/bash '
                 + username
@@ -42,7 +42,7 @@ def create_user(self):
             fn.system(user_password + " | " + "chpasswd -c SHA512")
         else:
             useradd = (
-                'useradd -m -G audio,video,network,storage,rfkill,autologin,sambashare -c "'
+                'useradd -m -G audio,video,network,storage,rfkill,sambashare -c "'
                 + name
                 + '" -s /bin/bash '
                 + username

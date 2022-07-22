@@ -35,20 +35,7 @@ def set_lightdm_value(self, lists, value, session, state):
     """set autologin and session in lightdm_conf"""
     if fn.os.path.isfile(fn.lightdm_conf):
         try:
-            com = fn.subprocess.run(
-                ["sh", "-c", "su - " + fn.sudo_username + " -c groups"],
-                check=True,
-                shell=False,
-                stdout=fn.subprocess.PIPE,
-            )
-            groups = com.stdout.decode().strip().split(" ")
-            # print(groups)
-            if "autologin" not in groups:
-                fn.subprocess.run(
-                    ["gpasswd", "-a", fn.sudo_username, "autologin"],
-                    check=True,
-                    shell=False,
-                )
+            fn.add_autologin_group(self)
 
             pos = fn.get_position(lists, "autologin-user=")
             pos_session = fn.get_position(lists, "autologin-session=")

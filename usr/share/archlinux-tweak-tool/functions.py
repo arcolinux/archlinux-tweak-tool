@@ -493,15 +493,15 @@ def list_users(filename):  # noqa
         data = []
         with open(filename, "r", encoding="utf-8") as f:
             for line in f.readlines():
-                if "1001" in line:
+                if "1001" in line.split(":")[2]:
                     data.append(line.split(":")[0])
-                if "1002" in line:
+                if "1002" in line.split(":")[2]:
                     data.append(line.split(":")[0])
-                if "1003" in line:
+                if "1003" in line.split(":")[2]:
                     data.append(line.split(":")[0])
-                if "1004" in line:
+                if "1004" in line.split(":")[2]:
                     data.append(line.split(":")[0])
-                if "1005" in line:
+                if "1005" in line.split(":")[2]:
                     data.append(line.split(":")[0])
             data.sort()
             return data
