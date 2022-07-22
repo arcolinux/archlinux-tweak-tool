@@ -102,7 +102,7 @@ end
 #  echo
 #end
 
-if which tree >/dev/null
+if test tree >/dev/null
     function l1;  tree --dirsfirst -ChFL 1 $argv; end
     function l2;  tree --dirsfirst -ChFL 2 $argv; end
     function l3;  tree --dirsfirst -ChFL 3 $argv; end
@@ -350,6 +350,7 @@ alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | n
 
 #iso and version used to install ArcoLinux
 alias iso="cat /etc/dev-rel | awk -F '=' '/ISO/ {print $2}'"
+alias isoo="cat /etc/dev-rel"
 
 #Cleanup orphaned packages
 alias cleanup="sudo pacman -Rns (pacman -Qtdq)"
