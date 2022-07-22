@@ -477,7 +477,8 @@ Restart Att to see the information</b>"
     hbox51_lbl.set_markup(
         "The shell configurations of the ATT contain\
  aliases that require certain applications\n\
-\nHere you can select the missing applications and install them\n"
+\nHere you can select the missing applications and install them\n\
+Activate the ArcoLinux repos to install all of them"
     )
     self.select_all = Gtk.CheckButton(label="Select them all")
     self.select_all.connect("notify::active", self.on_select_all_toggle)

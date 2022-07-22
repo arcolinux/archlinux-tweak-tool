@@ -52,12 +52,12 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4_label = Gtk.Label(xalign=0)
     hbox4_label.set_text("Get the best Arch Linux servers (takes a while)")
-    btn_run_reflector = Gtk.Button(label="Run reflector")
-    btn_run_reflector.connect("clicked", self.on_click_get_arch_mirrors)
+    self.btn_run_reflector = Gtk.Button(label="Run reflector")
+    self.btn_run_reflector.connect("clicked", self.on_click_get_arch_mirrors)
     self.btn_run_rate_mirrors = Gtk.Button(label="Run rate-mirrors")
     self.btn_run_rate_mirrors.connect("clicked", self.on_click_get_arch_mirrors2)
     hbox4.pack_start(hbox4_label, False, False, 10)
-    hbox4.pack_end(btn_run_reflector, False, False, 10)
+    hbox4.pack_end(self.btn_run_reflector, False, False, 10)
     hbox4.pack_end(self.btn_run_rate_mirrors, False, False, 10)
 
     # if not installed
@@ -74,7 +74,7 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     hbox40.pack_end(btn_install_rate_mirrors, False, False, 10)
 
     if not fn.path.exists("/usr/bin/reflector"):
-        btn_run_reflector.set_sensitive(False)
+        self.btn_run_reflector.set_sensitive(False)
     if not fn.path.exists("/usr/bin/rate-mirrors"):
         self.btn_run_rate_mirrors.set_sensitive(False)
 

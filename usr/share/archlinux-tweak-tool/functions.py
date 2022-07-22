@@ -1574,7 +1574,8 @@ def remove_att_lxdm_theme_minimalo(self):
 
 
 def messagebox(self, title, message):
-    md2 = Gtk.MessageDialogNew(
+    md2 = Gtk.MessageDialog(
+        parent=self,
         flags=0,
         message_type=Gtk.MessageType.INFO,
         buttons=Gtk.ButtonsType.OK,

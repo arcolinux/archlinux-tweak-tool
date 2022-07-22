@@ -893,6 +893,13 @@ class Main(Gtk.Window):
                 f.write("")
 
         # =====================================================
+        #                        UTILITIES
+        # =====================================================
+
+        # check if arco repos are active else no switch
+        utilities.set_util_state_arco_switch(self)
+
+        # =====================================================
         #     IF ALL THIS IS DONE - DESTROY SPLASH SCREEN
         # =====================================================
 
@@ -2338,6 +2345,7 @@ class Main(Gtk.Window):
                 else:
                     self.button_install.set_sensitive(False)
                     self.button_reinstall.set_sensitive(False)
+        utilities.set_util_state_arco_switch(self)
 
     def on_pacman_a3p_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_3party]"):

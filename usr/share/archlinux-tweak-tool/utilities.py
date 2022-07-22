@@ -9,6 +9,157 @@ import functions as fn
 # boxes match what is passed to it, based on the logic from the calling function
 
 
+def set_util_state_arco_switch(self):
+    """set utility state"""
+    if fn.check_arco_repos_active():
+        self.ufetch_util.set_sensitive(True)
+        self.ufetch_arco_util.set_sensitive(True)
+        self.pfetch_util.set_sensitive(True)
+        self.paleofetch_util.set_sensitive(True)
+        self.alsi_util.set_sensitive(True)
+        self.hfetch_util.set_sensitive(True)
+        self.fetch_util.set_sensitive(True)
+        self.sfetch_util.set_sensitive(True)
+        self.sysinfo_util.set_sensitive(True)
+        self.sysinfo_retro_util.set_sensitive(True)
+        self.cpufetch_util.set_sensitive(True)
+        self.colorscript.set_sensitive(True)
+
+        self.ufetch_lolcat.set_sensitive(True)
+        self.ufetch_arco_lolcat.set_sensitive(True)
+        self.pfetch_lolcat.set_sensitive(True)
+        self.paleofetch_lolcat.set_sensitive(True)
+        self.alsi_lolcat.set_sensitive(True)
+        self.hfetch_lolcat.set_sensitive(True)
+        self.fetch_lolcat.set_sensitive(True)
+        self.sfetch_lolcat.set_sensitive(True)
+        self.sysinfo_lolcat.set_sensitive(True)
+        self.sysinfo_retro_lolcat.set_sensitive(True)
+        self.cpufetch_lolcat.set_sensitive(True)
+        self.colorscript.set_sensitive(True)
+    else:
+        if fn.check_package_installed("ufetch-git"):
+            self.ufetch_util.set_sensitive(True)
+        else:
+            self.ufetch_util.set_sensitive(False)
+
+        if fn.check_package_installed("ufetch-arco-git"):
+            self.ufetch_arco_util.set_sensitive(True)
+        else:
+            self.ufetch_arco_util.set_sensitive(False)
+
+        if fn.check_package_installed("pfetch"):
+            self.pfetch_util.set_sensitive(True)
+        else:
+            self.pfetch_util.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-paleofetch-git"):
+            self.paleofetch_util.set_sensitive(True)
+        else:
+            self.paleofetch_util.set_sensitive(False)
+
+        if fn.check_package_installed("alsi"):
+            self.alsi_util.set_sensitive(True)
+        else:
+            self.alsi_util.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-bin-git"):
+            self.hfetch_util.set_sensitive(True)
+        else:
+            self.hfetch_util.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-bin-git"):
+            self.fetch_util.set_sensitive(True)
+        else:
+            self.fetch_util.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-bin-git"):
+            self.sfetch_util.set_sensitive(True)
+        else:
+            self.sfetch_util.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-bin-git"):
+            self.sysinfo_util.set_sensitive(True)
+        else:
+            self.sysinfo_util.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-bin-git"):
+            self.sysinfo_retro_util.set_sensitive(True)
+        else:
+            self.sysinfo_retro_util.set_sensitive(False)
+
+        if fn.check_package_installed("cpufetch"):
+            self.cpufetch_util.set_sensitive(True)
+        else:
+            self.cpufetch_util.set_sensitive(False)
+
+        if fn.check_package_installed("shell-color-scripts"):
+            self.colorscript.set_sensitive(True)
+        else:
+            self.colorscript.set_sensitive(False)
+
+        # lolcat_state
+
+        if fn.check_package_installed("ufetch-git"):
+            self.ufetch_lolcat.set_sensitive(True)
+        else:
+            self.ufetch_lolcat.set_sensitive(False)
+
+        if fn.check_package_installed("ufetch-arco-git"):
+            self.ufetch_arco_lolcat.set_sensitive(True)
+        else:
+            self.ufetch_arco_lolcat.set_sensitive(False)
+
+        if fn.check_package_installed("pfetch"):
+            self.pfetch_lolcat.set_sensitive(True)
+        else:
+            self.pfetch_lolcat.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-paleofetch-git"):
+            self.paleofetch_lolcat.set_sensitive(True)
+        else:
+            self.paleofetch_lolcat.set_sensitive(False)
+
+        if fn.check_package_installed("alsi"):
+            self.alsi_lolcat.set_sensitive(True)
+        else:
+            self.alsi_lolcat.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-bin-git"):
+            self.hfetch_lolcat.set_sensitive(True)
+        else:
+            self.hfetch_lolcat.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-bin-git"):
+            self.fetch_lolcat.set_sensitive(True)
+        else:
+            self.fetch_lolcat.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-bin-git"):
+            self.sfetch_lolcat.set_sensitive(True)
+        else:
+            self.sfetch_lolcat.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-bin-git"):
+            self.sysinfo_lolcat.set_sensitive(True)
+        else:
+            self.sysinfo_lolcat.set_sensitive(False)
+
+        if fn.check_package_installed("arcolinux-bin-git"):
+            self.sysinfo_retro_lolcat.set_sensitive(True)
+        else:
+            self.sysinfo_retro_lolcat.set_sensitive(False)
+
+        if fn.check_package_installed("cpufetch"):
+            self.cpufetch_lolcat.set_sensitive(True)
+        else:
+            self.cpufetch_lolcat.set_sensitive(False)
+        if fn.check_package_installed("shell-color-scripts"):
+            self.colorscript.set_sensitive(True)
+        else:
+            self.colorscript.set_sensitive(False)
+
+
 def set_util_state(self, util, util_state, lolcat_state):
     """set utility state"""
     if util == "neofetch":
@@ -132,7 +283,10 @@ def install_util(util):
     """install utility"""
     command = ""
     if util == "neofetch":
-        command = "pacman -S neofetch arcolinux-neofetch-git --noconfirm --needed"
+        if fn.check_arco_repos_active():
+            command = "pacman -S neofetch arcolinux-neofetch-git --noconfirm --needed"
+        else:
+            command = "pacman -S neofetch --noconfirm --needed"
     elif util == "screenfetch":
         command = "pacman -S screenfetch --noconfirm --needed"
     elif util == "ufetch":

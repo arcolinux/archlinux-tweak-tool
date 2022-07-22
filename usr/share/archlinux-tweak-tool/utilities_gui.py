@@ -30,10 +30,6 @@ please open a terminal to see how it looks"
             "  We recommend using not more than two utilities at the same time, \
 due to screen real estate"
         )
-        lbl4.set_markup(
-            "  For some of these packages you will need to add the <b>ArcoLinux \
-repositories</b>"
-        )
         lbl5.set_markup(
             "  Without the ArcoLinux repositories only neofetch and screenfetch \
 are available"
@@ -197,13 +193,23 @@ using something else, you are unable to use these tools from ATT."
             grid.attach_next_to(cs_sep1, cs_label, Gtk.PositionType.RIGHT, 1, 1)
             grid.attach_next_to(self.colorscript, cs_sep1, Gtk.PositionType.RIGHT, 1, 1)
 
+    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    lbl_arco_repo = Gtk.Label(xalign=0)
+    lbl_arco_repo.set_markup(
+        "  For some of these packages you will need to add the <b>ArcoLinux \
+repositories</b>"
+    )
+    hbox5.pack_start(lbl_arco_repo, True, True, 0)
+
     vbox14.pack_start(lbl2, False, False, 0)
     vbox14.pack_start(lbl3, False, False, 0)
-    vbox14.pack_start(lbl4, False, False, 0)
+    # vbox14.pack_start(lbl4, False, False, 0)
     vbox14.pack_start(lbl5, False, False, 0)
     vbox14.pack_start(lbl6, False, False, 0)
     vbox14.pack_start(grid, False, False, 0)
+    vbox14.pack_start(hbox5, False, False, 0)
 
     vboxstack9.pack_start(hbox3, False, False, 0)
     vboxstack9.pack_start(hbox4, False, False, 0)
+    # vboxstack9.pack_start(hbox5, False, False, 0)
     vboxstack9.pack_start(vbox14, False, False, 0)
