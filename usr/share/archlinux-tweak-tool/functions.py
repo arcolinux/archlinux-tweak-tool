@@ -2516,6 +2516,26 @@ def set_firefox_ublock(self, toggle, state):
         print(error)
 
 
+# ====================================================================
+#                      UPDATE REPOS
+# ====================================================================
+
+
+def update_repos(self):
+    try:
+        command = "pacman -Sy"
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        print("Getting the databases in from all repositories")
+        show_in_app_notification(self, "Dowloading repo libraries")
+    except Exception as error:
+        print(error)
+
+
 # =====================================================
 #               WALL
 # =====================================================

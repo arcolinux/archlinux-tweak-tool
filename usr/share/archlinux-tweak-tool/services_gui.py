@@ -90,7 +90,11 @@ Follow the instruction numbers below - <b>we recommend the easy configuration</b
 
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4_label = Gtk.Label(xalign=0)
-    hbox4_label.set_text("1. Install the samba server")
+    if fn.check_package_installed("samba"):
+        hbox4_label.set_markup("1. Install the samba server - <b>installed</b>")
+
+    else:
+        hbox4_label.set_text("1. Install the samba server")
     button_uninstall_samba = Gtk.Button(label="Uninstall Samba")
     button_uninstall_samba.connect("clicked", self.on_click_uninstall_samba)
     button_install_samba = Gtk.Button(label="Install Samba")
@@ -184,27 +188,27 @@ Beware of firewalls"
 
     status1 = fn.check_service("smb")
     if status1 is True:
-        status1 = "active"
+        status1 = "<b>active</b>"
     else:
         status1 = "inactive"
 
     status2 = fn.check_service("nmb")
     if status2 is True:
-        status2 = "active"
+        status2 = "<b>active</b>"
     else:
         status2 = "inactive"
 
     status3 = fn.check_service("avahi-daemon")
     if status3 is True:
-        status3 = "active"
+        status3 = "<b>active</b>"
     else:
         status3 = "inactive"
 
-    hbox93_label.set_text(
+    hbox93_label.set_markup(
         "Samba : " + status1 + "   Nmb : " + status2 + "   Avahi : " + status3
     )
     hbox93.pack_start(hbox93_label, False, False, 10)
-    hbox94_label.set_text(
+    hbox94_label.set_markup(
         "Samba : " + status1 + "   Nmb : " + status2 + "   Avahi : " + status3
     )
     hbox94.pack_start(hbox94_label, False, False, 10)
@@ -228,7 +232,7 @@ All computers in your network must have a unique name /etc/hostname"
 
     hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox15_label = Gtk.Label(xalign=0)
-    hbox15_label.set_text(
+    hbox15_label.set_markup(
         "Printing can be a challenge. We recommend reading the Arch wiki cups page. Check before you buy.\n\
 There are also printer specific pages. Lastly the AUR might contain the driver you need."
     )
@@ -236,7 +240,11 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
 
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox8_label = Gtk.Label(xalign=0)
-    hbox8_label.set_text("Install cups printing")
+    if fn.check_package_installed("cups"):
+        hbox8_label.set_markup("Cups printing is <b>installed</b>")
+    else:
+        hbox8_label.set_markup("Install cups printing")
+
     btn_install_cups = Gtk.Button(label="Install cups")
     btn_install_cups.connect("clicked", self.on_click_install_cups)
     btn_remove_cups = Gtk.Button(label="Remove cups")
@@ -247,7 +255,10 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
 
     hbox20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox20_label = Gtk.Label(xalign=0)
-    hbox20_label.set_text("Install cups-pdf printing")
+    if fn.check_package_installed("cups-pdf"):
+        hbox20_label.set_markup("Cups-pdf is <b>installed</b>")
+    else:
+        hbox20_label.set_markup("Install cups-pdf printing")
     btn_install_cups_pdf = Gtk.Button(label="Install cups-pdf")
     btn_install_cups_pdf.connect("clicked", self.on_click_install_cups_pdf)
     btn_remove_cups_pdf = Gtk.Button(label="Remove cups-pdf")
@@ -258,14 +269,19 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
 
     hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox26_label = Gtk.Label(xalign=0)
-    hbox26_label.set_text("Install drivers")
+    hbox26_label.set_markup("Install drivers")
     hbox26.pack_start(hbox26_label, False, False, 10)
 
     hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox27_label = Gtk.Label(xalign=0)
-    hbox27_label.set_text(
-        "   Install common printer drivers (foomatic, gutenprint, ...)"
-    )
+    if fn.check_package_installed("foomatic-db"):
+        hbox27_label.set_markup(
+            "   Install common printer drivers (foomatic, gutenprint, ...) - <b>Installed</b>"
+        )
+    else:
+        hbox27_label.set_markup(
+            "   Install common printer drivers (foomatic, gutenprint, ...)"
+        )
     btn_install_printer_drivers = Gtk.Button(label="Install drivers")
     btn_install_printer_drivers.connect(
         "clicked", self.on_click_install_printer_drivers
@@ -278,7 +294,10 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
 
     hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox21_label = Gtk.Label(xalign=0)
-    hbox21_label.set_text("   Install HP drivers")
+    if fn.check_package_installed("hplip"):
+        hbox21_label.set_markup("   HP drivers have been <b>installed</b>")
+    else:
+        hbox21_label.set_markup("   Install HP drivers")
     btn_install_hplip = Gtk.Button(label="Install hplip")
     btn_install_hplip.connect("clicked", self.on_click_install_hplip)
     btn_remove_hplip = Gtk.Button(label="Uninstall hplip")
@@ -289,9 +308,14 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
 
     hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox22_label = Gtk.Label(xalign=0)
-    hbox22_label.set_text(
-        "Install configuration tool for cups \n(launch the app and add your printer)"
-    )
+    if fn.check_package_installed("system-config-printer"):
+        hbox22_label.set_markup(
+            "Install configuration tool for cups \nLaunch the app and add your printer  - <b>Installed</b>"
+        )
+    else:
+        hbox22_label.set_markup(
+            "Install configuration tool for cups \n(launch the app and add your printer)"
+        )
     btn_install_system_config_printer = Gtk.Button(
         label="Install system-config-printer"
     )
@@ -323,38 +347,18 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
 
     status1 = fn.check_service("cups")
     if status1 is True:
-        status1 = "active"
+        status1 = "<b>active</b>"
     else:
         status1 = "inactive"
 
     status2 = fn.check_socket("cups")
     if status2 is True:
-        status2 = "active"
+        status2 = "<b>active</b>"
     else:
         status2 = "inactive"
 
-    hbox31_label.set_text("Cups service : " + status1 + "   Cups socket : " + status2)
+    hbox31_label.set_markup("Cups service : " + status1 + "   Cups socket : " + status2)
     hbox31.pack_start(hbox31_label, False, False, 10)
-
-    # hbox32 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    # hbox32_label = Gtk.Label(xalign=0)
-    # hbox32_label.set_text(
-    #     "Samba : " + status1 + "   Nmb : " + status2 + "   Avahi : " + status3
-    # )
-    # hbox32.pack_start(hbox32_label, False, False, 10)
-
-    #     hbox95 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #     hbox95_label = Gtk.Label(xalign=0)
-    #     hbox95_label.set_text(
-    #         "With the Avahi daemon (network discovery) running on both \
-    # the server and client,\n\
-    # the file manager on the client should automatically find the server- Beware of firewalls\n\
-    # All computers in your network must have a unique name /etc/hostname"
-    #     )
-    #     restart_smb = Gtk.Button(label="Restart Smb")
-    #     restart_smb.connect("clicked", self.on_click_restart_smb)
-    #     hbox95.pack_start(hbox95_label, False, False, 10)
-    #     hbox95.pack_end(restart_smb, False, False, 10)
 
     # ==================================================================
     #                       AUDIO CONTROL
@@ -375,94 +379,19 @@ Report them if that is the case"
 
     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox41_label = Gtk.Label(xalign=0)
-    hbox41_label.set_text("Install pulseaudio")
+    hbox41_label.set_markup("Install pulseaudio")
     btn_install_pulseaudio = Gtk.Button(label="Install and switch to Pulseaudio")
     btn_install_pulseaudio.connect("clicked", self.on_click_switch_to_pulseaudio)
-    # btn_remove_pulseaudio = Gtk.Button(label="Remove pulseaudio")
-    # btn_remove_pulseaudio.connect("clicked", self.on_click_remove_pulseaudio)
     hbox41.pack_start(hbox41_label, False, False, 10)
-    # hbox41.pack_end(btn_remove_pulseaudio, False, False, 10)
     hbox41.pack_end(btn_install_pulseaudio, False, False, 10)
 
     hbox42 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox42_label = Gtk.Label(xalign=0)
-    hbox42_label.set_text("Install pipewire")
+    hbox42_label.set_markup("Install pipewire")
     btn_install_pipewire = Gtk.Button(label="Install and switch to Pipewire")
     btn_install_pipewire.connect("clicked", self.on_click_switch_to_pipewire)
-    # btn_remove_pipewire = Gtk.Button(label="Remove pipewire")
-    # btn_remove_pipewire.connect("clicked", self.on_click_remove_pipewire)
     hbox42.pack_start(hbox42_label, False, False, 10)
-    # hbox42.pack_end(btn_remove_pipewire, False, False, 10)
     hbox42.pack_end(btn_install_pipewire, False, False, 10)
-
-    # hbox43 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    # hbox43_label = Gtk.Label(xalign=0)
-    # hbox43_label.set_text("Install drivers")
-    # hbox43.pack_start(hbox43_label, False, False, 10)
-
-    # hbox44 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    # hbox44_label = Gtk.Label(xalign=0)
-    # hbox44_label.set_text(
-    #     "   Install common printer drivers (foomatic, gutenprint, ...)"
-    # )
-    # btn_install_printer_drivers = Gtk.Button(label="Install drivers")
-    # btn_install_printer_drivers.connect(
-    #     "clicked", self.on_click_install_printer_drivers
-    # )
-    # btn_remove_printer_drivers = Gtk.Button(label="Remove drivers")
-    # btn_remove_printer_drivers.connect("clicked", self.on_click_remove_printer_drivers)
-    # hbox44.pack_start(hbox44_label, False, False, 10)
-    # hbox44.pack_end(btn_remove_printer_drivers, False, False, 10)
-    # hbox44.pack_end(btn_install_printer_drivers, False, False, 10)
-
-    # hbox45 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    # hbox45_label = Gtk.Label(xalign=0)
-    # hbox45_label.set_text("   Install HP drivers")
-    # btn_install_hplip = Gtk.Button(label="Install hplip")
-    # btn_install_hplip.connect("clicked", self.on_click_install_hplip)
-    # btn_remove_hplip = Gtk.Button(label="Uninstall hplip")
-    # btn_remove_hplip.connect("clicked", self.on_click_remove_hplip)
-    # hbox45.pack_start(hbox45_label, False, False, 10)
-    # hbox45.pack_end(btn_remove_hplip, False, False, 10)
-    # hbox45.pack_end(btn_install_hplip, False, False, 10)
-
-    # hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    # btn_launch_system_config_printer = Gtk.Button(label="Launch system-config-printer")
-    # btn_launch_system_config_printer.connect(
-    #     "clicked", self.on_click_launch_system_config_printer
-    # )
-    # hbox23.pack_end(btn_launch_system_config_printer, True, True, 10)
-
-    # hbox46 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    # hbox46_label = Gtk.Label(xalign=0)
-    # hbox46_label.set_text(
-    #     "Install configuration tool for cups \n(launch the app and add your printer)"
-    # )
-    # btn_install_system_config_printer = Gtk.Button(
-    #     label="Install system-config-printer"
-    # )
-    # btn_install_system_config_printer.connect(
-    #     "clicked", self.on_click_install_system_config_printer
-    # )
-    # btn_remove_system_config_printer = Gtk.Button(label="Remove system-config-printer")
-    # btn_remove_system_config_printer.connect(
-    #     "clicked", self.on_click_remove_system_config_printer
-    # )
-    # hbox46.pack_start(hbox46_label, False, False, 10)
-    # hbox46.pack_end(btn_remove_system_config_printer, False, False, 10)
-    # hbox46.pack_end(btn_install_system_config_printer, False, False, 10)
-
-    # at bottom of page
-    # hbox47 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    # enable_cups = Gtk.Button(label="Enable cups")
-    # enable_cups.connect("clicked", self.on_click_enable_cups)
-    # disable_cups = Gtk.Button(label="Disable cups")
-    # disable_cups.connect("clicked", self.on_click_disable_cups)
-    # restart_cups = Gtk.Button(label="Start/Restart cups")
-    # restart_cups.connect("clicked", self.on_click_restart_cups)
-    # hbox47.pack_end(restart_cups, False, False, 10)
-    # hbox47.pack_start(enable_cups, False, False, 10)
-    # hbox47.pack_start(disable_cups, False, False, 10)
 
     hbox48 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox48_label = Gtk.Label(xalign=0)
@@ -470,17 +399,17 @@ Report them if that is the case"
     text2 = ""
     status1 = fn.check_if_process_is_running("pulseaudio")
     if status1 is True:
-        text1 = "active"
+        text1 = "<b>active</b>"
     else:
         text1 = "inactive"
 
     status2 = fn.check_if_process_is_running("pipewire")
     if status2 is True:
-        text2 = "active"
+        text2 = "<b>active</b>"
     else:
         text2 = "inactive"
 
-    hbox48_label.set_text(
+    hbox48_label.set_markup(
         "Pulseaudio service : " + text1 + "   Pipewire service : " + text2
     )
     hbox48.pack_start(hbox48_label, False, False, 10)
@@ -516,17 +445,6 @@ Report them if that is the case"
         "Choose one of these tools to connect to your bluetooth devices:"
     )
     hbox53.pack_start(hbox53_label, False, False, 10)
-
-    # hbox52 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    # hbox52_label = Gtk.Label(xalign=0)
-    # hbox52_label.set_text("   Install gnome-bluetooth")
-    # btn_install_gnome_bt = Gtk.Button(label="Install gnome-bluetooth")
-    # btn_install_gnome_bt.connect("clicked", self.on_click_install_gnome_bt)
-    # btn_remove_gnome_bt = Gtk.Button(label="Remove gnome-bluetooth")
-    # btn_remove_gnome_bt.connect("clicked", self.on_click_remove_gnome_bt)
-    # hbox52.pack_start(hbox52_label, False, False, 10)
-    # hbox52.pack_end(btn_remove_gnome_bt, False, False, 10)
-    # hbox52.pack_end(btn_install_gnome_bt, False, False, 10)
 
     hbox54 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox54_label = Gtk.Label(xalign=0)
@@ -588,11 +506,11 @@ Report them if that is the case"
 
     status1 = fn.check_service("bluetooth")
     if status1 is True:
-        status1 = "active"
+        status1 = "<b>active</b>"
     else:
         status1 = "inactive"
 
-    hbox58_label.set_text("bluetooth service : " + status1)
+    hbox58_label.set_markup("bluetooth service : " + status1)
     hbox58.pack_start(hbox58_label, False, False, 10)
 
     if not fn.check_package_installed("bluez"):
@@ -631,7 +549,6 @@ Report them if that is the case"
     vboxstack3.pack_start(hbox26, False, False, 0)
     vboxstack3.pack_start(hbox27, False, False, 0)
     vboxstack3.pack_start(hbox21, False, False, 0)
-    # vboxstack3.pack_start(hbox23, False, False, 10)
     vboxstack3.pack_start(hbox22, False, False, 10)
     vboxstack3.pack_end(hbox29, False, False, 10)
     vboxstack3.pack_end(hbox31, False, False, 10)
@@ -640,18 +557,12 @@ Report them if that is the case"
     vboxstack4.pack_start(hbox40, False, False, 10)
     vboxstack4.pack_start(hbox41, False, False, 0)
     vboxstack4.pack_start(hbox42, False, False, 0)
-    # vboxstack4.pack_start(hbox43, False, False, 0)
-    # vboxstack4.pack_start(hbox44, False, False, 0)
-    # vboxstack4.pack_start(hbox45, False, False, 0)
-    # vboxstack4.pack_start(hbox46, False, False, 10)
-    # vboxstack4.pack_end(hbox47, False, False, 10)
     vboxstack4.pack_end(hbox48, False, False, 10)
 
     # bluetooth
     vboxstack5.pack_start(hbox50, False, False, 10)
     vboxstack5.pack_start(hbox51, False, False, 0)
     vboxstack5.pack_start(hbox53, False, False, 0)
-    # vboxstack5.pack_start(hbox52, False, False, 0)
     vboxstack5.pack_start(hbox54, False, False, 0)
     vboxstack5.pack_start(hbox55, False, False, 0)
     vboxstack5.pack_start(hbox56, False, False, 0)

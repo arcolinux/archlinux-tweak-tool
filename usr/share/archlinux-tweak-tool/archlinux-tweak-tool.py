@@ -1767,7 +1767,7 @@ class Main(Gtk.Window):
             GLib.idle_add(
                 fn.show_in_app_notification, self, "Setting saved successfully"
             )
-            fn.restart_program()
+        fn.restart_program()
 
     def on_reset_grub_vimix(self, desktop):
         fn.install_arco_package(self, "arcolinux-grub-theme-vimix-git")
@@ -2304,6 +2304,7 @@ class Main(Gtk.Window):
         self.on_pacman_arepo_toggle(self.arepo_button, True)
         self.on_pacman_a3p_toggle(self.a3prepo_button, True)
         self.on_pacman_axl_toggle(self.axlrepo_button, True)
+        fn.update_repos(self)
         fn.restart_program()
 
     def on_pacman_atestrepo_toggle(self, widget, active):
@@ -3054,7 +3055,6 @@ class Main(Gtk.Window):
         blueberry_installed = False
 
         try:
-
 
             if fn.check_package_installed("pulseaudio"):
                 fn.remove_package_dd(self, "pulseaudio")
