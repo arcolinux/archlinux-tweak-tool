@@ -126,7 +126,7 @@ Follow the instruction numbers below - <b>we recommend the easy configuration</b
         "3. Create a password for the current user to be able to access the Samba server"
     )
     button_create_samba_user = Gtk.Button(
-        label="Create a password for the current user"
+        label="Create a password for the current user (pop-up)"
     )
     button_create_samba_user.connect("clicked", self.on_click_create_samba_user)
     hbox5.pack_start(hbox5_label, False, False, 10)

@@ -2826,6 +2826,9 @@ class Main(Gtk.Window):
         except:
             pass
 
+    def on_click_apply_parallel_downloads(self, widget):
+        fixes.set_parallel_downloads(self, widget)
+
     # ====================================================================
     #                       SERVICES - NSSWITCH
     # ====================================================================

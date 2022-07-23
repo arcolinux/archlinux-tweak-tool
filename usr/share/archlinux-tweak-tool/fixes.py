@@ -65,3 +65,31 @@ def pop_gtk_cursor_names(combo):
         combo.append_text(item)
         if cursor_theme.lower() == item.lower():
             combo.set_active(i)
+
+
+def set_parallel_downloads(self, widget):
+    """set number of parallel downloads in pacman.conf"""
+    if fn.path.isfile(fn.pacman):
+        try:
+            with open(fn.pacman, "r", encoding="utf-8") as f:
+                lines = f.readlines()
+                f.close()
+            par_downloads = self.parallel_downloads.get_active_text()
+            pos_par_down = fn.get_position(lines, "ParallelDownloads")
+            lines[pos_par_down] = "ParallelDownloads = " + par_downloads + "\n"
+
+            with open(fn.pacman, "w", encoding="utf-8") as f:
+                f.writelines(lines)
+                f.close()
+            print("Saved to /etc/pacman.conf")
+            print(lines[pos_par_down])
+            fn.show_in_app_notification(self, "Settings Saved Successfully")
+
+            # GLib.idle_add(fn.messagebox,self, "Success!!", "Settings applied successfully")
+        except Exception as error:
+            print(error)
+            fn.messagebox(
+                self,
+                "Failed!!",
+                'There seems to have been a problem in "set_parallel_downloads"',
+            )

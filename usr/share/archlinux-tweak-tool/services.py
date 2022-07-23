@@ -91,16 +91,9 @@ def create_samba_user(self):
             print("Alacritty should pop open and you can type your Samba password")
             print("If you can not type your password - type the command in a terminal")
             print("sudo smbpasswd -a 'your_username'")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Created a password for the current user",
-            )
+            fn.show_in_app_notification(self, "Created a password for the current user")
         except Exception as error:
             print(error)
-    else:
-        print("First fill in your username")
-        GLib.idle_add(fn.show_in_app_notification, self, "First fill in your username")
 
 
 def add_autoconnect_pulseaudio(self):
