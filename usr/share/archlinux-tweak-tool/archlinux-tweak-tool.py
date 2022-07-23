@@ -1282,8 +1282,6 @@ class Main(Gtk.Window):
 
     def on_remove_only_fish_clicked(self, widget):
         fn.remove_package(self, "fish")
-        print("Fish has been removed")
-        fn.show_in_app_notification(self, "Fish has been removed")
 
     def on_arcolinux_fish_package_clicked(self, widget):
         fn.install_arcolinux_fish_package(self)

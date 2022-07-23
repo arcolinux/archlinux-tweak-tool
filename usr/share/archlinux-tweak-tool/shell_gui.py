@@ -71,7 +71,7 @@ def gui(self, Gtk, vboxstack23, zsh_theme, base_dir, GdkPixbuf, fn):
         install_bash_completion.connect(
             "clicked", self.on_install_bash_completion_clicked
         )
-        remove_bash_completion = Gtk.Button("Install bash-completion")
+        remove_bash_completion = Gtk.Button("Remove bash-completion")
         remove_bash_completion.connect(
             "clicked", self.on_remove_bash_completion_clicked
         )
@@ -202,7 +202,7 @@ def gui(self, Gtk, vboxstack23, zsh_theme, base_dir, GdkPixbuf, fn):
             "clicked", self.on_install_zsh_syntax_highlighting_clicked
         )
         self.remove_zsh_syntax_highlighting = Gtk.Button(
-            "Revmove Zsh-syntax-highlighting"
+            "Remove Zsh-syntax-highlighting"
         )
         self.remove_zsh_syntax_highlighting.connect(
             "clicked", self.on_remove_zsh_syntax_highlighting_clicked
