@@ -285,8 +285,7 @@ themes</i> you can customize <b>Neofetch</b>"
 
     stack.add_titled(vboxstack3, "stack2", "Privacy")  # Privacy
 
-    if fn.distr != "xerolinux":
-        stack.add_titled(vboxstack14, "stack14", "Services")  # services
+    stack.add_titled(vboxstack14, "stack14", "Services")  # services
 
     stack.add_titled(vboxstack23, "stack23", "Shells")  # shell
 
