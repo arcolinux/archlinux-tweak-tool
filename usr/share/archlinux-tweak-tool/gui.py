@@ -205,7 +205,11 @@ We will reload the ATT automatically"
         install_arco_vimix = Gtk.Button(
             label="Install the grub Vimix theme and ATT will reboot automatically"
         )
-        # install_arco_vimix.set_size_request(180, 0)
+        if fn.check_arco_repos_active() is True:
+            install_arco_vimix.set_sensitive(True)
+        else:
+            install_arco_vimix.set_sensitive(False)
+
         install_arco_vimix.connect("clicked", self.on_click_install_arco_vimix_clicked)
         if fn.check_systemd_boot():
             vboxstack4.pack_start(grub_message, True, False, 0)

@@ -478,7 +478,9 @@ Restart Att to see the information</b>"
         "The shell configurations of the ATT contain\
  aliases that require certain applications\n\
 \nHere you can select the missing applications and install them\n\
-Activate the ArcoLinux repos to install all of them"
+Activate the ArcoLinux repos to install all of them\n\n\
+Applications that were NOT installed will be <b>unselected</b> again\n\
+Activate the necessary repos"
     )
     self.select_all = Gtk.CheckButton(label="Select them all")
     self.select_all.connect("notify::active", self.on_select_all_toggle)

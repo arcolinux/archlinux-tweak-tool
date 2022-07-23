@@ -59,6 +59,9 @@ lightdm_conf_arco = "/usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm.c
 lightdm_greeter_arco = (
     "/usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm-gtk-greeter.conf"
 )
+lightdm_greeter_arco_att = (
+    "/usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm-gtk-greeter-att.conf"
+)
 ligthdm_slick_greeter_arco = (
     "/usr/share/archlinux-tweak-tool/data/arco/lightdm/slick-greeter.conf"
 )
@@ -818,9 +821,22 @@ def add_autologin_group(self):
     groups = com.stdout.decode().strip().split(" ")
     # print(groups)
     if "autologin" not in groups:
-        subprocess.run(
-            ["gpasswd", "-a", sudo_username, "autologin"], check=True, shell=False
-        )
+        command = "groupadd autologin"
+        try:
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+        except Exception as error:
+            print(error)
+        try:
+            subprocess.run(
+                ["gpasswd", "-a", sudo_username, "autologin"], check=True, shell=False
+            )
+        except Exception as error:
+            print(error)
 
 
 # =====================================================
@@ -2413,18 +2429,18 @@ def run_as_user(script):
     subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)
 
 
-def install_extra_shell(package):
-    install = "pacman -S " + package + " --needed --noconfirm"
-    print(install)
-    try:
-        subprocess.call(
-            install.split(" "),
-            shell=False,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-        )
-    except Exception as error:
-        print(error)
+# def install_extra_shell(package):
+#     install = "pacman -S " + package + " --needed --noconfirm"
+#     print(install)
+#     try:
+#         subprocess.call(
+#             install.split(" "),
+#             shell=False,
+#             stdout=subprocess.PIPE,
+#             stderr=subprocess.STDOUT,
+#         )
+#     except Exception as error:
+#         print(error)
 
 
 # =====================================================

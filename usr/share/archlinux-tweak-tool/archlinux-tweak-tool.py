@@ -744,7 +744,7 @@ class Main(Gtk.Window):
             self.button_reinstall.set_sensitive(False)
 
         if fn.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active():
+            if fn.check_arco_repos_active() is True:
                 self.button_install.set_sensitive(True)
                 self.button_reinstall.set_sensitive(True)
             else:
@@ -1165,13 +1165,15 @@ class Main(Gtk.Window):
 
     def on_click_launch_pace(self, widget):
         if fn.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active():
+            if fn.check_arco_repos_active() is True:
                 fn.install_pace(self)
                 call("pace", shell=True)
             else:
-                print("Activate the ArcoLinux repos")
+                print("First activate the ArcoLinux repos")
                 GLib.idle_add(
-                    fn.show_in_app_notification, self, "Activate the ArcoLinux repos"
+                    fn.show_in_app_notification,
+                    self,
+                    "First activate the ArcoLinux repos",
                 )
         else:
             print("Install ArcoLinux mirrors and keys")
@@ -1904,8 +1906,8 @@ class Main(Gtk.Window):
             fn.show_in_app_notification(self, "Fill in all fields")
 
     def on_click_install_arco_lightdmgreeter(self, widget):
-        if fn.path.isfile(fn.lightdm_greeter_arco):
-            fn.shutil.copy(fn.lightdm_greeter_arco, fn.lightdm_greeter)
+        if fn.path.isfile(fn.lightdm_greeter_arco_att):
+            fn.shutil.copy(fn.lightdm_greeter_arco_att, fn.lightdm_greeter)
 
         print("Lightdm gtk-greeter-settings applied")
         fn.show_in_app_notification(self, "Lightdm gtk-greeter-settings applied")
@@ -2963,8 +2965,8 @@ class Main(Gtk.Window):
             if fn.check_arco_repos_active() is True:
                 fn.install_arco_thunar_plugin(self, widget)
             else:
-                print("Activate the ArcoLinux repos")
-                fn.show_in_app_notification(self, "Activate the ArcoLinux repos")
+                print("First activate the ArcoLinux repos")
+                fn.show_in_app_notification(self, "First activate the ArcoLinux repos")
         else:
             print("Install the ArcoLinux keys and mirrors")
             fn.show_in_app_notification(self, "Install the ArcoLinux keys and mirrors")
@@ -2974,8 +2976,8 @@ class Main(Gtk.Window):
             if fn.check_arco_repos_active() is True:
                 fn.install_arco_caja_plugin(self, widget)
             else:
-                print("Activate the ArcoLinux repos")
-                fn.show_in_app_notification(self, "Activate the ArcoLinux repos")
+                print("First activate the ArcoLinux repos")
+                fn.show_in_app_notification(self, "First activate the ArcoLinux repos")
         else:
             print("Install the ArcoLinux keys and mirrors")
             fn.show_in_app_notification(self, "Install the ArcoLinux keys and mirrors")
@@ -2985,8 +2987,8 @@ class Main(Gtk.Window):
             if fn.check_arco_repos_active() is True:
                 fn.install_arco_nemo_plugin(self, widget)
             else:
-                print("Activate the ArcoLinux repos")
-                fn.show_in_app_notification(self, "Activate the ArcoLinux repos")
+                print("First activate the ArcoLinux repos")
+                fn.show_in_app_notification(self, "First activate the ArcoLinux repos")
         else:
             print("Install the ArcoLinux keys and mirrors")
             fn.show_in_app_notification(self, "Install the ArcoLinux keys and mirrors")
@@ -3259,25 +3261,45 @@ class Main(Gtk.Window):
 
     def on_extra_shell_applications_clicked(self, widget):
         if self.expac.get_active():
-            fn.install_extra_shell("expac")
+            fn.install_package(self, "expac")
         if self.ripgrep.get_active():
-            fn.install_extra_shell("ripgrep")
+            fn.install_package(self, "ripgrep")
         if self.yay.get_active():
-            fn.install_extra_shell("yay-bin")
+            fn.install_arco_package(self, "yay-bin")
         if self.paru.get_active():
-            fn.install_extra_shell("paru-bin")
+            fn.install_arco_package(self, "paru-bin")
         if self.bat.get_active():
-            fn.install_extra_shell("bat")
+            fn.install_package(self, "bat")
         if self.downgrade.get_active():
-            fn.install_extra_shell("downgrade")
+            fn.install_arco_package(self, "downgrade")
         if self.hw_probe.get_active():
-            fn.install_extra_shell("hw-probe")
+            fn.install_arco_package(self, "hw-probe")
         if self.rate_mirrors.get_active():
-            fn.install_extra_shell("rate-mirrors")
+            fn.install_arco_package(self, "rate-mirrors-bin")
         if self.most.get_active():
-            fn.install_extra_shell("most")
-        print("Software has been installed")
-        fn.show_in_app_notification(self, "Software has been installed")
+            fn.install_package(self, "most")
+        print("Software has been installed depending on the repos")
+        fn.show_in_app_notification(
+            self, "Software has been installed depending on the repos"
+        )
+        if fn.check_package_installed("expac") is False:
+            self.expac.set_active(False)
+        if fn.check_package_installed("ripgrep") is False:
+            self.ripgrep.set_active(False)
+        if fn.check_package_installed("yay-bin") is False:
+            self.yay.set_active(False)
+        if fn.check_package_installed("paru-bin") is False:
+            self.paru.set_active(False)
+        if fn.check_package_installed("bat") is False:
+            self.bat.set_active(False)
+        if fn.check_package_installed("downgrade") is False:
+            self.downgrade.set_active(False)
+        if fn.check_package_installed("hw-probe") is False:
+            self.hw_probe.set_active(False)
+        if fn.check_package_installed("rate-mirrors-bin") is False:
+            self.rate_mirrors.set_active(False)
+        if fn.check_package_installed("most") is False:
+            self.most.set_active(False)
 
     def on_select_all_toggle(self, widget, active):
 
@@ -3430,25 +3452,29 @@ class Main(Gtk.Window):
         fn.install_package(self, "alacritty")
 
     def on_clicked_install_alacritty_themes(self, widget):
-        fn.install_package(self, "alacritty")
-        fn.install_package(self, "ttf-hack")
-        fn.install_arco_package(self, "alacritty-themes")
-        fn.install_arco_package(self, "base16-alacritty-git")
-        print("Alacritty themes installed")
-        GLib.idle_add(fn.show_in_app_notification, self, "Alacritty themes installed")
+        if fn.check_arco_repos_active() is True:
+            fn.install_package(self, "alacritty")
+            fn.install_package(self, "ttf-hack")
+            fn.install_arco_package(self, "alacritty-themes")
+            fn.install_arco_package(self, "base16-alacritty-git")
+            print("Alacritty themes installed")
+            fn.show_in_app_notification(self, "Alacritty themes installed")
 
-        # if there is no file copy/paste from /etc/skel else alacritty-themes crash
-        if not fn.path.isfile(fn.alacritty_config):
-            if not fn.path.isdir(fn.alacritty_config_dir):
-                try:
-                    fn.mkdir(fn.alacritty_config_dir)
-                    fn.permissions(fn.alacritty_config_dir)
-                except Exception as error:
-                    print(error)
+            # if there is no file copy/paste from /etc/skel else alacritty-themes crash
+            if not fn.path.isfile(fn.alacritty_config):
+                if not fn.path.isdir(fn.alacritty_config_dir):
+                    try:
+                        fn.mkdir(fn.alacritty_config_dir)
+                        fn.permissions(fn.alacritty_config_dir)
+                    except Exception as error:
+                        print(error)
 
-            fn.shutil.copy(fn.alacritty_arco, fn.alacritty_config)
-            fn.permissions(fn.home + "/.config/alacritty")
-            print("Alacritty config saved")
+                fn.shutil.copy(fn.alacritty_arco, fn.alacritty_config)
+                fn.permissions(fn.home + "/.config/alacritty")
+                print("Alacritty config saved")
+        else:
+            print("First activate the ArcoLinux repos")
+            fn.show_in_app_notification(self, "First activate the ArcoLinux repos")
 
     def on_clicked_remove_alacritty_themes(self, widget):
         fn.remove_package(self, "alacritty")
@@ -3465,11 +3491,15 @@ class Main(Gtk.Window):
         fn.remove_package(self, "xfce4-terminal")
 
     def on_clicked_install_xfce4_themes(self, widget):
-        fn.install_arco_package(self, "xfce4-terminal-base16-colors-git")
-        fn.install_arco_package(self, "tempus-themes-xfce4-terminal-git")
-        fn.install_arco_package(self, "prot16-xfce4-terminal")
-        print("Xfce4 themes installed")
-        GLib.idle_add(fn.show_in_app_notification, self, "Xfce4 themes installed")
+        if fn.check_arco_repos_active() is True:
+            fn.install_arco_package(self, "xfce4-terminal-base16-colors-git")
+            fn.install_arco_package(self, "tempus-themes-xfce4-terminal-git")
+            fn.install_arco_package(self, "prot16-xfce4-terminal")
+            print("Xfce4 themes installed")
+            fn.show_in_app_notification(self, "Xfce4 themes installed")
+        else:
+            print("First activate the ArcoLinux repos")
+            fn.show_in_app_notification(self, "First activate the ArcoLinux repos")
 
     def on_clicked_remove_xfce4_themes(self, widget):
         fn.remove_package(self, "xfce4-terminal-base16-colors-git")
@@ -3516,13 +3546,17 @@ class Main(Gtk.Window):
         terminals.get_themes(self.term_themes)
 
     def on_clicked_install_termite_themes(self, widget):
-        fn.install_arco_package(self, "termite")
-        fn.install_arco_package(self, "arcolinux-termite-themes-git")
-        fn.copy_func("/etc/skel/.config/termite", fn.home + "/.config/", True)
-        fn.permissions(fn.home + "/.config/termite")
-        terminals.get_themes(self.term_themes)
-        print("Termite  themes installed")
-        GLib.idle_add(fn.show_in_app_notification, self, "Termite themes installed")
+        if fn.check_arco_repos_active() is True:
+            fn.install_arco_package(self, "termite")
+            fn.install_arco_package(self, "arcolinux-termite-themes-git")
+            fn.copy_func("/etc/skel/.config/termite", fn.home + "/.config/", True)
+            fn.permissions(fn.home + "/.config/termite")
+            terminals.get_themes(self.term_themes)
+            print("Termite  themes installed")
+            fn.show_in_app_notification(self, "Termite themes installed")
+        else:
+            print("First activate the ArcoLinux repos")
+            fn.show_in_app_notification(self, "First activate the ArcoLinux repos")
 
     def on_clicked_remove_termite_themes(self, widget):
         fn.remove_package(self, "arcolinux-termite-themes-git")
