@@ -1170,16 +1170,10 @@ class Main(Gtk.Window):
                 call("pace", shell=True)
             else:
                 print("First activate the ArcoLinux repos")
-                GLib.idle_add(
-                    fn.show_in_app_notification,
-                    self,
-                    "First activate the ArcoLinux repos",
-                )
+                fn.show_in_app_notification(self, "First activate the ArcoLinux repos")
         else:
             print("Install ArcoLinux mirrors and keys")
-            GLib.idle_add(
-                fn.show_in_app_notification, self, "Install ArcoLinux mirrors and keys"
-            )
+            fn.show_in_app_notification(self, "Install ArcoLinux mirrors and keys")
 
     def on_click_reset_arcolinux_mirrorlist(self, widget):
         if fn.path.isfile(fn.arcolinux_mirrorlist_original):
@@ -1196,13 +1190,12 @@ class Main(Gtk.Window):
     def tobash_apply(self, widget):
         fn.change_shell(self, "bash")
 
-    def on_install_bash_clicked(self, widget):
+    def on_install_bash_completion_clicked(self, widget):
         fn.install_package(self, "bash")
         fn.install_package(self, "bash-completion")
-        GLib.idle_add(
-            fn.show_in_app_notification, self, "Bash-completion has been installed"
-        )
-        print("Bash completion has been installed")
+
+    def on_remove_bash_completion_clicked(self, widget):
+        fn.remove_package(self, "bash-completion")
 
     def on_arcolinux_bash_clicked(self, widget):
         try:
@@ -1276,45 +1269,21 @@ class Main(Gtk.Window):
     #    #====================================================================
 
     def on_install_only_fish_clicked_reboot(self, widget):
-        install = "pacman -S fish --needed --noconfirm"
-
-        if fn.path.exists("/usr/bin/fish"):
-            pass
-        else:
-            subprocess.call(
-                install.split(" "),
-                shell=False,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-            )
-        print("Only Fish has been installed")
-        print("Fish is installed without a configuration")
-        GLib.idle_add(
-            fn.show_in_app_notification,
-            self,
-            "Only the Fish package is installed without a configuration",
-        )
+        fn.install_package(self, "fish")
         fn.restart_program()
 
     def on_install_only_fish_clicked(self, widget):
-        install = "pacman -S fish --needed --noconfirm"
-
-        if fn.path.exists("/usr/bin/fish"):
-            pass
-        else:
-            subprocess.call(
-                install.split(" "),
-                shell=False,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-            )
+        fn.install_package(self, "fish")
         print("Only Fish has been installed")
         print("Fish is installed without a configuration")
-        GLib.idle_add(
-            fn.show_in_app_notification,
-            self,
-            "Only the Fish package is installed without a configuration",
+        fn.show_in_app_notification(
+            self, "Only the Fish package is installed without a configuration"
         )
+
+    def on_remove_only_fish_clicked(self, widget):
+        fn.remove_package(self, "fish")
+        print("Fish has been removed")
+        fn.show_in_app_notification(self, "Fish has been removed")
 
     def on_arcolinux_fish_package_clicked(self, widget):
         fn.install_arcolinux_fish_package(self)
@@ -2303,12 +2272,8 @@ class Main(Gtk.Window):
     def on_arcolinux_clicked(self, widget):
         fn.install_arcolinux(self)
         print("ArcoLinux keyring and mirrors added")
-        # print("First restart ATT")
-        # print("Then select all ArcoLinux repos except testing repo")
-        GLib.idle_add(
-            fn.show_in_app_notification,
-            self,
-            "ArcoLinux keyring and mirrors added + activated",
+        fn.show_in_app_notification(
+            self, "ArcoLinux keyring and mirrors added + activated"
         )
         self.on_pacman_arepo_toggle(self.arepo_button, True)
         self.on_pacman_a3p_toggle(self.a3prepo_button, True)
@@ -2344,9 +2309,11 @@ class Main(Gtk.Window):
                 if fn.check_arco_repos_active() is True:
                     self.button_install.set_sensitive(True)
                     self.button_reinstall.set_sensitive(True)
+                    self.install_arco_vimix.set_sensitive(True)
                 else:
                     self.button_install.set_sensitive(False)
                     self.button_reinstall.set_sensitive(False)
+                    self.install_arco_vimix.set_sensitive(False)
         utilities.set_util_state_arco_switch(self)
 
     def on_pacman_a3p_toggle(self, widget, active):
@@ -2393,11 +2360,7 @@ class Main(Gtk.Window):
         if not pmf.repo_exist("[chaotic-aur]"):
             pmf.append_repo(self, fn.chaotics_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "chaotics")
@@ -2406,19 +2369,13 @@ class Main(Gtk.Window):
         fn.install_endeavouros(self)
         print("EndeavourOS keyring and mirrors added")
         print("Restart Att and select the repo")
-        GLib.idle_add(
-            fn.show_in_app_notification, self, "Restart Att and select the repo"
-        )
+        fn.show_in_app_notification(self, "Restart Att and select the repo")
 
     def on_endeavouros_toggle(self, widget, active):
         if not pmf.repo_exist("[endeavouros]"):
             pmf.append_repo(self, fn.endeavouros_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "endeavouros")
@@ -2427,11 +2384,7 @@ class Main(Gtk.Window):
         if not pmf.repo_exist("[nemesis_repo]"):
             pmf.append_repo(self, fn.nemesis_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "nemesis")
@@ -2440,17 +2393,13 @@ class Main(Gtk.Window):
         fn.install_xerolinux(self)
         print("XeroLinux mirrors added")
         print("Restart Att and select the repos")
-        GLib.idle_add(fn.show_in_app_notification, self, "Xerolinux mirrors added")
+        fn.show_in_app_notification(self, "Xerolinux mirrors added")
 
     def on_xero_toggle(self, widget, active):
         if not pmf.repo_exist("[xerolinux_repo]"):
             pmf.append_repo(self, fn.xero_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "xero")
@@ -2459,11 +2408,7 @@ class Main(Gtk.Window):
         if not pmf.repo_exist("[xerolinux_repo_xl]"):
             pmf.append_repo(self, fn.xero_xl_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "xero_xl")
@@ -2472,11 +2417,7 @@ class Main(Gtk.Window):
         if not pmf.repo_exist("[xerolinux_nvidia_repo]"):
             pmf.append_repo(self, fn.xero_nv_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "xero_nv")
@@ -2485,11 +2426,7 @@ class Main(Gtk.Window):
         if not pmf.repo_exist("[testing]"):
             pmf.append_repo(self, fn.arch_testing_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "testing")
@@ -2498,11 +2435,7 @@ class Main(Gtk.Window):
         if not pmf.repo_exist("[core]"):
             pmf.append_repo(self, fn.arch_core_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "core")
@@ -2511,11 +2444,7 @@ class Main(Gtk.Window):
         if not pmf.repo_exist("[extra]"):
             pmf.append_repo(self, fn.arch_extra_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "extra")
@@ -2524,11 +2453,7 @@ class Main(Gtk.Window):
         if not pmf.repo_exist("[community-testing]"):
             pmf.append_repo(self, fn.arch_community_testing_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "community-testing")
@@ -2550,11 +2475,7 @@ class Main(Gtk.Window):
         if not pmf.repo_exist("[multilib-testing]"):
             pmf.append_repo(self, fn.arch_multilib_testing_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "multilib-testing")
@@ -2563,11 +2484,7 @@ class Main(Gtk.Window):
         if not pmf.repo_exist("[multilib]"):
             pmf.append_repo(self, fn.arch_multilib_repo)
             print("Repo has been added to /etc/pacman.conf")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Repo has been added to /etc/pacman.conf",
-            )
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "multilib")
@@ -2756,9 +2673,7 @@ class Main(Gtk.Window):
                 t2.start()
 
             print("Sddm settings saved successfully")
-            GLib.idle_add(
-                fn.show_in_app_notification, self, "Sddm settings saved successfully"
-            )
+            fn.show_in_app_notification(self, "Sddm settings saved successfully")
 
         else:
             print("You need to select desktop, theme and cursor first")
@@ -2891,9 +2806,7 @@ class Main(Gtk.Window):
         fn.install_package(self, "sddm")
         fn.install_arco_package(self, "arcolinux-sddm-simplicity-git")
         print("Do not forget to enable sddm")
-        GLib.idle_add(
-            fn.show_in_app_notification, self, "Sddm has been installed but not enabled"
-        )
+        fn.show_in_app_notification(self, "Sddm has been installed but not enabled")
         fn.create_sddm_k_dir()
         fn.shutil.copyfile(fn.sddm_default_d1_arco, fn.sddm_default_d1)
         fn.shutil.copyfile(fn.sddm_default_d2_arco, fn.sddm_default_d2)
@@ -2909,9 +2822,7 @@ class Main(Gtk.Window):
         fn.install_arco_package(self, "arcolinux-desktop-trasher-git")
         try:
             subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
-            GLib.idle_add(
-                fn.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched"
-            )
+            fn.show_in_app_notification(self, "ArcoLinux Desktop Trasher launched")
             print("We started ADT")
         except:
             pass
@@ -3482,7 +3393,7 @@ class Main(Gtk.Window):
         fn.remove_package(self, "alacritty-themes")
         fn.remove_package(self, "base16-alacritty-git")
         print("Alacritty themes removed")
-        GLib.idle_add(fn.show_in_app_notification, self, "Alacritty themes removed")
+        fn.show_in_app_notification(self, "Alacritty themes removed")
 
     def on_clicked_install_xfce4_terminal(self, widget):
         fn.install_package(self, "xfce4-terminal")
@@ -3506,32 +3417,28 @@ class Main(Gtk.Window):
         fn.remove_package(self, "tempus-themes-xfce4-terminal-git")
         fn.remove_package(self, "prot16-xfce4-terminal")
         print("Xfce4 themes removed")
-        GLib.idle_add(fn.show_in_app_notification, self, "Xfce4 themes removed")
+        fn.show_in_app_notification(self, "Xfce4 themes removed")
 
     def on_clicked_reset_xfce4_terminal(self, widget):
         if fn.path.isfile(fn.xfce4_terminal_config + ".bak"):
             fn.shutil.copy(fn.xfce4_terminal_config + ".bak", fn.xfce4_terminal_config)
             fn.permissions(fn.home + "/.config/xfce4/terminal")
             print("xfce4-terminal reset")
-            GLib.idle_add(fn.show_in_app_notification, self, "Xfce4-terminal reset")
+            fn.show_in_app_notification(self, "Xfce4-terminal reset")
 
     def on_clicked_reset_alacritty(self, widget):
         if fn.path.isfile(fn.alacritty_config + ".bak"):
             fn.shutil.copy(fn.alacritty_config + ".bak", fn.alacritty_config)
             fn.permissions(fn.home + "/.config/alacritty")
             print("Alacritty reset")
-            GLib.idle_add(fn.show_in_app_notification, self, "Alacritty reset")
+            fn.show_in_app_notification(self, "Alacritty reset")
 
     def on_clicked_set_arcolinux_alacritty_theme_config(self, widget):
         if fn.path.isfile(fn.alacritty_config):
             fn.shutil.copy(fn.alacritty_arco, fn.alacritty_config)
             fn.permissions(fn.home + "/.config/alacritty")
             print("Applied the ATT Alacritty theme/config")
-            GLib.idle_add(
-                fn.show_in_app_notification,
-                self,
-                "Applied the ATT Alacritty theme/config",
-            )
+            fn.show_in_app_notification(self, "Applied the ATT Alacritty theme/config")
 
     # ====================================================================
     #                      TERMITE
@@ -3658,9 +3565,6 @@ class Main(Gtk.Window):
             fn.show_in_app_notification(self, "First import an image")
 
     def on_set_login_wallpaper(self, widget):
-        # if not fn.path.isfile(fn.grub_theme_conf):
-        #     self.on_click_install_arco_vimix_clicked(self)
-
         if self.login_wallpaper_path == "":
             print("First choose a wallpaper image")
             fn.show_in_app_notification(self, "First choose a wallpaper image")
@@ -3835,8 +3739,14 @@ class Main(Gtk.Window):
     def on_install_zsh_completions_clicked(self, widget):
         fn.install_package(self, "zsh-completions")
 
+    def on_remove_zsh_completions_clicked(self, widget):
+        fn.remove_package(self, "zsh-completions")
+
     def on_install_zsh_syntax_highlighting_clicked(self, widget):
         fn.install_package(self, "zsh-syntax-highlighting")
+
+    def on_remove_zsh_syntax_highlighting_clicked(self, widget):
+        fn.remove_package(self, "zsh-syntax-highlighting")
 
     def on_arcolinux_zshrc_clicked(self, widget):
         try:

@@ -175,47 +175,7 @@ Then you will be able to set the mirrors of ArcoLinux"
     #                 GRUB
     # ==========================================================
 
-    if fn.check_package_installed("arcolinux-grub-theme-vimix-git"):
-        grub_gui.gui(self, Gtk, vboxstack4, fn)
-    else:
-        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        lbl1 = Gtk.Label(xalign=0)
-        lbl1.set_text("Grub")
-        lbl1.set_name("title")
-        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        hbox41.pack_start(hseparator, True, True, 0)
-        hbox31.pack_start(lbl1, False, False, 0)
-        vboxstack4.pack_start(hbox31, False, False, 0)
-        vboxstack4.pack_start(hbox41, False, False, 0)
-        grub_message = Gtk.Label()
-        grub_message.set_markup(
-            "<b>We did not find the application arcolinux-grub-theme-vimix-git</b>\n\
-<b>First activate the ArcoLinux repos in the Pacman tab</b>\n\
-Then you can choose all kinds of wallpapers\n\
-We will reload the ATT automatically"
-        )
-
-        if fn.check_systemd_boot():
-            grub_message.set_markup(
-                "<b>We believe you are on a system that uses systemd boot</b>\n\
-<b>Grub can not be used</b>"
-            )
-
-        install_arco_vimix = Gtk.Button(
-            label="Install the grub Vimix theme and ATT will reboot automatically"
-        )
-        if fn.check_arco_repos_active() is True:
-            install_arco_vimix.set_sensitive(True)
-        else:
-            install_arco_vimix.set_sensitive(False)
-
-        install_arco_vimix.connect("clicked", self.on_click_install_arco_vimix_clicked)
-        if fn.check_systemd_boot():
-            vboxstack4.pack_start(grub_message, True, False, 0)
-        else:
-            vboxstack4.pack_start(grub_message, True, False, 0)
-            vboxstack4.pack_start(install_arco_vimix, False, False, 0)
+    grub_gui.gui(self, Gtk, vboxstack4, fn)
 
     # ==========================================================
     #                         LOGIN

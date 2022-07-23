@@ -67,10 +67,17 @@ def gui(self, Gtk, vboxstack23, zsh_theme, base_dir, GdkPixbuf, fn):
             hbox7_lbl.set_markup(
                 "Bash is already installed and  bash-completion is not installed"
             )
-        self.bash = Gtk.Button("Install bash-completion")
-        self.bash.connect("clicked", self.on_install_bash_clicked)
+        install_bash_completion = Gtk.Button("Install bash-completion")
+        install_bash_completion.connect(
+            "clicked", self.on_install_bash_completion_clicked
+        )
+        remove_bash_completion = Gtk.Button("Install bash-completion")
+        remove_bash_completion.connect(
+            "clicked", self.on_remove_bash_completion_clicked
+        )
         hbox7.pack_start(hbox7_lbl, False, False, 10)
-        hbox7.pack_end(self.bash, False, False, 10)
+        hbox7.pack_end(remove_bash_completion, False, False, 10)
+        hbox7.pack_end(install_bash_completion, False, False, 10)
 
         hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         hbox8_lbl = Gtk.Label()
@@ -174,7 +181,12 @@ def gui(self, Gtk, vboxstack23, zsh_theme, base_dir, GdkPixbuf, fn):
         self.install_zsh_completions.connect(
             "clicked", self.on_install_zsh_completions_clicked
         )
+        self.remove_zsh_completions = Gtk.Button("Remove zsh-completion")
+        self.remove_zsh_completions.connect(
+            "clicked", self.on_remove_zsh_completions_clicked
+        )
         hbox26.pack_start(hbox26_lbl, False, False, 10)
+        hbox26.pack_end(self.remove_zsh_completions, False, False, 10)
         hbox26.pack_end(self.install_zsh_completions, False, False, 10)
 
         hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -189,7 +201,14 @@ def gui(self, Gtk, vboxstack23, zsh_theme, base_dir, GdkPixbuf, fn):
         self.install_zsh_syntax_highlighting.connect(
             "clicked", self.on_install_zsh_syntax_highlighting_clicked
         )
+        self.remove_zsh_syntax_highlighting = Gtk.Button(
+            "Revmove Zsh-syntax-highlighting"
+        )
+        self.remove_zsh_syntax_highlighting.connect(
+            "clicked", self.on_remove_zsh_syntax_highlighting_clicked
+        )
         hbox27.pack_start(hbox27_lbl, False, False, 10)
+        hbox27.pack_end(self.remove_zsh_syntax_highlighting, False, False, 10)
         hbox27.pack_end(self.install_zsh_syntax_highlighting, False, False, 10)
 
         hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -365,10 +384,13 @@ If you just switched shell, log-out first</b>\n"
             hbox32_lbl.set_markup("Fish is already <b>installed</b>")
         else:
             hbox32_lbl.set_markup("Fish is not installed")
-        self.fish = Gtk.Button("Install Fish")
-        self.fish.connect("clicked", self.on_install_only_fish_clicked)
+        install_fish = Gtk.Button("Install Fish")
+        install_fish.connect("clicked", self.on_install_only_fish_clicked)
+        remove_fish = Gtk.Button("Remove Fish")
+        remove_fish.connect("clicked", self.on_remove_only_fish_clicked)
         hbox32.pack_start(hbox32_lbl, False, False, 10)
-        hbox32.pack_end(self.fish, False, False, 10)
+        hbox32.pack_end(remove_fish, False, False, 10)
+        hbox32.pack_end(install_fish, False, False, 10)
 
         hbox33 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         hbox33_lbl = Gtk.Label()
