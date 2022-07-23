@@ -88,6 +88,9 @@ def create_samba_user(self):
                 stderr=fn.subprocess.STDOUT,
             )
             print("Created a password for the current user")
+            print("Alacritty should pop open and you can type your Samba password")
+            print("If you can not type your password - type the command in a terminal")
+            print("sudo smbpasswd -a 'your_username'")
             GLib.idle_add(
                 fn.show_in_app_notification,
                 self,

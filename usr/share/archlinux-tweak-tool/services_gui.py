@@ -572,9 +572,10 @@ Report them if that is the case"
     # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
-    if not (fn.distr == "garuda" or fn.distr == "manjaro"):
+    if not (fn.distr == "garuda" or fn.distr == "manjaro" or fn.distr == "xerolinux"):
         stack.add_titled(vboxstack4, "stack4", "Audio")
-    stack.add_titled(vboxstack5, "stack5", "Bluetooth")
+    if not (fn.distr == "xerolinux"):
+        stack.add_titled(vboxstack5, "stack5", "Bluetooth")
     stack.add_titled(vboxstack1, "stack1", "Network")
     stack.add_titled(vboxstack3, "stack3", "Printing")
     stack.add_titled(vboxstack2, "stack2", "Samba")

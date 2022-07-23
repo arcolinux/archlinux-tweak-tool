@@ -442,14 +442,14 @@ if you installed the ATT Fish configuration\n\n<b>If you just switched shell, lo
         tozsh.connect("clicked", self.tozsh_apply)
         termreset = Gtk.Button(label="Reset fish")
         termreset.connect("clicked", self.on_fish_reset_clicked)
-        removefish = Gtk.Button(label="Remove all Fish related packages")
-        removefish.connect("clicked", self.on_remove_fish)
+        remove_fish_all = Gtk.Button(label="Remove all Fish related packages")
+        remove_fish_all.connect("clicked", self.on_remove_fish_all)
 
         if not fn.distr == "archcraft":
             hbox35.pack_start(tofish, False, False, 0)
         hbox35.pack_start(tobash, False, False, 0)
         hbox35.pack_start(tozsh, False, False, 0)
-        hbox35.pack_end(removefish, False, False, 0)
+        hbox35.pack_end(remove_fish_all, False, False, 0)
         hbox35.pack_end(termreset, False, False, 0)
 
         # ==========================================================

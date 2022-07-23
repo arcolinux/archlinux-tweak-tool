@@ -947,43 +947,6 @@ def change_distro_label(name):  # noqa
     return name
 
 
-# =====================================================
-#               FISH + PACKAGES (ARCOLINUXD)
-# =====================================================
-
-
-def install_arcolinux_fish_package(self):
-    install = "pacman -S arcolinux-fish-git --needed --noconfirm"
-
-    try:
-        subprocess.call(
-            install.split(" "),
-            shell=False,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-        )
-        print("ArcoLinux Fish has been installed")
-    except Exception as error:
-        print(error)
-
-
-def remove_fish(self):
-    install = "pacman -Rs fish arcolinux-fish-git --noconfirm"
-
-    if not path.exists("/usr/bin/fish") and path.exists(
-        "/etc/skel/.config/fish/config.fish"
-    ):
-        pass
-    else:
-        subprocess.call(
-            install.split(" "),
-            shell=False,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-        )
-    self.tobash_apply(self)
-
-
 # ====================================================================
 #                      GET DESKTOP
 # ====================================================================
@@ -1548,40 +1511,6 @@ def get_login_wallpapers():
 
         new_list.sort()
         return new_list
-
-
-# =====================================================
-#               LXDM
-# =====================================================
-
-
-def install_att_lxdm_theme_minimalo(self):
-    install = "pacman -S arcolinux-lxdm-theme-minimalo-git --noconfirm --needed"
-    try:
-        subprocess.call(
-            install.split(" "),
-            shell=False,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-        )
-        print("Arcolinux-lxdm-theme-minimalo-git is now installed")
-    except Exception as error:
-        print(error)
-
-
-def remove_att_lxdm_theme_minimalo(self):
-    install = "pacman -R arcolinux-lxdm-theme-minimalo-git --noconfirm"
-
-    try:
-        subprocess.call(
-            install.split(" "),
-            shell=False,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-        )
-        print("Arcolinux-lxdm-theme-minimalo-git is now removed")
-    except Exception as error:
-        print(error)
 
 
 # =====================================================

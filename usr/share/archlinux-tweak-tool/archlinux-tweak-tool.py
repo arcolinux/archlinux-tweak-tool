@@ -1284,48 +1284,48 @@ class Main(Gtk.Window):
         fn.remove_package(self, "fish")
 
     def on_arcolinux_fish_package_clicked(self, widget):
-        fn.install_arcolinux_fish_package(self)
+        fn.install_arco_package(self, "arcolinux-fish-git")
+        if fn.check_package_installed("arcolinux-fish-git") is True:
+            # backup whatever is there
+            if fn.path_check(fn.home + "/.config/fish"):
+                now = datetime.datetime.now()
 
-        # backup whatever is there
-        if fn.path_check(fn.home + "/.config/fish"):
-            now = datetime.datetime.now()
+                if not fn.path.exists(fn.home + "/.config/fish-att"):
+                    fn.makedirs(fn.home + "/.config/fish-att")
+                    fn.permissions(fn.home + "/.config/fish-att")
 
-            if not fn.path.exists(fn.home + "/.config/fish-att"):
-                fn.makedirs(fn.home + "/.config/fish-att")
-                fn.permissions(fn.home + "/.config/fish-att")
+                if fn.path.exists(fn.home + "/.config-att"):
+                    fn.permissions(fn.home + "/.config-att")
 
-            if fn.path.exists(fn.home + "/.config-att"):
-                fn.permissions(fn.home + "/.config-att")
+                fn.copy_func(
+                    fn.home + "/.config/fish",
+                    fn.home
+                    + "/.config/fish-att/fish-att-"
+                    + now.strftime("%Y-%m-%d-%H-%M-%S"),
+                    isdir=True,
+                )
+                fn.permissions(
+                    fn.home
+                    + "/.config/fish-att/fish-att-"
+                    + now.strftime("%Y-%m-%d-%H-%M-%S")
+                )
 
-            fn.copy_func(
-                fn.home + "/.config/fish",
-                fn.home
-                + "/.config/fish-att/fish-att-"
-                + now.strftime("%Y-%m-%d-%H-%M-%S"),
-                isdir=True,
+            fn.copy_func("/etc/skel/.config/fish", fn.home + "/.config/", True)
+            fn.permissions(fn.home + "/.config/fish")
+
+            # if there is no file .config/fish
+            if not fn.path.isfile(fn.home + "/.config/fish/config.fish"):
+                fn.shutil.copy(
+                    "/etc/skel/.config/fish/config.fish",
+                    fn.home + "/.config/fish/config.fish",
+                )
+                fn.permissions(fn.home + "/.config/fish/config.fish")
+
+            fn.source_shell(self)
+            print(
+                "ATT Fish config is installed and your old fish folder (if any) is in ~/.config/fish-att"
             )
-            fn.permissions(
-                fn.home
-                + "/.config/fish-att/fish-att-"
-                + now.strftime("%Y-%m-%d-%H-%M-%S")
-            )
-
-        fn.copy_func("/etc/skel/.config/fish", fn.home + "/.config/", True)
-        fn.permissions(fn.home + "/.config/fish")
-
-        # if there is no file .config/fish
-        if not fn.path.isfile(fn.home + "/.config/fish/config.fish"):
-            fn.shutil.copy(
-                "/etc/skel/.config/fish/config.fish",
-                fn.home + "/.config/fish/config.fish",
-            )
-            fn.permissions(fn.home + "/.config/fish/config.fish")
-
-        fn.source_shell(self)
-        print(
-            "ATT Fish config is installed and your old fish folder (if any) is in ~/.config/fish-att"
-        )
-        GLib.idle_add(fn.show_in_app_notification, self, "ATT fish config is installed")
+            fn.show_in_app_notification(self, "ATT fish config is installed")
 
     def on_arcolinux_only_fish_clicked(self, widget):
         if not fn.path.isdir(fn.home + "/.config/fish/"):
@@ -1362,12 +1362,13 @@ class Main(Gtk.Window):
         print("Fish config reset")
         fn.show_in_app_notification(self, "Fish config reset")
 
-    def on_remove_fish(self, widget):
-        fn.remove_fish(self)
-        GLib.idle_add(
-            fn.show_in_app_notification, self, "Anything fish related is removed"
-        )
+    def on_remove_fish_all(self, widget):
+        fn.remove_package_s("arcolinux-fish-git")
+        fn.remove_package_s("fish")
         print("Fish is removed - remove the folder in ~/.config/fish manually")
+        fn.show_in_app_notificatio(
+            self, "Fish is removed - remove the folder in ~/.config/fish manually"
+        )
 
     def tofish_apply(self, widget):
         fn.change_shell(self, "fish")
@@ -3869,7 +3870,7 @@ class Main(Gtk.Window):
                 model = self.awesome_combo.get_model()
                 row_id, name = model[tree_iter][:2]
 
-            sample_path = att_base + "/images/i3-sample.jpg"
+            sample_path = att_base + "/images/awesome-sample.jpg"
             preview_path = att_base + "/themer_data/awesomewm/" + name + ".jpg"
         elif theme_type == "neofetch":
             sample_path = att_base + widget.get_active_text()
