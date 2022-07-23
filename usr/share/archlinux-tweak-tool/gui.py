@@ -296,7 +296,7 @@ themes</i> you can customize <b>Neofetch</b>"
 
     stack.add_titled(vboxstack20, "stack20", "Terminal Fun")  # lolcat and others
 
-    stack.add_titled(vboxstack10, "stack11", "Themes")  # Theme changer
+    stack.add_titled(vboxstack10, "stack11", "Themer")  # Theme changer
 
     stack.add_titled(vboxstack18, "stack18", "User")  # user
 

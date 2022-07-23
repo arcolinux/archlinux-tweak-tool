@@ -1,6 +1,7 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
+import functions as fn
 
 
 def gui(self, Gtk, vboxStack7, termite):
@@ -44,7 +45,10 @@ def gui(self, Gtk, vboxStack7, termite):
 
     hbox07 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label07 = Gtk.Label()
-    label07.set_markup("Install Alacritty")
+    if fn.check_package_installed("alacritty") == True:
+        label07.set_markup("Alacritty already <b>installed</b>")
+    else:
+        label07.set_markup("Install Alacritty")
     btn_install_alacritty = Gtk.Button(label="Install Alacritty")
     btn_install_alacritty.connect("clicked", self.on_clicked_install_alacritty)
     hbox07.pack_start(label07, False, False, 10)
@@ -92,7 +96,12 @@ colors, presets of Xfce4-terminal"
     hbox27.pack_start(label27, False, False, 10)
 
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    btn_install_xfce4_terminal = Gtk.Button(label="Install Xfce4-terminal")
+    if fn.check_package_installed("xfce4-terminal"):
+        btn_install_xfce4_terminal = Gtk.Button(
+            label="Install Xfce4-terminal (installed)"
+        )
+    else:
+        btn_install_xfce4_terminal = Gtk.Button(label="Install Xfce4-terminal")
     btn_install_xfce4_terminal.connect(
         "clicked", self.on_clicked_install_xfce4_terminal
     )
@@ -131,7 +140,10 @@ colors, presets of Xfce4-terminal"
 
     hbox24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label24 = Gtk.Label()
-    label24.set_markup("Install Termite")
+    if fn.check_package_installed("termite"):
+        label24.set_markup("Termite is already <b>installed</b>")
+    else:
+        label24.set_markup("Install Termite")
     btn_install_termite = Gtk.Button(label="Install Termite")
     btn_install_termite.connect("clicked", self.on_clicked_install_termite)
     btn_remove_termite = Gtk.Button(label="Remove Termite")
@@ -142,7 +154,10 @@ colors, presets of Xfce4-terminal"
 
     hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label21 = Gtk.Label()
-    label21.set_markup("Install Termite themes")
+    if fn.check_package_installed("arcolinux-termite-themes-git"):
+        label21.set_markup("Termite themes are already <b>installed</b>")
+    else:
+        label21.set_markup("Install Termite themes")
     btn_install_termite_themes = Gtk.Button(label="Install Termite themes")
     btn_install_termite_themes.connect(
         "clicked", self.on_clicked_install_termite_themes
