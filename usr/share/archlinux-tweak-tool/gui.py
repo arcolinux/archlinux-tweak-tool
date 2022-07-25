@@ -18,7 +18,8 @@ import lxdm
 import neofetch
 import sddm
 import design
-import att
+
+# import att
 
 # import services
 # import shell
@@ -163,7 +164,7 @@ Then you will be able to set the mirrors of ArcoLinux"
     #                 ATT
     # ==========================================================
 
-    att_gui.gui(self, Gtk, vboxstack25, design, fn)
+    att_gui.gui(self, Gtk, vboxstack25)
 
     # ==========================================================
     #                AUTOSTART
@@ -283,11 +284,11 @@ themes</i> you can customize <b>Neofetch</b>"
     # ==========================================================
     #                   ADD TO WINDOW
     # ==========================================================
-    stack.add_titled(vboxstack25, "stack25", "Att")  # Design
-
     stack.add_titled(vboxstack13, "stack13", "Autostart")  # Autostart
 
-    stack.add_titled(vboxstack24, "stack24", "Design")  # Design
+    stack.add_titled(vboxstack24, "stack24", "Design 3p")  # Design
+
+    stack.add_titled(vboxstack25, "stack25", "Design Att")  # Design
 
     stack.add_titled(vboxstack12, "stack12", "Desktop")  # Desktop installer
 

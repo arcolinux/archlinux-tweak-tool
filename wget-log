@@ -1,0 +1,12 @@
+--2022-07-25 19:37:19--  https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/etc/samba/smb.conf.arcolinux
+Loaded CA certificate '/etc/ssl/certs/ca-certificates.crt'
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.108.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 8610 (8.4K) [text/plain]
+Saving to: ‘/home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/any/samba/arco/smb.conf’
+
+     0K ........                                              100% 5.48M=0.001s
+
+2022-07-25 19:37:20 (5.48 MB/s) - ‘/home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/any/samba/arco/smb.conf’ saved [8610/8610]
+
