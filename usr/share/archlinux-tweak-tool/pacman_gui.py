@@ -6,14 +6,19 @@
 def gui(self, Gtk, vboxstack1, fn):
     """create a gui"""
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Pacman Config Editor")
     lbl1.set_name("title")
-    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-    hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
 
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    hbox4.pack_start(hseparator, True, True, 0)
+
+    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    message = Gtk.Label(xalign=0)
+    message.set_text("We refresh the pacman database when you toggle the switch on/off")
+    hbox5.pack_start(message, True, True, 0)
     # ========================================================
     #               FOOTER
     # ========================================================
@@ -341,6 +346,7 @@ def gui(self, Gtk, vboxstack1, fn):
 
     vboxstack1.pack_start(hbox3, False, False, 0)
     vboxstack1.pack_start(hbox4, False, False, 0)
+    vboxstack1.pack_start(hbox5, False, False, 0)
     vboxstack1.pack_start(frame3, False, False, 5)
 
     # =================TESTING REPO========================

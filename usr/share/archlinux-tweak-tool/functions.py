@@ -2525,8 +2525,8 @@ def update_repos(self):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("Getting the databases in from all repositories")
-        show_in_app_notification(self, "Dowloading repo libraries")
+        # print("Getting the databases in from all repositories")
+        # show_in_app_notification(self, "Dowloading repo libraries")
     except Exception as error:
         print(error)
 
