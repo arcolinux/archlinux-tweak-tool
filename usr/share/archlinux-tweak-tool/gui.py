@@ -5,12 +5,7 @@
 # ============Functions============
 import functions as fn
 
-# import os
-
-# import autostart
 import desktopr
-
-# import fish
 import fixes
 import lightdm
 import login
@@ -18,11 +13,7 @@ import lxdm
 import neofetch
 import sddm
 import design
-
-# import att
-
-# import services
-# import shell
+import att
 import terminals
 
 # import template
@@ -30,26 +21,18 @@ import themer
 import user
 import zsh_theme
 
-# import polybar
-# import slim
-# import Gtk_Functions
-# import oblogout
-# import skelapp
-
 # =============GUI=================
+import att_gui
 import autostart_gui
 import desktopr_gui
 import fixes_gui
 import grub_gui
-import att_gui
 import login_gui
 import arcolinuxmirrors_gui
 import neofetch_gui
 import pacman_gui
 import privacy_gui
 import terminals_gui
-
-# import Template_GUI
 import utilities_gui
 import services_gui
 import shell_gui
@@ -57,11 +40,8 @@ import themer_gui
 import design_gui
 import user_gui
 
-# import Oblogout_GUI
-# import Slimlock_GUI
+# import Template_GUI
 # import Polybar_GUI
-# import GTK_GUI
-# import SkelApp_GUI
 
 
 def gui(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):
@@ -164,7 +144,7 @@ Then you will be able to set the mirrors of ArcoLinux"
     #                 ATT
     # ==========================================================
 
-    att_gui.gui(self, Gtk, vboxstack25)
+    att_gui.gui(self, Gtk, vboxstack25, att, fn)
 
     # ==========================================================
     #                AUTOSTART
@@ -284,11 +264,11 @@ themes</i> you can customize <b>Neofetch</b>"
     # ==========================================================
     #                   ADD TO WINDOW
     # ==========================================================
+    stack.add_titled(vboxstack25, "stack25", "Att")  # Design
+
     stack.add_titled(vboxstack13, "stack13", "Autostart")  # Autostart
 
-    stack.add_titled(vboxstack24, "stack24", "Design 3p")  # Design
-
-    stack.add_titled(vboxstack25, "stack25", "Design Att")  # Design
+    stack.add_titled(vboxstack24, "stack24", "Design")  # Design
 
     stack.add_titled(vboxstack12, "stack12", "Desktop")  # Desktop installer
 

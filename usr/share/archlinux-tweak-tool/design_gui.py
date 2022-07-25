@@ -513,25 +513,25 @@ We obey the dependencies of pacman"
     vboxstack1.pack_start(hbox10, False, False, 10)
     vboxstack1.pack_start(hbox12, False, False, 10)
     vboxstack1.pack_start(hbox13, False, False, 10)
-    vboxstack1.pack_end(hbox19, False, False, 10)
+    vboxstack1.pack_start(hbox19, False, False, 0)
 
     # icons
     vboxstack2.pack_start(hbox20, False, False, 10)
     vboxstack2.pack_start(hbox21, False, False, 10)
     vboxstack2.pack_start(hbox22, False, False, 10)
-    vboxstack2.pack_end(hbox29, False, False, 0)
+    vboxstack2.pack_start(hbox29, False, False, 0)
 
     # cursors
     vboxstack3.pack_start(hbox30, False, False, 10)
     vboxstack3.pack_start(hbox31, False, False, 10)
     vboxstack3.pack_start(hbox32, False, False, 10)
-    vboxstack3.pack_end(hbox39, False, False, 0)
+    vboxstack3.pack_start(hbox39, False, False, 0)
 
     # fonts
     vboxstack4.pack_start(hbox40, False, False, 10)
     vboxstack4.pack_start(hbox41, False, False, 10)
     vboxstack4.pack_start(hbox42, False, False, 10)
-    vboxstack4.pack_end(hbox49, False, False, 0)
+    vboxstack4.pack_start(hbox49, False, False, 0)
 
     # ==================================================================
     #                       PACK TO STACK

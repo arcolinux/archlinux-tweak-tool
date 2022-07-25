@@ -4,7 +4,7 @@
 # pylint:disable=C0103,
 
 
-def gui(self, Gtk, vboxstack25):
+def gui(self, Gtk, vboxstack25, att, fn):
     """create a gui"""
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -209,9 +209,10 @@ We obey the dependencies of pacman"
     button_remove_themes.connect("clicked", self.on_remove_att_themes_clicked)
     button_find_themes = Gtk.Button(label="Show the installed themes")
     button_find_themes.connect("clicked", self.on_find_att_themes_clicked)
-    hbox19.pack_end(button_install_themes, False, False, 10)
+
     hbox19.pack_start(button_remove_themes, False, False, 10)
     hbox19.pack_start(button_find_themes, False, False, 10)
+    hbox19.pack_end(button_install_themes, False, False, 10)
 
     # ==================================================================
     #                       ICONS TAB - SARDI
@@ -294,72 +295,70 @@ We obey the dependencies of pacman"
         label="sardi-orb-colora-variations-icons-git"
     )
 
-    flowbox = Gtk.FlowBox()
-    flowbox.set_valign(Gtk.Align.START)
-    flowbox.set_max_children_per_line(10)
-    flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
+    flowbox_sardi = Gtk.FlowBox()
+    flowbox_sardi.set_valign(Gtk.Align.START)
+    flowbox_sardi.set_max_children_per_line(10)
+    flowbox_sardi.set_selection_mode(Gtk.SelectionMode.NONE)
 
-    flowbox.add(self.sardi_icons_att)
-    flowbox.add(self.sardi_colora_variations_icons_git)
-    flowbox.add(self.sardi_flat_colora_variations_icons_git)
-    flowbox.add(self.sardi_flat_mint_y_icons_git)
-    flowbox.add(self.sardi_flat_mixing_icons_git)
-    flowbox.add(self.sardi_flexible_colora_variations_icons_git)
-    flowbox.add(self.sardi_flexible_luv_colora_variations_icons_git)
-    flowbox.add(self.sardi_flexible_mint_y_icons_git)
-    flowbox.add(self.sardi_flexible_mixing_icons_git)
-    flowbox.add(self.sardi_flexible_variations_icons_git)
-    flowbox.add(self.sardi_ghost_flexible_colora_variations_icons_git)
-    flowbox.add(self.sardi_ghost_flexible_mint_y_icons_git)
-    flowbox.add(self.sardi_ghost_flexible_mixing_icons_git)
-    flowbox.add(self.sardi_ghost_flexible_variations_icons_git)
-    flowbox.add(self.sardi_mint_y_icons_git)
-    flowbox.add(self.sardi_mixing_icons_git)
-    flowbox.add(self.sardi_mono_colora_variations_icons_git)
-    flowbox.add(self.sardi_mono_mint_y_icons_git)
-    flowbox.add(self.sardi_mono_mixing_icons_git)
-    flowbox.add(self.sardi_mono_numix_colora_variations_icons_git)
-    flowbox.add(self.sardi_mono_papirus_colora_variations_icons_git)
-    flowbox.add(self.sardi_orb_colora_mint_y_icons_git)
-    flowbox.add(self.sardi_orb_colora_mixing_icons_git)
-    flowbox.add(self.sardi_orb_colora_variations_icons_git)
+    flowbox_sardi.add(self.sardi_icons_att)
+    flowbox_sardi.add(self.sardi_colora_variations_icons_git)
+    flowbox_sardi.add(self.sardi_flat_colora_variations_icons_git)
+    flowbox_sardi.add(self.sardi_flat_mint_y_icons_git)
+    flowbox_sardi.add(self.sardi_flat_mixing_icons_git)
+    flowbox_sardi.add(self.sardi_flexible_colora_variations_icons_git)
+    flowbox_sardi.add(self.sardi_flexible_luv_colora_variations_icons_git)
+    flowbox_sardi.add(self.sardi_flexible_mint_y_icons_git)
+    flowbox_sardi.add(self.sardi_flexible_mixing_icons_git)
+    flowbox_sardi.add(self.sardi_flexible_variations_icons_git)
+    flowbox_sardi.add(self.sardi_ghost_flexible_colora_variations_icons_git)
+    flowbox_sardi.add(self.sardi_ghost_flexible_mint_y_icons_git)
+    flowbox_sardi.add(self.sardi_ghost_flexible_mixing_icons_git)
+    flowbox_sardi.add(self.sardi_ghost_flexible_variations_icons_git)
+    flowbox_sardi.add(self.sardi_mint_y_icons_git)
+    flowbox_sardi.add(self.sardi_mixing_icons_git)
+    flowbox_sardi.add(self.sardi_mono_colora_variations_icons_git)
+    flowbox_sardi.add(self.sardi_mono_mint_y_icons_git)
+    flowbox_sardi.add(self.sardi_mono_mixing_icons_git)
+    flowbox_sardi.add(self.sardi_mono_numix_colora_variations_icons_git)
+    flowbox_sardi.add(self.sardi_mono_papirus_colora_variations_icons_git)
+    flowbox_sardi.add(self.sardi_orb_colora_mint_y_icons_git)
+    flowbox_sardi.add(self.sardi_orb_colora_mixing_icons_git)
+    flowbox_sardi.add(self.sardi_orb_colora_variations_icons_git)
 
-    hbox21.pack_start(flowbox, True, True, 10)
+    hbox21.pack_start(flowbox_sardi, True, True, 10)
 
     hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    label13 = Gtk.Label()
-    label13.set_text("Choose what to select with a button")
-    btn_all_selection = Gtk.Button(label="All")
-    btn_all_selection.connect(
-        "clicked", self.on_click_att_sardi_icon_theming_all_selection
-    )
-    btn_mint_selection = Gtk.Button(label="Mint")
-    btn_mint_selection.connect(
+    label23 = Gtk.Label()
+    label23.set_text("Choose what to select with a button")
+    btn_all_sardi = Gtk.Button(label="All")
+    btn_all_sardi.connect("clicked", self.on_click_att_sardi_icon_theming_all_selection)
+    btn_mint_sardi = Gtk.Button(label="Mint")
+    btn_mint_sardi.connect(
         "clicked", self.on_click_att_sardi_icon_theming_mint_selection
     )
-    btn_mixing_selection = Gtk.Button(label="Mixing")
-    btn_mixing_selection.connect(
+    btn_mixing_sardi = Gtk.Button(label="Mixing")
+    btn_mixing_sardi.connect(
         "clicked", self.on_click_att_sardi_icon_theming_mixing_selection
     )
-    btn_variation_selection = Gtk.Button(label="Variations")
-    btn_variation_selection.connect(
+    btn_variation_sardi = Gtk.Button(label="Variations")
+    btn_variation_sardi.connect(
         "clicked", self.on_click_att_sardi_icon_theming_variations_selection
     )
-    btn_none_selection = Gtk.Button(label="None")
-    btn_none_selection.connect(
+    btn_none_sardi = Gtk.Button(label="None")
+    btn_none_sardi.connect(
         "clicked", self.on_click_att_sardi_icon_theming_none_selection
     )
-    hbox23.pack_start(label13, False, False, 10)
-    hbox23.pack_start(btn_all_selection, False, False, 10)
-    hbox23.pack_start(btn_variation_selection, False, False, 10)
-    hbox23.pack_start(btn_mixing_selection, False, False, 10)
-    hbox23.pack_start(btn_mint_selection, False, False, 10)
-    hbox23.pack_start(btn_none_selection, False, False, 10)
+    hbox23.pack_start(label23, False, False, 10)
+    hbox23.pack_start(btn_all_sardi, False, False, 10)
+    hbox23.pack_start(btn_variation_sardi, False, False, 10)
+    hbox23.pack_start(btn_mixing_sardi, False, False, 10)
+    hbox23.pack_start(btn_mint_sardi, False, False, 10)
+    hbox23.pack_start(btn_none_sardi, False, False, 10)
 
     # families
     hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    label13 = Gtk.Label()
-    label13.set_text("Choose the family with a button")
+    label22 = Gtk.Label()
+    label22.set_text("Choose the family with a button")
     btn_sardi_fam = Gtk.Button(label="Sardi")
     btn_sardi_fam.connect(
         "clicked", self.on_click_att_fam_sardi_icon_theming_sardi_selection
@@ -384,7 +383,7 @@ We obey the dependencies of pacman"
     btn_sardi_orb_fam.connect(
         "clicked", self.on_click_att_fam_sardi_icon_theming_sardi_orb_selection
     )
-    hbox22.pack_start(label13, False, False, 10)
+    hbox22.pack_start(label22, False, False, 10)
     hbox22.pack_start(btn_sardi_fam, False, False, 10)
     hbox22.pack_start(btn_sardi_flexible_fam, False, False, 10)
     hbox22.pack_start(btn_sardi_mono_fam, False, False, 10)
@@ -432,25 +431,25 @@ We obey the dependencies of pacman"
     self.surfn_plasma_dark_tela = Gtk.CheckButton(label="surfn-plasma-dark-tela")
     self.surfn_plasma_light = Gtk.CheckButton(label="surfn-plasma-light")
 
-    flowbox = Gtk.FlowBox()
-    flowbox.set_valign(Gtk.Align.START)
-    flowbox.set_max_children_per_line(10)
-    flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
+    flowbox_surfn = Gtk.FlowBox()
+    flowbox_surfn.set_valign(Gtk.Align.START)
+    flowbox_surfn.set_max_children_per_line(10)
+    flowbox_surfn.set_selection_mode(Gtk.SelectionMode.NONE)
 
-    flowbox.add(self.surfn_icons_git_att)
-    flowbox.add(self.surfn_arc_breeze_icons_git)
-    flowbox.add(self.surfn_mint_y_icons_git)
-    flowbox.add(self.surfn_plasma_dark)
-    flowbox.add(self.surfn_plasma_dark_tela)
-    flowbox.add(self.surfn_plasma_light)
+    flowbox_surfn.add(self.surfn_icons_git_att)
+    flowbox_surfn.add(self.surfn_arc_breeze_icons_git)
+    flowbox_surfn.add(self.surfn_mint_y_icons_git)
+    flowbox_surfn.add(self.surfn_plasma_dark)
+    flowbox_surfn.add(self.surfn_plasma_dark_tela)
+    flowbox_surfn.add(self.surfn_plasma_light)
 
-    hbox31.pack_start(flowbox, True, True, 10)
+    hbox31.pack_start(flowbox_surfn, True, True, 10)
 
     hbox32 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    label13 = Gtk.Label()
-    label13.set_text("Choose what to select with a button")
-    btn_all_selection = Gtk.Button(label="All")
-    btn_all_selection.connect("clicked", self.on_click_att_surfn_theming_all_selection)
+    label32 = Gtk.Label()
+    label32.set_text("Choose what to select with a button")
+    btn_all_surfn = Gtk.Button(label="All")
+    btn_all_surfn.connect("clicked", self.on_click_att_surfn_theming_all_selection)
     # btn_normal_selection = Gtk.Button(label="Normal")
     # btn_normal_selection.connect(
     #     "clicked", self.on_click_att_surfn_theming_normal_selection
@@ -459,15 +458,13 @@ We obey the dependencies of pacman"
     # btn_small_selection.connect(
     #     "clicked", self.on_click_att_surfn_theming_minimal_selection
     # )
-    btn_none_selection = Gtk.Button(label="None")
-    btn_none_selection.connect(
-        "clicked", self.on_click_att_surfn_theming_none_selection
-    )
-    hbox32.pack_start(label13, False, False, 10)
-    hbox32.pack_end(btn_none_selection, False, False, 10)
+    btn_none_surfn = Gtk.Button(label="None")
+    btn_none_surfn.connect("clicked", self.on_click_att_surfn_theming_none_selection)
+    hbox32.pack_start(label32, False, False, 10)
+    hbox32.pack_end(btn_none_surfn, False, False, 10)
     # hbox32.pack_end(btn_small_selection, False, False, 10)
     # hbox32.pack_end(btn_normal_selection, False, False, 10)
-    hbox32.pack_end(btn_all_selection, False, False, 10)
+    hbox32.pack_end(btn_all_surfn, False, False, 10)
 
     hbox39 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     button_install_surfn_icons = Gtk.Button(label="Install the selected cursor themes")
@@ -515,32 +512,32 @@ We obey the dependencies of pacman"
     )
     self.edu_vimix_dark_tela = Gtk.CheckButton(label="Edu Vimix Dark Tela")
 
-    flowbox = Gtk.FlowBox()
-    flowbox.set_valign(Gtk.Align.START)
-    flowbox.set_max_children_per_line(10)
-    flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
+    flowbox_extra = Gtk.FlowBox()
+    flowbox_extra.set_valign(Gtk.Align.START)
+    flowbox_extra.set_max_children_per_line(10)
+    flowbox_extra.set_selection_mode(Gtk.SelectionMode.NONE)
 
-    flowbox.add(self.att_candy_beauty)
-    flowbox.add(self.edu_candy_beauty_arc)
-    flowbox.add(self.edu_candy_beauty_arc_mint_grey)
-    flowbox.add(self.edu_candy_beauty_arc_mint_red)
-    flowbox.add(self.edu_candy_beauty_tela)
-    flowbox.add(self.edu_papirus_dark_tela)
-    flowbox.add(self.edu_papirus_dark_tela_grey)
-    flowbox.add(self.edu_vimix_dark_tela)
+    flowbox_extra.add(self.att_candy_beauty)
+    flowbox_extra.add(self.edu_candy_beauty_arc)
+    flowbox_extra.add(self.edu_candy_beauty_arc_mint_grey)
+    flowbox_extra.add(self.edu_candy_beauty_arc_mint_red)
+    flowbox_extra.add(self.edu_candy_beauty_tela)
+    flowbox_extra.add(self.edu_papirus_dark_tela)
+    flowbox_extra.add(self.edu_papirus_dark_tela_grey)
+    flowbox_extra.add(self.edu_vimix_dark_tela)
 
-    hbox41.pack_start(flowbox, True, True, 10)
+    hbox41.pack_start(flowbox_extra, True, True, 10)
 
     hbox42 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-    label13 = Gtk.Label()
-    label13.set_text("Choose what to select with a button")
-    btn_all_selection = Gtk.Button(label="All")
-    btn_all_selection.connect("clicked", self.on_click_extras_theming_all_selection)
-    btn_none_selection = Gtk.Button(label="None")
-    btn_none_selection.connect("clicked", self.on_click_extras_theming_none_selection)
-    hbox42.pack_start(label13, False, False, 10)
-    hbox42.pack_end(btn_none_selection, False, False, 10)
-    hbox42.pack_end(btn_all_selection, False, False, 10)
+    label42 = Gtk.Label()
+    label42.set_text("Choose what to select with a button")
+    btn_all_extra = Gtk.Button(label="All")
+    btn_all_extra.connect("clicked", self.on_click_extras_theming_all_selection)
+    btn_none_extra = Gtk.Button(label="None")
+    btn_none_extra.connect("clicked", self.on_click_extras_theming_none_selection)
+    hbox42.pack_start(label42, False, False, 10)
+    hbox42.pack_end(btn_none_extra, False, False, 10)
+    hbox42.pack_end(btn_all_extra, False, False, 10)
 
     hbox49 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     button_install_icons = Gtk.Button(label="Install the selected packages")
@@ -561,26 +558,26 @@ We obey the dependencies of pacman"
     vboxstack1.pack_start(hbox10, False, False, 10)
     vboxstack1.pack_start(hbox11, False, False, 10)
     vboxstack1.pack_start(hbox18, False, False, 10)
-    vboxstack1.pack_end(hbox19, False, False, 0)
+    vboxstack1.pack_start(hbox19, False, False, 0)
 
     # icons
     vboxstack2.pack_start(hbox20, False, False, 10)
     vboxstack2.pack_start(hbox21, False, False, 10)
     vboxstack2.pack_start(hbox23, False, False, 10)
     vboxstack2.pack_start(hbox22, False, False, 10)
-    vboxstack2.pack_end(hbox29, False, False, 0)
+    vboxstack2.pack_start(hbox29, False, False, 0)
 
     # cursors
     vboxstack3.pack_start(hbox30, False, False, 10)
     vboxstack3.pack_start(hbox31, False, False, 10)
     vboxstack3.pack_start(hbox32, False, False, 10)
-    vboxstack3.pack_end(hbox39, False, False, 0)
+    vboxstack3.pack_start(hbox39, False, False, 0)
 
     # fonts
     vboxstack4.pack_start(hbox40, False, False, 10)
     vboxstack4.pack_start(hbox41, False, False, 10)
     vboxstack4.pack_start(hbox42, False, False, 10)
-    vboxstack4.pack_end(hbox49, False, False, 0)
+    vboxstack4.pack_start(hbox49, False, False, 0)
 
     # ==================================================================
     #                       PACK TO STACK
