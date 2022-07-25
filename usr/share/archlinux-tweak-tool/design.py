@@ -344,8 +344,7 @@ def find_icon_themes(self):
     self.we10x_icon_theme_git.set_active(False)
     self.whitesur_icon_theme_git.set_active(False)
     self.zafiro_icon_theme.set_active(False)
-    if fn.check_package_installed("adapta-gtk-theme"):
-        self.adapta_gtk_theme.set_active(True)
+
     if fn.check_package_installed("arc-icon-theme"):
         self.arc_icon_theme.set_active(True)
     if fn.check_package_installed("breeze-icons"):
@@ -484,6 +483,25 @@ def remove_cursor_themes(self):
 
 
 def find_cursor_themes(self):
+    self.bibata_cursor_theme_bin.set_active(False)
+    self.bibata_cursor_translucent.set_active(False)
+    self.bibata_extra_cursor_theme.set_active(False)
+    self.bibata_rainbow_cursor_theme.set_active(False)
+    self.capitaine_cursors.set_active(False)
+    self.catppuccin_cursors_git.set_active(False)
+    self.dracula_cursors_git.set_active(False)
+    self.layan_cursor_theme_git.set_active(False)
+    self.oxy_neon.set_active(False)
+    self.sweet_cursor_theme_git.set_active(False)
+    self.vimix_cursors.set_active(False)
+    self.xcursor_arch_cursor_complete.set_active(False)
+    self.xcursor_breeze.set_active(False)
+    self.xcursor_comix.set_active(False)
+    self.xcursor_flatbed.set_active(False)
+    self.xcursor_neutral.set_active(False)
+    self.xcursor_premium.set_active(False)
+    self.xcursor_simpleandsoft.set_active(False)
+
     if fn.check_package_installed("bibata-cursor-theme-bin"):
         self.bibata_cursor_theme_bin.set_active(True)
     if fn.check_package_installed("bibata-cursor-translucent"):
