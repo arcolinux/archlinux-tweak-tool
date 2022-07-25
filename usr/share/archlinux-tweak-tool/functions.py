@@ -575,6 +575,21 @@ def check_arco_repos_active():
                 return True
 
 
+def check_edu_repos_active():
+    with open(pacman, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+        f.close()
+
+        nemesis = "[nemesis_repo]"
+
+    for line in lines:
+        if nemesis in line:
+            if "#" + nemesis in line:
+                return False
+            else:
+                return True
+
+
 def install_package(self, package):
     command = "pacman -S " + package + " --noconfirm --needed"
     # if more than one package - checf fails and will install
@@ -648,6 +663,40 @@ def install_arco_package(self, package):
         print("and/or the content of /etc/pacman.conf")
         GLib.idle_add(
             show_in_app_notification, self, "You need to activate the ArcoLinux repos"
+        )
+
+
+def install_edu_package(self, package):
+    if check_edu_repos_active():
+        command = "pacman -S " + package + " --noconfirm --needed"
+        if check_package_installed(package):
+            print(package + " is already installed - nothing to do")
+            GLib.idle_add(
+                show_in_app_notification,
+                self,
+                package + " is already installed - nothing to do",
+            )
+        else:
+            try:
+                print(command)
+                subprocess.call(
+                    command.split(" "),
+                    shell=False,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                )
+                print(package + " is now installed")
+                GLib.idle_add(
+                    show_in_app_notification, self, package + " is now installed"
+                )
+            except Exception as error:
+                print(error)
+    else:
+        print("You need to activate the Nemesis repo")
+        print("Check the pacman tab of the ArchLinux Tweak Tool")
+        print("and/or the content of /etc/pacman.conf")
+        GLib.idle_add(
+            show_in_app_notification, self, "You need to activate the Nemesis repo"
         )
 
 

@@ -17,6 +17,8 @@ import login
 import lxdm
 import neofetch
 import sddm
+import design
+import att
 
 # import services
 # import shell
@@ -38,6 +40,7 @@ import autostart_gui
 import desktopr_gui
 import fixes_gui
 import grub_gui
+import att_gui
 import login_gui
 import arcolinuxmirrors_gui
 import neofetch_gui
@@ -50,6 +53,7 @@ import utilities_gui
 import services_gui
 import shell_gui
 import themer_gui
+import design_gui
 import user_gui
 
 # import Oblogout_GUI
@@ -125,6 +129,8 @@ def gui(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):
     # vboxstack21 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxstack22 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxstack23 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack24 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack25 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     # ==========================================================
     #                 ARCOLINUX MIRRORLIST
@@ -154,6 +160,12 @@ Then you will be able to set the mirrors of ArcoLinux"
         vboxstack16.pack_start(lbl2, True, False, 0)
 
     # ==========================================================
+    #                 ATT
+    # ==========================================================
+
+    att_gui.gui(self, Gtk, vboxstack25, design, fn)
+
+    # ==========================================================
     #                AUTOSTART
     # ==========================================================
 
@@ -164,6 +176,12 @@ Then you will be able to set the mirrors of ArcoLinux"
     # ==========================================================
 
     desktopr_gui.gui(self, Gtk, GdkPixbuf, vboxstack12, desktopr, fn, base_dir, Pango)
+
+    # ==========================================================
+    #                 DESIGN
+    # ==========================================================
+
+    design_gui.gui(self, Gtk, vboxstack24, design, fn)
 
     # # ==========================================================
     # #               FIXES
@@ -265,8 +283,11 @@ themes</i> you can customize <b>Neofetch</b>"
     # ==========================================================
     #                   ADD TO WINDOW
     # ==========================================================
+    stack.add_titled(vboxstack25, "stack25", "Att")  # Design
 
     stack.add_titled(vboxstack13, "stack13", "Autostart")  # Autostart
+
+    #stack.add_titled(vboxstack24, "stack24", "Design")  # Design
 
     stack.add_titled(vboxstack12, "stack12", "Desktop")  # Desktop installer
 
@@ -295,7 +316,7 @@ themes</i> you can customize <b>Neofetch</b>"
 
     stack.add_titled(vboxstack20, "stack20", "Terminal Fun")  # lolcat and others
 
-    stack.add_titled(vboxstack10, "stack11", "Themer")  # Theme changer
+    stack.add_titled(vboxstack10, "stack11", "Themer")  # Themer
 
     stack.add_titled(vboxstack18, "stack18", "User")  # user
 
