@@ -838,6 +838,7 @@ def find_fonts(self):
 def set_checkboxes_theming_all(self):
     """set the state of the checkboxes"""
     self.adapta_gtk_theme.set_active(True)
+    self.arc_darkest_theme_git.set_active(True)
     self.arc_gtk_theme.set_active(True)
     self.arcolinux_arc_kde.set_active(True)
     self.arcolinux_sweet_mars_git.set_active(True)
@@ -866,6 +867,7 @@ def set_checkboxes_theming_all(self):
 def set_checkboxes_theming_normal(self):
     """set the state of the checkboxes"""
     self.adapta_gtk_theme.set_active(False)
+    self.arc_darkest_theme_git.set_active(True)
     self.arc_gtk_theme.set_active(True)
     self.arcolinux_arc_kde.set_active(True)
     self.arcolinux_sweet_mars_git.set_active(False)
@@ -894,6 +896,7 @@ def set_checkboxes_theming_normal(self):
 def set_checkboxes_theming_minimal(self):
     """set the state of the checkboxes"""
     self.adapta_gtk_theme.set_active(False)
+    self.arc_darkest_theme_git.set_active(False)
     self.arc_gtk_theme.set_active(True)
     self.arcolinux_arc_kde.set_active(True)
     self.arcolinux_sweet_mars_git.set_active(False)
@@ -922,6 +925,7 @@ def set_checkboxes_theming_minimal(self):
 def set_checkboxes_theming_none(self):
     """set the state of the checkboxes"""
     self.adapta_gtk_theme.set_active(False)
+    self.arc_darkest_theme_git.set_active(False)
     self.arc_gtk_theme.set_active(False)
     self.arcolinux_arc_kde.set_active(False)
     self.arcolinux_sweet_mars_git.set_active(False)
@@ -1002,7 +1006,7 @@ def set_checkboxes_theming_icons_normal(self):
     self.numix_circle_icon_theme_git.set_active(True)
     self.obsidian_icon_theme.set_active(False)
     self.oranchelo_icon_theme_git.set_active(False)
-    self.paper_icon_theme.set_active(False)
+    self.paper_icon_theme.set_active(True)
     self.papirus_folders_git.set_active(False)
     self.papirus_folders_gui_bin.set_active(False)
     self.papirus_folders_nordic.set_active(False)
@@ -1030,8 +1034,8 @@ def set_checkboxes_theming_icons_minimal(self):
     self.luna_icon_theme_git.set_active(False)
     self.moka_icon_theme_git.set_active(False)
     self.nordzy_icon_theme_git.set_active(False)
-    self.numix_circle_arc_icons_git.set_active(False)
-    self.numix_circle_icon_theme_git.set_active(False)
+    self.numix_circle_arc_icons_git.set_active(True)
+    self.numix_circle_icon_theme_git.set_active(True)
     self.obsidian_icon_theme.set_active(False)
     self.oranchelo_icon_theme_git.set_active(False)
     self.paper_icon_theme.set_active(False)
@@ -1113,8 +1117,8 @@ def set_checkboxes_theming_cursors_normal(self):
     self.bibata_cursor_translucent.set_active(False)
     self.bibata_extra_cursor_theme.set_active(False)
     self.bibata_rainbow_cursor_theme.set_active(False)
-    self.capitaine_cursors.set_active(False)
-    self.catppuccin_cursors_git.set_active(False)
+    self.capitaine_cursors.set_active(True)
+    self.catppuccin_cursors_git.set_active(True)
     self.dracula_cursors_git.set_active(True)
     self.layan_cursor_theme_git.set_active(False)
     self.oxy_neon.set_active(False)
