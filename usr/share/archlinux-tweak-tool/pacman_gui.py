@@ -16,9 +16,12 @@ def gui(self, Gtk, vboxstack1, fn):
     hbox4.pack_start(hseparator, True, True, 0)
 
     hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    message = Gtk.Label(xalign=0)
-    message.set_text("We refresh the pacman database when you toggle the switch on/off")
-    hbox5.pack_start(message, True, True, 0)
+    # message = Gtk.Label(xalign=0)
+    # message.set_text("Refresh the pacman databases when you toggle the switch on/off")
+    button_update_repos = Gtk.Button(label="Update pacman databases")
+    button_update_repos.connect("clicked", self.on_update_pacman_databases_clicked)
+    # hbox5.pack_start(message, True, True, 0)
+    hbox5.pack_end(button_update_repos, False, False, 0)
     # ========================================================
     #               FOOTER
     # ========================================================

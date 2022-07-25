@@ -287,7 +287,7 @@ themes</i> you can customize <b>Neofetch</b>"
 
     stack.add_titled(vboxstack13, "stack13", "Autostart")  # Autostart
 
-    #stack.add_titled(vboxstack24, "stack24", "Design")  # Design
+    stack.add_titled(vboxstack24, "stack24", "Design")  # Design
 
     stack.add_titled(vboxstack12, "stack12", "Desktop")  # Desktop installer
 

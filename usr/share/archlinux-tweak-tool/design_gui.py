@@ -45,12 +45,14 @@ def gui(self, Gtk, vboxstack24, design, fn):
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox10_label = Gtk.Label(xalign=0)
     hbox10_label.set_text(
-        "Choose the themes you like to install or remove and press apply"
+        "Choose the themes you like to install or remove and press apply\n\
+We obey the dependencies of pacman"
     )
     hbox10.pack_start(hbox10_label, False, False, 10)
 
     hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     self.adapta_gtk_theme = Gtk.CheckButton(label="adapta-gtk-theme")
+    self.arc_darkest_theme_git = Gtk.CheckButton(label="arc-darkest-theme-git")
     self.arc_gtk_theme = Gtk.CheckButton(label="arc-gtk-theme")
     self.arcolinux_arc_kde = Gtk.CheckButton(label="arcolinux-arc-kde")
     self.arcolinux_sweet_mars_git = Gtk.CheckButton(label="arcolinux-sweet-mars-git")
@@ -83,6 +85,7 @@ def gui(self, Gtk, vboxstack24, design, fn):
     flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
 
     flowbox.add(self.adapta_gtk_theme)
+    flowbox.add(self.arc_darkest_theme_git)
     flowbox.add(self.arc_gtk_theme)
     flowbox.add(self.arcolinux_arc_kde)
     flowbox.add(self.arcolinux_sweet_mars_git)
@@ -130,10 +133,14 @@ def gui(self, Gtk, vboxstack24, design, fn):
     hbox19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     button_install_themes = Gtk.Button(label="Install the selected themes")
     button_install_themes.connect("clicked", self.on_install_themes_clicked)
+    button_find_themes = Gtk.Button(label="Show the installed themes")
+    button_find_themes.connect("clicked", self.on_find_themes_clicked)
     button_remove_themes = Gtk.Button(label="Uninstall the selected themes")
     button_remove_themes.connect("clicked", self.on_remove_themes_clicked)
-    hbox19.pack_end(button_install_themes, False, False, 10)
+
     hbox19.pack_start(button_remove_themes, False, False, 10)
+    hbox19.pack_start(button_find_themes, False, False, 10)
+    hbox19.pack_end(button_install_themes, False, False, 10)
 
     # ==================================================================
     #                       ICONS TAB
@@ -142,17 +149,15 @@ def gui(self, Gtk, vboxstack24, design, fn):
     hbox20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox20_label = Gtk.Label(xalign=0)
     hbox20_label.set_text(
-        "Choose the icon themes you like to install or remove and press apply"
+        "Choose the icon themes you like to install or remove and press apply\n\
+We obey the dependencies of pacman"
     )
     hbox20.pack_start(hbox20_label, False, False, 10)
 
     hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     self.arc_icon_theme = Gtk.CheckButton(label="arc-icon-theme")
-    self.arcolinux_candy_beauty_git = Gtk.CheckButton(
-        label="arcolinux-candy-beauty-git"
-    )
-    self.breeze = Gtk.CheckButton(label="breeze")
+    self.breeze_icons = Gtk.CheckButton(label="breeze-icons")
     self.dracula_icons_git = Gtk.CheckButton(label="dracula-icons-git")
     self.faba_icon_theme_git = Gtk.CheckButton(label="faba-icon-theme-git")
     self.faba_mono_icons_git = Gtk.CheckButton(label="faba-mono-icons-git")
@@ -180,8 +185,6 @@ def gui(self, Gtk, vboxstack24, design, fn):
     self.papirus_icon_theme = Gtk.CheckButton(label="papirus-icon-theme")
     self.papirus_nord = Gtk.CheckButton(label="papirus-nord")
     self.qogir_icon_theme = Gtk.CheckButton(label="qogir-icon-theme")
-    self.sardi_icons = Gtk.CheckButton(label="sardi-icons")
-    self.surfn_icons_git = Gtk.CheckButton(label="surfn-icons-git")
     self.tela_circle_icon_theme_git = Gtk.CheckButton(
         label="tela-circle-icon-theme-git"
     )
@@ -196,8 +199,7 @@ def gui(self, Gtk, vboxstack24, design, fn):
     flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
 
     flowbox.add(self.arc_icon_theme)
-    flowbox.add(self.arcolinux_candy_beauty_git)
-    flowbox.add(self.breeze)
+    flowbox.add(self.breeze_icons)
     flowbox.add(self.dracula_icons_git)
     flowbox.add(self.faba_icon_theme_git)
     flowbox.add(self.faba_mono_icons_git)
@@ -219,8 +221,6 @@ def gui(self, Gtk, vboxstack24, design, fn):
     flowbox.add(self.papirus_icon_theme)
     flowbox.add(self.papirus_nord)
     flowbox.add(self.qogir_icon_theme)
-    flowbox.add(self.sardi_icons)
-    flowbox.add(self.surfn_icons_git)
     flowbox.add(self.tela_circle_icon_theme_git)
     flowbox.add(self.vimix_icon_theme_git)
     flowbox.add(self.we10x_icon_theme_git)
@@ -249,9 +249,12 @@ def gui(self, Gtk, vboxstack24, design, fn):
     hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     button_install_themes = Gtk.Button(label="Install the selected icon themes")
     button_install_themes.connect("clicked", self.on_install_icon_themes_clicked)
+    button_find_themes = Gtk.Button(label="Show the installed icon themes")
+    button_find_themes.connect("clicked", self.on_find_icon_themes_clicked)
     button_remove_themes = Gtk.Button(label="Uninstall the selected icon themes")
     button_remove_themes.connect("clicked", self.on_remove_icon_themes_clicked)
     hbox29.pack_start(button_remove_themes, False, False, 10)
+    hbox29.pack_start(button_find_themes, False, False, 10)
     hbox29.pack_end(button_install_themes, False, False, 10)
 
     # ==================================================================
@@ -261,7 +264,8 @@ def gui(self, Gtk, vboxstack24, design, fn):
     hbox30 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox30_label = Gtk.Label(xalign=0)
     hbox30_label.set_text(
-        "Choose the cursor themes you like to install or remove and press apply"
+        "Choose the cursor themes you like to install or remove and press apply\n\
+We obey the dependencies of pacman"
     )
     hbox30.pack_start(hbox30_label, False, False, 10)
 
@@ -340,9 +344,12 @@ def gui(self, Gtk, vboxstack24, design, fn):
     hbox39 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     button_install_themes = Gtk.Button(label="Install the selected cursor themes")
     button_install_themes.connect("clicked", self.on_install_cursor_themes_clicked)
+    button_find_themes = Gtk.Button(label="Show the installed cursor themes")
+    button_find_themes.connect("clicked", self.on_find_cursor_themes_clicked)
     button_remove_themes = Gtk.Button(label="Uninstall the selected cursor themes")
     button_remove_themes.connect("clicked", self.on_remove_cursor_themes_clicked)
     hbox39.pack_start(button_remove_themes, False, False, 10)
+    hbox39.pack_start(button_find_themes, False, False, 10)
     hbox39.pack_end(button_install_themes, False, False, 10)
 
     # ==================================================================
@@ -352,16 +359,19 @@ def gui(self, Gtk, vboxstack24, design, fn):
     hbox40 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox40_label = Gtk.Label(xalign=0)
     hbox40_label.set_text(
-        "Choose the fonts you like to install or remove and press apply"
+        "Choose the fonts you like to install or remove and press apply\n\
+We obey the dependencies of pacman"
     )
     hbox40.pack_start(hbox40_label, False, False, 10)
 
     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
+    self.adobe_source_sans_fonts = Gtk.CheckButton(label="adobe-source-sans-fonts")
     self.awesome_terminal_fonts = Gtk.CheckButton(label="awesome-terminal-fonts")
     self.nerd_fonts_source_code_pro = Gtk.CheckButton(
         label="nerd-fonts-source-code-pro"
     )
+    self.noto_fonts = Gtk.CheckButton(label="noto-fonts")
     self.ttf_anonymous_pro = Gtk.CheckButton(label="ttf-anonymous-pro")
     self.ttf_bitstream_vera = Gtk.CheckButton(label="ttf-bitstream-vera")
     self.ttf_caladea = Gtk.CheckButton(label="ttf-caladea")
@@ -369,22 +379,29 @@ def gui(self, Gtk, vboxstack24, design, fn):
     self.ttf_cascadia_code = Gtk.CheckButton(label="ttf-cascadia-code")
     self.ttf_cormorant = Gtk.CheckButton(label="ttf-cormorant")
     self.ttf_croscore = Gtk.CheckButton(label="ttf-croscore")
+    self.ttf_dejavu = Gtk.CheckButton(label="ttf-dejavu")
+    self.ttf_droid = Gtk.CheckButton(label="ttf-droid")
     self.ttf_eurof = Gtk.CheckButton(label="ttf-eurof")
     self.ttf_fantasque_sans_mono = Gtk.CheckButton(label="ttf-fantasque-sans-mono")
     self.ttf_fira_code = Gtk.CheckButton(label="ttf-fira-code")
     self.ttf_fira_mono = Gtk.CheckButton(label="ttf-fira-mono")
     self.ttf_fira_sans = Gtk.CheckButton(label="ttf-fira-sans")
     self.ttf_font_awesome = Gtk.CheckButton(label="ttf-font-awesome")
+    self.ttf_hack = Gtk.CheckButton(label="ttf-hack")
     self.ttf_hactor = Gtk.CheckButton(label="ttf-hactor")
     self.ttf_hellvetica = Gtk.CheckButton(label="ttf-hellvetica")
     self.ttf_ibm_plex = Gtk.CheckButton(label="ttf-ibm-plex")
     self.ttf_inconsolata = Gtk.CheckButton(label="ttf-inconsolata")
+    self.ttf_iosevka_nerd = Gtk.CheckButton(label="ttf-iosevka-nerd")
     self.ttf_jetbrains_mono = Gtk.CheckButton(label="ttf-jetbrains-mono")
     self.ttf_joypixels = Gtk.CheckButton(label="ttf-joypixels")
     self.ttf_lato = Gtk.CheckButton(label="ttf-lato")
     self.ttf_liberation = Gtk.CheckButton(label="ttf-liberation")
     self.ttf_linux_libertine = Gtk.CheckButton(label="ttf-linux-libertine")
     self.ttf_linux_libertine_g = Gtk.CheckButton(label="ttf-linux-libertine-g")
+    self.ttf_material_design_iconic_font = Gtk.CheckButton(
+        label="ttf-material-design-iconic-font"
+    )
     self.ttf_meslo_nerd_font_powerlevel10k = Gtk.CheckButton(
         label="ttf-meslo-nerd-font-powerlevel10k"
     )
@@ -396,14 +413,19 @@ def gui(self, Gtk, vboxstack24, design, fn):
     )
     self.ttf_opensans = Gtk.CheckButton(label="ttf-opensans")
     self.ttf_proggy_clean = Gtk.CheckButton(label="ttf-proggy-clean")
+    self.ttf_roboto = Gtk.CheckButton(label="ttf-roboto")
+    self.ttf_roboto_mono = Gtk.CheckButton(label="ttf-roboto-mono")
+    self.ttf_ubuntu_font_family = Gtk.CheckButton(label="ttf-ubuntu-font-family")
 
     flowbox = Gtk.FlowBox()
     flowbox.set_valign(Gtk.Align.START)
     flowbox.set_max_children_per_line(10)
     flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
 
+    flowbox.add(self.adobe_source_sans_fonts)
     flowbox.add(self.awesome_terminal_fonts)
     flowbox.add(self.nerd_fonts_source_code_pro)
+    flowbox.add(self.noto_fonts)
     flowbox.add(self.ttf_anonymous_pro)
     flowbox.add(self.ttf_bitstream_vera)
     flowbox.add(self.ttf_caladea)
@@ -411,22 +433,27 @@ def gui(self, Gtk, vboxstack24, design, fn):
     flowbox.add(self.ttf_cascadia_code)
     flowbox.add(self.ttf_cormorant)
     flowbox.add(self.ttf_croscore)
+    flowbox.add(self.ttf_dejavu)
+    flowbox.add(self.ttf_droid)
     flowbox.add(self.ttf_eurof)
     flowbox.add(self.ttf_fantasque_sans_mono)
     flowbox.add(self.ttf_fira_code)
     flowbox.add(self.ttf_fira_mono)
     flowbox.add(self.ttf_fira_sans)
     flowbox.add(self.ttf_font_awesome)
+    flowbox.add(self.ttf_hack)
     flowbox.add(self.ttf_hactor)
     flowbox.add(self.ttf_hellvetica)
     flowbox.add(self.ttf_ibm_plex)
     flowbox.add(self.ttf_inconsolata)
+    flowbox.add(self.ttf_iosevka_nerd)
     flowbox.add(self.ttf_jetbrains_mono)
     flowbox.add(self.ttf_joypixels)
     flowbox.add(self.ttf_lato)
     flowbox.add(self.ttf_liberation)
     flowbox.add(self.ttf_linux_libertine)
     flowbox.add(self.ttf_linux_libertine_g)
+    flowbox.add(self.ttf_material_design_iconic_font)
     flowbox.add(self.ttf_meslo_nerd_font_powerlevel10k)
     flowbox.add(self.ttf_monofur)
     flowbox.add(self.ttf_ms_fonts)
@@ -434,6 +461,9 @@ def gui(self, Gtk, vboxstack24, design, fn):
     flowbox.add(self.ttf_nerd_fonts_symbols_mono)
     flowbox.add(self.ttf_opensans)
     flowbox.add(self.ttf_proggy_clean)
+    flowbox.add(self.ttf_roboto)
+    flowbox.add(self.ttf_roboto_mono)
+    flowbox.add(self.ttf_ubuntu_font_family)
 
     hbox41.pack_start(flowbox, True, True, 10)
 
@@ -457,9 +487,12 @@ def gui(self, Gtk, vboxstack24, design, fn):
     hbox49 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     button_install_themes = Gtk.Button(label="Install the selected fonts")
     button_install_themes.connect("clicked", self.on_install_fonts_clicked)
+    button_find_themes = Gtk.Button(label="Show the installed fonts")
+    button_find_themes.connect("clicked", self.on_find_fonts_clicked)
     button_remove_themes = Gtk.Button(label="Uninstall the selected fonts")
     button_remove_themes.connect("clicked", self.on_remove_fonts_clicked)
     hbox49.pack_start(button_remove_themes, False, False, 10)
+    hbox49.pack_start(button_find_themes, False, False, 10)
     hbox49.pack_end(button_install_themes, False, False, 10)
 
     # ====================================================================

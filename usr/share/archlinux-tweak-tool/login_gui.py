@@ -87,7 +87,7 @@ backup your files"
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox_lbl = Gtk.Label(xalign=0)
-        hbox_lbl.set_markup("Autologin")
+        hbox_lbl.set_markup("Auto login")
         self.autologin_sddm = Gtk.Switch()
         self.autologin_sddm.connect("notify::active", self.on_autologin_sddm_activated)
         hbox.pack_start(hbox_lbl, False, False, 10)
@@ -95,7 +95,7 @@ backup your files"
 
         hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox3_lbl = Gtk.Label(xalign=0)
-        hbox3_lbl.set_text("Choose the desktop you want to autologin to")
+        hbox3_lbl.set_text("Choose the desktop you want to auto login to")
         hbox3.pack_start(hbox3_lbl, False, False, 10)
 
         # sddm

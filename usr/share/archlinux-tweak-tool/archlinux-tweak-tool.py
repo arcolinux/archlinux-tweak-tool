@@ -1449,46 +1449,77 @@ class Main(Gtk.Window):
 
     # design
     def on_install_themes_clicked(self, widget):
+        design.install_themes(self)
         print("We have installed all the selected themes")
         fn.show_in_app_notification(self, "We have installed all the selected themes")
-        # design.install_themes(self)
 
     def on_remove_themes_clicked(self, widget):
+        design.remove_themes(self)
         print("We have removed all the selected themes")
         fn.show_in_app_notification(self, "We have removed all the selected themes")
-        # design.remove_themes(self)
 
+    def on_find_themes_clicked(self, widget):
+        design.find_themes(self)
+        print("We show all the installed themes")
+        fn.show_in_app_notification(self, "We show all the installed themes")
+
+    # icons
     def on_install_icon_themes_clicked(self, widget):
+        design.install_icon_themes(self)
         print("We have installed all the selected icon themes")
         fn.show_in_app_notification(
             self, "We have installed all the selected icon themes"
         )
 
     def on_remove_icon_themes_clicked(self, widget):
+        design.remove_icon_themes(self)
         print("We have removed all the selected icon themes")
         fn.show_in_app_notification(
             self, "We have removed all the selected icon themes"
         )
 
+    def on_find_icon_themes_clicked(self, widget):
+        design.find_icon_themes(self)
+        print("We show all the installed icon themes")
+        fn.show_in_app_notification(self, "We show all the installed icon themes")
+
+    # cursors
     def on_install_cursor_themes_clicked(self, widget):
+        design.install_cursor_themes(self)
         print("We have installed all the selected cursor themes")
         fn.show_in_app_notification(
             self, "We have installed all the selected cursor themes"
         )
 
     def on_remove_cursor_themes_clicked(self, widget):
+        design.remove_cursor_themes(self)
         print("We have removed all the selected cursor themes")
         fn.show_in_app_notification(
             self, "We have removed all the selected cursor themes"
         )
 
+    def on_find_cursor_themes_clicked(self, widget):
+        design.find_cursor_themes(self)
+        print("We show all the installed cursor themes")
+        fn.show_in_app_notification(self, "We show all the installed cursor themes")
+
+    # fonts
     def on_install_fonts_clicked(self, widget):
+        design.install_fonts(self)
         print("We have installed all the selected fonts")
         fn.show_in_app_notification(self, "We have installed all the selected fonts")
 
     def on_remove_fonts_clicked(self, widget):
+        design.remove_fonts(self)
         print("We have removed all the selected fonts")
         fn.show_in_app_notification(self, "We have removed all the selected fonts")
+
+    def on_find_fonts_clicked(self, widget):
+        design.find_fonts(self)
+        print("We show all the installed fonts")
+        fn.show_in_app_notification(self, "We show all the installed fonts")
+
+    ############################################################################
 
     # selection of theming
     def on_click_theming_all_selection(self, widget):
@@ -2634,6 +2665,14 @@ class Main(Gtk.Window):
     #               PACMAN CONF
     # =====================================================
 
+    def on_update_pacman_databases_clicked(self, Widget):
+        fn.update_repos(self)
+        print("sudo pacman -Sy")
+        print("All the selected pacman databases are up-to-date")
+        fn.show_in_app_notification(
+            self, "All the selected pacman databases are up-to-date"
+        )
+
     def on_arcolinux_clicked(self, widget):
         fn.install_arcolinux(self)
         print("ArcoLinux keyring and mirrors added")
@@ -2643,7 +2682,6 @@ class Main(Gtk.Window):
         self.on_pacman_arepo_toggle(self.arepo_button, True)
         self.on_pacman_a3p_toggle(self.a3prepo_button, True)
         self.on_pacman_axl_toggle(self.axlrepo_button, True)
-        fn.update_repos(self)
         fn.restart_program()
 
     def on_pacman_atestrepo_toggle(self, widget, active):
@@ -2658,7 +2696,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "arco_testing")
-        fn.update_repos(self)
 
     def on_pacman_arepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo]"):
@@ -2681,7 +2718,6 @@ class Main(Gtk.Window):
                     self.button_reinstall.set_sensitive(False)
                     self.install_arco_vimix.set_sensitive(False)
         utilities.set_util_state_arco_switch(self)
-        fn.update_repos(self)
 
     def on_pacman_a3p_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_3party]"):
@@ -2701,7 +2737,6 @@ class Main(Gtk.Window):
                 else:
                     self.button_install.set_sensitive(False)
                     self.button_reinstall.set_sensitive(False)
-        fn.update_repos(self)
 
     def on_pacman_axl_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_xlarge]"):
@@ -2715,7 +2750,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "arco_axl")
-        fn.update_repos(self)
 
     def on_chaotics_clicked(self, widget):
         fn.install_chaotics(self)
@@ -2733,7 +2767,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "chaotics")
-        fn.update_repos(self)
 
     def on_endeavouros_clicked(self, widget):
         fn.install_endeavouros(self)
@@ -2749,7 +2782,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "endeavouros")
-        fn.update_repos(self)
 
     def on_nemesis_toggle(self, widget, active):
         if not pmf.repo_exist("[nemesis_repo]"):
@@ -2759,7 +2791,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "nemesis")
-        fn.update_repos(self)
 
     def on_xerolinux_clicked(self, widget):
         fn.install_xerolinux(self)
@@ -2775,7 +2806,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "xero")
-        fn.update_repos(self)
 
     def on_xero_xl_toggle(self, widget, active):
         if not pmf.repo_exist("[xerolinux_repo_xl]"):
@@ -2785,7 +2815,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "xero_xl")
-        fn.update_repos(self)
 
     def on_xero_nv_toggle(self, widget, active):
         if not pmf.repo_exist("[xerolinux_nvidia_repo]"):
@@ -2795,7 +2824,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "xero_nv")
-        fn.update_repos(self)
 
     def on_pacman_toggle1(self, widget, active):
         if not pmf.repo_exist("[testing]"):
@@ -2805,7 +2833,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "testing")
-        fn.update_repos(self)
 
     def on_pacman_toggle2(self, widget, active):
         if not pmf.repo_exist("[core]"):
@@ -2815,7 +2842,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "core")
-        fn.update_repos(self)
 
     def on_pacman_toggle3(self, widget, active):
         if not pmf.repo_exist("[extra]"):
@@ -2825,7 +2851,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "extra")
-        fn.update_repos(self)
 
     def on_pacman_toggle4(self, widget, active):
         if not pmf.repo_exist("[community-testing]"):
@@ -2835,7 +2860,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "community-testing")
-        fn.update_repos(self)
 
     def on_pacman_toggle5(self, widget, active):
         if not pmf.repo_exist("[community]"):
@@ -2849,7 +2873,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "community")
-        fn.update_repos(self)
 
     def on_pacman_toggle6(self, widget, active):
         if not pmf.repo_exist("[multilib-testing]"):
@@ -2859,7 +2882,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "multilib-testing")
-        fn.update_repos(self)
 
     def on_pacman_toggle7(self, widget, active):
         if not pmf.repo_exist("[multilib]"):
@@ -2869,7 +2891,6 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "multilib")
-        fn.update_repos(self)
 
     def custom_repo_clicked(self, widget):
         custom_repo_text = self.textview_custom_repo.get_buffer()
