@@ -1195,16 +1195,34 @@ class Main(Gtk.Window):
         print("We have installed all the selected themes")
         fn.show_in_app_notification(self, "We have installed all the selected themes")
         att.install_themes(self)
+        # populate lightdm page
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_theme_names_lightdm(self, self.gtk_theme_names_lightdm)
+        # populate lxdm page
+        if fn.check_package_installed("lxdm"):
+            lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
 
     def on_remove_att_themes_clicked(self, widget):
         print("We have removed all the selected themes")
         fn.show_in_app_notification(self, "We have removed all the selected themes")
         att.remove_themes(self)
+        # populate lightdm page
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_theme_names_lightdm(self, self.gtk_theme_names_lightdm)
+        # populate lxdm page
+        if fn.check_package_installed("lxdm"):
+            lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
 
     def on_find_att_themes_clicked(self, widget):
         print("ATT : We show the installed themes")
         fn.show_in_app_notification(self, "We show the installed themes")
         att.find_themes(self)
+        # populate lightdm page
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_theme_names_lightdm(self, self.gtk_theme_names_lightdm)
+        # populate lxdm page
+        if fn.check_package_installed("lxdm"):
+            lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
 
     # ====================================================================
     # Sardi
@@ -1215,6 +1233,9 @@ class Main(Gtk.Window):
             self, "We have installed all the selected sardi icon themes"
         )
         att.install_sardi_icons(self)
+        # populate icon names on lightdm
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
 
     def on_remove_att_sardi_icon_themes_clicked(self, widget):
         print("ATT : We have removed all the selected sardi icon themes")
@@ -1222,11 +1243,17 @@ class Main(Gtk.Window):
             self, "We have removed all the selected sardi icon themes"
         )
         att.remove_sardi_icons(self)
+        # populate icon names lightdm
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
 
     def on_find_att_sardi_icon_themes_clicked(self, widget):
         print("ATT : We show the installed sardi icon themes")
         fn.show_in_app_notification(self, "We show the installed sardi icon themes")
         att.find_sardi_icons(self)
+        # populate icon names on lightdm
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
 
     # ====================================================================
     # surfn
@@ -1237,6 +1264,9 @@ class Main(Gtk.Window):
             self, "We have installed all the selected Surfn cursor themes"
         )
         att.install_surfn_icons(self)
+        # populate icon names on lightdm
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
 
     def on_remove_att_surfn_icon_themes_clicked(self, widget):
         print("ATT : We have removed all the selected Surfn cursor themes")
@@ -1244,11 +1274,17 @@ class Main(Gtk.Window):
             self, "We have removed all the selected Surfn cursor themes"
         )
         att.remove_surfn_icons(self)
+        # populate icon names on lightdm
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
 
     def on_find_att_surfn_icon_themes_clicked(self, widget):
         print("ATT : We show all the installed Surfn icon themes")
         fn.show_in_app_notification(self, "We show all the installed Surfn icon themes")
         att.find_surfn_icons(self)
+        # populate icon names on lightdm
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
 
     # ====================================================================
     # selection of theming
@@ -1376,6 +1412,43 @@ class Main(Gtk.Window):
         fn.show_in_app_notification(self, "We have selected no cursors")
         att.set_att_checkboxes_theming_surfn_icons_none(self)
 
+    def on_install_extras_clicked(self, widget):
+        print("ATT : We install the selected projects")
+        fn.show_in_app_notification(self, "We install the selected projects")
+        att.install_att_extras(self)
+        # populate lightdm page
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_theme_names_lightdm(self, self.gtk_theme_names_lightdm)
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
+        # populate lxdm page
+        if fn.check_package_installed("lxdm"):
+            lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
+
+    # extras
+    def on_remove_extras_clicked(self, widget):
+        print("ATT : We remove the selected projects")
+        fn.show_in_app_notification(self, "We remove the selected projects")
+        att.remove_att_extras(self)
+        # populate lightdm page
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_theme_names_lightdm(self, self.gtk_theme_names_lightdm)
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
+        # populate lxdm page
+        if fn.check_package_installed("lxdm"):
+            lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
+
+    def on_find_extras_clicked(self, widget):
+        print("ATT : We show the installed projects")
+        fn.show_in_app_notification(self, "We show the installed projects")
+        att.find_att_extras(self)
+        # populate lightdm page
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_theme_names_lightdm(self, self.gtk_theme_names_lightdm)
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
+        # populate lxdm page
+        if fn.check_package_installed("lxdm"):
+            lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
+
     # selection of extras theming
     def on_click_extras_theming_all_selection(self, widget):
         print("ATT : We have selected all projects")
@@ -1386,21 +1459,6 @@ class Main(Gtk.Window):
         print("ATT : We have selected none of the projects")
         fn.show_in_app_notification(self, "We have selected none of the projects")
         att.set_att_checkboxes_extras_none(self)
-
-    def on_install_extras_clicked(self, widget):
-        print("ATT : We install the selected projects")
-        fn.show_in_app_notification(self, "We install the selected projects")
-        att.install_att_extras(self)
-
-    def on_remove_extras_clicked(self, widget):
-        print("ATT : We remove the selected projects")
-        fn.show_in_app_notification(self, "We remove the selected projects")
-        att.remove_att_extras(self)
-
-    def on_find_extras_clicked(self, widget):
-        print("ATT : We show the installed projects")
-        fn.show_in_app_notification(self, "We show the installed projects")
-        att.find_att_extras(self)
 
     # ====================================================================
     #                       BASH
@@ -1452,16 +1510,52 @@ class Main(Gtk.Window):
         design.install_themes(self)
         print("We have installed all the selected themes")
         fn.show_in_app_notification(self, "We have installed all the selected themes")
+        # populate cursor themes - some themes include a cursor
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
+        # populate lightdm page
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_theme_names_lightdm(self, self.gtk_theme_names_lightdm)
+        # populate lxdm page
+        if fn.check_package_installed("lxdm"):
+            lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
 
     def on_remove_themes_clicked(self, widget):
         design.remove_themes(self)
         print("We have removed all the selected themes")
         fn.show_in_app_notification(self, "We have removed all the selected themes")
+        # populate cursor themes - some themes include a cursor
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
+        # populate lightdm page
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_theme_names_lightdm(self, self.gtk_theme_names_lightdm)
+        # populate lxdm page
+        if fn.check_package_installed("lxdm"):
+            lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
 
     def on_find_themes_clicked(self, widget):
         design.find_themes(self)
         print("We show all the installed themes")
         fn.show_in_app_notification(self, "We show all the installed themes")
+        # populate cursor themes - some themes include a cursor
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
+        # populate lightdm page
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_theme_names_lightdm(self, self.gtk_theme_names_lightdm)
+        # populate lxdm page
+        if fn.check_package_installed("lxdm"):
+            lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
 
     # icons
     def on_install_icon_themes_clicked(self, widget):
@@ -1470,6 +1564,14 @@ class Main(Gtk.Window):
         fn.show_in_app_notification(
             self, "We have installed all the selected icon themes"
         )
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
+            # populate cursor themes
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
 
     def on_remove_icon_themes_clicked(self, widget):
         design.remove_icon_themes(self)
@@ -1477,11 +1579,27 @@ class Main(Gtk.Window):
         fn.show_in_app_notification(
             self, "We have removed all the selected icon themes"
         )
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
+        # populate cursor themes
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
 
     def on_find_icon_themes_clicked(self, widget):
         design.find_icon_themes(self)
         print("We show all the installed icon themes")
         fn.show_in_app_notification(self, "We show all the installed icon themes")
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_icon_names_lightdm(self, self.gtk_icon_names_lightdm)
+        # populate cursor themes
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
 
     # cursors
     def on_install_cursor_themes_clicked(self, widget):
@@ -1490,6 +1608,12 @@ class Main(Gtk.Window):
         fn.show_in_app_notification(
             self, "We have installed all the selected cursor themes"
         )
+        # populate cursor themes
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
 
     def on_remove_cursor_themes_clicked(self, widget):
         design.remove_cursor_themes(self)
@@ -1497,11 +1621,23 @@ class Main(Gtk.Window):
         fn.show_in_app_notification(
             self, "We have removed all the selected cursor themes"
         )
+        # populate cursor themes
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
 
     def on_find_cursor_themes_clicked(self, widget):
         design.find_cursor_themes(self)
         print("We show all the installed cursor themes")
         fn.show_in_app_notification(self, "We show all the installed cursor themes")
+        # populate cursor themes
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
 
     # fonts
     def on_install_fonts_clicked(self, widget):
@@ -4336,6 +4472,24 @@ class Main(Gtk.Window):
         # themes
         if fn.check_package_installed("arcolinux-leftwm-git"):
             terminals.get_themes(self.term_themes)
+        # populate all cursors dropdowns
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
+        # populate cursor themes - some themes include a cursor
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
+        # populate lightdm page
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_theme_names_lightdm(self, self.gtk_theme_names_lightdm)
+        # populate lxdm page
+        if fn.check_package_installed("lxdm"):
+            lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
         print("Reloaded")
 
     # ================================================================================

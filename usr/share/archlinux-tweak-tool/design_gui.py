@@ -265,7 +265,7 @@ We obey the dependencies of pacman"
     hbox30_label = Gtk.Label(xalign=0)
     hbox30_label.set_text(
         "Choose the cursor themes you like to install or remove and press apply\n\
-We obey the dependencies of pacman"
+We obey the dependencies of pacman - Icon themes provide cursors too"
     )
     hbox30.pack_start(hbox30_label, False, False, 10)
 

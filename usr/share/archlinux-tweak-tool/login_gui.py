@@ -331,7 +331,7 @@ backup your files"
 
         hbox30 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox30_lbl = Gtk.Label(xalign=0)
-        hbox30_lbl.set_text("Theme name")
+        hbox30_lbl.set_text("Gtk theme")
         self.gtk_theme_names_lightdm = Gtk.ComboBoxText()
         lightdm.pop_gtk_theme_names_lightdm(self, self.gtk_theme_names_lightdm)
         hbox30.pack_start(hbox30_lbl, False, False, 10)
@@ -511,7 +511,7 @@ backup your files"
         # lxdm
         hbox57 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox57_lbl = Gtk.Label(xalign=0)
-        hbox57_lbl.set_text("Lxdm Gtk theme")
+        hbox57_lbl.set_text("Gtk theme")
         self.lxdm_gtk_theme = Gtk.ComboBoxText()
         lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
         hbox57.pack_start(hbox57_lbl, False, False, 10)
