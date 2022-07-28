@@ -32,8 +32,8 @@ def gui(self, Gtk, GdkPixbuf, vboxstack12, desktopr, fn, base_dir, Pango):
     label_warning = Gtk.Label(xalign=0)
     label_warning.set_markup(
         "<b>Make sure the ArcoLinux repos are active \
-    - see Pacman tab</b>\n\nSome of the desktops can only be installed\nif we \
-    can access the ArcoLinux repositories"
+- see Pacman tab</b>\n\nSome of the desktops can only be installed if we can access \n\
+the ArcoLinux repositories"
     )
     label = Gtk.Label(xalign=0)
     label.set_text("Select a desktop")

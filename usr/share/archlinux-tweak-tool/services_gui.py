@@ -379,7 +379,7 @@ Report them if that is the case"
 
     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox41_label = Gtk.Label(xalign=0)
-    hbox41_label.set_markup("Install pulseaudio")
+    hbox41_label.set_markup("Install and switch to Pulseaudio")
     btn_install_pulseaudio = Gtk.Button(label="Install and switch to Pulseaudio")
     btn_install_pulseaudio.connect("clicked", self.on_click_switch_to_pulseaudio)
     hbox41.pack_start(hbox41_label, False, False, 10)
@@ -387,7 +387,7 @@ Report them if that is the case"
 
     hbox42 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox42_label = Gtk.Label(xalign=0)
-    hbox42_label.set_markup("Install pipewire")
+    hbox42_label.set_markup("Install and switch to Pipewire")
     btn_install_pipewire = Gtk.Button(label="Install and switch to Pipewire")
     btn_install_pipewire.connect("clicked", self.on_click_switch_to_pipewire)
     hbox42.pack_start(hbox42_label, False, False, 10)

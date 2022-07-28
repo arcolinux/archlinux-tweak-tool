@@ -45,7 +45,7 @@ def gui(self, Gtk, vboxstack25, att, fn):
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox10_label = Gtk.Label(xalign=0)
     hbox10_label.set_text(
-        "Choose the project you like to install or remove and press apply\n\
+        "Choose the package you like to install or uninstall and press the button\n\
 We obey the dependencies of pacman"
     )
     hbox10.pack_start(hbox10_label, False, False, 10)
@@ -221,7 +221,7 @@ We obey the dependencies of pacman"
     hbox20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox20_label = Gtk.Label(xalign=0)
     hbox20_label.set_text(
-        "Choose the project you like to install or remove and press apply\n\
+        "Choose the package you like to install or uninstall and press the button\n\
 We obey the dependencies of pacman"
     )
     hbox20.pack_start(hbox20_label, False, False, 10)
@@ -415,7 +415,7 @@ We obey the dependencies of pacman"
     hbox30 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox30_label = Gtk.Label(xalign=0)
     hbox30_label.set_text(
-        "Choose the project you like to install or remove and press apply\n\
+        "Choose the package you like to install or uninstall and press the button\n\
 We obey the dependencies of pacman"
     )
     hbox30.pack_start(hbox30_label, False, False, 10)
@@ -490,7 +490,7 @@ We obey the dependencies of pacman"
     hbox40 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox40_label = Gtk.Label(xalign=0)
     hbox40_label.set_text(
-        "Choose the project you like to install or remove and press apply\n\
+        "Choose the package you like to install or uninstall and press the button\n\
 We obey the dependencies of pacman"
     )
     hbox40.pack_start(hbox40_label, False, False, 10)
@@ -582,9 +582,10 @@ We obey the dependencies of pacman"
     # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
-    stack.add_titled(vboxstack1, "stack1", "Themes")
+
     stack.add_titled(vboxstack2, "stack2", "Icons - Sardi")
     stack.add_titled(vboxstack3, "stack3", "Icons - Surfn")
+    stack.add_titled(vboxstack1, "stack1", "Themes")
     stack.add_titled(vboxstack4, "stack4", "Extras")
 
     vbox.pack_start(stack_switcher, False, False, 0)
