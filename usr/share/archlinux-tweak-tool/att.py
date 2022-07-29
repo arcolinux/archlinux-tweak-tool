@@ -41,6 +41,8 @@ def install_themes(self):
         fn.install_arco_package(self, "arcolinux-arc-crimson" + "-git")
     if self.arcolinux_arc_dawn.get_active():
         fn.install_arco_package(self, "arcolinux-arc-dawn" + "-git")
+    if self.arcolinux_arc_dracul.get_active():
+        fn.install_arco_package(self, "arcolinux-arc-dracul" + "-git")
     if self.arcolinux_arc_emerald.get_active():
         fn.install_arco_package(self, "arcolinux-arc-emerald" + "-git")
     if self.arcolinux_arc_evopop.get_active():
@@ -140,6 +142,8 @@ def remove_themes(self):
         fn.remove_package(self, "arcolinux-arc-crimson" + "-git")
     if self.arcolinux_arc_dawn.get_active():
         fn.remove_package(self, "arcolinux-arc-dawn" + "-git")
+    if self.arcolinux_arc_dracul.get_active():
+        fn.remove_package(self, "arcolinux-arc-dracul" + "-git")
     if self.arcolinux_arc_emerald.get_active():
         fn.remove_package(self, "arcolinux-arc-emerald" + "-git")
     if self.arcolinux_arc_evopop.get_active():
@@ -225,6 +229,7 @@ def find_themes(self):
     self.arcolinux_arc_casablanca.set_active(False)
     self.arcolinux_arc_crimson.set_active(False)
     self.arcolinux_arc_dawn.set_active(False)
+    self.arcolinux_arc_dracul.set_active(False)
     self.arcolinux_arc_emerald.set_active(False)
     self.arcolinux_arc_evopop.set_active(False)
     self.arcolinux_arc_fern.set_active(False)
@@ -303,6 +308,9 @@ def find_themes(self):
 
     if fn.check_package_installed("arcolinux-arc-dawn" + "-git"):
         self.arcolinux_arc_dawn.set_active(True)
+
+    if fn.check_package_installed("arcolinux-arc-dracul" + "-git"):
+        self.arcolinux_arc_dracul.set_active(True)
 
     if fn.check_package_installed("arcolinux-arc-emerald" + "-git"):
         self.arcolinux_arc_emerald.set_active(True)
@@ -421,6 +429,7 @@ def set_att_checkboxes_theming_all(self):
     self.arcolinux_arc_casablanca.set_active(True)
     self.arcolinux_arc_crimson.set_active(True)
     self.arcolinux_arc_dawn.set_active(True)
+    self.arcolinux_arc_dracul.set_active(True)
     self.arcolinux_arc_emerald.set_active(True)
     self.arcolinux_arc_evopop.set_active(True)
     self.arcolinux_arc_fern.set_active(True)
@@ -473,6 +482,7 @@ def set_att_checkboxes_theming_blue(self):
     self.arcolinux_arc_casablanca.set_active(False)
     self.arcolinux_arc_crimson.set_active(False)
     self.arcolinux_arc_dawn.set_active(False)
+    self.arcolinux_arc_dracul.set_active(False)
     self.arcolinux_arc_emerald.set_active(False)
     self.arcolinux_arc_evopop.set_active(False)
     self.arcolinux_arc_fern.set_active(False)
@@ -525,6 +535,7 @@ def set_att_checkboxes_theming_dark(self):
     self.arcolinux_arc_casablanca.set_active(False)
     self.arcolinux_arc_crimson.set_active(False)
     self.arcolinux_arc_dawn.set_active(True)
+    self.arcolinux_arc_dracul.set_active(True)
     self.arcolinux_arc_emerald.set_active(False)
     self.arcolinux_arc_evopop.set_active(False)
     self.arcolinux_arc_fern.set_active(False)
@@ -577,6 +588,7 @@ def set_att_checkboxes_theming_none(self):
     self.arcolinux_arc_casablanca.set_active(False)
     self.arcolinux_arc_crimson.set_active(False)
     self.arcolinux_arc_dawn.set_active(False)
+    self.arcolinux_arc_dracul.set_active(False)
     self.arcolinux_arc_emerald.set_active(False)
     self.arcolinux_arc_evopop.set_active(False)
     self.arcolinux_arc_fern.set_active(False)
