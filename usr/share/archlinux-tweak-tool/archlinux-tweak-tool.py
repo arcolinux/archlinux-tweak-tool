@@ -3551,6 +3551,11 @@ class Main(Gtk.Window):
             if blueberry_installed:
                 fn.install_package(self, "blueberry")
 
+            if fn.check_package_installed("pipewire-media-session"):
+                fn.remove_package_dd(self, "pipewire-media-session")
+                fn.install_package(self, "pipewire-pulse")
+                fn.install_package(self, "wireplumber")
+
         except Exception as error:
             print(error)
 
