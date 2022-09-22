@@ -519,10 +519,9 @@ def check_group(group):
     try:
         groups = subprocess.run(
             ["sh", "-c", "id " + sudo_username],
-            check=True,
             shell=False,
             stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
+            stderr=subprocess.STDOUT
         )
         for x in groups.stdout.decode().split(" "):
             if group in x:
