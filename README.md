@@ -32,19 +32,12 @@ CachyOS | https://cachyos.org |
 The challenge for us is the programming but also the learning factor of other distros like EndeavourOS and Garuda. At a later stage when we get the hang of it we can add one Arch based distro at a time.
 
 
-# Unsupported Distros
-__**These distros will never be supported**__
-
-None at the moment.
-
-__**These desktops will never be supported**__
-
-Sway
+# Unsupported Distros/Desktops
+As for now, there are no specific distros that ATT won't work on, but **the Sway window manager will never recieve ATT support.**
 
 # Playlist on Youtube
 
-https://www.youtube.com/playlist?list=PLlloYVGq5pS5nvFc_LYRE82Gh3XWA6rVH
-
+We have a [playlist](https://www.youtube.com/playlist?list=PLlloYVGq5pS5nvFc_LYRE82Gh3XWA6rVH) on YouTube, explaining this project.
 
 Feel free to subscribe to the channel!
 
