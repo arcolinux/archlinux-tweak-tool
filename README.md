@@ -1,6 +1,8 @@
 # ArchLinux Tweak Tool
 A simple tool to tweak just about anything on Arch based systems!
 
+<img src="att.png" alt="screenshot" width="650"/>
+Above: A quick look at ATT.
 
 # Compability
 
