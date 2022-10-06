@@ -38,7 +38,7 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
 
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3_label = Gtk.Label(xalign=0)
-    hbox3_label.set_text("Set the mainstream servers from ArchLinux")
+    hbox3_label.set_text("Set the mainstream servers from Arch Linux")
     btn_apply_osbeck = Gtk.Button(label="Set mainstream")
     btn_apply_osbeck.connect("clicked", self.on_click_fix_mainstream)
     button_reset_mirrorlist = Gtk.Button(label="Reset mirrorlist")
