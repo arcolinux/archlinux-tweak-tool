@@ -55,7 +55,7 @@ sudo pacman-key --populate
 echo
 
 echo "###############################################################################"
-echo "Getting new databasesw with pacman -Sy"
+echo "Getting new databases with pacman -Sy"
 echo "###############################################################################"
 echo 
 sudo pacman -Sy
