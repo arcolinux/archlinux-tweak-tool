@@ -42,18 +42,18 @@ cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-mirror*pkg.tar
 echo "Mirror from XeroLinux"
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/xerolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/xero/packages/
 
-rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/garuda/packages/*
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/garuda/packages/*
 echo "Keyring and mirror from Garuda and EOS"
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/garuda/packages/
 
 echo "Keyring and mirror from Garuda and EOS"
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/endeavouros-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/eos/packages/
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/endeavouros-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/eos/packages/
 
 echo "Keyring and mirror from Garuda and EOS"
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/garuda/packages/
 
 echo "Keyring and mirror from Garuda and EOS"
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/endeavouros-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/eos/packages/
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/endeavouros-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/eos/packages/
 
 
 echo "alacritty.yml from ArcoLinux"
