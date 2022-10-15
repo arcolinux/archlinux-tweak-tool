@@ -893,10 +893,11 @@ def add_autologin_group(self):
 
 
 def install_arco_caja_plugin(self, widget):
-    install = "pacman -S caja arcolinux-caja-share --noconfirm"
+    # install = "pacman -S caja arcolinux-caja-share --noconfirm"
+    install = "pacman -S caja caja-share --noconfirm"
 
-    if check_package_installed("arcolinux-caja-share"):
-        print("Arcolinux-caja-share is already installed")
+    if check_package_installed("caja-share"):
+        print("caja-share is already installed")
     else:
         subprocess.call(
             install.split(" "),
@@ -904,14 +905,12 @@ def install_arco_caja_plugin(self, widget):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("Arcolinux-caja-share is now installed - reboot")
-        GLib.idle_add(
-            self.label7.set_text, "Arcolinux-caja-share is now installed - reboot"
-        )
+        print("Caja-share is now installed - reboot")
+        GLib.idle_add(self.label7.set_text, "Caja-share is now installed - reboot")
     print("Other apps that might be interesting for sharing are :")
-    print(" - arcolinux-thunar-share-plugin (thunar)")
-    print(" - arcolinux-nemo-share (cinnamon)")
-    print(" - arcolinux-nautilus-share (gnome - budgie)")
+    print(" - thunar-share-plugin (thunar)")
+    print(" - nemo-share (cinnamon)")
+    print(" - nautilus-share (gnome - budgie)")
     print(" - kdenetwork-filesharing (plasma)")
 
 
@@ -1585,10 +1584,11 @@ def messagebox(self, title, message):
 
 
 def install_arco_nemo_plugin(self, widget):
-    install = "pacman -S nemo arcolinux-nemo-share --noconfirm"
+    # install = "pacman -S nemo arcolinux-nemo-share --noconfirm"
+    install = "pacman -S nemo nemo-share --noconfirm"
 
-    if check_package_installed("arcolinux-nemo-share"):
-        print("Arcolinux-nemo-share is already installed")
+    if check_package_installed("nemo-share"):
+        print("Nemo-share is already installed")
     else:
         subprocess.call(
             install.split(" "),
@@ -1596,15 +1596,13 @@ def install_arco_nemo_plugin(self, widget):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("Arcolinux-nemo-share is now installed - reboot")
-        GLib.idle_add(
-            self.label7.set_text, "Arcolinux-nemo-share is now installed - reboot"
-        )
+        print("Nemo-share is now installed - reboot")
+        GLib.idle_add(self.label7.set_text, "Nemo-share is now installed - reboot")
     print("Other apps that might be interesting for sharing are :")
-    print(" - arcolinux-thunar-share-plugin (thunar)")
-    print(" - arcolinux-caja-share (mate)")
+    print(" - thunar-share-plugin (thunar)")
+    print(" - caja-share (mate)")
     print(" - kdenetwork-filesharing (plasma)")
-    print(" - arcolinux-nautilus-share (gnome - budgie)")
+    print(" - nautilus-share (gnome - budgie)")
 
 
 # =====================================================
@@ -2426,10 +2424,11 @@ def run_as_user(script):
 
 
 def install_arco_thunar_plugin(self, widget):
-    install = "pacman -S thunar arcolinux-thunar-shares-plugin --noconfirm"
+    # install = "pacman -S thunar arcolinux-thunar-shares-plugin --noconfirm"
+    install = "pacman -S thunar thunar-shares-plugin --noconfirm"
 
-    if check_package_installed("arcolinux-thunar-shares-plugin"):
-        print("Arcolinux-thunar-shares-plugin is already installed")
+    if check_package_installed("thunar-shares-plugin"):
+        print("Thunar-shares-plugin is already installed")
     else:
         try:
             subprocess.call(
@@ -2438,10 +2437,10 @@ def install_arco_thunar_plugin(self, widget):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
             )
-            print("Arcolinux-thunar-shares-plugin is now installed - reboot")
+            print("Thunar-shares-plugin is now installed - reboot")
             GLib.idle_add(
                 self.label7.set_text,
-                "Arcolinux-thunar-shares-plugin is now installed - reboot",
+                "Thunar-shares-plugin is now installed - reboot",
             )
             print("Other apps that might be interesting for sharing are :")
             print(" - arcolinux-nemo-share (cinnamon)")

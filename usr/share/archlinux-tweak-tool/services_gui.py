@@ -156,14 +156,15 @@ their plugins at the bottom"
     )
     hbox92.pack_start(hbox92_label, False, False, 10)
 
+    # used to be ArcoLinux specific packages - back to the default packages
     hbox19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    install_arco_thunar_plugin = Gtk.Button(label="Install ArcoLinux Thunar plugin")
+    install_arco_thunar_plugin = Gtk.Button(label="Install Thunar share plugin")
     install_arco_thunar_plugin.connect(
         "clicked", self.on_click_install_arco_thunar_plugin
     )
-    install_arco_nemo_plugin = Gtk.Button(label="Install ArcoLinux Nemo plugin")
+    install_arco_nemo_plugin = Gtk.Button(label="Install Nemo share plugin")
     install_arco_nemo_plugin.connect("clicked", self.on_click_install_arco_nemo_plugin)
-    install_arco_caja_plugin = Gtk.Button(label="Install ArcoLinux Caja plugin")
+    install_arco_caja_plugin = Gtk.Button(label="Install Caja share plugin")
     install_arco_caja_plugin.connect("clicked", self.on_click_install_arco_caja_plugin)
     hbox19.pack_start(install_arco_thunar_plugin, False, False, 10)
     hbox19.pack_start(install_arco_nemo_plugin, False, False, 10)
