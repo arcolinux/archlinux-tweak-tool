@@ -68,7 +68,6 @@ class Main(Gtk.Window):
         print(" - Garuda        - https://garudalinux.org/")
         print(" - Manjaro       - https://manjaro.org/")
         print(" - Xerolinux     - https://xerolinux.xyz/")
-        print(" - ArchLinuxGUI  - https://archlinuxgui.in/")
         print(" - Axyl          - https://axyl-os.github.io/")
         print(" - RebornOS      - https://rebornos.org/")
         print(" - AmOs          - https://github.com/amanre")

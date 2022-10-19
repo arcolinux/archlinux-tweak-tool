@@ -28,8 +28,6 @@ Manjaro       - https://manjaro.org/
 
 Xerolinux     - https://xerolinux.xyz/
 
-ArchLinuxGUI  - https://archlinuxgui.in/
-
 Axyl          - https://axyl-os.github.io/
 
 RebornOS      - https://rebornos.org/
