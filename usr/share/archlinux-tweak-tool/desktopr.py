@@ -41,6 +41,7 @@ desktops = [
     "lxqt",
     "mate",
     "openbox",
+    "pantheon",
     "plasma",
     "qtile",
     "spectrwm",
@@ -628,6 +629,9 @@ if fn.distr == "arcolinux":
         "xfce4-terminal",
         "yad",
     ]
+    pantheon = [
+        "pantheon",
+    ]
     plasma = [
         "plasma",
         "kde-system-meta",
@@ -1123,6 +1127,9 @@ if fn.distr != "arcolinux":
         "xcape",
         "yad",
     ]
+    pantheon = [
+        "pantheon",
+    ]
     plasma = [
         "plasma",
         "arcolinux-sddm-simplicity-git",
@@ -1386,6 +1393,8 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "mate":
         command = mate
+    elif desktop == "pantheon":
+        command = pantheon
     elif desktop == "openbox":
         command = list(np.append(openbox, default_app))
         src.append("/etc/skel/.config/openbox")
