@@ -22,6 +22,7 @@ default_app = ["nano"]
 
 desktops = [
     "awesome",
+    "berry",
     "bspwm",
     "budgie-desktop",
     "cinnamon",
@@ -47,6 +48,7 @@ desktops = [
     "spectrwm",
     "ukui",
     "wmderland",
+    "worm",
     "xfce",
     "xmonad",
 ]
@@ -98,6 +100,35 @@ if fn.distr == "arcolinux":
         "thunar-volman",
         "ttf-hack",
         "vicious",
+        "volumeicon",
+        "xfce4-terminal",
+    ]
+    berry = [
+        "alacritty",
+        "arcolinux-config-all-desktops-git",
+        "arcolinux-gtk3-sardi-arc-git",
+        "arcolinux-berry-git",
+        "arcolinux-local-xfce4-git",
+        "archlinux-logout-git",
+        "arcolinux-polybar-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
+        "arcolinux-root-git",
+        "arcolinux-volumeicon-git",
+        "arcolinux-wallpapers-git",
+        "arcolinux-xfce-git",
+        "dmenu",
+        "feh",
+        "berry-dev-git",
+        "picom",
+        "polkit-gnome",
+        "polybar",
+        "rofi",
+        "sxhkd",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-hack",
         "volumeicon",
         "xfce4-terminal",
     ]
@@ -766,6 +797,35 @@ if fn.distr == "arcolinux":
         "volumeicon",
         "xfce4-terminal",
     ]
+    worm = [
+        "alacritty",
+        "arcolinux-config-all-desktops-git",
+        "arcolinux-gtk3-sardi-arc-git",
+        "arcolinux-worm-git",
+        "arcolinux-local-xfce4-git",
+        "archlinux-logout-git",
+        "arcolinux-polybar-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
+        "arcolinux-root-git",
+        "arcolinux-volumeicon-git",
+        "arcolinux-wallpapers-git",
+        "arcolinux-xfce-git",
+        "dmenu",
+        "feh",
+        "worm-dev-git",
+        "picom",
+        "polkit-gnome",
+        "polybar",
+        "rofi",
+        "sxhkd",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-hack",
+        "volumeicon",
+        "xfce4-terminal",
+    ]
     ukui = [
         "arcolinux-root-git",
         "arcolinux-ukui-git",
@@ -856,6 +916,29 @@ if fn.distr != "arcolinux":
         "thunar-volman",
         "ttf-hack",
         "vicious",
+    ]
+    berry = [
+        "alacritty",
+        "arcolinux-berry-git",
+        "archlinux-logout-git",
+        "arcolinux-polybar-git",
+        "arcolinux-root-git",
+        "arcolinux-volumeicon-git",
+        "arcolinux-wallpapers-git",
+        "arcolinux-xfce-git",
+        "dmenu",
+        "feh",
+        "berry-dev-git",
+        "picom",
+        "polkit-gnome",
+        "polybar",
+        "sxhkd",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-hack",
+        "volumeicon",
+        "xfce4-terminal",
     ]
     bspwm = [
         "alacritty",
@@ -1197,6 +1280,27 @@ if fn.distr != "arcolinux":
         "thunar-volman",
         "ttf-hack",
     ]
+    worm = [
+        "alacritty",
+        "arcolinux-worm-git",
+        "archlinux-logout-git",
+        "arcolinux-polybar-git",
+        "arcolinux-root-git",
+        "arcolinux-xfce-git",
+        "dmenu",
+        "feh",
+        "worm-dev-git",
+        "picom",
+        "polkit-gnome",
+        "polybar",
+        "sxhkd",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-hack",
+        "volumeicon",
+        "xfce4-terminal",
+    ]
     ukui = [
         "arcolinux-root-git",
         "arcolinux-ukui-git",
@@ -1318,6 +1422,11 @@ def install_desktop(self, desktop, state):
         command = list(np.append(awesome, default_app))
         src.append("/etc/skel/.config/awesome")
         twm = True
+    elif desktop == "berry":
+        command = list(np.append(berry, default_app))
+        src.append("/etc/skel/.config/berry")
+        src.append("/etc/skel/.config/polybar")
+        twm = True
     elif desktop == "bspwm":
         command = list(np.append(bspwm, default_app))
         src.append("/etc/skel/.config/bspwm")
@@ -1426,6 +1535,11 @@ def install_desktop(self, desktop, state):
     elif desktop == "wmderland":
         command = list(np.append(wmderland, default_app))
         src.append("/etc/skel/.config/wmderland")
+        src.append("/etc/skel/.config/polybar")
+        twm = True
+    elif desktop == "worm":
+        command = list(np.append(worm, default_app))
+        src.append("/etc/skel/.config/worm")
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "xfce":
