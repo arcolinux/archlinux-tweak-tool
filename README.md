@@ -1,66 +1,43 @@
 # ArchLinux Tweak Tool
+A simple tool to tweak just about anything on Arch based systems!
 
-This application is coming from ArcoLinux.
+<img src="att.png" alt="screenshot" width="650"/>
+Above: A quick look at ATT.
 
-It is meant to be working on that system.
+# Compability
 
-By renaming the tool from ArcoLinux Tweak Tool to ArchLinux Tweak Tool our aim
-is to broaden our scope.
+This program was created for and tested on ArcoLinux, meaning it will work best on that system.
+By renaming the tool from ArcoLinux Tweak Tool to ArchLinux Tweak Tool our aim is to broaden our scope.
 
 At first we would like the tool to be working on these systems.
 
+| Distro | Website |
+|--------------|-----------|
+| ArcoLinux | https://arcolinux.info |
+| Arch Linux (Vanilla) | https://archlinux.org |
+| Alci | https://alci.online |
+| Carli | https://arcolinuxiso.com |
+| Ariser | https://ariser.eu |
+| EndeavourOS | https://endeavouros.com |
+| Garuda Linux | https://garudalinux.org |
+| Manjaro | https://manjaro.org |
+| XeroLinux | https://xerolinux.xyz |
+| ArchLinux GUI (ALG) | https://archlinuxgui.in |
+| Axyl | https://axyl-os.github.io |
+| RebornOS | https://rebornos.org |
+| AmOS | https://github.com/amanre |
+| ArchCraft | https://archcraft.io |
+CachyOS | https://cachyos.org |
 
-ArcoLinux     - https://arcolinux.info/
-
-Arch Linux    - https://archlinux.org/
-
-Alci          - https://alci.online/
-
-Carli         - https://arcolinuxiso.com/
-
-Ariser        - https://ariser.eu/
-
-EndeavourOS   - https://endeavouros.com/
-
-Garuda        - https://garudalinux.org/
-
-Manjaro       - https://manjaro.org/
-
-Xerolinux     - https://xerolinux.xyz/
-
-Axyl          - https://axyl-os.github.io/
-
-RebornOS      - https://rebornos.org/
-
-AmOs          - https://github.com/amanre
-
-Archcraft     - https://archcraft.io/
-
-CachyOS       - https://cachyos.org/
+The challenge for us is the programming but also the learning factor of other distros like EndeavourOS and Garuda. At a later stage when we get the hang of it we can add one Arch based distro at a time.
 
 
-All tabs in the end need to work.
-
-The challenge for us is the programming but also the learning factor of other distros like EndeavourOS and Garuda.
-
-At a later stage when we get the hang of it we can add one Arch based distro at a time.
-
-# These distros will never be supported
-
-...
-
-
-# These desktops will never be supported
-
-Sway
-
-
-
+# Unsupported Distros/Desktops
+As for now, there are no specific distros that ATT won't work on, but **the Sway window manager will never recieve ATT support.**
 
 # Playlist on Youtube
 
-https://www.youtube.com/playlist?list=PLlloYVGq5pS5nvFc_LYRE82Gh3XWA6rVH
+We have a [playlist](https://www.youtube.com/playlist?list=PLlloYVGq5pS5nvFc_LYRE82Gh3XWA6rVH) on YouTube, explaining this project.
 
-
-Subscribe if you want
+Feel free to subscribe to the channel!
 
