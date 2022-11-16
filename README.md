@@ -1,6 +1,9 @@
 # ArchLinux Tweak Tool
 A simple tool to tweak just about anything on Arch based systems!
 
+
+![screenshot](https://user-images.githubusercontent.com/36679406/202098693-3a94fa43-7916-42ba-9c1c-a4c7ecaff306.png)
+
 <img src="att.png" alt="screenshot" width="650"/>
 Above: A quick look at ATT.
 
