@@ -26,6 +26,7 @@ desktops = [
     "bspwm",
     "budgie-desktop",
     "cinnamon",
+    "chadwm",
     "cutefish-xsession",
     "cwm",
     "deepin",
@@ -35,6 +36,7 @@ desktops = [
     "enlightenment",
     "gnome",
     "herbstluftwm",
+    "hypr",
     "i3",
     "icewm",
     "jwm",
@@ -200,6 +202,37 @@ if fn.distr == "arcolinux":
         "iso-flag-png",
         "mintlocale",
         "nemo-fileroller",
+        "xfce4-terminal",
+    ]
+    chadwm = [
+        "alacritty",
+        "arcolinux-chadwm-git",
+        "arcolinux-local-xfce4-git",
+        "archlinux-logout-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
+        "arcolinux-root-git",
+        "arcolinux-volumeicon-git",
+        "arcolinux-wallpapers-git",
+        "arcolinux-xfce-git",
+        "dmenu",
+        "feh",
+        "gvfs",
+        "picom",
+        "polkit-gnome",
+        "rofi",
+        "rxvt-unicode",
+        "sxhkd",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-hack",
+        "volumeicon",
+        "xfce4-notifyd",
+        "xfce4-power-manager",
+        "xfce4-screenshooter",
+        "xfce4-settings",
+        "xfce4-taskmanager",
         "xfce4-terminal",
     ]
     cutefish = [
@@ -406,6 +439,38 @@ if fn.distr == "arcolinux":
         "volumeicon",
         "xfce4-terminal",
         "xtitle-git",
+    ]
+    hypr = [
+        "alacritty",
+        "arcolinux-config-all-desktops-git",
+        "arcolinux-dconf-all-desktops-git",
+        "arcolinux-gtk3-sardi-arc-git",
+        "arcolinux-hypr-git",
+        "arcolinux-local-xfce4-git",
+        "archlinux-logout-git",
+        "arcolinux-nitrogen-git",
+        "arcolinux-polybar-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
+        "arcolinux-root-git",
+        "arcolinux-volumeicon-git",
+        "arcolinux-wallpapers-git",
+        "arcolinux-xfce-git",
+        "dmenu",
+        "feh",
+        "hypr-dev-git",
+        "nitrogen",
+        "picom",
+        "polkit-gnome",
+        "polybar",
+        "rofi",
+        "sxhkd",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-hack",
+        "volumeicon",
+        "xfce4-terminal",
     ]
     i3 = [
         "alacritty",
@@ -976,6 +1041,18 @@ if fn.distr != "arcolinux":
         "mintlocale",
         "nemo-fileroller",
     ]
+    chadwm = [
+        "alacritty",
+        "arcolinux-chadwm-git",
+        "archlinux-logout-git",
+        "dmenu",
+        "picom",
+        "polkit-gnome",
+        "sxhkd",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+    ]
     cutefish = [
         "cutefish",
     ]
@@ -1077,6 +1154,20 @@ if fn.distr != "arcolinux":
         "thunar-volman",
         "xtitle-git",
         "ttf-hack",
+    ]
+    hypr = [
+        "alacritty",
+        "arcolinux-hypr-git",
+        "dmenu",
+        "hypr-dev-git",
+        "nitrogen",
+        "picom",
+        "polkit-gnome",
+        "polybar",
+        "rofi",
+        "thunar",
+        "sxhkd",
+        "xfce4-terminal",
     ]
     i3 = [
         "alacritty",
@@ -1439,6 +1530,11 @@ def install_desktop(self, desktop, state):
         command = cutefish
         src.append("/etc/skel/.config/cutefishos")
         twm = True
+    elif desktop == "chadwm":
+        command = list(np.append(chadwm, default_app))
+        src.append("/etc/skel/.config/arco-chadwm")
+        src.append("/etc/skel/.config/eww")
+        twm = True
     elif desktop == "cinnamon":
         command = cinnamon
     elif desktop == "cwm":
@@ -1473,6 +1569,10 @@ def install_desktop(self, desktop, state):
         command = list(np.append(hlwm, default_app))
         src.append("/etc/skel/.config/herbstluftwm")
         src.append("/etc/skel/.config/polybar")
+        twm = True
+    elif desktop == "hypr":
+        command = list(np.append(hypr, default_app))
+        src.append("/etc/skel/.config/hypr")
         twm = True
     elif desktop == "i3":
         command = list(np.append(i3, default_app))
