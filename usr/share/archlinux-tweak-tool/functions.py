@@ -2384,20 +2384,23 @@ def source_shell(self):
 
 
 def get_shell():
-    process = subprocess.run(
-        ["su", "-", sudo_username, "-c", 'echo "$SHELL"'],
-        check=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
+    try:
+        process = subprocess.run(
+            ["su", "-", sudo_username, "-c", 'echo "$SHELL"'],
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
 
-    output = process.stdout.decode().strip().strip("\n")
-    if output in ("/bin/bash", "/usr/bin/bash"):
-        return "bash"
-    elif output in ("/bin/zsh", "/usr/bin/zsh"):
-        return "zsh"
-    elif output in ("/bin/fish", "/usr/bin/fish"):
-        return "fish"
+        output = process.stdout.decode().strip().strip("\n")
+        if output in ("/bin/bash", "/usr/bin/bash"):
+            return "bash"
+        elif output in ("/bin/zsh", "/usr/bin/zsh"):
+            return "zsh"
+        elif output in ("/bin/fish", "/usr/bin/fish"):
+            return "fish"
+    except Exception as error:
+        print(error)
 
 
 def run_as_user(script):
