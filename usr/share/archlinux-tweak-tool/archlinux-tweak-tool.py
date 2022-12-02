@@ -259,6 +259,31 @@ class Main(Gtk.Window):
             except Exception as error:
                 print(error)
 
+        # ensuring we have an index.theme
+        if not fn.path.isdir("/usr/share/icons/default"):
+            try:
+                fn.makedirs("/usr/share/icons/default", 0o755)
+            except Exception as error:
+                print(error)
+
+        if not fn.path.isfile("/usr/share/icons/default/index.theme"):
+            if fn.path.isfile("/usr/share/icons/default/index.theme.bak"):
+                try:
+                    fn.shutil.copy(
+                        "/usr/share/icons/default/index.theme.bak",
+                        "/usr/share/icons/default/index.theme",
+                    )
+                except Exception as error:
+                    print(error)
+            else:
+                try:
+                    fn.shutil.copy(
+                        "/usr/share/archlinux-tweak-tool/data/arco/cursor/index.theme",
+                        "/usr/share/icons/default/index.theme",
+                    )
+                except Exception as error:
+                    print(error)
+
         # =====================================================
         #                   MAKING BACKUPS
         # =====================================================

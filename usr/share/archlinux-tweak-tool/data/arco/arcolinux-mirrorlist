@@ -4,6 +4,9 @@
 # Gitlab United States
 Server = https://gitlab.com/arcolinux/$repo/-/raw/main/$arch
 
+# Sweden - accum.se
+Server = https://mirror.accum.se/mirror/arcolinux.info/$repo/$arch
+
 # Europe Belgium Brussels
 Server = https://ftp.belnet.be/arcolinux/$repo/$arch
 
