@@ -55,6 +55,14 @@ sudo pacman-key --populate
 echo
 
 echo "###############################################################################"
+echo "Adding Ubuntu keyserver to /etc/pacman.d/gnupg/gpg.conf"
+echo "###############################################################################"
+echo 
+echo "
+keyserver hkp://keyserver.ubuntu.com:80" | sudo tee --append /etc/pacman.d/gnupg/gpg.conf
+
+echo
+echo "###############################################################################"
 echo "Getting new databases with pacman -Sy"
 echo "###############################################################################"
 echo 
