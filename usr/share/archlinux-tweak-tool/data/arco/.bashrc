@@ -37,6 +37,12 @@ alias ll='ls -alFh'
 alias l='ls'
 alias l.="ls -A | egrep '^\.'"
 
+#list
+alias sps='sudo pacman -S'
+alias spr='sudo pacman -R'
+alias sprs='sudo pacman -Rs'
+alias sprdd='sudo pacman -Rdd'
+
 #fix obvious typo's
 alias cd..='cd ..'
 alias pdw='pwd'
