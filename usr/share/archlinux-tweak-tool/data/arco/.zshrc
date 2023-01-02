@@ -140,6 +140,13 @@ alias la='ls -a'
 alias ll='ls -alFh'
 alias l='ls'
 alias l.="ls -A | egrep '^\.'"
+alias listdir="ls -d */ > list"
+
+#pacman
+alias sps='sudo pacman -S'
+alias spr='sudo pacman -R'
+alias sprs='sudo pacman -Rs'
+alias sprdd='sudo pacman -Rdd'
 
 #fix obvious typo's
 alias cd..='cd ..'
@@ -255,6 +262,9 @@ alias trizenskip='trizen -S --skipinteg'
 #check vulnerabilities microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
 
+#check cpu
+alias cpu="cpuid -i | grep uarch | head -n 1"
+
 #get fastest mirrors in your neighborhood
 alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
 alias mirrord="sudo reflector --latest 30 --number 10 --sort delay --save /etc/pacman.d/mirrorlist"
@@ -299,6 +309,17 @@ alias isoo="cat /etc/dev-rel"
 
 #Cleanup orphaned packages
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
+
+# This will generate a list of explicitly installed packages
+alias list="sudo pacman -Qqe"
+#This will generate a list of explicitly installed packages without dependencies
+alias listt="sudo pacman -Qqet"
+# list of AUR packages
+alias listaur="sudo pacman -Qqem"
+# add > list at the end to write to a file
+
+# install packages from list
+# pacman -S --needed - < my-list-of-packages.txt
 
 #clear
 alias clean="clear; seq 1 $(tput cols) | sort -R | sparklines | lolcat"
@@ -445,8 +466,12 @@ alias atm="arcolinux-tellme"
 alias avs="arcolinux-vbox-share"
 alias awa="arcolinux-welcome-app"
 
-#remove
+#git
 alias rmgitcache="rm -r ~/.cache/git"
+alias grh="git reset --hard"
+
+#pamac
+alias pamac-unlock="sudo rm /var/tmp/pamac/dbs/db.lock"
 
 #moving your personal files and folders from /personal to ~
 alias personal='cp -Rf /personal/* ~'
