@@ -78,7 +78,7 @@ class Main(Gtk.Window):
         )
         print("Other Arch Linux based distros will be visited later")
         print("Adding repositories should be done with great care - they can conflict")
-        print("Sway is not supported")
+        print("Any Wayland desktop is not supported")
         print(
             "---------------------------------------------------------------------------"
         )
