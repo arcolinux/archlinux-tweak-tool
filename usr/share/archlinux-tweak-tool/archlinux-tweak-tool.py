@@ -70,7 +70,7 @@ class Main(Gtk.Window):
         print(" - Xerolinux     - https://xerolinux.xyz/")
         print(" - Axyl          - https://axyl-os.github.io/")
         print(" - RebornOS      - https://rebornos.org/")
-        print(" - AmOs          - https://github.com/amanre")
+        print(" - Archman       - https://archman.org/")
         print(" - Archcraft     - https://archcraft.io/")
         print(" - CachyOS       - https://cachyos.org/")
         print(
