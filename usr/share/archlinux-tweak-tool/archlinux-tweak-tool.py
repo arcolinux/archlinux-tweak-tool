@@ -858,18 +858,19 @@ class Main(Gtk.Window):
         #                     LIGHTDM
         # =====================================================
 
-        if fn.path.isfile(fn.lightdm_conf):
-            try:
-                if "#" in lightdm.check_lightdm(
-                    fn.get_lines(fn.lightdm_conf), "autologin-user="
-                ):
-                    self.autologin_lightdm.set_active(False)
-                    self.sessions_lightdm.set_sensitive(False)
-                else:
-                    self.autologin_lightdm.set_active(True)
-                    self.sessions_lightdm.set_sensitive(True)
-            except Exception as error:
-                print(error)
+        if fn.path.exists("/usr/bin/lightdm"):
+            if fn.path.isfile(fn.lightdm_conf):
+                try:
+                    if "#" in lightdm.check_lightdm(
+                        fn.get_lines(fn.lightdm_conf), "autologin-user="
+                    ):
+                        self.autologin_lightdm.set_active(False)
+                        self.sessions_lightdm.set_sensitive(False)
+                    else:
+                        self.autologin_lightdm.set_active(True)
+                        self.sessions_lightdm.set_sensitive(True)
+                except Exception as error:
+                    print(error)
 
         # =====================================================
         #                        SDDM
