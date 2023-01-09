@@ -202,6 +202,16 @@ alias sps='sudo pacman -S'
 alias spr='sudo pacman -R'
 alias sprs='sudo pacman -Rs'
 alias sprdd='sudo pacman -Rdd'
+alias spqo='sudo pacman -Qo'
+alias spsii='sudo pacman -Sii'
+
+# show the list of packages that need this package - depends mpv as example
+function function_depends
+    set search $argv[1]
+    sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
+end
+
+alias depends='function_depends'
 
 if type -q exa
     alias ls="exa"

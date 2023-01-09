@@ -989,6 +989,8 @@ def change_distro_label(name):  # noqa
         name = "AmOs"
     if name == "archcraft":
         name = "Archcraft"
+    if name == "Archman":
+        name = "ArchMan"
     if name == "cachyos":
         name = "CachyOS"
     return name
@@ -1317,6 +1319,13 @@ def set_default_grub_theme(self):
                     val = get_position(
                         grubd, 'GRUB_THEME="/boot/grub/themes/archcraft/theme.txt"'
                     )
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                    pass
+
+            if distr == "archman":
+                try:
+                    val = get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
