@@ -26,6 +26,48 @@
 #tput setaf 8 = light blue
 ##################################################################################################################
 
+Online=0
+
+function check_connectivity() {
+
+    local test_ip
+    local test_count
+
+    test_ip="8.8.8.8"
+    test_count=1
+
+    if ping -c ${test_count} ${test_ip} > /dev/null; then
+       	tput setaf 2
+       	echo 
+       	echo "You are online"
+       	echo
+       	tput sgr0
+       	Online=1
+    else
+    	tput setaf 1
+    	echo
+       	echo "You are not connected to the internet"
+       	echo "We can not download the latest archlinux-keyring package"
+       	echo
+       	echo "Make sure you are online to retrieve packages"
+       	echo
+       	tput sgr0
+       	Online=0
+    fi
+ }
+
+check_connectivity
+
+if [ $Online -eq 1 ] ; then
+	tput setaf 2
+	echo
+	echo "Installing the latest archlinux-keyring package from the internet"
+	echo
+	tput sgr0
+	sudo pacman -Sy archlinux-keyring --noconfirm
+	echo
+fi
+
 echo "###############################################################################"
 echo "Removing the pacman databases at /var/lib/pacman/sync/*"
 echo "###############################################################################"

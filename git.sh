@@ -65,6 +65,10 @@ wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/
 echo "getting fix pacman databases"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-fix-pacman-databases-and-keys -O $workdir/usr/share/archlinux-tweak-tool/data/any/fix-pacman-databases-and-keys
 
+echo "getting fix pacman databases"
+wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-fix-pacman-databases-and-keys -O $workdir/usr/bin/fixkeyz
+
+
 echo "getting default neofetch file"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-neofetch/master/etc/skel/.config/neofetch/config.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/neofetch/config.conf
 
