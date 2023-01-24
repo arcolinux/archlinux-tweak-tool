@@ -469,7 +469,7 @@ We obey the dependencies of pacman"
     hbox32.pack_end(btn_all_surfn, False, False, 10)
 
     hbox39 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    button_install_surfn_icons = Gtk.Button(label="Install the selected cursor themes")
+    button_install_surfn_icons = Gtk.Button(label="Install the selected icon themes")
     button_install_surfn_icons.connect(
         "clicked", self.on_install_att_surfn_icon_themes_clicked
     )
@@ -477,7 +477,7 @@ We obey the dependencies of pacman"
     button_find_surfn_icons.connect(
         "clicked", self.on_find_att_surfn_icon_themes_clicked
     )
-    button_remove_surfn_icons = Gtk.Button(label="Uninstall the selected cursor themes")
+    button_remove_surfn_icons = Gtk.Button(label="Uninstall the selected icon themes")
     button_remove_surfn_icons.connect(
         "clicked", self.on_remove_att_surfn_icon_themes_clicked
     )
