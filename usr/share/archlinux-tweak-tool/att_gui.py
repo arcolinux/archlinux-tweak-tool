@@ -30,8 +30,8 @@ def gui(self, Gtk, vboxstack25, att, fn):
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
     stack.set_transition_duration(350)
-    stack.set_hhomogeneous(False)
-    stack.set_vhomogeneous(False)
+    stack.set_hhomogeneous(True)
+    stack.set_vhomogeneous(True)
 
     stack_switcher = Gtk.StackSwitcher()
     stack_switcher.set_orientation(Gtk.Orientation.HORIZONTAL)
