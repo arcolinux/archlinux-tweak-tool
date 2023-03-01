@@ -259,6 +259,13 @@ class Main(Gtk.Window):
             except Exception as error:
                 print(error)
 
+        # if there is a file called default remove it
+        if fn.path.isfile("/usr/share/icons/default"):
+            try:
+                fn.unlink("/usr/share/icons/default")
+            except Exception as error:
+                print(error)
+
         # ensuring we have an index.theme
         if not fn.path.isdir("/usr/share/icons/default"):
             try:
