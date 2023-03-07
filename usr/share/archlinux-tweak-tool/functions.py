@@ -1266,7 +1266,7 @@ def set_default_grub_theme(self):
 
             if distr == "arcolinux":
                 try:
-                    val = get_position(grubd, "#GRUB_THEME")
+                    val = get_position(grubd, "GRUB_THEME")
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
