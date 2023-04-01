@@ -7,6 +7,7 @@ import numpy as np
 from gi.repository import GLib, Gtk  # noqa
 import functions as fn
 import os
+
 # import Settings
 # import gi
 # import distro
@@ -1444,7 +1445,7 @@ if fn.distr != "arcolinux":
 def check_desktop(desktop):
     """check if desktop is installed"""
     # /usr/share/xsessions/xfce.desktop
-    if os.path.exists("/usr/share/xsession"):
+    if os.path.exists("/usr/share/xsessions"):
         lst = fn.listdir("/usr/share/xsessions/")
         for xsession in lst:
             if desktop + ".desktop" == xsession:
@@ -1454,8 +1455,6 @@ def check_desktop(desktop):
         for xsession in lst:
             if desktop + ".desktop" == xsession:
                 return True
-
-
 
     return False
 

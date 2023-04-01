@@ -521,7 +521,7 @@ def check_group(group):
             ["sh", "-c", "id " + sudo_username],
             shell=False,
             stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT
+            stderr=subprocess.STDOUT,
         )
         for x in groups.stdout.decode().split(" "):
             if group in x:
@@ -967,10 +967,17 @@ def copy_func(src, dst, isdir=False):
 #               DISTRO LABEL
 # =====================================================
 
+# exceptions
+if distr == "manjaro" and check_content("biglinux", "/etc/os-release"):
+    distr = "biglinux"
+
 
 def change_distro_label(name):  # noqa
+
     if name == "arcolinux":
         name = "ArcoLinux"
+    if name == "biglinux":
+        name = "BigLinux"
     if name == "garuda":
         name = "Garuda"
     if name == "endeavouros":
