@@ -121,9 +121,9 @@ def pop_parallel_downloads(self):
                 'There seems to have been a problem in "pop_parallel_downloads"',
             )
     try:
-        parallel_downloads = check_parallel_downloads(
-            lines, "ParallelDownloads ="
-        ).split("=")[1]
+        parallel_downloads = check_parallel_downloads(lines, "ParallelDownloads").split(
+            "="
+        )[1]
         active_number = int(parallel_downloads) - 1
         return active_number
     except IndexError:

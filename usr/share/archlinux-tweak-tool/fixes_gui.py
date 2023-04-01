@@ -45,8 +45,7 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     button_reset_mirrorlist.connect("clicked", self.on_click_reset_mirrorlist)
     hbox3.pack_start(hbox3_label, False, False, 10)
     hbox3.pack_end(button_reset_mirrorlist, False, False, 10)
-    if not fn.distr == "manjaro":
-        hbox3.pack_end(btn_apply_osbeck, False, False, 10)
+    hbox3.pack_end(btn_apply_osbeck, False, False, 10)
 
     # if all installed
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -191,8 +190,9 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     vboxstack19.pack_start(hbox11, False, False, 0)
     vboxstack19.pack_start(hbox5, False, False, 0)
     vboxstack19.pack_start(hbox2, False, False, 0)
-    vboxstack19.pack_start(hbox3, False, False, 0)
-    if not fn.distr == "manjaro":
+    if not (fn.distr == "manjaro" or fn.distr == "biglinux"):
+        vboxstack19.pack_start(hbox3, False, False, 0)
+    if not (fn.distr == "manjaro" or fn.distr == "biglinux"):
         vboxstack19.pack_start(hbox4, False, False, 0)
     if not fn.path.exists("/usr/bin/rate-mirrors"):
         vboxstack19.pack_start(hbox40, False, False, 0)

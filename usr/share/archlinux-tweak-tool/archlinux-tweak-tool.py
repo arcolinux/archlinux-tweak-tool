@@ -96,7 +96,10 @@ class Main(Gtk.Window):
         print(
             "---------------------------------------------------------------------------"
         )
-
+        print("[INFO] : Distro = " + fn.distr)
+        print(
+            "---------------------------------------------------------------------------"
+        )
         super(Main, self).__init__(title="Arch Linux Tweak Tool")
         self.set_border_width(10)
         self.connect("delete-event", self.on_close)
