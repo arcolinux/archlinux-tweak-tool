@@ -1247,129 +1247,25 @@ def reset_login_wallpaper(self, image):
 
 def set_default_grub_theme(self):
     if path.isfile(grub_default_grub):
-        if not path.isfile(grub_default_grub + ".bak"):
-            shutil.copy(grub_default_grub, grub_default_grub + ".bak")
+        if not path.isfile(grub_default_grub + ".back"):
+            shutil.copy(grub_default_grub, grub_default_grub + ".back")
         try:
             with open(grub_default_grub, "r", encoding="utf-8") as f:
                 grubd = f.readlines()
                 f.close()
 
-            if distr == "arch":
-                try:
-                    val = get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "arch":
-                try:
-                    # for Carli
-                    val = get_position(
-                        grubd, "GRUB_THEME=/usr/share/grub/themes/poly-dark/theme.txt"
-                    )
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "arcolinux":
-                try:
-                    val = get_position(grubd, "GRUB_THEME")
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "endeavouros":
-                try:
-                    val = get_position(
-                        grubd, "GRUB_THEME=/boot/grub/themes/EndeavourOS/theme.txt"
-                    )
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "garuda":
-                try:
-                    val = get_position(
-                        grubd, 'GRUB_THEME="/usr/share/grub/themes/garuda/theme.txt"'
-                    )
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "manjaro":
-                try:
-                    val = get_position(
-                        grubd, 'GRUB_THEME="/usr/share/grub/themes/manjaro/theme.txt"'
-                    )
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "biglinux":
-                try:
-                    val = get_position(
-                        grubd, 'GRUB_THEME="/boot/grub/themes/biglinux/theme.txt"'
-                    )
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "xerolinux":
-                try:
-                    val = get_position(
-                        grubd, 'GRUB_THEME="/boot/grub/themes/XeroKDE/theme.txt"'
-                    )
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "axyl":
-                try:
-                    val = get_position(
-                        grubd, 'GRUB_THEME="/boot/grub/themes/axyl/theme.txt"'
-                    )
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "archcraft":
-                try:
-                    val = get_position(
-                        grubd, 'GRUB_THEME="/boot/grub/themes/archcraft/theme.txt"'
-                    )
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "artix":
-                try:
-                    val = get_position(
-                        grubd, 'GRUB_THEME="/boot/grub/themes/artix/theme.txt"'
-                    )
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "archman":
-                try:
-                    val = get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
-
-            if distr == "cachyos":
-                try:
-                    val = get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
-                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                except IndexError:
-                    pass
+            try:
+                val = get_position(grubd, "GRUB_THEME")
+                grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+            except IndexError:
+                pass
 
             with open(grub_default_grub, "w", encoding="utf-8") as f:
                 f.writelines(grubd)
                 f.close()
 
             print("Grub settings saved successfully in /etc/default/grub")
-            print("We made sure you have a backup - /etc/default/grub.bak")
+            print("We made sure you have a backup - /etc/default/grub.back")
             print("This line has changed in /etc/default/grub")
             print('GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"')
 

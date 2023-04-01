@@ -509,10 +509,11 @@ class Main(Gtk.Window):
                 print(error)
 
         # make backup of /etc/default/grub
+        # renaming bak to back for BigLinux
         if fn.path.isfile(fn.grub_default_grub):
-            if not fn.path.isfile(fn.grub_default_grub + ".bak"):
+            if not fn.path.isfile(fn.grub_default_grub + ".back"):
                 try:
-                    fn.shutil.copy(fn.grub_default_grub, fn.grub_default_grub + ".bak")
+                    fn.shutil.copy(fn.grub_default_grub, fn.grub_default_grub + ".back")
                 except Exception as error:
                     print(error)
 
@@ -2179,8 +2180,8 @@ class Main(Gtk.Window):
         fn.show_in_app_notification(self, "Default Vimix grub wallpaper applied")
 
     def on_reset_grub(self, widget):
-        if fn.path.isfile(fn.grub_default_grub + ".bak"):
-            fn.shutil.copy(fn.grub_default_grub + ".bak", fn.grub_default_grub)
+        if fn.path.isfile(fn.grub_default_grub + ".back"):
+            fn.shutil.copy(fn.grub_default_grub + ".back", fn.grub_default_grub)
         self.pop_themes_grub(self.grub_theme_combo, fn.get_grub_wallpapers(), True)
         fn.make_grub(self)
 
