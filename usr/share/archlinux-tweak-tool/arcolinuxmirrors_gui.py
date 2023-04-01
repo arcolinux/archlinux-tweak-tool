@@ -99,17 +99,17 @@ def gui(self, Gtk, vboxstack1):
     hboxstack19.pack_end(self.ajingk_button, False, False, 20)
     hboxstack19.pack_start(jingk_sync, False, True, 10)
 
-    # codeberg
-    self.acodeberg_button = Gtk.Switch()
-    self.acodeberg_button.connect("notify::active", self.on_mirror_codeberg_repo_toggle)
-    labelacodeberg = Gtk.Label(xalign=0)
-    labelacodeberg.set_markup(
-        "Enable Codeberg repo - free bandwidth - Germany - Always up-to-date"
+    # accum
+    self.aaccum_button = Gtk.Switch()
+    self.aaccum_button.connect("notify::active", self.on_mirror_accum_repo_toggle)
+    labelaaccum = Gtk.Label(xalign=0)
+    labelaaccum.set_markup(
+        "Enable Accum repo - free bandwidth - Sweden - Syncs twice per day"
     )
-    codeberg_sync = Gtk.Label(xalign=0)
-    hboxstack17.pack_start(labelacodeberg, False, True, 10)
-    hboxstack17.pack_end(self.acodeberg_button, False, False, 20)
-    hboxstack17.pack_start(codeberg_sync, False, True, 10)
+    accum_sync = Gtk.Label(xalign=0)
+    hboxstack17.pack_start(labelaaccum, False, True, 10)
+    hboxstack17.pack_end(self.aaccum_button, False, False, 20)
+    hboxstack17.pack_start(accum_sync, False, True, 10)
 
     # github - always there as fallback - no extra large repo on github
     # self.agithub_button = Gtk.Switch()
@@ -178,8 +178,8 @@ Pace will change the orginal layout."
     vbox3.pack_start(hboxstack12, False, False, 0)
     # gitlab
     vbox3.pack_start(hboxstack16, False, False, 0)
-    # codeberg
-    # vbox3.pack_start(hboxstack17, False, False, 0)
+    # sweden
+    vbox3.pack_start(hboxstack17, False, False, 0)
     # belnet
     vbox3.pack_start(hboxstack14, False, False, 0)
     # aarnet

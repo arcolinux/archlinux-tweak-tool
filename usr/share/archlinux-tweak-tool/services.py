@@ -27,6 +27,10 @@ def choose_nsswitch(self):
         fn.copy_nsswitch("manjaro")
         print("Nsswitch from Manjaro")
         GLib.idle_add(fn.show_in_app_notification, self, "Nsswitch from Manjaro")
+    elif choice == "BigLinux":
+        fn.copy_nsswitch("biglinux")
+        print("Nsswitch from BigLinux")
+        GLib.idle_add(fn.show_in_app_notification, self, "Nsswitch from BigLinux")
     else:
         fn.copy_nsswitch("eos")
         print("Nsswitch from EndeavourOS")

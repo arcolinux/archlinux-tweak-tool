@@ -59,7 +59,14 @@ def gui(self, Gtk, vboxstack14, fn):
 
     hbox30 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     self.nsswitch_choices = Gtk.ComboBoxText()
-    options = ["ArcoLinux", "Garuda", "Arch Linux", "EndeavourOS", "Manjaro"]
+    options = [
+        "ArchLinux",
+        "ArcoLinux",
+        "BigLinux",
+        "EndeavourOS",
+        "Garuda",
+        "Manjaro",
+    ]
     for option in options:
         self.nsswitch_choices.append_text(option)
     self.nsswitch_choices.set_active(0)

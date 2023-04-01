@@ -1305,6 +1305,15 @@ def set_default_grub_theme(self):
                 except IndexError:
                     pass
 
+            if distr == "biglinux":
+                try:
+                    val = get_position(
+                        grubd, 'GRUB_THEME="/boot/grub/themes/biglinux/theme.txt"'
+                    )
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                    pass
+
             if distr == "xerolinux":
                 try:
                     val = get_position(

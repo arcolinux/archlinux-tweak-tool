@@ -306,9 +306,9 @@ def toggle_mirrorlist(self, state, widget):
                         i,
                         line,
                     )
-                if widget == "arco_mirror_codeberg":
+                if widget == "arco_mirror_accum":
                     mirror_on(
-                        "Server = https://codeberg.org/arcolinux/$repo/media/branch/main/$arch",
+                        "Server = https://mirror.accum.se/mirror/arcolinux.info/$repo/$arch",
                         lines,
                         i,
                         line,
@@ -390,9 +390,9 @@ def toggle_mirrorlist(self, state, widget):
                         i,
                         line,
                     )
-                if widget == "arco_mirror_codeberg":
+                if widget == "arco_mirror_accum":
                     mirror_off(
-                        "Server = https://codeberg.org/arcolinux/$repo/media/branch/main/$arch",
+                        "Server = https://mirror.accum.se/mirror/arcolinux.info/$repo/$arch",
                         lines,
                         i,
                         line,

@@ -716,8 +716,8 @@ class Main(Gtk.Window):
             arco_mirror_belnet = pmf.check_mirror(
                 "Server = https://ftp.belnet.be/arcolinux/$repo/$arch"
             )
-            arco_mirror_codeberg = pmf.check_mirror(
-                "Server = https://codeberg.org/arcolinux/$repo/media/branch/main/$arch"
+            arco_mirror_accum = pmf.check_mirror(
+                "Server = https://mirror.accum.se/mirror/arcolinux.info/$repo/$arch"
             )
             arco_mirror_funami = pmf.check_mirror(
                 "Server = https://mirror.funami.tech/arcolinux/$repo/$arch"
@@ -739,7 +739,7 @@ class Main(Gtk.Window):
             self.abelnet_button.set_active(arco_mirror_belnet)
             self.afunami_button.set_active(arco_mirror_funami)
             self.ajingk_button.set_active(arco_mirror_jingk)
-            self.acodeberg_button.set_active(arco_mirror_codeberg)
+            self.aaccum_button.set_active(arco_mirror_accum)
             self.aarnet_button.set_active(arco_mirror_aarnet)
             # self.agithub_button.set_active(arco_mirror_github)
 
@@ -2808,14 +2808,14 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(), "arco_mirror_jingk")
 
-    def on_mirror_codeberg_repo_toggle(self, widget, active):
+    def on_mirror_accum_repo_toggle(self, widget, active):
         if not pmf.mirror_exist(
-            "Server = https://codeberg.org/arcolinux/$repo/media/branch/main/$arch"
+            "Server = https://mirror.accum.se/mirror/arcolinux.info/$repo/$arch"
         ):
             pmf.append_mirror(self, fn.seedhostmirror)
         else:
             if self.opened is False:
-                pmf.toggle_mirrorlist(self, widget.get_active(), "arco_mirror_codeberg")
+                pmf.toggle_mirrorlist(self, widget.get_active(), "arco_mirror_accum")
 
     def on_mirror_aarnet_repo_toggle(self, widget, active):
         if not pmf.mirror_exist(
