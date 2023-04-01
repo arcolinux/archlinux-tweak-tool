@@ -68,8 +68,7 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     btn_install_rate_mirrors = Gtk.Button(label="Install rate mirrors")
     btn_install_rate_mirrors.connect("clicked", self.on_click_install_arch_mirrors2)
     hbox40.pack_start(hbox40_label, False, False, 10)
-    if not fn.distr == "manjaro":
-        hbox40.pack_end(btn_install_mirrors, False, False, 10)
+    hbox40.pack_end(btn_install_mirrors, False, False, 10)
     hbox40.pack_end(btn_install_rate_mirrors, False, False, 10)
 
     if not fn.path.exists("/usr/bin/reflector"):
@@ -194,7 +193,7 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
         vboxstack19.pack_start(hbox3, False, False, 0)
     if not (fn.distr == "manjaro" or fn.distr == "biglinux"):
         vboxstack19.pack_start(hbox4, False, False, 0)
-    if not fn.path.exists("/usr/bin/rate-mirrors"):
+    if not (fn.distr == "manjaro" or fn.distr == "biglinux"):
         vboxstack19.pack_start(hbox40, False, False, 0)
     vboxstack19.pack_start(hbox7, False, False, 0)
     vboxstack19.pack_start(hbox8, False, False, 0)
