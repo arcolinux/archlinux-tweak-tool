@@ -17,6 +17,17 @@ def check_cursor_global(lists, value):
             print(error)
 
 
+def check_parallel_downloads(lists, value):
+    """find number of parellel downloads"""
+    if fn.path.isfile(fn.pacman):
+        try:
+            pos = fn.get_position(lists, value)
+            val = lists[pos].strip()
+            return val
+        except Exception as error:
+            print(error)
+
+
 def set_global_cursor(self, cursor):
     """set global cursor"""
     if fn.path.isfile(fn.icons_default):
@@ -93,3 +104,27 @@ def set_parallel_downloads(self, widget):
                 "Failed!!",
                 'There seems to have been a problem in "set_parallel_downloads"',
             )
+
+
+def pop_parallel_downloads(self):
+    """populate parallel downloads for pacman"""
+    if fn.path.isfile(fn.pacman):
+        try:
+            with open(fn.pacman, "r", encoding="utf-8") as f:
+                lines = f.readlines()
+                f.close()
+        except Exception as error:
+            print(error)
+            fn.messagebox(
+                self,
+                "Failed!!",
+                'There seems to have been a problem in "pop_parallel_downloads"',
+            )
+    try:
+        parallel_downloads = check_parallel_downloads(
+            lines, "ParallelDownloads ="
+        ).split("=")[1]
+        active_number = int(parallel_downloads) - 1
+        return active_number
+    except IndexError:
+        active_number = ""

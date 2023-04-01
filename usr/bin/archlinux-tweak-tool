@@ -1,2 +1,38 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+
+# this script should not be run as root or run in a tty session
+# polkit agent should prompt for root password
+
+echo "---------------------------------------------------------------------------"
+
+test $(whoami) == "root" && echo "[ERROR] Do not run this script as root." && exit 1
+test -z $DISPLAY && echo "[ERROR] DISPLAY variable is not set." && exit 1
+
+session=$(loginctl show-session $(loginctl|grep $(whoami) | awk '{print $1}') -p Type | awk -F= '{print $2}' | grep "x11\|wayland")
+
+test -z "$session" && echo "[ERROR] Failed to verify session for user." && exit 1
+
+xauth_file=$(xauth info | awk -F"Authority file:" '{print $2}' | tr -d ' ')
+test -s "$xauth_file" || touch "$xauth_file"
+
+case "$session" in
+  "wayland")
+    xauth gen $DISPLAY &> /dev/null
+    echo "[INFO] Display = $DISPLAY"
+    echo "[INFO] Session = $session"
+  ;;
+  "x11")
+    echo "[INFO] Display = $DISPLAY"
+    echo "[INFO] Session = $session"
+    #test -z $(xauth list | awk -F"MIT-MAGIC-COOKIE-1" '{print $2}' | tr -d ' ') || echo "[INFO] XAuth cookie is already setup."
+    #test -z $(xauth list | awk -F"MIT-MAGIC-COOKIE-1" '{print $2}' | tr -d ' ') && echo "[ERROR] XAuth cookie not setup, logout/reboot to fix this." && exit 1
+  ;;
+  *)
+    echo "[ERROR] Cannot verify session for user."
+    exit 1
+  ;;
+esac
+echo "---------------------------------------------------------------------------"
+
+echo "[INFO] Starting ArchLinux Tweak Tool"
 pkexec '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'

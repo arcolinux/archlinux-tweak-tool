@@ -141,8 +141,8 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     ]
     for number in numbers:
         self.parallel_downloads.append_text(number)  # string
-    self.parallel_downloads.set_active(4)
-
+    act_number = fixes.pop_parallel_downloads(self)
+    self.parallel_downloads.set_active(act_number)
     btn_apply_parallel_downloads = Gtk.Button(label="Apply")
     btn_apply_parallel_downloads.connect(
         "clicked", self.on_click_apply_parallel_downloads
