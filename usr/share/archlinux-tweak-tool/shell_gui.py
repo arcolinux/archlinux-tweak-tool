@@ -527,7 +527,7 @@ Activate the necessary repos"
 
     flowbox = Gtk.FlowBox()
     flowbox.set_valign(Gtk.Align.START)
-    flowbox.set_max_children_per_line(10)
+    flowbox.set_max_children_per_line(2)
     flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
 
     flowbox.add(self.expac)
@@ -548,7 +548,7 @@ Activate the necessary repos"
     vboxstack4.pack_start(hbox51, False, False, 0)
     # vboxstack4.pack_start(hbox52, False, False, 0)
     vboxstack4.pack_start(flowbox, False, False, 0)
-    vboxstack4.pack_end(extra_shell_applications, False, False, 0)
+    vboxstack4.pack_start(extra_shell_applications, False, False, 0)
     # vboxstack4.pack_start(install_only_fish, False, False, 0)
 
     # ==================================================================

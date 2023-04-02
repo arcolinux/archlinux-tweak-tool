@@ -53,12 +53,13 @@ class Main(Gtk.Window):
         print(
             "---------------------------------------------------------------------------"
         )
+        print("Wayland desktops are now supported e.g. Sway/Hyprland/...")
         print("If you have errors, report it on the discord channel of ArcoLinux")
-        print("Then launch the Arch Linux Tweak Tool again")
+        print("https://discord.gg/R2amEEz")
         print(
             "---------------------------------------------------------------------------"
         )
-        print("Created for :")
+        print("Following distros are supported:")
         print(" - ArcoLinux     - https://arcolinux.info/")
         print(" - Arch Linux    - https://archlinux.org/")
         print(" - Alci          - https://alci.online/")
@@ -80,13 +81,12 @@ class Main(Gtk.Window):
         )
         print("Other Arch Linux based distros will be visited later")
         print("Adding repositories should be done with great care - they can conflict")
-        print("Wayland desktops are now supported e.g. Sway/Hyprland/...")
         print(
             "---------------------------------------------------------------------------"
         )
         print("We make backups of files related to the ATT.")
-        print("You can recognize them by the extension .bak")
-        print("If we have a reset button, the .bak file will be used")
+        print("You can recognize them by the extension .bak or .back")
+        print("If we have a reset button, the backup file will be used")
         print("If you have errors, because of the login managers")
         print("You can try running one of these scripts:")
         print("Run fix-sddm-conf")

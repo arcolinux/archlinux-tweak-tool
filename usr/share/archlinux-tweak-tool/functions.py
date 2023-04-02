@@ -134,7 +134,7 @@ i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
 qtile_config = home + "/.config/qtile/config.py"
 qtile_config_theme = home + "/.config/qtile/themes/arcolinux-default.theme"
-leftwm_config = home + "/.config/leftwm/config.toml"
+leftwm_config = home + "/.config/leftwm/config.ron"
 leftwm_config_theme = home + "/.config/leftwm/themes/"
 leftwm_config_theme_current = home + "/.config/leftwm/themes/current"
 
@@ -1755,6 +1755,19 @@ def install_arcolinux(self):
             stderr=subprocess.STDOUT,
         )
         print("ArcoLinux mirrorlist is now installed")
+    except Exception as error:
+        print(error)
+
+    try:
+        install = "pacman -Syy"
+        print(install)
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        print("Getting the pacman databases in")
     except Exception as error:
         print(error)
 

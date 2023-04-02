@@ -39,7 +39,7 @@ def gui(self, Gtk, vboxStack7, termite):
     hbox06 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label06 = Gtk.Label()
     label06.set_markup(
-        "Choose your <b>Alcritty</b> theme - type <b>'alacritty-themes'</b> in the terminal"
+        "Choose your Alcritty theme - type 'alacritty-themes' in the terminal"
     )
     hbox06.pack_start(label06, False, False, 10)
 
@@ -56,9 +56,10 @@ def gui(self, Gtk, vboxStack7, termite):
 
     hbox03 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label03 = Gtk.Label()
-    label03.set_markup(
-        "Install Alacritty themes (activate ArcoLinux repos to install all of them)"
-    )
+    if fn.check_package_installed("alacritty-themes") == True:
+        label03.set_markup("Alacritty-themes is already <b>installed</b>")
+    else:
+        label03.set_markup("Install Alacritty-themes")
     btn_install_alacritty_themes = Gtk.Button(label="Install Alacritty themes")
     btn_install_alacritty_themes.connect(
         "clicked", self.on_clicked_install_alacritty_themes
@@ -90,29 +91,33 @@ def gui(self, Gtk, vboxStack7, termite):
     hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label27 = Gtk.Label()
     label27.set_markup(
-        "Choose your <b>Xfce4-terminal</b> theme in the preferences,\
+        "Choose your Xfce4-terminal theme in the preferences,\
 colors, presets of Xfce4-terminal"
     )
     hbox27.pack_start(label27, False, False, 10)
 
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    label28 = Gtk.Label()
     if fn.check_package_installed("xfce4-terminal"):
-        btn_install_xfce4_terminal = Gtk.Button(
-            label="Install Xfce4-terminal (installed)"
-        )
+        label28.set_markup("Xfce4-terminal already <b>installed</b>")
     else:
-        btn_install_xfce4_terminal = Gtk.Button(label="Install Xfce4-terminal")
+        label28.set_markup("Install Xfce4-terminal")
+    btn_install_xfce4_terminal = Gtk.Button(label="Install Xfce4-terminal")
     btn_install_xfce4_terminal.connect(
         "clicked", self.on_clicked_install_xfce4_terminal
     )
     btn_remove_xfce4_terminal = Gtk.Button(label="Remove Xfce4-terminal")
     btn_remove_xfce4_terminal.connect("clicked", self.on_clicked_remove_xfce4_terminal)
+    hbox2.pack_start(label28, False, False, 10)
     hbox2.pack_end(btn_remove_xfce4_terminal, False, False, 10)
     hbox2.pack_end(btn_install_xfce4_terminal, False, False, 10)
 
     hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label08 = Gtk.Label()
-    label08.set_markup("Activate ArcoLinux repos to install all of them")
+    if fn.check_package_installed("xfce4-terminal-base16-colors-git"):
+        label08.set_markup("Xfce4-terminal themes <b>installed</b>")
+    else:
+        label08.set_markup("Install all Xfce4-terminal themes")
     btn_install_xfce4_terminal_themes = Gtk.Button(
         label="Install Xfce4-terminal themes"
     )
