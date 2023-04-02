@@ -41,7 +41,6 @@ def choose_smb_conf(self):
     """choose_smb_conf"""
     choice = self.samba_choices.get_active_text()
 
-    # options_samba = ['ArcoLinux', 'Example', 'Original']
     if choice == "ArcoLinux":
         fn.copy_samba("arco")
         print("smb.conf from ArcoLinux")
@@ -69,6 +68,10 @@ def choose_smb_conf(self):
         GLib.idle_add(
             fn.show_in_app_notification, self, "Smb.conf from gitlab of Samba"
         )
+    elif choice == "BigLinux":
+        fn.copy_samba("biglinux")
+        print("Smb.conf from BigLinux")
+        GLib.idle_add(fn.show_in_app_notification, self, "Smb.conf from BigLinux")
 
 
 def create_samba_user(self):

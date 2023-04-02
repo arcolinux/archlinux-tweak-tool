@@ -114,7 +114,14 @@ Follow the instruction numbers below - <b>we recommend the easy configuration</b
     hbox4bis_label = Gtk.Label(xalign=0)
     hbox4bis_label.set_text("2. Apply the /etc/samba/smb.conf of your choice")
     self.samba_choices = Gtk.ComboBoxText()
-    options_samba = ["Easy", "Usershares", "Windows", "ArcoLinux", "Original"]
+    options_samba = [
+        "Easy",
+        "Usershares",
+        "Windows",
+        "ArcoLinux",
+        "Original",
+        "BigLinux",
+    ]
     for option in options_samba:
         self.samba_choices.append_text(option)
     self.samba_choices.set_active(0)
