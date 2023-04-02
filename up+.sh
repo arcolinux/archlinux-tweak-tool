@@ -41,6 +41,10 @@ rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/*
 #get latest archlinux-keyring
 wget https://archlinux.org/packages/core/any/archlinux-keyring/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/
 
+#getting gitlab errors
+#echo "Get the original samba file from Manjaro github for BigLinux"
+#wget https://gitlab.com/https://gitlab.manjaro.org/packages/extra/manjaro-settings-samba/-/raw/master/smb.conf -O $workdir/usr/share/archlinux-tweak-tool/data/any/samba/biglinux/smb.conf
+
 echo "Get the original samba file from samba github"
 wget https://gitlab.com/samba-team/samba/-/raw/master/examples/smb.conf.default -O $workdir/usr/share/archlinux-tweak-tool/data/any/samba/original/smb.conf
 
