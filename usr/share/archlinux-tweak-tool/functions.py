@@ -1758,8 +1758,6 @@ def install_arcolinux(self):
     except Exception as error:
         print(error)
 
-    update_repos(self)
-
 
 def install_xerolinux(self):
     base_dir = path.dirname(path.realpath(__file__))

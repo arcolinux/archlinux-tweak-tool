@@ -2856,6 +2856,7 @@ class Main(Gtk.Window):
         self.on_pacman_arepo_toggle(self.arepo_button, True)
         self.on_pacman_a3p_toggle(self.a3prepo_button, True)
         self.on_pacman_axl_toggle(self.axlrepo_button, True)
+        fn.update_repos(self)
         fn.restart_program()
 
     def on_pacman_atestrepo_toggle(self, widget, active):
