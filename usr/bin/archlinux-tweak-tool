@@ -28,8 +28,7 @@ case "$session" in
     #test -z $(xauth list | awk -F"MIT-MAGIC-COOKIE-1" '{print $2}' | tr -d ' ') && echo "[ERROR] XAuth cookie not setup, logout/reboot to fix this." && exit 1
   ;;
   *)
-    echo "[ERROR] Cannot verify session for user."
-    exit 1
+    echo "[INFO] Cannot verify session for user."
   ;;
 esac
 echo "---------------------------------------------------------------------------"

@@ -104,7 +104,7 @@ def gui(self, Gtk, vboxstack1):
     self.aaccum_button.connect("notify::active", self.on_mirror_accum_repo_toggle)
     labelaaccum = Gtk.Label(xalign=0)
     labelaaccum.set_markup(
-        "Enable Accum repo - free bandwidth - Sweden - Syncs twice per day"
+        "Enable Accum repo - free bandwidth - Sweden - Accum syncs twice per day"
     )
     accum_sync = Gtk.Label(xalign=0)
     hboxstack17.pack_start(labelaaccum, False, True, 10)
