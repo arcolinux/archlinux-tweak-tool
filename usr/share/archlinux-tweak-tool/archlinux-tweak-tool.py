@@ -303,6 +303,11 @@ class Main(Gtk.Window):
         # ensuring we have a backup of /etc/sddm.conf.d/kde_settings.conf
         # no backups in this folder - it confuses sddm.conf.d
 
+        # sddm_default_d1 = "/etc/sddm.conf"
+        # sddm_default_d1_bak = "/etc/bak.sddm.conf"
+        # sddm_default_d2 = "/etc/sddm.conf.d/kde_settings.conf"
+        # sddm_default_d2_bak = "/etc/bak.kde_settings.conf"
+
         if fn.path.isfile(fn.sddm_default_d1):
             if not fn.path.isfile(fn.sddm_default_d1_bak):
                 try:
@@ -618,7 +623,7 @@ class Main(Gtk.Window):
                     "We changed your sddm configuration files so that ATT could start"
                 )
                 print(
-                    "Backups are at /etc/backup-kde_settings.conf and /etc/backup-sddm.conf"
+                    "Backups are at /etc/bak.kde_settings.conf and /etc/bak.sddm.conf"
                 )
                 GLib.idle_add(
                     fn.show_in_app_notification,
