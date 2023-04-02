@@ -1758,18 +1758,7 @@ def install_arcolinux(self):
     except Exception as error:
         print(error)
 
-    try:
-        install = "pacman -Syy"
-        print(install)
-        subprocess.call(
-            install.split(" "),
-            shell=False,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-        )
-        print("Getting the pacman databases in")
-    except Exception as error:
-        print(error)
+    update_repos(self)
 
 
 def install_xerolinux(self):
