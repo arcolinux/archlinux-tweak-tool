@@ -276,7 +276,8 @@ themes</i> you can customize <b>Neofetch</b>"
 
     stack.add_titled(vboxstack4, "stack1", "Grub")  # Grub config
 
-    stack.add_titled(vboxstack22, "stack22", "Login")  # Lightdm config
+    if fn.distr != "artix":
+        stack.add_titled(vboxstack22, "stack22", "Login")  # Sddm/Lightdm/Lxdm
 
     stack.add_titled(vboxstack16, "stack16", "Mirrors")  # mirrors
 
@@ -287,7 +288,8 @@ themes</i> you can customize <b>Neofetch</b>"
 
     stack.add_titled(vboxstack3, "stack2", "Privacy")  # Privacy
 
-    stack.add_titled(vboxstack14, "stack14", "Services")  # services
+    if fn.distr != "artix":
+        stack.add_titled(vboxstack14, "stack14", "Services")  # services
 
     stack.add_titled(vboxstack23, "stack23", "Shells")  # shell
 

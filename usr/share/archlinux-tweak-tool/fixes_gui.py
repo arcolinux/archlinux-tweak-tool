@@ -187,13 +187,14 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     vboxstack19.pack_start(hbox0, False, False, 0)
     vboxstack19.pack_start(hbox10, False, False, 20)
     vboxstack19.pack_start(hbox11, False, False, 0)
-    vboxstack19.pack_start(hbox5, False, False, 0)
+    if not (fn.distr == "manjaro" or fn.distr == "biglinux" or fn.distr == "artix"):
+        vboxstack19.pack_start(hbox5, False, False, 0)
     vboxstack19.pack_start(hbox2, False, False, 0)
-    if not (fn.distr == "manjaro" or fn.distr == "biglinux"):
+    if not (fn.distr == "manjaro" or fn.distr == "biglinux" or fn.distr == "artix"):
         vboxstack19.pack_start(hbox3, False, False, 0)
-    if not (fn.distr == "manjaro" or fn.distr == "biglinux"):
+    if not (fn.distr == "manjaro" or fn.distr == "biglinux" or fn.distr == "artix"):
         vboxstack19.pack_start(hbox4, False, False, 0)
-    if not (fn.distr == "manjaro" or fn.distr == "biglinux"):
+    if not (fn.distr == "manjaro" or fn.distr == "biglinux" or fn.distr == "artix"):
         vboxstack19.pack_start(hbox40, False, False, 0)
     vboxstack19.pack_start(hbox7, False, False, 0)
     vboxstack19.pack_start(hbox8, False, False, 0)

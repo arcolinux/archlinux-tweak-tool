@@ -74,8 +74,8 @@ class Main(Gtk.Window):
         print(" - Archcraft     - https://archcraft.io/")
         print(" - CachyOS       - https://cachyos.org/")
         print(" - Archman       - https://archman.org/")
-        print(" - Archman       - https://archman.org/")
         print(" - BigLinux      - https://www.biglinux.com.br/")
+        print(" - Artix         - https://artixlinux.org/")
         print(
             "---------------------------------------------------------------------------"
         )
@@ -182,29 +182,33 @@ class Main(Gtk.Window):
 
         if fn.path.isdir(fn.home + "/.config/gtk-3.0"):
             try:
-                fn.shutil.rmtree("/root/.config/gtk-3.0")
-                fn.shutil.copytree(
-                    fn.home + "/.config/gtk-3.0", "/root/.config/gtk-3.0"
-                )
+                if not os.path.islink("/root/.config/gtk-3.0"):
+                    fn.shutil.rmtree("/root/.config/gtk-3.0")
+                    fn.shutil.copytree(
+                        fn.home + "/.config/gtk-3.0", "/root/.config/gtk-3.0"
+                    )
             except Exception as error:
                 print(error)
 
         if fn.path.isdir(fn.home + "/.config/gtk-4.0/"):
             try:
-                fn.shutil.rmtree("/root/.config/gtk-4.0/")
-                fn.shutil.copytree(
-                    fn.home + "/.config/gtk-4.0/", "/root/.config/gtk-4.0/"
-                )
+                if not os.path.islink("/root/.config/gtk-4.0"):
+                    fn.shutil.rmtree("/root/.config/gtk-4.0/")
+                    fn.shutil.copytree(
+                        fn.home + "/.config/gtk-4.0/", "/root/.config/gtk-4.0/"
+                    )
             except Exception as error:
                 print(error)
 
         if fn.path.isdir("/root/.config/xsettingsd/xsettingsd.conf"):
             try:
-                fn.shutil.rmtree("/root/.config/xsettingsd/")
-                if fn.path.isdir(fn.home + "/.config/xsettingsd/"):
-                    fn.shutil.copytree(
-                        fn.home + "/.config/xsettingsd/", "/root/.config/xsettingsd/"
-                    )
+                if not os.path.islink("/root/.config/xsettingsd/"):
+                    fn.shutil.rmtree("/root/.config/xsettingsd/")
+                    if fn.path.isdir(fn.home + "/.config/xsettingsd/"):
+                        fn.shutil.copytree(
+                            fn.home + "/.config/xsettingsd/",
+                            "/root/.config/xsettingsd/",
+                        )
             except Exception as error:
                 print(error)
 
