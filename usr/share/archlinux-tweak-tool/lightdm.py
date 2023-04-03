@@ -155,105 +155,109 @@ image path or a color (e.g. #772953)"
 
 def pop_box_sessions_lightdm(self, combo):
     """populate sessions in lightdm"""
-    coms = []
-    combo.get_model().clear()
+    if fn.distr != "artix":
+        coms = []
+        combo.get_model().clear()
 
-    if fn.os.path.isfile(fn.lightdm_conf):
-        for items in fn.os.listdir("/usr/share/xsessions/"):
-            coms.append(items.split(".")[0].lower())
-        lines = fn.get_lines(fn.lightdm_conf)
+        if fn.os.path.isfile(fn.lightdm_conf):
+            for items in fn.os.listdir("/usr/share/xsessions/"):
+                coms.append(items.split(".")[0].lower())
+            lines = fn.get_lines(fn.lightdm_conf)
 
-        try:
-            name = check_lightdm(lines, "autologin-session=").split("=")[1]
-        except IndexError:
-            name = ""
+            try:
+                name = check_lightdm(lines, "autologin-session=").split("=")[1]
+            except IndexError:
+                name = ""
 
-        if "i3-with-shmlog" in coms:
-            coms.remove("i3-with-shmlog")
-        if "openbox-kde" in coms:
-            coms.remove("openbox-kde")
-        if "cinnamon2d" in coms:
-            coms.remove("cinnamon2d")
-        if "icewm-session" in coms:
-            coms.remove("icewm-session")
+            if "i3-with-shmlog" in coms:
+                coms.remove("i3-with-shmlog")
+            if "openbox-kde" in coms:
+                coms.remove("openbox-kde")
+            if "cinnamon2d" in coms:
+                coms.remove("cinnamon2d")
+            if "icewm-session" in coms:
+                coms.remove("icewm-session")
 
-        coms.sort()
-        for i, item in enumerate(coms):
-            combo.append_text(item)
-            if name.lower() == item.lower():
-                combo.set_active(i)
+            coms.sort()
+            for i, item in enumerate(coms):
+                combo.append_text(item)
+                if name.lower() == item.lower():
+                    combo.set_active(i)
 
 
 def pop_gtk_theme_names_lightdm(self, combo):
     """populate theme names in lightdm"""
-    coms = []
-    combo.get_model().clear()
+    if fn.distr != "artix":
+        coms = []
+        combo.get_model().clear()
 
-    if fn.os.path.isfile(fn.lightdm_greeter):
-        for item in fn.os.listdir("/usr/share/themes/"):
-            if fn.file_check("/usr/share/themes/" + item + "/index.theme"):
-                coms.append(item)
-                coms.sort()
-        lines = fn.get_lines(fn.lightdm_greeter)
+        if fn.os.path.isfile(fn.lightdm_greeter):
+            for item in fn.os.listdir("/usr/share/themes/"):
+                if fn.file_check("/usr/share/themes/" + item + "/index.theme"):
+                    coms.append(item)
+                    coms.sort()
+            lines = fn.get_lines(fn.lightdm_greeter)
 
-        # pos = fn.get_position(lines, "theme-name=")
-        try:
-            theme_name = check_lightdm_greeter(lines, "theme-name=").split("=")[1]
-        except IndexError:
-            theme_name = ""
+            # pos = fn.get_position(lines, "theme-name=")
+            try:
+                theme_name = check_lightdm_greeter(lines, "theme-name=").split("=")[1]
+            except IndexError:
+                theme_name = ""
 
-        coms.sort()
-        for i, item in enumerate(coms):
-            combo.append_text(item)
-            if theme_name.lower() == item.lower():
-                combo.set_active(i)
+            coms.sort()
+            for i, item in enumerate(coms):
+                combo.append_text(item)
+                if theme_name.lower() == item.lower():
+                    combo.set_active(i)
 
 
 def pop_gtk_icon_names_lightdm(self, combo):
     """populate icon names lightdm"""
-    coms = []
-    combo.get_model().clear()
+    if fn.distr != "artix":
+        coms = []
+        combo.get_model().clear()
 
-    if fn.os.path.isfile(fn.lightdm_greeter):
-        for item in fn.os.listdir("/usr/share/icons/"):
-            if not fn.path_check("/usr/share/icons/" + item + "/cursors/"):
-                coms.append(item)
-                coms.sort()
-        lines = fn.get_lines(fn.lightdm_greeter)
+        if fn.os.path.isfile(fn.lightdm_greeter):
+            for item in fn.os.listdir("/usr/share/icons/"):
+                if not fn.path_check("/usr/share/icons/" + item + "/cursors/"):
+                    coms.append(item)
+                    coms.sort()
+            lines = fn.get_lines(fn.lightdm_greeter)
 
-        # pos = fn.get_position(lines, "icon-theme-name=")
-        try:
-            icon_theme_name = check_lightdm(lines, "icon-theme-name=").split("=")[1]
-        except IndexError:
-            icon_theme_name = ""
+            # pos = fn.get_position(lines, "icon-theme-name=")
+            try:
+                icon_theme_name = check_lightdm(lines, "icon-theme-name=").split("=")[1]
+            except IndexError:
+                icon_theme_name = ""
 
-        coms.sort()
-        for i, item in enumerate(coms):
-            combo.append_text(item)
-            if icon_theme_name.lower() == item.lower():
-                combo.set_active(i)
+            coms.sort()
+            for i, item in enumerate(coms):
+                combo.append_text(item)
+                if icon_theme_name.lower() == item.lower():
+                    combo.set_active(i)
 
 
 def pop_gtk_cursor_names(self, combo):
     """populate cursor names from"""
-    coms = []
-    combo.get_model().clear()
+    if fn.distr != "artix":
+        coms = []
+        combo.get_model().clear()
 
-    if fn.os.path.isfile(fn.lightdm_greeter):
-        for item in fn.os.listdir("/usr/share/icons/"):
-            if fn.path_check("/usr/share/icons/" + item + "/cursors/"):
-                coms.append(item)
-                coms.sort()
+        if fn.os.path.isfile(fn.lightdm_greeter):
+            for item in fn.os.listdir("/usr/share/icons/"):
+                if fn.path_check("/usr/share/icons/" + item + "/cursors/"):
+                    coms.append(item)
+                    coms.sort()
 
-        lines = fn.get_lines(fn.lightdm_greeter)
+            lines = fn.get_lines(fn.lightdm_greeter)
 
-        try:
-            cursor_theme = check_lightdm(lines, "cursor-theme-name=").split("=")[1]
-        except IndexError:
-            cursor_theme = ""
+            try:
+                cursor_theme = check_lightdm(lines, "cursor-theme-name=").split("=")[1]
+            except IndexError:
+                cursor_theme = ""
 
-        coms.sort()
-        for i, item in enumerate(coms):
-            combo.append_text(item)
-            if cursor_theme.lower() == item.lower():
-                combo.set_active(i)
+            coms.sort()
+            for i, item in enumerate(coms):
+                combo.append_text(item)
+                if cursor_theme.lower() == item.lower():
+                    combo.set_active(i)
