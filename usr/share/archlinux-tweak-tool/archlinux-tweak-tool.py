@@ -811,7 +811,7 @@ class Main(Gtk.Window):
                         f.close()
 
                     val = fn.get_position(lists, "GRUB_TIMEOUT=")
-                    number = int(lists[val].split("=")[1])
+                    number = int(lists[val].split("=")[1].replace('"', ""))
                     self.scale.set_value(number)
             except Exception as error:
                 print(error)
