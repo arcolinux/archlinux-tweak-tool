@@ -5,6 +5,7 @@
 import functions as fn
 import os
 
+
 def check_sddmk_complete():
     """see all variabeles are there"""
     # TODO:make nicer function
@@ -44,7 +45,7 @@ def check_sddmk_complete():
         print(
             "---------------------------------------------------------------------------"
         )
-        print("Type 'fix-sddm-conf' in a terminal and restart ATT")
+        print("If ATT does not launch, type 'fix-sddm-conf' in a terminal and restart")
         print(
             "---------------------------------------------------------------------------"
         )
@@ -203,7 +204,7 @@ def pop_box(self, combo):
     """
     On Sway:
     - FileNotFoundError: [Errno 2] No such file or directory: '/usr/share/xsessions/'
-    - Check for path /usr/share/wayland-sessions, also see desktoptr.py in check_desktop()       
+    - Check for path /usr/share/wayland-sessions, also see desktoptr.py in check_desktop()
     """
 
     if os.path.exists("/usr/share/xsessions"):
@@ -214,7 +215,6 @@ def pop_box(self, combo):
         for items in fn.listdir("/usr/share/wayland-sessions/"):
             coms.append(items.split(".")[0].lower())
         lines = get_sddm_lines(fn.sddm_default_d2)
-
 
     try:
         if lines is not None:
