@@ -287,6 +287,7 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 
 #grub update
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 #grub issue 08/2022
 alias install-grub-efi="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi"
 
