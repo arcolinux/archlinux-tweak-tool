@@ -10,29 +10,30 @@ A versatile and powerful tool for customizing Arch-based systems with ease!
 
 Originally designed and tested for ArcoLinux, ATT has broadened its scope to support other Arch-based systems. Here's a list of systems we aim to support:
 
-| Distribution          | Website                    |
-|-----------------------|----------------------------|
-| ArcoLinux             | https://arcolinux.info     |
-| Arch Linux (Vanilla)  | https://archlinux.org      |
-| Alci                  | https://alci.online        |
-| Carli                 | https://arcolinuxiso.com   |
-| Ariser                | https://ariser.eu          |
-| EndeavourOS           | https://endeavouros.com    |
-| Garuda Linux          | https://garudalinux.org    |
-| Manjaro               | https://manjaro.org        |
-| XeroLinux             | https://xerolinux.xyz      |
-| ArchLinux GUI (ALG)   | https://archlinuxgui.in    |
-| Axyl                  | https://axyl-os.github.io  |
-| RebornOS              | https://rebornos.org       |
-| AmOS                  | https://github.com/amanre  |
-| ArchCraft             | https://archcraft.io       |
-| CachyOS               | https://cachyos.org        |
+| Distribution          | Website                       |
+|-----------------------|-------------------------------|
+| ArcoLinux             | https://arcolinux.info        |
+| Arch Linux (Vanilla)  | https://archlinux.org         |
+| Alci                  | https://alci.online           |
+| Carli                 | https://arcolinuxiso.com      |
+| Ariser                | https://ariser.eu             |
+| EndeavourOS           | https://endeavouros.com       |
+| Garuda                | https://garudalinux.org       |
+| Manjaro               | https://manjaro.org           |
+| XeroLinux             | https://xerolinux.xyz         |
+| Axyl                  | https://axyl-os.github.io     |
+| RebornOS              | https://rebornos.org          |
+| ArchCraft             | https://archcraft.io          |
+| CachyOS               | https://cachyos.org           |
+| Archman       		| https://archman.org/          |
+| BigLinux      		| https://www.biglinux.com.br/  |
+| Artix         		| https://artixlinux.org/       |
 
-We face challenges not only in programming but also in understanding various distributions like EndeavourOS and Garuda. As we gain expertise, we will continue to add support for more Arch-based systems.
+We face challenges not only in programming but also in understanding various distributions. As we gain expertise, we will continue to add support for more Arch-based systems.
 
 ## Unsupported Distros/Desktops
 
-Currently, there are no specific distributions that ATT is incompatible with. However, **ATT will never support the Sway window manager.**
+Currently, there are no specific distributions that ATT is incompatible with. We even have support for **Wayland (Hyprland/Sway, ...).**
 
 ## YouTube Playlist
 
