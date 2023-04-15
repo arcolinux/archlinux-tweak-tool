@@ -1,45 +1,41 @@
-# ArchLinux Tweak Tool
-A simple tool to tweak just about anything on Arch based systems!
+# ArchLinux Tweak Tool (ATT)
 
+A versatile and powerful tool for customizing Arch-based systems with ease!
 
 ![screenshot](https://user-images.githubusercontent.com/36679406/202098693-3a94fa43-7916-42ba-9c1c-a4c7ecaff306.png)
 
-Above: A quick look at ATT.
+*Above: A glimpse of the ArchLinux Tweak Tool in action.*
 
-# Compability
+## Compatibility
 
-This program was created for and tested on ArcoLinux, meaning it will work best on that system.
-By renaming the tool from ArcoLinux Tweak Tool to ArchLinux Tweak Tool our aim is to broaden our scope.
+Originally designed and tested for ArcoLinux, ATT has broadened its scope to support other Arch-based systems. Here's a list of systems we aim to support:
 
-At first we would like the tool to be working on these systems.
+| Distribution          | Website                    |
+|-----------------------|----------------------------|
+| ArcoLinux             | https://arcolinux.info     |
+| Arch Linux (Vanilla)  | https://archlinux.org      |
+| Alci                  | https://alci.online        |
+| Carli                 | https://arcolinuxiso.com   |
+| Ariser                | https://ariser.eu          |
+| EndeavourOS           | https://endeavouros.com    |
+| Garuda Linux          | https://garudalinux.org    |
+| Manjaro               | https://manjaro.org        |
+| XeroLinux             | https://xerolinux.xyz      |
+| ArchLinux GUI (ALG)   | https://archlinuxgui.in    |
+| Axyl                  | https://axyl-os.github.io  |
+| RebornOS              | https://rebornos.org       |
+| AmOS                  | https://github.com/amanre  |
+| ArchCraft             | https://archcraft.io       |
+| CachyOS               | https://cachyos.org        |
 
-| Distro | Website |
-|--------------|-----------|
-| ArcoLinux | https://arcolinux.info |
-| Arch Linux (Vanilla) | https://archlinux.org |
-| Alci | https://alci.online |
-| Carli | https://arcolinuxiso.com |
-| Ariser | https://ariser.eu |
-| EndeavourOS | https://endeavouros.com |
-| Garuda Linux | https://garudalinux.org |
-| Manjaro | https://manjaro.org |
-| XeroLinux | https://xerolinux.xyz |
-| ArchLinux GUI (ALG) | https://archlinuxgui.in |
-| Axyl | https://axyl-os.github.io |
-| RebornOS | https://rebornos.org |
-| AmOS | https://github.com/amanre |
-| ArchCraft | https://archcraft.io |
-CachyOS | https://cachyos.org |
+We face challenges not only in programming but also in understanding various distributions like EndeavourOS and Garuda. As we gain expertise, we will continue to add support for more Arch-based systems.
 
-The challenge for us is the programming but also the learning factor of other distros like EndeavourOS and Garuda. At a later stage when we get the hang of it we can add one Arch based distro at a time.
+## Unsupported Distros/Desktops
 
+Currently, there are no specific distributions that ATT is incompatible with. However, **ATT will never support the Sway window manager.**
 
-# Unsupported Distros/Desktops
-As for now, there are no specific distros that ATT won't work on, but **the Sway window manager will never recieve ATT support.**
+## YouTube Playlist
 
-# Playlist on Youtube
+We have an informative [playlist](https://www.youtube.com/playlist?list=PLlloYVGq5pS5nvFc_LYRE82Gh3XWA6rVH) on YouTube that explains this project in detail.
 
-We have a [playlist](https://www.youtube.com/playlist?list=PLlloYVGq5pS5nvFc_LYRE82Gh3XWA6rVH) on YouTube, explaining this project.
-
-Feel free to subscribe to the channel!
-
+Feel free to subscribe to our channel!
