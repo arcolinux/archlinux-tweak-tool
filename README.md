@@ -4,6 +4,8 @@ A versatile and powerful tool for customizing Arch-based systems with ease!
 
 ![screenshot](https://user-images.githubusercontent.com/36679406/202098693-3a94fa43-7916-42ba-9c1c-a4c7ecaff306.png)
 
+![att-desktop](https://user-images.githubusercontent.com/36679406/232183963-1a5e2bc8-c0e4-422a-94b9-7a0185be3eea.png)
+
 *Above: A glimpse of the ArchLinux Tweak Tool in action.*
 
 ## Compatibility
