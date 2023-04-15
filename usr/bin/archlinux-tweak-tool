@@ -1,14 +1,15 @@
 #!/usr/bin/env sh
 
-# this script should not be run as root or run in a tty session
-# polkit agent should prompt for root password
+# this script should not be run as root
+# the polkit agent running on the desktop environment should prompt for root password
 
 echo "---------------------------------------------------------------------------"
-
+echo "[INFO] Checking session"
 test $(whoami) == "root" && echo "[ERROR] Do not run this script as root." && exit 1
 test -z $DISPLAY && echo "[ERROR] DISPLAY variable is not set." && exit 1
 
-session=$(loginctl show-session $(loginctl|grep $(whoami) | awk '{print $1}') -p Type | awk -F= '{print $2}' | grep "x11\|wayland")
+# check session is either one of X11, Wayland or TTY
+session=$(loginctl show-session $(loginctl|grep $(whoami) | awk '{print $1}') -p Type | awk -F= '{print $2}' | grep "x11\|wayland\|tty")
 
 test -z "$session" && echo "[ERROR] Failed to verify session for user." && exit 1
 
@@ -17,18 +18,31 @@ test -s "$xauth_file" || touch "$xauth_file"
 
 case "$session" in
   "wayland")
+    # Wayland session, generate Xauth session cookie for $DISPLAY
     xauth gen $DISPLAY &> /dev/null
     echo "[INFO] Display = $DISPLAY"
     echo "[INFO] Session = $session"
+
+    test -z "$(xauth list)" || echo "[INFO] Xauth session = OK"
   ;;
   "x11")
+    # X11 session, don't do anything here
     echo "[INFO] Display = $DISPLAY"
     echo "[INFO] Session = $session"
-    #test -z $(xauth list | awk -F"MIT-MAGIC-COOKIE-1" '{print $2}' | tr -d ' ') || echo "[INFO] XAuth cookie is already setup."
-    #test -z $(xauth list | awk -F"MIT-MAGIC-COOKIE-1" '{print $2}' | tr -d ' ') && echo "[ERROR] XAuth cookie not setup, logout/reboot to fix this." && exit 1
+
+    # just show msg on whether the Xauth session cookie is setup
+    test -z "$(xauth list)" || echo "[INFO] Xauth session = OK"
+  ;;
+  "tty")
+    # TTY session, as user may not use a display manager
+    echo "[INFO] Display = $DISPLAY"
+    echo "[INFO] Session = $session"
+
+    test -z "$(xauth list)" || echo "[INFO] Xauth session = OK"
   ;;
   *)
-    echo "[INFO] Cannot verify session for user."
+    # anything here is an unknown session, most likely ATT will fail to load
+    echo "[WARN] Cannot verify session for user."
   ;;
 esac
 echo "---------------------------------------------------------------------------"
