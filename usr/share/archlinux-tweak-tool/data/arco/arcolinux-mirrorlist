@@ -19,5 +19,9 @@ Server = https://mirror.funami.tech/arcolinux/$repo/$arch
 # Singapore
 Server = https://mirror.jingk.ai/arcolinux/$repo/$arch
 
+# Chili
+Server = http://arcolinux.chililinux.com:93/$repo/$arch
+Server = http://arcolinux.chilios.com.br:93/$repo/$arch
+
 # United States San Francisco - no xlarge repo here
 Server = https://arcolinux.github.io/$repo/$arch
