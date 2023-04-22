@@ -92,7 +92,7 @@ class Main(Gtk.Window):
         print("Run fix-sddm-conf")
         print("Run fix-lightdm-conf")
         print("Run fix-lxdm-conf")
-        print("You can receive ATT support on https://discord.gg/R2amEEz")
+        print("You can receive ATT support on https://discord.gg/stBhS4taje")
         print(
             "---------------------------------------------------------------------------"
         )

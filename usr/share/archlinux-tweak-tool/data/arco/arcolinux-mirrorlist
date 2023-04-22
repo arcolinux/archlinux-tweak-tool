@@ -19,7 +19,7 @@ Server = https://mirror.funami.tech/arcolinux/$repo/$arch
 # Singapore
 Server = https://mirror.jingk.ai/arcolinux/$repo/$arch
 
-# Chili
+# South America - Pimenta Bueno, Brazil
 Server = http://arcolinux.chililinux.com:93/$repo/$arch
 Server = http://arcolinux.chilios.com.br:93/$repo/$arch
 
