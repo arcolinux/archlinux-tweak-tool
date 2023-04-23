@@ -312,19 +312,21 @@ class Main(Gtk.Window):
         # sddm_default_d2 = "/etc/sddm.conf.d/kde_settings.conf"
         # sddm_default_d2_bak = "/etc/bak.kde_settings.conf"
 
-        if fn.path.isfile(fn.sddm_default_d1):
-            if not fn.path.isfile(fn.sddm_default_d1_bak):
-                try:
-                    fn.shutil.copy(fn.sddm_default_d1, fn.sddm_default_d1_bak)
-                except Exception as error:
-                    print(error)
+        # leaving the files of ... alone
+        if not fn.distr == "manjaro":
+            if fn.path.isfile(fn.sddm_default_d1):
+                if not fn.path.isfile(fn.sddm_default_d1_bak):
+                    try:
+                        fn.shutil.copy(fn.sddm_default_d1, fn.sddm_default_d1_bak)
+                    except Exception as error:
+                        print(error)
 
-        if fn.path.isfile(fn.sddm_default_d2):
-            if not fn.path.isfile(fn.sddm_default_d2_bak):
-                try:
-                    fn.shutil.copy(fn.sddm_default_d2, fn.sddm_default_d2_bak)
-                except Exception as error:
-                    pass
+            if fn.path.isfile(fn.sddm_default_d2):
+                if not fn.path.isfile(fn.sddm_default_d2_bak):
+                    try:
+                        fn.shutil.copy(fn.sddm_default_d2, fn.sddm_default_d2_bak)
+                    except Exception as error:
+                        pass
 
         # start cleanup
         # remove if exists old backups and confusing files
