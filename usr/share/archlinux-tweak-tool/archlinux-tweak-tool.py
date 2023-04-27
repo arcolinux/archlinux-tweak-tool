@@ -55,7 +55,7 @@ class Main(Gtk.Window):
         )
         print("Wayland desktops are now supported e.g. Sway/Hyprland/...")
         print("If you have errors, report it on the discord channel of ArcoLinux")
-        print("https://discord.gg/R2amEEz")
+        print("https://discord.gg/stBhS4taje")
         print(
             "---------------------------------------------------------------------------"
         )
