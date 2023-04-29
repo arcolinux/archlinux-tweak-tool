@@ -142,19 +142,19 @@ seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
 aarnetmirror = "Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"
 
 atestrepo = "[arcolinux_repo_testing]\n\
-SigLevel = Required DatabaseOptional\n\
+SigLevel = Optional TrustedOnly\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 arepo = "[arcolinux_repo]\n\
-SigLevel = Required DatabaseOptional\n\
+SigLevel = Optional TrustedOnly\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 a3drepo = "[arcolinux_repo_3party]\n\
-SigLevel = Required DatabaseOptional\n\
+SigLevel = Optional TrustedOnly\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 axlrepo = "[arcolinux_repo_xlarge]\n\
-SigLevel = Required DatabaseOptional\n\
+SigLevel = Optional TrustedOnly\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 chaotics_repo = "[chaotic-aur]\n\
@@ -283,7 +283,6 @@ def _get_variable(lists, value):
     data = [string for string in lists if value in string]
 
     if len(data) >= 1:
-
         data1 = [string for string in data if "#" in string]
 
         for i in data1:
@@ -334,7 +333,6 @@ def check_if_process_is_running(processName):
 
 
 def copytree(self, src, dst, symlinks=False, ignore=None):  # noqa
-
     if not path.exists(dst):
         makedirs(dst)
     for item in listdir(src):
@@ -973,7 +971,6 @@ if distr == "manjaro" and check_content("biglinux", "/etc/os-release"):
 
 
 def change_distro_label(name):  # noqa
-
     if name == "arcolinux":
         name = "ArcoLinux"
     if name == "biglinux":
@@ -1345,7 +1342,6 @@ def set_hblock(self, toggle, state):
         shutil.copy("/etc/hosts", "/etc/hosts.bak")
 
     try:
-
         install = "pacman -S arcolinux-hblock-git --needed --noconfirm"
         enable = "/usr/bin/hblock"
 
@@ -1929,7 +1925,6 @@ def install_discovery(self):
 
 
 def remove_discovery(self):
-
     try:
         command = "systemctl stop avahi-daemon.service -f --now"
         subprocess.call(
@@ -2046,7 +2041,6 @@ def install_samba(self):
 
 def uninstall_samba(self):
     try:
-
         command = "systemctl disable smb.service -f --now"
         subprocess.call(
             command.split(" "),
@@ -2192,6 +2186,7 @@ def copy_samba(choice):
 # =====================================================
 #               SAMBA EDIT
 # =====================================================
+
 
 # samba advanced - TODO
 def save_samba_config(self):
@@ -2407,7 +2402,6 @@ def set_firefox_ublock(self, toggle, state):
     timeout_id = GLib.timeout_add(100, do_pulse, None, self.progress)
 
     try:
-
         install_ublock = "pacman -S firefox-ublock-origin --needed --noconfirm"
         uninstall_ublock = "pacman -Rs firefox-ublock-origin --noconfirm"
 
