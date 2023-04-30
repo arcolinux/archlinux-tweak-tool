@@ -2863,6 +2863,7 @@ class Main(Gtk.Window):
         fn.show_in_app_notification(
             self, "ArcoLinux keyring and mirrors added + activated"
         )
+        self.on_pacman_atestrepo_toggle(self.atestrepo_button, True)
         self.on_pacman_arepo_toggle(self.arepo_button, True)
         self.on_pacman_a3p_toggle(self.a3prepo_button, True)
         self.on_pacman_axl_toggle(self.axlrepo_button, True)

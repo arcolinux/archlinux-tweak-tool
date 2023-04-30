@@ -1754,6 +1754,37 @@ def install_arcolinux(self):
     except Exception as error:
         print(error)
 
+    """add the ArcoLinux repos in /etc/pacman.conf if none are present"""
+    if not check_content("arcolinux", pacman):
+        if distr == "arcolinux":
+            print("[INFO] : Adding ArcoLinux repos on ArcoLinux")
+            try:
+                with open(pacman, "r", encoding="utf-8") as f:
+                    lines = f.readlines()
+                    f.close()
+            except Exception as error:
+                print(error)
+
+            text = (
+                "\n\n"
+                + atestrepo
+                + "\n\n"
+                + arepo
+                + "\n\n"
+                + a3drepo
+                + "\n\n"
+                + axlrepo
+            )
+
+            pos = get_position(lines, "#[testing]")
+            lines.insert(pos - 2, text)
+
+            try:
+                with open(pacman, "w", encoding="utf-8") as f:
+                    f.writelines(lines)
+            except Exception as error:
+                print(error)
+
 
 def install_xerolinux(self):
     base_dir = path.dirname(path.realpath(__file__))
