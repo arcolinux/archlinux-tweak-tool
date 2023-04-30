@@ -1744,6 +1744,7 @@ def install_arcolinux(self):
     file = listdir(pathway)
     try:
         install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        print(install)
         subprocess.call(
             install.split(" "),
             shell=False,
