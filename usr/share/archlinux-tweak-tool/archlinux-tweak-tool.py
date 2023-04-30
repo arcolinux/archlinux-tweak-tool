@@ -110,7 +110,7 @@ class Main(Gtk.Window):
         self.connect("delete-event", self.on_close)
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_from_file(fn.path.join(base_dir, "images/archlinux.png"))
-        self.set_default_size(1000, 900)
+        self.set_default_size(1100, 920)
 
         self.opened = True
         self.firstrun = True
