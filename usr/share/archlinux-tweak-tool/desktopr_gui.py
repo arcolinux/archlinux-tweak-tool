@@ -48,6 +48,7 @@ the ArcoLinux repositories"
     for x in desktopr.desktops:
         self.d_combo.append_text(x)
     self.d_combo.set_active(0)
+    self.d_combo.set_wrap_width(1)
 
     dropbox.pack_start(label_warning, False, False, 0)
     # dropbox.pack_start(button_arco_repo, False, False, 0)
