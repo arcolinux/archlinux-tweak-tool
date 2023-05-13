@@ -172,6 +172,14 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     hbox10_label.set_markup("<b>For any Arch Linux based system</b>")
     hbox10.pack_start(hbox10_label, False, False, 10)
 
+    hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox14_label = Gtk.Label(xalign=0)
+    hbox14_label.set_markup("Provide probe link")
+    btn_probe = Gtk.Button(label="Get probe link")
+    btn_probe.connect("clicked", self.on_click_probe)
+    hbox14.pack_start(hbox14_label, False, False, 10)
+    hbox14.pack_end(btn_probe, False, False, 10)
+
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox11_label = Gtk.Label(xalign=0)
     hbox11_label.set_markup(
@@ -186,7 +194,8 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     vboxstack19.pack_start(hbox1, False, False, 0)
     vboxstack19.pack_start(hbox0, False, False, 0)
     vboxstack19.pack_start(hbox10, False, False, 20)
-    vboxstack19.pack_start(hbox11, False, False, 0)
+    vboxstack19.pack_start(hbox14, False, False, 0)
+    # vboxstack19.pack_start(hbox11, False, False, 0)
     if not (fn.distr == "manjaro" or fn.distr == "biglinux" or fn.distr == "artix"):
         vboxstack19.pack_start(hbox5, False, False, 0)
     vboxstack19.pack_start(hbox2, False, False, 0)

@@ -1510,7 +1510,6 @@ def check_package_and_remove(self, path, package):
 
 
 def install_desktop(self, desktop, state):
-
     src = []
     twm = False
     # error = False

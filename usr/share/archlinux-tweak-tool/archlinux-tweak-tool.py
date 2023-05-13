@@ -2005,6 +2005,22 @@ class Main(Gtk.Window):
         except Exception as error:
             print(error)
 
+    def on_click_probe(self, widget):
+        fn.install_package(self, "alacritty")
+        try:
+            fn.subprocess.call(
+                "alacritty --hold -e /usr/share/archlinux-tweak-tool/script/probe",
+                shell=True,
+                stdout=fn.subprocess.PIPE,
+                stderr=fn.subprocess.STDOUT,
+            )
+            print("Probe link has been created")
+            GLib.idle_add(
+                fn.show_in_app_notification, self, "Probe link has been created"
+            )
+        except Exception as error:
+            print(error)
+
     def on_click_fix_mainstream(self, widget):
         fn.install_package(self, "alacritty")
         try:
