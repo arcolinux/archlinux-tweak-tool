@@ -331,50 +331,6 @@ class Main(Gtk.Window):
                 except Exception as error:
                     pass
 
-        # start cleanup
-        # remove if exists old backups and confusing files
-        if fn.path.isfile("/etc/sddm.conf.d/bak.kde_settings.conf"):
-            try:
-                fn.unlink("/etc/sddm.conf.d/bak.kde_settings.conf")
-                print("There can be only one file in /etc/sddm.conf.d")
-                print("kde_settings.conf")
-                print("Other files will be deleted")
-            except Exception as error:
-                pass
-        if fn.path.isfile("/etc/sddm.conf.d/kde_settings.conf.bak"):
-            try:
-                fn.unlink("/etc/sddm.conf.d/kde_settings.conf.bak")
-                print("There can be only one file in /etc/sddm.conf.d")
-                print("kde_settings.conf")
-                print("Other files will be deleted")
-            except Exception as error:
-                pass
-        if fn.path.isfile("/etc/sddm.conf.d/kde_settings.conf.backup"):
-            try:
-                fn.unlink("/etc/sddm.conf.d/kde_settings.conf.backup")
-                print("There can be only one file in /etc/sddm.conf.d")
-                print("kde_settings.conf")
-                print("Other files will be deleted")
-            except Exception as error:
-                pass
-        if fn.path.isfile("/etc/sddm.conf.d/kde_settings.conf-backup"):
-            try:
-                fn.unlink("/etc/sddm.conf.d/kde_settings.conf-backup")
-                print("There can be only one file in /etc/sddm.conf.d")
-                print("kde_settings.conf")
-                print("Other files will be deleted")
-            except Exception as error:
-                pass
-        if fn.path.isfile("/etc/sddm.conf.d/backup-kde_settings.conf"):
-            try:
-                fn.unlink("/etc/sddm.conf.d/backup-kde_settings.conf")
-                print("There can be only one file in /etc/sddm.conf.d")
-                print("kde_settings.conf")
-                print("Other files will be deleted")
-            except Exception as error:
-                pass
-        # end cleanup
-
         # ensuring we have a backup of /etc/lightdm/lightdm.conf
         if fn.path.isfile(fn.lightdm_conf):
             if not fn.path.isfile(fn.lightdm_conf_bak):
@@ -562,6 +518,11 @@ class Main(Gtk.Window):
         # =====================================================
         #               CATCHING ERRORS
         # =====================================================
+
+        # sddm_default_d1 = "/etc/sddm.conf"
+        # sddm_default_d1_bak = "/etc/bak.sddm.conf"
+        # sddm_default_d2 = "/etc/sddm.conf.d/kde_settings.conf"
+        # sddm_default_d2_bak = "/etc/bak.kde_settings.conf"
 
         # make directory if it doesn't exist'
         if fn.path.exists("/usr/bin/sddm"):
