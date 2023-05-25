@@ -108,12 +108,17 @@ def gui(self, Gtk, vboxstack1, fn):
     self.checkbutton2 = Gtk.Switch()
     self.checkbutton2.connect("notify::active", self.on_pacman_toggle1)
     label3 = Gtk.Label(xalign=0)
-    label3.set_markup("# Enable Arch Linux testing repo")
+    label3.set_markup("# Enable Arch Linux core testing repo")
 
     self.checkbutton6 = Gtk.Switch()
     self.checkbutton6.connect("notify::active", self.on_pacman_toggle2)
     label13 = Gtk.Label(xalign=0)
     label13.set_markup("Enable Arch Linux core repo")
+
+    self.checkbutton5 = Gtk.Switch()
+    self.checkbutton5.connect("notify::active", self.on_pacman_toggle5)
+    label12 = Gtk.Label(xalign=0)
+    label12.set_markup("#Enable Arch Linux extra-testing repo")
 
     self.checkbutton7 = Gtk.Switch()
     self.checkbutton7.connect("notify::active", self.on_pacman_toggle3)
@@ -123,12 +128,7 @@ def gui(self, Gtk, vboxstack1, fn):
     self.checkbutton4 = Gtk.Switch()
     self.checkbutton4.connect("notify::active", self.on_pacman_toggle4)
     label10 = Gtk.Label(xalign=0)
-    label10.set_markup("# Enable Arch Linux community testing repo")
-
-    self.checkbutton5 = Gtk.Switch()
-    self.checkbutton5.connect("notify::active", self.on_pacman_toggle5)
-    label12 = Gtk.Label(xalign=0)
-    label12.set_markup("Enable Arch Linux community repo")
+    label10.set_markup("# Enable Arch Linux core testing repo")
 
     self.checkbutton3 = Gtk.Switch()
     self.checkbutton3.connect("notify::active", self.on_pacman_toggle6)
@@ -229,6 +229,8 @@ def gui(self, Gtk, vboxstack1, fn):
     #               TESTING REPOS PACKING
     # ========================================================
 
+    hboxstack14.pack_start(label12, False, True, 10)
+    hboxstack14.pack_end(self.checkbutton5, False, False, 10)
     hboxstack5.pack_start(label3, False, True, 10)
     hboxstack5.pack_end(self.checkbutton2, False, False, 10)
     hboxstack15.pack_start(label13, False, True, 10)
@@ -237,8 +239,6 @@ def gui(self, Gtk, vboxstack1, fn):
     hboxstack16.pack_end(self.checkbutton7, False, False, 10)
     hboxstack12.pack_start(label10, False, True, 10)
     hboxstack12.pack_end(self.checkbutton4, False, False, 10)
-    hboxstack14.pack_start(label12, False, True, 10)
-    hboxstack14.pack_end(self.checkbutton5, False, False, 10)
     hboxstack6.pack_start(label4, False, True, 10)
     hboxstack6.pack_end(self.checkbutton3, False, False, 10)
     hboxstack17.pack_start(label15, False, True, 10)
@@ -314,9 +314,9 @@ def gui(self, Gtk, vboxstack1, fn):
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vbox.pack_start(hboxstack5, False, False, 0)
     vbox.pack_start(hboxstack15, False, False, 0)
-    vbox.pack_start(hboxstack16, False, False, 0)
-    vbox.pack_start(hboxstack12, False, False, 0)
     vbox.pack_start(hboxstack14, False, False, 0)
+    vbox.pack_start(hboxstack16, False, False, 0)
+    # vbox.pack_start(hboxstack12, False, False, 0)
     vbox.pack_start(hboxstack6, False, False, 0)
     vbox.pack_start(hboxstack17, False, False, 0)
     frame.add(vbox)

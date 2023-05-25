@@ -181,7 +181,7 @@ xero_nv_repo = "[xerolinux_nvidia_repo]\n\
 SigLevel = Optional TrustAll\n\
 Include = /etc/pacman.d/xero-mirrorlist"
 
-arch_testing_repo = "[testing]\n\
+arch_testing_repo = "[core-testing]\n\
 Include = /etc/pacman.d/mirrorlist"
 
 arch_core_repo = "[core]\n\
@@ -190,10 +190,7 @@ Include = /etc/pacman.d/mirrorlist"
 arch_extra_repo = "[extra]\n\
 Include = /etc/pacman.d/mirrorlist"
 
-arch_community_testing_repo = "[community-testing]\n\
-Include = /etc/pacman.d/mirrorlist"
-
-arch_community_repo = "[community]\n\
+arch_extra_testing_repo = "[extra-testing]\n\
 Include = /etc/pacman.d/mirrorlist"
 
 arch_multilib_testing_repo = "[multilib-testing]\n\

@@ -663,11 +663,10 @@ class Main(Gtk.Window):
 
         # ========================ARCH REPO=============================
 
-        arch_testing = pmf.check_repo("[testing]")
+        arch_testing = pmf.check_repo("[core-testing]")
         arch_core = pmf.check_repo("[core]")
         arch_extra = pmf.check_repo("[extra]")
-        arch_community_testing = pmf.check_repo("[community-testing]")
-        arch_community = pmf.check_repo("[community]")
+        arch_community = pmf.check_repo("[extra-testing]")
         arch_multilib_testing = pmf.check_repo("[multilib-testing]")
         arch_multilib = pmf.check_repo("[multilib]")
 
@@ -731,7 +730,6 @@ class Main(Gtk.Window):
         self.checkbutton2.set_active(arch_testing)
         self.checkbutton6.set_active(arch_core)
         self.checkbutton7.set_active(arch_extra)
-        self.checkbutton4.set_active(arch_community_testing)
         self.checkbutton5.set_active(arch_community)
         self.checkbutton3.set_active(arch_multilib_testing)
         self.checkbutton8.set_active(arch_multilib)
@@ -2989,7 +2987,7 @@ class Main(Gtk.Window):
                 pmf.toggle_test_repos(self, widget.get_active(), "xero_nv")
 
     def on_pacman_toggle1(self, widget, active):
-        if not pmf.repo_exist("[testing]"):
+        if not pmf.repo_exist("[core-testing]"):
             pmf.append_repo(self, fn.arch_testing_repo)
             print("Repo has been added to /etc/pacman.conf")
             fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
@@ -3016,17 +3014,17 @@ class Main(Gtk.Window):
                 pmf.toggle_test_repos(self, widget.get_active(), "extra")
 
     def on_pacman_toggle4(self, widget, active):
-        if not pmf.repo_exist("[community-testing]"):
+        if not pmf.repo_exist("[extra-testing]"):
             pmf.append_repo(self, fn.arch_community_testing_repo)
             print("Repo has been added to /etc/pacman.conf")
             fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
-                pmf.toggle_test_repos(self, widget.get_active(), "community-testing")
+                pmf.toggle_test_repos(self, widget.get_active(), "extra-testing")
 
     def on_pacman_toggle5(self, widget, active):
-        if not pmf.repo_exist("[community]"):
-            pmf.append_repo(self, fn.arch_community_repo)
+        if not pmf.repo_exist("[extra-testing]"):
+            pmf.append_repo(self, fn.arch_extra_testing_repo)
             print("Repo has been added to /etc/pacman.conf")
             GLib.idle_add(
                 fn.show_in_app_notification,

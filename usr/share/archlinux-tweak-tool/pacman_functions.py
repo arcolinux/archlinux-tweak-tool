@@ -191,15 +191,15 @@ def toggle_test_repos(self, state, widget):
                     pacman_on("[arcolinux_repo_xlarge]", lines, i, line)
 
                 if widget == "testing":
-                    pacman_on("[testing]", lines, i, line)
+                    pacman_on("[core-testing]", lines, i, line)
                 if widget == "core":
                     pacman_on("[core]", lines, i, line)
                 if widget == "extra":
                     pacman_on("[extra]", lines, i, line)
                 if widget == "community-testing":
-                    pacman_on("[community-testing]", lines, i, line)
+                    pacman_on("[extra-testing]", lines, i, line)
                 if widget == "community":
-                    pacman_on("[community]", lines, i, line)
+                    pacman_on("[extra-testing]", lines, i, line)
                 if widget == "multilib-testing":
                     pacman_on("[multilib-testing]", lines, i, line)
                 if widget == "multilib":
@@ -247,15 +247,15 @@ def toggle_test_repos(self, state, widget):
                     pacman_off("[arcolinux_repo_xlarge]", lines, i, line)
 
                 if widget == "testing":
-                    pacman_off("[testing]", lines, i, line)
+                    pacman_off("[core-testing]", lines, i, line)
                 if widget == "core":
                     pacman_off("[core]", lines, i, line)
                 if widget == "extra":
                     pacman_off("[extra]", lines, i, line)
                 if widget == "community-testing":
-                    pacman_off("[community-testing]", lines, i, line)
+                    pacman_off("[extra-testing]", lines, i, line)
                 if widget == "community":
-                    pacman_off("[community]", lines, i, line)
+                    pacman_off("[extra-testing]", lines, i, line)
                 if widget == "multilib-testing":
                     pacman_off("[multilib-testing]", lines, i, line)
                 if widget == "multilib":
