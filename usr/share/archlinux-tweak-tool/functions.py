@@ -1687,7 +1687,7 @@ def install_reborn(self):
 
 def install_chaotics(self):
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "chaotic-keyring-20220514-1-any.pkg.tar.zst"
+    name1 = "chaotic-keyring-20220803-1-any.pkg.tar.zst"
     try:
         install = (
             "pacman -U " + base_dir + "/data/garuda/packages/" + name1 + " --noconfirm"
@@ -1703,7 +1703,7 @@ def install_chaotics(self):
         print(error)
 
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "chaotic-mirrorlist-20220504-2-any.pkg.tar.zst"
+    name1 = "chaotic-mirrorlist-20230603-1-any.pkg.tar.zst"
     try:
         install = (
             "pacman -U " + base_dir + "/data/garuda/packages/" + name1 + " --noconfirm"
@@ -1721,7 +1721,7 @@ def install_chaotics(self):
 
 def install_endeavouros(self):
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "endeavouros-keyring-20220523-3-any.pkg.tar.zst"
+    name1 = "endeavouros-keyring-20220614-1-any.pkg.tar.zst"
     try:
         install = (
             "pacman -U " + base_dir + "/data/eos/packages/" + name1 + " --noconfirm"
@@ -1737,7 +1737,7 @@ def install_endeavouros(self):
         print(error)
 
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "endeavouros-mirrorlist-4.4.3-1-any.pkg.tar.zst"
+    name1 = "endeavouros-mirrorlist-23.3-1-any.pkg.tar.zst"
     try:
         install = (
             "pacman -U " + base_dir + "/data/eos/packages/" + name1 + " --noconfirm"
