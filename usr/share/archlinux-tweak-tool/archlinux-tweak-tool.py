@@ -733,6 +733,7 @@ class Main(Gtk.Window):
         self.checkbutton7.set_active(arch_extra)
         self.checkbutton5.set_active(arch_community)
         self.checkbutton3.set_active(arch_multilib_testing)
+        self.checkbutton8.set_active(arch_multilib)
 
         # ========================OTHER REPO SET TOGGLE==================
 
@@ -3063,14 +3064,23 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "multilib-testing")
 
+    # def on_pacman_toggle7(self, widget, active):
+    #     if not pmf.repo_exist("[Reborn-OS]"):
+    #         pmf.append_repo(self, fn.reborn_repo)
+    #         print("Repo has been added to /etc/pacman.conf")
+    #         fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
+    #     else:
+    #         if self.opened is False:
+    #             pmf.toggle_test_repos(self, widget.get_active(), "Reborn-OS")
+
     def on_pacman_toggle7(self, widget, active):
-        if not pmf.repo_exist("[Reborn-OS]"):
-            pmf.append_repo(self, fn.reborn_repo)
+        if not pmf.repo_exist("[multilib]"):
+            pmf.append_repo(self, fn.arch_multilib_repo)
             print("Repo has been added to /etc/pacman.conf")
             fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
-                pmf.toggle_test_repos(self, widget.get_active(), "Reborn-OS")
+                pmf.toggle_test_repos(self, widget.get_active(), "multilib")
 
     def custom_repo_clicked(self, widget):
         custom_repo_text = self.textview_custom_repo.get_buffer()
