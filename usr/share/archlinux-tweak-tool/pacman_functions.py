@@ -168,6 +168,8 @@ def toggle_test_repos(self, state, widget):
             # TODO enumerate
             for i in range(0, len(lines)):
                 line = lines[i]
+                if widget == "reborn":
+                    spin_on("[Reborn-OS]", lines, i, line)
                 if widget == "chaotics":
                     spin_on("[chaotic-aur]", lines, i, line)
                 if widget == "endeavouros":
@@ -224,6 +226,8 @@ def toggle_test_repos(self, state, widget):
             # TODO enumerate
             for i in range(0, len(lines)):
                 line = lines[i]
+                if widget == "reborn":
+                    spin_off("[Reborn-OS]", lines, i, line)
                 if widget == "chaotics":
                     spin_off("[chaotic-aur]", lines, i, line)
                 if widget == "endeavouros":

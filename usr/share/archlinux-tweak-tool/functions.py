@@ -196,8 +196,8 @@ Include = /etc/pacman.d/mirrorlist"
 arch_multilib_testing_repo = "[multilib-testing]\n\
 Include = /etc/pacman.d/mirrorlist"
 
-arch_multilib_repo = "[multilib]\n\
-Include = /etc/pacman.d/mirrorlist"
+reborn_repo = "[Reborn-OS]\n\
+Include = /etc/pacman.d/reborn-mirrorlist"
 
 leftwm_themes_list = [
     "arise",
@@ -1649,6 +1649,40 @@ def install_pace(self):
 # =====================================================
 #               PACMAN EXTRA KEYS AND MIRRORS
 # =====================================================
+
+
+def install_reborn(self):
+    base_dir = path.dirname(path.realpath(__file__))
+    name1 = "rebornos-keyring-20230606-1-any.pkg.tar.zst"
+    try:
+        install = (
+            "pacman -U " + base_dir + "/data/reborn/packages/" + name1 + " --noconfirm"
+        )
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        print("RebornOS keyring is now installed")
+    except Exception as error:
+        print(error)
+
+    base_dir = path.dirname(path.realpath(__file__))
+    name1 = "rebornos-mirrorlist-20230606-1-any.pkg.tar.zst"
+    try:
+        install = (
+            "pacman -U " + base_dir + "/data/reborn/packages/" + name1 + " --noconfirm"
+        )
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        print("RebornOS mirrorlist is now installed")
+    except Exception as error:
+        print(error)
 
 
 def install_chaotics(self):
