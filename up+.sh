@@ -78,6 +78,10 @@ cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-mirror*pk
 echo "Keyring and mirror from Garuda and EOS"
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/endeavouros-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/eos/packages/
 
+echo "Keyring and mirror from RebornOS"
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/reborn/packages/*
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/rebornos-mirrorlist*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/reborn/packages/
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/rebornos-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/reborn/packages/
 
 echo "alacritty.yml from ArcoLinux"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-alacritty/master/etc/skel/.config/alacritty/alacritty.yml -O $workdir/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.yml
