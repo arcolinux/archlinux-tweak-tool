@@ -36,10 +36,6 @@ git pull
 
 workdir=$(pwd)
 
-#remove content
-rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/*
-#get latest archlinux-keyring
-wget https://archlinux.org/packages/core/any/archlinux-keyring/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/
 
 #getting gitlab errors
 #echo "Get the original samba file from Manjaro github for BigLinux"
@@ -54,34 +50,59 @@ wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/
 echo "Get the original windows samba file from ArcoLinux github"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/etc/samba/smb.conf.example  -O $workdir/usr/share/archlinux-tweak-tool/data/any/samba/example/smb.conf
 
-echo "Keyring and mirror from ArcoLinux"
-rm -v /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/arco/packages/arcolinux-keyring/*
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/arco/packages/arcolinux-keyring
 
-echo "Keyring and mirror from ArcoLinux"
-rm -v /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/arco/packages/arcolinux-mirrorlist/*
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/arco/packages/arcolinux-mirrorlist
+##############################
 
+########### Arch Linux
+rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/keyring/*
+rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/mirrorlist/*
+#get latest archlinux-keyring
+wget https://archlinux.org/packages/core/any/archlinux-keyring/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/keyring/
+wget https://archlinux.org/packages/core/any/archlinux-mirrorlist/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/mirrorlist/
+
+
+########### ArcoLinux
+echo "Keyring and mirror from ArcoLinux"
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/arco/packages/keyring/*
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/arco/packages/mirrorlist/*
+
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/arco/packages/keyring
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/arco/packages/mirrorlist
+
+########### xerolinux
 echo "Mirror from XeroLinux"
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/xerolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/xero/packages/
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/xero/packages/mirrorlist/*
 
-rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/garuda/packages/*
-echo "Keyring and mirror from Garuda and EOS"
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/garuda/packages/
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/xerolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/xero/packages/mirrorlist/
 
-echo "Keyring and mirror from Garuda and EOS"
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/endeavouros-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/eos/packages/
+########### Garuda
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/garuda/packages/keyring/*
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/garuda/packages/mirrorlist/*
 
-echo "Keyring and mirror from Garuda and EOS"
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/garuda/packages/
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/garuda/packages/keyring/
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/garuda/packages/mirrorlist/
 
-echo "Keyring and mirror from Garuda and EOS"
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/endeavouros-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/eos/packages/
 
+########### EOS
+echo "Keyring and mirror from EOS"
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/eos/packages/mirrorlist/*
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/eos/packages/keyring/*
+
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/endeavouros-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/eos/packages/mirrorlist/
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/endeavouros-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/eos/packages/keyring/
+
+
+########### Reborn
 echo "Keyring and mirror from RebornOS"
-rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/reborn/packages/*
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/rebornos-mirrorlist*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/reborn/packages/
-cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/rebornos-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/reborn/packages/
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/reborn/packages/keyring/*
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/reborn/packages/mirrorlist/*
+
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/rebornos-mirrorlist*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/reborn/packages/mirrorlist/
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/rebornos-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool/usr/share/archlinux-tweak-tool/data/reborn/packages/keyring/
+
+
+##############################
+
 
 echo "alacritty.yml from ArcoLinux"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-alacritty/master/etc/skel/.config/alacritty/alacritty.yml -O $workdir/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.yml
