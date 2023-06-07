@@ -288,7 +288,7 @@ if fn.distr == "arcolinux":
     ]
     dusk = [
         "alacritty",
-        "arcolinux-candy-beauty-git",
+        "a-candy-beauty-icon-theme-git",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-dwm-st-git",
@@ -321,7 +321,7 @@ if fn.distr == "arcolinux":
     ]
     dwm = [
         "alacritty",
-        "arcolinux-candy-beauty-git",
+        "a-candy-beauty-icon-theme-git",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-dwm-git",
@@ -595,7 +595,7 @@ if fn.distr == "arcolinux":
     ]
     leftwm = [
         "alacritty",
-        "arcolinux-candy-beauty-git",
+        "a-candy-beauty-icon-theme-git",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-local-xfce4-git",

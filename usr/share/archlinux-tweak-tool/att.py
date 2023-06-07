@@ -628,6 +628,7 @@ def set_att_checkboxes_theming_none(self):
 #    #                       ICONS SARDI
 #    #====================================================================
 
+
 # choices
 def set_att_checkboxes_theming_sardi_icons_all(self):
     """set the state of the checkboxes"""
@@ -1252,7 +1253,7 @@ def set_att_checkboxes_extras_none(self):
 # install
 def install_att_extras(self):
     if self.att_candy_beauty.get_active():
-        fn.install_arco_package(self, "arcolinux-candy-beauty-git")
+        fn.install_arco_package(self, "a-candy-beauty-icon-theme-git")
     if self.edu_candy_beauty_arc.get_active():
         fn.install_edu_package(self, "edu-candy-beauty-arc-git")
     if self.edu_candy_beauty_arc_mint_grey.get_active():
@@ -1286,7 +1287,7 @@ def remove_att_extras(self):
     if self.edu_candy_beauty_tela.get_active():
         fn.remove_package(self, "edu-candy-beauty-tela-git")
     if self.att_candy_beauty.get_active():
-        fn.remove_package(self, "arcolinux-candy-beauty-git")
+        fn.remove_package(self, "a-candy-beauty-icon-theme-git")
 
 
 # find
@@ -1300,7 +1301,7 @@ def find_att_extras(self):
     self.edu_papirus_dark_tela_grey.set_active(False)
     self.edu_vimix_dark_tela.set_active(False)
 
-    if fn.check_package_installed("arcolinux-candy-beauty-git"):
+    if fn.check_package_installed("a-candy-beauty-icon-theme-git"):
         self.att_candy_beauty.set_active(True)
     if fn.check_package_installed("edu-candy-beauty-arc-git"):
         self.edu_candy_beauty_arc.set_active(True)
