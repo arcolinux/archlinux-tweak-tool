@@ -2846,7 +2846,7 @@ class Main(Gtk.Window):
         self.on_pacman_a3p_toggle(self.a3prepo_button, True)
         self.on_pacman_axl_toggle(self.axlrepo_button, True)
         fn.update_repos(self)
-        fn.restart_program()
+        # fn.restart_program()
 
     def on_pacman_atestrepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_testing]"):
@@ -2922,6 +2922,7 @@ class Main(Gtk.Window):
         GLib.idle_add(
             fn.show_in_app_notification, self, "Reborn keyring and mirrors added"
         )
+        fn.update_repos(self)
 
     def on_reborn_toggle(self, widget, active):
         if not pmf.repo_exist("[Reborn-OS]"):
@@ -2939,6 +2940,7 @@ class Main(Gtk.Window):
         GLib.idle_add(
             fn.show_in_app_notification, self, "Chaotics keyring and mirrors added"
         )
+        fn.update_repos(self)
 
     def on_chaotics_toggle(self, widget, active):
         if not pmf.repo_exist("[chaotic-aur]"):
@@ -2954,6 +2956,7 @@ class Main(Gtk.Window):
         print("EndeavourOS keyring and mirrors added")
         print("Restart Att and select the repo")
         fn.show_in_app_notification(self, "Restart Att and select the repo")
+        fn.update_repos(self)
 
     def on_endeavouros_toggle(self, widget, active):
         if not pmf.repo_exist("[endeavouros]"):
@@ -2972,12 +2975,14 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "nemesis")
+        fn.update_repos(self)
 
     def on_xerolinux_clicked(self, widget):
         fn.install_xerolinux(self)
         print("XeroLinux mirrors added")
         print("Restart Att and select the repos")
         fn.show_in_app_notification(self, "Xerolinux mirrors added")
+        fn.update_repos(self)
 
     def on_xero_toggle(self, widget, active):
         if not pmf.repo_exist("[xerolinux_repo]"):

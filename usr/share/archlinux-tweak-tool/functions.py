@@ -1653,11 +1653,11 @@ def install_pace(self):
 
 def install_reborn(self):
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "rebornos-keyring-20230606-1-any.pkg.tar.zst"
+    pathway = base_dir + "/data/reborn/packages/keyring/"
+    file = listdir(pathway)
     try:
-        install = (
-            "pacman -U " + base_dir + "/data/reborn/packages/" + name1 + " --noconfirm"
-        )
+        install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        print(install)
         subprocess.call(
             install.split(" "),
             shell=False,
@@ -1669,11 +1669,11 @@ def install_reborn(self):
         print(error)
 
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "rebornos-mirrorlist-20230606-1-any.pkg.tar.zst"
+    pathway = base_dir + "/data/reborn/packages/mirrorlist/"
+    file = listdir(pathway)
     try:
-        install = (
-            "pacman -U " + base_dir + "/data/reborn/packages/" + name1 + " --noconfirm"
-        )
+        install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        print(install)
         subprocess.call(
             install.split(" "),
             shell=False,
@@ -1687,11 +1687,11 @@ def install_reborn(self):
 
 def install_chaotics(self):
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "chaotic-keyring-20220803-1-any.pkg.tar.zst"
+    pathway = base_dir + "/data/garuda/packages/keyring/"
+    file = listdir(pathway)
     try:
-        install = (
-            "pacman -U " + base_dir + "/data/garuda/packages/" + name1 + " --noconfirm"
-        )
+        install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        print(install)
         subprocess.call(
             install.split(" "),
             shell=False,
@@ -1703,11 +1703,11 @@ def install_chaotics(self):
         print(error)
 
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "chaotic-mirrorlist-20230603-1-any.pkg.tar.zst"
+    pathway = base_dir + "/data/garuda/packages/mirrorlist/"
+    file = listdir(pathway)
     try:
-        install = (
-            "pacman -U " + base_dir + "/data/garuda/packages/" + name1 + " --noconfirm"
-        )
+        install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        print(install)
         subprocess.call(
             install.split(" "),
             shell=False,
@@ -1721,11 +1721,11 @@ def install_chaotics(self):
 
 def install_endeavouros(self):
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "endeavouros-keyring-20220614-1-any.pkg.tar.zst"
+    pathway = base_dir + "/data/eos/packages/keyring/"
+    file = listdir(pathway)
     try:
-        install = (
-            "pacman -U " + base_dir + "/data/eos/packages/" + name1 + " --noconfirm"
-        )
+        install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        print(install)
         subprocess.call(
             install.split(" "),
             shell=False,
@@ -1737,11 +1737,11 @@ def install_endeavouros(self):
         print(error)
 
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "endeavouros-mirrorlist-23.3-1-any.pkg.tar.zst"
+    pathway = base_dir + "/data/eos/packages/mirrorlist/"
+    file = listdir(pathway)
     try:
-        install = (
-            "pacman -U " + base_dir + "/data/eos/packages/" + name1 + " --noconfirm"
-        )
+        install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        print(install)
         subprocess.call(
             install.split(" "),
             shell=False,
@@ -1755,7 +1755,7 @@ def install_endeavouros(self):
 
 def install_arcolinux(self):
     base_dir = path.dirname(path.realpath(__file__))
-    pathway = base_dir + "/data/arco/packages/arcolinux-keyring/"
+    pathway = base_dir + "/data/arco/packages/keyring/"
     file = listdir(pathway)
 
     try:
@@ -1771,7 +1771,7 @@ def install_arcolinux(self):
     except Exception as error:
         print(error)
 
-    pathway = base_dir + "/data/arco/packages/arcolinux-mirrorlist/"
+    pathway = base_dir + "/data/arco/packages/mirrorlist/"
     file = listdir(pathway)
     try:
         install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
@@ -1820,11 +1820,11 @@ def install_arcolinux(self):
 
 def install_xerolinux(self):
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "xerolinux-mirrorlist-0.1.2-1-any.pkg.tar.zst"
+    pathway = base_dir + "/data/xero/packages/mirrorlist/"
+    file = listdir(pathway)
     try:
-        install = (
-            "pacman -U " + base_dir + "/data/xero/packages/" + name1 + " --noconfirm"
-        )
+        install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        print(install)
         subprocess.call(
             install.split(" "),
             shell=False,
