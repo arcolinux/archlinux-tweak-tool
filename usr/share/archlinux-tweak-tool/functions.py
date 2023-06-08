@@ -145,6 +145,10 @@ atestrepo = "[arcolinux_repo_testing]\n\
 SigLevel = Optional TrustedOnly\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
+atestrepo_no = "#[arcolinux_repo_testing]\n\
+#SigLevel = Optional TrustedOnly\n\
+#Include = /etc/pacman.d/arcolinux-mirrorlist"
+
 arepo = "[arcolinux_repo]\n\
 SigLevel = Optional TrustedOnly\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
@@ -1799,7 +1803,7 @@ def install_arcolinux(self):
 
             text = (
                 "\n\n"
-                + atestrepo
+                + atestrepo_no
                 + "\n\n"
                 + arepo
                 + "\n\n"
