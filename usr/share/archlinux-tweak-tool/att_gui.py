@@ -499,7 +499,7 @@ We obey the dependencies of pacman"
 
     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
-    self.att_candy_beauty = Gtk.CheckButton(label="ArcoLinux Candy Beauty")
+    self.att_candy_beauty = Gtk.CheckButton(label="A Candy Beauty Icon Theme")
     self.edu_candy_beauty_arc = Gtk.CheckButton(label="Edu Candy Beauty Arc")
     self.edu_candy_beauty_arc_mint_grey = Gtk.CheckButton(
         label="Edu Candy Beauty Arc Mint Grey"
