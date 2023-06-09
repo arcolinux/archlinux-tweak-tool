@@ -78,7 +78,7 @@ def gui(self, Gtk, vboxstack1, fn):
     label1 = Gtk.Label(xalign=0)
     label1.set_markup("# Enable ArcoLinux testing repo")
 
-    self.arcolinux_button = Gtk.Button(label="Install keys, mirrors and activate")
+    self.arcolinux_button = Gtk.Button(label="Install keys and mirrors")
     self.arcolinux_button.connect("clicked", self.on_arcolinux_clicked)
 
     self.arepo_button = Gtk.Switch()
