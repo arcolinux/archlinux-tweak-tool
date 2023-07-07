@@ -673,6 +673,7 @@ class Main(Gtk.Window):
         # ========================OTHER REPO=============================
 
         reborn_repo = pmf.check_repo("[Reborn-OS]")
+        garuda_repo = pmf.check_repo("[garuda]")
         chaotics_repo = pmf.check_repo("[chaotic-aur]")
         endeavouros_repo = pmf.check_repo("[endeavouros]")
         nemesis_repo = pmf.check_repo("[nemesis_repo]")
@@ -738,6 +739,8 @@ class Main(Gtk.Window):
         # ========================OTHER REPO SET TOGGLE==================
 
         self.reborn_switch.set_active(reborn_repo)
+        self.opened = False
+        self.garuda_switch.set_active(garuda_repo)
         self.opened = False
         self.chaotics_switch.set_active(chaotics_repo)
         self.opened = False
@@ -2932,6 +2935,24 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "reborn")
+
+    def on_garuda_clicked(self, widget):
+        fn.install_chaotics(self)
+        print("Chaotics keyring and mirrors added")
+        print("Restart Att and select the repos")
+        GLib.idle_add(
+            fn.show_in_app_notification, self, "Chaotics keyring and mirrors added"
+        )
+        fn.update_repos(self)
+
+    def on_garuda_toggle(self, widget, active):
+        if not pmf.repo_exist("[garuda]"):
+            pmf.append_repo(self, fn.garuda_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(), "garuda")
 
     def on_chaotics_clicked(self, widget):
         fn.install_chaotics(self)

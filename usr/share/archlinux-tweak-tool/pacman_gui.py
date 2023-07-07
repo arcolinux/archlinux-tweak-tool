@@ -64,6 +64,7 @@ def gui(self, Gtk, vboxstack1, fn):
     hboxstack21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxstack22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxstack23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
     # ========================================================
     #               ARCO REPOS
@@ -184,6 +185,13 @@ def gui(self, Gtk, vboxstack1, fn):
     label20 = Gtk.Label(xalign=0)
     label20.set_markup("Enable RebornOS repo")
 
+    self.garuda_button = Gtk.Button(label="Install keys and mirrors")
+    self.garuda_button.connect("clicked", self.on_garuda_clicked)
+    self.garuda_switch = Gtk.Switch()
+    self.garuda_switch.connect("notify::active", self.on_garuda_toggle)
+    label21 = Gtk.Label(xalign=0)
+    label21.set_markup("Enable Garuda repo")
+
     self.chaotics_button = Gtk.Button(label="Install keys and mirrors")
     self.chaotics_button.connect("clicked", self.on_chaotics_clicked)
     self.chaotics_switch = Gtk.Switch()
@@ -288,6 +296,14 @@ def gui(self, Gtk, vboxstack1, fn):
         hboxstack23.pack_end(self.reborn_switch, False, False, 10)
 
     if not fn.check_package_installed("chaotic-keyring"):
+        hboxstack24.pack_start(label21, False, True, 10)
+        hboxstack24.pack_end(self.garuda_button, False, False, 10)
+
+    if fn.check_package_installed("chaotic-keyring"):
+        hboxstack24.pack_start(label21, False, True, 10)
+        hboxstack24.pack_end(self.garuda_switch, False, False, 10)
+
+    if not fn.check_package_installed("chaotic-keyring"):
         hboxstack11.pack_start(label9, False, True, 10)
         hboxstack11.pack_end(self.chaotics_button, False, False, 10)
 
@@ -303,6 +319,7 @@ def gui(self, Gtk, vboxstack1, fn):
         vboxstack4.pack_start(hboxstack21, False, False, 10)
         vboxstack4.pack_start(hboxstack22, False, False, 10)
     vboxstack4.pack_start(hboxstack23, False, False, 10)
+    vboxstack4.pack_start(hboxstack24, False, False, 10)
     vboxstack4.pack_start(hboxstack11, False, False, 10)
 
     # ========================================================

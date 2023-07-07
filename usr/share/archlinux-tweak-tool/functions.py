@@ -161,6 +161,10 @@ axlrepo = "[arcolinux_repo_xlarge]\n\
 SigLevel = Optional TrustedOnly\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
+garuda_repo = "[garuda]\n\
+SigLevel = Required DatabaseOptional\n\
+Include = /etc/pacman.d/chaotic-mirrorlist"
+
 chaotics_repo = "[chaotic-aur]\n\
 SigLevel = Required DatabaseOptional\n\
 Include = /etc/pacman.d/chaotic-mirrorlist"
