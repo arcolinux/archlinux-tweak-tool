@@ -142,23 +142,23 @@ seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
 aarnetmirror = "Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"
 
 atestrepo = "[arcolinux_repo_testing]\n\
-SigLevel = Optional TrustedOnly\n\
+SigLevel = PackageRequired DatabaseNever\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 atestrepo_no = "#[arcolinux_repo_testing]\n\
-#SigLevel = Optional TrustedOnly\n\
+#SigLevel = PackageRequired DatabaseNever\n\
 #Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 arepo = "[arcolinux_repo]\n\
-SigLevel = Optional TrustedOnly\n\
+SigLevel = PackageRequired DatabaseNever\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 a3drepo = "[arcolinux_repo_3party]\n\
-SigLevel = Optional TrustedOnly\n\
+SigLevel = PackageRequired DatabaseNever\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 axlrepo = "[arcolinux_repo_xlarge]\n\
-SigLevel = Optional TrustedOnly\n\
+SigLevel = PackageRequired DatabaseNever\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 
 garuda_repo = "[garuda]\n\
