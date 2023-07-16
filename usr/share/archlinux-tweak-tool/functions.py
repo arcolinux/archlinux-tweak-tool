@@ -204,6 +204,9 @@ Include = /etc/pacman.d/mirrorlist"
 arch_multilib_testing_repo = "[multilib-testing]\n\
 Include = /etc/pacman.d/mirrorlist"
 
+arch_multilib_repo = "[multilib]\n\
+Include = /etc/pacman.d/mirrorlist"
+
 reborn_repo = "[Reborn-OS]\n\
 Include = /etc/pacman.d/reborn-mirrorlist"
 
