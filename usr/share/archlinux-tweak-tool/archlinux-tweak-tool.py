@@ -76,6 +76,7 @@ class Main(Gtk.Window):
         print(" - Archman       - https://archman.org/")
         print(" - BigLinux      - https://www.biglinux.com.br/")
         print(" - Artix         - https://artixlinux.org/")
+        print(" - ParchLinux    - https://parchlinux.ir//")
         print(
             "---------------------------------------------------------------------------"
         )

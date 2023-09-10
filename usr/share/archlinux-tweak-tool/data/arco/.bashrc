@@ -121,7 +121,7 @@ alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 #grub issue 08/2022
-alias install-grub-efi="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi"
+alias install-grub-efi="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArcoLinux"
 
 #add new fonts
 alias update-fc='sudo fc-cache -fv'
