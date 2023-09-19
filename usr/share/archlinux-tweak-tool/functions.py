@@ -1416,12 +1416,49 @@ def enable_slick_greeter(self):
                 lists = f.readlines()
                 f.close()
 
-            val = get_position(lists, "#greeter-session=example-gtk-gnome")
-            lists[val] = "greeter-session=lightdm-slick-greeter" + "\n"
+            slick_greeter_session = "greeter-session=lightdm-slick-greeter\n"
+            index_existing_greeters = get_positions(lists, "greeter-session=")
 
-            with open(lightdm_conf, "w", encoding="utf-8") as f:
-                f.writelines(lists)
-                f.close()
+            # flag to check if slick-greeter-session already exists
+            enabled = False
+
+            if len(index_existing_greeters) > 0:
+                for i in index_existing_greeters:
+                    if lists[i] != slick_greeter_session and "#" not in lists[i]:
+                        print(
+                            "[INFO] Commenting existing greeter-session = %s"
+                            % lists[i].strip()
+                        )
+                        lists[i] = "#%s" % lists[i]
+
+                    elif lists[i] == slick_greeter_session:
+                        print("[INFO] lightdm slick-greeter-session already configured")
+                        enabled = True
+
+            # there is no further action required to the lightdm.conf file
+            # if greeter-session=lightdm-slick-greeter is already present
+
+            if enabled == False:
+                # added guard to ensure the slick greeter-session line is not added to the top of the file
+                # https://github.com/arcolinux/archlinux-tweak-tool-dev/issues/5
+
+                # use [Seat:*] setting since this is the default setting for lightdm
+                indexes = get_positions(lists, "[Seat:*]")
+                if len(indexes) == 0:
+                    print(
+                        "[ERROR] Default [Seat:*] configuration missing from lightdm configuration"
+                    )
+                else:
+                    index = indexes[len(indexes) - 1] + 1
+                    lists.insert(index, slick_greeter_session)
+                    print("[INFO] Updated lightdm slick-greeter-session")
+
+                    with open(lightdm_conf, "w", encoding="utf-8") as f:
+                        f.writelines(lists)
+                        f.close()
+            else:
+                print("[WARN] lightdm slick-greeter-session already configured")
+
         except Exception as error:
             print(error)
 
@@ -1433,8 +1470,27 @@ def disable_slick_greeter(self):
                 lists = f.readlines()
                 f.close()
 
-            val = get_position(lists, "greeter-session=lightdm-slick-greeter")
-            lists[val] = "#greeter-session=example-gtk-gnome" + "\n"
+            index = get_position(lists, "greeter-session=lightdm-slick-greeter")
+            if index > 0:
+                # remove the slick greeter session line
+                del lists[index]
+                print("[INFO] Removed lightdm slick-greeter-session")
+            else:
+                print(
+                    "[WARN] lightdm slick-greeter-session configuration is already removed"
+                )
+
+            index_existing_greeters = get_positions(lists, "#greeter-session=")
+
+            # uncomment existing greeter if present in the configuration
+            if len(index_existing_greeters) > 0:
+                for i in index_existing_greeters:
+                    if lists[i] != "#greeter-session=example-gtk-gnome\n":
+                        print(
+                            "[INFO] Enabling existing lightdm greeter = %s"
+                            % lists[i].strip()
+                        )
+                        lists[i] = lists[i].replace("#", "")
 
             with open(lightdm_conf, "w", encoding="utf-8") as f:
                 f.writelines(lists)
