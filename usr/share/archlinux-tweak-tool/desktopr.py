@@ -612,7 +612,7 @@ if fn.distr == "arcolinux":
         "feh",
         "gvfs",
         "leftwm-dev-git",
-        "leftwm-theme-git",
+        "leftwm-theme-dev-git",
         "lxappearance",
         "ttf-sourcecodepro-nerd",
         "picom",
