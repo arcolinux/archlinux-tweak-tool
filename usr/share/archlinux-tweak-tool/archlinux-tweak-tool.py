@@ -27,6 +27,7 @@ import gui
 import att
 import desktopr
 import autostart
+from packages_prompt_gui import PackagesPromptGui
 from subprocess import call
 import os
 import subprocess
@@ -77,6 +78,8 @@ class Main(Gtk.Window):
         print(" - BigLinux      - https://www.biglinux.com.br/")
         print(" - Artix         - https://artixlinux.org/")
         print(" - ParchLinux    - https://parchlinux.ir/")
+        print(" - StormOS       - https://sourceforge.net/projects/hackman-linux/")
+        
         print(
             "---------------------------------------------------------------------------"
         )
@@ -4531,6 +4534,87 @@ class Main(Gtk.Window):
         zsh_theme.get_themes(self.zsh_themes)
         self.termset.set_sensitive(False)
         self.zsh_themes.set_sensitive(False)
+
+    # ====================================================================
+    #                            PACKAGES
+    # ====================================================================#
+
+    def on_click_export_packages(
+        self, widget, packages_obj, rb_export_all, rb_export_explicit
+    ):
+        try:
+            rb_export_selected = None
+            if rb_export_all.get_active():
+                rb_export_selected = "export_all"
+            if rb_export_explicit.get_active():
+                rb_export_selected = "export_explicit"
+            export_ok = packages_obj.export_packages(rb_export_selected)
+            if export_ok:
+                fn.messagebox(
+                    self,
+                    "Export completed",
+                    "Packages exported to %s" % packages_obj.default_export_path,
+                )
+            else:
+                fn.messagebox(
+                    self,
+                    "Export failed",
+                    "Failed to export list of packages",
+                )
+
+        except Exception as e:
+            fn.logger.error("Exception in on_click_export_packages(): %s" % e)
+
+    def on_message_dialog_yes_response(self, widget):
+        fn.logger.info("Ok to proceed to install")
+        widget.destroy()
+
+    def on_message_dialog_no_response(self, widget):
+        fn.logger.info("Packages install skipped by user")
+        widget.destroy()
+
+    def on_click_install_packages(self, widget, packages_obj, gui_parts):
+        try:
+            packages = packages_obj.get_packages_file_content()
+
+            if packages is not None:
+                packages_dialog = PackagesPromptGui(packages)
+
+                packages_dialog.show_all()
+                response = packages_dialog.run()
+
+                packages_dialog.hide()
+                packages_dialog.destroy()
+
+                if response == Gtk.ResponseType.OK:
+                    widget.set_sensitive(False)
+                    fn.logger.info("Installation will proceed")
+                    vbox_stack = gui_parts[0]
+                    label_package_status = gui_parts[1]
+                    vbox_pacmanlog = gui_parts[2]
+                    label_package_count = gui_parts[5]
+
+                    if fn.is_thread_alive("thread_addPacmanLogQueue") is False:
+                        vbox_stack.pack_start(label_package_status, False, False, 0)
+                        vbox_stack.pack_start(label_package_count, False, False, 0)
+                        vbox_stack.pack_start(vbox_pacmanlog, False, False, 0)
+
+                        vbox_stack.show_all()
+
+                    packages_obj.install_packages(packages, widget, gui_parts)
+            else:
+                fn.logger.error(
+                    "Package list file %s not found" % packages_obj.default_export_path
+                )
+                fn.messagebox(
+                    self,
+                    "Error package list file not found",
+                    "Cannot find %s" % packages_obj.default_export_path,
+                )
+
+        except Exception as e:
+            fn.logger.error("Exception in on_click_install_packages(): %s" % e)
+            widget.set_sensitive(True)
 
     # ====================================================================
     #                            BOTTOM BUTTONS

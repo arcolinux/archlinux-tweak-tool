@@ -21,3 +21,9 @@ label#title {
     font-size: 20px;
     font-weight: 600;
 }
+
+#textview_log text{
+    background-color: #232627;
+    color: #fcfcfc;
+    font-family: 'Open Sans', 'Helvetica', sans-serif;
+}

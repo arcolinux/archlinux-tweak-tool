@@ -19,7 +19,9 @@ import shutil
 import psutil
 import datetime
 import subprocess
-
+import logging
+import time
+from queue import Queue
 
 # =====================================================
 #              BEGIN DECLARATION OF VARIABLES
@@ -239,6 +241,31 @@ leftwm_themes_list = [
     "space",
     "starwars",
 ]
+
+# pacman log file
+pacman_logfile = "/var/log/pacman.log"
+
+# pacman cache directory
+pacman_cache_dir = "/var/cache/pacman/pkg/"
+
+# logging setup
+logger = logging.getLogger("logger")
+# create console handler and set level to debug
+ch = logging.StreamHandler()
+
+logger.setLevel(logging.INFO)
+ch.setLevel(logging.INFO)
+
+# create formatter
+formatter = logging.Formatter(
+    "%(asctime)s:%(levelname)s > %(message)s", "%Y-%m-%d %H:%M:%S"
+)
+# add formatter to ch
+ch.setFormatter(formatter)
+
+# add ch to logger
+logger.addHandler(ch)
+
 
 # =====================================================
 #              END DECLARATION OF VARIABLES
@@ -1563,7 +1590,7 @@ def messagebox(self, title, message):
         flags=0,
         message_type=Gtk.MessageType.INFO,
         buttons=Gtk.ButtonsType.OK,
-        text=message,
+        text=title,
     )
     md2.format_secondary_markup(message)
     md2.run()
@@ -2647,3 +2674,102 @@ def remove_archlinux_login_backgrounds(self, widget):
         GLib.idle_add(
             show_in_app_notification, self, "Archlinux-login-backgrounds-git is removed"
         )
+
+
+# =====================================================
+#               THREADING
+# =====================================================
+
+
+# check if the named thread is running
+def is_thread_alive(thread_name):
+    for thread in threading.enumerate():
+        if thread.name == thread_name and thread.is_alive():
+            return True
+
+    return False
+
+
+# =====================================================
+#               MONITOR PACMAN LOG FILE
+# =====================================================
+
+
+# write lines from the pacman log onto a queue, this is called from a non-blocking thread
+def add_pacmanlog_queue(self):
+    try:
+        lines = []
+        with open(pacman_logfile, "r", encoding="utf-8") as f:
+            while True:
+                line = f.readline()
+                if line:
+                    # encode in utf-8
+                    # this fixes Gtk-CRITICAL **: gtk_text_buffer_emit_insert:
+                    # assertion 'g_utf8_validate (text, len, NULL)' failed
+                    lines.append(line.encode("utf-8"))
+                    self.pacmanlog_queue.put(lines)
+                else:
+                    time.sleep(0.5)
+
+    except Exception as e:
+        logger.error("Exception in add_pacmanlog_queue() : %s" % e)
+    finally:
+        logger.debug("No new lines found inside the pacman log file")
+
+
+# start log timer to update the textview called from a non-blocking thread
+def start_log_timer(self, textbuffer_pacmanlog, textview_pacmanlog):
+    while True:
+        # once the pacman process has completed, do not keep updating the textview, so break out the loop
+        if self.start_logtimer is False:
+            break
+
+        GLib.idle_add(
+            update_textview_pacmanlog,
+            self,
+            textbuffer_pacmanlog,
+            textview_pacmanlog,
+            priority=GLib.PRIORITY_DEFAULT,
+        )
+        time.sleep(2)
+
+
+# update the textview component with new lines from the pacman log file
+# To fix: Gtk-CRITICAL **: gtk_text_buffer_emit_insert: assertion 'g_utf8_validate (text, len, NULL)' failed
+# Make sure the line read from the pacman log file is encoded in utf-8
+# Then decode the line when inserting inside the buffer
+
+
+def update_textview_pacmanlog(self, textbuffer_pacmanlog, textview_pacmanlog):
+    lines = self.pacmanlog_queue.get()
+
+    try:
+        if len(lines) > 0:
+            end_iter = textbuffer_pacmanlog.get_end_iter()
+            for line in lines:
+                if len(line) > 0:
+                    textbuffer_pacmanlog.insert(
+                        end_iter,
+                        line.decode("utf-8"),
+                        len(line),
+                    )
+
+    except Exception as e:
+        logger.error("Exception in update_textview_pacmanlog() : %s" % e)
+    finally:
+        self.pacmanlog_queue.task_done()
+
+        if len(lines) > 0:
+            text_mark_end = textbuffer_pacmanlog.create_mark(
+                "END", textbuffer_pacmanlog.get_end_iter(), False
+            )
+            # auto-scroll the textview to the bottom as new content is added
+
+            textview_pacmanlog.scroll_mark_onscreen(text_mark_end)
+
+        lines.clear()
+
+
+# update the package install status label called from outside the main thread
+def update_package_status_label(self, label, text):
+    label.set_markup(text)

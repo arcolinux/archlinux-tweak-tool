@@ -1264,7 +1264,7 @@ if fn.distr != "arcolinux":
         "dmenu",
         "feh",
         "leftwm-dev-git",
-        "leftwm-theme-git",
+        "leftwm-theme-dev-git",
         "ttf-sourcecodepro-nerd",
         "picom",
         "polybar",
