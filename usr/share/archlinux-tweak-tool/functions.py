@@ -248,6 +248,9 @@ pacman_logfile = "/var/log/pacman.log"
 # pacman cache directory
 pacman_cache_dir = "/var/cache/pacman/pkg/"
 
+# pacman lock file
+pacman_lockfile = "/var/lib/pacman/db.lck"
+
 # logging setup
 logger = logging.getLogger("logger")
 # create console handler and set level to debug
@@ -2694,9 +2697,11 @@ def is_thread_alive(thread_name):
 #               MONITOR PACMAN LOG FILE
 # =====================================================
 
+# un-used code
+
 
 # write lines from the pacman log onto a queue, this is called from a non-blocking thread
-def add_pacmanlog_queue(self):
+def _add_pacmanlog_queue(self):
     try:
         lines = []
         with open(pacman_logfile, "r", encoding="utf-8") as f:
@@ -2717,15 +2722,18 @@ def add_pacmanlog_queue(self):
         logger.debug("No new lines found inside the pacman log file")
 
 
+# un-used code
+
+
 # start log timer to update the textview called from a non-blocking thread
-def start_log_timer(self, textbuffer_pacmanlog, textview_pacmanlog):
+def _start_log_timer(self, textbuffer_pacmanlog, textview_pacmanlog):
     while True:
         # once the pacman process has completed, do not keep updating the textview, so break out the loop
         if self.start_logtimer is False:
             break
 
         GLib.idle_add(
-            update_textview_pacmanlog,
+            _update_textview_pacmanlog,
             self,
             textbuffer_pacmanlog,
             textview_pacmanlog,
@@ -2734,13 +2742,15 @@ def start_log_timer(self, textbuffer_pacmanlog, textview_pacmanlog):
         time.sleep(2)
 
 
+# un-used code
+
 # update the textview component with new lines from the pacman log file
 # To fix: Gtk-CRITICAL **: gtk_text_buffer_emit_insert: assertion 'g_utf8_validate (text, len, NULL)' failed
 # Make sure the line read from the pacman log file is encoded in utf-8
 # Then decode the line when inserting inside the buffer
 
 
-def update_textview_pacmanlog(self, textbuffer_pacmanlog, textview_pacmanlog):
+def _update_textview_pacmanlog(self, textbuffer_pacmanlog, textview_pacmanlog):
     lines = self.pacmanlog_queue.get()
 
     try:
@@ -2770,6 +2780,47 @@ def update_textview_pacmanlog(self, textbuffer_pacmanlog, textview_pacmanlog):
         lines.clear()
 
 
+# update textview with pacman progress
+def update_progress_textview(self, line):
+    try:
+        if len(line) > 0:
+            self.textbuffer.insert(
+                self.textbuffer.get_end_iter(),
+                " %s" % line,
+                len(" %s" % line),
+            )
+
+    except Exception as e:
+        logger.error("Exception in update_progress_textview(): %s" % e)
+    finally:
+        self.messages_queue.task_done()
+        text_mark_end = self.textbuffer.create_mark(
+            "end", self.textbuffer.get_end_iter(), False
+        )
+        # scroll to the end of the textview
+        self.textview.scroll_mark_onscreen(text_mark_end)
+
+
 # update the package install status label called from outside the main thread
-def update_package_status_label(self, label, text):
+def update_package_status_label(label, text):
     label.set_markup(text)
+
+
+# check if the pacman lock file exists on the system
+def check_pacman_lockfile():
+    return os.path.exists(pacman_lockfile)
+
+
+# keep track of messages added to the queue, and updates the textview in almost realtime
+def monitor_messages_queue(self):
+    try:
+        while True:
+            message = self.messages_queue.get()
+            GLib.idle_add(
+                update_progress_textview,
+                self,
+                message,
+                priority=GLib.PRIORITY_DEFAULT,
+            )
+    except Exception as e:
+        logger.error("Exception in monitor_messages_queue(): %s" % e)

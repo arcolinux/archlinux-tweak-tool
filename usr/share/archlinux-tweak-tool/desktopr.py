@@ -32,6 +32,7 @@ desktops = [
     "cwm",
     "deepin",
     "fvwm3",
+    "dk",
     "dusk",
     "dwm",
     "enlightenment",
@@ -285,6 +286,43 @@ if fn.distr == "arcolinux":
         "deepin",
         "deepin-extra",
         "gvfs",
+    ]
+    dk = [
+        "alacritty",
+        "arcolinux-config-all-desktops-git",
+        "arcolinux-dconf-all-desktops-git",
+        "arcolinux-dk-git",
+        "arcolinux-local-xfce4-git",
+        "archlinux-logout-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
+        "arcolinux-root-git",
+        "arcolinux-volumeicon-git",
+        "arcolinux-wallpapers-git",
+        "arcolinux-xfce-git",
+        "dmenu",
+        "dk",
+        "feh",
+        "gvfs",
+        "lxappearance",
+        "picom",
+        "polkit-gnome",
+        "polybar",
+        "rofi",
+        "rxvt-unicode",
+        "sxhkd",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-hack",
+        "ttf-sourcecodepro-nerd",
+        "volumeicon",
+        "xfce4-notifyd",
+        "xfce4-power-manager",
+        "xfce4-screenshooter",
+        "xfce4-settings",
+        "xfce4-taskmanager",
+        "xfce4-terminal",
     ]
     dusk = [
         "alacritty",
@@ -1113,6 +1151,32 @@ if fn.distr != "arcolinux":
         "deepin",
         "deepin-extra",
     ]
+    dk = [
+        "alacritty",
+        "arcolinux-dk-git",
+        "archlinux-logout-git",
+        "dmenu",
+        "dk",
+        "feh",
+        "gvfs",
+        "lxappearance",
+        "picom",
+        "polkit-gnome",
+        "polybar",
+        "rofi",
+        "sxhkd",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-sourcecodepro-nerd",
+        "volumeicon",
+        "xfce4-notifyd",
+        "xfce4-power-manager",
+        "xfce4-screenshooter",
+        "xfce4-settings",
+        "xfce4-taskmanager",
+        "xfce4-terminal",
+    ]
     dusk = [
         "alacritty",
         "arcolinux-dwm-st-git",
@@ -1588,6 +1652,10 @@ def install_desktop(self, desktop, state):
     elif desktop == "deepin":
         check_package_and_remove(self, "/usr/bin", "qt5ct")
         command = deepin
+    elif desktop == "dk":
+        command = list(np.append(dk, default_app))
+        src.append("/etc/skel/.config/dk")
+        twm = True
     elif desktop == "dusk":
         command = list(np.append(dusk, default_app))
         src.append("/etc/skel/.config/arco-dusk")

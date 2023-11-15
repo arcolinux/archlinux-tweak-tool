@@ -77,15 +77,12 @@ class PackagesPromptGui(Gtk.Dialog):
             msg_buffer = textview.get_buffer()
             msg_buffer.insert(
                 msg_buffer.get_end_iter(),
-                "%s %s:INFO > Click Yes to confirm install of packages\n\n"
-                % (
-                    fn.datetime.datetime.now().date(),
-                    fn.datetime.datetime.now().strftime("%H:%M:%S"),
-                ),
+                "\n Click Yes to confirm install of the following packages:\n\n",
             )
             # fill the textview buffer with a list of packages to install
-            for package in packages:
-                msg_buffer.insert(msg_buffer.get_end_iter(), "- %s\n" % package)
+
+            for package in sorted(packages):
+                msg_buffer.insert(msg_buffer.get_end_iter(), " - %s\n" % package)
 
             # move focus away from the textview, to hide the cursor at load
             headerbar.set_property("can-focus", True)

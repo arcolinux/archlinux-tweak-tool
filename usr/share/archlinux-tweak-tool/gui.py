@@ -400,6 +400,7 @@ themes</i> you can customize <b>Neofetch</b>"
 
     # make the content scrollable
     scrolledWindow = Gtk.ScrolledWindow()
+    scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
     scrolledWindow.add(vbox1)
 
     hbox.pack_start(ivbox, False, True, 0)

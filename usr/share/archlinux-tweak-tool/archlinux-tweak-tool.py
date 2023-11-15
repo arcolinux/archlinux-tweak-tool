@@ -4540,27 +4540,66 @@ class Main(Gtk.Window):
     # ====================================================================#
 
     def on_click_export_packages(
-        self, widget, packages_obj, rb_export_all, rb_export_explicit
+        self,
+        widget,
+        packages_obj,
+        rb_export_all,
+        rb_export_explicit,
+        gui_parts,
     ):
         try:
-            rb_export_selected = None
-            if rb_export_all.get_active():
-                rb_export_selected = "export_all"
-            if rb_export_explicit.get_active():
-                rb_export_selected = "export_explicit"
-            export_ok = packages_obj.export_packages(rb_export_selected)
-            if export_ok:
+            if fn.check_pacman_lockfile() is True:
+                fn.logger.warning(
+                    "Export aborted, failed to lock database, pacman lockfile exists at %s"
+                )
+
                 fn.messagebox(
                     self,
-                    "Export completed",
-                    "Packages exported to %s" % packages_obj.default_export_path,
+                    "Export of packages failed",
+                    "Failed to lock database, pacman lockfile exists at %s\nIs another pacman process running ?"
+                    % fn.pacman_lockfile,
                 )
+
             else:
-                fn.messagebox(
-                    self,
-                    "Export failed",
-                    "Failed to export list of packages",
-                )
+                vbox_stack = gui_parts[0]
+                grid_package_status = gui_parts[1]
+                grid_package_count = gui_parts[2]
+                vbox_pacmanlog = gui_parts[3]
+                textbuffer = gui_parts[4]
+                textview = gui_parts[5]
+                label_package_status = gui_parts[6]
+                label_package_count = gui_parts[7]
+
+                if vbox_pacmanlog.is_visible() is False:
+                    vbox_stack.pack_start(grid_package_status, False, False, 0)
+                    vbox_stack.pack_start(grid_package_count, False, False, 0)
+                    vbox_stack.pack_start(vbox_pacmanlog, False, False, 0)
+                    vbox_stack.show_all()
+
+                    grid_package_status.hide()
+                    grid_package_count.hide()
+                else:
+                    grid_package_status.hide()
+                    grid_package_count.hide()
+
+                rb_export_selected = None
+                if rb_export_all.get_active():
+                    rb_export_selected = "export_all"
+                if rb_export_explicit.get_active():
+                    rb_export_selected = "export_explicit"
+                export_ok = packages_obj.export_packages(rb_export_selected, gui_parts)
+                if export_ok is False:
+                    fn.messagebox(
+                        self,
+                        "Export failed",
+                        "Failed to export list of packages",
+                    )
+                else:
+                    fn.messagebox(
+                        self,
+                        "Export completed",
+                        "Exported to file %s" % packages_obj.default_export_path,
+                    )
 
         except Exception as e:
             fn.logger.error("Exception in on_click_export_packages(): %s" % e)
@@ -4575,42 +4614,60 @@ class Main(Gtk.Window):
 
     def on_click_install_packages(self, widget, packages_obj, gui_parts):
         try:
-            packages = packages_obj.get_packages_file_content()
-
-            if packages is not None:
-                packages_dialog = PackagesPromptGui(packages)
-
-                packages_dialog.show_all()
-                response = packages_dialog.run()
-
-                packages_dialog.hide()
-                packages_dialog.destroy()
-
-                if response == Gtk.ResponseType.OK:
-                    widget.set_sensitive(False)
-                    fn.logger.info("Installation will proceed")
-                    vbox_stack = gui_parts[0]
-                    label_package_status = gui_parts[1]
-                    vbox_pacmanlog = gui_parts[2]
-                    label_package_count = gui_parts[5]
-
-                    if fn.is_thread_alive("thread_addPacmanLogQueue") is False:
-                        vbox_stack.pack_start(label_package_status, False, False, 0)
-                        vbox_stack.pack_start(label_package_count, False, False, 0)
-                        vbox_stack.pack_start(vbox_pacmanlog, False, False, 0)
-
-                        vbox_stack.show_all()
-
-                    packages_obj.install_packages(packages, widget, gui_parts)
-            else:
-                fn.logger.error(
-                    "Package list file %s not found" % packages_obj.default_export_path
+            if fn.check_pacman_lockfile() is True:
+                fn.logger.warning(
+                    "Install aborted, failed to lock database, pacman lockfile exists at %s"
+                    % fn.pacman_lockfile
                 )
+
                 fn.messagebox(
                     self,
-                    "Error package list file not found",
-                    "Cannot find %s" % packages_obj.default_export_path,
+                    "Install aborted",
+                    "Failed to lock database, pacman lockfile exists at %s\nIs another pacman process running ?"
+                    % fn.pacman_lockfile,
                 )
+            else:
+                packages = packages_obj.get_packages_file_content()
+
+                if packages is not None:
+                    packages_prompt_dialog = PackagesPromptGui(packages)
+
+                    packages_prompt_dialog.show_all()
+                    response = packages_prompt_dialog.run()
+                    packages_prompt_dialog.destroy()
+
+                    if response == Gtk.ResponseType.OK:
+                        widget.set_sensitive(False)
+                        fn.logger.info("Preparing installation")
+                        vbox_stack = gui_parts[0]
+                        grid_package_status = gui_parts[1]
+                        grid_package_count = gui_parts[2]
+                        vbox_pacmanlog = gui_parts[3]
+                        # textbuffer = gui_parts[4]
+                        # textview = gui_parts[5]
+                        label_package_status = gui_parts[6]
+                        label_package_count = gui_parts[7]
+
+                        if vbox_pacmanlog.is_visible() is False:
+                            vbox_stack.pack_start(grid_package_status, False, False, 0)
+                            vbox_stack.pack_start(grid_package_count, False, False, 0)
+                            vbox_stack.pack_start(vbox_pacmanlog, False, False, 0)
+                            vbox_stack.show_all()
+                        else:
+                            grid_package_status.show()
+                            grid_package_count.show()
+
+                        packages_obj.install_packages(packages, widget, gui_parts)
+                else:
+                    fn.logger.error(
+                        "Package list file %s not found"
+                        % packages_obj.default_export_path
+                    )
+                    fn.messagebox(
+                        self,
+                        "Error package list file not found",
+                        "Cannot find %s" % packages_obj.default_export_path,
+                    )
 
         except Exception as e:
             fn.logger.error("Exception in on_click_install_packages(): %s" % e)
