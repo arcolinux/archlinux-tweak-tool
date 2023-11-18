@@ -79,7 +79,6 @@ class Main(Gtk.Window):
         print(" - Artix         - https://artixlinux.org/")
         print(" - ParchLinux    - https://parchlinux.ir/")
         print(" - StormOS       - https://sourceforge.net/projects/hackman-linux/")
-        
         print(
             "---------------------------------------------------------------------------"
         )
@@ -840,6 +839,9 @@ class Main(Gtk.Window):
             # cpufetch
             self.cpufetch_lolcat.set_active(utilities.get_term_rc("cpufetch | lolcat"))
             self.cpufetch_util.set_active(utilities.get_term_rc("cpufetch"))
+            # hyfetch
+            self.hyfetch_lolcat.set_active(utilities.get_term_rc("hyfetch | lolcat"))
+            self.hyfetch_util.set_active(utilities.get_term_rc("hyfetch"))
             # colorscripts
             self.colorscript.set_active(utilities.get_term_rc("colorscript random"))
 

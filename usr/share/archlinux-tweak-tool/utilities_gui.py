@@ -63,6 +63,7 @@ using something else, you are unable to use these tools from ATT."
         "sysinfo",
         "sysinfo-retro",
         "cpufetch",
+        "hyfetch",
     ]
 
     util_switches = []
@@ -79,6 +80,7 @@ using something else, you are unable to use these tools from ATT."
     self.sysinfo_util = Gtk.Switch()
     self.sysinfo_retro_util = Gtk.Switch()
     self.cpufetch_util = Gtk.Switch()
+    self.hyfetch_util = Gtk.Switch()
     util_switches.append(self.neofetch_util)
     util_switches.append(self.screenfetch_util)
     util_switches.append(self.alsi_util)
@@ -92,6 +94,7 @@ using something else, you are unable to use these tools from ATT."
     util_switches.append(self.sysinfo_util)
     util_switches.append(self.sysinfo_retro_util)
     util_switches.append(self.cpufetch_util)
+    util_switches.append(self.hyfetch_util)
 
     lolcat_switches = []
     self.neofetch_lolcat = Gtk.Switch()
@@ -107,6 +110,7 @@ using something else, you are unable to use these tools from ATT."
     self.sysinfo_lolcat = Gtk.Switch()
     self.sysinfo_retro_lolcat = Gtk.Switch()
     self.cpufetch_lolcat = Gtk.Switch()
+    self.hyfetch_lolcat = Gtk.Switch()
     lolcat_switches.append(self.neofetch_lolcat)
     lolcat_switches.append(self.screenfetch_lolcat)
     lolcat_switches.append(self.alsi_lolcat)
@@ -120,6 +124,7 @@ using something else, you are unable to use these tools from ATT."
     lolcat_switches.append(self.sysinfo_lolcat)
     lolcat_switches.append(self.sysinfo_retro_lolcat)
     lolcat_switches.append(self.cpufetch_lolcat)
+    lolcat_switches.append(self.hyfetch_lolcat)
 
     # This is used for the seperators in the grid. It's probably not the best way
     # but it keeps control with us.

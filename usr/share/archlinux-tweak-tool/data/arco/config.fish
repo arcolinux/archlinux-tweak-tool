@@ -551,6 +551,7 @@ neofetch
 #sysinfo-retro
 #cpufetch
 #colorscript random
+#hyfetch
 
 # colors to set or unset
 

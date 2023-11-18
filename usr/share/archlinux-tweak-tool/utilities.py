@@ -23,6 +23,7 @@ def set_util_state_arco_switch(self):
         self.sysinfo_util.set_sensitive(True)
         self.sysinfo_retro_util.set_sensitive(True)
         self.cpufetch_util.set_sensitive(True)
+        self.hyfetch_util.set_sensitive(True)
         self.colorscript.set_sensitive(True)
 
         self.ufetch_lolcat.set_sensitive(True)
@@ -36,6 +37,7 @@ def set_util_state_arco_switch(self):
         self.sysinfo_lolcat.set_sensitive(True)
         self.sysinfo_retro_lolcat.set_sensitive(True)
         self.cpufetch_lolcat.set_sensitive(True)
+        self.hyfetch_lolcat.set_sensitive(True)
         self.colorscript.set_sensitive(True)
     else:
         if fn.check_package_installed("ufetch-git"):
@@ -92,6 +94,11 @@ def set_util_state_arco_switch(self):
             self.cpufetch_util.set_sensitive(True)
         else:
             self.cpufetch_util.set_sensitive(False)
+
+        if fn.check_package_installed("hyfetch"):
+            self.hyfetch_util.set_sensitive(True)
+        else:
+            self.hyfetch_util.set_sensitive(False)
 
         if fn.check_package_installed("shell-color-scripts"):
             self.colorscript.set_sensitive(True)
@@ -154,6 +161,10 @@ def set_util_state_arco_switch(self):
             self.cpufetch_lolcat.set_sensitive(True)
         else:
             self.cpufetch_lolcat.set_sensitive(False)
+        if fn.check_package_installed("hyfetch"):
+            self.hyfetch_lolcat.set_sensitive(True)
+        else:
+            self.hyfetch_lolcat.set_sensitive(False)
         if fn.check_package_installed("shell-color-scripts"):
             self.colorscript.set_sensitive(True)
         else:
@@ -203,6 +214,9 @@ def set_util_state(self, util, util_state, lolcat_state):
     elif util == "cpufetch":
         self.cpufetch_lolcat.set_state(lolcat_state)
         self.cpufetch_util.set_state(util_state)
+    elif util == "hyfetch":
+        self.hyfetch_lolcat.set_state(lolcat_state)
+        self.hyfetch_util.set_state(util_state)
     elif util == "colorscript random":
         self.colorscript.setstate(util_state)
     else:
@@ -237,6 +251,8 @@ def get_util_state(self, util):
         return self.sysinfo_retro_util.get_active()
     elif util == "cpufetch":
         return self.cpufetch_util.get_active()
+    elif util == "hyfetch":
+        return self.hyfetch_util.get_active()
     elif util == "colorscript random":
         return self.colorscripts.get_active()
     else:
@@ -272,6 +288,8 @@ def get_lolcat_state(self, util):
         return self.sysinfo_retro_lolcat.get_active()
     elif util == "cpufetch":
         return self.cpufetch_lolcat.get_active()
+    elif util == "hyfetch":
+        return self.hyfetch_lolcat.get_active()
     elif util == "colorscript random":  # no lolcat for colorscripts
         return False
     else:
@@ -313,6 +331,8 @@ def install_util(util):
         command = "pacman -S lolcat --noconfirm --needed"
     elif util == "cpufetch":
         command = "pacman -S cpufetch --noconfirm --needed"
+    elif util == "hyfetch":
+        command = "pacman -S hyfetch --noconfirm --needed"
     elif util == "colorscript random":
         command = "pacman -S shell-color-scripts --noconfirm --needed"
     else:
