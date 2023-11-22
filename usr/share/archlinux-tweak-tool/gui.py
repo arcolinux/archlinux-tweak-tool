@@ -289,8 +289,8 @@ themes</i> you can customize <b>Neofetch</b>"
 
     stack.add_titled(vboxstack16, "stack16", "Mirrors")  # mirrors
 
-    if fn.distr != "xerolinux":
-        stack.add_titled(vboxstack8, "stack4", "Neofetch")  # Neofetch config
+    # if fn.distr != "xerolinux":
+    #     stack.add_titled(vboxstack8, "stack4", "Neofetch")  # Neofetch config
 
     stack.add_titled(vboxstack26, "packages", "Packages")  # Packages
 

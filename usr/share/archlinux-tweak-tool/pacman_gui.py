@@ -160,23 +160,23 @@ def gui(self, Gtk, vboxstack1, fn):
     label11 = Gtk.Label(xalign=0)
     label11.set_markup("Enable Nemesis repo")
 
-    self.xerolinux_button = Gtk.Button(label="Install mirrors")
-    self.xerolinux_button.connect("clicked", self.on_xerolinux_clicked)
+    # self.xerolinux_button = Gtk.Button(label="Install mirrors")
+    # self.xerolinux_button.connect("clicked", self.on_xerolinux_clicked)
 
-    self.xerolinux_switch = Gtk.Switch()
-    self.xerolinux_switch.connect("notify::active", self.on_xero_toggle)
-    label17 = Gtk.Label(xalign=0)
-    label17.set_markup("Enable Xerolinux repo")
+    # self.xerolinux_switch = Gtk.Switch()
+    # self.xerolinux_switch.connect("notify::active", self.on_xero_toggle)
+    # label17 = Gtk.Label(xalign=0)
+    # label17.set_markup("Enable Xerolinux repo")
 
-    self.xerolinux_xl_switch = Gtk.Switch()
-    self.xerolinux_xl_switch.connect("notify::active", self.on_xero_xl_toggle)
-    label18 = Gtk.Label(xalign=0)
-    label18.set_markup("Enable Xerolinux XL repo")
+    # self.xerolinux_xl_switch = Gtk.Switch()
+    # self.xerolinux_xl_switch.connect("notify::active", self.on_xero_xl_toggle)
+    # label18 = Gtk.Label(xalign=0)
+    # label18.set_markup("Enable Xerolinux XL repo")
 
-    self.xerolinux_nv_switch = Gtk.Switch()
-    self.xerolinux_nv_switch.connect("notify::active", self.on_xero_nv_toggle)
-    label19 = Gtk.Label(xalign=0)
-    label19.set_markup("Enable Xerolinux Nvidia repo")
+    # self.xerolinux_nv_switch = Gtk.Switch()
+    # self.xerolinux_nv_switch.connect("notify::active", self.on_xero_nv_toggle)
+    # label19 = Gtk.Label(xalign=0)
+    # label19.set_markup("Enable Xerolinux Nvidia repo")
 
     self.reborn_button = Gtk.Button(label="Install keys and mirrors")
     self.reborn_button.connect("clicked", self.on_reborn_clicked)
@@ -273,19 +273,19 @@ def gui(self, Gtk, vboxstack1, fn):
     hboxstack13.pack_start(label11, False, True, 10)
     hboxstack13.pack_end(self.nemesis_switch, False, False, 10)
 
-    if not fn.check_package_installed("xerolinux-mirrorlist"):
-        hboxstack20.pack_start(label17, False, True, 10)
-        hboxstack20.pack_end(self.xerolinux_button, False, True, 10)
+    # if not fn.check_package_installed("xerolinux-mirrorlist"):
+    #     hboxstack20.pack_start(label17, False, True, 10)
+    #     hboxstack20.pack_end(self.xerolinux_button, False, True, 10)
 
-    if fn.check_package_installed("xerolinux-mirrorlist"):
-        hboxstack20.pack_start(label17, False, True, 10)
-        hboxstack20.pack_end(self.xerolinux_switch, False, False, 10)
+    # if fn.check_package_installed("xerolinux-mirrorlist"):
+    #     hboxstack20.pack_start(label17, False, True, 10)
+    #     hboxstack20.pack_end(self.xerolinux_switch, False, False, 10)
 
-        hboxstack21.pack_start(label18, False, True, 10)
-        hboxstack21.pack_end(self.xerolinux_xl_switch, False, False, 10)
+    #     hboxstack21.pack_start(label18, False, True, 10)
+    #     hboxstack21.pack_end(self.xerolinux_xl_switch, False, False, 10)
 
-        hboxstack22.pack_start(label19, False, True, 10)
-        hboxstack22.pack_end(self.xerolinux_nv_switch, False, False, 10)
+    #     hboxstack22.pack_start(label19, False, True, 10)
+    #     hboxstack22.pack_end(self.xerolinux_nv_switch, False, False, 10)
 
     if not fn.check_package_installed("rebornos-keyring"):
         hboxstack23.pack_start(label20, False, True, 10)
@@ -315,9 +315,9 @@ def gui(self, Gtk, vboxstack1, fn):
     vboxstack4.pack_start(hboxstack13, False, False, 10)
     vboxstack4.pack_start(hboxstack19, False, False, 10)
     vboxstack4.pack_start(hboxstack20, False, False, 10)
-    if fn.check_package_installed("xerolinux-mirrorlist"):
-        vboxstack4.pack_start(hboxstack21, False, False, 10)
-        vboxstack4.pack_start(hboxstack22, False, False, 10)
+    # if fn.check_package_installed("xerolinux-mirrorlist"):
+    #     vboxstack4.pack_start(hboxstack21, False, False, 10)
+    #     vboxstack4.pack_start(hboxstack22, False, False, 10)
     vboxstack4.pack_start(hboxstack23, False, False, 10)
     vboxstack4.pack_start(hboxstack24, False, False, 10)
     vboxstack4.pack_start(hboxstack11, False, False, 10)

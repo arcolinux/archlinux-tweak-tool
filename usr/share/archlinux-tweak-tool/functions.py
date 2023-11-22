@@ -78,7 +78,7 @@ samba_config = "/etc/samba/smb.conf"
 
 mirrorlist = "/etc/pacman.d/mirrorlist"
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
-xerolinux_mirrorlist = "/etc/pacman.d/xerolinux-mirrorlist"
+# xerolinux_mirrorlist = "/etc/pacman.d/xerolinux-mirrorlist"
 arcolinux_mirrorlist_original = (
     "/usr/share/archlinux-tweak-tool/data/arco/arcolinux-mirrorlist"
 )
@@ -179,17 +179,17 @@ nemesis_repo = "[nemesis_repo]\n\
 SigLevel = Optional TrustedOnly\n\
 Server = https://erikdubois.github.io/$repo/$arch"
 
-xero_repo = "[xerolinux_repo]\n\
-SigLevel = Optional TrustAll\n\
-Include = /etc/pacman.d/xero-mirrorlist"
+# xero_repo = "[xerolinux_repo]\n\
+# SigLevel = Optional TrustAll\n\
+# Include = /etc/pacman.d/xero-mirrorlist"
 
-xero_xl_repo = "[xerolinux_repo_xl]\n\
-SigLevel = Optional TrustAll\n\
-Include = /etc/pacman.d/xero-mirrorlist"
+# xero_xl_repo = "[xerolinux_repo_xl]\n\
+# SigLevel = Optional TrustAll\n\
+# Include = /etc/pacman.d/xero-mirrorlist"
 
-xero_nv_repo = "[xerolinux_nvidia_repo]\n\
-SigLevel = Optional TrustAll\n\
-Include = /etc/pacman.d/xero-mirrorlist"
+# xero_nv_repo = "[xerolinux_nvidia_repo]\n\
+# SigLevel = Optional TrustAll\n\
+# Include = /etc/pacman.d/xero-mirrorlist"
 
 arch_testing_repo = "[core-testing]\n\
 Include = /etc/pacman.d/mirrorlist"
@@ -1915,22 +1915,22 @@ def install_arcolinux(self):
                 print(error)
 
 
-def install_xerolinux(self):
-    base_dir = path.dirname(path.realpath(__file__))
-    pathway = base_dir + "/data/xero/packages/mirrorlist/"
-    file = listdir(pathway)
-    try:
-        install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
-        print(install)
-        subprocess.call(
-            install.split(" "),
-            shell=False,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-        )
-        print("Xerolinux mirrorlist is now installed")
-    except Exception as error:
-        print(error)
+# def install_xerolinux(self):
+#     base_dir = path.dirname(path.realpath(__file__))
+#     pathway = base_dir + "/data/xero/packages/mirrorlist/"
+#     file = listdir(pathway)
+#     try:
+#         install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+#         print(install)
+#         subprocess.call(
+#             install.split(" "),
+#             shell=False,
+#             stdout=subprocess.PIPE,
+#             stderr=subprocess.STDOUT,
+#         )
+#         print("Xerolinux mirrorlist is now installed")
+#     except Exception as error:
+#         print(error)
 
 
 # =====================================================

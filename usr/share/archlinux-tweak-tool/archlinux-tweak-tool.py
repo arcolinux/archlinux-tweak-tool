@@ -420,15 +420,15 @@ class Main(Gtk.Window):
                 except Exception as error:
                     print(error)
 
-        # ensuring we have a backup or the xerolinux mirrorlist
-        if fn.path.isfile(fn.xerolinux_mirrorlist):
-            if not fn.path.isfile(fn.xerolinux_mirrorlist + ".bak"):
-                try:
-                    fn.shutil.copy(
-                        fn.xerolinux_mirrorlist, fn.xerolinux_mirrorlist + ".bak"
-                    )
-                except Exception as error:
-                    print(error)
+        # # ensuring we have a backup or the xerolinux mirrorlist
+        # if fn.path.isfile(fn.xerolinux_mirrorlist):
+        #     if not fn.path.isfile(fn.xerolinux_mirrorlist + ".bak"):
+        #         try:
+        #             fn.shutil.copy(
+        #                 fn.xerolinux_mirrorlist, fn.xerolinux_mirrorlist + ".bak"
+        #             )
+        #         except Exception as error:
+        #             print(error)
 
         # ensuring we have a backup of the archlinux mirrorlist
         if fn.path.isfile(fn.mirrorlist):
@@ -680,9 +680,9 @@ class Main(Gtk.Window):
         chaotics_repo = pmf.check_repo("[chaotic-aur]")
         endeavouros_repo = pmf.check_repo("[endeavouros]")
         nemesis_repo = pmf.check_repo("[nemesis_repo]")
-        xero_repo = pmf.check_repo("[xerolinux_repo]")
-        xero_xl_repo = pmf.check_repo("[xerolinux_repo_xl]")
-        xero_nv_repo = pmf.check_repo("[xerolinux_nvidia_repo]")
+        # xero_repo = pmf.check_repo("[xerolinux_repo]")
+        # xero_xl_repo = pmf.check_repo("[xerolinux_repo_xl]")
+        # xero_nv_repo = pmf.check_repo("[xerolinux_nvidia_repo]")
 
         # ========================ARCO MIRROR=============================
 
@@ -751,12 +751,12 @@ class Main(Gtk.Window):
         self.opened = False
         self.nemesis_switch.set_active(nemesis_repo)
         self.opened = False
-        self.xerolinux_switch.set_active(xero_repo)
-        self.opened = False
-        self.xerolinux_xl_switch.set_active(xero_xl_repo)
-        self.opened = False
-        self.xerolinux_nv_switch.set_active(xero_nv_repo)
-        self.opened = False
+        # self.xerolinux_switch.set_active(xero_repo)
+        # self.opened = False
+        # self.xerolinux_xl_switch.set_active(xero_xl_repo)
+        # self.opened = False
+        # self.xerolinux_nv_switch.set_active(xero_nv_repo)
+        # self.opened = False
 
         # ====================DESKTOP INSTALL REINSTALL===================
 
@@ -3004,39 +3004,39 @@ class Main(Gtk.Window):
                 pmf.toggle_test_repos(self, widget.get_active(), "nemesis")
         fn.update_repos(self)
 
-    def on_xerolinux_clicked(self, widget):
-        fn.install_xerolinux(self)
-        print("XeroLinux mirrors added")
-        print("Restart Att and select the repos")
-        fn.show_in_app_notification(self, "Xerolinux mirrors added")
-        fn.update_repos(self)
+    # def on_xerolinux_clicked(self, widget):
+    #     fn.install_xerolinux(self)
+    #     print("XeroLinux mirrors added")
+    #     print("Restart Att and select the repos")
+    #     fn.show_in_app_notification(self, "Xerolinux mirrors added")
+    #     fn.update_repos(self)
 
-    def on_xero_toggle(self, widget, active):
-        if not pmf.repo_exist("[xerolinux_repo]"):
-            pmf.append_repo(self, fn.xero_repo)
-            print("Repo has been added to /etc/pacman.conf")
-            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
-        else:
-            if self.opened is False:
-                pmf.toggle_test_repos(self, widget.get_active(), "xero")
+    # def on_xero_toggle(self, widget, active):
+    #     if not pmf.repo_exist("[xerolinux_repo]"):
+    #         pmf.append_repo(self, fn.xero_repo)
+    #         print("Repo has been added to /etc/pacman.conf")
+    #         fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
+    #     else:
+    #         if self.opened is False:
+    #             pmf.toggle_test_repos(self, widget.get_active(), "xero")
 
-    def on_xero_xl_toggle(self, widget, active):
-        if not pmf.repo_exist("[xerolinux_repo_xl]"):
-            pmf.append_repo(self, fn.xero_xl_repo)
-            print("Repo has been added to /etc/pacman.conf")
-            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
-        else:
-            if self.opened is False:
-                pmf.toggle_test_repos(self, widget.get_active(), "xero_xl")
+    # def on_xero_xl_toggle(self, widget, active):
+    #     if not pmf.repo_exist("[xerolinux_repo_xl]"):
+    #         pmf.append_repo(self, fn.xero_xl_repo)
+    #         print("Repo has been added to /etc/pacman.conf")
+    #         fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
+    #     else:
+    #         if self.opened is False:
+    #             pmf.toggle_test_repos(self, widget.get_active(), "xero_xl")
 
-    def on_xero_nv_toggle(self, widget, active):
-        if not pmf.repo_exist("[xerolinux_nvidia_repo]"):
-            pmf.append_repo(self, fn.xero_nv_repo)
-            print("Repo has been added to /etc/pacman.conf")
-            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
-        else:
-            if self.opened is False:
-                pmf.toggle_test_repos(self, widget.get_active(), "xero_nv")
+    # def on_xero_nv_toggle(self, widget, active):
+    #     if not pmf.repo_exist("[xerolinux_nvidia_repo]"):
+    #         pmf.append_repo(self, fn.xero_nv_repo)
+    #         print("Repo has been added to /etc/pacman.conf")
+    #         fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
+    #     else:
+    #         if self.opened is False:
+    #             pmf.toggle_test_repos(self, widget.get_active(), "xero_nv")
 
     def on_pacman_toggle1(self, widget, active):
         if not pmf.repo_exist("[core-testing]"):

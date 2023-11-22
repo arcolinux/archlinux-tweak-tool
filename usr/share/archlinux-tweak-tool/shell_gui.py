@@ -35,7 +35,6 @@ def gui(self, Gtk, vboxstack23, zsh_theme, base_dir, GdkPixbuf, fn):
     stack_switcher.set_homogeneous(True)
 
     if fn.check_package_installed("bash"):
-
         # ======================================================================
         #                              BASH
         # ======================================================================
@@ -151,7 +150,6 @@ def gui(self, Gtk, vboxstack23, zsh_theme, base_dir, GdkPixbuf, fn):
     # ==================================================================
 
     if fn.check_package_installed("zsh"):
-
         hbox19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox19_lbl = Gtk.Label(xalign=0)
         hbox19_lbl.set_markup("Zsh (inactive)")
@@ -364,7 +362,6 @@ If you just switched shell, log-out first</b>\n"
     # ==================================================================
 
     if fn.check_package_installed("fish"):
-
         hbox30 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox30_lbl = Gtk.Label(xalign=0)
         if fn.get_shell() == "fish":
@@ -556,8 +553,7 @@ Activate the necessary repos"
     # ==================================================================
 
     stack.add_titled(vboxstack1, "stack1", "BASH")
-    if not fn.distr == "xerolinux":
-        stack.add_titled(vboxstack2, "stack2", "ZSH")
+    stack.add_titled(vboxstack2, "stack2", "ZSH")
     if not fn.distr == "archcraft":
         stack.add_titled(vboxstack3, "stack3", "FISH")
     stack.add_titled(vboxstack4, "stack4", "EXTRA")

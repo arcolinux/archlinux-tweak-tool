@@ -11,7 +11,7 @@ def choose_nsswitch(self):
     choice = self.nsswitch_choices.get_active_text()
 
     # options = ['ArcoLinux', 'Garuda', 'Arch Linux', 'EndeavourOS']
-    if choice == "ArcoLinux":  # alci #carli #xerolinux
+    if choice == "ArcoLinux":  # alci #carli
         fn.copy_nsswitch("arco")
         print("Nsswitch from ArcoLinux")
         GLib.idle_add(fn.show_in_app_notification, self, "Nsswitch from ArcoLinux")
