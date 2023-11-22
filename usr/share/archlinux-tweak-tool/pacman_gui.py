@@ -314,7 +314,7 @@ def gui(self, Gtk, vboxstack1, fn):
     vboxstack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vboxstack4.pack_start(hboxstack13, False, False, 10)
     vboxstack4.pack_start(hboxstack19, False, False, 10)
-    vboxstack4.pack_start(hboxstack20, False, False, 10)
+    # vboxstack4.pack_start(hboxstack20, False, False, 10)
     # if fn.check_package_installed("xerolinux-mirrorlist"):
     #     vboxstack4.pack_start(hboxstack21, False, False, 10)
     #     vboxstack4.pack_start(hboxstack22, False, False, 10)
