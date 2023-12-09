@@ -79,6 +79,7 @@ class Main(Gtk.Window):
         print(" - Artix         - https://artixlinux.org/")
         print(" - ParchLinux    - https://parchlinux.ir/")
         print(" - StormOS       - https://sourceforge.net/projects/hackman-linux/")
+        print(" - Mabox         - https://maboxlinux.org/")
         print(
             "---------------------------------------------------------------------------"
         )
