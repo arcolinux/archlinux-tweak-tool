@@ -311,7 +311,9 @@ alias tobash="sudo chsh $USER -s /bin/bash && echo 'Done. Now log out.'"
 alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Done. Now log out.'"
 alias tofish="sudo chsh $USER -s /bin/fish && echo 'Done. Now log out.'"
 
-#switch between lightdm and sddm
+#switch between displaymanager or bootsystem
+alias toboot="sudo /usr/local/bin/arcolinux-toboot"
+alias togrub="sudo /usr/local/bin/arcolinux-togrub"
 alias tolightdm="sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm --needed ; sudo systemctl enable lightdm.service -f ; echo 'Lightm is active - reboot now'"
 alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable sddm.service -f ; echo 'Sddm is active - reboot now'"
 alias toly="sudo pacman -S ly --noconfirm --needed ; sudo systemctl enable ly.service -f ; echo 'Ly is active - reboot now'"
@@ -427,6 +429,7 @@ alias nneofetch="$EDITOR ~/.config/neofetch/config.conf"
 alias nplymouth="sudo $EDITOR /etc/plymouth/plymouthd.conf"
 alias nvconsole="sudo $EDITOR /etc/vconsole.conf"
 alias nenvironment="sudo $EDITOR /etc/environment"
+alias nloader="sudo $EDITOR /boot/efi/loader/loader.conf"
 
 #reading logs with bat
 alias lcalamares="bat /var/log/Calamares.log"
@@ -486,6 +489,12 @@ alias xdw="ls /usr/share/wayland-sessions"
 alias wsimplescreen="wf-recorder -a"
 alias wsimplescreenrecorder="wf-recorder -a -c h264_vaapi -C aac -d /dev/dri/renderD128 --file=recording.mp4"
 
+#give a list of the kernels installed
+alias kernel="ls /usr/lib/modules"
+alias kernels="ls /usr/lib/modules"
+
+#am I on grub or systemd-boot
+alias boot="sudo bootctl status | grep Product"
 
 #btrfs aliases
 alias btrfsfs="sudo btrfs filesystem df /"

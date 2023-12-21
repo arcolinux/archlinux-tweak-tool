@@ -4551,6 +4551,9 @@ class Main(Gtk.Window):
         gui_parts,
     ):
         try:
+            if not os.path.exists(packages_obj.export_dir):
+                fn.makedirs(packages_obj.export_dir)
+                fn.permissions(packages_obj.export_dir)
             if fn.check_pacman_lockfile() is True:
                 fn.logger.warning(
                     "Export aborted, failed to lock database, pacman lockfile exists at %s"
