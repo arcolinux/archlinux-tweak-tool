@@ -213,6 +213,7 @@ if fn.distr == "arcolinux":
         "arcolinux-chadwm-git",
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
