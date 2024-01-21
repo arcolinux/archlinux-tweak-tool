@@ -1,3 +1,7 @@
+<h1 align="center">
+ <img src="https://github.com/erikdubois/arcolinux-nemesis/blob/master/Personal/settings/arcolinux.png">
+</h1>
+
 # ArchLinux Tweak Tool (ATT)
 
 A versatile and powerful tool for customizing Arch-based systems with ease!
