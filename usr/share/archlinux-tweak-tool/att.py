@@ -19,6 +19,8 @@ def install_themes(self):
         fn.install_arco_package(self, "arcolinux-arc-arcolinux-blue" + "-git")
     if self.arcolinux_arc_azul.get_active():
         fn.install_arco_package(self, "arcolinux-arc-azul" + "-git")
+    if self.arcolinux_arc_azure.get_active():
+        fn.install_arco_package(self, "arcolinux-arc-azure" + "-git")
     if self.arcolinux_arc_azure_dodger_blue.get_active():
         fn.install_arco_package(self, "arcolinux-arc-azure-dodger-blue" + "-git")
     if self.arcolinux_arc_blood.get_active():
@@ -29,8 +31,6 @@ def install_themes(self):
         fn.install_arco_package(self, "arcolinux-arc-botticelli" + "-git")
     if self.arcolinux_arc_bright_lilac.get_active():
         fn.install_arco_package(self, "arcolinux-arc-bright-lilac" + "-git")
-    if self.arcolinux_arc_bright_lime_green.get_active():
-        fn.install_arco_package(self, "arcolinux-arc-bright-lime-green" + "-git")
     if self.arcolinux_arc_carnation.get_active():
         fn.install_arco_package(self, "arcolinux-arc-carnation" + "-git")
     if self.arcolinux_arc_carolina_blue.get_active():
@@ -41,6 +41,8 @@ def install_themes(self):
         fn.install_arco_package(self, "arcolinux-arc-crimson" + "-git")
     if self.arcolinux_arc_dawn.get_active():
         fn.install_arco_package(self, "arcolinux-arc-dawn" + "-git")
+    if self.arcolinux_arc_dodger_blue.get_active():
+        fn.install_arco_package(self, "arcolinux-arc-dodger-blue" + "-git")
     if self.arcolinux_arc_dracul.get_active():
         fn.install_arco_package(self, "arcolinux-arc-dracul" + "-git")
     if self.arcolinux_arc_emerald.get_active():
@@ -120,6 +122,8 @@ def remove_themes(self):
         fn.remove_package(self, "arcolinux-arc-arcolinux-blue" + "-git")
     if self.arcolinux_arc_azul.get_active():
         fn.remove_package(self, "arcolinux-arc-azul" + "-git")
+    if self.arcolinux_arc_azure.get_active():
+        fn.remove_package(self, "arcolinux-arc-azure" + "-git")
     if self.arcolinux_arc_azure_dodger_blue.get_active():
         fn.remove_package(self, "arcolinux-arc-azure-dodger-blue" + "-git")
     if self.arcolinux_arc_blood.get_active():
@@ -130,8 +134,6 @@ def remove_themes(self):
         fn.remove_package(self, "arcolinux-arc-botticelli" + "-git")
     if self.arcolinux_arc_bright_lilac.get_active():
         fn.remove_package(self, "arcolinux-arc-bright-lilac" + "-git")
-    if self.arcolinux_arc_bright_lime_green.get_active():
-        fn.remove_package(self, "arcolinux-arc-bright-lime-green" + "-git")
     if self.arcolinux_arc_carnation.get_active():
         fn.remove_package(self, "arcolinux-arc-carnation" + "-git")
     if self.arcolinux_arc_carolina_blue.get_active():
@@ -142,6 +144,8 @@ def remove_themes(self):
         fn.remove_package(self, "arcolinux-arc-crimson" + "-git")
     if self.arcolinux_arc_dawn.get_active():
         fn.remove_package(self, "arcolinux-arc-dawn" + "-git")
+    if self.arcolinux_arc_dodger_blue.get_active():
+        fn.remove_package(self, "arcolinux-arc-dodger-blue" + "-git")
     if self.arcolinux_arc_dracul.get_active():
         fn.remove_package(self, "arcolinux-arc-dracul" + "-git")
     if self.arcolinux_arc_emerald.get_active():
@@ -218,17 +222,18 @@ def find_themes(self):
     self.arcolinux_arc_archlinux_blue.set_active(False)
     self.arcolinux_arc_arcolinux_blue.set_active(False)
     self.arcolinux_arc_azul.set_active(False)
+    self.arcolinux_arc_azure.set_active(False)
     self.arcolinux_arc_azure_dodger_blue.set_active(False)
     self.arcolinux_arc_blood.set_active(False)
     self.arcolinux_arc_blue_sky.set_active(False)
     self.arcolinux_arc_botticelli.set_active(False)
     self.arcolinux_arc_bright_lilac.set_active(False)
-    self.arcolinux_arc_bright_lime_green.set_active(False)
     self.arcolinux_arc_carnation.set_active(False)
     self.arcolinux_arc_carolina_blue.set_active(False)
     self.arcolinux_arc_casablanca.set_active(False)
     self.arcolinux_arc_crimson.set_active(False)
     self.arcolinux_arc_dawn.set_active(False)
+    self.arcolinux_arc_dodger_blue.set_active(False)
     self.arcolinux_arc_dracul.set_active(False)
     self.arcolinux_arc_emerald.set_active(False)
     self.arcolinux_arc_evopop.set_active(False)
@@ -276,6 +281,9 @@ def find_themes(self):
     if fn.check_package_installed("arcolinux-arc-azul" + "-git"):
         self.arcolinux_arc_azul.set_active(True)
 
+    if fn.check_package_installed("arcolinux-arc-azure" + "-git"):
+        self.arcolinux_arc_azure.set_active(True)
+
     if fn.check_package_installed("arcolinux-arc-azure-dodger-blue" + "-git"):
         self.arcolinux_arc_azure_dodger_blue.set_active(True)
 
@@ -291,9 +299,6 @@ def find_themes(self):
     if fn.check_package_installed("arcolinux-arc-bright-lilac" + "-git"):
         self.arcolinux_arc_bright_lilac.set_active(True)
 
-    if fn.check_package_installed("arcolinux-arc-bright-lime-green" + "-git"):
-        self.arcolinux_arc_bright_lime_green.set_active(True)
-
     if fn.check_package_installed("arcolinux-arc-carnation" + "-git"):
         self.arcolinux_arc_carnation.set_active(True)
 
@@ -308,6 +313,9 @@ def find_themes(self):
 
     if fn.check_package_installed("arcolinux-arc-dawn" + "-git"):
         self.arcolinux_arc_dawn.set_active(True)
+
+    if fn.check_package_installed("arcolinux-arc-dodger-blue" + "-git"):
+        self.arcolinux_arc_dodger_blue.set_active(True)
 
     if fn.check_package_installed("arcolinux-arc-dracul" + "-git"):
         self.arcolinux_arc_dracul.set_active(True)
@@ -418,17 +426,18 @@ def set_att_checkboxes_theming_all(self):
     self.arcolinux_arc_archlinux_blue.set_active(True)
     self.arcolinux_arc_arcolinux_blue.set_active(True)
     self.arcolinux_arc_azul.set_active(True)
+    self.arcolinux_arc_azure.set_active(True)
     self.arcolinux_arc_azure_dodger_blue.set_active(True)
     self.arcolinux_arc_blood.set_active(True)
     self.arcolinux_arc_blue_sky.set_active(True)
     self.arcolinux_arc_botticelli.set_active(True)
     self.arcolinux_arc_bright_lilac.set_active(True)
-    self.arcolinux_arc_bright_lime_green.set_active(True)
     self.arcolinux_arc_carnation.set_active(True)
     self.arcolinux_arc_carolina_blue.set_active(True)
     self.arcolinux_arc_casablanca.set_active(True)
     self.arcolinux_arc_crimson.set_active(True)
     self.arcolinux_arc_dawn.set_active(True)
+    self.arcolinux_arc_dodger_blue.set_active(True)
     self.arcolinux_arc_dracul.set_active(True)
     self.arcolinux_arc_emerald.set_active(True)
     self.arcolinux_arc_evopop.set_active(True)
@@ -471,17 +480,18 @@ def set_att_checkboxes_theming_blue(self):
     self.arcolinux_arc_archlinux_blue.set_active(True)
     self.arcolinux_arc_arcolinux_blue.set_active(True)
     self.arcolinux_arc_azul.set_active(True)
+    self.arcolinux_arc_azure.set_active(True)
     self.arcolinux_arc_azure_dodger_blue.set_active(True)
     self.arcolinux_arc_blood.set_active(False)
     self.arcolinux_arc_blue_sky.set_active(True)
     self.arcolinux_arc_botticelli.set_active(True)
     self.arcolinux_arc_bright_lilac.set_active(False)
-    self.arcolinux_arc_bright_lime_green.set_active(False)
     self.arcolinux_arc_carnation.set_active(False)
     self.arcolinux_arc_carolina_blue.set_active(True)
     self.arcolinux_arc_casablanca.set_active(False)
     self.arcolinux_arc_crimson.set_active(False)
     self.arcolinux_arc_dawn.set_active(False)
+    self.arcolinux_arc_dodger_blue.set_active(False)
     self.arcolinux_arc_dracul.set_active(False)
     self.arcolinux_arc_emerald.set_active(False)
     self.arcolinux_arc_evopop.set_active(False)
@@ -524,17 +534,18 @@ def set_att_checkboxes_theming_dark(self):
     self.arcolinux_arc_archlinux_blue.set_active(False)
     self.arcolinux_arc_arcolinux_blue.set_active(False)
     self.arcolinux_arc_azul.set_active(False)
+    self.arcolinux_arc_azure.set_active(False)
     self.arcolinux_arc_azure_dodger_blue.set_active(False)
     self.arcolinux_arc_blood.set_active(False)
     self.arcolinux_arc_blue_sky.set_active(False)
     self.arcolinux_arc_botticelli.set_active(False)
     self.arcolinux_arc_bright_lilac.set_active(False)
-    self.arcolinux_arc_bright_lime_green.set_active(False)
     self.arcolinux_arc_carnation.set_active(False)
     self.arcolinux_arc_carolina_blue.set_active(False)
     self.arcolinux_arc_casablanca.set_active(False)
     self.arcolinux_arc_crimson.set_active(False)
     self.arcolinux_arc_dawn.set_active(True)
+    self.arcolinux_arc_dodger_blue.set_active(True)
     self.arcolinux_arc_dracul.set_active(True)
     self.arcolinux_arc_emerald.set_active(False)
     self.arcolinux_arc_evopop.set_active(False)
@@ -577,17 +588,18 @@ def set_att_checkboxes_theming_none(self):
     self.arcolinux_arc_archlinux_blue.set_active(False)
     self.arcolinux_arc_arcolinux_blue.set_active(False)
     self.arcolinux_arc_azul.set_active(False)
+    self.arcolinux_arc_azure.set_active(False)
     self.arcolinux_arc_azure_dodger_blue.set_active(False)
     self.arcolinux_arc_blood.set_active(False)
     self.arcolinux_arc_blue_sky.set_active(False)
     self.arcolinux_arc_botticelli.set_active(False)
     self.arcolinux_arc_bright_lilac.set_active(False)
-    self.arcolinux_arc_bright_lime_green.set_active(False)
     self.arcolinux_arc_carnation.set_active(False)
     self.arcolinux_arc_carolina_blue.set_active(False)
     self.arcolinux_arc_casablanca.set_active(False)
     self.arcolinux_arc_crimson.set_active(False)
     self.arcolinux_arc_dawn.set_active(False)
+    self.arcolinux_arc_dodger_blue.set_active(False)
     self.arcolinux_arc_dracul.set_active(False)
     self.arcolinux_arc_emerald.set_active(False)
     self.arcolinux_arc_evopop.set_active(False)

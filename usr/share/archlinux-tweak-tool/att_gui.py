@@ -61,6 +61,7 @@ We obey the dependencies of pacman"
         label="arcolinux-arc-arcolinux-blue"
     )
     self.arcolinux_arc_azul = Gtk.CheckButton(label="arcolinux-arc-azul")
+    self.arcolinux_arc_azure = Gtk.CheckButton(label="arcolinux-arc-azure")
     self.arcolinux_arc_azure_dodger_blue = Gtk.CheckButton(
         label="arcolinux-arc-azure-dodger-blue"
     )
@@ -70,9 +71,6 @@ We obey the dependencies of pacman"
     self.arcolinux_arc_bright_lilac = Gtk.CheckButton(
         label="arcolinux-arc-bright-lilac"
     )
-    self.arcolinux_arc_bright_lime_green = Gtk.CheckButton(
-        label="arcolinux-arc-bright-lime-green"
-    )
     self.arcolinux_arc_carnation = Gtk.CheckButton(label="arcolinux-arc-carnation")
     self.arcolinux_arc_carolina_blue = Gtk.CheckButton(
         label="arcolinux-arc-carolina-blue"
@@ -80,6 +78,7 @@ We obey the dependencies of pacman"
     self.arcolinux_arc_casablanca = Gtk.CheckButton(label="arcolinux-arc-casablanca")
     self.arcolinux_arc_crimson = Gtk.CheckButton(label="arcolinux-arc-crimson")
     self.arcolinux_arc_dawn = Gtk.CheckButton(label="arcolinux-arc-dawn")
+    self.arcolinux_arc_dodger_blue = Gtk.CheckButton(label="arcolinux-arc-dodger-blue")
     self.arcolinux_arc_dracul = Gtk.CheckButton(label="arcolinux-arc-dracul")
     self.arcolinux_arc_emerald = Gtk.CheckButton(label="arcolinux-arc-emerald")
     self.arcolinux_arc_evopop = Gtk.CheckButton(label="arcolinux-arc-evopop")
@@ -132,17 +131,18 @@ We obey the dependencies of pacman"
     flowbox_themes.add(self.arcolinux_arc_archlinux_blue)
     flowbox_themes.add(self.arcolinux_arc_arcolinux_blue)
     flowbox_themes.add(self.arcolinux_arc_azul)
+    flowbox_themes.add(self.arcolinux_arc_azure)
     flowbox_themes.add(self.arcolinux_arc_azure_dodger_blue)
     flowbox_themes.add(self.arcolinux_arc_blood)
     flowbox_themes.add(self.arcolinux_arc_blue_sky)
     flowbox_themes.add(self.arcolinux_arc_botticelli)
     flowbox_themes.add(self.arcolinux_arc_bright_lilac)
-    flowbox_themes.add(self.arcolinux_arc_bright_lime_green)
     flowbox_themes.add(self.arcolinux_arc_carnation)
     flowbox_themes.add(self.arcolinux_arc_carolina_blue)
     flowbox_themes.add(self.arcolinux_arc_casablanca)
     flowbox_themes.add(self.arcolinux_arc_crimson)
     flowbox_themes.add(self.arcolinux_arc_dawn)
+    flowbox_themes.add(self.arcolinux_arc_dodger_blue)
     flowbox_themes.add(self.arcolinux_arc_dracul)
     flowbox_themes.add(self.arcolinux_arc_emerald)
     flowbox_themes.add(self.arcolinux_arc_evopop)
