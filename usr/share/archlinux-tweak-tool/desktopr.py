@@ -83,6 +83,7 @@ if fn.distr == "arcolinux":
         "arcolinux-gtk3-sardi-arc-git",
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
@@ -116,6 +117,7 @@ if fn.distr == "arcolinux":
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
@@ -147,6 +149,7 @@ if fn.distr == "arcolinux":
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
@@ -296,6 +299,7 @@ if fn.distr == "arcolinux":
         "arcolinux-dk-git",
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
@@ -335,6 +339,7 @@ if fn.distr == "arcolinux":
         "arcolinux-dusk-git",
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
+        "arcolinux-powermenu-git",
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
@@ -369,6 +374,7 @@ if fn.distr == "arcolinux":
         "arcolinux-gtk3-sardi-arc-git",
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
@@ -464,6 +470,7 @@ if fn.distr == "arcolinux":
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
@@ -533,6 +540,7 @@ if fn.distr == "arcolinux":
         "archlinux-logout-git",
         "arcolinux-nitrogen-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
@@ -642,6 +650,7 @@ if fn.distr == "arcolinux":
         "archlinux-logout-git",
         "arcolinux-leftwm-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
@@ -765,6 +774,7 @@ if fn.distr == "arcolinux":
         "arcolinux-pipemenus-git",
         "arcolinux-plank-git",
         "arcolinux-plank-themes-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
@@ -856,6 +866,7 @@ if fn.distr == "arcolinux":
         "arcolinux-gtk3-sardi-arc-git",
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
+        "arcolinux-powermenu-git",
         "arcolinux-qtile-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
@@ -927,6 +938,7 @@ if fn.distr == "arcolinux":
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
@@ -1012,6 +1024,7 @@ if fn.distr == "arcolinux":
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
@@ -1057,6 +1070,7 @@ if fn.distr != "arcolinux":
         "alacritty",
         "arcolinux-awesome-git",
         "archlinux-logout-git",
+        "arcolinux-powermenu-git",
         "archlinux-wallpapers-git",
         "awesome",
         "dmenu",
@@ -1075,6 +1089,7 @@ if fn.distr != "arcolinux":
         "arcolinux-berry-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
@@ -1098,6 +1113,7 @@ if fn.distr != "arcolinux":
         "arcolinux-bspwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "archlinux-wallpapers-git",
         "awesome-terminal-fonts",
         "bspwm",
@@ -1133,6 +1149,7 @@ if fn.distr != "arcolinux":
         "alacritty",
         "arcolinux-chadwm-git",
         "archlinux-logout-git",
+        "arcolinux-powermenu-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-volumeicon-git",
@@ -1187,6 +1204,7 @@ if fn.distr != "arcolinux":
         "alacritty",
         "arcolinux-dk-git",
         "archlinux-logout-git",
+        "arcolinux-powermenu-git",
         "dmenu",
         "dk",
         "feh",
@@ -1213,6 +1231,7 @@ if fn.distr != "arcolinux":
         "alacritty",
         "arcolinux-dwm-st-git",
         "arcolinux-dusk-git",
+        "arcolinux-powermenu-git",
         "archlinux-logout-git",
         "archlinux-wallpapers-git",
         "dmenu",
@@ -1230,6 +1249,7 @@ if fn.distr != "arcolinux":
         "arcolinux-dwm-git",
         "arcolinux-dwm-slstatus-git",
         "archlinux-logout-git",
+        "arcolinux-powermenu-git",
         "archlinux-wallpapers-git",
         "dmenu",
         "feh",
@@ -1272,6 +1292,7 @@ if fn.distr != "arcolinux":
         "arcolinux-herbstluftwm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "archlinux-wallpapers-git",
         "awesome-terminal-fonts",
         "dmenu",
@@ -1306,6 +1327,7 @@ if fn.distr != "arcolinux":
         "arcolinux-i3wm-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "archlinux-wallpapers-git",
         "autotiling",
         "dmenu",
@@ -1356,6 +1378,7 @@ if fn.distr != "arcolinux":
         "alacritty",
         "archlinux-logout-git",
         "arcolinux-leftwm-git",
+        "arcolinux-powermenu-git",
         "archlinux-wallpapers-git",
         "dmenu",
         "feh",
@@ -1398,6 +1421,7 @@ if fn.distr != "arcolinux":
     nimdow = [
         "alacritty",
         "arcolinux-nimdow-git",
+        "arcolinux-powermenu-git",
         "dmenu",
         "nim",
         "nimdow-bin",
@@ -1420,6 +1444,7 @@ if fn.distr != "arcolinux":
         "arcolinux-obmenu-generator-git",
         "arcolinux-openbox-git",
         "arcolinux-pipemenus-git",
+        "arcolinux-powermenu-git",
         "arcolinux-tint2-git",
         "arcolinux-tint2-themes-git",
         "archlinux-wallpapers-git",
@@ -1462,6 +1487,7 @@ if fn.distr != "arcolinux":
     qtile = [
         "alacritty",
         "archlinux-logout-git",
+        "arcolinux-powermenu-git",
         "arcolinux-qtile-git",
         "archlinux-wallpapers-git",
         "awesome-terminal-fonts",
@@ -1505,6 +1531,7 @@ if fn.distr != "arcolinux":
         "arcolinux-wmderland-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "archlinux-wallpapers-git",
         "dmenu",
         "feh",
@@ -1556,6 +1583,7 @@ if fn.distr != "arcolinux":
         "alacritty",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
+        "arcolinux-powermenu-git",
         "arcolinux-xmonad-polybar-git",
         "awesome-terminal-fonts",
         "archlinux-wallpapers-git",
@@ -1665,16 +1693,19 @@ def install_desktop(self, desktop, state):
     if desktop == "awesome":
         command = list(np.append(awesome, default_app))
         src.append("/etc/skel/.config/awesome")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "berry":
         command = list(np.append(berry, default_app))
         src.append("/etc/skel/.config/berry")
         src.append("/etc/skel/.config/polybar")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "bspwm":
         command = list(np.append(bspwm, default_app))
         src.append("/etc/skel/.config/bspwm")
         src.append("/etc/skel/.config/polybar")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "budgie-desktop":
         check_package_and_remove(self, "/usr/bin", "catfish")
@@ -1687,6 +1718,7 @@ def install_desktop(self, desktop, state):
         command = list(np.append(chadwm, default_app))
         src.append("/etc/skel/.config/arco-chadwm")
         src.append("/etc/skel/.config/eww")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "cinnamon":
         command = cinnamon
@@ -1703,14 +1735,17 @@ def install_desktop(self, desktop, state):
     elif desktop == "dk":
         command = list(np.append(dk, default_app))
         src.append("/etc/skel/.config/dk")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "dusk":
         command = list(np.append(dusk, default_app))
         src.append("/etc/skel/.config/arco-dusk")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "dwm":
         command = list(np.append(dwm, default_app))
         src.append("/etc/skel/.config/arco-dwm")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "enlightenment":
         command = enlightenment
@@ -1735,6 +1770,7 @@ def install_desktop(self, desktop, state):
         command = list(np.append(i3, default_app))
         src.append("/etc/skel/.config/i3")
         src.append("/etc/skel/.config/polybar")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "icewm":
         command = list(np.append(icewm, default_app))
@@ -1748,6 +1784,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "leftwm":
         command = list(np.append(leftwm, default_app))
         src.append("/etc/skel/.config/leftwm")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "lxqt":
         command = list(np.append(lxqt, default_app))
@@ -1762,6 +1799,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "nimdow":
         command = list(np.append(nimdow, default_app))
         src.append("/etc/skel/.config/nimdow")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "pantheon":
         command = pantheon
@@ -1772,6 +1810,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/tint2")
         src.append("/etc/skel/.config/nitrogen")
         src.append("/etc/skel/.config/picom.conf")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "plasma":
         check_package_and_remove(self, "/usr/bin", "qt5ct")
@@ -1782,6 +1821,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "qtile":
         command = list(np.append(qtile, default_app))
         src.append("/etc/skel/.config/qtile")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "spectrwm":
         command = list(np.append(spectrwm, default_app))
@@ -1797,6 +1837,7 @@ def install_desktop(self, desktop, state):
         command = list(np.append(wmderland, default_app))
         src.append("/etc/skel/.config/wmderland")
         src.append("/etc/skel/.config/polybar")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "worm":
         command = list(np.append(worm, default_app))
@@ -1809,6 +1850,7 @@ def install_desktop(self, desktop, state):
         command = list(np.append(xmonad, default_app))
         src.append("/etc/skel/.xmonad")
         src.append("/etc/skel/.config/polybar")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
 
     GLib.idle_add(self.desktopr_prog.set_fraction, 0.2)
