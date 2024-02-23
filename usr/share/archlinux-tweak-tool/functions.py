@@ -143,11 +143,7 @@ leftwm_config_theme_current = home + "/.config/leftwm/themes/current"
 seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
 aarnetmirror = "Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"
 
-atestrepo = "[arcolinux_repo_testing]\n\
-SigLevel = PackageRequired DatabaseNever\n\
-Include = /etc/pacman.d/arcolinux-mirrorlist"
-
-atestrepo_no = "#[arcolinux_repo_testing]\n\
+atestrepo = "#[arcolinux_repo_testing]\n\
 #SigLevel = PackageRequired DatabaseNever\n\
 #Include = /etc/pacman.d/arcolinux-mirrorlist"
 
