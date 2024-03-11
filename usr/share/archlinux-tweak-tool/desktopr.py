@@ -826,11 +826,6 @@ if fn.distr == "arcolinux":
         "plasma",
         "kde-system-meta",
         "arcolinux-arc-kde",
-        "arcolinux-config-plasma-git",
-        "arcolinux-gtk3-surfn-plasma-dark-git",
-        "arcolinux-plasma-dconf-git",
-        "arcolinux-plasma-git",
-        "arcolinux-plasma-kservices-git",
         "arcolinux-root-git",
         "arcolinux-wallpapers-git",
         "ark",
@@ -853,10 +848,8 @@ if fn.distr == "arcolinux":
         "okular",
         "packagekit-qt5",
         "partitionmanager",
-        "sddm-kcm",
         "spectacle",
         "surfn-plasma-dark-icons-git",
-        "systemd-kcm",
         "yakuake",
     ]
     qtile = [
