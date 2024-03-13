@@ -1604,7 +1604,7 @@ def check_desktop(desktop):
         for xsession in lst:
             if desktop + ".desktop" == xsession:
                 return True
-    elif os.path.exists("/usr/share/wayland-sessions"):
+    if os.path.exists("/usr/share/wayland-sessions"):
         lst = fn.listdir("/usr/share/wayland-sessions/")
         for xsession in lst:
             if desktop + ".desktop" == xsession:
