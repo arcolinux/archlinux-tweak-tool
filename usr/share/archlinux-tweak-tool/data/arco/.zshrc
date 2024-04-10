@@ -249,6 +249,7 @@ alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"
 #switch between displaymanager or bootsystem
 alias toboot="sudo /usr/local/bin/arcolinux-toboot"
 alias togrub="sudo /usr/local/bin/arcolinux-togrub"
+alias torefind="sudo /usr/local/bin/arcolinux-torefind"
 alias tolightdm="sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm --needed ; sudo systemctl enable lightdm.service -f ; echo 'Lightm is active - reboot now'"
 alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable sddm.service -f ; echo 'Sddm is active - reboot now'"
 alias toly="sudo pacman -S ly --noconfirm --needed ; sudo systemctl enable ly.service -f ; echo 'Ly is active - reboot now'"
@@ -276,6 +277,9 @@ alias trizenskip='trizen -S --skipinteg'
 
 #check vulnerabilities microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
+
+#approximation of how old your hardware is
+alias howold="sudo lshw | grep -B 3 -A 8 BIOS"
 
 #check cpu
 alias cpu="cpuid -i | grep uarch | head -n 1"
@@ -373,13 +377,16 @@ alias nplymouth="sudo $EDITOR /etc/plymouth/plymouthd.conf"
 alias nvconsole="sudo $EDITOR /etc/vconsole.conf"
 alias nenvironment="sudo $EDITOR /etc/environment"
 alias nloader="sudo $EDITOR /boot/efi/loader/loader.conf"
-
+alias nrefind="sudo $EDITOR /boot/refind_linux.conf"
 
 #reading logs with bat
 alias lcalamares="bat /var/log/Calamares.log"
 alias lpacman="bat /var/log/pacman.log"
 alias lxorg="bat /var/log/Xorg.0.log"
 alias lxorgo="bat /var/log/Xorg.0.log.old"
+
+#reading logs with sublime-text-4
+alias scal="subl /var/log/Calamares.log"
 
 #gpg
 #verify signature for isos
@@ -433,8 +440,8 @@ alias xdw="ls /usr/share/wayland-sessions"
 alias kernel="ls /usr/lib/modules"
 alias kernels="ls /usr/lib/modules"
 
-#am I on grub or systemd-boot
-alias boot="sudo bootctl status | grep Product"
+#am I on grub,systemd-boot or refind
+alias boot="sudo /usr/local/bin/arcolinux-boot"
 
 # # ex = EXtractor for all kinds of archives
 # # usage: ex <file>
