@@ -110,7 +110,8 @@ Know that these packages conflict with picom"
     noice = Gtk.Label(xalign=0)
     noice.set_markup(
         "We will backup and overwrite your ~/.config when installing desktops\n\
-Backup is in ~/.config-att folder\nLog files are located in /var/log/archlinux"
+Backup is in ~/.config-att folder\nLog files are located in /var/log/archlinux\n\
+Hyprland and Wayfire are Wayland desktops!"
     )
     noice.set_line_wrap(True)
     self.desktopr_error = Gtk.Label(xalign=0)

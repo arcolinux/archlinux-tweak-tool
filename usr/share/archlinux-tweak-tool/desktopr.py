@@ -38,7 +38,7 @@ desktops = [
     "enlightenment",
     "gnome",
     "herbstluftwm",
-    "hypr",
+    "hyprland",
     "i3",
     "icewm",
     "jwm",
@@ -52,6 +52,7 @@ desktops = [
     "qtile",
     "spectrwm",
     "ukui",
+    "wayfire",
     "wmderland",
     "worm",
     "xfce",
@@ -89,7 +90,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "autorandr",
         "awesome",
         "dmenu",
@@ -99,7 +100,7 @@ if fn.distr == "arcolinux":
         "noto-fonts",
         "picom",
         "polkit-gnome",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "thunar",
         "thunar-archive-plugin",
@@ -123,7 +124,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "feh",
         "berry-dev-git",
@@ -131,7 +132,7 @@ if fn.distr == "arcolinux":
         "picom",
         "polkit-gnome",
         "polybar",
-        "rofi",
+        "rofi-lbonn-wayland",
         "sxhkd",
         "thunar",
         "thunar-archive-plugin",
@@ -155,7 +156,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "awesome-terminal-fonts",
         "bspwm",
         "dmenu",
@@ -165,7 +166,7 @@ if fn.distr == "arcolinux":
         "picom",
         "polybar",
         "polkit-gnome",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "sutils-git",
         "sxhkd",
@@ -200,7 +201,7 @@ if fn.distr == "arcolinux":
         "arcolinux-gtk3-surfn-arc-git",
         "arcolinux-root-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "cinnamon",
         "cinnamon-translations",
         "gnome-screenshot",
@@ -223,14 +224,14 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "feh",
         "gvfs",
         "lxappearance",
         "picom",
         "polkit-gnome",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "sxhkd",
         "thunar",
@@ -263,7 +264,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "autorandr",
         "cwm",
         "dmenu",
@@ -305,7 +306,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "dk",
         "feh",
@@ -315,7 +316,7 @@ if fn.distr == "arcolinux":
         "picom",
         "polkit-gnome",
         "polybar",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "sxhkd",
         "thunar",
@@ -343,7 +344,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "feh",
         "gvfs",
@@ -380,7 +381,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "feh",
         "gvfs",
@@ -388,7 +389,7 @@ if fn.distr == "arcolinux":
         "lxappearance",
         "picom",
         "polkit-gnome",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "sxhkd",
         "thunar",
@@ -420,7 +421,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "autorandr",
         "dmenu",
         "feh",
@@ -431,7 +432,7 @@ if fn.distr == "arcolinux":
         "picom",
         "polybar",
         "polkit-gnome",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "sxhkd",
         "thunar",
@@ -476,7 +477,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "awesome-terminal-fonts",
         "dmenu",
         "feh",
@@ -486,7 +487,7 @@ if fn.distr == "arcolinux":
         "picom",
         "polkit-gnome",
         "polybar",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "sxhkd",
         "thunar",
@@ -497,37 +498,67 @@ if fn.distr == "arcolinux":
         "xfce4-terminal",
         "xtitle-git",
     ]
-    hypr = [
-        "alacritty",
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-dconf-all-desktops-git",
-        "arcolinux-gtk3-sardi-arc-git",
-        "arcolinux-hypr-git",
-        "arcolinux-local-xfce4-git",
+    # hypr = [
+    #     "alacritty",
+    #     "arcolinux-config-all-desktops-git",
+    #     "arcolinux-dconf-all-desktops-git",
+    #     "arcolinux-gtk3-sardi-arc-git",
+    #     "arcolinux-hypr-git",
+    #     "arcolinux-local-xfce4-git",
+    #     "archlinux-logout-git",
+    #     "arcolinux-nitrogen-git",
+    #     "arcolinux-polybar-git",
+    #     "arcolinux-rofi-git",
+    #     "arcolinux-rofi-themes-git",
+    #     "arcolinux-root-git",
+    #     "arcolinux-volumeicon-git",
+    #     "arcolinux-wallpapers-git",
+    #     "arconet-xfce",
+    #     "dmenu",
+    #     "feh",
+    #     "hypr-dev-git",
+    #     "lxappearance",
+    #     "nitrogen",
+    #     "picom",
+    #     "polkit-gnome",
+    #     "polybar",
+    #     "rofi-lbonn-wayland",
+    #     "sxhkd",
+    #     "thunar",
+    #     "thunar-archive-plugin",
+    #     "thunar-volman",
+    #     "ttf-hack",
+    #     "volumeicon",
+    #     "xfce4-terminal",
+    # ]
+    hyprland = [
         "archlinux-logout-git",
-        "arcolinux-nitrogen-git",
-        "arcolinux-polybar-git",
+        "arcolinux-alacritty-git",
+        "arcolinux-hyprland-git",
+        "arcolinux-kitty-git",
+        "arcolinux-powermenu-git",
+        "arcolinux-pywal-cache-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
-        "arcolinux-root-git",
-        "arcolinux-volumeicon-git",
-        "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
-        "dmenu",
-        "feh",
-        "hypr-dev-git",
+        "arcolinux-wayland-app-hooks-git",
+        "arconet-xfce",
+        "grim",
+        "hyprland-git",
+        "kitty",
         "lxappearance",
-        "nitrogen",
+        "mako",
+        "micro",
+        "pamixer",
         "picom",
-        "polkit-gnome",
-        "polybar",
-        "rofi",
-        "sxhkd",
+        "pulsemixer",
+        "rofi-lbonn-wayland",
+        "swaybg",
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "ttf-hack",
-        "volumeicon",
+        "ttf-jetbrains-mono-nerd",
+        "waybar-git",
+        "wofi",
         "xfce4-terminal",
     ]
     i3 = [
@@ -546,7 +577,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "autotiling",
         "dmenu",
         "feh",
@@ -559,7 +590,7 @@ if fn.distr == "arcolinux":
         "picom",
         "polkit-gnome",
         "polybar",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "thunar",
         "thunar-archive-plugin",
@@ -581,7 +612,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "autorandr",
         "dmenu",
         "feh",
@@ -590,7 +621,7 @@ if fn.distr == "arcolinux":
         "lxappearance",
         "picom",
         "polkit-gnome",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "thunar",
         "thunar-archive-plugin",
@@ -618,7 +649,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "autorandr",
         "dmenu",
         "feh",
@@ -627,7 +658,7 @@ if fn.distr == "arcolinux":
         "lxappearance",
         "picom",
         "polkit-gnome",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "sxhkd",
         "thunar",
@@ -656,7 +687,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "feh",
         "gvfs",
@@ -667,7 +698,7 @@ if fn.distr == "arcolinux":
         "picom",
         "polybar",
         "polkit-gnome",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rofi-theme-fonts",
         "rxvt-unicode",
         "sxhkd",
@@ -694,7 +725,7 @@ if fn.distr == "arcolinux":
         "arcolinux-lxqt-git",
         "arcolinux-root-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "gvfs",
         "lxqt",
@@ -719,7 +750,7 @@ if fn.distr == "arcolinux":
         "arcolinux-mate-git",
         "arcolinux-root-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "gnome-screenshot",
         "gvfs",
@@ -739,7 +770,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-powermenu-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "btop",
         "gvfs",
         "dex",
@@ -748,7 +779,7 @@ if fn.distr == "arcolinux":
         "nim",
         "nimdow-bin",
         "picom",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rofi-theme-fonts",
         "sxhkd",
         "thunar",
@@ -782,7 +813,7 @@ if fn.distr == "arcolinux":
         "arcolinux-tint2-themes-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "feh",
         "geany",
@@ -804,7 +835,7 @@ if fn.distr == "arcolinux":
         "picom",
         "plank",
         "polkit-gnome",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "thunar",
         "thunar-archive-plugin",
@@ -866,7 +897,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "awesome-terminal-fonts",
         "dmenu",
         "feh",
@@ -877,7 +908,7 @@ if fn.distr == "arcolinux":
         "python-setuptools",
         "python-psutil",
         "qtile",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "thunar",
         "thunar-archive-plugin",
@@ -900,7 +931,7 @@ if fn.distr == "arcolinux":
         "arcolinux-spectrwm-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "awesome-terminal-fonts",
         "dmenu",
         "feh",
@@ -923,6 +954,53 @@ if fn.distr == "arcolinux":
         "xfce4-terminal",
         "xtitle-git",
     ]
+    wayfire = [
+        "a-candy-beauty-icon-theme-git",
+        "archlinux-logout-git",
+        "arcolinux-alacritty-git",
+        "arcolinux-foot-git",
+        "arcolinux-kitty-git",
+        "arcolinux-pywal-cache-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
+        "arcolinux-wallpapers-wayfire-git",
+        "arcolinux-wayfire-git",
+        "arcolinux-wayland-app-hooks-git",
+        "arconet-xfce",
+        "feh",
+        "foot",
+        "grim",
+        "kitty",
+        "libdisplay-info",
+        "libliftoff",
+        "lxappearance",
+        "mako",
+        "micro",
+        "pamixer",
+        "picom",
+        "pulsemixer",
+        "polkit-gnome",
+        "rofi-lbonn-wayland",
+        "slurp",
+        "swaybg",
+        "swayidle",
+        "swaylock",
+        "swww",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-jetbrains-mono-nerd",
+        "waybar-git",
+        "wayfire-git",
+        "wayfire-plugins-extra-git",
+        "wcm-git",
+        "wf-kill-git",
+        "wf-shell-git",
+        "wl-clipboard",
+        "wofi",
+        "xdg-desktop-portal-wlr",
+        "xfce4-terminal",
+    ]
     wmderland = [
         "alacritty",
         "arcolinux-config-all-desktops-git",
@@ -937,14 +1015,14 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "feh",
         "lxappearance",
         "picom",
         "polkit-gnome",
         "polybar",
-        "rofi",
+        "rofi-lbonn-wayland",
         "sxhkd",
         "thunar",
         "thunar-archive-plugin",
@@ -967,14 +1045,14 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "feh",
         "lxappearance",
         "picom",
         "polkit-gnome",
         "polybar",
-        "rofi",
+        "rofi-lbonn-wayland",
         "sxhkd",
         "thunar",
         "thunar-archive-plugin",
@@ -1006,7 +1084,7 @@ if fn.distr == "arcolinux":
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-root-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "arcolinux-wallpapers-git",
     ]
     xmonad = [
@@ -1023,7 +1101,7 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "arcolinux-xmonad-polybar-git",
         "awesome-terminal-fonts",
         "dmenu",
@@ -1035,7 +1113,7 @@ if fn.distr == "arcolinux":
         "perl-www-aur",
         "picom",
         "polybar",
-        "rofi",
+        "rofi-lbonn-wayland",
         "rxvt-unicode",
         "thunar",
         "thunar-archive-plugin",
@@ -1086,7 +1164,7 @@ if fn.distr != "arcolinux":
         "arcolinux-root-git",
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "feh",
         "berry-dev-git",
@@ -1153,7 +1231,6 @@ if fn.distr != "arcolinux":
         "lxappearance",
         "picom",
         "polkit-gnome",
-        "rofi",
         "rxvt-unicode",
         "sxhkd",
         "thunar",
@@ -1207,7 +1284,6 @@ if fn.distr != "arcolinux":
         "picom",
         "polkit-gnome",
         "polybar",
-        "rofi",
         "sxhkd",
         "thunar",
         "thunar-archive-plugin",
@@ -1300,20 +1376,6 @@ if fn.distr != "arcolinux":
         "thunar-volman",
         "xtitle-git",
         "ttf-hack",
-    ]
-    hypr = [
-        "alacritty",
-        "arcolinux-hypr-git",
-        "dmenu",
-        "hypr-dev-git",
-        "nitrogen",
-        "picom",
-        "polkit-gnome",
-        "polybar",
-        "rofi",
-        "thunar",
-        "sxhkd",
-        "xfce4-terminal",
     ]
     i3 = [
         "alacritty",
@@ -1419,7 +1481,6 @@ if fn.distr != "arcolinux":
         "nim",
         "nimdow-bin",
         "picom",
-        "rofi",
         "sxhkd",
         "thunar",
         "thunar-archive-plugin",
@@ -1544,7 +1605,7 @@ if fn.distr != "arcolinux":
         "archlinux-logout-git",
         "arcolinux-polybar-git",
         "arcolinux-root-git",
-        "arcolinux-xfce-git",
+        "arconet-xfce",
         "dmenu",
         "feh",
         "worm-dev-git",
@@ -1650,17 +1711,10 @@ def check_lock(self, desktop, state):
     return False
 
 
-def check_package_and_remove(self, path, package):
+def check_package_and_remove(self, package):
     """remove a package if exists"""
-    if fn.path.isfile(path + "/" + package):
-        with fn.subprocess.Popen(
-            ["sh", "-c", "yes | pkexec pacman -R " + package],
-            bufsize=1,
-            stdout=fn.subprocess.PIPE,
-            universal_newlines=True,
-        ) as p:
-            for line in p.stdout:
-                GLib.idle_add(self.desktopr_stat.set_text, line.strip())
+    if fn.check_package_installed(package):
+        fn.remove_package(self, package)
 
 
 def install_desktop(self, desktop, state):
@@ -1684,30 +1738,38 @@ def install_desktop(self, desktop, state):
         fn.home + "/.config-att/config-att-" + now.strftime("%Y-%m-%d-%H-%M-%S")
     )
     if desktop == "awesome":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(awesome, default_app))
         src.append("/etc/skel/.config/awesome")
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "berry":
-        command = list(np.append(berry, default_app))
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
+        ommand = list(np.append(berry, default_app))
         src.append("/etc/skel/.config/berry")
         src.append("/etc/skel/.config/polybar")
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "bspwm":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(bspwm, default_app))
         src.append("/etc/skel/.config/bspwm")
         src.append("/etc/skel/.config/polybar")
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "budgie-desktop":
-        check_package_and_remove(self, "/usr/bin", "catfish")
+        check_package_and_remove(self, "catfish")
         command = budgie
     elif desktop == "cutefish-xsession":
         command = cutefish
         src.append("/etc/skel/.config/cutefishos")
         twm = True
     elif desktop == "chadwm":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(chadwm, default_app))
         src.append("/etc/skel/.config/arco-chadwm")
         src.append("/etc/skel/.config/eww")
@@ -1723,9 +1785,11 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "deepin":
-        check_package_and_remove(self, "/usr/bin", "qt5ct")
+        check_package_and_remove(self, "qt5ct")
         command = deepin
     elif desktop == "dk":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(dk, default_app))
         src.append("/etc/skel/.config/dk")
         src.append("/etc/skel/.config/powermenu")
@@ -1736,6 +1800,8 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "dwm":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(dwm, default_app))
         src.append("/etc/skel/.config/arco-dwm")
         src.append("/etc/skel/.config/powermenu")
@@ -1743,6 +1809,8 @@ def install_desktop(self, desktop, state):
     elif desktop == "enlightenment":
         command = enlightenment
     elif desktop == "fvwm3":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(fvwm3, default_app))
         src.append("/etc/skel/.config/fvwm3")
         src.append("/etc/skel/.fvwm")
@@ -1751,30 +1819,43 @@ def install_desktop(self, desktop, state):
     elif desktop == "gnome":
         command = gnome
     elif desktop == "herbstluftwm":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(hlwm, default_app))
         src.append("/etc/skel/.config/herbstluftwm")
         src.append("/etc/skel/.config/polybar")
         twm = True
-    elif desktop == "hypr":
-        command = list(np.append(hypr, default_app))
+    elif desktop == "hyprland":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
+        command = list(np.append(hyprland, default_app))
+        src.append("/etc/skel/.bin")
         src.append("/etc/skel/.config/hypr")
         twm = True
     elif desktop == "i3":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(i3, default_app))
         src.append("/etc/skel/.config/i3")
         src.append("/etc/skel/.config/polybar")
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "icewm":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(icewm, default_app))
         src.append("/etc/skel/.config/icewm")
         twm = True
     elif desktop == "jwm":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(jwm, default_app))
         src.append("/etc/skel/.config/jwm")
         src.append("/etc/skel/.jwmrc")
         twm = True
     elif desktop == "leftwm":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(leftwm, default_app))
         src.append("/etc/skel/.config/leftwm")
         src.append("/etc/skel/.config/powermenu")
@@ -1790,6 +1871,8 @@ def install_desktop(self, desktop, state):
     elif desktop == "mate":
         command = mate
     elif desktop == "nimdow":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(nimdow, default_app))
         src.append("/etc/skel/.config/nimdow")
         src.append("/etc/skel/.config/powermenu")
@@ -1797,6 +1880,8 @@ def install_desktop(self, desktop, state):
     elif desktop == "pantheon":
         command = pantheon
     elif desktop == "openbox":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(openbox, default_app))
         src.append("/etc/skel/.config/openbox")
         src.append("/etc/skel/.config/obmenu-generator")
@@ -1806,12 +1891,14 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "plasma":
-        check_package_and_remove(self, "/usr/bin", "qt5ct")
+        check_package_and_remove(self, "qt5ct")
         command = plasma
         src.append("/etc/skel/.config")
         src.append("/etc/skel/.local/share")
         twm = True
     elif desktop == "qtile":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(qtile, default_app))
         src.append("/etc/skel/.config/qtile")
         src.append("/etc/skel/.config/powermenu")
@@ -1826,13 +1913,25 @@ def install_desktop(self, desktop, state):
         command = list(np.append(ukui, default_app))
         src.append("/etc/skel/.config/")
         twm = True
+    elif desktop == "wayfire":
+        command = list(np.append(wayfire, default_app))
+        src.append("/etc/skel/.bin")
+        src.append("/etc/skel/.config/wayfire")
+        src.append("/etc/skel/.config/wayfire.ini")
+        src.append("/etc/skel/.config/wayfire-azerty.ini")
+        src.append("/etc/skel/.config/wf-shell.ini")
+        twm = True
     elif desktop == "wmderland":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(wmderland, default_app))
         src.append("/etc/skel/.config/wmderland")
         src.append("/etc/skel/.config/polybar")
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "worm":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(worm, default_app))
         src.append("/etc/skel/.config/worm")
         src.append("/etc/skel/.config/polybar")
@@ -1840,6 +1939,8 @@ def install_desktop(self, desktop, state):
     elif desktop == "xfce":
         command = list(np.append(xfce, default_app))
     elif desktop == "xmonad":
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(xmonad, default_app))
         src.append("/etc/skel/.xmonad")
         src.append("/etc/skel/.config/polybar")
