@@ -172,7 +172,7 @@ SigLevel = PackageRequired\n\
 Include = /etc/pacman.d/endeavouros-mirrorlist"
 
 nemesis_repo = "[nemesis_repo]\n\
-SigLevel = Optional TrustedOnly\n\
+SigLevel = PackageRequired DatabaseNever\n\
 Server = https://erikdubois.github.io/$repo/$arch"
 
 # xero_repo = "[xerolinux_repo]\n\
