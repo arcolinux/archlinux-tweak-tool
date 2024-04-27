@@ -289,6 +289,7 @@ alias lxorgo="bat /var/log/Xorg.0.log.old"
 
 #reading logs with sublime-text-4
 alias scal="subl /var/log/Calamares.log"
+alias spac="subl /etc/pacman.conf"
 
 #gpg
 #verify signature for isos
