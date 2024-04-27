@@ -94,7 +94,7 @@ blank_pacman_garuda = (
     "/usr/share/archlinux-tweak-tool/data/garuda/pacman/blank/pacman.conf"
 )
 neofetch_arco = "/usr/share/archlinux-tweak-tool/data/arco/neofetch/config.conf"
-alacritty_arco = "/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.yml"
+alacritty_arco = "/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.toml"
 
 oblogout_conf = "/etc/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
@@ -103,7 +103,7 @@ grub_theme_conf = "/boot/grub/themes/Vimix/theme.txt"
 grub_default_grub = "/etc/default/grub"
 xfce_config = home + "/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml"
 xfce4_terminal_config = home + "/.config/xfce4/terminal/terminalrc"
-alacritty_config = home + "/.config/alacritty/alacritty.yml"
+alacritty_config = home + "/.config/alacritty/alacritty.toml"
 alacritty_config_dir = home + "/.config/alacritty"
 slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
