@@ -3559,12 +3559,12 @@ class Main(Gtk.Window):
 
     def on_launch_adt_clicked(self, desktop):
         fn.install_arco_package(self, "arcolinux-desktop-trasher-git")
-        try:
-            subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
-            fn.show_in_app_notification(self, "ArcoLinux Desktop Trasher launched")
-            print("We started ADT")
-        except:
-            pass
+        # try:
+        #    subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
+        #    fn.show_in_app_notification(self, "ArcoLinux Desktop Trasher launched")
+        #    print("We started ADT")
+        # except:
+        #    pass
 
     def on_click_apply_parallel_downloads(self, widget):
         fixes.set_parallel_downloads(self, widget)

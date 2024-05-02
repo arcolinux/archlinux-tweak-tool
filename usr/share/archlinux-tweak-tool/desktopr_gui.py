@@ -67,11 +67,10 @@ the ArcoLinux repositories"
     self.button_install = Gtk.Button(label="Install")
     self.button_reinstall = Gtk.Button(label="Re-Install")
 
-    if fn.distr == "arcolinux":
-        button_adt = Gtk.Button(label="Launch the ArcoLinux Desktop Trasher")
-        button_adt.set_margin_top(70)
-        button_adt.set_size_request(100, 20)
-        button_adt.connect("clicked", self.on_launch_adt_clicked)
+    button_adt = Gtk.Button(label="Install the ArcoLinux Desktop Trasher")
+    button_adt.set_margin_top(70)
+    button_adt.set_size_request(100, 20)
+    button_adt.connect("clicked", self.on_launch_adt_clicked)
 
     self.button_install.connect("clicked", self.on_install_clicked, "inst")
     self.button_reinstall.connect("clicked", self.on_install_clicked, "reinst")
