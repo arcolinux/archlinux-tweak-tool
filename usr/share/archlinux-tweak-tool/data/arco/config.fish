@@ -562,7 +562,8 @@ end
 alias undopush "git push -f origin HEAD^:master"
 
 # reporting tools - install when not installed
-neofetch
+#fastfetch
+#neofetch
 #screenfetch
 #alsi
 #paleofetch

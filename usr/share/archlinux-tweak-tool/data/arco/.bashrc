@@ -424,7 +424,8 @@ alias personal='cp -Rf /personal/* ~'
 [[ -f ~/.bashrc-personal ]] && . ~/.bashrc-personal
 
 # reporting tools - install when not installed
-neofetch
+#fastfetch
+#neofetch
 #screenfetch
 #alsi
 #paleofetch
