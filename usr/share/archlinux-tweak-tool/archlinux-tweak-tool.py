@@ -3557,7 +3557,18 @@ class Main(Gtk.Window):
         fn.enable_login_manager(self, "sddm")
 
     def on_launch_adt_clicked(self, desktop):
-        fn.install_arco_package(self, "arcolinux-desktop-trasher-git")
+        # check if package is installed and update label
+        if self.adt_installed is True:
+            fn.remove_package(self, "arcolinux-desktop-trasher-git")
+            if fn.check_package_installed("arcolinux-desktop-trasher-git") is False:
+                self.button_adt.set_label("Install the ArcoLinux Desktop Trasher")
+                self.adt_installed = False
+
+        else:
+            fn.install_package(self, "arcolinux-desktop-trasher-git")
+            if fn.check_package_installed("arcolinux-desktop-trasher-git") is True:
+                self.button_adt.set_label("Remove the ArcoLinux Desktop Trasher")
+                self.adt_installed = True
         # try:
         #    subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
         #    fn.show_in_app_notification(self, "ArcoLinux Desktop Trasher launched")

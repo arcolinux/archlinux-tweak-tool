@@ -67,10 +67,18 @@ the ArcoLinux repositories"
     self.button_install = Gtk.Button(label="Install")
     self.button_reinstall = Gtk.Button(label="Re-Install")
 
-    button_adt = Gtk.Button(label="Install the ArcoLinux Desktop Trasher")
-    button_adt.set_margin_top(70)
-    button_adt.set_size_request(100, 20)
-    button_adt.connect("clicked", self.on_launch_adt_clicked)
+    self.button_adt = Gtk.Button()
+    self.button_adt.set_margin_top(70)
+    self.button_adt.set_size_request(100, 20)
+
+    if fn.check_package_installed("arcolinux-desktop-trasher-git") is True:
+        self.adt_installed = True
+        self.button_adt.set_label("Remove the ArcoLinux Desktop Trasher")
+        self.button_adt.connect("clicked", self.on_launch_adt_clicked)
+    else:
+        self.adt_installed = False
+        self.button_adt.set_label("Install the ArcoLinux Desktop Trasher")
+        self.button_adt.connect("clicked", self.on_launch_adt_clicked)
 
     self.button_install.connect("clicked", self.on_install_clicked, "inst")
     self.button_reinstall.connect("clicked", self.on_install_clicked, "reinst")
@@ -157,7 +165,7 @@ Hyprland and Wayfire are Wayland desktops!"
     vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vbox1.pack_start(hbox, False, False, 10)
     if fn.distr == "arcolinux":
-        vbox1.pack_start(button_adt, False, True, 10)
+        vbox1.pack_start(self.button_adt, False, True, 10)
     vbox1.pack_end(vboxprog, False, False, 0)
     # =======================================
     #               PACK TO WINDOW
