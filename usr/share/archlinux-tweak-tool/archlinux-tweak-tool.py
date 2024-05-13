@@ -69,7 +69,6 @@ class Main(Gtk.Window):
         print(" - EndeavourOS   - https://endeavouros.com/")
         print(" - Garuda        - https://garudalinux.org/")
         print(" - Manjaro       - https://manjaro.org/")
-        print(" - Xerolinux     - https://xerolinux.xyz/")
         print(" - Axyl          - https://axyl-os.github.io/")
         print(" - RebornOS      - https://rebornos.org/")
         print(" - Archcraft     - https://archcraft.io/")
