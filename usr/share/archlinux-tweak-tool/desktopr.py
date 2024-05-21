@@ -457,7 +457,7 @@ if fn.distr == "arcolinux":
         "arcolinux-wallpapers-git",
         "dconf-editor",
         "dconf-editor",
-        "fileroller",
+        "file-roller",
         "gnome",
         "gnome-tweaks",
         "guake",
@@ -1323,7 +1323,7 @@ if fn.distr != "arcolinux":
     ]
     gnome = [
         "dconf-editor",
-        "fileroller",
+        "file-roller",
         "gnome",
         "gnome-tweaks",
     ]
