@@ -456,10 +456,12 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-wallpapers-git",
         "dconf-editor",
+        "dconf-editor",
+        "fileroller",
         "gnome",
-        "gnome-extra",
-        "gvfs",
+        "gnome-tweaks",
         "guake",
+        "gvfs",
         "ttf-hack",
     ]
     hlwm = [
@@ -1320,8 +1322,10 @@ if fn.distr != "arcolinux":
         "ttf-hack",
     ]
     gnome = [
+        "dconf-editor",
+        "fileroller",
         "gnome",
-        "gnome-extra",
+        "gnome-tweaks",
     ]
     hlwm = [
         "alacritty",

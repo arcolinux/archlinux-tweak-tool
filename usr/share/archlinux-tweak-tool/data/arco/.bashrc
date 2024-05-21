@@ -163,6 +163,9 @@ alias kpi='killall picom'
 #hardware info --short
 alias hw="hwinfo --short"
 
+#fastfetch --short
+alias ff="fastfetch"
+
 #audio check pulseaudio or pipewire
 alias audio="pactl info | grep 'Server Name'"
 
@@ -269,6 +272,7 @@ alias nb="$EDITOR ~/.bashrc"
 alias nz="$EDITOR ~/.zshrc"
 alias nf="$EDITOR ~/.config/fish/config.fish"
 alias nneofetch="$EDITOR ~/.config/neofetch/config.conf"
+alias nfastfetch="$EDITOR ~/.config/fastfetch/config.jsonc"
 alias nplymouth="sudo $EDITOR /etc/plymouth/plymouthd.conf"
 alias nvconsole="sudo $EDITOR /etc/vconsole.conf"
 alias nenvironment="sudo $EDITOR /etc/environment"
