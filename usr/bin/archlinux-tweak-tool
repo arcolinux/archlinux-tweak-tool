@@ -4,48 +4,93 @@
 # the polkit agent running on the desktop environment should prompt for root password
 
 echo "---------------------------------------------------------------------------"
-echo "[INFO] Checking session"
-test $(whoami) == "root" && echo "[ERROR] Do not run this script as root." && exit 1
-test -z $DISPLAY && echo "[ERROR] DISPLAY variable is not set." && exit 1
+echo "[INFO]: Checking session"
+test $(whoami) == "root" && echo "[ERROR]: Do not run this script as root." && exit 1
+test -z $DISPLAY && echo "[ERROR]: DISPLAY variable is not set." && exit 1
 
 # check session is either one of X11, Wayland or TTY
-session=$(loginctl show-session $(loginctl|grep $(whoami) | awk '{print $1}') -p Type | awk -F= '{print $2}' | grep "x11\|wayland\|tty")
+SESSION=$(loginctl show-session $(loginctl|grep $(whoami) | awk '{print $1}') -p Type | awk -F= '{print $2}' | grep "x11\|wayland\|tty")
+test -z "$SESSION" && echo "[ERROR]: Failed to verify session for user, SESSION = $SESSION" && exit 1
 
-test -z "$session" && echo "[ERROR] Failed to verify session for user." && exit 1
+XAUTHORITY=$(xauth info | awk -F"Authority file:" '{print $2}' | tr -d ' ')
+test -z "$XAUTHORITY" && echo "[ERROR]: XAUTHORIY file is not set" && exit 1
+test -s "$XAUTHORITY" || touch "$XAUTHORITY"
 
-xauth_file=$(xauth info | awk -F"Authority file:" '{print $2}' | tr -d ' ')
-test -s "$xauth_file" || touch "$xauth_file"
+XAUTH_HONORED=$(xauth info | awk -F"Changes honored:" '{print $2}' | tr -d ' ')
+test $XAUTH_HONORED = "yes" || echo "[ERROR]: Xauth changes honored = no, restart X server" || exit 1
 
-case "$session" in
-  "wayland")
-    # Wayland session, generate Xauth session cookie for $DISPLAY
-    xauth gen $DISPLAY &> /dev/null
-    echo "[INFO] Display = $DISPLAY"
-    echo "[INFO] Session = $session"
+# GTK_A11Y=none - fixes the dbus-launch errors with GTK4
 
-    test -z "$(xauth list)" || echo "[INFO] Xauth session = OK"
-  ;;
-  "x11")
-    # X11 session, don't do anything here
-    echo "[INFO] Display = $DISPLAY"
-    echo "[INFO] Session = $session"
+echo "[INFO]: XAUTHORITY = $XAUTHORITY"
+echo "[INFO]: DBUS_SESSION_BUS_ADDRESS = $DBUS_SESSION_BUS_ADDRESS"
+echo "[INFO]: DESKTOP SESSION = $DESKTOP_SESSION"
 
-    # just show msg on whether the Xauth session cookie is setup
-    test -z "$(xauth list)" || echo "[INFO] Xauth session = OK"
-  ;;
-  "tty")
-    # TTY session, as user may not use a display manager
-    echo "[INFO] Display = $DISPLAY"
-    echo "[INFO] Session = $session"
+function start_in_wayland() {
+  echo "[INFO]: Starting in Wayland session"
+  xauth gen $DISPLAY &> /dev/null
 
-    test -z "$(xauth list)" || echo "[INFO] Xauth session = OK"
-  ;;
-  *)
-    # anything here is an unknown session, most likely ATT will fail to load
-    echo "[WARN] Cannot verify session for user."
-  ;;
-esac
+  case "$DESKTOP_SESSION" in
+    plasma | gnome)
+        pkexec env DISPLAY=$DISPLAY WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" XAUTHORITY=$XAUTHORITY DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS GDK_BACKEND=x11 GTK_A11Y=none '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
+    ;;
+    *)
+      pkexec env DISPLAY=$DISPLAY WAYLAND_DISPLAY="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" XAUTHORITY=$XAUTHORITY DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS GTK_A11Y=none '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
+    ;;
+  esac
+}
+
+function start_in_x11() {
+  echo "[INFO]: Starting in X11 session"
+  pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS GTK_A11Y=none '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
+}
+
+function start_in_tty() {
+  echo "[INFO]: Starting in TTY session"
+  pkexec '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
+}
+
+case "$SESSION" in
+    "wayland")
+      # Wayland session, generate Xauth session cookie for $DISPLAY
+      echo "[INFO]: Display = $DISPLAY"
+      echo "[INFO]: Session = $SESSION"
+      start_in_wayland
+    ;;
+    "x11")
+      # X11 session, don't do anything here
+      echo "[INFO]: Display = $DISPLAY"
+      echo "[INFO]: Session = $SESSION"
+
+      # just show msg on whether the Xauth session cookie is setup
+      start_in_x11
+    ;;
+    "tty")
+      # TTY session, as user may not use a display manager
+      echo "[INFO]: Display = $DISPLAY"
+      echo "[INFO]: Session = $SESSION"
+
+      start_in_tty
+    ;;
+    *)
+      # anything here is an unknown session, most likely AKM will fail to load
+      echo "[INFO]: Display = $DISPLAY"
+      echo "[INFO]: Session could not be verified ... falling back to use XDG_SESSION_TYPE"
+
+      case "$XDG_SESSION_TYPE" in
+        "wayland")
+          start_in_wayland
+        ;;
+        "tty")
+          start_in_tty
+        ;;
+        "x11")
+          start_in_x11
+        ;;
+        *)
+          echo "[ERROR]: $XDG_SESSION_TYPE is empty, cannot continue"
+          exit 1
+        ;;
+      esac
+    ;;
+  esac
 echo "---------------------------------------------------------------------------"
-
-echo "[INFO] Starting ArchLinux Tweak Tool"
-pkexec '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
