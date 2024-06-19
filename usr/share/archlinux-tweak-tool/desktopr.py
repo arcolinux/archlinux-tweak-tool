@@ -1877,6 +1877,7 @@ def install_desktop(self, desktop, state):
         check_package_and_remove(self, "rofi")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(hyprland, default_app))
+        src.append("/etc/skel/.config/alacritty")
         src.append("/etc/skel/.bin")
         src.append("/etc/skel/.config/hypr")
         twm = True
@@ -1964,6 +1965,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "wayfire":
         command = list(np.append(wayfire, default_app))
         src.append("/etc/skel/.bin")
+        src.append("/etc/skel/.config/alacritty")
         src.append("/etc/skel/.config/wayfire")
         src.append("/etc/skel/.config/wayfire.ini")
         src.append("/etc/skel/.config/wayfire-azerty.ini")
