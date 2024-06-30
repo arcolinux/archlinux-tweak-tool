@@ -1801,7 +1801,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "berry":
         check_package_and_remove(self, "rofi")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
-        ommand = list(np.append(berry, default_app))
+        command = list(np.append(berry, default_app))
         src.append("/etc/skel/.config/berry")
         src.append("/etc/skel/.config/polybar")
         src.append("/etc/skel/.config/powermenu")
