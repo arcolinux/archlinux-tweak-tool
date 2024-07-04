@@ -100,6 +100,10 @@ func_install_chadwm() {
     done
 }
 
+sudo pacman -Rdd --noconfirm rofi
+sudo pacman -Rdd --noconfirm rofi-lbonn-wayland-git
+sudo pacman -Rdd --noconfirm rofi-lbonn-wayland-only-git
+
 func_install_chadwm
 
 cp -Rf ~/.config ~/.config-backup-$(date +%Y.%m.%d-%H.%M.%S)
