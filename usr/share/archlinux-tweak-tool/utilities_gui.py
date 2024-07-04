@@ -31,7 +31,7 @@ please open a terminal to see how it looks"
 due to screen real estate"
         )
         lbl5.set_markup(
-            "  Without the ArcoLinux repositories only neofetch and screenfetch \
+            "  Without the ArcoLinux repositories only fastfetch, neofetch and screenfetch \
 are available"
         )
         lbl6.set_markup(

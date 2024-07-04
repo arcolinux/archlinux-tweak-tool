@@ -185,9 +185,9 @@ Pace will change the orginal layout."
     # aarnet
     vbox3.pack_start(hboxstack10, False, False, 0)
     # funami
-    vbox3.pack_start(hboxstack18, False, False, 0)
+    # vbox3.pack_start(hboxstack18, False, False, 0)
     # jingk
-    vbox3.pack_start(hboxstack19, False, False, 0)
+    # vbox3.pack_start(hboxstack19, False, False, 0)
     # seedhost
     vbox3.pack_start(hboxstack7, False, False, 0)
 

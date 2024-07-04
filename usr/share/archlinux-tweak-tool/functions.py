@@ -94,6 +94,7 @@ blank_pacman_garuda = (
     "/usr/share/archlinux-tweak-tool/data/garuda/pacman/blank/pacman.conf"
 )
 neofetch_arco = "/usr/share/archlinux-tweak-tool/data/arco/neofetch/config.conf"
+fastfetch_arco = "/usr/share/archlinux-tweak-tool/data/arco/fastfetch/config.jsonc"
 alacritty_arco = "/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.toml"
 
 oblogout_conf = "/etc/oblogout.conf"
@@ -108,6 +109,7 @@ alacritty_config_dir = home + "/.config/alacritty"
 slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
+fastfetch_config = home + "/.config/fastfetch/config.jsonc"
 nsswitch_config = "/etc/nsswitch.conf"
 bd = ".att_backups"
 config = home + "/.config/archlinux-tweak-tool/settings.ini"
@@ -1662,6 +1664,29 @@ def neofetch_set_value(lists, pos, text, state):
 
 
 def neofetch_set_backend_value(lists, pos, text, value):
+    if text in lists[pos] and "#" not in lists[pos]:
+        lists[pos] = text + value + '"\n'
+
+
+# =====================================================
+#               FASTFETCH CONF
+# =====================================================
+
+
+def fastfetch_set_value(lists, pos, text, state):
+    if state:
+        if text in lists[pos]:
+            if "#" in lists[pos]:
+                lists[pos] = lists[pos].replace("#", "")
+    else:
+        if text in lists[pos]:
+            if "#" not in lists[pos]:
+                lists[pos] = "#" + lists[pos]
+
+    return lists
+
+
+def fastfetch_set_backend_value(lists, pos, text, value):
     if text in lists[pos] and "#" not in lists[pos]:
         lists[pos] = text + value + '"\n'
 
