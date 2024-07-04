@@ -125,6 +125,7 @@ if fn.distr == "arcolinux":
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
         "arconet-xfce",
+        "awesome-terminal-fonts",
         "dmenu",
         "feh",
         "berry-dev-git",
@@ -265,6 +266,7 @@ if fn.distr == "arcolinux":
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
         "arconet-xfce",
+        "awesome-terminal-fonts",
         "autorandr",
         "cwm",
         "dmenu",
@@ -1793,7 +1795,7 @@ def install_desktop(self, desktop, state):
     )
 
     if fn.distr == "archcraft":
-        fn.remove_file("/etc/skel/.config/rofi/config.rasi")
+        fn.clear_skel_directory()
 
     check_package_and_remove(self, "rofi")
     check_package_and_remove(self, "rofi-lbonn-wayland-git")

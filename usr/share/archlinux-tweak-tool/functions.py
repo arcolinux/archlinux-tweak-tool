@@ -733,6 +733,28 @@ def install_edu_package(self, package):
         )
 
 
+def clear_skel_directory(path="/etc/skel"):
+    # Ensure the provided path is indeed /etc/skel or a user-defined path
+    if not os.path.exists(path):
+        print(f"The directory {path} does not exist.")
+        return
+
+    # Iterate over all the items in the directory
+    for item in os.listdir(path):
+        item_path = os.path.join(path, item)
+
+        # Check if the item is a file or a directory and remove it
+        try:
+            if os.path.isfile(item_path) or os.path.islink(item_path):
+                os.unlink(item_path)  # Remove the file or symlink
+                print(f"Removed file: {item_path}")
+            elif os.path.isdir(item_path):
+                shutil.rmtree(item_path)  # Remove the directory and its content
+                print(f"Removed directory: {item_path}")
+        except Exception as e:
+            print(f"Failed to remove {item_path}. Reason: {e}")
+
+
 def remove_file(file_path):
     if os.path.exists(file_path):
         try:
