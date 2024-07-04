@@ -261,6 +261,14 @@ class Main(Gtk.Window):
             except Exception as error:
                 print(error)
 
+        # ensuring we have a fastfetch directory
+        if not fn.path.exists(fn.home + "/.config/fastfetch"):
+            try:
+                fn.makedirs(fn.home + "/.config/fastfetch", 0o766)
+                fn.permissions(fn.home + "/.config/fastfetch")
+            except Exception as error:
+                print(error)
+
         # ensuring we have .autostart
         if not fn.path.exists(fn.home + "/.config/autostart"):
             try:
@@ -456,6 +464,15 @@ class Main(Gtk.Window):
             except Exception as error:
                 print(error)
 
+        # ensuring we have a backup of current fastfetch
+        if fn.path.isfile(fn.fastfetch_config):
+            try:
+                if not fn.path.isfile(fn.fastfetch_config + ".bak"):
+                    fn.shutil.copy(fn.fastfetch_config, fn.fastfetch_config + ".bak")
+                    fn.permissions(fn.fastfetch_config + ".bak")
+            except Exception as error:
+                print(error)
+
         # make backup of ~/.bashrc
         if fn.path.isfile(fn.bash_config):
             try:
@@ -610,6 +627,14 @@ class Main(Gtk.Window):
             try:
                 fn.shutil.copy(fn.neofetch_arco, fn.neofetch_config)
                 fn.permissions(fn.neofetch_config)
+            except Exception as error:
+                print(error)
+
+        # ensuring we have a fastfetch config to start with
+        if not fn.path.isfile(fn.fastfetch_config):
+            try:
+                fn.shutil.copy(fn.fastfetch_arco, fn.fastfetch_config)
+                fn.permissions(fn.fastfetch_config)
             except Exception as error:
                 print(error)
 
@@ -851,6 +876,12 @@ class Main(Gtk.Window):
             self.neofetch_lolcat.set_active(utilities.get_term_rc("neofetch | lolcat"))
             self.neofetch_util.set_active(utilities.get_term_rc("neofetch"))
             self.neo_util.set_active(utilities.get_term_rc("neofetch"))
+
+            # fastfetch
+            #self.neo_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
+            self.fastfetch_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
+            self.fastfetch_util.set_active(utilities.get_term_rc("fastfetch"))
+            #self.neo_util.set_active(utilities.get_term_rc("fastfetch"))
 
         # =====================================================
         #                     LIGHTDM
@@ -2754,6 +2785,14 @@ class Main(Gtk.Window):
 
     def on_install_neo(self, widget):
         fn.install_package(self, "neofetch")
+
+
+    # ====================================================================
+    #                        FASTFETCH CONFIG
+    # ====================================================================
+
+    # def on_install_fast(self, widget):
+    #    fn.install_package(self, "fastfetch")
 
     # def on_distro_ascii_changed(self, widget):
     #     self.big_ascii.set_active(True)
