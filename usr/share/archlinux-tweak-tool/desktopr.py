@@ -292,7 +292,27 @@ if fn.distr == "arcolinux":
         "arcolinux-root-git",
         "arcolinux-wallpapers-git",
         "deepin",
-        "deepin-extra",
+        "deepin-album",
+        "deepin-boot-maker",
+        "deepin-calculator",
+        "deepin-camera",
+        "deepin-clipboard",
+        "deepin-clone",
+        "deepin-community-wallpapers",
+        "deepin-compressor",
+        "deepin-device-formatter",
+        "deepin-draw",
+        "deepin-editor",
+        "deepin-font-manager",
+        "deepin-grand-search",
+        "deepin-movie",
+        "deepin-music",
+        "deepin-picker",
+        "deepin-printer",
+        "deepin-screen-recorder",
+        "deepin-screensaver-pp",
+        "deepin-terminal",
+        "deepin-voice-note",
         "gvfs",
     ]
     dk = [
@@ -2002,15 +2022,104 @@ def install_desktop(self, desktop, state):
         self.desktopr_stat.set_text,
         "Installing " + self.d_combo.get_active_text() + "...",
     )
-    with fn.subprocess.Popen(
-        list(np.append(com1, command)),
-        bufsize=1,
-        stdout=fn.subprocess.PIPE,
-        universal_newlines=True,
-    ) as p:
-        for line in p.stdout:
-            GLib.idle_add(self.desktopr_stat.set_text, line.strip())
-    print("----------------------------------------------------------------")
+
+    for line in command:
+        package_name = line if isinstance(line, str) else line[0]
+        print(f"   Installing: {package_name}")
+        GLib.idle_add(
+            self.desktopr_stat.set_text,
+            f"   Installing {package_name}...",
+        )
+
+        try:
+            process = fn.subprocess.Popen(
+                list(np.append(com1, line)),
+                bufsize=1,
+                stdout=fn.subprocess.PIPE,
+                stderr=fn.subprocess.PIPE,  # Capture stderr for error handling
+                universal_newlines=True,
+            )
+
+            stdout, stderr = process.communicate()  # Read both stdout and stderr
+            process_return_code = process.returncode  # Get the return code
+
+            for output_line in stdout.splitlines():
+                GLib.idle_add(self.desktopr_stat.set_text, output_line.strip())
+
+            # List of group packages
+            group_packages = [
+                "budgie-desktop",
+                "budgie-extras",
+                "cinnamon",
+                "cutefish",
+                "deepin-extra",
+                "deepin",
+                "enlightenment",
+                "gnome-extra",
+                "gnome",
+                "mate-extra",
+                "mate",
+                "pantheon",
+                "plasma",
+                "ukui",
+                "xfce4-goodies",
+                "xfce4",
+            ]
+
+            try:
+                # Check the return code for success or failure
+                if process_return_code == 0:
+                    if package_name in group_packages:
+                        print(
+                            "There is no way to check if a group package is installed"
+                        )
+                        GLib.idle_add(
+                            self.desktopr_stat.set_text,
+                            "There is no way to check if a group package is installed.",
+                        )
+                    elif fn.check_package_installed(package_name):
+                        print(f"{package_name} is installed")
+                        GLib.idle_add(
+                            self.desktopr_stat.set_text,
+                            f"Successfully installed {package_name}.",
+                        )
+                    else:
+                        print(
+                            f"{package_name} IS NOT INSTALLED - REMOVE CONFLICTING PACKAGE(S)"
+                        )
+                        GLib.idle_add(
+                            self.desktopr_stat.set_text,
+                            f"Failed to install {package_name}. Possible conflicts detected.",
+                        )
+                else:
+                    print(f"Failed to install {package_name}: {stderr}")
+                    GLib.idle_add(
+                        self.desktopr_stat.set_text,
+                        f"Failed to install {package_name}. Error: {stderr}",
+                    )
+
+            except Exception as e:
+                print(f"An error occurred while installing {package_name}: {str(e)}")
+                GLib.idle_add(
+                    self.desktopr_stat.set_text,
+                    f"An error occurred: {str(e)}",
+                )
+        except Exception as e:
+            print(f"An error occurred while installing {package_name}: {str(e)}")
+            GLib.idle_add(
+                self.desktopr_stat.set_text,
+                f"An error occurred: {str(e)}",
+            )
+
+    # with fn.subprocess.Popen(
+    #     list(np.append(com1, command)),
+    #     bufsize=1,
+    #     stdout=fn.subprocess.PIPE,
+    #     universal_newlines=True,
+    # ) as p:
+    #     for line in p.stdout:
+    #         GLib.idle_add(self.desktopr_stat.set_text, line.strip())
+    # print("----------------------------------------------------------------")
 
     GLib.source_remove(timeout_id)
     timeout_id = None
