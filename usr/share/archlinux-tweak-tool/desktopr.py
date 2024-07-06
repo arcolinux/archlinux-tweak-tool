@@ -30,7 +30,6 @@ desktops = [
     "chadwm",
     "cutefish-xsession",
     "cwm",
-    "deepin",
     "fvwm3",
     "dk",
     "dusk",
@@ -283,37 +282,6 @@ if fn.distr == "arcolinux":
         "ttf-hack",
         "volumeicon",
         "xfce4-terminal",
-    ]
-    deepin = [
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-deepin-dconf-git",
-        "arcolinux-deepin-git",
-        "arcolinux-gtk3-sardi-arc-git",
-        "arcolinux-root-git",
-        "arcolinux-wallpapers-git",
-        "deepin",
-        "deepin-album",
-        "deepin-boot-maker",
-        "deepin-calculator",
-        "deepin-camera",
-        "deepin-clipboard",
-        "deepin-clone",
-        "deepin-community-wallpapers",
-        "deepin-compressor",
-        "deepin-device-formatter",
-        "deepin-draw",
-        "deepin-editor",
-        "deepin-font-manager",
-        "deepin-grand-search",
-        "deepin-movie",
-        "deepin-music",
-        "deepin-picker",
-        "deepin-printer",
-        "deepin-screen-recorder",
-        "deepin-screensaver-pp",
-        "deepin-terminal",
-        "deepin-voice-note",
-        "gvfs",
     ]
     dk = [
         "alacritty",
@@ -1260,10 +1228,6 @@ if fn.distr != "arcolinux":
         "thunar-volman",
         "ttf-hack",
     ]
-    deepin = [
-        "deepin",
-        "deepin-extra",
-    ]
     dk = [
         "alacritty",
         "arcolinux-dk-git",
@@ -1860,9 +1824,6 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.xprofile")
         src.append("/etc/skel/.config/polybar")
         twm = True
-    elif desktop == "deepin":
-        check_package_and_remove(self, "qt5ct")
-        command = deepin
     elif desktop == "dk":
         command = list(np.append(dk, default_app))
         src.append("/etc/skel/.config/dk")
@@ -2052,8 +2013,6 @@ def install_desktop(self, desktop, state):
                 "budgie-extras",
                 "cinnamon",
                 "cutefish",
-                "deepin-extra",
-                "deepin",
                 "enlightenment",
                 "gnome-extra",
                 "gnome",
