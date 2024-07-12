@@ -80,6 +80,7 @@ class Main(Gtk.Window):
         print(" - StormOS       - https://sourceforge.net/projects/hackman-linux/")
         print(" - Mabox         - https://maboxlinux.org/")
         print(" - ArchBang      - https://archbang.org/")
+        print(" - Crystal Linux - https://getcryst.al/")
         print(
             "---------------------------------------------------------------------------"
         )
@@ -878,10 +879,12 @@ class Main(Gtk.Window):
             self.neo_util.set_active(utilities.get_term_rc("neofetch"))
 
             # fastfetch
-            #self.neo_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
-            self.fastfetch_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
+            # self.neo_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
+            self.fastfetch_lolcat.set_active(
+                utilities.get_term_rc("fastfetch | lolcat")
+            )
             self.fastfetch_util.set_active(utilities.get_term_rc("fastfetch"))
-            #self.neo_util.set_active(utilities.get_term_rc("fastfetch"))
+            # self.neo_util.set_active(utilities.get_term_rc("fastfetch"))
 
         # =====================================================
         #                     LIGHTDM
@@ -2785,7 +2788,6 @@ class Main(Gtk.Window):
 
     def on_install_neo(self, widget):
         fn.install_package(self, "neofetch")
-
 
     # ====================================================================
     #                        FASTFETCH CONFIG
