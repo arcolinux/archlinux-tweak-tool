@@ -18,7 +18,7 @@ import settings
 import services
 import sddm
 import pacman_functions
-import neofetch
+import fastfetch
 import lxdm
 import login
 import lightdm
@@ -816,7 +816,7 @@ class Main(Gtk.Window):
             except Exception as error:
                 print(error)
 
-        # ========================NEOFETCH LOLCAT TOGGLE===================
+        # ========================FASTFETCH LOLCAT TOGGLE===================
 
         shell = fn.get_shell()
 
@@ -872,19 +872,13 @@ class Main(Gtk.Window):
             # colorscripts
             self.colorscript.set_active(utilities.get_term_rc("colorscript random"))
 
-            # Neofetch
-            self.neo_lolcat.set_active(utilities.get_term_rc("neofetch | lolcat"))
-            self.neofetch_lolcat.set_active(utilities.get_term_rc("neofetch | lolcat"))
-            self.neofetch_util.set_active(utilities.get_term_rc("neofetch"))
-            self.neo_util.set_active(utilities.get_term_rc("neofetch"))
-
-            # fastfetch
-            # self.neo_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
+                     # fastfetch
+            self.fast_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
             self.fastfetch_lolcat.set_active(
-                utilities.get_term_rc("fastfetch | lolcat")
-            )
+                utilities.get_term_rc("fastfetch | lolcat"))
+
             self.fastfetch_util.set_active(utilities.get_term_rc("fastfetch"))
-            # self.neo_util.set_active(utilities.get_term_rc("fastfetch"))
+            self.fast_util.set_active(utilities.get_term_rc("fastfetch"))
 
         # =====================================================
         #                     LIGHTDM
@@ -2783,11 +2777,11 @@ class Main(Gtk.Window):
             fn.show_in_app_notification(self, "You need to select all elements first")
 
     # ====================================================================
-    #                        NEOFETCH CONFIG
+    #                        FASTFETCH CONFIG
     # ====================================================================
 
-    def on_install_neo(self, widget):
-        fn.install_package(self, "neofetch")
+    def on_install_fast(self, widget):
+        fn.install_package(self, "fastfetch")
 
     # ====================================================================
     #                        FASTFETCH CONFIG
@@ -2799,7 +2793,7 @@ class Main(Gtk.Window):
     # def on_distro_ascii_changed(self, widget):
     #     self.big_ascii.set_active(True)
 
-    def on_apply_neo(self, widget):
+    def on_apply_fast(self, widget):
         small_ascii = "auto"
         backend = "off"
 
@@ -2829,26 +2823,26 @@ class Main(Gtk.Window):
                 if self.distro_ascii.get_active_text() == "Manjaro":
                     small_ascii = "manjaro_small"
 
-        neofetch.apply_config(self, backend, small_ascii)
+        fastfetch.apply_config(self, backend, small_ascii)
 
-    def on_reset_neo_att(self, widget):
-        if fn.path.isfile(fn.neofetch_arco):
-            fn.shutil.copy(fn.neofetch_arco, fn.neofetch_config)
-            fn.permissions(fn.neofetch_config)
-            print("Neofetch default ATT settings applied")
+    def on_reset_fast_att(self, widget):
+        if fn.path.isfile(fn.fastfetch_arco):
+            fn.shutil.copy(fn.fastfetch_arco, fn.fastfetch_config)
+            fn.permissions(fn.fastfetch_config)
+            print("Fastfetch default ATT settings applied")
             fn.show_in_app_notification(self, "Default settings applied")
-            neofetch.get_checkboxes(self)
+            fastfetch.get_checkboxes(self)
 
-    def on_reset_neo(self, widget):
-        if fn.path.isfile(fn.neofetch_config + ".bak"):
-            fn.shutil.copy(fn.neofetch_config + ".bak", fn.neofetch_config)
+    def on_reset_fast(self, widget):
+        if fn.path.isfile(fn.fastfetch_config + ".bak"):
+            fn.shutil.copy(fn.fastfetch_config + ".bak", fn.fastfetch_config)
 
-            backend = neofetch.check_backend()
+            backend = fastfetch.check_backend()
             if backend == "ascii":
                 self.asci.set_active(True)
 
-            neofetch.get_checkboxes(self)
-            print("Neofetch default settings applied")
+            fastfetch.get_checkboxes(self)
+            print("fastfetch default settings applied")
             fn.show_in_app_notification(self, "Default settings applied")
 
     def radio_toggled(self, widget):
@@ -2858,8 +2852,8 @@ class Main(Gtk.Window):
         else:
             self.big_ascii.set_sensitive(False)
             self.small_ascii.set_sensitive(False)
-
-    # When using this function to toggle a lolcat: utility = name of tool, e.g. neofetch
+    
+    # When using this function to toggle a lolcat: utility = name of tool, e.g. fastfetch
     def lolcat_toggle(self, widget, active, utility):
         # If set to active:
         util_str = utility
@@ -2869,11 +2863,11 @@ class Main(Gtk.Window):
             # If the utility is currently not acive, activate it
             if (
                 utilities.get_util_state(self, utility) is False
-                or utility == "neofetch"
+                or utility == "fastfetch"
             ):
                 utilities.set_util_state(self, utility, True, True)
-        # The below is to ensure that the check box on Neofetch always toggles to match correctly
-        elif widget.get_active() is False and utility == "neofetch":
+        # The below is to ensure that the check box on Fastfetch always toggles to match correctly
+        elif widget.get_active() is False and utility == "fastfetch":
             utilities.set_util_state(self, utility, True, False)
         utilities.write_configs(utility, util_str)
 
@@ -2882,7 +2876,7 @@ class Main(Gtk.Window):
         if widget.get_active():
             util_str = utility
             utilities.install_util(utility)
-            if utility == "neofetch":
+            if utility == "fastfetch":
                 utilities.set_util_state(
                     self, utility, True, utilities.get_lolcat_state(self, utility)
                 )
@@ -2891,25 +2885,25 @@ class Main(Gtk.Window):
             # If the lolcat for the utility is on; best turn it off too.
             if utilities.get_lolcat_state(self, utility):
                 utilities.set_util_state(self, utility, False, False)
-            if utility == "neofetch":
+            if utility == "fastfetch":
                 utilities.set_util_state(self, utility, False, False)
         utilities.write_configs(utility, util_str)
 
-    def on_click_neofetch_all_selection(self, widget):
-        print("You have selected all Neofetch switches")
-        neofetch.set_checkboxes_all(self)
+    def on_click_fastfetch_all_selection(self, widget):
+        print("You have selected all Fastfetch switches")
+        fastfetch.set_checkboxes_all(self)
 
-    def on_click_neofetch_normal_selection(self, widget):
+    def on_click_fastfetch_normal_selection(self, widget):
         print("You have selected the normal selection")
-        neofetch.set_checkboxes_normal(self)
+        fastfetch.set_checkboxes_normal(self)
 
-    def on_click_neofetch_small_selection(self, widget):
+    def on_click_fastfetch_small_selection(self, widget):
         print("You have selected the small selection")
-        neofetch.set_checkboxes_small(self)
+        fastfetch.set_checkboxes_small(self)
 
-    def on_click_neofetch_none_selection(self, widget):
-        print("You have not selected any Neofetch switch")
-        neofetch.set_checkboxes_none(self)
+    def on_click_fastfetch_none_selection(self, widget):
+        print("You have not selected any Fastfetch switch")
+        fastfetch.set_checkboxes_none(self)
 
     def on_mirror_seed_repo_toggle(self, widget, active):
         if not pmf.mirror_exist(
@@ -4881,6 +4875,12 @@ class Main(Gtk.Window):
         if fn.check_package_installed("lxdm"):
             lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
         print("Reloaded")
+
+
+
+
+
+
 
     # ================================================================================
     # ================================================================================

@@ -10,7 +10,7 @@ import fixes
 import lightdm
 import login
 import lxdm
-import neofetch
+import fastfetch
 import sddm
 import design
 import att
@@ -30,7 +30,7 @@ import fixes_gui
 import grub_gui
 import login_gui
 import arcolinuxmirrors_gui
-import neofetch_gui
+import fastfetch_gui
 import pacman_gui
 import privacy_gui
 import terminals_gui
@@ -186,28 +186,28 @@ Then you will be able to set the mirrors of ArcoLinux"
     login_gui.gui(self, Gtk, vboxstack22, sddm, lightdm, lxdm, fn, login)
 
     # # ==========================================================
-    # #               NEOFETCH
+    # #               FASTFETCH
     # # ==========================================================
 
-    if fn.file_check(fn.neofetch_config):
-        neofetch_gui.gui(self, Gtk, vboxstack8, neofetch, fn)
+    if fn.file_check(fn.fastfetch_config):
+        fastfetch_gui.gui(self, Gtk, vboxstack8, fastfetch, fn)
     else:
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         lbl1 = Gtk.Label(xalign=0)
-        lbl1.set_text("Neofetch Editor")
+        lbl1.set_text("fastfetch Editor")
         lbl1.set_name("title")
         hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         hbox41.pack_start(hseparator, True, True, 0)
         hbox31.pack_start(lbl1, False, False, 0)
         vboxstack8.pack_start(hbox31, False, False, 0)
         vboxstack8.pack_start(hbox41, False, False, 0)
-        neofetch_message = Gtk.Label()
-        neofetch_message.set_markup(
-            "If you install <b>Neofetch</b> and the <i>ArcoLinux \
-themes</i> you can customize <b>Neofetch</b>"
+        fastfetch_message = Gtk.Label()
+        fastfetch_message.set_markup(
+            "If you install <b>fastfetch</b> and the <i>ArcoLinux \
+themes</i> you can customize <b>fastfetch</b>"
         )
-        vboxstack8.pack_start(neofetch_message, True, False, 0)
+        vboxstack8.pack_start(fastfetch_message, True, False, 0)
 
     # ==========================================================
     #                 PACMAN
@@ -289,7 +289,7 @@ themes</i> you can customize <b>Neofetch</b>"
 
     stack.add_titled(vboxstack16, "stack16", "Mirrors")  # mirrors
 
-    stack.add_titled(vboxstack8, "stack4", "Neofetch")  # Neofetch config
+    stack.add_titled(vboxstack8, "stack4", "Fastfetch")  # fastfetch config
 
     stack.add_titled(vboxstack26, "packages", "Packages")  # Packages
 

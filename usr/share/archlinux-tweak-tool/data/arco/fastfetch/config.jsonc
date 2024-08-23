@@ -9,6 +9,7 @@
     "uptime",
     "packages",
     "shell",
+    "display",
     "de",
     "wm",
     "wmtheme",
@@ -23,5 +24,11 @@
     "memory",
     "swap",
     "disk",
+    "localip",
+    "battery",
+    "poweradapter",
+    "locale",
+    "break",
+    "colors"
   ]
 }
