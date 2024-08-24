@@ -2,21 +2,21 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 # pylint:disable=C0103,
+import fastfetch
 
-
-def gui(self, Gtk, vboxstack8, neofetch, fn):
+def gui(self, Gtk, vboxstack8, fastfetch, fn):
     """create a gui"""
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
-    lbl1.set_text("Neofetch Editor")
+    lbl1.set_text("Fastfetch Editor")
     lbl1.set_name("title")
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
 
     # ==========================================================
-    #                     NEOFETCH
+    #                     fastfetch
     # ==========================================================
 
     hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -34,7 +34,7 @@ def gui(self, Gtk, vboxstack8, neofetch, fn):
     self.off.connect("toggled", self.radio_toggled)
 
     self.distro_ascii = Gtk.ComboBoxText()
-    neofetch.pop_distro_combobox(self, self.distro_ascii)
+    fastfetch.pop_distro_combobox(self, self.distro_ascii)
     # self.distro_ascii.connect("changed", self.on_distro_ascii_changed)
     self.distro_ascii.set_active(0)
 
@@ -43,18 +43,18 @@ def gui(self, Gtk, vboxstack8, neofetch, fn):
     self.small_ascii = Gtk.RadioButton.new_from_widget(self.big_ascii)
     self.small_ascii.set_label("Use small ascii")
 
-    backend = neofetch.check_backend()
-    asci = neofetch.check_ascii()
+    backend = fastfetch.check_backend()
+    asci = fastfetch.check_ascii()
 
-    applyneofetch = Gtk.Button(label="Apply your Neofetch configuration")
-    resetnormalneofetch = Gtk.Button(label="Reset neofetch")
-    useattneofetch = Gtk.Button(label="Use ATT config")
-    installneofetch = Gtk.Button(label="Install Neofetch")
+    applyfastfetch = Gtk.Button(label="Apply Fastfetch configuration")
+    resetnormalfastfetch = Gtk.Button(label="Reset Fastfetch")
+    useattfastfetch = Gtk.Button(label="Use Default config")
+    installfastfetch = Gtk.Button(label="Install Fastfetch")
 
-    applyneofetch.connect("clicked", self.on_apply_neo)
-    resetnormalneofetch.connect("clicked", self.on_reset_neo)
-    useattneofetch.connect("clicked", self.on_reset_neo_att)
-    installneofetch.connect("clicked", self.on_install_neo)
+    applyfastfetch.connect("clicked", self.on_apply_fast)
+    resetnormalfastfetch.connect("clicked", self.on_reset_fast)
+    useattfastfetch.connect("clicked", self.on_reset_fast_att)
+    installfastfetch.connect("clicked", self.on_install_fast)
 
     hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox22.set_margin_top(30)
@@ -67,96 +67,88 @@ def gui(self, Gtk, vboxstack8, neofetch, fn):
     self.os = Gtk.CheckButton(label="Show os")
     self.host = Gtk.CheckButton(label="Show hostname")
     self.kernel = Gtk.CheckButton(label="Show kernel")
-
     self.uptime = Gtk.CheckButton(label="Show uptime")
     self.packages = Gtk.CheckButton(label="Show packages")
     self.shell = Gtk.CheckButton(label="Show shell")
-
-    self.res = Gtk.CheckButton(label="Show resolution")
+    self.display = Gtk.CheckButton(label="Show display")
     self.de = Gtk.CheckButton(label="Show de")
     self.wm = Gtk.CheckButton(label="Show wm")
     self.wmtheme = Gtk.CheckButton(label="Show wm theme")
-
     self.themes = Gtk.CheckButton(label="Show theme")
     self.icons = Gtk.CheckButton(label="Show icons")
     self.term = Gtk.CheckButton(label="Show terminal")
-
     self.termfont = Gtk.CheckButton(label="Show terminal font")
     self.cpu = Gtk.CheckButton(label="Show cpu")
     self.gpu = Gtk.CheckButton(label="Show gpu")
-
     self.mem = Gtk.CheckButton(label="Show memory")
-
-    self.gpu_driver = Gtk.CheckButton(label="Show gpu driver")
-    self.cpu_usage = Gtk.CheckButton(label="Show cpu usage")
+    self.swap = Gtk.CheckButton(label="Show swap")
+    self.cursor = Gtk.CheckButton(label="Show cursor")
     self.disks = Gtk.CheckButton(label="Show disk")
     self.font = Gtk.CheckButton(label="Show font")
-    self.song = Gtk.CheckButton(label="Show song")
+    self.disks = Gtk.CheckButton(label="Show disks")
     self.lIP = Gtk.CheckButton(label="Show local ip")
     self.PIP = Gtk.CheckButton(label="Show public ip")
-    self.users = Gtk.CheckButton(label="Show users")
     self.local = Gtk.CheckButton(label="Show locale")
-
-    self.cblocks = Gtk.CheckButton(label="Show blocks")
-
+    self.batt = Gtk.CheckButton(label="Show battery")
+    self.pwr = Gtk.CheckButton(label="Show power adapter")
     self.title = Gtk.CheckButton(label="Show title")
+    self.cblocks = Gtk.CheckButton(label="Show color blocks")
 
-    self.neo_lolcat = Gtk.Switch()
-    self.neo_lolcat.connect("notify::active", self.lolcat_toggle, "neofetch")
+    self.fast_lolcat = Gtk.Switch()
+    self.fast_lolcat.connect("notify::active", self.lolcat_toggle, "fastfetch")
     lolcat_label = Gtk.Label(xalign=0)
     lolcat_label.set_markup("Use lolcat")
-    self.neo_util = Gtk.Switch()
-    self.neo_util.connect("notify::active", self.util_toggle, "neofetch")
-    neo_util_label = Gtk.Label(xalign=0)
-    neo_util_label.set_markup("Neofetch enabled")
+    self.fast_util = Gtk.Switch()
+    self.fast_util.connect("notify::active", self.util_toggle, "fastfetch")
+    fast_util_label = Gtk.Label(xalign=0)
+    fast_util_label.set_markup("Fastfetch enabled")
 
     flowbox = Gtk.FlowBox()
     flowbox.set_valign(Gtk.Align.START)
     flowbox.set_max_children_per_line(10)
     flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
 
+    flowbox.add(self.title)
     flowbox.add(self.os)
     flowbox.add(self.host)
     flowbox.add(self.kernel)
     flowbox.add(self.uptime)
     flowbox.add(self.packages)
     flowbox.add(self.shell)
-    flowbox.add(self.res)
+    flowbox.add(self.display)
     flowbox.add(self.de)
     flowbox.add(self.wm)
     flowbox.add(self.wmtheme)
     flowbox.add(self.themes)
     flowbox.add(self.icons)
+    flowbox.add(self.font)
+    flowbox.add(self.cursor)
     flowbox.add(self.term)
     flowbox.add(self.termfont)
     flowbox.add(self.cpu)
     flowbox.add(self.gpu)
     flowbox.add(self.mem)
-    flowbox.add(self.gpu_driver)
-    flowbox.add(self.cpu_usage)
+    flowbox.add(self.swap)
     flowbox.add(self.disks)
-    flowbox.add(self.font)
-    flowbox.add(self.song)
     flowbox.add(self.lIP)
-    flowbox.add(self.PIP)
-    flowbox.add(self.users)
+    flowbox.add(self.batt)
+    flowbox.add(self.pwr)
     flowbox.add(self.local)
     flowbox.add(self.cblocks)
-    flowbox.add(self.title)
 
-    neofetch.get_checkboxes(self)
+    fastfetch.get_checkboxes(self)
 
     hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label21 = Gtk.Label()
     label21.set_text("Choose what to select with a button")
     btn_all_selection = Gtk.Button(label="All")
-    btn_all_selection.connect("clicked", self.on_click_neofetch_all_selection)
+    btn_all_selection.connect("clicked", self.on_click_fastfetch_all_selection)
     btn_normal_selection = Gtk.Button(label="Normal")
-    btn_normal_selection.connect("clicked", self.on_click_neofetch_normal_selection)
+    btn_normal_selection.connect("clicked", self.on_click_fastfetch_normal_selection)
     btn_small_selection = Gtk.Button(label="Small")
-    btn_small_selection.connect("clicked", self.on_click_neofetch_small_selection)
+    btn_small_selection.connect("clicked", self.on_click_fastfetch_small_selection)
     btn_none_selection = Gtk.Button(label="None")
-    btn_none_selection.connect("clicked", self.on_click_neofetch_none_selection)
+    btn_none_selection.connect("clicked", self.on_click_fastfetch_none_selection)
     hbox21.pack_start(label21, False, False, 10)
     hbox21.pack_end(btn_none_selection, False, False, 10)
     hbox21.pack_end(btn_small_selection, False, False, 10)
@@ -173,16 +165,16 @@ def gui(self, Gtk, vboxstack8, neofetch, fn):
     hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label28 = Gtk.Label()
     label28.set_text(
-        "AmOS is using a personalized neofetch application\n\
-Switch to the default neofetch to use this tab"
+        "AmOS is using a personalized fastfetch application\n\
+Switch to the default fastfetch to use this tab"
     )
     hbox28.pack_start(label28, False, False, 10)
 
     hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label29 = Gtk.Label()
     label29.set_text(
-        "Archcraft is using a personalized neofetch configuration\n\
-Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/config.conf"
+        "Archcraft is using a personalized fastfetch configuration\n\
+Switch to the default fastfetch to use this tab - delete the ~/.config/fastfetch/config.conf"
     )
     hbox29.pack_start(label29, False, False, 10)
 
@@ -196,15 +188,15 @@ Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/c
 
     hbox25.pack_start(flowbox, True, True, 10)
 
-    hbox27.pack_start(neo_util_label, False, False, 10)
-    hbox27.pack_start(self.neo_util, False, False, 30)
+    hbox27.pack_start(fast_util_label, False, False, 10)
+    hbox27.pack_start(self.fast_util, False, False, 30)
     hbox27.pack_start(lolcat_label, False, False, 0)
-    hbox27.pack_start(self.neo_lolcat, False, False, 30)
+    hbox27.pack_start(self.fast_lolcat, False, False, 30)
 
-    hbox24.pack_start(installneofetch, False, False, 0)
-    hbox24.pack_start(useattneofetch, False, False, 0)
-    hbox24.pack_end(applyneofetch, False, False, 0)
-    hbox24.pack_end(resetnormalneofetch, False, False, 0)
+    hbox24.pack_start(installfastfetch, False, False, 0)
+    hbox24.pack_start(useattfastfetch, False, False, 0)
+    hbox24.pack_end(applyfastfetch, False, False, 0)
+    hbox24.pack_end(resetnormalfastfetch, False, False, 0)
 
     vboxstack8.pack_start(hbox3, False, False, 0)
     vboxstack8.pack_start(hbox4, False, False, 0)
