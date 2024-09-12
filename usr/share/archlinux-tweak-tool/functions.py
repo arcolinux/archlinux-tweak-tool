@@ -22,6 +22,7 @@ import subprocess
 import logging
 import time
 from queue import Queue
+import pwd
 
 # =====================================================
 #              BEGIN DECLARATION OF VARIABLES
@@ -288,9 +289,7 @@ def get_lines(files):
             return lines
     except Exception as error:
         print(error)
-
-
-# get position in list
+    # get position in list
 
 
 def get_position(lists, value):
@@ -1723,6 +1722,22 @@ def fastfetch_set_backend_value(lists, pos, text, value):
     if text in lists[pos] and "#" not in lists[pos]:
         lists[pos] = text + value + '"\n'
 
+def get_shell_config():
+    # Get the actual user's home directory
+    user_name = os.getlogin()
+    user_home = pwd.getpwnam(user_name).pw_dir
+
+    possible_configs = [
+        os.path.join(user_home, '.bashrc'),
+        os.path.join(user_home, '.zshrc'),
+        os.path.join(user_home, '.config', 'fish', 'config.fish')
+    ]
+    
+    for config in possible_configs:
+        if os.path.isfile(config):
+            return config
+    
+    return None
 
 # =====================================================
 #               NOTIFICATIONS

@@ -3,6 +3,7 @@
 # ============================================================
 # pylint:disable=C0103,
 import fastfetch
+import utilities
 
 def gui(self, Gtk, vboxstack8, fastfetch, fn):
     """create a gui"""
@@ -26,34 +27,22 @@ def gui(self, Gtk, vboxstack8, fastfetch, fn):
     )
     hbox23.pack_start(warning_label, False, False, 10)
 
-    self.asci = Gtk.RadioButton(label="Enable ascii backend")
-    self.asci.connect("toggled", self.radio_toggled)
+    self.fast_util = Gtk.Switch()
+    self.fast_util.connect("notify::active", self.on_fast_util_toggled)
+    fast_util_label = Gtk.Label(xalign=0)
+    fast_util_label.set_markup("Fastfetch enabled")
 
-    self.off = Gtk.RadioButton.new_from_widget(self.asci)
-    self.off.set_label("No backend")
-    self.off.connect("toggled", self.radio_toggled)
-
-    self.distro_ascii = Gtk.ComboBoxText()
-    fastfetch.pop_distro_combobox(self, self.distro_ascii)
-    # self.distro_ascii.connect("changed", self.on_distro_ascii_changed)
-    self.distro_ascii.set_active(0)
-
-    self.big_ascii = Gtk.RadioButton(label="Use normal ascii")
-
-    self.small_ascii = Gtk.RadioButton.new_from_widget(self.big_ascii)
-    self.small_ascii.set_label("Use small ascii")
-
-    backend = fastfetch.check_backend()
-    asci = fastfetch.check_ascii()
+    self.fast_lolcat = Gtk.Switch()
+    self.fast_lolcat.connect("notify::active", self.on_fast_lolcat_toggled)
+    fast_lolcat_label = Gtk.Label(xalign=0)
+    fast_lolcat_label.set_markup("Lolcat enabled")
 
     applyfastfetch = Gtk.Button(label="Apply Fastfetch configuration")
     resetnormalfastfetch = Gtk.Button(label="Reset Fastfetch")
-    useattfastfetch = Gtk.Button(label="Use Default config")
     installfastfetch = Gtk.Button(label="Install Fastfetch")
 
     applyfastfetch.connect("clicked", self.on_apply_fast)
     resetnormalfastfetch.connect("clicked", self.on_reset_fast)
-    useattfastfetch.connect("clicked", self.on_reset_fast_att)
     installfastfetch.connect("clicked", self.on_install_fast)
 
     hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -93,48 +82,6 @@ def gui(self, Gtk, vboxstack8, fastfetch, fn):
     self.pwr = Gtk.CheckButton(label="Show power adapter")
     self.title = Gtk.CheckButton(label="Show title")
     self.cblocks = Gtk.CheckButton(label="Show color blocks")
-
-    self.fast_lolcat = Gtk.Switch()
-    self.fast_lolcat.connect("notify::active", self.lolcat_toggle, "fastfetch")
-    lolcat_label = Gtk.Label(xalign=0)
-    lolcat_label.set_markup("Use lolcat")
-    self.fast_util = Gtk.Switch()
-    self.fast_util.connect("notify::active", self.util_toggle, "fastfetch")
-    fast_util_label = Gtk.Label(xalign=0)
-    fast_util_label.set_markup("Fastfetch enabled")
-
-    flowbox = Gtk.FlowBox()
-    flowbox.set_valign(Gtk.Align.START)
-    flowbox.set_max_children_per_line(10)
-    flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
-
-    flowbox.add(self.title)
-    flowbox.add(self.os)
-    flowbox.add(self.host)
-    flowbox.add(self.kernel)
-    flowbox.add(self.uptime)
-    flowbox.add(self.packages)
-    flowbox.add(self.shell)
-    flowbox.add(self.display)
-    flowbox.add(self.de)
-    flowbox.add(self.wm)
-    flowbox.add(self.wmtheme)
-    flowbox.add(self.themes)
-    flowbox.add(self.icons)
-    flowbox.add(self.font)
-    flowbox.add(self.cursor)
-    flowbox.add(self.term)
-    flowbox.add(self.termfont)
-    flowbox.add(self.cpu)
-    flowbox.add(self.gpu)
-    flowbox.add(self.mem)
-    flowbox.add(self.swap)
-    flowbox.add(self.disks)
-    flowbox.add(self.lIP)
-    flowbox.add(self.batt)
-    flowbox.add(self.pwr)
-    flowbox.add(self.local)
-    flowbox.add(self.cblocks)
 
     fastfetch.get_checkboxes(self)
 
@@ -178,23 +125,47 @@ Switch to the default fastfetch to use this tab - delete the ~/.config/fastfetch
     )
     hbox29.pack_start(label29, False, False, 10)
 
-    # hbox22.pack_start(self.w3m, True, False, 10)
-    hbox22.pack_end(self.off, True, False, 10)
-    hbox22.pack_end(self.asci, True, False, 10)
+    flowbox = Gtk.FlowBox()
+    flowbox.set_valign(Gtk.Align.START)
+    flowbox.set_max_children_per_line(10)
+    flowbox.set_selection_mode(Gtk.SelectionMode.NONE)
 
-    self.hbox26.pack_start(self.distro_ascii, True, False, 10)
-    self.hbox26.pack_start(self.big_ascii, True, False, 10)
-    self.hbox26.pack_start(self.small_ascii, True, False, 10)
+    flowbox.add(self.title)
+    flowbox.add(self.os)
+    flowbox.add(self.host)
+    flowbox.add(self.kernel)
+    flowbox.add(self.uptime)
+    flowbox.add(self.packages)
+    flowbox.add(self.shell)
+    flowbox.add(self.display)
+    flowbox.add(self.de)
+    flowbox.add(self.wm)
+    flowbox.add(self.wmtheme)
+    flowbox.add(self.themes)
+    flowbox.add(self.icons)
+    flowbox.add(self.font)
+    flowbox.add(self.cursor)
+    flowbox.add(self.term)
+    flowbox.add(self.termfont)
+    flowbox.add(self.cpu)
+    flowbox.add(self.gpu)
+    flowbox.add(self.mem)
+    flowbox.add(self.swap)
+    flowbox.add(self.disks)
+    flowbox.add(self.lIP)
+    flowbox.add(self.batt)
+    flowbox.add(self.pwr)
+    flowbox.add(self.local)
+    flowbox.add(self.cblocks)
 
     hbox25.pack_start(flowbox, True, True, 10)
 
     hbox27.pack_start(fast_util_label, False, False, 10)
     hbox27.pack_start(self.fast_util, False, False, 30)
-    hbox27.pack_start(lolcat_label, False, False, 0)
+    hbox27.pack_start(fast_lolcat_label, False, False, 0)
     hbox27.pack_start(self.fast_lolcat, False, False, 30)
 
     hbox24.pack_start(installfastfetch, False, False, 0)
-    hbox24.pack_start(useattfastfetch, False, False, 0)
     hbox24.pack_end(applyfastfetch, False, False, 0)
     hbox24.pack_end(resetnormalfastfetch, False, False, 0)
 
@@ -217,18 +188,35 @@ Switch to the default fastfetch to use this tab - delete the ~/.config/fastfetch
 
     vboxstack8.pack_end(hbox24, False, False, 0)
 
-    if backend == "ascii":
-        self.asci.set_active(True)
-        self.big_ascii.set_sensitive(True)
-        self.small_ascii.set_sensitive(True)
-    elif backend == "off":
-        self.off.set_active(True)
-        self.big_ascii.set_sensitive(False)
-        self.small_ascii.set_sensitive(False)
-    else:
-        # self.w3m.set_active(True)
-        self.big_ascii.set_sensitive(False)
-        self.small_ascii.set_sensitive(False)
+    # Initialize lolcat switch sensitivity based on fastfetch state
+    self.fast_lolcat.set_sensitive(self.fast_util.get_active())
 
-    if asci == "auto":
-        self.big_ascii.set_active(True)
+def on_fast_util_toggled(self, switch, gparam):
+    """Handler for fastfetch toggle switch."""
+    fastfetch_enabled = switch.get_active()
+    
+    # Enable or disable lolcat based on fastfetch state
+    if not fastfetch_enabled:
+        # If fastfetch is turned off, lolcat must also be turned off
+        self.fast_lolcat.set_active(False)
+        self.fast_lolcat.set_sensitive(False)  # Disable lolcat toggle
+    else:
+        # If fastfetch is enabled, lolcat can be toggled independently
+        self.fast_lolcat.set_sensitive(True)
+
+    # Write to shellrc only when fastfetch is toggled
+    utilities.write_configs("fastfetch", fastfetch_enabled, self.fast_lolcat.get_active())
+
+
+def on_fast_lolcat_toggled(self, switch, gparam):
+    """Handler for lolcat toggle switch."""
+    lolcat_enabled = switch.get_active()
+    
+    # Write to shellrc only when lolcat is toggled
+    # Note: This is only relevant if fastfetch is enabled, hence no further checks needed
+    utilities.write_configs("fastfetch", self.fast_util.get_active(), lolcat_enabled)
+
+
+def update_gui(self):
+    # Your code to update the GUI goes here
+    pass

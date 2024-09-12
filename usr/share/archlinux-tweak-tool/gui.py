@@ -168,24 +168,6 @@ Then you will be able to set the mirrors of ArcoLinux"
     design_gui.gui(self, Gtk, vboxstack24, design, fn)
 
     # # ==========================================================
-    # #               FIXES
-    # # ==========================================================
-
-    fixes_gui.gui(self, Gtk, vboxstack19, fn, fixes)
-
-    # ==========================================================
-    #                 GRUB
-    # ==========================================================
-
-    grub_gui.gui(self, Gtk, vboxstack4, fn)
-
-    # ==========================================================
-    #                         LOGIN
-    # ==========================================================
-
-    login_gui.gui(self, Gtk, vboxstack22, sddm, lightdm, lxdm, fn, login)
-
-    # # ==========================================================
     # #               FASTFETCH
     # # ==========================================================
 
@@ -208,6 +190,24 @@ Then you will be able to set the mirrors of ArcoLinux"
 themes</i> you can customize <b>fastfetch</b>"
         )
         vboxstack8.pack_start(fastfetch_message, True, False, 0)
+
+    # # ==========================================================
+    # #               FIXES
+    # # ==========================================================
+
+    fixes_gui.gui(self, Gtk, vboxstack19, fn, fixes)
+
+    # ==========================================================
+    #                 GRUB
+    # ==========================================================
+
+    grub_gui.gui(self, Gtk, vboxstack4, fn)
+
+    # ==========================================================
+    #                         LOGIN
+    # ==========================================================
+
+    login_gui.gui(self, Gtk, vboxstack22, sddm, lightdm, lxdm, fn, login)
 
     # ==========================================================
     #                 PACMAN
@@ -280,6 +280,8 @@ themes</i> you can customize <b>fastfetch</b>"
 
     stack.add_titled(vboxstack12, "stack12", "Desktop")  # Desktop installer
 
+    stack.add_titled(vboxstack8, "stack4", "Fastfetch")  # fastfetch config
+
     stack.add_titled(vboxstack19, "stack19", "Fixes")  # Fixes
 
     stack.add_titled(vboxstack4, "stack1", "Grub")  # Grub config
@@ -288,8 +290,6 @@ themes</i> you can customize <b>fastfetch</b>"
         stack.add_titled(vboxstack22, "stack22", "Login")  # Sddm/Lightdm/Lxdm
 
     stack.add_titled(vboxstack16, "stack16", "Mirrors")  # mirrors
-
-    stack.add_titled(vboxstack8, "stack4", "Fastfetch")  # fastfetch config
 
     stack.add_titled(vboxstack26, "packages", "Packages")  # Packages
 

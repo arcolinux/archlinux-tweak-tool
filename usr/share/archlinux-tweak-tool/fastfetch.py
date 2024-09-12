@@ -7,6 +7,7 @@ import subprocess
 import functions as fn
 import re
 import json
+import utilities
 
 # ====================================================================
 #                       Fastfetch
@@ -18,19 +19,82 @@ def get_fastfetch():
     if fn.path.isfile(fn.fastfetch_config):
         with open(fn.fastfetch_config, "r", encoding="utf-8") as f:
             jsonc_content = f.read()
-            print("Original JSONC Content:\n", jsonc_content)
-            
-            if not jsonc_content.strip():
-                print("Error: Content is empty or invalid.")
-                return data
-            
-            try:
-                data = json.loads(jsonc_content)
-            except json.JSONDecodeError as e:
-                print(f"Invalid JSON detected: {e}")
-                print("Error: The configuration file is not valid JSON.")
     
     return data
+
+
+def toggle_fastfetch(enable):
+    """Toggle fastfetch in shell config file"""
+    shell_config = fn.get_shell_config()
+    if not shell_config:
+        return False
+
+    try:
+        with open(shell_config, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        
+        # Find the reporting tools section
+        reporting_section_start = -1
+        for i, line in enumerate(lines):
+            if "# reporting tools" in line.lower():
+                reporting_section_start = i
+                break
+
+        if reporting_section_start == -1:
+            return False  # Exit if the reporting tools section is not found
+
+        # Find the fastfetch line within the reporting tools section
+        fastfetch_line = -1
+        for i in range(reporting_section_start, len(lines)):
+            if lines[i].strip().startswith(("fastfetch", "#fastfetch")):
+                fastfetch_line = i
+                break
+
+        if fastfetch_line == -1:
+            return False  # Exit if fastfetch line is not found
+
+        # Check if the line is commented out
+        if lines[fastfetch_line].strip().startswith("#"):
+            if enable:
+                return False  # Do not enable if it's commented out
+            # If disabling, we can proceed to comment it out
+
+        # Toggle only the fastfetch line
+        if enable:
+            lines[fastfetch_line] = lines[fastfetch_line].lstrip('#')  # Uncomment
+        else:
+            if not lines[fastfetch_line].strip().startswith('#'):
+                lines[fastfetch_line] = '#' + lines[fastfetch_line]  # Comment out
+
+        with open(shell_config, "w", encoding="utf-8") as f:
+            f.writelines(lines)
+        return True
+    except Exception:
+        return False
+
+def toggle_lolcat(enable):
+    """Toggle lolcat for fastfetch in shell config file"""
+    shell_config = fn.get_shell_config()
+    if not shell_config:
+        return False
+
+    try:
+        with open(shell_config, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        
+        lolcat_lines = [i for i, line in enumerate(lines) 
+                        if "| lolcat" in line.lower()]
+        
+        for line in lolcat_lines:
+            # Skip updating the alias line and the line above it
+            if "| lolcat" in lines[line] or line > 0 and "| lolcat" in lines[line - 1]:
+                continue
+        
+        with open(shell_config, "w", encoding="utf-8") as f:
+            f.writelines(lines)
+        return True
+    except Exception:
+        return False
 
 def check_backend():
     """See if image backend is active."""
@@ -42,15 +106,6 @@ def check_backend():
                 return image_backend.strip('"')
     return "ascii"
 
-def check_ascii():
-    """See if ASCII distro is active."""
-    if fn.path.isfile(fn.fastfetch_config):
-        config = get_fastfetch()
-        if config:
-            ascii_distro = config.get("ascii_distro", "auto")
-            return ascii_distro.strip('"')
-    return "auto"
-
 def apply_config(self, backend, ascii_size):
     """Apply fastfetch configuration"""
     if fn.path.isfile(fn.fastfetch_config):
@@ -58,7 +113,6 @@ def apply_config(self, backend, ascii_size):
             lines = f.readlines()
 
         # Mapping keys to checkboxes
-        # Reads config file line by line for each model
         key_to_checkbox = {
             '"os"': self.os,
             '"host"': self.host,
@@ -86,7 +140,7 @@ def apply_config(self, backend, ascii_size):
             '"poweradapter"': self.pwr,
             '"locale"': self.local,
             '"title"': self.title,
-            '"underline"': self.title,  # Assuming underline is tied to the title checkbox
+            '"underline"': self.title,
             '"colors"': self.cblocks,
         }
  
@@ -103,49 +157,7 @@ def apply_config(self, backend, ascii_size):
         with open(fn.fastfetch_config, "w", encoding="utf-8") as f:
             f.writelines(lines)
 
-        print("fastfetch settings saved successfully")
         fn.show_in_app_notification(self, "fastfetch settings saved successfully")
-
-def get_checkbox_state(self, key):
-    """Return the state of the checkbox corresponding to the given key."""
-    # Mapping keys to checkboxes
-    key_to_checkbox = {
-        '"OS"': self.os,
-        '"Host"': self.host,
-        '"Kernel"': self.kernel,
-        '"Uptime"': self.uptime,
-        '"Packages"': self.packages,
-        '"Shell"': self.shell,
-        '"Display"': self.display,
-        '"DE"': self.de,
-        '"WM"': self.wm,
-        '"WM Theme"': self.wmtheme,
-        '"Theme"': self.themes,
-        '"Icons"': self.icons,
-        '"Font"': self.font,
-        '"Cursor"': self.cursor,
-        '"Terminal"': self.term,
-        '"Terminal Font"': self.termfont,
-        '"CPU"': self.cpu,
-        '"GPU"': self.gpu,
-        '"Memory"': self.mem,
-        '"Swap"': self.swap,
-        '"PowerAdapter"': self,
-        '"Disk"': self.disks,
-        '"Local IP"': self.lIP,
-        '"Battery"': self.batt,
-        '"Power Adapter"': self.pwr,
-        '"Locale"': self.local,
-        '"title"': self.title,
-        '"underline"': self.title,  
-        '"Color Blocks"': self.cblocks,
-    }
-
-    checkbox = key_to_checkbox.get(key)
-    if checkbox is not None:
-        return checkbox.get_active()
-
-    return None
 
 def get_checkboxes(self):
     """Read the state of the checkboxes from the JSONC configuration."""
@@ -180,11 +192,8 @@ def get_checkboxes(self):
     self.local.set_active(config.get("info", {}).get("Locale", False))
     self.cblocks.set_active(config.get("info", {}).get("Color Blocks", False))
 
-    # Setting the color blocks checkbox based on the configuration
-    #self.cblocks.set_active(config.get("color_blocks", "off") == "on")
-
 def set_checkboxes_normal(self):
-    """Set the state of the checkboxes to the default or normal state."""
+    """set the state of the checkboxes and ensure separator is uncommented"""
     self.title.set_active(True)
     self.os.set_active(True)
     self.host.set_active(True)
@@ -212,9 +221,11 @@ def set_checkboxes_normal(self):
     self.pwr.set_active(True)
     self.local.set_active(False)
     self.cblocks.set_active(False)
+    
+    _ensure_separator_uncommented()
 
 def set_checkboxes_small(self):
-    """set the state of the checkboxes"""
+    """set the state of the checkboxes and ensure separator is uncommented"""
     self.title.set_active(True)
     self.os.set_active(False)
     self.host.set_active(False)
@@ -242,9 +253,11 @@ def set_checkboxes_small(self):
     self.pwr.set_active(True)
     self.local.set_active(False)
     self.cblocks.set_active(False)
+    
+    _ensure_separator_uncommented()
 
 def set_checkboxes_all(self):
-    """set the state of the checkboxes"""
+    """set the state of the checkboxes and ensure separator is uncommented"""
     self.title.set_active(True)
     self.os.set_active(True)
     self.host.set_active(True)
@@ -273,8 +286,10 @@ def set_checkboxes_all(self):
     self.local.set_active(True)
     self.cblocks.set_active(True)
     
+    _ensure_separator_uncommented()
+    
 def set_checkboxes_none(self):
-    """set the state of the checkboxes"""
+    """set the state of the checkboxes and comment out separator in config.jsonc"""
     self.title.set_active(False)
     self.os.set_active(False)
     self.host.set_active(False)
@@ -302,113 +317,31 @@ def set_checkboxes_none(self):
     self.pwr.set_active(False)
     self.local.set_active(False)
     self.cblocks.set_active(False)
-
-def pop_distro_combobox(self, combo):
-    """Populate the distro combo box with available options."""
     
-    # Clear the existing items in the combo box
-    combo.get_model().clear()
-    
-    # List of available distributions and operating systems
-    list_distros = [
-        "auto",
-        "Antergos",
-        "Anarchy",
-        "Android",
-        "Antergos",
-        "antiX",
-        "ArcoLinux",
-        "ArchBox",
-        "ARCHlabs",
-        "ArchStrike",
-        "Arch",
-        "Artix",
-        "Arya",
-        "Bedrock",
-        "BlackArch",
-        "BSD",
-        "BunsenLabs",
-        "CentOS",
-        "Chakra",
-        "ClearOS",
-        "Debian",
-        "Deepin",
-        "Elementary",
-        "EndeavourOS",
-        "Fedora",
-        "Feren",
-        "FreeBSD",
-        "Frugalware",
-        "Funtoo",
-        "Garuda",
-        "Gentoo",
-        "GNOME",
-        "GNU",
-        "Kali",
-        "KaOS",
-        "KDE_neon",
-        "Kubuntu",
-        "LMDE",
-        "Lubuntu",
-        "macos",
-        "Mageia",
-        "MagpieOS",
-        "Mandriva",
-        "Manjaro",
-        "Maui",
-        "LinuxMint",
-        "MX_Linux",
-        "Namib",
-        "NetBSD",
-        "Netrunner",
-        "Nitrux",
-        "NixOS",
-        "OBRevenge",
-        "OpenBSD",
-        "OpenMandriva",
-        "Oracle",
-        "PCLinuxOS",
-        "Peppermint",
-        "popos",
-        "Puppy",
-        "PureOS",
-        "Raspbian",
-        "Reborn_OS",
-        "Redcore",
-        "Redhat",
-        "SalentOS",
-        "Slackware",
-        "Solus",
-        "SteamOS",
-        "SunOS",
-        "openSUSE_Leap",
-        "openSUSE_Tumbleweed",
-        "openSUSE",
-        "SwagArch",
-        "Ubuntu-Budgie",
-        "Ubuntu-GNOME",
-        "Ubuntu-MATE",
-        "Ubuntu-Studio",
-        "Ubuntu",
-        "Venom",
-        "Void",
-        "windows10",
-        "Windows7",
-        "Xubuntu",
-        "Zorin",
-    ]
+    _ensure_separator_commented()
 
-    # Add each distro to the combo box
-    for item in list_distros:
-        combo.append_text(item)
+def _ensure_separator_uncommented():
+    """Ensure the separator in config.jsonc is uncommented"""
+    if fn.path.isfile(fn.fastfetch_config):
+        with open(fn.fastfetch_config, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        
+        for i, line in enumerate(lines):
+            if '"separator"' in line and line.strip().startswith('//'):
+                lines[i] = line.lstrip('/')
 
-    # Optional: Automatically set the active item based on a config value
-    # Uncomment and adjust the following code if you want to pre-select an item
-    # try:
-    #     name = fn.get_position(fn.fastfetch_config, "ascii_distro=").split("=")[1].strip().lower()
-    #     for i, item in enumerate(list_distros):
-    #         if name == item.lower():
-    #             combo.set_active(i)
-    #             break
-    # except IndexError:
-    #     pass
+        with open(fn.fastfetch_config, "w", encoding="utf-8") as f:
+            f.writelines(lines)
+
+def _ensure_separator_commented():
+    """Ensure the separator in config.jsonc is commented out"""
+    if fn.path.isfile(fn.fastfetch_config):
+        with open(fn.fastfetch_config, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        
+        for i, line in enumerate(lines):
+            if '"separator"' in line and not line.strip().startswith('//'):
+                lines[i] = '//' + line
+
+        with open(fn.fastfetch_config, "w", encoding="utf-8") as f:
+            f.writelines(lines)
