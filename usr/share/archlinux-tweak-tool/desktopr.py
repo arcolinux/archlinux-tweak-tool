@@ -840,7 +840,7 @@ if fn.distr == "arcolinux":
         "ktorrent",
         "ocs-url",
         "okular",
-        "packagekit-qt5",
+        "packagekit-qt6",
         "partitionmanager",
         "spectacle",
         "surfn-plasma-dark-icons-git",
@@ -1530,7 +1530,7 @@ if fn.distr != "arcolinux":
         "kde-system-meta",
         "discover",
         "kate",
-        "packagekit-qt5",
+        "packagekit-qt6",
     ]
     qtile = [
         "alacritty",
