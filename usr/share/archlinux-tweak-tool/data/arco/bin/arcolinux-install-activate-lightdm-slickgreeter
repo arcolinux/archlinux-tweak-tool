@@ -26,12 +26,18 @@
 #tput setaf 8 = light blue
 ##################################################################################################################
 
-#echo "Fix for icons not showing up in pamac-aur"
+echo "###############################################################################"
+echo "Install packages"
+echo "###############################################################################"
 
-zcat /usr/share/app-info/xmls/community.xml.gz | sed 's|<em>||g;s|<\/em>||g;' | gzip > "new.xml.gz"
-mv new.xml.gz /usr/share/app-info/xmls/community.xml.gz
-appstreamcli refresh-cache --force
+sudo pacman -S lightdm lightdm-slick-greeter --noconfirm --needed
 
-zcat /usr/share/app-info/xmls/extra.xml.gz | sed 's|<em>||g;s|<\/em>||g;' | gzip > "new.xml.gz"
-mv new.xml.gz /usr/share/app-info/xmls/extra.xml.gz
-appstreamcli refresh-cache --force
+echo "###############################################################################"
+echo "Change to lightdm-slick-greeter"
+echo "###############################################################################"
+
+sudo sed -i "s/#greeter-session=example-gtk-gnome/greeter-session=lightdm-slick-greeter/g" /etc/lightdm/lightdm.conf
+
+echo "###############################################################################"
+echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
+echo "###############################################################################"

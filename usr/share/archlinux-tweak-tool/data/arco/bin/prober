@@ -26,8 +26,4 @@
 #tput setaf 8 = light blue
 ##################################################################################################################
 
-sudo pacman -Sy
-sudo pacman -S sublime-text-4 --noconfirm --needed
-sudo pacman -S the_platinum_searcher-bin --noconfirm --needed
-sudo pacman -S ripgrep --noconfirm --needed
-sudo pacman -S meld --noconfirm --needed
+sudo -E hw-probe -all -upload

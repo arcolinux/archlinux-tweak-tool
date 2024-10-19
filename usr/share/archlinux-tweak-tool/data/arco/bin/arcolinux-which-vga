@@ -57,7 +57,7 @@ else
 	sudo pacman -S glxinfo --noconfirm
 fi
 
-glxinfo|egrep "OpenGL vendor|OpenGL renderer*"
+glxinfo | grep -E "OpenGL vendor|OpenGL renderer*"
 
 echo
 echo "###############################################################################"
@@ -72,5 +72,5 @@ else
 fi
 
 echo "###############################################################################"
-echo "###                               DONE                                     ####"
+echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
 echo "###############################################################################"

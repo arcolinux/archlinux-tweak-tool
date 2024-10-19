@@ -25,20 +25,20 @@
 #tput setaf 7 = gray 
 #tput setaf 8 = light blue
 ##################################################################################################################
-echo "Changing logo"
 
-if [ -f /usr/local/bin/get-nemesis-on-arcolinux ]; then
-    sudo cp /usr/local/share/arcolinux/release/lsb-release-arco /etc/lsb-release
+if grep -q "\[arcolinux_repo\]" /etc/pacman.conf; then
+	echo "###############################################################################"
+	echo "Changing to NO ArcoLinux repos /etc/pacman.conf"
+	echo "###############################################################################"
+	sudo cp -v /usr/local/share/arcolinux/pacman-no-arco.conf /etc/pacman.conf
+else
+	echo "###############################################################################"
+	echo "Changing to ArcoLinux repos /etc/pacman.conf"
+	echo "###############################################################################"
+	sudo cp -v /usr/local/share/arcolinux/pacman.conf /etc/pacman.conf
 fi
 
-if [ -f /usr/local/bin/get-nemesis-on-carli ]; then
-    sudo cp /usr/local/share/arcolinux/release/lsb-release-arch /etc/lsb-release
-fi
-
-if [ -f /usr/local/bin/get-nemesis-on-aa ]; then
-    sudo cp /usr/local/share/arcolinux/release/lsb-release-arch /etc/lsb-release
-fi
-
-if [ -f /usr/local/bin/get-nemesis-on-alci ]; then
-    sudo cp /usr/local/share/arcolinux/release/lsb-release-arch /etc/lsb-release
-fi
+echo
+echo "###############################################################################"
+echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
+echo "###############################################################################"

@@ -37,3 +37,7 @@ echo "If you have set virtualbox to share a folder"
 echo "with automount, it will appear in the"
 echo "filemanager at next login"
 echo "##############################################"
+
+echo "###############################################################################"
+echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
+echo "###############################################################################"

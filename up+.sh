@@ -179,6 +179,10 @@ wget https://raw.githubusercontent.com/endeavouros-team/EndeavourOS-ISO/main/air
 echo "get the pacman.conf from EOS"
 wget https://gitlab.com/garuda-linux/tools/garuda-tools/-/raw/master/data/pacman-multilib.conf -O $workdir/usr/share/archlinux-tweak-tool/data/garuda/pacman/pacman.conf
 
+echo "copy all bin scripts"
+
+cp /home/erik/ARCO/ARCOLINUX/arcolinux-system-config/usr/local/bin/* $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/
+
 # Below command will backup everything inside the project folder
 git add --all .
 

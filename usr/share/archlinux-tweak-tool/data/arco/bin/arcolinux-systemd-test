@@ -26,24 +26,10 @@
 #tput setaf 8 = light blue
 ##################################################################################################################
 
-#iso=arcolinux
+boot=$(bootctl status | grep Product | awk '{printf($2)}')
+echo "The system is using $boot to boot."
 
-echo
-tput setaf 3
-echo "################################################################"
-echo "################### Start clone arcolinux-nemesis"
-echo "################################################################"
-tput sgr0
-echo
-
-[ -d $HOME"/DATA" ] || mkdir -p $HOME"/DATA"
-cd ~/DATA
-git clone https://github.com/erikdubois/arcolinux-nemesis
-
-echo
-tput setaf 3
-echo "################################################################"
-echo "################### End clone arcolinux-nemesis"
-echo "################################################################"
-tput sgr0
-echo
+# Only install grub when on grub
+if [ $boot = "GRUB" ]; then
+	/usr/bin/grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ArcoLinux
+fi

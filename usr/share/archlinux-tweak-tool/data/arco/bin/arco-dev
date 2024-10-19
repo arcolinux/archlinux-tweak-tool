@@ -26,16 +26,12 @@
 #tput setaf 8 = light blue
 ##################################################################################################################
 
-#Arch Linux mirrorlist created with arcolinux-osbeck-as-mirror
-echo
-echo "Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch
-Server = http://mirror.osbeck.com/archlinux/\$repo/os/\$arch
-Server = http://mirror.rackspace.com/archlinux/\$repo/os/\$arch
-Server = https://mirror.rackspace.com/archlinux/\$repo/os/\$arch" | sudo tee /etc/pacman.d/mirrorlist
-echo
-tput setaf 2
-echo "########################################################################"
-echo "Arch Linux Server has been written to /etc/pacman.d/mirrorlist"
-echo "Use nmirrorlist to inspect"
-echo "########################################################################"
-tput sgr0
+sudo pacman -Sy
+sudo pacman -S sublime-text-4 --noconfirm --needed
+sudo pacman -S the_platinum_searcher-bin --noconfirm --needed
+sudo pacman -S ripgrep --noconfirm --needed
+sudo pacman -S meld --noconfirm --needed
+
+echo "###############################################################################"
+echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
+echo "###############################################################################"

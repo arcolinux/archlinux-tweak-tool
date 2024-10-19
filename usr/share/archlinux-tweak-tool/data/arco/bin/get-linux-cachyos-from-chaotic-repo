@@ -25,23 +25,32 @@
 #tput setaf 7 = gray 
 #tput setaf 8 = light blue
 ##################################################################################################################
-echo "Changing logo"
-if [ -f /usr/local/bin/get-nemesis-on-arcolinux ]; then
-    sudo cp /usr/local/share/arcolinux/release/os-release-arco /usr/lib/os-release
-    sudo cp /usr/local/share/arcolinux/release/os-release-arco /usr/lib/os-release-arcolinux
+
+sudo cp -v /etc/pacman.conf /etc/pacman.conf.script
+
+sh /usr/local/bin/arcolinux-fix-pacman-conf
+sh /usr/local/bin/toggle-arcolinux-repo
+
+# Set the file path
+FILE="/etc/pacman.conf"
+
+# Search for "chaotic-aur" in the specified file
+if ! grep -q "chaotic-aur" "$FILE"; then
+    echo "Adding chaotic-aur repository to $FILE"
+    # Append the configuration for chaotic-aur to the file
+    {
+echo ""
+echo "[chaotic-aur]"
+echo "SigLevel = Required DatabaseOptional"
+echo "Include = /etc/pacman.d/chaotic-mirrorlist"
+    } | sudo tee -a "$FILE"
 fi
 
-if [ -f /usr/local/bin/get-nemesis-on-carli ]; then
-    sudo cp /usr/local/share/arcolinux/release/os-release-arch /usr/lib/os-release
-    sudo cp /usr/local/share/arcolinux/release/os-release-arch /usr/lib/os-release-arcolinux
-fi
+sudo pacman -Sy linux-cachyos linux-cachyos-headers --noconfirm --needed
 
-if [ -f /usr/local/bin/get-nemesis-on-aa ]; then
-    sudo cp /usr/local/share/arcolinux/release/os-release-arch /usr/lib/os-release
-    sudo cp /usr/local/share/arcolinux/release/os-release-arch /usr/lib/os-release-arcolinux
-fi
+sudo cp -v /etc/pacman.conf.script /etc/pacman.conf
 
-if [ -f /usr/local/bin/get-nemesis-on-alci ]; then
-    sudo cp /usr/local/share/arcolinux/release/os-release-arch /usr/lib/os-release
-    sudo cp /usr/local/share/arcolinux/release/os-release-arch /usr/lib/os-release-arcolinux
-fi
+echo
+echo "###############################################################################"
+echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
+echo "###############################################################################"
