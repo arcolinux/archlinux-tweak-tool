@@ -77,8 +77,8 @@ if [ $Online -eq 1 ] && [ $file_etc_sddmk -eq 1 ] ; then
 
     echo "Downloading both files from github and saving them"
     echo "Edit sddm files with two aliases nsddm or nsddmk and/or with the ArcoLinux Tweak Tool"
-	sudo wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/sddm.conf -O /etc/sddm.conf
-	sudo wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/sddm.conf.d/kde_settings.conf -O /etc/sddm.conf.d/kde_settings.conf
+	sudo wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/archiso/airootfs/etc/sddm.conf -O /etc/sddm.conf
+	sudo wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/archiso/airootfs/etc/sddm.conf.d/kde_settings.conf -O /etc/sddm.conf.d/kde_settings.conf
 	
     FIND="Session=xfce"
 	REPLACE="#Session="
