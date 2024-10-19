@@ -136,7 +136,7 @@ echo "getting default neofetch file"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-neofetch/master/etc/skel/.config/neofetch/config.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/neofetch/config.conf
 
 echo "getting default grub file"
-wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/default/grub -O $workdir/usr/share/archlinux-tweak-tool/data/arco/grub/grub
+wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/archiso/airootfs/etc/default/grub -O $workdir/usr/share/archlinux-tweak-tool/data/arco/grub/grub
 
 echo "getting latest .bashrc"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-root/master/etc/skel/.bashrc-latest -O $workdir/usr/share/archlinux-tweak-tool/data/arco/.bashrc
@@ -148,9 +148,9 @@ echo "getting latest config.fish"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-fish/main/etc/skel/.config/fish/config.fish -O $workdir/usr/share/archlinux-tweak-tool/data/arco/config.fish
 
 echo "getting latest NEW /etc/sddm.conf"
-wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/sddm.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf
+wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/archiso/airootfs/etc/sddm.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf
 
-wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/sddm.conf.d/kde_settings.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf
+wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/archiso/airootfs/etc/sddm.conf.d/kde_settings.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf
 FIND="Session=xfce"
 REPLACE="#Session="
 sed -i "s/$FIND/$REPLACE/g" $workdir/usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf
@@ -163,20 +163,14 @@ echo "getting latest arcolinux-mirrorlist"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-mirrorlist/master/etc/pacman.d/arcolinux-mirrorlist -O $workdir/usr/share/archlinux-tweak-tool/data/arco/arcolinux-mirrorlist
 
 echo "getting latest /etc/nsswitch.conf from ArcoLinux"
-wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/nsswitch.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/nsswitch.conf
-
-#echo "getting latest /etc/nsswitch.conf from Eos"
-#wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/nsswitch.conf -O $workdir/usr/share/archlinux-tweak-tool/data/eos/nsswitch.conf
-
-#echo "getting latest /etc/nsswitch.conf from Garuda"
-#wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/nsswitch.conf -O $workdir/usr/share/archlinux-tweak-tool/data/garuda/nsswitch.conf
+wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/archiso/airootfs/etc/nsswitch.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/nsswitch.conf
 
 #pacman.conf
 echo "get the pacman.conf from ArchLinux"
 wget https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/pacman.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arch/pacman/pacman.conf
 
 echo "get the pacman.conf from ArcoLinux"
-wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/pacman.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/pacman/pacman.conf
+wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/archiso/airootfs/etc/pacman.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/pacman/pacman.conf
 
 
 echo "get the pacman.conf from EOS"
