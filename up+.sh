@@ -177,8 +177,8 @@ wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/ar
 echo "get the pacman.conf from EOS"
 wget https://raw.githubusercontent.com/endeavouros-team/EndeavourOS-ISO/main/airootfs/etc/pacman.conf -O $workdir/usr/share/archlinux-tweak-tool/data/eos/pacman/pacman.conf
 
-echo "get the pacman.conf from EOS"
-wget https://gitlab.com/garuda-linux/tools/garuda-tools/-/raw/master/data/pacman-multilib.conf -O $workdir/usr/share/archlinux-tweak-tool/data/garuda/pacman/pacman.conf
+echo "get the pacman.conf from Garuda"
+wget https://gitlab.com/garuda-linux/tools/garuda-tools/-/raw/master/data/pacman-default.conf?ref_type=heads -O $workdir/usr/share/archlinux-tweak-tool/data/garuda/pacman/pacman.conf
 
 echo "copy all bin scripts"
 
