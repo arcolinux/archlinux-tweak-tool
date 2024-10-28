@@ -2025,6 +2025,7 @@ class Main(Gtk.Window):
             print(error)
 
     def on_click_probe(self, widget):
+        fn.install_package(self, "hw-probe")
         fn.install_package(self, "alacritty")
         try:
             fn.subprocess.call(
