@@ -84,6 +84,7 @@ class Main(Gtk.Window):
         print(" - Mabox         - https://maboxlinux.org/")
         print(" - ArchBang      - https://archbang.org/")
         print(" - Crystal Linux - https://getcryst.al/")
+        print(" - Liya          - https://sourceforge.net/projects/liya-2024/")
         print(
             "---------------------------------------------------------------------------"
         )
