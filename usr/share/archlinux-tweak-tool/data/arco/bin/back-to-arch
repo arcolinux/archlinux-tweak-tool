@@ -38,7 +38,7 @@ echo
 # use this check - sudo pacman -Rns $(pacman -Qq | grep 'arcolinux' | grep -v 'arcolinux-mirrorlist-git\|arcolinux-keyring')
 
 packages=(arcolinux-alacritty-git arcolinux-arc-dawn-git arcolinux-desktop-trasher-git arcolinux-desktop-trasher-dev-git
-	arcolinux-grub-theme-vimix-git arcolinux-grub-theme-vimix-dev-git arcolinux-gtk3-surfn-arc-git arcolinux-neofetch-git
+	arcolinux-grub-theme-vimix-git arcolinux-grub-theme-vimix-dev-git arcolinux-gtk-surfn-arc-git arcolinux-neofetch-git
 	arcolinux-paru-git arcolinux-sddm-simplicty-git arcolinux-system-config-git arcolinux-system-config-dev-git
 	arcolinuxd-system-config-git arcolinuxd-system-config-dev-git arcolinux-systemd-services-git
 	arcolinux-wallpapers-git arcolinux-welcome-app-git arcolinux-welcome-app-dev-git arcolinuxd-welcome-app-git arcolinuxd-welcome-app-dev-git
