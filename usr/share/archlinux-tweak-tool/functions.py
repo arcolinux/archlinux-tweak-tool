@@ -2050,11 +2050,48 @@ def permissions(dst):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
+        group = None
         for x in groups.stdout.decode().split(" "):
-            if "gid" in x:
-                g = x.split("(")[1]
-                group = g.replace(")", "").strip()
+            if "gid" in x.lower():  # match gid and GID
+                try:
+                    g = x.split("(")[1]
+                    group = g.replace(")", "").strip()
+                    break
+                except IndexError:
+                    raise ValueError("Unexpected format in 'id' command output.")
+
+        # Ensure the group is retrieved
+        if not group:
+            raise ValueError(f"Could not determine group for user {sudo_username}.")
+
         subprocess.call(["chown", "-R", sudo_username + ":" + group, dst], shell=False)
+    except Exception as error:
+        print(error)
+
+def findgroup():
+    try:
+        groups = subprocess.run(
+            ["sh", "-c", "id " + sudo_username],
+            check=True,
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        group = None
+        for x in groups.stdout.decode().split(" "):
+            if "gid" in x.lower():  # match gid and GID
+                try:
+                    g = x.split("(")[1]
+                    group = g.replace(")", "").strip()
+                    break
+                except IndexError:
+                    raise ValueError("Unexpected format in 'id' command output.")
+
+        # Ensure the group is retrieved
+        if not group:
+            raise ValueError(f"Could not determine group for user {sudo_username}.")
+        print("[INFO] : Group = " + group)
+
     except Exception as error:
         print(error)
 

@@ -115,6 +115,12 @@ class Main(Gtk.Window):
         print(
             "---------------------------------------------------------------------------"
         )
+
+        print("[INFO] : User = " + fn.sudo_username)
+        fn.findgroup()
+        print(
+            "---------------------------------------------------------------------------"
+        )
         super(Main, self).__init__(title="Arch Linux Tweak Tool")
         self.set_border_width(10)
         self.connect("delete-event", self.on_close)
