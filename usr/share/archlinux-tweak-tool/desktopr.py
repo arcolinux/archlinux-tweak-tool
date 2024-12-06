@@ -187,7 +187,6 @@ if fn.distr == "arcolinux":
         "budgie-desktop",
         "budgie-extras",
         "dconf-editor",
-        "gnome",
         "gvfs",
         "guake",
         "ttf-hack",
