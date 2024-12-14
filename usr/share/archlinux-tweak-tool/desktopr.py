@@ -943,7 +943,6 @@ if fn.distr == "arcolinux":
         "wf-shell-git",
         "wl-clipboard",
         "wofi",
-        "xdg-desktop-portal-wlr",
         "xfce4-terminal",
     ]
     wmderland = [
@@ -1597,7 +1596,6 @@ if fn.distr != "arcolinux":
         "wf-shell-git",
         "wl-clipboard",
         "wofi",
-        "xdg-desktop-portal-wlr",
         "xfce4-terminal",
     ]
     wmderland = [
