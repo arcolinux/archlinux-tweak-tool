@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # this script should not be run as root
 # the polkit agent running on the desktop environment should prompt for root password
