@@ -254,6 +254,17 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     hbox20.pack_start(hbox20_label, False, False, 10)
     hbox20.pack_end(btn_apply_remove_all_kernels_but_linux_zen, False, False, 10)
 
+
+    hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox21_label = Gtk.Label(xalign=0)
+    hbox21_label.set_text("Change debug to !debug in /etc/makepkg.conf")
+    btn_apply_change_debug = Gtk.Button(label="Apply")
+    btn_apply_change_debug.connect(
+        "clicked", self.on_click_change_debug
+    )
+    hbox21.pack_start(hbox21_label, False, False, 10)
+    hbox21.pack_end(btn_apply_change_debug, False, False, 10)
+
     # ======================================================================
     #                       VBOX STACK
     # ======================================================================
@@ -285,3 +296,4 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
         vboxstack19.pack_start(hbox18, False, False, 0)
         vboxstack19.pack_start(hbox19, False, False, 0)
         vboxstack19.pack_start(hbox20, False, False, 0)
+        vboxstack19.pack_start(hbox21, False, False, 0)

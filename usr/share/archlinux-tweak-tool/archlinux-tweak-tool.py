@@ -2314,6 +2314,24 @@ class Main(Gtk.Window):
         except:
             print("Install alacritty")
 
+    def on_click_change_debug(self, widget):
+        try:
+            fn.install_package(self, "alacritty")
+            fn.subprocess.call(
+                "alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/remove-debug",
+                shell=True,
+                stdout=fn.subprocess.PIPE,
+                stderr=fn.subprocess.STDOUT,
+            )
+            print("Changing debug into !debug in /etc/makepkg.conf")
+            GLib.idle_add(
+                fn.show_in_app_notification,
+                self,
+                "Changing debug into !debug in /etc/makepkg.conf",
+            )
+        except:
+            print("Install alacritty")
+
     # ====================================================================
     #                       GRUB
     # ====================================================================

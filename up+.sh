@@ -48,6 +48,7 @@ wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-remove-all-kernels-but-linux-cachyos  -O $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-remove-all-kernels-but-linux-cachyos
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-remove-all-kernels-but-linux-lts  -O $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-remove-all-kernels-but-linux-lts
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-remove-all-kernels-but-linux-zen  -O $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-remove-all-kernels-but-linux-zen
+wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/remove-debug  -O $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/remove-debug
 
 #getting gitlab errors
 #echo "Get the original samba file from Manjaro github for BigLinux"
