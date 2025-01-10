@@ -46,20 +46,20 @@ echo "#Include = /etc/pacman.d/chaotic-mirrorlist"
 fi
 
 if grep -q "#\[chaotic-aur\]" /etc/pacman.conf; then
-	echo "###############################################################################"
-	echo "Activate the chaotic repo"
-	echo "###############################################################################"
-	sudo sed -i "s/#\[chaotic-aur\]/\[chaotic-aur\]/g" /etc/pacman.conf;
-	sudo sed -i "s/#SigLevel = Required DatabaseOptional/SigLevel = Required DatabaseOptional/g" /etc/pacman.conf;
-	sudo sed -i "s/#Include = \/etc\/pacman.d\/chaotic-mirrorlist/Include = \/etc\/pacman.d\/chaotic-mirrorlist/g" /etc/pacman.conf;
+    echo "###############################################################################"
+    echo "Activate the chaotic repo"
+    echo "###############################################################################"
+    sudo sed -i "s/#\[chaotic-aur\]/\[chaotic-aur\]/g" /etc/pacman.conf
+    sudo sed -i "s/#SigLevel = Required DatabaseOptional/SigLevel = Required DatabaseOptional/g" /etc/pacman.conf
+    sudo sed -i "s/#Include = \/etc\/pacman.d\/chaotic-mirrorlist/Include = \/etc\/pacman.d\/chaotic-mirrorlist/g" /etc/pacman.conf
 else
-	echo "###############################################################################"
-	echo "Deactivate the chaotic repo"
-	echo "###############################################################################"
-	sudo sed -i '0,/\[chaotic-aur\]/s/\[chaotic-aur\]/#\[chaotic-aur\]/' /etc/pacman.conf
-	sudo sed -i '/chaotic-aur/{n;s/^SigLevel = Required DatabaseOptional/#SigLevel = Required DatabaseOptional/;}' /etc/pacman.conf
-	sudo sed -i '0,/Include = \/etc\/pacman.d\/chaotic-mirrorlist/s/Include = \/etc\/pacman.d\/chaotic-mirrorlist/#Include = \/etc\/pacman.d\/chaotic-mirrorlist/' /etc/pacman.conf
-
+    echo "###############################################################################"
+    echo "Deactivate the chaotic repo"
+    echo "###############################################################################"
+    # Comment out only the relevant lines under chaotic-aur section
+    sudo sed -i '0,/\[chaotic-aur\]/s/\[chaotic-aur\]/#\[chaotic-aur\]/' /etc/pacman.conf
+    sudo sed -i '/\[chaotic-aur\]/,/#Include = \/etc\/pacman.d\/chaotic-mirrorlist/s/Include = \/etc\/pacman.d\/chaotic-mirrorlist/#Include = \/etc\/pacman.d\/chaotic-mirrorlist/' /etc/pacman.conf
+    sudo sed -i '/\[chaotic-aur\]/,/#Include = \/etc\/pacman.d\/chaotic-mirrorlist/s/SigLevel = Required DatabaseOptional/#SigLevel = Required DatabaseOptional/' /etc/pacman.conf
 fi
 
 echo
