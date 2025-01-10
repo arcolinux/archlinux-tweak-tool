@@ -209,6 +209,7 @@ arch_multilib_repo = "[multilib]\n\
 Include = /etc/pacman.d/mirrorlist"
 
 reborn_repo = "[Reborn-OS]\n\
+SigLevel = PackageRequired DatabaseNever\n\
 Include = /etc/pacman.d/reborn-mirrorlist"
 
 leftwm_themes_list = [
