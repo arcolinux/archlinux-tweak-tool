@@ -151,6 +151,7 @@ alias tosddm="sudo pacman -S sddm --noconfirm --needed ; sudo systemctl enable s
 alias toly="sudo pacman -S ly --noconfirm --needed ; sudo systemctl enable ly.service -f ; echo 'Ly is active - reboot now'"
 alias togdm="sudo pacman -S gdm --noconfirm --needed ; sudo systemctl enable gdm.service -f ; echo 'Gdm is active - reboot now'"
 alias tolxdm="sudo pacman -S lxdm --noconfirm --needed ; sudo systemctl enable lxdm.service -f ; echo 'Lxdm is active - reboot now'"
+alias toemptty="sudo pacman -S emptty --noconfirm --needed ; sudo systemctl enable emptty.service -f ; echo 'Emptty is active - reboot now'"
 
 # kill commands
 # quickly kill conkies
@@ -281,6 +282,7 @@ alias nenvironment="sudo $EDITOR /etc/environment"
 alias nloader="sudo $EDITOR /boot/efi/loader/loader.conf"
 alias nrefind="sudo $EDITOR /boot/refind_linux.conf"
 alias nalacritty="nano /home/$USER/.config/alacritty/alacritty.toml"
+alias nemptty="sudo $EDITOR /etc/emptty/conf"
 
 #removing packages
 alias rvariety="arcolinux-remove-variety"
