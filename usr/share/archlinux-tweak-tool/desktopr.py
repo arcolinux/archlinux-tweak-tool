@@ -510,6 +510,7 @@ if fn.distr == "arcolinux":
         "thunar-archive-plugin",
         "thunar-volman",
         "ttf-jetbrains-mono-nerd",
+        "uwsm",
         "waybar-git",
         "wofi",
         "xfce4-terminal",
