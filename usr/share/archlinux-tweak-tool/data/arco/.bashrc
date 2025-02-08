@@ -283,6 +283,7 @@ alias nloader="sudo $EDITOR /boot/efi/loader/loader.conf"
 alias nrefind="sudo $EDITOR /boot/refind_linux.conf"
 alias nalacritty="nano /home/$USER/.config/alacritty/alacritty.toml"
 alias nemptty="sudo $EDITOR /etc/emptty/conf"
+alias nkitty="$EDITOR ~/.config/kitty/kitty.conf"
 
 #removing packages
 alias rvariety="arcolinux-remove-variety"
