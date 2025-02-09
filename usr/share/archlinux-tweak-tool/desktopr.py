@@ -45,6 +45,7 @@ desktops = [
     "lxqt",
     "mate",
     "nimdow",
+    "niri",
     "openbox",
     "pantheon",
     "plasma",
@@ -491,6 +492,7 @@ if fn.distr == "arcolinux":
         "arcolinux-rofi-themes-git",
         "arcolinux-wayland-app-hooks-git",
         "arconet-xfce",
+        "btop",
         "grim",
         "hyprcursor-git",
         "hyprland-git",
@@ -502,8 +504,8 @@ if fn.distr == "arcolinux":
         "mako",
         "micro",
         "pamixer",
-        "picom-git",
         "pulsemixer",
+        "python-pywal",
         "rofi-lbonn-wayland",
         "swaybg",
         "thunar",
@@ -739,6 +741,37 @@ if fn.distr == "arcolinux":
         "xfce4-terminal",
         "xorg-xsetroot",
     ]
+    niri = [
+        "archlinux-logout-git",
+        "arcolinux-alacritty-git",
+        "arcolinux-niri-git",
+        "arcolinux-powermenu-git",
+        "arcolinux-pywal-cache-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
+        "arcolinux-wayland-app-hooks-git",
+        "arconet-xfce",
+        "btop",
+        "dex",
+        "grim",
+        "niri",
+        "lxappearance",
+        "mako",
+        "micro",
+        "pamixer",
+        "python-pywal",
+        "pulsemixer",
+        "rofi-lbonn-wayland",
+        "swaybg",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-jetbrains-mono-nerd",
+        "waybar-git",
+        "wofi",
+        "xwayland-satellite",
+        "yad",
+    ]
     openbox = [
         "alacritty",
         "arcolinux-common-git",
@@ -907,6 +940,7 @@ if fn.distr == "arcolinux":
         "arcolinux-alacritty-git",
         "arcolinux-foot-git",
         "arcolinux-kitty-git",
+        "arcolinux-powermenu-git",
         "arcolinux-pywal-cache-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
@@ -914,6 +948,7 @@ if fn.distr == "arcolinux":
         "arcolinux-wayfire-git",
         "arcolinux-wayland-app-hooks-git",
         "arconet-xfce",
+        "btop",
         "feh",
         "foot",
         "grim",
@@ -923,7 +958,7 @@ if fn.distr == "arcolinux":
         "mako",
         "micro",
         "pamixer",
-        "picom-git",
+        "python-pywal",
         "pulsemixer",
         "polkit-gnome",
         "rofi-lbonn-wayland",
@@ -1328,6 +1363,7 @@ if fn.distr != "arcolinux":
         "arcolinux-rofi-themes-git",
         "arcolinux-wayland-app-hooks-git",
         "arconet-xfce",
+        "btop",
         "grim",
         "hyprcursor-git",
         "hyprland-git",
@@ -1339,7 +1375,7 @@ if fn.distr != "arcolinux":
         "mako",
         "micro",
         "pamixer",
-        "picom-git",
+        "python-pywal",
         "pulsemixer",
         "rofi-lbonn-wayland",
         "swaybg",
@@ -1463,6 +1499,32 @@ if fn.distr != "arcolinux":
         "xfce4-terminal",
         "xorg-xsetroot",
     ]
+    niri = [
+        "archlinux-logout-git",
+        "arcolinux-alacritty-git",
+        "arcolinux-niri-git",
+        "arcolinux-powermenu-git",
+        "arcolinux-pywal-cache-git",
+        "arconet-xfce",
+        "btop",
+        "dex",
+        "grim",
+        "lxappearance",
+        "mako",
+        "micro",
+        "niri",
+        "python-pywal",
+        "rofi-lbonn-wayland",
+        "swaybg",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-jetbrains-mono-nerd",
+        "waybar-git",
+        "wofi",
+        "xwayland-satellite",
+        "yad",
+    ]
     openbox = [
         "alacritty",
         "arcolinux-common-git",
@@ -1560,6 +1622,7 @@ if fn.distr != "arcolinux":
         "arcolinux-alacritty-git",
         "arcolinux-foot-git",
         "arcolinux-kitty-git",
+        "arcolinux-powermenu-git",
         "arcolinux-pywal-cache-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
@@ -1567,6 +1630,7 @@ if fn.distr != "arcolinux":
         "arcolinux-wayfire-git",
         "arcolinux-wayland-app-hooks-git",
         "arconet-xfce",
+        "btop",
         "feh",
         "foot",
         "grim",
@@ -1576,7 +1640,7 @@ if fn.distr != "arcolinux":
         "mako",
         "micro",
         "pamixer",
-        "picom-git",
+        "python-pywal",
         "pulsemixer",
         "polkit-gnome",
         "rofi-lbonn-wayland",
@@ -1832,12 +1896,15 @@ def install_desktop(self, desktop, state):
         command = list(np.append(hlwm, default_app))
         src.append("/etc/skel/.config/herbstluftwm")
         src.append("/etc/skel/.config/polybar")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "hyprland":
         command = list(np.append(hyprland, default_app))
         src.append("/etc/skel/.config/alacritty")
         src.append("/etc/skel/.bin")
         src.append("/etc/skel/.config/hypr")
+        src.append("/etc/skel/.cache/wal")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "i3":
         command = list(np.append(i3, default_app))
@@ -1873,6 +1940,14 @@ def install_desktop(self, desktop, state):
         command = list(np.append(nimdow, default_app))
         src.append("/etc/skel/.config/nimdow")
         src.append("/etc/skel/.config/powermenu")
+        twm = True
+    elif desktop == "niri":
+        command = list(np.append(niri, default_app))
+        src.append("/etc/skel/.config/alacritty")
+        src.append("/etc/skel/.bin")
+        src.append("/etc/skel/.config/powermenu")
+        src.append("/etc/skel/.config/niri")
+        src.append("/etc/skel/.cache/wal")
         twm = True
     elif desktop == "pantheon":
         command = pantheon
@@ -1914,6 +1989,8 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/wayfire.ini")
         src.append("/etc/skel/.config/wayfire-azerty.ini")
         src.append("/etc/skel/.config/wf-shell.ini")
+        src.append("/etc/skel/.cache/wal")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "wmderland":
         command = list(np.append(wmderland, default_app))
