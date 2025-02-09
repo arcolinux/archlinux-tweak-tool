@@ -15,7 +15,7 @@ import os
 
 # gi.require_version('Gtk', '3.0')
 
-default_app = ["nano"]
+default_app = ["nano", "ttf-hack"]
 
 # =================================================================
 # =                         Desktops                             =
@@ -1353,6 +1353,7 @@ if fn.distr != "arcolinux":
         "ttf-hack",
     ]
     hyprland = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-alacritty-git",
         "arcolinux-hyprland-git",
@@ -1500,6 +1501,7 @@ if fn.distr != "arcolinux":
         "xorg-xsetroot",
     ]
     niri = [
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-alacritty-git",
         "arcolinux-niri-git",
@@ -1618,6 +1620,7 @@ if fn.distr != "arcolinux":
     ]
     wayfire = [
         "a-candy-beauty-icon-theme-git",
+        "alacritty",
         "archlinux-logout-git",
         "arcolinux-alacritty-git",
         "arcolinux-foot-git",
