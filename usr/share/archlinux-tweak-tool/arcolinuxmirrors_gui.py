@@ -195,8 +195,8 @@ Pace will change the orginal layout."
 
     vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     # message
-    vbox4.pack_start(hboxstack15, False, False, 0)
-    frame4.add(vbox4)
+    #vbox4.pack_start(hboxstack15, False, False, 0)
+    #frame4.add(vbox4)
 
     # ========================================================
     #               PACK TO WINDOW
@@ -205,5 +205,5 @@ Pace will change the orginal layout."
     vboxstack1.pack_start(hbox3, False, False, 0)
     vboxstack1.pack_start(hbox4, False, False, 0)
     vboxstack1.pack_start(frame3, False, False, 10)
-    vboxstack1.pack_start(frame4, False, False, 10)
+    #vboxstack1.pack_start(frame4, False, False, 10)
     vboxstack1.pack_end(hboxstack4, False, False, 0)
