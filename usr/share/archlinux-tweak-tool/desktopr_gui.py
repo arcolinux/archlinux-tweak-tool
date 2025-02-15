@@ -108,9 +108,9 @@ the ArcoLinux repositories"
 
     warning_picom = Gtk.Label(xalign=0)
     message = "We have found picom-ibhagwan-git or picom-jonaburg-git on this system\n\
-Know that these packages conflict with picom"
+Know that these packages conflict with picom-git. It will be removed."
     warning_picom.set_markup(
-        '<span foreground="red" size="x-large">' + message + "</span>"
+        '<span foreground="red" size="large">' + message + "</span>"
     )
     warning_picom.set_line_wrap(True)
 
@@ -118,7 +118,7 @@ Know that these packages conflict with picom"
     noice.set_markup(
         "We will backup and overwrite your ~/.config when installing desktops\n\
 Backup is in ~/.config-att folder\nLog files are located in /var/log/archlinux\n\
-Hyprland and Wayfire are Wayland desktops!"
+Hyprland, Wayfire and Niri are Wayland desktops!"
     )
     noice.set_line_wrap(True)
     self.desktopr_error = Gtk.Label(xalign=0)
