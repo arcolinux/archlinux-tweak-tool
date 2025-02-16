@@ -44,7 +44,7 @@ packages=(arcolinux-alacritty-git arcolinux-arc-dawn-git arcolinux-desktop-trash
 	arcolinux-wallpapers-git arcolinux-welcome-app-git arcolinux-welcome-app-dev-git arcolinuxd-welcome-app-git arcolinuxd-welcome-app-dev-git
 	arconet-variety-config arcopro-wallpapers
 	alacritty arandr arc-gtk-theme bat bibata-cursor-theme-bin archlinux-tweak-tool-git dex 
-	btop duf downgrade expac hw-probe edu-surfn-numixs-blue-git feh libadwaita-without-adwaita-git
+	btop duf downgrade expac edu-surfn-numixs-blue-git feh libadwaita-without-adwaita-git
 	micro most neofetch numlockx ripgrep sardi-icons sofirem-git surfn-icons-git the_silver_searcher variety vimix-cursors
 	yad os-prober hardinfo2)
 
