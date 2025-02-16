@@ -334,7 +334,7 @@ alias downgrada="sudo downgrade --ala-url https://ant.seedhost.eu/arcolinux/"
 alias unhblock="hblock -S none -D none"
 
 #systeminfo
-alias probe="sudo -E hw-probe -all -upload"
+alias probe="sudo arcolinux-probe"
 alias sysfailed="systemctl list-units --failed"
 
 #shutdown or reboot

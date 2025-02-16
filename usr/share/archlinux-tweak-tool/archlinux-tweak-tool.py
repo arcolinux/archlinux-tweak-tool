@@ -2036,7 +2036,7 @@ class Main(Gtk.Window):
         fn.install_package(self, "alacritty")
         try:
             fn.subprocess.call(
-                "alacritty --hold -e /usr/share/archlinux-tweak-tool/script/probe",
+                "alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-probe",
                 shell=True,
                 stdout=fn.subprocess.PIPE,
                 stderr=fn.subprocess.STDOUT,
