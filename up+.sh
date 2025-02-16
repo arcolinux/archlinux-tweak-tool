@@ -184,7 +184,7 @@ wget https://gitlab.com/garuda-linux/tools/garuda-tools/-/raw/master/data/pacman
 echo "copy all bin scripts"
 
 cp /home/erik/ARCO/ARCOLINUX/arcolinux-system-config/usr/local/bin/* $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/
-
+chmod +x $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/*
 # Below command will backup everything inside the project folder
 git add --all .
 
