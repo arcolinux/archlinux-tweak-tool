@@ -42,19 +42,12 @@ read -p "Are you sure you want to proceed? (Y/y) " response
 
 	sudo pacman -S --noconfirm linux-cachyos linux-cachyos-headers
 
-	sudo pacman -S --noconfirm linux-xanmod linux-xanmod-headers
-
 else
     echo "####################################"
     echo "Operation canceled by user."
     echo "####################################"
 
 fi
-
-echo
-echo "###############################################################################"
-echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
-echo "###############################################################################"
 
 echo
 echo "###############################################################################"

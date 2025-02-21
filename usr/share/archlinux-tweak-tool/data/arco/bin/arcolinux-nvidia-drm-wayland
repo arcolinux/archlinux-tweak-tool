@@ -52,6 +52,7 @@ fi
 if 	[ -f /usr/share/wayland-sessions/hyprland.desktop ] || \
 	[ -f /usr/share/wayland-sessions/sway.desktop ] || \
 	[ -f /usr/share/wayland-sessions/wayfire.desktop ] || \
+	[ -f /usr/share/wayland-sessions/niri.desktop ] || \
 	[ -f /usr/share/wayland-sessions/plasma.desktop ] || \
 	[ -f /usr/share/wayland-sessions/gnome-wayland.desktop ]; then
 
