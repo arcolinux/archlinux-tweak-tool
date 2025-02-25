@@ -26,16 +26,20 @@
 #tput setaf 8 = light blue
 ##################################################################################################################
 
-if test -f /usr/bin/reflector ; then
-	echo "reflector is present"
-	echo
-else
-	echo "We have installed reflector"
-	sudo pacman -S reflector --noconfirm
+# Check if rate-mirrors is installed
+if [ ! -x /usr/bin/rate-mirrors ]; then
+	echo "###############################################################################"
+    echo "Rate-mirrors is not installed. Please install the 'rate-mirrors' package."
+	echo "###############################################################################"
+
+    exit 1
 fi
 
-#sudo /usr/bin/reflector --latest 100 --fastest 100 --number 10 --save /etc/pacman.d/mirrorlist
-sudo /usr/bin/reflector --score 100 --fastest 10 --number 10 --verbose --save /etc/pacman.d/mirrorlist
+echo "###############################################################################"
+echo "###                           USING RATE-MIRRORS                           ####"
+echo "###############################################################################"
+
+sudo rate-mirrors --allow-root --disable-comments-in-file --save /etc/pacman.d/mirrorlist arch
 
 echo "###############################################################################"
 echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"

@@ -69,7 +69,7 @@ check_file
 # pacman config + online
 if [ $Online -eq 1 ] ; then
 	echo "getting latest /etc/pacman.conf from github"
-	sudo wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/archiso/airootfs/etc/pacman.conf -O $workdir/etc/pacman.conf
+	sudo wget https://raw.githubusercontent.com/arconetpro/arconet-iso/refs/heads/main/archiso/airootfs/etc/pacman.conf -O /etc/pacman.conf
 fi
 
 # pacman config + not online

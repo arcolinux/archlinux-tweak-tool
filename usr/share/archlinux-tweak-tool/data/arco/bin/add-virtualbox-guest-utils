@@ -72,7 +72,7 @@ if [ "$result" != "none" ]; then
     echo "#############################################################################################"
 
     # Install VirtualBox Guest Utils
-    sudo pacman -S --noconfirm virtualbox-guest-utils
+    sudo pacman -Sy --noconfirm virtualbox-guest-utils
 
     # Function to check service status
     check_service_status() {

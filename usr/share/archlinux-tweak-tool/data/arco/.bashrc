@@ -324,6 +324,8 @@ alias fix-pacman-conf="/usr/local/bin/arcolinux-fix-pacman-conf"
 alias fix-pacman-keyserver="/usr/local/bin/arcolinux-fix-pacman-gpg-conf"
 alias fix-grub="sudo /usr/local/bin/arcolinux-fix-grub"
 alias fixgrub="sudo /usr/local/bin/arcolinux-fix-grub"
+alias fix-archlinux-mirrors="/usr/local/bin/arcolinux-fix-archlinux-servers"
+alias fix-arcolinux-mirrors="/usr/local/bin/arcolinux-fix-arcolinux-servers"
 
 #maintenance
 alias big="expac -H M '%m\t%n' | sort -h | nl"
