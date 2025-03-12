@@ -1,5 +1,5 @@
 # Europe Netherlands Amsterdam - seedhost
-#Server = https://ant.seedhost.eu/arcolinux/$repo/$arch
+Server = https://ant.seedhost.eu/arcolinux/$repo/$arch
 
 # United States - gitlab
 Server = https://gitlab.com/arcolinux/$repo/-/raw/main/$arch

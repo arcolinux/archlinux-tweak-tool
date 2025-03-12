@@ -36,6 +36,14 @@ echo "################################################################"
 tput sgr0
 echo
 
+if test -f /usr/bin/git ; then
+	echo "git is present"
+	echo
+else
+	echo "We have installed git"
+	sudo pacman -S git --noconfirm
+fi
+
 [ -d $HOME"/DATA" ] || mkdir -p $HOME"/DATA"
 cd ~/DATA
 git clone https://github.com/erikdubois/arcolinux-nemesis
