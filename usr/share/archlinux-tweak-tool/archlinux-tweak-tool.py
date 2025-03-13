@@ -577,12 +577,21 @@ class Main(Gtk.Window):
                 try:
                     fn.shutil.copy(fn.sddm_default_d1_arco, fn.sddm_default_d1)
                     fn.shutil.copy(fn.sddm_default_d2_arco, fn.sddm_default_d2)
-                    print(
-                        "The SDDM files in your installation either did not exist, or were corrupted."
-                    )
-                    print(
-                        "These files have now been restored. Please re-run the Tweak Tool if it did not load for you."
-                    )
+
+                    message = """
+                    The default SDDM files in your installation were either missing or corrupted.
+                    ATT has created and/or updated the necessary SDDM files.
+                    Backups have been created where possible.
+
+                    Affected files:
+                    - /etc/sddm.conf
+                    - /etc/sddm.conf.d/kde_settings.conf
+                    - /usr/lib/sddm/sddm.conf.d/default.conf
+
+                    You may need to adjust the settings again if necessary.
+                    """
+
+                    print(message.strip())
                     fn.restart_program()
                 except OSError as e:
                     # This will ONLY execute if the sddm files and the underlying sddm files do not exist
