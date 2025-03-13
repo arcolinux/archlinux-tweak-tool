@@ -579,17 +579,16 @@ class Main(Gtk.Window):
                     fn.shutil.copy(fn.sddm_default_d2_arco, fn.sddm_default_d2)
 
                     message = """
-                    The default SDDM files in your installation were either missing or corrupted.
-                    ATT has created and/or updated the necessary SDDM files.
-                    Backups have been created where possible.
+    The default SDDM files in your installation were either missing or corrupted.
+    ATT has created and/or updated the necessary SDDM files.
+    Backups have been created where possible.
 
-                    Affected files:
-                    - /etc/sddm.conf
-                    - /etc/sddm.conf.d/kde_settings.conf
-                    - /usr/lib/sddm/sddm.conf.d/default.conf
+    Affected files:
+        - /etc/sddm.conf
+        - /etc/sddm.conf.d/kde_settings.conf
+        - /usr/lib/sddm/sddm.conf.d/default.conf
 
-                    You may need to adjust the settings again if necessary.
-                    """
+    You may need to adjust the settings again if necessary."""
 
                     print(message.strip())
                     fn.restart_program()
