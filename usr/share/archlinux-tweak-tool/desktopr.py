@@ -582,7 +582,7 @@ if fn.distr == "arcolinux":
         "thunar-volman",
         "ttf-hack",
         "volumeicon",
-        "xdgmenumaker",
+        "xdgmenumaker-git",
         "xfce4-notifyd",
         "xfce4-power-manager",
         "xfce4-screenshooter",
@@ -619,7 +619,7 @@ if fn.distr == "arcolinux":
         "thunar-volman",
         "ttf-hack",
         "volumeicon",
-        "xdgmenumaker",
+        "xdgmenumaker-git",
         "xfce4-notifyd",
         "xfce4-screenshooter",
         "xfce4-taskmanager",
@@ -1422,7 +1422,7 @@ if fn.distr != "arcolinux":
         "thunar-archive-plugin",
         "thunar-volman",
         "ttf-hack",
-        "xdgmenumaker",
+        "xdgmenumaker-git",
     ]
     jwm = [
         "alacritty",
@@ -1438,7 +1438,7 @@ if fn.distr != "arcolinux":
         "thunar-archive-plugin",
         "thunar-volman",
         "ttf-hack",
-        "xdgmenumaker",
+        "xdgmenumaker-git",
     ]
     leftwm = [
         "alacritty",
