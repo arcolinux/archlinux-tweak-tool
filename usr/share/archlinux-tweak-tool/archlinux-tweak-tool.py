@@ -86,6 +86,7 @@ class Main(Gtk.Window):
         print(" - Crystal Linux - https://getcryst.al/")
         print(" - Liya          - https://sourceforge.net/projects/liya-2024/")
         print(" - Bluestar      - https://sourceforge.net/projects/bluestarlinux/")
+        print(" - Calam-arch    - https://sourceforge.net/projects/blue-arch-installer/")
         print(
             "---------------------------------------------------------------------------"
         )
