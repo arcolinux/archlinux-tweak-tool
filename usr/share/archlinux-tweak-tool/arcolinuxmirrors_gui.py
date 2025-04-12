@@ -43,12 +43,11 @@ def gui(self, Gtk, vboxstack1):
     self.aseed_button.connect("notify::active", self.on_mirror_seed_repo_toggle)
     label5 = Gtk.Label(xalign=0)
     label5.set_markup(
-        "Enable Seedhost repo - Do not enable it and save us bandwidth and money \
-- paid - Netherlands - Always up-to-date"
+        "Only github.com is a possible repo - type 'narcomirrorlist' in a terminal to see it"
     )
     seedhost_sync = Gtk.Label(xalign=0)
     hboxstack7.pack_start(label5, False, True, 10)
-    hboxstack7.pack_end(self.aseed_button, False, False, 20)
+    #hboxstack7.pack_end(self.aseed_button, False, False, 20)
     hboxstack7.pack_start(seedhost_sync, False, True, 10)
 
     # gitlab
@@ -134,11 +133,10 @@ def gui(self, Gtk, vboxstack1):
 
     warning = Gtk.Label(xalign=0)
     warning.set_markup(
-        "If you disable all these mirrors you will no longer have access \
-to the ArcoLinux Xlarge repository."
+        "There is just one source - github.com"
     )
     warning2 = Gtk.Label(xalign=0)
-    warning2.set_markup("Change your /etc/pacman.conf accordingly.")
+    warning2.set_markup("Your mirrorlist has been updated to reflect this")
     hboxstack11.pack_start(warning, False, False, 10)
     hboxstack12.pack_start(warning2, False, False, 10)
 
@@ -174,16 +172,16 @@ Pace will change the orginal layout."
 
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     # message
-    vbox3.pack_start(hboxstack11, False, False, 0)
-    vbox3.pack_start(hboxstack12, False, False, 0)
+    #vbox3.pack_start(hboxstack11, False, False, 0)
+    #vbox3.pack_start(hboxstack12, False, False, 0)
     # gitlab
-    vbox3.pack_start(hboxstack16, False, False, 0)
+    #vbox3.pack_start(hboxstack16, False, False, 0)
     # sweden
-    vbox3.pack_start(hboxstack17, False, False, 0)
+    #vbox3.pack_start(hboxstack17, False, False, 0)
     # belnet
-    vbox3.pack_start(hboxstack14, False, False, 0)
+    #vbox3.pack_start(hboxstack14, False, False, 0)
     # aarnet
-    vbox3.pack_start(hboxstack10, False, False, 0)
+    #vbox3.pack_start(hboxstack10, False, False, 0)
     # funami
     # vbox3.pack_start(hboxstack18, False, False, 0)
     # jingk
@@ -203,7 +201,7 @@ Pace will change the orginal layout."
     # ========================================================
 
     vboxstack1.pack_start(hbox3, False, False, 0)
-    vboxstack1.pack_start(hbox4, False, False, 0)
+    #vboxstack1.pack_start(hbox4, False, False, 0)
     vboxstack1.pack_start(frame3, False, False, 10)
     #vboxstack1.pack_start(frame4, False, False, 10)
-    vboxstack1.pack_end(hboxstack4, False, False, 0)
+    #vboxstack1.pack_end(hboxstack4, False, False, 0)

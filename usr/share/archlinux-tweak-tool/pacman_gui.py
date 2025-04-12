@@ -197,7 +197,7 @@ def gui(self, Gtk, vboxstack1, fn):
     self.chaotics_switch = Gtk.Switch()
     self.chaotics_switch.connect("notify::active", self.on_chaotics_toggle)
     label9 = Gtk.Label(xalign=0)
-    label9.set_markup("Enable Chaotics repo - set as last repo")
+    label9.set_markup("Enable Chaotics repo")
 
     # ========================================================
     #               CUSTOM REPOS

@@ -139,9 +139,9 @@ def gui(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):
 Then you will be able to set the mirrors of ArcoLinux"
         )
 
-        #vboxstack16.pack_start(hbox31, False, False, 0)
-        #vboxstack16.pack_start(hbox41, False, False, 0)
-        #vboxstack16.pack_start(lbl2, True, False, 0)
+        vboxstack16.pack_start(hbox31, False, False, 0)
+        vboxstack16.pack_start(hbox41, False, False, 0)
+        vboxstack16.pack_start(lbl2, True, False, 0)
 
     # ==========================================================
     #                 ATT
