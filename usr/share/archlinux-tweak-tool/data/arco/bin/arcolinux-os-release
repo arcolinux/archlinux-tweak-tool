@@ -27,8 +27,8 @@
 ##################################################################################################################
 echo "Changing logo"
 if [ -f /usr/local/bin/get-nemesis-on-arcolinux ]; then
-    sudo cp /usr/local/share/arcolinux/release/os-release-arco /usr/lib/os-release
-    sudo cp /usr/local/share/arcolinux/release/os-release-arco /usr/lib/os-release-arcolinux
+    sudo cp /usr/local/share/arcolinux/release/os-release-arch /usr/lib/os-release
+    sudo cp /usr/local/share/arcolinux/release/os-release-arch /usr/lib/os-release-arcolinux
 fi
 
 if [ -f /usr/local/bin/get-nemesis-on-carli ]; then
