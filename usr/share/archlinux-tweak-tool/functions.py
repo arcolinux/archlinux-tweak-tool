@@ -147,20 +147,20 @@ seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
 aarnetmirror = "Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"
 
 atestrepo = "#[arcolinux_repo_testing]\n\
-#SigLevel = PackageRequired DatabaseNever\n\
-#Include = /etc/pacman.d/arcolinux-mirrorlist"
+#SigLevel = Never\n\
+#Server = https://arcolinux.github.io/$repo/$arch"
 
 arepo = "[arcolinux_repo]\n\
-SigLevel = PackageRequired DatabaseNever\n\
-Include = /etc/pacman.d/arcolinux-mirrorlist"
+SigLevel = Never\n\
+Server = https://arcolinux.github.io/$repo/$arch"
 
 a3drepo = "[arcolinux_repo_3party]\n\
-SigLevel = PackageRequired DatabaseNever\n\
-Include = /etc/pacman.d/arcolinux-mirrorlist"
+SigLevel = Never\n\
+Server = https://arcolinux.github.io/$repo/$arch"
 
 axlrepo = "[arcolinux_repo_xlarge]\n\
-SigLevel = PackageRequired DatabaseNever\n\
-Include = /etc/pacman.d/arcolinux-mirrorlist"
+SigLevel = Never\n\
+Server = https://arcolinux.github.io/$repo/$arch"
 
 garuda_repo = "[garuda]\n\
 SigLevel = Required DatabaseOptional\n\
@@ -175,7 +175,7 @@ SigLevel = PackageRequired\n\
 Include = /etc/pacman.d/endeavouros-mirrorlist"
 
 nemesis_repo = "[nemesis_repo]\n\
-SigLevel = PackageRequired DatabaseNever\n\
+SigLevel = Never\n\
 Server = https://erikdubois.github.io/$repo/$arch"
 
 # xero_repo = "[xerolinux_repo]\n\
