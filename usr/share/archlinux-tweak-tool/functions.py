@@ -158,9 +158,9 @@ a3drepo = "[arcolinux_repo_3party]\n\
 SigLevel = Never\n\
 Server = https://arcolinux.github.io/$repo/$arch"
 
-axlrepo = "[arcolinux_repo_xlarge]\n\
-SigLevel = Never\n\
-Server = https://arcolinux.github.io/$repo/$arch"
+axlrepo = "#[arcolinux_repo_xlarge]\n\
+#SigLevel = Never\n\
+#Server = https://arcolinux.github.io/$repo/$arch"
 
 garuda_repo = "[garuda]\n\
 SigLevel = Required DatabaseOptional\n\
