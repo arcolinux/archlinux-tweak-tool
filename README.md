@@ -4,6 +4,10 @@
 
 # ArchLinux Tweak Tool (ATT)
 
+THIS APP WILL CONTINU TO BE SUPPORTED IN A SLIMMED-DOWN VERSION ON MY PERSONAL GITHUB HERE
+
+https://github.com/erikdubois/archlinux-tweak-tool
+
 A versatile and powerful tool for customizing Arch-based systems with ease!
 
 ![screenshot](https://user-images.githubusercontent.com/36679406/202098693-3a94fa43-7916-42ba-9c1c-a4c7ecaff306.png)
